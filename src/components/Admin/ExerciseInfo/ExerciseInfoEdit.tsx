@@ -18,7 +18,6 @@ interface ExerciseInfoEditProps {
   category?: TExerciseInfoCategory;
 }
 function ExerciseInfoEdit({ exerciseInfo, category }: ExerciseInfoEditProps) {
-console.log(" ExerciseInfoEdit ~ category:", category)
 
   const saveItem = useExerciseInfoStore((state) => state.saveItem);
   const pending = useExerciseInfoStore((state) => state.isLoading);

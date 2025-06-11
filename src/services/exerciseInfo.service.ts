@@ -11,8 +11,8 @@ import { storageService } from "./async-storage.service";
 export const exerciseInfoService = {
   rootPath: "/exercise/exercise-info",
 
-  async get(type: TExerciseInfoCategory, filter?: IExerciseInfoFilter) {
-    return await storageService.get<Array<IExerciseInfoDTO>>(type, filter);
+  async get(type: TExerciseInfoCategory, filter?: IExerciseInfoFilter):Promise<Array<IExerciseInfoDTO>> {
+    return await storageService.get<IExerciseInfoDTO>(type, filter);
     // return await apiService.get<Array<IExerciseInfoDTO>>(
     //   `${this.rootPath}/${type}`,
     //   filter,
@@ -29,21 +29,21 @@ export const exerciseInfoService = {
   async save(formData: FormData) {
     const dtoToSave = formDataToEditDto(formData);
 
-  if (dtoToSave.file) {
-    const imgUrl = await new Promise<string>((resolve) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);
-      reader.readAsDataURL(dtoToSave.file!);
-    });
+    if (dtoToSave.file) {
+      const imgUrl = await new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.readAsDataURL(dtoToSave.file!);
+      });
 
-    const image: IImageDTO = {
-      imgUrl,
-      publicId: dtoToSave.file.name || "",
-    };
+      const image: IImageDTO = {
+        imgUrl,
+        publicId: dtoToSave.file.name || "",
+      };
 
-    delete dtoToSave.file;
-    dtoToSave.image = image;
-  }
+      delete dtoToSave.file;
+      dtoToSave.image = image;
+    }
     return dtoToSave.id
       ? storageService.put<IExerciseInfoEditDTO>(dtoToSave.category, dtoToSave)
       : storageService.post<IExerciseInfoEditDTO>(

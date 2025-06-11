@@ -8,19 +8,16 @@ import {
 import ExerciseInfoItem from "./ExerciseInfoItem";
 import { toTitle } from "../../../utils/toTitle";
 import ExerciseInfoEdit from "./ExerciseInfoEdit";
-import { exerciseInfoService } from "../../../services/exerciseInfo.service";
 
 export default function ExerciseInfoIndex() {
   const { type } = useParams();
-  console.log(" ExerciseInfoIndex ~ type:", type)
 
   const category = ExerciseInfoCategory.includes(type as TExerciseInfoCategory)
-  ? (type as TExerciseInfoCategory)
-  : undefined;
-  console.log(" ExerciseInfoIndex ~ category:", category)
+    ? (type as TExerciseInfoCategory)
+    : undefined;
 
   const exerciseInfos = useExerciseInfoStore((state) =>
-    category ? state.getCategory(category) : []
+    state.getCategory(category!)
   );
 
   const loadCategory = useExerciseInfoStore((state) => state.loadCategory);

@@ -22,5 +22,5 @@ export interface IExerciseInfoFilter extends IBaseFilter {
   name?: string;
 }
 
-export const ExerciseInfoCategory = ["muscle", "equipment", "type"] as const;
+export const ExerciseInfoCategory = ["muscles", "equipment", "types"] as const;
 export type TExerciseInfoCategory = (typeof ExerciseInfoCategory)[number];

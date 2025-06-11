@@ -1,0 +1,19 @@
+interface YoutubePlayerProps {
+  youtubeUrl: string;
+}
+//TODO: Add error handling for invalid YouTube URLs
+//TODO: Add loading state for YouTube video
+//TODO: Check for shorts and clipped videos
+//TODO: Add sanitation for YouTube URL
+
+export default function YoutubePlayer({ youtubeUrl }: YoutubePlayerProps) {
+  console.log(" YoutubePlayer ~ youtubeUrl:", youtubeUrl)
+  return (
+    <iframe
+      src={youtubeUrl.replace("watch?v=", "embed/")}
+      title="YouTube video player"
+      allowFullScreen
+      className="aspect-video w-small-with-padding rounded "
+    ></iframe>
+  );
+}

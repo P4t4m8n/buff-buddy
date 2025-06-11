@@ -19,25 +19,35 @@
  * const [open, setOpen] = useModel(ref, () => console.info("Clicked outside the target element"));
  */
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import type { Dispatch, SetStateAction } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 export const useModel = (
   ref: React.RefObject<Element | null>,
-  callBack?: null | (() => void),
-): [boolean, Dispatch<SetStateAction<boolean>>] => {
-  const [open, setOpen] = useState(false)
+  callBack?: null | (() => void)
+): [
+  boolean,
+  Dispatch<SetStateAction<boolean>>,
+  (e: React.MouseEvent<HTMLButtonElement>) => void
+] => {
+  const [open, setOpen] = useState(false);
   const eventListenerRef = useRef<{
-    click: (ev: MouseEvent) => void
-    keydown: (ev: KeyboardEvent) => void
+    click: (ev: MouseEvent) => void;
+    keydown: (ev: KeyboardEvent) => void;
   }>({
     click: () => {},
     keydown: () => {},
-  })
+  });
+
+  const handleModel = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpen((prev) => !prev);
+  }, []);
 
   const checkClickOutside = useCallback(
     (ev: MouseEvent) => {
-      const target = ev.target as HTMLElement
+      const target = ev.target as HTMLElement;
 
       // If clicking a link, delay modal closing until navigation starts
       // if (target.closest('a')) {
@@ -52,46 +62,47 @@ export const useModel = (
       // }
 
       // Handle normal outside clicks
-      if (!open || !ref.current || ref.current.contains(target)) return
+      if (!open || !ref.current || ref.current.contains(target)) return;
 
       if (callBack) {
-        callBack()
-        return
+        callBack();
+        return;
       }
-      setOpen(false)
+      setOpen(false);
     },
-    [open, ref, callBack],
-  )
+    [open, ref, callBack]
+  );
 
   const checkKeyPress = useCallback((ev: KeyboardEvent) => {
-    if (ev.key === 'Escape') {
-      setOpen(false)
+    if (ev.key === "Escape") {
+      setOpen(false);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    if (!ref.current || !open) return
+    if (!ref.current || !open) return;
 
-    const currentEventListeners = eventListenerRef.current
-    currentEventListeners.click = checkClickOutside
-    currentEventListeners.keydown = checkKeyPress
-    const controller = new AbortController()
+    const currentEventListeners = eventListenerRef.current;
+    currentEventListeners.click = checkClickOutside;
+    currentEventListeners.keydown = checkKeyPress;
+    const controller = new AbortController();
 
-    window.addEventListener('mousedown', currentEventListeners.click, {
+    window.addEventListener("mousedown", currentEventListeners.click, {
       signal: controller.signal,
-    })
-    window.addEventListener('keydown', currentEventListeners.keydown, {
+    });
+    window.addEventListener("keydown", currentEventListeners.keydown, {
       signal: controller.signal,
-    })
+    });
     return () => {
-      controller.abort()
-    }
-  }, [open, ref, checkClickOutside, checkKeyPress])
+      controller.abort();
+    };
+  }, [open, ref, checkClickOutside, checkKeyPress]);
 
-  const memoizedValue: [boolean, Dispatch<SetStateAction<boolean>>] = useMemo(
-    () => [open, setOpen],
-    [open, setOpen],
-  )
+  const memoizedValue: [
+    boolean,
+    Dispatch<SetStateAction<boolean>>,
+    (e: React.MouseEvent<HTMLButtonElement>) => void
+  ] = useMemo(() => [open, setOpen, handleModel], [open, setOpen, handleModel]);
 
-  return memoizedValue
-}
+  return memoizedValue;
+};

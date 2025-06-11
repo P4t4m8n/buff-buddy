@@ -11,4 +11,5 @@
   --height-main: calc(100vh - 4rem);
 
   --width-small: calc(20rem);
+  --width-small-with-padding: 18rem;
 }
