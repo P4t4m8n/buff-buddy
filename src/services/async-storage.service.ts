@@ -6,8 +6,8 @@ type TEntityType =
   | TExerciseInfoCategory
   | "exercise"
   | "user"
-  | "workout"
-  | "workoutSet";
+  | "program"
+
 
 export const storageService = {
   async get<T>(

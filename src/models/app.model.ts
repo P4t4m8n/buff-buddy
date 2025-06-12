@@ -14,3 +14,14 @@ export interface IBaseFilter {
 export interface IBaseNameAndId extends IEntity {
   name?: string;
 }
+
+export const DAY_OF_WEEK = [
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
+] as const;
+export type TDayOfWeek = (typeof DAY_OF_WEEK)[number];
