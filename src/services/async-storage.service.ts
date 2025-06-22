@@ -1,13 +1,7 @@
 import type { IBaseFilter } from "../models/app.model";
 import type { IEntity } from "../models/entity.model";
-import type { TExerciseInfoCategory } from "../models/exerciseInfo.model";
 
-type TEntityType =
-  | TExerciseInfoCategory
-  | "exercise"
-  | "user"
-  | "program"
-
+type TEntityType = "exercise" | "user" | "program";
 
 export const storageService = {
   async get<T>(
@@ -15,7 +9,7 @@ export const storageService = {
     filter?: IBaseFilter,
     delay = 100
   ): Promise<T[]> {
-    var entities = query<T>(entityType);
+    const entities = query<T>(entityType);
     // const skip = filter?.skip ?? 0;
     // const page = filter?.page ?? 1;
     // if (skip || page) {
@@ -43,6 +37,7 @@ export const storageService = {
   },
 
   async post<T>(entityType: TEntityType, newEntity: T): Promise<T> {
+    console.log(newEntity)
     newEntity = { ...newEntity, id: makeId() };
     const entities = query<T>(entityType);
     entities.push(newEntity);

@@ -8,10 +8,10 @@ interface TableProps<T extends IEntity> {
   ItemComponent: ComponentType<{
     item: T;
     gridCols: string;
-    onDelete: (id?: string) =>  Promise<void>;
+    onDelete: (id?: string) => Promise<void>;
   }>;
   gridCols?: string;
-  onDelete?: (id?: string) =>  Promise<void>;
+  onDelete?: (id?: string) => Promise<void>;
 }
 export default function Table<T extends IEntity>({
   header,
@@ -20,9 +20,10 @@ export default function Table<T extends IEntity>({
   gridCols,
   onDelete,
 }: TableProps<T>) {
+  const style = `border-b grid ${gridCols} gap-6 p-4 `;
   return (
     <div className="grid gap-4 p-4">
-      <header className={`border-b grid grid-cols-${gridCols} gap-6 p-4 `}>
+      <header className={style}>
         {header.map((title) => (
           <p key={title}>{toTitle(title)}</p>
         ))}

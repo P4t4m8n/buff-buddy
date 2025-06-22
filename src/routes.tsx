@@ -6,7 +6,6 @@ import ProgramPage from "./pages/Program/ProgramPage";
 import ExercisePage from "./pages/ExercisePage";
 import ProfilePage from "./pages/ProfilePage";
 import AdminPage from "./pages/AdminPage";
-import ExerciseInfoIndex from "./components/Admin/ExerciseInfo/ExerciseInfoIndex";
 import ProgramEdit from "./pages/Program/ProgramEdit";
 import ProgramDetails from "./pages/Program/ProgramDetails";
 
@@ -62,11 +61,6 @@ export const ROUTES: RouteConfig[] = [
   {
     path: "/admin",
     element: <AdminPage />,
-    children: [
-      {
-        path: "exercise-info/:type",
-        element: <ExerciseInfoIndex />,
-      },
-    ],
+    children: [],
   },
 ];

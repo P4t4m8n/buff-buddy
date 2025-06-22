@@ -1,6 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useModel } from "../../hooks/useModel";
-import type { IExerciseDTO } from "../../models/exercise.model";
+import {
+  EXERCISE_EQUIPMENT,
+  EXERCISE_MUSCLES,
+  EXERCISE_TYPES,
+  type IExerciseDTO,
+  type TExerciseInfo,
+} from "../../models/exercise.model";
 import { useExerciseStore } from "../../store/exercise.store";
 import Button from "../UI/Button";
 import IconEdit from "../UI/Icons/IconEdit";
@@ -9,20 +15,16 @@ import ModelOverlay from "../UI/ModelOverlay";
 import Input from "../UI/Form/Input";
 import Label from "../UI/Form/Label";
 import YoutubeInput from "../UI/Form/YoutubeInput";
-import { useExerciseInfoStore } from "../../store/exerciseInfo.store";
 import { exerciseService } from "../../services/exercise.service";
 import SelectWithSearch from "../UI/Form/SelectWithSearch";
-import {
-  ExerciseInfoCategory,
-  type IExerciseInfoDTO,
-} from "../../models/exerciseInfo.model";
-import ExerciseInfoOption from "./ExerciseInfoOption";
+
 
 interface ExerciseEditProps {
   exercise?: IExerciseDTO;
 }
 
 export default function ExerciseEdit({ exercise }: ExerciseEditProps) {
+  console.log("ExerciseEdit ~ exercise:", exercise);
   const [exerciseToEdit, setExerciseToEdit] = useState<
     IExerciseDTO | undefined | null
   >(null);
@@ -30,21 +32,11 @@ export default function ExerciseEdit({ exercise }: ExerciseEditProps) {
   const pending = useExerciseStore((state) => state.isLoading);
   // const error = useExerciseStore((state) => state.error);
 
-  const muscles = useExerciseInfoStore((state) => state.getCategory("muscles"));
-  const equipment = useExerciseInfoStore((state) =>
-    state.getCategory("equipment")
-  );
-  const types = useExerciseInfoStore((state) => state.getCategory("types"));
-
   const modelRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useModel(modelRef);
-  const loadAllCategories = useExerciseInfoStore(
-    (state) => state.loadAllCategories
-  );
 
   useEffect(() => {
     setExerciseToEdit(() => (exercise ? exercise : exerciseService.getEmpty()));
-    loadAllCategories();
   }, []);
   const isEdit = !!exercise?.id;
 
@@ -73,29 +65,26 @@ export default function ExerciseEdit({ exercise }: ExerciseEditProps) {
       const id = formData.get("id") as string;
 
       await saveExercise({ ...exerciseToEdit, name, youtubeUrl, id });
-      setIsOpen((prev) => !prev);
+      // setIsOpen((prev) => !prev);
     } catch (error) {
       console.error("Error submitting form:", error);
     }
   };
 
-  const handleExerciseInfo = (exerciseInfo: IExerciseInfoDTO) => {
+  const handleExerciseInfo = (inputName: TExerciseInfo, option: string) => {
     if (!exerciseToEdit) return;
-    const category = exerciseInfo.category;
-    if (!ExerciseInfoCategory.includes(category)) return;
 
     setExerciseToEdit((prev) => {
       if (!prev) return prev;
 
-      const idx = prev[category]?.findIndex((ei) => ei.id === exerciseInfo.id);
+      const currentItems = (prev[inputName as keyof IExerciseDTO] as string[]) || [];
+      const idx = currentItems.findIndex((item) => item === option);
       return idx !== -1
         ? {
             ...prev,
-            [category]: prev[category]?.filter(
-              (ei) => ei.id !== exerciseInfo.id
-            ),
+            [inputName]: currentItems.filter((item) => item === option),
           }
-        : { ...prev, [category]: [...(prev[category] || []), exerciseInfo] };
+        : { ...prev, [inputName]: [...currentItems, option] };
     });
   };
   const handleModel = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -147,25 +136,25 @@ export default function ExerciseEdit({ exercise }: ExerciseEditProps) {
               <YoutubeInput youtubeUrlProps={exerciseToEdit?.youtubeUrl} />
 
               <SelectWithSearch
-                options={muscles}
+                options={EXERCISE_MUSCLES}
+                inputName="muscles"
                 selectedOptions={exerciseToEdit?.muscles}
                 handleSelect={handleExerciseInfo}
                 parentModelRef={modelRef}
-                OptionComponent={ExerciseInfoOption}
               />
               <SelectWithSearch
-                options={equipment}
+                options={EXERCISE_EQUIPMENT}
+                inputName="equipment"
                 selectedOptions={exerciseToEdit?.equipment}
                 handleSelect={handleExerciseInfo}
                 parentModelRef={modelRef}
-                OptionComponent={ExerciseInfoOption}
               />
               <SelectWithSearch
-                options={types}
+                options={EXERCISE_TYPES}
+                inputName="types"
                 selectedOptions={exerciseToEdit?.types}
                 handleSelect={handleExerciseInfo}
                 parentModelRef={modelRef}
-                OptionComponent={ExerciseInfoOption}
               />
               <div className="inline-flex items-center justify-between gap-2">
                 <Button

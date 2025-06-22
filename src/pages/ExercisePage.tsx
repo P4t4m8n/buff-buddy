@@ -14,6 +14,8 @@ export default function ExercisePage() {
 
   useEffect(() => {
     loadExercises();
+  }, []);
+  useEffect(() => {
     setFilteredExercises(exercises);
   }, [exercises]);
 
@@ -26,7 +28,7 @@ export default function ExercisePage() {
   };
 
   const tableHeader = ["Name", "Muscles", "Equipment", "Types", "Actions"];
-  const gridCols = "[8rem_repeat(3,_1fr)_8rem]";
+  const gridCols = "grid-cols-[8rem_repeat(3,_1fr)_12.5rem]";
   return (
     <section className="h-main">
       <header className="p-4">

@@ -1,28 +1,28 @@
 import { useRef, useState, type ChangeEvent, type MouseEvent } from "react";
 import { useModel } from "../../../hooks/useModel";
 import IconArrow from "../Icons/IconArrow";
-import type { IBaseNameAndId } from "../../../models/app.model";
 import IconTrash from "../Icons/IconTrash";
 import IconPlus from "../Icons/IconPlus";
+import type { TExerciseInfo } from "../../../models/exercise.model";
 
-interface SelectWithSearchProps<T extends IBaseNameAndId> {
-  options: T[];
-  selectedOptions?: T[];
-  handleSelect: (option: T) => void;
+interface SelectWithSearchProps {
+  options: readonly string[];
+  selectedOptions?: string[];
+  inputName: TExerciseInfo;
+  handleSelect: (inputName: TExerciseInfo, option: string) => void;
   parentModelRef?: React.RefObject<HTMLDivElement | null>;
-  OptionComponent: React.ComponentType<{ option: T }>;
 }
 
-export default function SelectWithSearch<T extends IBaseNameAndId>({
+export default function SelectWithSearch({
   options,
   selectedOptions,
+  inputName,
   handleSelect,
   parentModelRef,
-  OptionComponent,
-}: SelectWithSearchProps<T>) {
-  const [optionsList, setOptionsList] = useState<T[]>(options || []);
-  const [optionsSelected, setOptionsSelected] = useState<T[]>(
-    selectedOptions || []
+}: SelectWithSearchProps) {
+  const [optionsList, setOptionsList] = useState<string[]>(options ? [...options] : []);
+  const [optionsSelected, setOptionsSelected] = useState<string[]>(
+    selectedOptions ? [...selectedOptions] : []
   );
   const modelRef = useRef<HTMLDivElement>(null);
   const fieldRef = useRef<HTMLDivElement>(null);
@@ -32,30 +32,36 @@ export default function SelectWithSearch<T extends IBaseNameAndId>({
     "top-[calc(100%+.25rem)]"
   );
 
-  const handleOptionAdd = (e: MouseEvent<HTMLButtonElement>, option: T) => {
+  const handleOptionAdd = (
+    e: MouseEvent<HTMLButtonElement>,
+    option: string
+  ) => {
     e.preventDefault();
     e.stopPropagation();
     setOptionsSelected((prev) => [...prev, option]);
     setOptionsList((prev) =>
-      prev.filter((selectedOption) => selectedOption.id !== option.id)
+      prev.filter((selectedOption) => selectedOption !== option)
     );
     if (modelRef.current) modelRef.current.scrollTop = 0;
-    handleSelect(option);
+    handleSelect(inputName, option);
   };
-  const handleOptionRemove = (e: MouseEvent<HTMLButtonElement>, option: T) => {
+  const handleOptionRemove = (
+    e: MouseEvent<HTMLButtonElement>,
+    option: string
+  ) => {
     e.preventDefault();
     e.stopPropagation();
     setOptionsSelected((prev) =>
-      prev.filter((selectedOption) => selectedOption.id !== option.id)
+      prev.filter((selectedOption) => selectedOption !== option)
     );
     setOptionsList((prev) => [...prev, option]);
-    handleSelect(option);
+    handleSelect(inputName, option);
   };
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const searchValue = e.currentTarget.value.toLowerCase();
     const filteredOptions = options?.filter((option) =>
-      option.name?.toLowerCase().includes(searchValue)
+      option?.toLowerCase().includes(searchValue)
     );
     setOptionsList(filteredOptions || []);
   };
@@ -100,7 +106,7 @@ export default function SelectWithSearch<T extends IBaseNameAndId>({
                   className="flex items-center border rounded p-1 cursor-pointer"
                   onClick={(e) => handleOptionRemove(e, option)}
                 >
-                  <p>{option.name}</p>
+                  <p>{option}</p>
                   <IconTrash className="w-4 h-4" />
                 </button>
               </li>
@@ -139,7 +145,7 @@ export default function SelectWithSearch<T extends IBaseNameAndId>({
                   onClick={(e) => handleOptionAdd(e, option)}
                   className="w-full h-full flex cursor-pointer"
                 >
-                  <OptionComponent option={option} />
+                  <p>{option}</p>
                   <IconPlus className=" h-8 aspect-square stroke-main-black" />
                 </button>
               </li>
