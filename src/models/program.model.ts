@@ -1,4 +1,5 @@
 import type { IBaseFilter } from "./app.model";
+import type { IDateRange } from "./calendar.model";
 import type { IEntity } from "./entity.model";
 import type {
   IProgramExerciseDTO,
@@ -8,8 +9,7 @@ import type {
 export interface IProgramDTO extends IEntity {
   name: string | null | undefined;
   note?: string;
-  startDate: Date;
-  endDate: Date;
+  dateRange: IDateRange;
   isActive: boolean;
   programExercises?: IProgramExerciseDTO[];
 }

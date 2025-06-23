@@ -25,3 +25,19 @@ export const DAY_OF_WEEK = [
   "sunday",
 ] as const;
 export type TDayOfWeek = (typeof DAY_OF_WEEK)[number];
+
+export const MONTHS = [
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+] as const;
+export type TMonth = (typeof MONTHS)[number];
