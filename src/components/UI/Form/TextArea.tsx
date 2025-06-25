@@ -14,8 +14,8 @@ interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
 export default function TextArea({ children, divStyle, ...props }: Props) {
   return (
     <div className={divStyle}>
-      {children ? children : null}
       <textarea {...props} />
+      {children ? children : null}
     </div>
   );
 }

@@ -1,29 +1,42 @@
-import { useRef, useState, type ChangeEvent, type MouseEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type MouseEvent,
+} from "react";
 import { useModel } from "../../../hooks/useModel";
+import { useSelect } from "../../../hooks/useSelect";
+import Button from "../Button";
 import IconArrow from "../Icons/IconArrow";
-import IconTrash from "../Icons/IconTrash";
 import IconPlus from "../Icons/IconPlus";
-import type { TExerciseInfo } from "../../../models/exercise.model";
+import Input from "./Input";
 
-interface SelectWithSearchProps {
-  options: readonly string[];
-  selectedOptions?: string[];
-  inputName: TExerciseInfo;
-  handleSelect: (inputName: TExerciseInfo, option: string) => void;
+interface SelectWithSearchProps<T> {
+  options: readonly T[];
+  selectedOptionName?: string;
+  inputName: string;
+  handleSelect: (option: T) => void;
+  filterOptions: (searchValue: string) => T[];
+
   parentModelRef?: React.RefObject<HTMLDivElement | null>;
+  SelectedComponent?: React.ReactNode;
+  SelectItemComponent: React.ComponentType<{
+    option: T;
+  }>;
 }
-
-export default function SelectWithSearch({
+export default function SelectWithSearch<T>({
   options,
-  selectedOptions,
+  selectedOptionName,
   inputName,
   handleSelect,
+  filterOptions,
   parentModelRef,
-}: SelectWithSearchProps) {
-  const [optionsList, setOptionsList] = useState<string[]>(options ? [...options] : []);
-  const [optionsSelected, setOptionsSelected] = useState<string[]>(
-    selectedOptions ? [...selectedOptions] : []
-  );
+  SelectedComponent,
+  SelectItemComponent,
+}: SelectWithSearchProps<T>) {
+  const [optionsList, setOptionsList] = useState<T[]>([]);
+
   const modelRef = useRef<HTMLDivElement>(null);
   const fieldRef = useRef<HTMLDivElement>(null);
 
@@ -32,37 +45,12 @@ export default function SelectWithSearch({
     "top-[calc(100%+.25rem)]"
   );
 
-  const handleOptionAdd = (
-    e: MouseEvent<HTMLButtonElement>,
-    option: string
-  ) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setOptionsSelected((prev) => [...prev, option]);
-    setOptionsList((prev) =>
-      prev.filter((selectedOption) => selectedOption !== option)
-    );
-    if (modelRef.current) modelRef.current.scrollTop = 0;
-    handleSelect(inputName, option);
-  };
-  const handleOptionRemove = (
-    e: MouseEvent<HTMLButtonElement>,
-    option: string
-  ) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setOptionsSelected((prev) =>
-      prev.filter((selectedOption) => selectedOption !== option)
-    );
-    setOptionsList((prev) => [...prev, option]);
-    handleSelect(inputName, option);
-  };
-
+  useEffect(() => {
+    setOptionsList(options ? [...options] : []);
+  }, [options]);
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const searchValue = e.currentTarget.value.toLowerCase();
-    const filteredOptions = options?.filter((option) =>
-      option?.toLowerCase().includes(searchValue)
-    );
+    const searchValue = e.currentTarget.value;
+    const filteredOptions = filterOptions(searchValue);
     setOptionsList(filteredOptions || []);
   };
 
@@ -70,9 +58,8 @@ export default function SelectWithSearch({
   const handleModel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-
-    if (!open && fieldRef.current && parentModelRef?.current) {
-      const fieldRect = fieldRef.current.getBoundingClientRect();
+    if (!open && modelRef.current && parentModelRef?.current) {
+      const fieldRect = modelRef.current.getBoundingClientRect();
       const modelHeight = parentModelRef.current.clientHeight;
       const viewportHeight = window.innerHeight;
       const gap = 4;
@@ -91,49 +78,32 @@ export default function SelectWithSearch({
 
     setOpen((prev) => !prev);
   };
-  //TODO:Make the open button to cover the entire length and use relative positing for the selected options
+
+  const onClick = (e: MouseEvent, option: T) => {
+    e.preventDefault();
+    e.stopPropagation();
+    handleSelect(option);
+    setOpen(false);
+  };
+
   return (
-    <div ref={modelRef} className="w-full h-fit relative">
-      <div
-        ref={fieldRef}
-        className="inline-flex items-center gap-2 h-full w-full border rounded pl-2  min-h-10"
+    <div className=" group relative" ref={modelRef}>
+      <Button
+        className="flex items-center justify-between w-full border rounded p-1 cursor-pointer "
+        onClick={handleModel}
       >
-        {optionsSelected.length ? (
-          <ul className="p-2 w-full flex flex-wrap gap-2">
-            {optionsSelected.map((option, index) => (
-              <li key={index}>
-                <button
-                  className="flex items-center border rounded p-1 cursor-pointer"
-                  onClick={(e) => handleOptionRemove(e, option)}
-                >
-                  <p>{option}</p>
-                  <IconTrash className="w-4 h-4" />
-                </button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div>No selected options</div>
-        )}
-        <button
-          className=" cursor-pointer h-8 aspect-square ml-auto"
-          onClick={handleModel}
-        >
-          <IconArrow
-            className={`aspect-square h-full transition-all duration-500 ${
-              open ? "rotate-180" : ""
-            } `}
-          />
-        </button>
-      </div>
+        <h3>{SelectedComponent ? SelectedComponent : null}</h3>
+
+        <IconArrow className="w-6 h-6 group-has-[ul]:rotate-180 " />
+      </Button>
       {open ? (
         <div
-          className={`absolute z-10 backdrop-blur-2xl 
-            shadow-[0px_0px_6px_1px_rgba(0,0,0,1)]
-             border rounded p-2 w-full grid grid-rows-[2rem_calc(100%-2rem)]
-              gap-[.5rem] h-42 ${modelPositionClass}`}
+          className={`absolute z-10 
+                  shadow-[0px_0px_6px_1px_rgba(0,0,0,1)] bg-main-orange
+                   border rounded p-2 w-full grid grid-rows-[2rem_calc(100%-2rem)]
+                    gap-[.5rem] h-42 ${modelPositionClass}`}
         >
-          <input
+          <Input
             className="border-b w-full h-full pb-1 "
             onChange={handleSearchChange}
             placeholder="Search by name"
@@ -141,13 +111,15 @@ export default function SelectWithSearch({
           <ul className="grid grid-rows-[repeat(auto-fill,2rem)] gap-2 h-full overflow-auto">
             {optionsList.map((option, index) => (
               <li key={index} className="w-full h-full">
-                <button
-                  onClick={(e) => handleOptionAdd(e, option)}
+                <Button
+                  onClick={(e) => onClick(e, option)}
                   className="w-full h-full flex cursor-pointer"
                 >
-                  <p>{option}</p>
+                  {SelectItemComponent ? (
+                    <SelectItemComponent option={option} />
+                  ) : null}
                   <IconPlus className=" h-8 aspect-square stroke-main-black" />
-                </button>
+                </Button>
               </li>
             ))}
           </ul>

@@ -16,7 +16,7 @@ import Input from "../UI/Form/Input";
 import Label from "../UI/Form/Label";
 import YoutubeInput from "../UI/Form/YoutubeInput";
 import { exerciseService } from "../../services/exercise.service";
-import SelectWithSearch from "../UI/Form/SelectWithSearch";
+import SelectWithSearch from "../UI/Form/SelectMultiWithSearch";
 
 
 interface ExerciseEditProps {
@@ -24,7 +24,6 @@ interface ExerciseEditProps {
 }
 
 export default function ExerciseEdit({ exercise }: ExerciseEditProps) {
-  console.log("ExerciseEdit ~ exercise:", exercise);
   const [exerciseToEdit, setExerciseToEdit] = useState<
     IExerciseDTO | undefined | null
   >(null);
@@ -65,7 +64,7 @@ export default function ExerciseEdit({ exercise }: ExerciseEditProps) {
       const id = formData.get("id") as string;
 
       await saveExercise({ ...exerciseToEdit, name, youtubeUrl, id });
-      // setIsOpen((prev) => !prev);
+      setIsOpen((prev) => !prev);
     } catch (error) {
       console.error("Error submitting form:", error);
     }

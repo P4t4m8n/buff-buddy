@@ -34,7 +34,7 @@ export default function ExercisePage() {
       <header className="p-4">
         <h2>Exercises</h2>
         <ExerciseEdit />
-        <input />
+      
       </header>
       <Table<IExerciseDTO>
         header={tableHeader}

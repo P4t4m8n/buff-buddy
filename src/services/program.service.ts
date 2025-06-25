@@ -34,9 +34,6 @@ export const programService = {
       dateRange: { start: null, end: null },
       isActive: false,
       programExercises: [],
-      newProgramExercises: [],
-      updateProgramExercises: [],
-      deleteProgramExercises: [],
     };
   },
 };

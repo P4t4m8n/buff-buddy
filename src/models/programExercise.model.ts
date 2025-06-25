@@ -14,8 +14,8 @@ interface IBaseProgramExercise {
 }
 
 export interface IProgramExerciseDTO extends IBaseProgramExercise, IEntity {
-  exercise: IExerciseDTO;
-  sets: ICoreSetDTO[];
+  exercise?: IExerciseDTO;
+  coreSets: ICoreSetDTO[];
 }
 
 export interface IWorkoutExercise extends IBaseProgramExercise, IEntity {
@@ -28,7 +28,12 @@ export interface IWorkoutExercise extends IBaseProgramExercise, IEntity {
 }
 
 export interface IProgramExerciseEditDTO extends IBaseProgramExercise, IEntity {
+  exercise?: IExerciseDTO;
+  crudOperation?: TCrudOperation;
   programId?: string;
-  exerciseId: string;
-  sets: ICoreSetEditDTO[];
+  exerciseId?: string;
+  coreSets?: ICoreSetEditDTO[];
 }
+
+const CRUD_OPERATIONS = ["create", "update", "delete","read"] as const;
+export type TCrudOperation = (typeof CRUD_OPERATIONS)[number];

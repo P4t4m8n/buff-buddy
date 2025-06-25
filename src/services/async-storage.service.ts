@@ -37,7 +37,6 @@ export const storageService = {
   },
 
   async post<T>(entityType: TEntityType, newEntity: T): Promise<T> {
-    console.log(newEntity)
     newEntity = { ...newEntity, id: makeId() };
     const entities = query<T>(entityType);
     entities.push(newEntity);
@@ -80,7 +79,7 @@ const query = <T>(entityType: TEntityType): T[] => {
   return JSON.parse(localStorage.getItem(entityType) || "null") || [];
 };
 
-const makeId = (length = 5) => {
+const makeId = (length = 15) => {
   var txt = "";
   var possible =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

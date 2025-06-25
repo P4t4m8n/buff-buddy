@@ -7,19 +7,15 @@ import type {
 } from "./programExercise.model";
 
 export interface IProgramDTO extends IEntity {
-  name: string | null | undefined;
+  name?: string | null | undefined;
   note?: string;
-  dateRange: IDateRange;
+  dateRange?: IDateRange;
   isActive: boolean;
   programExercises?: IProgramExerciseDTO[];
 }
 
 export interface IProgramEditDTO extends Omit<IProgramDTO, "programExercises"> {
   programExercises?: IProgramExerciseEditDTO[];
-  //Only for Client to Server
-  newProgramExercises?: IProgramExerciseEditDTO[];
-  updateProgramExercises?: IProgramExerciseEditDTO[];
-  deleteProgramExercises?: Partial<IProgramExerciseEditDTO>[];
 }
 
 export interface IProgramFilter extends IBaseFilter {}

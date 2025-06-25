@@ -10,7 +10,6 @@ export default function YoutubeInput({ youtubeUrlProps }: YoutubeInputProps) {
   const [youtubeUrl, setYoutubeUrl] = useState<string | null | undefined>(
     youtubeUrlProps
   );
-  console.log(" YoutubeInput ~ youtubeUrl:", youtubeUrl)
 
   return (
     <div className="max-w-full">

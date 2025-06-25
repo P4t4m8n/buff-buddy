@@ -18,7 +18,7 @@ interface DateInputProps {
   initialMode?: TDateInputMode;
   disabled?: boolean;
   className?: string;
-  selectedRange: IDateRange;
+  selectedRange?: IDateRange;
 }
 
 export default function DateInput({
@@ -47,7 +47,7 @@ export default function DateInput({
     if (mode === "single") {
       handleDateSelect({ start: clickedDate, end: clickedDate });
     } else {
-      if (!selectedRange.start || selectedRange.end) {
+      if (!selectedRange?.start || selectedRange?.end) {
         handleDateSelect({ start: clickedDate, end: null });
       } else {
         const start = selectedRange.start;
@@ -65,15 +65,15 @@ export default function DateInput({
   };
 
   return (
-    <div className={`relative w-small ${className}`} ref={calendarRef}>
+    <div className={`relative w-full ${className}`} ref={calendarRef}>
       <Button
         onClick={handleModel}
         className="border p-2 rounded w-full h-10  flex justify-between items-center cursor-pointer"
       >
         <DateInputDateDisplay
           mode={mode}
-          startDate={selectedRange.start}
-          endDate={selectedRange.end}
+          startDate={selectedRange?.start}
+          endDate={selectedRange?.end}
         />
         <IconCalendar
           className="bg-main-black rounded stroke-amber fill-none
@@ -91,7 +91,7 @@ export default function DateInput({
           <DateInputControl
             mode={mode}
             setMode={setMode}
-            startDate={selectedRange.start}
+            startDate={selectedRange?.start}
             clearSelection={clearSelection}
           />
 
@@ -114,8 +114,8 @@ export default function DateInput({
             mode={mode}
             currentDate={currentDate}
             handleDateClick={handleDateClick}
-            startDate={selectedRange.start}
-            endDate={selectedRange.end}
+            startDate={selectedRange?.start}
+            endDate={selectedRange?.end}
           />
           <Button
             className={`bg-inherit border-1 p-2 hover:bg-main-orange h-10

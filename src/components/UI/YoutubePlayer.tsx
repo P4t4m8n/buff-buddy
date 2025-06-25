@@ -7,7 +7,6 @@ interface YoutubePlayerProps {
 //TODO: Add sanitation for YouTube URL
 
 export default function YoutubePlayer({ youtubeUrl }: YoutubePlayerProps) {
-  console.log(" YoutubePlayer ~ youtubeUrl:", youtubeUrl)
   return (
     <iframe
       src={youtubeUrl.replace("watch?v=", "embed/")}

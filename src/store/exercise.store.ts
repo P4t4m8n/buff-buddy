@@ -36,7 +36,6 @@ export const useExerciseStore = create<IExerciseStore>((set, get) => ({
   },
 
   saveExercise: async (exerciseToSave: IExerciseDTO) => {
-    console.log(" saveExercise: ~ exerciseToSave:", exerciseToSave)
     try {
       set({ isLoading: true, error: null });
       const savedExercise = await exerciseService.save(exerciseToSave);
