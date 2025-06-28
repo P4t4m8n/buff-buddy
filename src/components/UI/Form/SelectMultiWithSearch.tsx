@@ -1,9 +1,9 @@
 import { useRef, useState, type ChangeEvent, type MouseEvent } from "react";
-import { useModel } from "../../../hooks/useModel";
 import IconArrow from "../Icons/IconArrow";
 import IconTrash from "../Icons/IconTrash";
 import IconPlus from "../Icons/IconPlus";
 import type { TExerciseInfo } from "../../../models/exercise.model";
+import { useModel } from "../../../hooks/shared/useModel";
 
 interface SelectWithSearchProps {
   options: readonly string[];

@@ -3,6 +3,10 @@ import type {
   IProgramFilter,
   IProgramEditDTO,
 } from "../models/program.model";
+import type {
+  IProgramExerciseEditDTO,
+  TCrudOperation,
+} from "../models/programExercise.model";
 import { storageService } from "./async-storage.service";
 
 export const programService = {
@@ -36,4 +40,31 @@ export const programService = {
       programExercises: [],
     };
   },
+};
+
+const handleProgramExercise = async (
+  programExercises: IProgramExerciseEditDTO[]
+) => {
+  const record: Record<TCrudOperation, IProgramExerciseEditDTO[]> = {
+    create: [],
+    update: [],
+    delete: [],
+    read: [],
+  };
+
+  programExercises.forEach((pe) => {
+    if (pe.crudOperation === "create") {
+      record.create.push(pe);
+    } else if (pe.crudOperation === "update") {
+      record.update.push(pe);
+    } else if (pe.crudOperation === "delete") {
+      record.delete.push(pe);
+    } else {
+      record.read.push(pe);
+    }
+  });
+
+  if (record.create.length) {
+   for(const pe of record.create) {}
+  }
 };

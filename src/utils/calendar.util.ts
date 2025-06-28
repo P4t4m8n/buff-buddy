@@ -18,4 +18,21 @@ export const calendarUtil = {
     }
     return newDay;
   },
+  shortWeekdaysToFull: (shortDays: string[]): TDayOfWeek[] => {
+    return shortDays.map((day) => calendarUtil.shortWeekdayToFull(day));
+  },
+  fullWeekdayToShort: (
+    fullDay: TDayOfWeek,
+    isTitle: boolean = true
+  ): string => {
+    const shortDay = fullDay.substring(0, 3).toLowerCase();
+    return isTitle ? toTitle(shortDay) : shortDay;
+  },
+
+  fullWeekdaysToShort: (
+    fullDays: TDayOfWeek[],
+    isTitle: boolean = true
+  ): string[] => {
+    return fullDays.map((day) => calendarUtil.fullWeekdayToShort(day, isTitle));
+  },
 };

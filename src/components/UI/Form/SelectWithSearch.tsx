@@ -5,8 +5,7 @@ import {
   type ChangeEvent,
   type MouseEvent,
 } from "react";
-import { useModel } from "../../../hooks/useModel";
-import { useSelect } from "../../../hooks/useSelect";
+import { useModel } from "../../../hooks/shared/useModel";
 import Button from "../Button";
 import IconArrow from "../Icons/IconArrow";
 import IconPlus from "../Icons/IconPlus";

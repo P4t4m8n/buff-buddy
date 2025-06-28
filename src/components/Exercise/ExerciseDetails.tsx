@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import type { IExerciseDTO } from "../../models/exercise.model";
 import Button from "../UI/Button";
-import { useModel } from "../../hooks/useModel";
+import { useModel } from "../../hooks/shared/useModel";
 import IconDetails from "../UI/Icons/IconDetails";
 import ModelOverlay from "../UI/ModelOverlay";
 import YoutubePlayer from "../UI/YoutubePlayer";

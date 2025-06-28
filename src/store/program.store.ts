@@ -6,7 +6,10 @@ interface IProgramStore {
   programs: IProgramDTO[];
   isLoading: boolean;
   loadPrograms: () => Promise<void>;
-  saveProgram: (programToSave: IProgramDTO) => Promise<void>;
+  getProgramById: (
+    id?: string
+  ) => Promise<IProgramDTO | IProgramEditDTO | null>;
+  saveProgram: (programToSave: IProgramEditDTO) => Promise<void>;
   deleteProgram: (id: string) => Promise<void>;
   error: string | null;
 }
@@ -36,8 +39,26 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
     }
   },
 
-  saveProgram: async (programToSave: IProgramDTO) => {
+  getProgramById: async (id?: string) => {
     try {
+      set({ isLoading: true, error: null });
+      const x = id ? await programService.getById(id) : programService.getEmpty();
+      console.log(" getProgramById: ~  x:",  x)
+      return x
+    } catch (error) {
+      set({
+        error:
+          error instanceof Error ? error.message : "Failed to load program",
+      });
+      return null;
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  saveProgram: async (programToSave: IProgramEditDTO) => {
+    try {
+      console.log(" saveProgram: ~ programToSave:", programToSave)
       set({ isLoading: true, error: null });
       const savedProgram = await programService.save(
         programToSave as IProgramEditDTO

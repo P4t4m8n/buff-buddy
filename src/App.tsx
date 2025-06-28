@@ -1,16 +1,19 @@
 import { BrowserRouter, Routes } from "react-router";
 import AppFooter from "./components/AppFooter/AppFooter";
 import { renderRoutes, ROUTES } from "./routes";
+import AuthGuard from "./guards/AuthGuard";
 
 export default function App() {
   const routes = renderRoutes(ROUTES);
   return (
     <>
       <BrowserRouter>
-        <div className=" bg-main-orange h-screen w-screen">
-          <Routes>{routes}</Routes>
-          <AppFooter />
-        </div>
+        <AuthGuard>
+          <div className=" bg-main-orange h-screen w-screen">
+            <Routes>{routes}</Routes>
+            <AppFooter />
+          </div>
+        </AuthGuard>
       </BrowserRouter>
     </>
   );

@@ -3,7 +3,7 @@ import type { IEntity } from "./entity.model";
 export interface IAppNav {
   label: string;
   path: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
 }
 
 export interface IBaseFilter {

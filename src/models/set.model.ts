@@ -1,14 +1,15 @@
 import type { IEntity } from "./entity.model";
+import type { TCrudOperation } from "./programExercise.model";
 
 export interface ICoreSetDTO extends IEntity {
   reps: number; // Target number of repetitions for the set
   weight: number; // Weight lifted in kg
   restTime: number; // Rest time in seconds before the next set
-  order: number; // Order of the set in the exercise
+  order: number ; // Order of the set in the exercise
   isWarmup: boolean; // Indicates if the set was a warmup set
 }
-
 export interface ICoreSetEditDTO extends ICoreSetDTO {
+  crudOperation?: TCrudOperation;
   programExerciseId?: string; // Foreign key to ProgramExercise
 }
 

@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import { useModel } from "../../../../hooks/useModel";
 import { DAY_OF_WEEK } from "../../../../models/app.model";
 import { toTitle } from "../../../../utils/toTitle";
 import Button from "../../Button";
@@ -8,10 +7,12 @@ import DateInputDateDisplay from "./DateInputDateDisplay";
 import DateInputControl from "./DateInputControl";
 import DateInputDateControl from "./DateInputDateControl/DateInputDateControl";
 import DateInputCalendar from "./DateInputCalendar/DateInputCalendar";
+import { useModel } from "../../../../hooks/shared/useModel";
 import type {
   IDateRange,
   TDateInputMode,
 } from "../../../../models/calendar.model";
+import { useDateInput } from "../../../../hooks/features/calendar/useDateInput";
 
 interface DateInputProps {
   handleDateSelect: (range: IDateRange) => void;
@@ -28,41 +29,20 @@ export default function DateInput({
   disabled = false,
   className = "",
 }: DateInputProps) {
-  const [currentDate, setCurrentDate] = useState<Date>(new Date());
-  const [mode, setMode] = useState<TDateInputMode>(initialMode);
   const calendarRef = useRef<HTMLDivElement>(null);
   const [isOpen, _, handleModel] = useModel(calendarRef);
+  const {
+    currentDate,
+    setCurrentDate,
+    mode,
+    setMode,
+    handleDateClick,
+    clearSelection,
+  } = useDateInput(handleDateSelect, initialMode, selectedRange);
 
   const weekDays: string[] = DAY_OF_WEEK.map((day) =>
     toTitle(day.substring(0, 3))
   );
-
-  const handleDateClick = (day: number | undefined) => {
-    const clickedDate = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      day
-    );
-
-    if (mode === "single") {
-      handleDateSelect({ start: clickedDate, end: clickedDate });
-    } else {
-      if (!selectedRange?.start || selectedRange?.end) {
-        handleDateSelect({ start: clickedDate, end: null });
-      } else {
-        const start = selectedRange.start;
-        const end = clickedDate;
-        handleDateSelect({
-          start: start! <= end ? start : end,
-          end: start! <= end ? end : start,
-        });
-      }
-    }
-  };
-
-  const clearSelection = () => {
-    handleDateSelect({ start: null, end: null });
-  };
 
   return (
     <div className={`relative w-full ${className}`} ref={calendarRef}>

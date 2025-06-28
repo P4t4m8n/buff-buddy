@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useModel } from "../../hooks/useModel";
+import { useModel } from "../../hooks/shared/useModel";
 import {
   EXERCISE_EQUIPMENT,
   EXERCISE_MUSCLES,
