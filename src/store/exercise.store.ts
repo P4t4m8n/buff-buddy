@@ -38,18 +38,19 @@ export const useExerciseStore = create<IExerciseStore>((set, get) => ({
   saveExercise: async (exerciseToSave: IExerciseDTO) => {
     try {
       set({ isLoading: true, error: null });
-      const savedExercise = await exerciseService.save(exerciseToSave);
+      const { data } = await exerciseService.save(exerciseToSave);
+ 
       set((state) => {
         const idx = state.exercises.findIndex(
-          (exercise) => exercise.id === savedExercise.id
+          (exercise) => exercise.id === data.id
         );
 
         if (idx !== -1) {
           const updatedExercises = [...state.exercises];
-          updatedExercises[idx] = savedExercise;
+          updatedExercises[idx] = data;
           return { exercises: updatedExercises };
         } else {
-          return { exercises: [...state.exercises, savedExercise] };
+          return { exercises: [...state.exercises, data] };
         }
       });
     } catch (error) {

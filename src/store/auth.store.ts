@@ -1,6 +1,10 @@
 import { create } from "zustand";
 import { authService } from "../services/auth.service";
-import type { IAuthSignInDTO, IAuthUserDTO, IAuthSignUpDTO } from "../models/auth.model";
+import type {
+  IAuthSignInDTO,
+  IAuthUserDTO,
+  IAuthSignUpDTO,
+} from "../models/auth.model";
 
 interface IAuthStore {
   user: IAuthUserDTO | null;
@@ -19,8 +23,8 @@ export const useAuthStore = create<IAuthStore>((set) => ({
 
   loadSessionUser: async () => {
     try {
+      set({ isLoading: true, error: null });
       const res = await authService.getSessionUser();
-      console.log(" loadSessionUser: ~ res:", res)
       set({ user: res, error: null });
     } catch (error) {
       set({
@@ -29,6 +33,8 @@ export const useAuthStore = create<IAuthStore>((set) => ({
             ? error.message
             : "Failed to load session user",
       });
+    } finally {
+      set({ isLoading: false });
     }
   },
 

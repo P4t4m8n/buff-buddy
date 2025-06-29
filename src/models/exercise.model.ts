@@ -23,35 +23,38 @@ export interface IExerciseFilter extends IBaseFilter {
 
 export const EXERCISE_INFO = ["types", "equipment", "muscles"];
 export type TExerciseInfo = (typeof EXERCISE_INFO)[number];
-
 export const EXERCISE_MUSCLES = [
   "abs",
-  "abductors",
-  "adductors",
+  "back",
   "biceps",
   "calves",
-  "cardiovascular system",
-  "deltoids",
+  "chest",
+  "core",
   "forearms",
   "glutes",
   "hamstrings",
-  "lats",
-  "pectorals",
-  "quadriceps",
-  "trapezius",
+  "hip_flexors",
+  "lower_back",
+  "neck",
+  "obliques",
+  "quads",
+  "shoulders",
+  "shins",
+  "traps",
   "triceps",
+  "upper_back",
 ] as const;
 export type TExerciseMuscle = (typeof EXERCISE_MUSCLES)[number];
 
 export const EXERCISE_EQUIPMENT = [
   "barbell",
-  "body weight",
+  "body_weight",
   "cable",
   "dumbbell",
   "kettlebell",
-  "medicine ball",
+  "medicine_ball",
   "none",
-  "resistance band",
+  "resistance_band",
 ] as const;
 export type TExerciseEquipment = (typeof EXERCISE_EQUIPMENT)[number];
 

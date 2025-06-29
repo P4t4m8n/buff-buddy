@@ -1,9 +1,13 @@
-import { useRef, useState, type ChangeEvent, type MouseEvent } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useModel } from "../../../hooks/shared/useModel";
 import IconArrow from "../Icons/IconArrow";
 import IconTrash from "../Icons/IconTrash";
 import IconPlus from "../Icons/IconPlus";
+import Input from "./Input";
+import Button from "../Button";
 import type { TExerciseInfo } from "../../../models/exercise.model";
-import { useModel } from "../../../hooks/shared/useModel";
+import type { ChangeEvent, MouseEvent } from "react";
+import { toTitle } from "../../../utils/toTitle";
 
 interface SelectWithSearchProps {
   options: readonly string[];
@@ -20,10 +24,8 @@ export default function SelectMultiWithSearch({
   handleSelect,
   parentModelRef,
 }: SelectWithSearchProps) {
-  const [optionsList, setOptionsList] = useState<string[]>(options ? [...options] : []);
-  const [optionsSelected, setOptionsSelected] = useState<string[]>(
-    selectedOptions ? [...selectedOptions] : []
-  );
+  const [optionsList, setOptionsList] = useState<string[]>([]);
+  const [optionsSelected, setOptionsSelected] = useState<string[]>([]);
   const modelRef = useRef<HTMLDivElement>(null);
   const fieldRef = useRef<HTMLDivElement>(null);
 
@@ -31,6 +33,14 @@ export default function SelectMultiWithSearch({
   const [modelPositionClass, setModelPositionClass] = useState(
     "top-[calc(100%+.25rem)]"
   );
+
+  useEffect(() => {
+    setOptionsList(options ? [...options] : []);
+  }, [options]);
+
+  useEffect(() => {
+    setOptionsSelected(selectedOptions ? [...selectedOptions] : []);
+  }, [selectedOptions]);
 
   const handleOptionAdd = (
     e: MouseEvent<HTMLButtonElement>,
@@ -49,6 +59,7 @@ export default function SelectMultiWithSearch({
     e: MouseEvent<HTMLButtonElement>,
     option: string
   ) => {
+
     e.preventDefault();
     e.stopPropagation();
     setOptionsSelected((prev) =>
@@ -57,7 +68,6 @@ export default function SelectMultiWithSearch({
     setOptionsList((prev) => [...prev, option]);
     handleSelect(inputName, option);
   };
-
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const searchValue = e.currentTarget.value.toLowerCase();
     const filteredOptions = options?.filter((option) =>
@@ -65,7 +75,6 @@ export default function SelectMultiWithSearch({
     );
     setOptionsList(filteredOptions || []);
   };
-
   //TODO:Improve this function to handle position better
   const handleModel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -106,7 +115,7 @@ export default function SelectMultiWithSearch({
                   className="flex items-center border rounded p-1 cursor-pointer"
                   onClick={(e) => handleOptionRemove(e, option)}
                 >
-                  <p>{option}</p>
+                  <p>{toTitle(option)}</p>
                   <IconTrash className="w-4 h-4" />
                 </button>
               </li>
@@ -115,7 +124,7 @@ export default function SelectMultiWithSearch({
         ) : (
           <div>No selected options</div>
         )}
-        <button
+        <Button
           className=" cursor-pointer h-8 aspect-square ml-auto"
           onClick={handleModel}
         >
@@ -124,7 +133,7 @@ export default function SelectMultiWithSearch({
               open ? "rotate-180" : ""
             } `}
           />
-        </button>
+        </Button>
       </div>
       {open ? (
         <div
@@ -133,7 +142,7 @@ export default function SelectMultiWithSearch({
              border rounded p-2 w-full grid grid-rows-[2rem_calc(100%-2rem)]
               gap-[.5rem] h-42 ${modelPositionClass}`}
         >
-          <input
+          <Input
             className="border-b w-full h-full pb-1 "
             onChange={handleSearchChange}
             placeholder="Search by name"
@@ -145,7 +154,7 @@ export default function SelectMultiWithSearch({
                   onClick={(e) => handleOptionAdd(e, option)}
                   className="w-full h-full flex cursor-pointer"
                 >
-                  <p>{option}</p>
+                  <p>{toTitle(option)}</p>
                   <IconPlus className=" h-8 aspect-square stroke-main-black" />
                 </button>
               </li>

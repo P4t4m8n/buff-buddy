@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "./Input";
 import YoutubePlayer from "../YoutubePlayer";
 
@@ -10,6 +10,9 @@ export default function YoutubeInput({ youtubeUrlProps }: YoutubeInputProps) {
   const [youtubeUrl, setYoutubeUrl] = useState<string | null | undefined>(
     youtubeUrlProps
   );
+  useEffect(() => {
+    setYoutubeUrl(youtubeUrlProps);
+  }, [youtubeUrlProps]);
 
   return (
     <div className="max-w-full">

@@ -103,15 +103,12 @@ export const useProgramExerciseEdit = (
     const target = e.target as HTMLInputElement;
     const value = target.value;
     const isChecked = target.checked;
-    console.log(" onDaysChange ~ isChecked:", isChecked);
     const fixedDay = calendarUtil.shortWeekdayToFull(value);
-    console.log(" onDaysChange ~ fixedDay:", fixedDay);
     setProgramExerciseToEdit((prev) => {
       if (!prev) return null;
       const newDaysOfWeek = isChecked
         ? [...(prev.daysOfWeek || []), fixedDay]
         : (prev.daysOfWeek || []).filter((day) => day !== fixedDay);
-      console.log(" setProgramExerciseToEdit ~ newDaysOfWeek:", newDaysOfWeek);
       return {
         ...prev,
         daysOfWeek: newDaysOfWeek,

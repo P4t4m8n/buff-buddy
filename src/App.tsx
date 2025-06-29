@@ -9,7 +9,10 @@ export default function App() {
     <>
       <BrowserRouter>
         <AuthGuard>
-          <div className=" bg-main-orange h-screen w-screen">
+          <div
+            className=" bg-gradient-to-br from-main-orange/90
+      to-red-orange/85 h-screen w-screen"
+          >
             <Routes>{routes}</Routes>
             <AppFooter />
           </div>

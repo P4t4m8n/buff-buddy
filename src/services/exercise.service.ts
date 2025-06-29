@@ -1,25 +1,34 @@
 import type { IExerciseDTO, IExerciseFilter } from "../models/exercise.model";
-import { storageService } from "./async-storage.service";
+import { apiService, type THttpPostResponse } from "./api.service";
 
 export const exerciseService = {
-  rootPath: "/exercise",
+  rootPath: "/exercises",
 
   async get(filter: IExerciseFilter): Promise<Array<IExerciseDTO>> {
-    return await storageService.get<IExerciseDTO>("exercise", filter);
+    return await apiService.get<Array<IExerciseDTO>>(
+      `${this.rootPath}`,
+      filter
+    );
   },
 
   async getById(id: string) {
-    return await storageService.getById<IExerciseDTO>("exercise", id);
+    return await apiService.get<IExerciseDTO>(`${this.rootPath}/${id}`);
   },
 
-  async save(dto: IExerciseDTO): Promise<IExerciseDTO> {
+  async save(dto: IExerciseDTO): Promise<THttpPostResponse<IExerciseDTO>> {
     return dto.id
-      ? await storageService.put<IExerciseDTO>("exercise", dto)
-      : await storageService.post<IExerciseDTO>("exercise", dto);
+      ? await apiService.put<THttpPostResponse<IExerciseDTO>>(
+          `${this.rootPath}/edit/${dto.id}`,
+          dto
+        )
+      : await apiService.post<THttpPostResponse<IExerciseDTO>>(
+          `${this.rootPath}/edit`,
+          dto
+        );
   },
 
   async delete(id: string): Promise<void> {
-    return storageService.remove("exercise", id);
+    return await apiService.delete<void>(`${this.rootPath}/${id}`);
   },
 
   getEmpty(): IExerciseDTO {

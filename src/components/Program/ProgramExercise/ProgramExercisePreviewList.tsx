@@ -3,7 +3,7 @@ import type {
   IProgramExerciseEditDTO,
   TProgramExerciseEditRecord,
 } from "../../../models/programExercise.model";
-import WrapperEditModel from "../../UI/Wrappers/WrapperEditModel";
+import WrapperModel from "../../UI/Wrappers/WrapperModel";
 import ProgramExerciseEdit from "./ProgramExerciseEdit";
 
 interface ProgramExerciseDetailsListProps {
@@ -19,12 +19,12 @@ export default function ProgramExercisePreviewList({
 }: ProgramExerciseDetailsListProps) {
   return (
     <div className="h-full grid grid-rows-[auto_1fr] gap-2">
-      <WrapperEditModel>
+      <WrapperModel>
         <ProgramExerciseEdit
           programExerciseLength={programExercisesLength}
           handleProgramExercise={handleProgramExercise}
         />
-      </WrapperEditModel>
+      </WrapperModel>
 
       <ul className="grid grid-cols-7 justify-around gap-2 ">
         {DAY_OF_WEEK.map((day) => (
@@ -40,12 +40,12 @@ export default function ProgramExercisePreviewList({
                   className="border-b last:border-b-0 p-1"
                 >
                   <h5>{programExercise.exercise?.name}</h5>
-                  <WrapperEditModel item={programExercise}>
+                  <WrapperModel item={programExercise}>
                     <ProgramExerciseEdit
                       programExercise={programExercise}
                       handleProgramExercise={handleProgramExercise}
                     />
-                  </WrapperEditModel>
+                  </WrapperModel>
                 </li>
               ))}
             </ul>

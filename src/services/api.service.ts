@@ -1,4 +1,5 @@
-const BASE_URL = import.meta.env.VITE_PUBLIC_API_BASE_URL || "http://localhost:3030";
+const BASE_URL =
+  import.meta.env.VITE_PUBLIC_API_BASE_URL || "http://localhost:3030";
 
 interface IApiService {
   get: <T>(endpoint: string, data?: unknown) => Promise<T>;
@@ -8,6 +9,10 @@ interface IApiService {
 }
 
 export const HTTP_METHODS = ["GET", "POST", "PUT", "DELETE"] as const;
+export type THttpPostResponse<T> = {
+  massage: string;
+  data: T;
+};
 type THttpMethod = (typeof HTTP_METHODS)[number];
 
 export const apiService: IApiService = {
