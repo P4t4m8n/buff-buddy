@@ -28,11 +28,30 @@ export const calendarUtil = {
     const shortDay = fullDay.substring(0, 3).toLowerCase();
     return isTitle ? toTitle(shortDay) : shortDay;
   },
-
   fullWeekdaysToShort: (
     fullDays: TDayOfWeek[],
     isTitle: boolean = true
   ): string[] => {
     return fullDays.map((day) => calendarUtil.fullWeekdayToShort(day, isTitle));
+  },
+  formatDate: (
+    date?: Date | string | null,
+    options?: Intl.DateTimeFormatOptions
+  ): string => {
+    if (!date) return "";
+    const dateObj = typeof date === "string" ? new Date(date) : date;
+    return dateObj.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      ...options,
+    });
+  },
+  convertDate: (date?: Date | string | null): Date => {
+    if (!date) return new Date();
+    if (typeof date === "string") {
+      return new Date(date);
+    }
+    return date instanceof Date ? date : new Date(date);
   },
 };

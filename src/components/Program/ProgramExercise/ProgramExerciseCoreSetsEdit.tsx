@@ -33,10 +33,10 @@ export default function ProgramExerciseCoreSetsEdit({
         <Input
           name={"order-" + id}
           type="number"
-          defaultValue={order || 0}
+          defaultValue={order || 1}
           divStyle=" flex flex-row-reverse justify-end gap-2 items-center"
           className="border w-10 rounded text-center  "
-          min={0}
+          min={1}
           onChange={onHandleChange}
         >
           <Label htmlFor={"order-" + id}>Order:</Label>
@@ -59,7 +59,7 @@ export default function ProgramExerciseCoreSetsEdit({
           defaultValue={reps}
           divStyle=" flex flex-col-reverse items-center  "
           className="border w-12 rounded text-center   "
-          min={0}
+          min={1}
           onChange={onHandleChange}
         >
           <Label htmlFor={"reps-" + id}>Reps</Label>
@@ -70,7 +70,7 @@ export default function ProgramExerciseCoreSetsEdit({
           defaultValue={weight}
           divStyle=" flex flex-col-reverse  items-center"
           className="border w-12 rounded text-center   "
-          min={0}
+          min={1}
           onChange={onHandleChange}
         >
           <Label htmlFor={"weight-" + id}>Weight</Label>

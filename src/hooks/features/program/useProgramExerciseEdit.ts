@@ -45,6 +45,7 @@ export const useProgramExerciseEdit = (
       return {
         ...prev,
         exercise: exercise,
+        exerciseId: exercise.id,
         coreSets: prev?.coreSets?.length
           ? prev.coreSets
           : [coreSetsService.getEmpty()],
@@ -66,7 +67,7 @@ export const useProgramExerciseEdit = (
       const coreSets = prev?.coreSets ?? [];
 
       if (!coreSet) {
-        const emptySet = coreSetsService.getEmpty(coreSets?.length ?? 0);
+        const emptySet = coreSetsService.getEmpty(coreSets?.length + 1);
         return {
           ...prev,
           coreSets: [...coreSets, emptySet],

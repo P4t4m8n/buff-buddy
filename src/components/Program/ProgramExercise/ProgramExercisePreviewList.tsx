@@ -19,7 +19,7 @@ export default function ProgramExercisePreviewList({
 }: ProgramExerciseDetailsListProps) {
   return (
     <div className="h-full grid grid-rows-[auto_1fr] gap-2">
-      <WrapperModel>
+      <WrapperModel mode="create">
         <ProgramExerciseEdit
           programExerciseLength={programExercisesLength}
           handleProgramExercise={handleProgramExercise}
@@ -40,7 +40,7 @@ export default function ProgramExercisePreviewList({
                   className="border-b last:border-b-0 p-1"
                 >
                   <h5>{programExercise.exercise?.name}</h5>
-                  <WrapperModel item={programExercise}>
+                  <WrapperModel mode="edit" item={programExercise}>
                     <ProgramExerciseEdit
                       programExercise={programExercise}
                       handleProgramExercise={handleProgramExercise}

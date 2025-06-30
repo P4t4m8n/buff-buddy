@@ -9,7 +9,7 @@ import type {
 
 interface IBaseProgramExercise {
   order: number;
-  note?: string;
+  notes?: string;
   daysOfWeek?: TDayOfWeek[];
 }
 

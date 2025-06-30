@@ -3,68 +3,47 @@ import type {
   IProgramFilter,
   IProgramEditDTO,
 } from "../models/program.model";
-import type {
-  IProgramExerciseEditDTO,
-  TCrudOperation,
-} from "../models/programExercise.model";
-import { storageService } from "./async-storage.service";
+
+import { apiService, type THttpPostResponse } from "./api.service";
 
 export const programService = {
-  rootPath: "/program",
+  rootPath: "/programs",
 
   async get(filter: IProgramFilter): Promise<Array<IProgramDTO>> {
-    return await storageService.get<IProgramDTO>("program", filter);
+    return await apiService.get<Array<IProgramDTO>>(this.rootPath, filter);
   },
 
   async getById(id: string) {
-    return await storageService.getById<IProgramDTO>("program", id);
+    return await apiService.get<IProgramEditDTO>(`${this.rootPath}/${id}`);
   },
 
-  async save(dto: IProgramEditDTO): Promise<IProgramEditDTO> {
-    return dto.id
-      ? await storageService.put<IProgramEditDTO>("program", dto)
-      : await storageService.post<IProgramEditDTO>("program", dto);
+  async save(dto: IProgramEditDTO): Promise<THttpPostResponse<IProgramDTO>> {
+    const res = dto.id
+      ? await apiService.put<THttpPostResponse<IProgramDTO>>(
+          `${this.rootPath}/edit/${dto.id}`,
+          dto
+        )
+      : await apiService.post<THttpPostResponse<IProgramDTO>>(
+          `${this.rootPath}/edit`,
+          dto
+        );
+
+    return res;
   },
 
   async delete(id: string): Promise<void> {
-    return storageService.remove("program", id);
+    return await apiService.delete(`${this.rootPath}/${id}`);
   },
 
   getEmpty(): IProgramEditDTO {
     return {
       id: "",
       name: "",
-      note: "",
-      dateRange: { start: null, end: null },
+      notes: "",
+      startDate: null,
+      endDate: null,
       isActive: false,
       programExercises: [],
     };
   },
-};
-
-const handleProgramExercise = async (
-  programExercises: IProgramExerciseEditDTO[]
-) => {
-  const record: Record<TCrudOperation, IProgramExerciseEditDTO[]> = {
-    create: [],
-    update: [],
-    delete: [],
-    read: [],
-  };
-
-  programExercises.forEach((pe) => {
-    if (pe.crudOperation === "create") {
-      record.create.push(pe);
-    } else if (pe.crudOperation === "update") {
-      record.update.push(pe);
-    } else if (pe.crudOperation === "delete") {
-      record.delete.push(pe);
-    } else {
-      record.read.push(pe);
-    }
-  });
-
-  if (record.create.length) {
-   for(const pe of record.create) {}
-  }
 };

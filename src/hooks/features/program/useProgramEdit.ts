@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import type { IProgramEditDTO } from "../../../models/program.model";
 import type {
   IProgramExerciseEditDTO,
@@ -6,6 +6,7 @@ import type {
 } from "../../../models/programExercise.model";
 import type { IDateRange } from "../../../models/calendar.model";
 import { useProgramStore } from "../../../store/program.store";
+import { useNavigate } from "react-router";
 
 interface IProgramEditHook {
   programToEdit: IProgramEditDTO | null;
@@ -16,6 +17,10 @@ interface IProgramEditHook {
   groupProgramExercisesByDay: (
     pe: IProgramExerciseEditDTO[]
   ) => TProgramExerciseEditRecord;
+  navigate: ReturnType<typeof useNavigate>;
+  handleInputChange: (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
 }
 
 export const useProgramEdit = (id?: string): IProgramEditHook => {
@@ -25,6 +30,7 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
   const isLoading = useProgramStore((state) => state.isLoading);
   const getProgramById = useProgramStore((state) => state.getProgramById);
   const saveProgram = useProgramStore((state) => state.saveProgram);
+  const navigate = useNavigate();
 
   //TODO?? Ugly refactor later
   useEffect(() => {
@@ -37,17 +43,29 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
   }, [id]);
 
   const handleDateSelect = (range: IDateRange) => {
-    setProgramToEdit((prev) => ({ ...prev!, dateRange: range }));
+    setProgramToEdit((prev) => ({
+      ...prev!,
+      startDate: range.start,
+      endDate: range.end,
+    }));
   };
 
-  const onSaveProgram = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSaveProgram = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     const formData = new FormData(e.currentTarget);
     const name = formData.get("name") as string;
-    const note = formData.get("note") as string;
+    const notes = formData.get("notes") as string;
     const isActive = formData.get("isActive") === "on";
-    const programToSave = { ...programToEdit, name, note, isActive };
-    saveProgram(programToSave);
+    const programToSave = { ...programToEdit, name, notes, isActive };
+    const res = await saveProgram(programToSave);
+    if (!res) {
+      console.error("Failed to save program");
+      return;
+    }
+
+    const { id } = res;
+    navigate(`/programs/${id}`);
   };
 
   const handleProgramExercise = (programExercise: IProgramExerciseEditDTO) => {
@@ -115,12 +133,34 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
     return peByDay;
   };
 
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, type, value } = e.target;
+    setProgramToEdit((prev) => {
+      if (!prev) return null;
+      // Only use checked for checkboxes
+      if (type === "checkbox" && "checked" in e.target) {
+        return {
+          ...prev,
+          [name]: (e.target as HTMLInputElement).checked,
+        };
+      }
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+
   return {
     programToEdit,
     isLoading,
     handleDateSelect,
     onSaveProgram,
     handleProgramExercise,
+    navigate,
     groupProgramExercisesByDay,
+    handleInputChange,
   };
 };

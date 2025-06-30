@@ -13,7 +13,7 @@ export default function AuthGuard({ children }: AuthProviderProps) {
     loadSessionUser();
   }, [loadSessionUser]);
 
-  if (isLoading)
+  if (isLoading || !user)
     return (
       <div
         className="h-screen w-screen bg-gradient-to-br from-main-orange

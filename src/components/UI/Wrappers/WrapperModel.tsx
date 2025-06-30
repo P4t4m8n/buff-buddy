@@ -36,22 +36,22 @@ export default function WrapperModel<T>({
       case "create":
         return (
           <IconCreate
-            className="fill-none stroke-amber h-6 w-6
+            className="fill-none stroke-amber h-full aspect-square
              group-hover:stroke-main-black transition-all duration-300"
           />
         );
       case "edit":
         return (
           <IconEdit
-            className="fill-none stroke-amber h-6 w-6 lg:h-8 lg:w-8
+            className="fill-none stroke-amber h-full aspect-square
              group-hover:stroke-main-black transition-all duration-300"
           />
         );
       case "details":
         return (
           <IconDetails
-            className="fill-none stroke-amber h-6 w-6
-             group-hover:stroke-main-black transition-all duration-300"
+            className="fill-amber stroke-amber h-full aspect-square
+             group-hover:stroke-main-black group-hover:fill-main-black transition-all duration-300"
           />
         );
       case "custom":

@@ -7,9 +7,9 @@ import type {
 
 export interface IProgramDTO extends IEntity {
   name?: string | null | undefined;
-  note?: string;
-  startDate?: Date | null;
-  endDate?: Date | null;
+  notes?: string;
+  startDate?: Date | string | null;
+  endDate?: Date | string | null;
   isActive: boolean;
   programExercises?: IProgramExerciseDTO[];
 }

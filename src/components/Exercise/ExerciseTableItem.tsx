@@ -53,8 +53,8 @@ export default function ExerciseTableItem({
           disabled={isLoading}
         >
           <IconTrash
-            className="fill-amber stroke-none h-6 aspect-square
-           group-hover:stroke-main-black transition-all duration-300"
+            className="fill-amber stroke-none h-full aspect-square
+           group-hover:fill-main-black transition-all duration-300"
           />
         </Button>
       </div>

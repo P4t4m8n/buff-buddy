@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { programService } from "../services/program.service";
 import type { IProgramDTO, IProgramEditDTO } from "../models/program.model";
+import { ApiError } from "../utils/ApiError.util";
 
 interface IProgramStore {
   programs: IProgramDTO[];
@@ -9,9 +10,9 @@ interface IProgramStore {
   getProgramById: (
     id?: string
   ) => Promise<IProgramDTO | IProgramEditDTO | null>;
-  saveProgram: (programToSave: IProgramEditDTO) => Promise<void>;
+  saveProgram: (programToSave: IProgramEditDTO) => Promise<IProgramDTO | null>;
   deleteProgram: (id: string) => Promise<void>;
-  error: string | null;
+  error: string | Record<string, string> | { errors?: Record<string, string>; message: string } | null;
 }
 
 export const useProgramStore = create<IProgramStore>((set, get) => ({
@@ -60,27 +61,33 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
   saveProgram: async (programToSave: IProgramEditDTO) => {
     try {
       set({ isLoading: true, error: null });
-      const savedProgram = await programService.save(
+      const { data } = await programService.save(
         programToSave as IProgramEditDTO
       );
       set((state) => {
         const idx = state.programs.findIndex(
-          (program) => program.id === savedProgram.id
+          (program) => program.id === data.id
         );
 
         if (idx !== -1) {
           const updatedPrograms = [...state.programs];
-          updatedPrograms[idx] = savedProgram as IProgramDTO;
+          updatedPrograms[idx] = data as IProgramDTO;
           return { programs: updatedPrograms };
         } else {
-          return { programs: [...state.programs, savedProgram as IProgramDTO] };
+          return { programs: [...state.programs, data as IProgramDTO] };
         }
       });
+      return data;
     } catch (error) {
       set({
         error:
-          error instanceof Error ? error.message : "Failed to save program",
+          error instanceof ApiError
+            ? { errors: error.errors, message: error.message }
+            : error instanceof Error
+            ? error.message
+            : "Failed to save program",
       });
+      return null;
     } finally {
       set({ isLoading: false });
     }

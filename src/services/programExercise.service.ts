@@ -7,7 +7,7 @@ export const programExerciseService = {
     return {
       id: appUtil.getTempId("temp"),
       order: order ?? 0,
-      note: "",
+      notes: "",
       exercise: exerciseService.getEmpty(),
       coreSets: [],
       daysOfWeek: [],

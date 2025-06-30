@@ -1,3 +1,5 @@
+import { ApiError } from "../utils/ApiError.util";
+
 const BASE_URL =
   import.meta.env.VITE_PUBLIC_API_BASE_URL || "http://localhost:3030";
 
@@ -12,6 +14,11 @@ export const HTTP_METHODS = ["GET", "POST", "PUT", "DELETE"] as const;
 export type THttpPostResponse<T> = {
   massage: string;
   data: T;
+};
+
+export type THttpErrorResponse = {
+  message?: string;
+  errors?: Record<string, string>;
 };
 type THttpMethod = (typeof HTTP_METHODS)[number];
 
@@ -59,12 +66,17 @@ const ajax = async <T>(
 
   const res = await fetch(url, options);
   if (!res.ok) {
-    // Validation Error
-    if (res.status === 422) {
-      // TODO: Handle validation error
-    } else {
-      throw new Error(res.statusText);
+    let errorBody: THttpErrorResponse;
+    try {
+      errorBody = await res.json();
+    } catch {
+      errorBody = {};
     }
+    throw new ApiError(
+      errorBody?.message || res.statusText,
+      res.status,
+      errorBody?.errors
+    );
   }
 
   return (await res.json()) as T;

@@ -66,7 +66,7 @@ export default function ProgramExerciseEdit({
 
   if (!programExerciseToEdit) return <div>Loading...</div>;
 
-  const { order, note, daysOfWeek, exercise, coreSets } = programExerciseToEdit;
+  const { order, notes, daysOfWeek, exercise, coreSets } = programExerciseToEdit;
 
   const isExercise = !!exercise?.id;
   return (
@@ -80,10 +80,10 @@ export default function ProgramExerciseEdit({
         <Input
           name="order"
           type="number"
-          defaultValue={order >= 0 ? order : programExerciseLength ?? 0}
+          defaultValue={order >= 1 ? order : programExerciseLength ?? 1}
           divStyle=" flex flex-row-reverse justify-end gap-2 items-center"
           className="border w-10 rounded text-center  "
-          min={0}
+          min={1}
           onChange={handleInputChange}
         >
           <Label labelPosition="input" htmlFor="order">
@@ -91,8 +91,8 @@ export default function ProgramExerciseEdit({
           </Label>
         </Input>
         <TextArea
-          defaultValue={note}
-          name="note"
+          defaultValue={notes}
+          name="notes"
           rows={3}
           placeholder=""
           className="w-full h-20 block peer outline-offset-0  p-2 resize-none  "

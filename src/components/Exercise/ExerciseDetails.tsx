@@ -5,14 +5,12 @@ import YoutubePlayer from "../UI/YoutubePlayer";
 
 interface ExerciseDetailsProps {
   exercise: IExerciseDTO;
-  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   modelRef?: React.RefObject<HTMLDivElement | null>;
   handleModel?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 export default function ExerciseDetails({
   exercise,
   modelRef,
-  setIsOpen,
   handleModel,
 }: ExerciseDetailsProps) {
   const { name, muscles, equipment, types, youtubeUrl } = exercise;
