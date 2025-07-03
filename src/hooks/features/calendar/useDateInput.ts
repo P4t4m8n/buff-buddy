@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 import type {
   IDateRange,
   TDateInputMode,
@@ -12,6 +12,8 @@ export const useDateInput = (
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [mode, setMode] = useState<TDateInputMode>(initialMode);
 
+  //TODO: Refactor logic to handle edit and not just create new date
+  // This is a workaround to handle the case where the selectedRange is null
   const handleDateClick = (day: number | undefined) => {
     const clickedDate = new Date(
       currentDate.getFullYear(),
@@ -35,7 +37,9 @@ export const useDateInput = (
     }
   };
 
-  const clearSelection = () => {
+  const clearSelection = (e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     handleDateSelect({ start: null, end: null });
   };
 

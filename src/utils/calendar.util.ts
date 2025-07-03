@@ -47,8 +47,8 @@ export const calendarUtil = {
       ...options,
     });
   },
-  convertDate: (date?: Date | string | null): Date => {
-    if (!date) return new Date();
+  convertDate: (date?: Date | string | null): Date|null => {
+    if (!date) return null;
     if (typeof date === "string") {
       return new Date(date);
     }

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { DAY_OF_WEEK } from "../../../../models/app.model";
 import { toTitle } from "../../../../utils/toTitle";
 import Button from "../../Button";
@@ -30,6 +30,7 @@ export default function DateInput({
   className = "",
 }: DateInputProps) {
   const calendarRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isOpen, _, handleModel] = useModel(calendarRef);
   const {
     currentDate,

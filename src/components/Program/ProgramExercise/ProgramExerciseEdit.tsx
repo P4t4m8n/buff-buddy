@@ -66,17 +66,17 @@ export default function ProgramExerciseEdit({
 
   if (!programExerciseToEdit) return <div>Loading...</div>;
 
-  const { order, notes, daysOfWeek, exercise, coreSets } = programExerciseToEdit;
+  const { order, notes, daysOfWeek, exercise, coreSets } =
+    programExerciseToEdit;
 
   const isExercise = !!exercise?.id;
   return (
     <div
-      className={` grid ${
-        isExercise ? "grid-cols-2 gap-4" : "grid-cols-1"
-      }  bg-main-orange p-4 rounded h-[25rem] max-h-svh grid-rows-1 `}
+      className={`grid w-[calc(100%-1rem)] max-w-96 grid-cols-1 bg-main-orange 
+         rounded max-h-svh items-center justify-items-center gap-4`}
       ref={modelRef}
     >
-      <div className=" flex flex-col items gap-4 w-small h-full justify-around">
+      <div className=" flex flex-col items gap-4 w-full justify-around px-4 pt-4">
         <Input
           name="order"
           type="number"
@@ -138,11 +138,9 @@ export default function ProgramExerciseEdit({
           handleChange={handleSetChange}
         />
       ) : null}
-      <div className="col-span-full flex justify-between">
+      <div className="col-span-full w-full flex justify-between px-4 pb-4">
         <Button
-          className="w-16 border rounded hover:border-red-orange
-                           cursor-pointer h-10
-                           hover:text-red-orange transition-all duration-300"
+          buttonStyle="warning"
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -151,23 +149,15 @@ export default function ProgramExerciseEdit({
         >
           Cancel
         </Button>
-        <Button
-          className="w-16 border rounded hover:border-red-orange
-                           cursor-pointer h-10
-                           hover:text-red-orange transition-all duration-300"
-          onClick={onDeleteProgramExercise}
-        >
-          Delete
-        </Button>
+        <div className="inline-flex gap-2">
+          <Button buttonStyle="warning" onClick={onDeleteProgramExercise}>
+            Delete
+          </Button>
 
-        <Button
-          className={`bg-inherit border-1 w-16 hover:bg-main-orange h-10
-                                  hover:text-white rounded transition-all duration-300
-                                  hover:cursor-pointer  `}
-          onClick={onUpsertProgramExercise}
-        >
-          Save
-        </Button>
+          <Button buttonStyle="save" onClick={onUpsertProgramExercise}>
+            Save
+          </Button>
+        </div>
       </div>
     </div>
   );

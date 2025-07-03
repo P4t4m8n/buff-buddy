@@ -1,4 +1,10 @@
-import type { ChangeEvent, MouseEvent } from "react";
+import {
+  Fragment,
+  useEffect,
+  useRef,
+  type ChangeEvent,
+  type MouseEvent,
+} from "react";
 import type { ICoreSetEditDTO } from "../../../models/set.model";
 import Button from "../../UI/Button";
 import ProgramExerciseCoreSetsEdit from "./ProgramExerciseCoreSetsEdit";
@@ -13,31 +19,41 @@ export default function ProgramExerciseCoreSetsEditList({
   handleSets,
   handleChange,
 }: ProgramExerciseCoreSetsEditListProps) {
+  const lastSetRef = useRef<HTMLLIElement | null>(null);
+
+  useEffect(() => {
+    if (lastSetRef.current) {
+      lastSetRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  }, [coreSets?.length]);
   const onAddSet = (e: MouseEvent) => {
     e.preventDefault();
     handleSets();
   };
 
+  console.log(" coreSets:", coreSets);
+  const clearedCoreSets = coreSets?.filter(
+    (set) => set.crudOperation !== "delete"
+  );
+
   return (
-    <div className="h-full w-small">
-      <h3 className="underline text-lg font-semibold">Core Sets</h3>
-      <ul className="overflow-y-auto grid gap-2 w-full h-[calc(100%-1.75rem)]">
-        {coreSets?.map((set) => (
-          <li
-            key={set.id}
-            className="flex flex-col h-fit w-full gap-1 border rounded p-1"
-          >
+    <div className="w-full h-full grid gap-2 px-4 ">
+      <h3 className="underline text-lg font-semibold px-4">Core Sets</h3>
+      <ul className="overflow-scroll grid gap-2 w-full h-72 ">
+        {clearedCoreSets?.map((set,idx) => (
+          <Fragment key={set.id}>
             <ProgramExerciseCoreSetsEdit
               set={set}
               onHandleChange={handleChange}
               removeSet={handleSets}
+              ref={idx === clearedCoreSets.length - 1 ? lastSetRef : undefined}
             />
-          </li>
+          </Fragment>
         ))}
-        <Button onClick={onAddSet} className=" h-6 hover:bg-green-600 rounded">
-          Add Set
-        </Button>
       </ul>
+      <Button onClick={onAddSet} buttonStyle="save" className="w-full ">
+        Add Set
+      </Button>
     </div>
   );
 }

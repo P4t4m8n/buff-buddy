@@ -3,7 +3,10 @@ import { useExerciseStore } from "../../../store/exercise.store";
 import { programExerciseService } from "../../../services/programExercise.service";
 import { coreSetsService } from "../../../services/coreSets.service";
 import { calendarUtil } from "../../../utils/calendar.util";
-import type { IProgramExerciseEditDTO } from "../../../models/programExercise.model";
+import type {
+  IProgramExerciseEditDTO,
+  TCrudOperation,
+} from "../../../models/programExercise.model";
 import type { IExerciseDTO } from "../../../models/exercise.model";
 import type { ICoreSetEditDTO } from "../../../models/set.model";
 
@@ -37,6 +40,7 @@ export const useProgramExerciseEdit = (
         : programExerciseService.getEmpty(programExercisesLength)
     );
     loadExercises();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSelectExercise = (exercise: IExerciseDTO) => {
@@ -70,7 +74,7 @@ export const useProgramExerciseEdit = (
         const emptySet = coreSetsService.getEmpty(coreSets?.length + 1);
         return {
           ...prev,
-          coreSets: [...coreSets, emptySet],
+          coreSets: organizeCoreSets([...coreSets, emptySet]),
         };
       }
 
@@ -82,22 +86,26 @@ export const useProgramExerciseEdit = (
 
       return {
         ...prev,
-        coreSets: coreSets
-          .toSpliced(idx!, 1, coreSet)
-          .sort((a, b) => a.order - b.order)
-          .map((ex, i) => {
-            const isChangeOrder = ex.order !== i + 1;
-
-            if (!isChangeOrder || ex.crudOperation === "delete") return ex;
-            return {
-              ...ex,
-              order: i + 1,
-              crudOperation:
-                ex.crudOperation !== "create" ? "update" : ex.crudOperation,
-            };
-          }),
+        coreSets: organizeCoreSets(coreSets.toSpliced(idx!, 1, coreSet)),
       };
     });
+  };
+
+  const organizeCoreSets = (coreSets: ICoreSetEditDTO[]): ICoreSetEditDTO[] => {
+    return coreSets
+      .sort((a, b) => (a?.order || 0) - (b?.order || 0))
+      .map((ex, i) => {
+        console.log(" .map ~ ex:", ex);
+        const isChangeOrder = ex.order !== i + 1;
+
+        if (!isChangeOrder || ex.crudOperation === "delete") return ex;
+        return {
+          ...ex,
+          order: i + 1,
+          crudOperation:
+            ex.crudOperation !== "create" ? "update" : ex.crudOperation,
+        };
+      });
   };
 
   const onDaysChange = (e: ChangeEvent) => {
@@ -142,6 +150,10 @@ export const useProgramExerciseEdit = (
           return {
             ...set,
             [key]: type === "checkbox" ? checked : parseInt(value, 10),
+            crudOperation:
+              set?.crudOperation !== "create"
+                ? "update"
+                : (set?.crudOperation as TCrudOperation),
           };
         }
         return set;

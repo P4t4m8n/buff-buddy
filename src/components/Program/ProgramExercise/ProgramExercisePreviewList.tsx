@@ -3,55 +3,53 @@ import type {
   IProgramExerciseEditDTO,
   TProgramExerciseEditRecord,
 } from "../../../models/programExercise.model";
+import { toTitle } from "../../../utils/toTitle";
 import WrapperModel from "../../UI/Wrappers/WrapperModel";
 import ProgramExerciseEdit from "./ProgramExerciseEdit";
 
 interface ProgramExerciseDetailsListProps {
-  programExercisesLength: number;
   handleProgramExercise: (programExercise: IProgramExerciseEditDTO) => void;
   groupedProgramExercises: TProgramExerciseEditRecord;
 }
 
 export default function ProgramExercisePreviewList({
-  programExercisesLength,
   handleProgramExercise,
   groupedProgramExercises,
 }: ProgramExerciseDetailsListProps) {
   return (
-    <div className="h-full grid grid-rows-[auto_1fr] gap-2">
-      <WrapperModel mode="create">
-        <ProgramExerciseEdit
-          programExerciseLength={programExercisesLength}
-          handleProgramExercise={handleProgramExercise}
-        />
-      </WrapperModel>
-
-      <ul className="grid grid-cols-7 justify-around gap-2 ">
-        {DAY_OF_WEEK.map((day) => (
-          <li
-            key={day}
-            className="text-center text-sm font-medium border rounded "
-          >
-            <h4>{day}</h4>
-            <ul>
-              {groupedProgramExercises[day].map((programExercise) => (
-                <li
-                  key={programExercise.id}
-                  className="border-b last:border-b-0 p-1"
+    <ul
+      className="grid grid-rows-[repeat(7,10rem)] grid-cols-1
+     justify-around gap-2 w-full h-[31rem] overflow-y-scroll "
+    >
+      {DAY_OF_WEEK.map((day) => (
+        <li
+          key={day}
+          className="text-center text-sm font-medium border rounded p-2 h-40 "
+        >
+          <h4 className="font-bold decoration-2 underline">{toTitle(day)}</h4>
+          <ul className="p-1">
+            {groupedProgramExercises[day].map((programExercise) => (
+              <li
+                key={programExercise.id}
+                className="border text-center w-20 grid
+                 justify-items-center gap-1 p-1 rounded"
+              >
+                <h5>{programExercise.exercise?.name}</h5>
+                <WrapperModel
+                  mode="edit"
+                  item={programExercise}
+                  buttonClass="w-full"
                 >
-                  <h5>{programExercise.exercise?.name}</h5>
-                  <WrapperModel mode="edit" item={programExercise}>
-                    <ProgramExerciseEdit
-                      programExercise={programExercise}
-                      handleProgramExercise={handleProgramExercise}
-                    />
-                  </WrapperModel>
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
-    </div>
+                  <ProgramExerciseEdit
+                    programExercise={programExercise}
+                    handleProgramExercise={handleProgramExercise}
+                  />
+                </WrapperModel>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
   );
 }

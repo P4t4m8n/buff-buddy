@@ -14,4 +14,52 @@
   --width-small-with-padding: 18rem;
 
   --min-width-small: var(--width-small);
+  --font-display: "Gloria Hallelujah", cursive;
+}
+
+.switch-label {
+  position: relative;
+  width: 6rem;
+  height: 2rem;
+  border-radius: 100vh;
+  background: var(--color-red-orange);
+  cursor: pointer;
+  transition: background-color 0.4s;
+  display: block;
+}
+input:checked + .switch-label {
+  background: #16a34a;
+}
+.switch-label::before {
+  content: "";
+  position: absolute;
+  display: inline;
+  height: 1.5rem;
+  width: 1.5rem;
+  left: 0.25rem;
+  top: 50%;
+  background: #fff;
+  border-radius: 100vh;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s;
+  transform: translateX(4rem) translateY(-50%);
+}
+input:checked + .switch-label::before {
+  transform: translateX(0) translateY(-50%);
+}
+.switch-label::after {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 1rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #fff;
+  transition: all 0.2s;
+  content: "Inactive";
+}
+input:checked + .switch-label::after {
+  left: auto;
+  right: 1rem;
+  content: "Active";
 }

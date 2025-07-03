@@ -40,6 +40,7 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
       }
       setProgramToEdit(program);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const handleDateSelect = (range: IDateRange) => {

@@ -88,7 +88,7 @@ export default function SelectWithSearch<T>({
   return (
     <div className=" group relative" ref={modelRef}>
       <Button
-        className="flex items-center justify-between w-full border rounded p-1 cursor-pointer "
+        className="flex items-center justify-between w-full h-10 border rounded p-1 cursor-pointer "
         onClick={handleModel}
       >
         <h3>{SelectedComponent ? SelectedComponent : null}</h3>

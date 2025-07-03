@@ -1,4 +1,4 @@
-import type { Dispatch } from "react";
+import type { Dispatch, MouseEvent } from "react";
 import type { TDateInputMode } from "../../../../models/calendar.model";
 import Button from "../../Button";
 
@@ -6,7 +6,7 @@ interface DateInputControlProps {
   mode: TDateInputMode;
   startDate?: Date | null;
   setMode: Dispatch<React.SetStateAction<TDateInputMode>>;
-  clearSelection: () => void;
+  clearSelection: (e:MouseEvent) => void;
 }
 
 export default function DateInputControl({
