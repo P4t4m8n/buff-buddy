@@ -38,7 +38,7 @@ export const useModel = (
     click: () => {},
     keydown: () => {},
   });
-
+  
   const handleModel = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -47,19 +47,21 @@ export const useModel = (
 
   const checkClickOutside = useCallback(
     (ev: MouseEvent) => {
+      // ev.preventDefault();
+      // ev.stopPropagation();
       const target = ev.target as HTMLElement;
-
+      
       // If clicking a link, delay modal closing until navigation starts
       // if (target.closest('a')) {
-      //   ev.preventDefault() // Prevent default anchor behavior
-      //   const href = target.closest('a')?.getAttribute('href') // Get link URL
-
-      //   if (href) {
-      //     router.navigate({ to: href })
-      //     setTimeout(() => setOpen(false), 100) // Delay modal close slightly
-      //     return
-      //   }
-      // }
+        //   ev.preventDefault() // Prevent default anchor behavior
+        //   const href = target.closest('a')?.getAttribute('href') // Get link URL
+        
+        //   if (href) {
+          //     router.navigate({ to: href })
+          //     setTimeout(() => setOpen(false), 100) // Delay modal close slightly
+          //     return
+          //   }
+          // }
 
       // Handle normal outside clicks
       if (!open || !ref.current || ref.current.contains(target)) return;
@@ -78,9 +80,11 @@ export const useModel = (
       setOpen(false);
     }
   }, []);
-
+  
   useEffect(() => {
+    console.log(" useEffect ~ ref.current:", ref.current)
     if (!ref.current || !open) return;
+
 
     const currentEventListeners = eventListenerRef.current;
     currentEventListeners.click = checkClickOutside;

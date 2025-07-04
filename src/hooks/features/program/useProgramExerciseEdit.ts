@@ -109,7 +109,6 @@ export const useProgramExerciseEdit = (
     return coreSets
       .sort((a, b) => (a?.order || 0) - (b?.order || 0))
       .map((ex, i) => {
-        console.log(" .map ~ ex:", ex);
         const isChangeOrder = ex.order !== i + 1;
 
         if (!isChangeOrder || ex.crudOperation === "delete") return ex;
@@ -210,7 +209,6 @@ export const useProgramExerciseEdit = (
     }
 
     programExercise.coreSets?.forEach((set) => {
-      console.log(" programExercise.coreSets?.forEach ~ set:", set);
       if (!set.id) {
         console.error("Set ID is required.");
         return;

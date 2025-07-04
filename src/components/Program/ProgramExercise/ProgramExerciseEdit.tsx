@@ -9,8 +9,7 @@ import ProgramExerciseCoreSetsEditList from "./ProgramExerciseCoreSetsEditList";
 import Button from "../../UI/Button";
 import type { Dispatch, MouseEvent } from "react";
 import type { IProgramExerciseEditDTO } from "../../../models/programExercise.model";
-import WrapperModel from "../../UI/Wrappers/WrapperModel";
-import ExerciseEdit from "../../Exercise/ExerciseEdit";
+import ExerciseEditModel from "../../Exercise/ExerciseEditModel";
 
 interface ProgramExerciseEditProps {
   programExercise?: IProgramExerciseEditDTO;
@@ -39,7 +38,6 @@ export default function ProgramExerciseEdit({
     programExerciseToEdit,
     exercises,
   } = useProgramExerciseEdit(programExercise, programExerciseLength);
-  console.log(" programExerciseErrors:", programExerciseErrors);
 
   const onUpsertProgramExercise = (e: MouseEvent) => {
     e.preventDefault();
@@ -82,7 +80,6 @@ export default function ProgramExerciseEdit({
     <div
       className={`grid w-[calc(100%-1rem)] max-w-96 grid-cols-1 bg-main-orange 
          rounded max-h-svh items-center justify-items-center gap-4`}
-      ref={modelRef}
     >
       <div className=" flex flex-col items gap-4 w-full justify-around px-4 pt-4">
         <Input
@@ -145,6 +142,7 @@ export default function ProgramExerciseEdit({
           handleSelect={handleSelectExercise}
           filterOptions={filterExercises}
           parentModelRef={modelRef}
+          
           error={programExerciseErrors?.exerciseId}
           SelectedComponent={
             exercise?.id ? exercise?.name : "Select an Exercise"
@@ -152,17 +150,7 @@ export default function ProgramExerciseEdit({
           SelectItemComponent={({ option }) => (
             <span className="w-full h-full">{option.name}</span>
           )}
-          addComponent={
-            <WrapperModel
-              mode="custom"
-              buttonStyle={null}
-              customIcon={<p>Add Exercise</p>}
-              buttonClass=" text-white w-full h-2 lg:h-2"
-              isPortal={true}
-            >
-              <ExerciseEdit />
-            </WrapperModel>
-          }
+          addComponent={<ExerciseEditModel isPortal={true}  />}
         />
       </div>
 

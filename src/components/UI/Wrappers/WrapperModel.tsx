@@ -15,11 +15,12 @@ interface WrapperModelProps<T> {
   buttonClass?: string;
   buttonStyle?: "model" | null;
   isPortal?: boolean;
+  isOverlay?: boolean;
 }
 
 interface ModelProps<T> {
   setIsOpen: (isOpen: boolean) => void;
-  modelRef: React.RefObject<HTMLDivElement | null>;
+  ref: React.RefObject<HTMLDivElement | HTMLFormElement | null>;
   handleModel: (e: React.MouseEvent<HTMLButtonElement>) => void;
   item?: T;
 }
@@ -32,9 +33,10 @@ export default function WrapperModel<T>({
   buttonClass,
   buttonStyle = "model",
   isPortal = false,
+  isOverlay = true,
 }: WrapperModelProps<T>) {
-  const modelRef = useRef<HTMLDivElement>(null);
-  const [isOpen, setIsOpen, handleModel] = useModel(modelRef);
+  const ref = useRef<HTMLDivElement | HTMLFormElement>(null);
+  const [isOpen, setIsOpen, handleModel] = useModel(ref);
 
   const getButtonIcon = () => {
     switch (mode) {
@@ -67,19 +69,30 @@ export default function WrapperModel<T>({
   };
 
   const getModel = () => {
-    return (
+    return isOverlay ? (
       <ModelOverlay isOpen={isOpen}>
         {React.Children.map(children, (child) =>
           React.isValidElement(child)
             ? React.cloneElement(child as React.ReactElement<ModelProps<T>>, {
                 setIsOpen,
-                modelRef,
+                ref,
                 handleModel,
                 item,
               })
             : child
         )}
       </ModelOverlay>
+    ) : (
+      React.Children.map(children, (child) =>
+        React.isValidElement(child)
+          ? React.cloneElement(child as React.ReactElement<ModelProps<T>>, {
+              setIsOpen,
+              ref,
+              handleModel,
+              item,
+            })
+          : child
+      )
     );
   };
 

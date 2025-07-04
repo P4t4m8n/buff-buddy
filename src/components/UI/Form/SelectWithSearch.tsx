@@ -11,6 +11,7 @@ import IconArrow from "../Icons/IconArrow";
 import IconPlus from "../Icons/IconPlus";
 import Input from "./Input";
 import Label from "./Label";
+import ExerciseEditModel from "../../Exercise/ExerciseEditModel";
 
 interface SelectWithSearchProps<T> {
   options: readonly T[];
@@ -117,7 +118,9 @@ export default function SelectWithSearch<T>({
             placeholder="Search by name"
           />
           <ul className="grid grid-rows-[repeat(auto-fill,2rem)] gap-2 h-full overflow-auto">
-            <li className="w-full h-full">{addComponent}</li>
+            <li className="w-full h-full">
+              <ExerciseEditModel isPortal={true} parentRef={modelRef} />
+            </li>
             {optionsList.map((option, index) => (
               <li key={index} className="w-full h-full">
                 <Button

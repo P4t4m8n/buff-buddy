@@ -14,7 +14,7 @@ interface SelectWithSearchProps {
   selectedOptions?: string[];
   inputName: TExerciseInfo;
   handleSelect: (inputName: TExerciseInfo, option: string) => void;
-  parentModelRef?: React.RefObject<HTMLDivElement | null>;
+  parentModelRef?: React.RefObject<HTMLDivElement | Element | null>;
 }
 
 export default function SelectMultiWithSearch({
@@ -59,7 +59,6 @@ export default function SelectMultiWithSearch({
     e: MouseEvent<HTMLButtonElement>,
     option: string
   ) => {
-
     e.preventDefault();
     e.stopPropagation();
     setOptionsSelected((prev) =>

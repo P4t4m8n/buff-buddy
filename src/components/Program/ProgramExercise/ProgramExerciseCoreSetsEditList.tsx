@@ -33,14 +33,12 @@ export default function ProgramExerciseCoreSetsEditList({
     handleSets();
   };
 
-  console.log(" coreSets:", coreSets);
   const clearedCoreSets = coreSets
     ?.filter((set) => set.crudOperation !== "delete")
     .map((set) => {
       const error = errors?.find((err) => err.id === set.id);
       return error ? { ...set, error: error } : set;
     });
-  console.log(" errors:", errors);
 
   return (
     <div className="w-full h-full grid gap-2 px-4 ">

@@ -32,6 +32,7 @@ export const useAuthStore = create<IAuthStore>((set) => ({
           error instanceof Error
             ? error.message
             : "Failed to load session user",
+        user: null,
       });
     } finally {
       set({ isLoading: false });

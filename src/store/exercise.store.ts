@@ -6,7 +6,7 @@ interface IExerciseStore {
   exercises: IExerciseDTO[];
   isLoading: boolean;
   loadExercises: () => Promise<void>;
-  saveExercise: (exerciseToSave: IExerciseDTO) => Promise<void>;
+  saveExercise: (exerciseToSave: IExerciseDTO) => Promise<boolean>;
   deleteExercise: (id: string) => Promise<void>;
   error: string | null;
 }
@@ -39,7 +39,7 @@ export const useExerciseStore = create<IExerciseStore>((set, get) => ({
     try {
       set({ isLoading: true, error: null });
       const { data } = await exerciseService.save(exerciseToSave);
- 
+
       set((state) => {
         const idx = state.exercises.findIndex(
           (exercise) => exercise.id === data.id
@@ -53,11 +53,13 @@ export const useExerciseStore = create<IExerciseStore>((set, get) => ({
           return { exercises: [...state.exercises, data] };
         }
       });
+      return true;
     } catch (error) {
       set({
         error:
           error instanceof Error ? error.message : "Failed to save exercise",
       });
+      return false;
     } finally {
       set({ isLoading: false });
     }
