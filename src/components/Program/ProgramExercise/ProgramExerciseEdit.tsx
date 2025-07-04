@@ -25,21 +25,27 @@ export default function ProgramExerciseEdit({
   handleProgramExercise,
 }: ProgramExerciseEditProps) {
   const {
-    programExerciseToEdit,
     handleSelectExercise,
     filterExercises,
     handleSets,
     onDaysChange,
     handleInputChange,
     handleSetChange,
+    validateProgramExercise,
+    programExerciseErrors,
+    coreSetsErrors,
+    programExerciseToEdit,
     exercises,
   } = useProgramExerciseEdit(programExercise, programExerciseLength);
+  console.log(" programExerciseErrors:", programExerciseErrors);
 
   const onUpsertProgramExercise = (e: MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
     if (!programExerciseToEdit) return;
+    const isValid = validateProgramExercise(programExerciseToEdit);
+    if (!isValid) return;
 
     const peToUpsert: IProgramExerciseEditDTO = {
       ...programExerciseToEdit,
@@ -81,27 +87,37 @@ export default function ProgramExerciseEdit({
           name="order"
           type="number"
           defaultValue={order >= 1 ? order : programExerciseLength ?? 1}
-          divStyle=" flex flex-row-reverse justify-end gap-2 items-center"
-          className="border w-10 rounded text-center  "
+          divStyle=" grid grid-cols-[auto_auto_1fr] justify-end gap-2 items-center"
+          className="border w-[4ch] aspect-square rounded text-center order-2  "
           min={1}
           onChange={handleInputChange}
         >
-          <Label labelPosition="input" htmlFor="order">
+          <Label labelPosition="input" className="order-1" htmlFor="order">
             Order:
           </Label>
+          {programExerciseErrors?.order ? (
+            <Label htmlFor="order" className="order-3 text-sm text-red-orange">
+              {programExerciseErrors?.order}
+            </Label>
+          ) : null}
         </Input>
         <TextArea
           defaultValue={notes}
           name="notes"
           rows={3}
           placeholder=""
-          className="w-full h-20 block peer outline-offset-0  p-2 resize-none  "
-          divStyle="bg-main-orange border-1 rounded h-auto col-span-full relative group "
+          className="w-full h-20 block peer outline-offset-0 p-2 resize-none border-1 rounded "
+          divStyle="bg-main-orange  h-auto col-span-full relative group "
           onChange={handleInputChange}
         >
           <Label labelPosition="textArea" isMoveUpEffect={true} htmlFor="note">
-            Note
+            Notes
           </Label>
+          {programExerciseErrors?.notes ? (
+            <Label htmlFor="order" className=" text-sm text-red-orange">
+              {programExerciseErrors?.notes}
+            </Label>
+          ) : null}
         </TextArea>
         <div className="grid gap-1">
           <Label htmlFor="daysOfWeek">Days of the week</Label>
@@ -114,6 +130,11 @@ export default function ProgramExerciseEdit({
             listStyle=""
             onChange={onDaysChange}
           />
+          {programExerciseErrors?.daysOfWeek ? (
+            <Label htmlFor="order" className=" text-sm text-red-orange">
+              {programExerciseErrors?.daysOfWeek}
+            </Label>
+          ) : null}
         </div>
         <SelectWithSearch
           options={exercises}
@@ -122,6 +143,7 @@ export default function ProgramExerciseEdit({
           handleSelect={handleSelectExercise}
           filterOptions={filterExercises}
           parentModelRef={modelRef}
+          error={programExerciseErrors?.exerciseId}
           SelectedComponent={
             exercise?.id ? exercise?.name : "Select an Exercise"
           }
@@ -136,6 +158,7 @@ export default function ProgramExerciseEdit({
           coreSets={coreSets}
           handleSets={handleSets}
           handleChange={handleSetChange}
+          errors={coreSetsErrors}
         />
       ) : null}
       <div className="col-span-full w-full flex justify-between px-4 pb-4">

@@ -13,11 +13,13 @@ interface ProgramExerciseCoreSetsEditListProps {
   coreSets?: ICoreSetEditDTO[];
   handleSets: (set?: ICoreSetEditDTO) => void;
   handleChange: (e: ChangeEvent) => void;
+  errors?: Partial<Record<string, string>>[] | null;
 }
 export default function ProgramExerciseCoreSetsEditList({
   coreSets,
   handleSets,
   handleChange,
+  errors,
 }: ProgramExerciseCoreSetsEditListProps) {
   const lastSetRef = useRef<HTMLLIElement | null>(null);
 
@@ -32,21 +34,26 @@ export default function ProgramExerciseCoreSetsEditList({
   };
 
   console.log(" coreSets:", coreSets);
-  const clearedCoreSets = coreSets?.filter(
-    (set) => set.crudOperation !== "delete"
-  );
+  const clearedCoreSets = coreSets
+    ?.filter((set) => set.crudOperation !== "delete")
+    .map((set) => {
+      const error = errors?.find((err) => err.id === set.id);
+      return error ? { ...set, error: error } : set;
+    });
+  console.log(" errors:", errors);
 
   return (
     <div className="w-full h-full grid gap-2 px-4 ">
       <h3 className="underline text-lg font-semibold px-4">Core Sets</h3>
-      <ul className="overflow-scroll grid gap-2 w-full h-72 ">
-        {clearedCoreSets?.map((set,idx) => (
+      <ul className="overflow-auto grid gap-2 w-full h-72 ">
+        {clearedCoreSets?.map((set, idx) => (
           <Fragment key={set.id}>
             <ProgramExerciseCoreSetsEdit
               set={set}
               onHandleChange={handleChange}
               removeSet={handleSets}
               ref={idx === clearedCoreSets.length - 1 ? lastSetRef : undefined}
+              errors={"error" in set ? set.error : undefined}
             />
           </Fragment>
         ))}

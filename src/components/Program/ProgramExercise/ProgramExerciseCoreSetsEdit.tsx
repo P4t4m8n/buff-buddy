@@ -12,12 +12,14 @@ interface IProgramExerciseCoreSetsEditProps {
   onHandleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   removeSet: (set: ICoreSetEditDTO) => void;
   ref?: RefObject<HTMLLIElement | null>;
+  errors?: Partial<Record<string, string>> | null;
 }
 export default function ProgramExerciseCoreSetsEdit({
   set,
   onHandleChange,
   removeSet,
   ref,
+  errors,
 }: IProgramExerciseCoreSetsEditProps) {
   const onRemoveSet = (e: MouseEvent) => {
     e.preventDefault();
@@ -34,9 +36,9 @@ export default function ProgramExerciseCoreSetsEdit({
   const inputStyle = "border w-[4ch] aspect-square rounded text-center";
 
   const inputs = [
-    { name: "reps", value: reps },
-    { name: "weight", value: weight },
-    { name: "restTime", value: restTime },
+    { name: "reps", value: reps, isError: !!errors?.reps },
+    { name: "weight", value: weight, isError: !!errors?.weight },
+    { name: "restTime", value: restTime, isError: !!errors?.restTime },
   ];
   return (
     <li
@@ -80,7 +82,7 @@ export default function ProgramExerciseCoreSetsEdit({
             onChange={onHandleChange}
           >
             <Label
-              className="text-sm lg:text-base"
+              className={`text-sm  ${input.isError ? "text-red-orange" : ""}`}
               htmlFor={`${input.name}-${id}`}
             >
               {toTitle(input.name)}

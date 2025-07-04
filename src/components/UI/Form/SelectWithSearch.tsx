@@ -10,6 +10,7 @@ import Button from "../Button";
 import IconArrow from "../Icons/IconArrow";
 import IconPlus from "../Icons/IconPlus";
 import Input from "./Input";
+import Label from "./Label";
 
 interface SelectWithSearchProps<T> {
   options: readonly T[];
@@ -17,6 +18,7 @@ interface SelectWithSearchProps<T> {
   inputName: string;
   handleSelect: (option: T) => void;
   filterOptions: (searchValue: string) => T[];
+  error?: string | null;
 
   parentModelRef?: React.RefObject<HTMLDivElement | null>;
   SelectedComponent?: React.ReactNode;
@@ -33,6 +35,7 @@ export default function SelectWithSearch<T>({
   parentModelRef,
   SelectedComponent,
   SelectItemComponent,
+  error,
 }: SelectWithSearchProps<T>) {
   const [optionsList, setOptionsList] = useState<T[]>([]);
 
@@ -95,6 +98,11 @@ export default function SelectWithSearch<T>({
 
         <IconArrow className="w-6 h-6 group-has-[ul]:rotate-180 " />
       </Button>
+      {error ? (
+        <Label htmlFor="order" className=" text-sm text-red-orange">
+          {error}
+        </Label>
+      ) : null}
       {open ? (
         <div
           className={`absolute z-10 

@@ -11,7 +11,6 @@ import type { IExerciseDTO } from "../../../models/exercise.model";
 import type { ICoreSetEditDTO } from "../../../models/set.model";
 
 interface IProgramExerciseEditHook {
-  programExerciseToEdit: IProgramExerciseEditDTO | null;
   setProgramExerciseToEdit: React.Dispatch<
     React.SetStateAction<IProgramExerciseEditDTO | null>
   >;
@@ -21,7 +20,15 @@ interface IProgramExerciseEditHook {
   onDaysChange: (e: ChangeEvent) => void;
   handleInputChange: (e: ChangeEvent) => void;
   handleSetChange: (e: ChangeEvent) => void;
+  validateProgramExercise: (
+    programExercise: IProgramExerciseEditDTO
+  ) => boolean;
+  programExerciseToEdit: IProgramExerciseEditDTO | null;
   exercises: IExerciseDTO[];
+  programExerciseErrors: Partial<
+    Record<keyof IProgramExerciseEditDTO, string>
+  > | null;
+  coreSetsErrors: Partial<Record<string, string>>[] | null;
 }
 
 export const useProgramExerciseEdit = (
@@ -32,6 +39,13 @@ export const useProgramExerciseEdit = (
     useState<IProgramExerciseEditDTO | null>(null);
   const exercises = useExerciseStore((state) => state.exercises);
   const loadExercises = useExerciseStore((state) => state.loadExercises);
+  const [programExerciseErrors, setProgramExerciseErrors] = useState<Partial<
+    Record<keyof IProgramExerciseEditDTO, string>
+  > | null>(null);
+
+  const [coreSetsErrors, setCoreSetsErrors] = useState<
+    Partial<Record<string, string>>[] | null
+  >(null);
 
   useEffect(() => {
     setProgramExerciseToEdit(
@@ -165,8 +179,85 @@ export const useProgramExerciseEdit = (
     });
   }, []);
 
+  //TODO - refactor this function to improve readability and reduce complexity
+  const validateProgramExercise = (
+    programExercise: IProgramExerciseEditDTO
+  ) => {
+    const _programExerciseErrors: Partial<
+      Record<keyof IProgramExerciseEditDTO, string>
+    > = {};
+    const _coreSetsErrors: Partial<Record<string, string>>[] = [];
+
+    if (!programExercise.order || programExercise.order < 1) {
+      _programExerciseErrors.order = "Order must be a positive number.";
+    }
+    if (!programExercise.notes) {
+      _programExerciseErrors.notes = "Notes cannot be empty.";
+    }
+    if (!programExercise.exerciseId) {
+      _programExerciseErrors.exerciseId = "Exercise must be selected.";
+    }
+
+    if (
+      !programExercise.daysOfWeek ||
+      programExercise.daysOfWeek.length === 0
+    ) {
+      _programExerciseErrors.daysOfWeek =
+        "At least one day of the week must be selected.";
+    }
+    if (!programExercise.coreSets || programExercise.coreSets.length === 0) {
+      _programExerciseErrors.coreSets = "At least one set is required.";
+    }
+
+    programExercise.coreSets?.forEach((set) => {
+      console.log(" programExercise.coreSets?.forEach ~ set:", set);
+      if (!set.id) {
+        console.error("Set ID is required.");
+        return;
+      }
+
+      const error: Partial<Record<string, string>> = {
+        id: set.id,
+      };
+
+      let errorFlag = false;
+      if (!set.reps || set.reps < 1) {
+        error.reps = "Reps must be a positive number.";
+        errorFlag = true;
+      }
+      if (!set.weight || set.weight < 0) {
+        error.weight = "Weight cannot be negative.";
+        errorFlag = true;
+      }
+      if (!set.restTime || set.restTime < 0) {
+        error.restTime = "Rest time cannot be negative.";
+        errorFlag = true;
+      }
+
+      if (errorFlag) {
+        _coreSetsErrors.push(error);
+      }
+    });
+
+    const isProgramExerciseValid =
+      Object.keys(_programExerciseErrors).length === 0;
+    const isCoreSetsValid = Object.keys(_coreSetsErrors).length === 0;
+
+    if (!isProgramExerciseValid) {
+      setProgramExerciseErrors(_programExerciseErrors);
+    } else {
+      setProgramExerciseErrors(null);
+    }
+    if (!isCoreSetsValid) {
+      setCoreSetsErrors(_coreSetsErrors);
+    } else {
+      setCoreSetsErrors(null);
+    }
+
+    return isProgramExerciseValid && isCoreSetsValid;
+  };
+
   return {
-    programExerciseToEdit,
     setProgramExerciseToEdit,
     handleSelectExercise,
     filterExercises,
@@ -174,6 +265,10 @@ export const useProgramExerciseEdit = (
     onDaysChange,
     handleInputChange,
     handleSetChange,
+    validateProgramExercise,
+    programExerciseErrors,
+    coreSetsErrors,
+    programExerciseToEdit,
     exercises,
   };
 };
