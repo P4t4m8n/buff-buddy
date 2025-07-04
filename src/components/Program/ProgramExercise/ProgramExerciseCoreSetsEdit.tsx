@@ -3,6 +3,7 @@ import type { ICoreSetEditDTO } from "../../../models/set.model";
 import Button from "../../UI/Button";
 import Input from "../../UI/Form/Input";
 import Label from "../../UI/Form/Label";
+import { toTitle } from "../../../utils/toTitle";
 
 const INFINITY = 100000;
 
@@ -30,7 +31,13 @@ export default function ProgramExerciseCoreSetsEdit({
   };
 
   const { id, order, reps, weight, restTime, isWarmup } = set;
-  const inputStyle = "border  w-[4ch] aspect-square rounded text-center";
+  const inputStyle = "border w-[4ch] aspect-square rounded text-center";
+
+  const inputs = [
+    { name: "reps", value: reps },
+    { name: "weight", value: weight },
+    { name: "restTime", value: restTime },
+  ];
   return (
     <li
       ref={ref}
@@ -61,39 +68,26 @@ export default function ProgramExerciseCoreSetsEdit({
       </div>
       <span className=" border-b"></span>
       <div className="flex  justify-between items-end ">
-        <Input
-          name={"reps-" + id}
-          type="number"
-          value={reps || ""}
-          divStyle=" flex flex-col-reverse items-center  "
-          className={inputStyle}
-          min={1}
-          onChange={onHandleChange}
-        >
-          <Label htmlFor={"reps-" + id}>Reps</Label>
-        </Input>
-        <Input
-          name={"weight-" + id}
-          type="number"
-          value={weight || ""}
-          divStyle=" flex flex-col-reverse  items-center"
-          className={inputStyle}
-          min={1}
-          onChange={onHandleChange}
-        >
-          <Label htmlFor={"weight-" + id}>Weight</Label>
-        </Input>
-        <Input
-          name={"restTime-" + id}
-          type="number"
-          value={restTime || ""}
-          divStyle=" flex flex-col-reverse items-center "
-          className={inputStyle}
-          min={0}
-          onChange={onHandleChange}
-        >
-          <Label htmlFor={"restTime-" + set.id}>Rest Time</Label>
-        </Input>
+        {inputs.map((input) => (
+          <Input
+            key={input.name + id}
+            name={`${input.name}-${id}`}
+            type="number"
+            value={input.value || ""}
+            divStyle=" flex flex-col-reverse gap-1 items-center  "
+            className={inputStyle}
+            min={input.name === "reps" ? 1 : 0}
+            onChange={onHandleChange}
+          >
+            <Label
+              className="text-sm lg:text-base"
+              htmlFor={`${input.name}-${id}`}
+            >
+              {toTitle(input.name)}
+            </Label>
+          </Input>
+        ))}
+
         <Button onClick={onRemoveSet} buttonStyle="warning">
           Remove
         </Button>

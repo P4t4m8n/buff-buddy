@@ -46,7 +46,7 @@ export default function DateInput({
   );
 
   return (
-    <div className={`relative w-full ${className}`} ref={calendarRef}>
+    <div className={`relative w-full   ${className}`} ref={calendarRef}>
       <Button
         onClick={handleModel}
         className="border p-2 rounded w-full h-10  flex justify-between items-center cursor-pointer"

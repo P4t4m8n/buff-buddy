@@ -54,7 +54,10 @@ export default function ProgramEdit() {
       onSubmit={onSaveProgram}
       className="h-main bg-main-orange px-4 pt-4 grid grid-rows-[auto_1fr] gap-4"
     >
-      <header className="grid  grid-cols-3 lg:grid-cols-[1fr_1fr_8.5rem] gap-4 justify-around">
+      <header
+        className="grid grid-rows-[2rem_2.5rem_2.5rem_5rem_2.5rem] lg:grid-rows-[2rem_2.5rem_9.5rem] grid-cols-3
+                   lg:grid-cols-[1fr_1fr_8.5rem] lg:h-64 gap-4 justify-around"
+      >
         <h2 className="text-2xl font-semibold col-span-full">{headerText}</h2>
         <Input
           value={name || ""}
@@ -64,8 +67,8 @@ export default function ProgramEdit() {
           placeholder=""
           required
           onChange={handleInputChange}
-          className="w-full h-10 peer outline-offset-0  pl-2"
-          divStyle="bg-main-orange border-1 rounded h-fit order-1 w-full col-span-2"
+          className="w-full h-10 peer outline-offset-0 pl-2"
+          divStyle="bg-main-orange border-1 rounded h-fit order-1 w-full col-span-2 lg:col-span-1"
         >
           <Label isMoveUpEffect={true} htmlFor="name">
             Program Name
@@ -74,7 +77,7 @@ export default function ProgramEdit() {
         <DateInput
           handleDateSelect={handleDateSelect}
           selectedRange={dateRange}
-          className=" col-span-full order-3"
+          className=" col-span-full lg:col-span-1 order-3 lg:order-2"
         />
         <Input
           onChange={handleInputChange}
@@ -82,7 +85,7 @@ export default function ProgramEdit() {
           type="checkBox"
           name="isActive"
           id="isActive"
-          divStyle="flex items-center order-2  justify-self-end"
+          divStyle="flex items-center order-2 justify-self-end lg:justify-self-center"
           hidden
           className="hidden peer"
         >
@@ -95,17 +98,20 @@ export default function ProgramEdit() {
           rows={3}
           placeholder="Add a note..."
           className="w-full h-20 block peer outline-offset-0  pl-2 peer resize-none"
-          divStyle="bg-main-orange border-1 rounded h-auto col-span-full order-4"
+          divStyle="bg-main-orange border-1 rounded h-auto col-span-full lg:col-span-2 order-4"
         ></TextArea>
-        <div className="inline-flex items-center gap-2 order-5 w-full col-span-full">
-          <WrapperModel mode="create" buttonClass="mr-auto">
+        <div
+          className="inline-flex lg:grid items-center lg:justify-items-center gap-2 order-5
+                     w-full col-span-full lg-col-span-1 lg:col-start-3"
+        >
+          <WrapperModel mode="create" buttonClass="mr-auto lg:mr-0 lg:w-full">
             <ProgramExerciseEdit
               programExerciseLength={(cleanedProgramExercises?.length || 0) + 1}
               handleProgramExercise={handleProgramExercise}
             />
           </WrapperModel>
           <Button
-            className="w-16 border rounded hover:border-red-orange
+            className="w-16 border rounded lg:w-full hover:border-red-orange
                            cursor-pointer h-10
                            hover:text-red-orange transition-all duration-300"
             onClick={(e) => {
@@ -118,7 +124,7 @@ export default function ProgramEdit() {
           <Button
             type="submit"
             aria-disabled={isLoading}
-            className={`bg-inherit border-1 w-16 hover:bg-main-orange h-10
+            className={`bg-inherit border-1 w-16 lg:w-full hover:bg-main-orange h-10
                                   hover:text-white rounded transition-all duration-300
                                   hover:cursor-pointer ${
                                     isLoading ? "opacity-50" : ""
