@@ -25,6 +25,7 @@ export default function ProgramEdit() {
     handleInputChange,
   } = useProgramEdit(id);
   const error = useProgramStore((state) => state.error);
+  console.log(" ProgramEdit ~ error:", error);
 
   //TODO?? add loading component
   if (isLoading || !programToEdit) {
@@ -55,8 +56,8 @@ export default function ProgramEdit() {
       className="h-main bg-main-orange px-4 pt-4 grid grid-rows-[auto_1fr] gap-4"
     >
       <header
-        className="grid grid-rows-[2rem_2.5rem_2.5rem_5rem_2.5rem] lg:grid-rows-[2rem_2.5rem_9.5rem] grid-cols-3
-                   lg:grid-cols-[1fr_1fr_8.5rem] lg:h-64 gap-4 justify-around"
+        className="grid grid-rows-[2rem_2.5rem_2.5rem_5rem_2.5rem] lg:grid-rows-[2rem_3.5rem_9.5rem] grid-cols-3
+                   lg:grid-cols-[1fr_1fr_8.5rem] lg:h-68 gap-4 justify-around"
       >
         <h2 className="text-2xl font-semibold col-span-full">{headerText}</h2>
         <Input
@@ -65,19 +66,32 @@ export default function ProgramEdit() {
           name="name"
           id="name"
           placeholder=""
-          required
           onChange={handleInputChange}
-          className="w-full h-10 peer outline-offset-0 pl-2"
-          divStyle="bg-main-orange border-1 rounded h-fit order-1 w-full col-span-2 lg:col-span-1"
+          className={`w-full h-10 peer outline-offset-0 pl-2 border-1 rounded ${
+            error?.errors?.name ? "border-red-orange outline-red-orange" : ""
+          }`}
+          divStyle="bg-main-orange h-fit order-1 w-full col-span-2 lg:col-span-1"
         >
-          <Label isMoveUpEffect={true} htmlFor="name">
-            Program Name
+          <Label
+            isMoveUpEffect={true}
+            htmlFor="name"
+            className={`${
+              error?.errors?.name
+                ? " text-sm w-fit text-red-orange peer-[:not(:placeholder-shown)]:text-red-orange peer-focus:text-red-orange"
+                : ""
+            }`}
+          >
+            {error?.errors?.name ? " Program name is required" : "Program Name"}
           </Label>
         </Input>
         <DateInput
           handleDateSelect={handleDateSelect}
           selectedRange={dateRange}
           className=" col-span-full lg:col-span-1 order-3 lg:order-2"
+          errorRange={{
+            startDate: error?.errors?.startDate,
+            endDate: error?.errors?.endDate,
+          }}
         />
         <Input
           onChange={handleInputChange}
@@ -133,20 +147,6 @@ export default function ProgramEdit() {
             Save
           </Button>
         </div>
-        {error ? (
-          <div className="text-red-orange text-center h-fit">
-            <p>
-              {typeof error === "string"
-                ? error
-                : Object.entries(error.errors || {}).map(([field, message]) => (
-                    <span key={field}>
-                      {field}: {message}
-                      <br />
-                    </span>
-                  ))}
-            </p>
-          </div>
-        ) : null}
       </header>
       <ProgramExercisePreviewList
         groupedProgramExercises={groupedProgramExercises}

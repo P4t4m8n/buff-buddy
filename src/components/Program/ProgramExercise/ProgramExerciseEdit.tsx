@@ -9,6 +9,8 @@ import ProgramExerciseCoreSetsEditList from "./ProgramExerciseCoreSetsEditList";
 import Button from "../../UI/Button";
 import type { Dispatch, MouseEvent } from "react";
 import type { IProgramExerciseEditDTO } from "../../../models/programExercise.model";
+import WrapperModel from "../../UI/Wrappers/WrapperModel";
+import ExerciseEdit from "../../Exercise/ExerciseEdit";
 
 interface ProgramExerciseEditProps {
   programExercise?: IProgramExerciseEditDTO;
@@ -150,6 +152,17 @@ export default function ProgramExerciseEdit({
           SelectItemComponent={({ option }) => (
             <span className="w-full h-full">{option.name}</span>
           )}
+          addComponent={
+            <WrapperModel
+              mode="custom"
+              buttonStyle={null}
+              customIcon={<p>Add Exercise</p>}
+              buttonClass=" text-white w-full h-2 lg:h-2"
+              isPortal={true}
+            >
+              <ExerciseEdit />
+            </WrapperModel>
+          }
         />
       </div>
 

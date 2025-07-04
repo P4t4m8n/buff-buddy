@@ -12,7 +12,7 @@ interface IProgramStore {
   ) => Promise<IProgramDTO | IProgramEditDTO | null>;
   saveProgram: (programToSave: IProgramEditDTO) => Promise<IProgramDTO | null>;
   deleteProgram: (id: string) => Promise<void>;
-  error: string | Record<string, string> | { errors?: Record<string, string>; message: string } | null;
+  error: { errors?: Record<string, string>; message: string } | null;
 }
 
 export const useProgramStore = create<IProgramStore>((set, get) => ({

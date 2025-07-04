@@ -75,7 +75,7 @@ export default function ExerciseEdit({
   };
 
   return (
-    <div ref={modelRef} className="w-small">
+    <div ref={modelRef} className="w-[calc(100%-1rem)] max-w-96">
       <form
         onSubmit={onSubmit}
         className="bg-amber w-full p-4 grid gap-4 rounded"

@@ -13,7 +13,7 @@ const BUTTON_STYLES = {
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
   className?: string;
-  buttonStyle?: keyof typeof BUTTON_STYLES;
+  buttonStyle?: keyof typeof BUTTON_STYLES | null;
 }
 
 export default function Button({
@@ -22,7 +22,7 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const _buttonStyle = buttonStyle ? BUTTON_STYLES[buttonStyle] : "";
-  const style = ` ${props.className} cursor-pointer ${_buttonStyle}`;
+  const style = `cursor-pointer ${_buttonStyle} ${props.className}`;
 
   return (
     <button {...props} className={style + " "}>

@@ -22,25 +22,26 @@ interface SelectWithSearchProps<T> {
 
   parentModelRef?: React.RefObject<HTMLDivElement | null>;
   SelectedComponent?: React.ReactNode;
+  addComponent?: React.ReactNode;
   SelectItemComponent: React.ComponentType<{
     option: T;
   }>;
 }
 export default function SelectWithSearch<T>({
   options,
-  selectedOptionName,
-  inputName,
+
   handleSelect,
   filterOptions,
   parentModelRef,
   SelectedComponent,
   SelectItemComponent,
+  addComponent,
   error,
 }: SelectWithSearchProps<T>) {
   const [optionsList, setOptionsList] = useState<T[]>([]);
 
   const modelRef = useRef<HTMLDivElement>(null);
-  const fieldRef = useRef<HTMLDivElement>(null);
+  // const fieldRef = useRef<HTMLDivElement>(null);
 
   const [open, setOpen] = useModel(modelRef);
   const [modelPositionClass, setModelPositionClass] = useState(
@@ -116,6 +117,7 @@ export default function SelectWithSearch<T>({
             placeholder="Search by name"
           />
           <ul className="grid grid-rows-[repeat(auto-fill,2rem)] gap-2 h-full overflow-auto">
+            <li className="w-full h-full">{addComponent}</li>
             {optionsList.map((option, index) => (
               <li key={index} className="w-full h-full">
                 <Button

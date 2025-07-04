@@ -14,7 +14,6 @@ interface WrapperModelProps<T> {
   customIcon?: React.ReactNode;
   buttonClass?: string;
   buttonStyle?: "model" | null;
-  isPortal?: boolean;
 }
 
 interface ModelProps<T> {
@@ -24,14 +23,13 @@ interface ModelProps<T> {
   item?: T;
 }
 
-export default function WrapperModel<T>({
+export default function WrapperModelPortal<T>({
   item,
   children,
   mode = "create",
   customIcon,
   buttonClass,
   buttonStyle = "model",
-  isPortal = false,
 }: WrapperModelProps<T>) {
   const modelRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen, handleModel] = useModel(modelRef);
@@ -66,23 +64,6 @@ export default function WrapperModel<T>({
     }
   };
 
-  const getModel = () => {
-    return (
-      <ModelOverlay isOpen={isOpen}>
-        {React.Children.map(children, (child) =>
-          React.isValidElement(child)
-            ? React.cloneElement(child as React.ReactElement<ModelProps<T>>, {
-                setIsOpen,
-                modelRef,
-                handleModel,
-                item,
-              })
-            : child
-        )}
-      </ModelOverlay>
-    );
-  };
-
   return (
     <>
       <Button
@@ -93,9 +74,24 @@ export default function WrapperModel<T>({
         {getButtonIcon()}
       </Button>
       {isOpen
-        ? isPortal
-          ? createPortal(getModel(), document.body)
-          : getModel()
+        ? createPortal(
+            <ModelOverlay isOpen={isOpen}>
+              {React.Children.map(children, (child) =>
+                React.isValidElement(child)
+                  ? React.cloneElement(
+                      child as React.ReactElement<ModelProps<T>>,
+                      {
+                        setIsOpen,
+                        modelRef,
+                        handleModel,
+                        item,
+                      }
+                    )
+                  : child
+              )}
+            </ModelOverlay>,
+            document.body
+          )
         : null}
     </>
   );

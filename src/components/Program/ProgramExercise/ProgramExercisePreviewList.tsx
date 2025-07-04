@@ -19,7 +19,7 @@ export default function ProgramExercisePreviewList({
   return (
     <ul
       className="grid grid-rows-[repeat(7,10rem)] lg:grid-rows-1 grid-cols-1 lg:grid-cols-7
-     justify-around gap-2 w-full h-[31rem] lg:h-[calc(100%)] lg:pb-4 overflow-y-scroll "
+     justify-around gap-2 w-full h-[31rem] lg:h-[calc(100%)] lg:pb-4 overflow-y-auto "
     >
       {DAY_OF_WEEK.map((day) => (
         <li

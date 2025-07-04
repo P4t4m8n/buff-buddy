@@ -20,6 +20,10 @@ interface DateInputProps {
   disabled?: boolean;
   className?: string;
   selectedRange?: IDateRange;
+  errorRange?: {
+    startDate?: string;
+    endDate?: string;
+  } | null;
 }
 
 export default function DateInput({
@@ -28,6 +32,7 @@ export default function DateInput({
   selectedRange,
   disabled = false,
   className = "",
+  errorRange,
 }: DateInputProps) {
   const calendarRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -45,11 +50,36 @@ export default function DateInput({
     toTitle(day.substring(0, 3))
   );
 
+  const buildError = () => {
+    if (!errorRange) return null;
+    const { startDate, endDate } = errorRange;
+    return (
+      <div className="text-red-orange text-sm flex gap-4">
+        {startDate && (
+          <span className="inline-flex">
+            <h6 className=" ">Start Date</h6>
+            <p className=" ">:invalid Date</p>
+          </span>
+        )}
+        {endDate && (
+          <span className="inline-flex">
+            <h6 className=" ">End Date</h6>
+            <p className=" ">:invalid Date</p>
+          </span>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className={`relative w-full   ${className}`} ref={calendarRef}>
       <Button
         onClick={handleModel}
-        className="border p-2 rounded w-full h-10  flex justify-between items-center cursor-pointer"
+        className={`border ${
+          errorRange?.startDate || errorRange?.endDate
+            ? "border-red-orange"
+            : ""
+        } p-2 rounded w-full h-10 flex justify-between items-center cursor-pointer`}
       >
         <DateInputDateDisplay
           mode={mode}
@@ -63,6 +93,7 @@ export default function DateInput({
            hover:border-main-black cursor-pointer"
         />
       </Button>
+      {buildError()}
 
       {isOpen && !disabled && (
         <div
