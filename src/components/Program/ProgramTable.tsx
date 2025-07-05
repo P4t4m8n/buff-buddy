@@ -10,9 +10,9 @@ export default function ProgramTable({
   programs,
   onDeleteProgram,
 }: ExerciseTableProps) {
-  const tableHeader = ["Name", "Dates", "IsActive", "Actions"];
+  const tableHeader = ["Name", "Dates", "Active", "Actions"];
   const gridCols =
-    "grid-cols-[1fr_5.75rem] md:grid-cols-[minmax(10rem,1fr)_repeat(2,_1fr)_12.5rem]";
+    "grid-cols-[1fr_5.75rem] sm:grid-cols-[minmax(8rem,1fr)_minmax(13.5rem,1fr)_minmax(3rem,1fr)_12.5rem]";
   return (
     <Table
       tableHeader={tableHeader}
@@ -20,6 +20,7 @@ export default function ProgramTable({
       items={programs}
       onDelete={onDeleteProgram}
       ItemComponent={ProgramPreview}
+      whenHidden="sm"
     />
   );
 }

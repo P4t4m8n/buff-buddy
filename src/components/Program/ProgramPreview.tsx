@@ -6,6 +6,9 @@ import Button from "../UI/Button";
 import IconTrash from "../UI/Icons/IconTrash";
 import { useProgramStore } from "../../store/program.store";
 import { calendarUtil } from "../../utils/calendar.util";
+import { toTitle } from "../../utils/toTitle";
+import IconCheckMark from "../UI/Icons/IconCheckMark";
+import IconInactive from "../UI/Icons/IconInactive";
 
 interface ProgramPreviewProps {
   item: IProgramDTO;
@@ -22,18 +25,27 @@ export default function ProgramPreview({
   const dates = `${calendarUtil.formatDate(
     startDate
   )} - ${calendarUtil.formatDate(endDate)}`;
-  const isActiveStr = isActive ? "Active" : "Inactive";
+  const isActiveStr = isActive ? (
+    <IconCheckMark className="border-2 border-green-600 rounded-full stroke-none fill-green-600 p-1  w-12 aspect-square" />
+  ) : (
+    <IconInactive className=" stroke-none fill-red-orange w-12 aspect-square" />
+  );
+
   return (
     <li
       className={`p-4 grid ${gridCols} w-full gap-6 shadow-[0_0_1px_1px_rgba(0,0,0,.1)]
                   hover:shadow-[0_0_2px_2px_rgba(0,0,0,.3)] transition-all duration-300 
                   rounded items-center`}
     >
-      <p>{name}</p>
-      <p>{dates}</p>
-      <p>{isActiveStr}</p>
+      <p className="truncate ">{toTitle(name)}</p>
+      <p className="truncate hidden sm:inline">{dates}</p>
+      <p className="truncate hidden sm:inline">{isActiveStr}</p>
+
       <div className="grid grid-cols-2 lg:grid-cols-3 justify-items-center min-h-full h-full gap-1 ">
-        <Link to={`/programs/edit/${id}`}>
+        <Link
+          to={`/programs/edit/${id}`}
+          className="place-self-end lg:place-self-auto"
+        >
           <Button buttonStyle="model">
             <IconEdit
               className="fill-none stroke-amber h-full aspect-square
@@ -41,7 +53,10 @@ export default function ProgramPreview({
             />
           </Button>
         </Link>
-        <Link to={`/programs/${id}`}>
+        <Link
+          to={`/programs/${id}`}
+          className=" place-self-start lg:place-self-auto"
+        >
           <Button buttonStyle="model">
             <IconDetails
               className="fill-amber stroke-amber h-full aspect-square

@@ -39,7 +39,6 @@ export default function ExerciseEdit({
   }, [exercise]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log(" onSubmit ~ e:", e);
     e.preventDefault();
     e.stopPropagation();
     try {
@@ -76,7 +75,6 @@ export default function ExerciseEdit({
     });
   };
 
-  console.log(" modelRef:", modelRef);
   return (
     <form
       ref={modelRef as React.RefObject<HTMLFormElement>}

@@ -190,9 +190,7 @@ export const useProgramExerciseEdit = (
     if (!programExercise.order || programExercise.order < 1) {
       _programExerciseErrors.order = "Order must be a positive number.";
     }
-    if (!programExercise.notes) {
-      _programExerciseErrors.notes = "Notes cannot be empty.";
-    }
+
     if (!programExercise.exerciseId) {
       _programExerciseErrors.exerciseId = "Exercise must be selected.";
     }

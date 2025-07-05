@@ -16,7 +16,6 @@ export default function ProgramExerciseEditModel({
   programExercise,
   programExerciseLength,
   handleProgramExercise,
-  testRef
 }: ProgramExerciseEditModelProps) {
   const modelRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen, handleModel] = useModel(modelRef);
@@ -26,7 +25,9 @@ export default function ProgramExerciseEditModel({
     <>
       <Button
         onClick={handleModel}
-        className="mr-auto lg:mr-0 lg:w-full"
+        className={`${
+          mode === "create" ? "mr- uto" : " mr-0 w-full"
+        } lg:mr-0 lg:w-full`}
         buttonStyle="model"
       >
         {getButtonIcon(mode)}
@@ -38,7 +39,6 @@ export default function ProgramExerciseEditModel({
           handleProgramExercise={handleProgramExercise}
           modelRef={modelRef}
           setIsOpen={setIsOpen}
-          testRef={testRef}
         />
       </ModelOverlay>
     </>

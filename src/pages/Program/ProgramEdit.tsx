@@ -9,11 +9,9 @@ import ProgramExercisePreviewList from "../../components/Program/ProgramExercise
 import { calendarUtil } from "../../utils/calendar.util";
 import { useProgramStore } from "../../store/program.store";
 import ProgramExerciseEditModel from "../../components/Program/ProgramExercise/ProgramExerciseEditModel";
-import { useRef } from "react";
 
 export default function ProgramEdit() {
   const { id } = useParams<{ id?: string }>();
-  const testRef = useRef<HTMLDivElement>(null);
 
   const {
     programToEdit,
@@ -51,7 +49,7 @@ export default function ProgramEdit() {
   };
 
   return (
-    <div ref={testRef}>
+    <div>
       <form
         onSubmit={onSaveProgram}
         className="h-main bg-main-orange px-4 pt-4 grid grid-rows-[auto_1fr] gap-4"
@@ -114,7 +112,7 @@ export default function ProgramEdit() {
             name="notes"
             rows={3}
             placeholder="Add a note..."
-            className="w-full h-20 block peer outline-offset-0  pl-2 peer resize-none"
+            className="w-full h-full  block peer outline-offset-0  pl-2 peer resize-none"
             divStyle="bg-main-orange border-1 rounded h-auto col-span-full lg:col-span-2 order-4"
           ></TextArea>
           <div
@@ -124,7 +122,6 @@ export default function ProgramEdit() {
             <ProgramExerciseEditModel
               programExerciseLength={(cleanedProgramExercises?.length || 0) + 1}
               handleProgramExercise={handleProgramExercise}
-              testRef={testRef}
             />
             <Button
               className="w-16 border rounded lg:w-full hover:border-red-orange

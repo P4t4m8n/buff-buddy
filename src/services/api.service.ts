@@ -69,6 +69,7 @@ const ajax = async <T>(
     let errorBody: THttpErrorResponse;
     try {
       errorBody = await res.json();
+      console.log(" errorBody:", errorBody)
     } catch {
       errorBody = {};
     }

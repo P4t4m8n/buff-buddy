@@ -4,8 +4,7 @@ import type {
   TProgramExerciseEditRecord,
 } from "../../../models/programExercise.model";
 import { toTitle } from "../../../utils/toTitle";
-import WrapperModel from "../../UI/Wrappers/WrapperModel";
-import ProgramExerciseEdit from "./ProgramExerciseEdit";
+import ProgramExerciseEditModel from "./ProgramExerciseEditModel";
 
 interface ProgramExerciseDetailsListProps {
   handleProgramExercise: (programExercise: IProgramExerciseEditDTO) => void;
@@ -31,20 +30,14 @@ export default function ProgramExercisePreviewList({
             {groupedProgramExercises[day].map((programExercise) => (
               <li
                 key={programExercise.id}
-                className="border text-center w-20 grid
+                className="border text-center w-20 lg:w-full grid
                  justify-items-center gap-1 p-1 rounded"
               >
                 <h5>{programExercise.exercise?.name}</h5>
-                <WrapperModel
-                  mode="edit"
-                  item={programExercise}
-                  buttonClass="w-full"
-                >
-                  <ProgramExerciseEdit
-                    programExercise={programExercise}
-                    handleProgramExercise={handleProgramExercise}
-                  />
-                </WrapperModel>
+                <ProgramExerciseEditModel
+                  programExercise={programExercise}
+                  handleProgramExercise={handleProgramExercise}
+                />
               </li>
             ))}
           </ul>

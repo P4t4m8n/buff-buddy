@@ -12,6 +12,7 @@ interface TableProps<T extends IEntity> {
   }>;
   gridCols?: string;
   onDelete?: (id?: string) => Promise<void>;
+  whenHidden?: "sm" | "md" | "lg" | "xl";
 }
 export default function Table<T extends IEntity>({
   tableHeader,
@@ -19,7 +20,9 @@ export default function Table<T extends IEntity>({
   ItemComponent,
   gridCols,
   onDelete,
+  whenHidden,
 }: TableProps<T>) {
+  const hiddenClass = `hidden ${whenHidden}:inline`;
   return (
     <div className="grid gap-4 p-4">
       <header className={`border-b grid ${gridCols} gap-6 p-4 `}>
@@ -27,7 +30,7 @@ export default function Table<T extends IEntity>({
           <p
             key={title}
             className={`${
-              idx > 0 && idx < tableHeader.length - 1 ? "hidden md:inline" : ""
+              idx > 0 && idx < tableHeader.length - 1 ? hiddenClass : ""
             } $ ${
               idx === tableHeader.length - 1 ? "text-center lg:text-left " : ""
             }`}

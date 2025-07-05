@@ -33,7 +33,12 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
     } catch (error) {
       set({
         error:
-          error instanceof Error ? error.message : "Failed to load programs",
+          error instanceof ApiError
+            ? { errors: error.errors, message: error.message }
+            : {
+                errors: { unknown: "Error" },
+                message: "Unknown",
+              },
       });
     } finally {
       set({ isLoading: false });
@@ -48,9 +53,15 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
         : programService.getEmpty();
       return x;
     } catch (error) {
+      console.log(" getProgramById: ~ error:", error);
       set({
         error:
-          error instanceof Error ? error.message : "Failed to load program",
+          error instanceof ApiError
+            ? { errors: error.errors, message: error.message }
+            : {
+                errors: { unknown: "Error" },
+                message: "Unknown",
+              },
       });
       return null;
     } finally {
@@ -83,9 +94,10 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
         error:
           error instanceof ApiError
             ? { errors: error.errors, message: error.message }
-            : error instanceof Error
-            ? error.message
-            : "Failed to save program",
+            : {
+                errors: { unknown: "Error" },
+                message: "Unknown",
+              },
       });
       return null;
     } finally {
@@ -103,7 +115,12 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
     } catch (error) {
       set({
         error:
-          error instanceof Error ? error.message : "Failed to delete program",
+          error instanceof ApiError
+            ? { errors: error.errors, message: error.message }
+            : {
+                errors: { unknown: "Error" },
+                message: "Unknown",
+              },
       });
     } finally {
       set({ isLoading: false });

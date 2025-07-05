@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import type { IExerciseDTO } from "../models/exercise.model";
 import { exerciseService } from "../services/exercise.service";
+import { ApiError } from "../utils/ApiError.util";
 
 interface IExerciseStore {
   exercises: IExerciseDTO[];
@@ -8,7 +9,7 @@ interface IExerciseStore {
   loadExercises: () => Promise<void>;
   saveExercise: (exerciseToSave: IExerciseDTO) => Promise<boolean>;
   deleteExercise: (id: string) => Promise<void>;
-  error: string | null;
+  error: { errors?: Record<string, string>; message: string } | null;
 }
 export const useExerciseStore = create<IExerciseStore>((set, get) => ({
   exercises: [],
@@ -28,7 +29,12 @@ export const useExerciseStore = create<IExerciseStore>((set, get) => ({
     } catch (error) {
       set({
         error:
-          error instanceof Error ? error.message : "Failed to load exercises",
+          error instanceof ApiError
+            ? { errors: error.errors, message: error.message }
+            : {
+                errors: { unknown: "Error" },
+                message: "Unknown",
+              },
       });
     } finally {
       set({ isLoading: false });
@@ -57,7 +63,12 @@ export const useExerciseStore = create<IExerciseStore>((set, get) => ({
     } catch (error) {
       set({
         error:
-          error instanceof Error ? error.message : "Failed to save exercise",
+          error instanceof ApiError
+            ? { errors: error.errors, message: error.message }
+            : {
+                errors: { unknown: "Error" },
+                message: "Unknown",
+              },
       });
       return false;
     } finally {
@@ -75,7 +86,12 @@ export const useExerciseStore = create<IExerciseStore>((set, get) => ({
     } catch (error) {
       set({
         error:
-          error instanceof Error ? error.message : "Failed to delete exercise",
+          error instanceof ApiError
+            ? { errors: error.errors, message: error.message }
+            : {
+                errors: { unknown: "Error" },
+                message: "Unknown",
+              },
       });
     } finally {
       set({ isLoading: false });

@@ -142,7 +142,6 @@ export default function ProgramExerciseEdit({
           handleSelect={handleSelectExercise}
           filterOptions={filterExercises}
           parentModelRef={modelRef}
-          
           error={programExerciseErrors?.exerciseId}
           SelectedComponent={
             exercise?.id ? exercise?.name : "Select an Exercise"
@@ -150,7 +149,7 @@ export default function ProgramExerciseEdit({
           SelectItemComponent={({ option }) => (
             <span className="w-full h-full">{option.name}</span>
           )}
-          addComponent={<ExerciseEditModel isPortal={true}  />}
+          addComponent={<ExerciseEditModel isPortal={true} />}
         />
       </div>
 

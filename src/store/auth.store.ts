@@ -5,10 +5,11 @@ import type {
   IAuthUserDTO,
   IAuthSignUpDTO,
 } from "../models/auth.model";
+import { ApiError } from "../utils/ApiError.util";
 
 interface IAuthStore {
   user: IAuthUserDTO | null;
-  error: string | null;
+  error: { errors?: Record<string, string>; message: string } | null;
   isLoading: boolean;
   loadSessionUser: () => Promise<void>;
   signIn: (dto: IAuthSignInDTO) => Promise<void>;
@@ -29,9 +30,12 @@ export const useAuthStore = create<IAuthStore>((set) => ({
     } catch (error) {
       set({
         error:
-          error instanceof Error
-            ? error.message
-            : "Failed to load session user",
+          error instanceof ApiError
+            ? { errors: error.errors, message: error.message }
+            : {
+                errors: { unknown: "Error" },
+                message: "Unknown",
+              },
         user: null,
       });
     } finally {
@@ -46,7 +50,14 @@ export const useAuthStore = create<IAuthStore>((set) => ({
       set({ user });
     } catch (error) {
       set({
-        error: error instanceof Error ? error.message : "Failed to sign in",
+        error:
+          error instanceof ApiError
+            ? { errors: error.errors, message: error.message }
+            : {
+                errors: { unknown: "Error" },
+                message: "Unknown",
+              },
+        user: null,
       });
     } finally {
       set({ isLoading: false });
@@ -60,7 +71,14 @@ export const useAuthStore = create<IAuthStore>((set) => ({
       set({ user });
     } catch (error) {
       set({
-        error: error instanceof Error ? error.message : "Failed to sign up",
+        error:
+          error instanceof ApiError
+            ? { errors: error.errors, message: error.message }
+            : {
+                errors: { unknown: "Error" },
+                message: "Unknown",
+              },
+        user: null,
       });
     } finally {
       set({ isLoading: false });
@@ -74,7 +92,14 @@ export const useAuthStore = create<IAuthStore>((set) => ({
       set({ user: null });
     } catch (error) {
       set({
-        error: error instanceof Error ? error.message : "Failed to sign out",
+        error:
+          error instanceof ApiError
+            ? { errors: error.errors, message: error.message }
+            : {
+                errors: { unknown: "Error" },
+                message: "Unknown",
+              },
+        user: null,
       });
     } finally {
       set({ isLoading: false });
