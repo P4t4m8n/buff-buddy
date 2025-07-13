@@ -1,0 +1,14 @@
+{
+  "name": "buff-buddy-monorepo",
+  "private": true,
+  "workspaces": [
+    "buff-buddy-api",
+    "buff-buddy-front"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=buff-buddy-api && npm run build --workspace=buff-buddy-front",
+    "dev:api": "npm run dev --workspace=buff-buddy-api",
+    "dev:front": "npm run dev --workspace=buff-buddy-front",
+    "test": "npm test --workspace=buff-buddy-api"
+  }
+}

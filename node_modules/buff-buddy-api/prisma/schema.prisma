@@ -1,0 +1,195 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ExerciseMuscle {
+  abs
+  back
+  biceps
+  calves
+  chest
+  core
+  forearms
+  glutes
+  hamstrings
+  hip_flexors
+  lower_back
+  neck
+  obliques
+  quads
+  shoulders
+  shins
+  traps
+  triceps
+  upper_back
+}
+
+enum ExerciseEquipment {
+  barbell
+  body_weight
+  cable
+  dumbbell
+  kettlebell
+  medicine_ball
+  none
+  resistance_band
+}
+
+enum ExerciseType {
+  strength
+  cardio
+  flexibility
+  balance
+}
+
+enum DaysOfWeek {
+  monday
+  tuesday
+  wednesday
+  thursday
+  friday
+  saturday
+  sunday
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String?
+  googleId     String?   @unique
+  firstName    String?
+  lastName     String?
+  programs     Program[]
+  userSets     UserSet[]
+  workouts     Workout[]
+  imgUrl       String?
+  isAdmin      Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Exercise {
+  id                       String                    @id @default(cuid())
+  name                     String                    @unique
+  youtubeUrl               String
+  types                    ExerciseType[]
+  equipment                ExerciseEquipment[]
+  muscles                  ExerciseMuscle[]
+  programExercises         ProgramExercise[]
+  programExerciseSuperSets ProgramExerciseSuperSet[]
+  createdAt                DateTime                  @default(now())
+  updatedAt                DateTime                  @updatedAt
+}
+
+model CoreSet {
+  id                        String                   @id @default(cuid())
+  reps                      Int                      @default(0)
+  weight                    Float?                   @default(0)
+  isBodyWeight              Boolean                  @default(false)
+  restTime                  Int                      @default(60)
+  order                     Int
+  isWarmup                  Boolean                  @default(false)
+  repsInReserve             Int?                     @default(0)
+  isHistory                 Boolean                  @default(false)
+  programExerciseId         String?
+  programExercise           ProgramExercise?         @relation(fields: [programExerciseId], references: [id], onDelete: Cascade)
+  programExerciseSuperSetId String?
+  programExerciseSuperSet   ProgramExerciseSuperSet? @relation(fields: [programExerciseSuperSetId], references: [id], onDelete: Cascade)
+  userSets                  UserSet[]
+  workouts                  WorkoutSet[]
+  createdAt                 DateTime                 @default(now())
+  updatedAt                 DateTime                 @updatedAt
+}
+
+model UserSet {
+  id              String      @id @default(cuid())
+  reps            Int         @default(0)
+  weight          Float?      @default(0)
+  isBodyWeight    Boolean     @default(false)
+  restTime        Int         @default(60)
+  isCompleted     Boolean     @default(false)
+  isMuscleFailure Boolean     @default(false)
+  isJointPain      Boolean     @default(false)
+  coreSetId       String?
+  coreSet         CoreSet?    @relation(fields: [coreSetId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workoutSet      WorkoutSet?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model ProgramExercise {
+  id         String       @id @default(cuid())
+  order      Int
+  notes      String?
+  daysOfWeek DaysOfWeek[]
+  coreSets   CoreSet[]
+  exerciseId String
+  exercise   Exercise     @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  programId  String
+  program    Program      @relation(fields: [programId], references: [id], onDelete: Cascade)
+  isActive   Boolean      @default(true)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+}
+
+model ProgramExerciseSuperSet {
+  id         String       @id @default(cuid())
+  order      Int
+  notes      String?
+  daysOfWeek DaysOfWeek[]
+  coreSets   CoreSet[]
+  exercises  Exercise[]
+  programId  String
+  program    Program      @relation(fields: [programId], references: [id], onDelete: Cascade)
+  isActive   Boolean      @default(true)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+}
+
+model Program {
+  id                       String                    @id @default(cuid())
+  name                     String
+  notes                    String?
+  startDate                DateTime
+  endDate                  DateTime
+  isActive                 Boolean                   @default(true)
+  programExercises         ProgramExercise[]
+  programExerciseSuperSets ProgramExerciseSuperSet[]
+  workouts                 Workout[]
+  ownerId                  String
+  owner                    User                      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  createdAt                DateTime                  @default(now())
+  updatedAt                DateTime                  @updatedAt
+}
+
+model Workout {
+  id          String       @id @default(cuid())
+  programId   String
+  program     Program      @relation(fields: [programId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workoutSets WorkoutSet[]
+  date        DateTime     @default(now())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model WorkoutSet {
+  id        String   @id @default(cuid())
+  workoutId String
+  workout   Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  coreSetId String
+  coreSet   CoreSet  @relation(fields: [coreSetId], references: [id], onDelete: Cascade)
+  userSetId String   @unique
+  userSet   UserSet  @relation(fields: [userSetId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

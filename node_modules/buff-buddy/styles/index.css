@@ -1,0 +1,101 @@
+@import "tailwindcss";
+:root {
+}
+
+@theme {
+  --color-main-orange: rgb(253, 127, 32);
+  --color-red-orange: rgb(252, 46, 32);
+  --color-amber: rgb(253, 183, 80);
+  --color-main-black: rgb(1, 1, 0);
+  --color-main-green: rgb(22, 163, 74);
+
+  --color-background: linear-gradient(
+    to bottom right,
+    rgba(253, 127, 32, 0.9),
+    rgba(252, 46, 32, 0.85)
+  );
+
+  --height-main: calc(100vh - 4rem);
+
+  --width-small: calc(20rem);
+  --width-small-with-padding: 18rem;
+
+  --width-input: 2.5rem;
+
+  --min-width-small: var(--width-small);
+  --font-display: "Gloria Hallelujah", cursive;
+}
+@layer utilities {
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.switch-label {
+  position: relative;
+  width: 6rem;
+  height: 2.5rem;
+  border-radius: 100vh;
+  background: var(--color-red-orange);
+  cursor: pointer;
+  transition: background-color 0.4s;
+  display: block;
+}
+input:checked + .switch-label {
+  background: #16a34a;
+}
+.switch-label::before {
+  content: "";
+  position: absolute;
+  display: inline;
+  height: 1.5rem;
+  width: 1.5rem;
+  left: 0.25rem;
+  top: 50%;
+  background: #fff;
+  border-radius: 100vh;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s;
+  transform: translateX(4rem) translateY(-50%);
+}
+input:checked + .switch-label::before {
+  transform: translateX(0) translateY(-50%);
+}
+.switch-label::after {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 1rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #fff;
+  transition: all 0.2s;
+  content: "Inactive";
+}
+input:checked + .switch-label::after {
+  left: auto;
+  right: 1rem;
+  content: "Active";
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.background {
+  background: linear-gradient(
+    to bottom right,
+    rgba(253, 127, 32, 0.9),
+    rgba(252, 46, 32, 0.85)
+  );
+}
