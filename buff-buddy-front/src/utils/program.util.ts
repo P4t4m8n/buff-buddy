@@ -1,4 +1,7 @@
-import type { IProgramDTO, IProgramEditDTO } from "../models/program.model";
+import type {
+  IProgramDTO,
+  IProgramEditDTO,
+} from "../models/program.model";
 
 export const programUtils = {
   isProgramActive: ({ startDate, endDate }: Partial<IProgramDTO>) => {
@@ -16,6 +19,17 @@ export const programUtils = {
       programUtils.isProgramActive({ startDate, endDate })
     );
   },
+  dtoToEditDto: (dto: IProgramDTO): IProgramEditDTO => {
+    return {
+      ...dto,
+      workouts: dto.workouts?.map((w) => ({
+        ...w,
+        id: w.id ?? "",
+        name: w.name ?? "",
+        notes: w.notes ?? "",
+      })),
+    };
+  },
   getEmpty(): IProgramEditDTO {
     return {
       id: "",
@@ -24,7 +38,7 @@ export const programUtils = {
       startDate: null,
       endDate: null,
       isActive: false,
-      programExercises: [],
+      workouts: [],
     };
   },
 };

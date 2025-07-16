@@ -75,16 +75,16 @@ model User {
 }
 
 model Exercise {
-  id                       String                    @id @default(cuid())
-  name                     String                    @unique
-  youtubeUrl               String
-  types                    ExerciseType[]
-  equipment                ExerciseEquipment[]
-  muscles                  ExerciseMuscle[]
-  programExercises         ProgramExercise[]
-  programExerciseSuperSets ProgramExerciseSuperSet[]
-  createdAt                DateTime                  @default(now())
-  updatedAt                DateTime                  @updatedAt
+  id                      String                    @id @default(cuid())
+  name                    String                    @unique
+  youtubeUrl              String
+  types                   ExerciseType[]
+  equipment               ExerciseEquipment[]
+  muscles                 ExerciseMuscle[]
+  workoutExercises        WorkoutExercise[]
+  workoutExerciseSuperSet WorkoutExerciseSuperSet[]
+  createdAt               DateTime                  @default(now())
+  updatedAt               DateTime                  @updatedAt
 }
 
 model CoreSet {
@@ -97,10 +97,10 @@ model CoreSet {
   isWarmup                  Boolean                  @default(false)
   repsInReserve             Int?                     @default(0)
   isHistory                 Boolean                  @default(false)
-  programExerciseId         String?
-  programExercise           ProgramExercise?         @relation(fields: [programExerciseId], references: [id], onDelete: Cascade)
-  programExerciseSuperSetId String?
-  programExerciseSuperSet   ProgramExerciseSuperSet? @relation(fields: [programExerciseSuperSetId], references: [id], onDelete: Cascade)
+  workoutExerciseId         String?
+  workoutExercise           WorkoutExercise?         @relation(fields: [workoutExerciseId], references: [id], onDelete: Cascade)
+  workoutExerciseSuperSetId String?
+  workoutExerciseSuperSet   WorkoutExerciseSuperSet? @relation(fields: [workoutExerciseSuperSetId], references: [id], onDelete: Cascade)
   userSets                  UserSet[]
   workouts                  WorkoutSet[]
   createdAt                 DateTime                 @default(now())
@@ -115,7 +115,7 @@ model UserSet {
   restTime        Int         @default(60)
   isCompleted     Boolean     @default(false)
   isMuscleFailure Boolean     @default(false)
-  isJointPain      Boolean     @default(false)
+  isJointPain     Boolean     @default(false)
   coreSetId       String?
   coreSet         CoreSet?    @relation(fields: [coreSetId], references: [id], onDelete: Cascade)
   userId          String
@@ -125,71 +125,80 @@ model UserSet {
   updatedAt       DateTime    @updatedAt
 }
 
-model ProgramExercise {
-  id         String       @id @default(cuid())
-  order      Int
-  notes      String?
-  daysOfWeek DaysOfWeek[]
-  coreSets   CoreSet[]
-  exerciseId String
-  exercise   Exercise     @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
-  programId  String
-  program    Program      @relation(fields: [programId], references: [id], onDelete: Cascade)
-  isActive   Boolean      @default(true)
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-}
-
-model ProgramExerciseSuperSet {
-  id         String       @id @default(cuid())
-  order      Int
-  notes      String?
-  daysOfWeek DaysOfWeek[]
-  coreSets   CoreSet[]
-  exercises  Exercise[]
-  programId  String
-  program    Program      @relation(fields: [programId], references: [id], onDelete: Cascade)
-  isActive   Boolean      @default(true)
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-}
-
 model Program {
+  id              String           @id @default(cuid())
+  name            String
+  notes           String?
+  startDate       DateTime
+  endDate         DateTime
+  isActive        Boolean          @default(true)
+  ownerId         String
+  programWorkouts ProgramWorkout[]
+  owner           User             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+}
+
+model ProgramWorkout {
+  id         String       @id @default(cuid())
+  isActive   Boolean      @default(true)
+  programId  String
+  program    Program      @relation(fields: [programId], references: [id], onDelete: Cascade)
+  workoutId  String
+  workout    Workout      @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  daysOfWeek DaysOfWeek[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+}
+
+model Workout {
   id                       String                    @id @default(cuid())
-  name                     String
+  name                     String?                   @default("New Workout")
   notes                    String?
-  startDate                DateTime
-  endDate                  DateTime
-  isActive                 Boolean                   @default(true)
-  programExercises         ProgramExercise[]
-  programExerciseSuperSets ProgramExerciseSuperSet[]
-  workouts                 Workout[]
-  ownerId                  String
-  owner                    User                      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  daysOfWeek               DaysOfWeek[]              @default([])
+  userId                   String
+  user                     User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workoutExercises         WorkoutExercise[]
+  workoutExerciseSuperSets WorkoutExerciseSuperSet[]
+  programWorkouts          ProgramWorkout[]
   createdAt                DateTime                  @default(now())
   updatedAt                DateTime                  @updatedAt
 }
 
-model Workout {
+model WorkoutExercise {
   id          String       @id @default(cuid())
-  programId   String
-  program     Program      @relation(fields: [programId], references: [id], onDelete: Cascade)
-  userId      String
-  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  order       Int
+  notes       String?
+  coreSets    CoreSet[]
+  exerciseId  String
+  exercise    Exercise     @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  workoutId   String
+  workout     Workout      @relation(fields: [workoutId], references: [id], onDelete: Cascade)
   workoutSets WorkoutSet[]
-  date        DateTime     @default(now())
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
 }
 
-model WorkoutSet {
-  id        String   @id @default(cuid())
+model WorkoutExerciseSuperSet {
+  id        String     @id @default(cuid())
+  order     Int
+  notes     String?
+  coreSets  CoreSet[]
+  exercises Exercise[]
   workoutId String
-  workout   Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
-  coreSetId String
-  coreSet   CoreSet  @relation(fields: [coreSetId], references: [id], onDelete: Cascade)
-  userSetId String   @unique
-  userSet   UserSet  @relation(fields: [userSetId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  workout   Workout    @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model WorkoutSet {
+  id                String          @id @default(cuid())
+  WorkoutExerciseId String
+  workout           WorkoutExercise @relation(fields: [WorkoutExerciseId], references: [id], onDelete: Cascade)
+  coreSetId         String
+  coreSet           CoreSet         @relation(fields: [coreSetId], references: [id], onDelete: Cascade)
+  userSetId         String          @unique
+  userSet           UserSet         @relation(fields: [userSetId], references: [id], onDelete: Cascade)
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
 }

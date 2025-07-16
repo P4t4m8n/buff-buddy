@@ -1,25 +1,35 @@
 import { z } from "zod";
-import sanitizeHtml from "sanitize-html";
-import { CreateUserSetSchema } from "../userSets/userSets.validations";
-
-
+import {
+  DaysOfWeekSchema,
+  NameSchema,
+  NotesSchema,
+} from "../../shared/validations/shared.validations";
+import {
+  CreateNestedWorkoutExerciseSchema,
+  UpdateNestedWorkoutExerciseSchema,
+} from "../workoutExercise/workoutExercise.validations";
 
 const BaseWorkoutSchema = z.object({
-  programId: z.string().min(1, "Program ID is required"),
+  programId: z.string().nullish().optional(),
   userId: z.string().min(1, "User ID is required"),
-  date: z
-    .string()
-    .transform((val) => new Date(val))
-    .refine((date) => !isNaN(date.getTime()), "Invalid workout date"),
-  workoutSets: z
-    .array(CreateUserSetSchema)
+  notes: NotesSchema,
+  name: NameSchema,
+  daysOfWeek: DaysOfWeekSchema.optional(),
+
+  workoutExercises: z
+    .array(CreateNestedWorkoutExerciseSchema)
     .min(1, "At least one workout set is required")
     .max(50, "Maximum 50 workout sets allowed per workout"),
 });
 
 export const CreateWorkoutSchema = BaseWorkoutSchema;
 
-export const UpdateWorkoutSchema = BaseWorkoutSchema.partial();
+export const UpdateWorkoutSchema = BaseWorkoutSchema.partial().extend({
+  workoutExercises: z
+    .array(UpdateNestedWorkoutExerciseSchema)
+    .min(1, "At least one workout set is required")
+    .max(50, "Maximum 50 workout sets allowed per workout"),
+});
 
 export const WorkoutParamsSchema = z.object({
   id: z.string().min(1, "Workout ID is required"),

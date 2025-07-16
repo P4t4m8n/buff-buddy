@@ -1,14 +1,6 @@
 import { z } from "zod";
-import sanitizeHtml from "sanitize-html";
-import { conditionalOrderRefinement } from "../../shared/validations/shared.validations";
+import { conditionalOrderRefinement, CrudOperationEnumSchema } from "../../shared/validations/shared.validations";
 
-export const crudOperationSchema = z.enum([
-  "create",
-  "update",
-  "edit",
-  "delete",
-  "read",
-]);
 
 const coreSetWeightRefinement = (
   data: { weight?: number; isBodyWeight?: boolean },
@@ -72,7 +64,7 @@ const CoreSetSchema = z.object({
     .max(20, "Reps in reserve cannot exceed 20")
     .nullable()
     .default(0),
-  crudOperation: z.optional(crudOperationSchema).default("read"),
+  crudOperation: z.optional(CrudOperationEnumSchema).default("read"),
   id: z.optional(z.string()),
   programExerciseId: z.string().optional(),
 });

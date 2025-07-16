@@ -1,48 +1,14 @@
 import { z } from "zod";
 import sanitizeHtml from "sanitize-html";
-import { CreateNestedProgramExerciseSchema } from "../programExercises/programExercises.validations";
+import { CreateWorkoutSchema } from "../workouts/workouts.validations";
+import {
+  NameSchema,
+  NotesSchema,
+} from "../../shared/validations/shared.validations";
 
 const BaseProgramSchema = z.object({
-  name: z
-    .string()
-    .min(1, "Program name is required")
-    .max(200, "Program name must be less than 200 characters")
-    .transform((val) =>
-      sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} })
-    )
-    .transform((val) => val.trim())
-    .transform((val) => val.replace(/\s+/g, " "))
-    .refine(
-      (val) => val.length >= 1,
-      "Program name is required after sanitization"
-    )
-    .refine(
-      (val) => val.length <= 100,
-      "Program name must be less than 100 characters"
-    ),
-
-  notes: z
-    .string()
-    .optional()
-    .transform((val) => {
-      if (!val) return undefined;
-      return sanitizeHtml(val, {
-        allowedTags: [],
-        allowedAttributes: {},
-      });
-    })
-    .transform((val) => {
-      if (!val) return undefined;
-      return val.trim();
-    })
-    .transform((val) => {
-      if (!val) return undefined;
-      return val.replace(/\s+/g, " ");
-    })
-    .refine(
-      (val) => !val || val.length <= 1000,
-      "Notes must be less than 1000 characters"
-    ),
+  name: NameSchema,
+  notes: NotesSchema,
 
   startDate: z
     .string()
@@ -57,7 +23,7 @@ const BaseProgramSchema = z.object({
   isActive: z.coerce.boolean().default(true),
 
   programExercises: z
-    .array(CreateNestedProgramExerciseSchema)
+    .array(CreateWorkoutSchema)
     .min(1, "At least one exercise is required")
     .max(50, "Maximum 50 exercises allowed per program"),
 });

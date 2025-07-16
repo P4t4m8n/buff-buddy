@@ -63,7 +63,6 @@ export const updateProgram = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    console.log(" updateProgram ~ req.body:", req.body.programExercises[3])
     const validatedData = UpdateProgramSchema.parse(req.body);
     const program = await programsService.update(id, validatedData);
     res.status(200).json({
@@ -72,7 +71,6 @@ export const updateProgram = async (req: Request, res: Response) => {
     });
   } catch (error) {
     const err = AppError.handleResponse(error);
-    console.log(" updateProgram ~ err:", err)
     res.status(err.status || 500).json({
       message: err.message || "An unexpected error occurred",
       errors: err.errors || {},

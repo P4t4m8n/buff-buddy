@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useExerciseStore } from "../store/exercise.store";
 import ExerciseEdit from "../components/Exercise/ExerciseEdit";
-import type { IExerciseDTO } from "../models/exercise.model";
 import WrapperModel from "../components/UI/Wrappers/WrapperModel";
 import ExerciseTable from "../components/Exercise/ExerciseTable";
+import type { IExerciseDTO } from "../models/exercise.model";
 
 export default function ExercisePage() {
   const exercises = useExerciseStore((state) => state.exercises);
@@ -14,8 +14,8 @@ export default function ExercisePage() {
 
   useEffect(() => {
     loadExercises();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loadExercises]);
+
   useEffect(() => {
     setFilteredExercises(exercises);
   }, [exercises]);

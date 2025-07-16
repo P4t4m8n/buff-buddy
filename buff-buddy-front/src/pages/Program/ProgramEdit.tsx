@@ -5,10 +5,12 @@ import TextArea from "../../components/UI/Form/TextArea";
 import Button from "../../components/UI/Button";
 import DateInput from "../../components/UI/Form/DateInput/DateInput";
 import Input from "../../components/UI/Form/Input";
-import ProgramExercisePreviewList from "../../components/Program/ProgramExercise/ProgramExercisePreviewList";
 import { calendarUtil } from "../../utils/calendar.util";
 import { useProgramStore } from "../../store/program.store";
-import ProgramExerciseEditModel from "../../components/Program/ProgramExercise/ProgramExerciseEditModel";
+import Loader from "../../components/UI/Loader";
+import ProgramEditWorkoutModel from "../../components/Program/ProgramEditWorkoutModel";
+import { DAY_OF_WEEK } from "../../models/app.model";
+import { toTitle } from "../../utils/toTitle";
 
 export default function ProgramEdit() {
   const { id } = useParams<{ id?: string }>();
@@ -18,30 +20,26 @@ export default function ProgramEdit() {
     isLoading,
     handleDateSelect,
     onSaveProgram,
-    handleProgramExercise,
-    groupProgramExercisesByDay,
+    handleWorkouts,
+    groupWorkoutsByDay,
     navigate,
     handleInputChange,
   } = useProgramEdit(id);
+
   const error = useProgramStore((state) => state.error);
 
-  //TODO?? add loading component
   if (isLoading || !programToEdit) {
-    return (
-      <div className="h-main bg-main-orange fixed inset-0">Loading...</div>
-    );
+    return <Loader />;
   }
 
-  const { name, notes, startDate, endDate, programExercises, isActive } =
-    programToEdit;
+  const { name, notes, startDate, endDate, workouts, isActive } = programToEdit;
+  console.log("🚀 ~ ProgramEdit ~ workouts:", workouts);
 
   const headerText = id ? `Edit Program: ${name}` : `Create New Program`;
-  const cleanedProgramExercises = programExercises?.filter(
+  const cleanedWorkouts = workouts?.filter(
     (ex) => ex.crudOperation !== "delete"
   );
-  const groupedProgramExercises = groupProgramExercisesByDay(
-    cleanedProgramExercises || []
-  );
+  const groupedWorkouts = groupWorkoutsByDay(cleanedWorkouts || []);
 
   const dateRange = {
     start: calendarUtil.convertDate(startDate),
@@ -119,10 +117,7 @@ export default function ProgramEdit() {
             className="inline-flex lg:grid items-center lg:justify-items-center gap-2 order-5
           w-full col-span-full lg-col-span-1 lg:col-start-3"
           >
-            <ProgramExerciseEditModel
-              programExerciseLength={(cleanedProgramExercises?.length || 0) + 1}
-              handleProgramExercise={handleProgramExercise}
-            />
+            <ProgramEditWorkoutModel handleWorkouts={handleWorkouts} />
             <Button
               className="w-16 border rounded lg:w-full hover:border-red-orange
             cursor-pointer h-10
@@ -145,11 +140,70 @@ export default function ProgramEdit() {
             </Button>
           </div>
         </header>
-        <ProgramExercisePreviewList
-          groupedProgramExercises={groupedProgramExercises}
-          handleProgramExercise={handleProgramExercise}
-        />
+        <ul
+          className="grid grid-rows-[repeat(7,10rem)] lg:grid-rows-1 grid-cols-1 lg:grid-cols-7
+     justify-around gap-2 w-full h-[31rem] lg:h-[calc(100%)] lg:pb-4 overflow-y-auto "
+        >
+          {DAY_OF_WEEK.map((day) => (
+            <li
+              key={day}
+              className="text-center text-sm  border rounded p-2 h-40 lg:h-full "
+            >
+              <h4 className="font-bold decoration-2 underline">
+                {toTitle(day)}
+              </h4>
+              <ul className="p-1 flex lg:flex-col gap-2">
+                {groupedWorkouts[day].map((workout) => (
+                  <li
+                    key={workout.id}
+                    className="border text-center w-20 lg:w-full grid
+                 justify-items-center gap-1 p-1 rounded"
+                  >
+                    <h5 className="font-medium">
+                      {workout.name}
+                    </h5>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
       </form>
     </div>
   );
 }
+
+// <div className="grid gap-1">
+//         <Label htmlFor="daysOfWeek">Days of the week</Label>
+//         <CheckboxMulti
+//           options={calendarUtil.getShortWeekDays(true)}
+//           selectedOptions={
+//             calendarUtil.fullWeekdaysToShort(daysOfWeek!) ?? []
+//           }
+//           inputName="daysOfWeek"
+//           listStyle=""
+//           onChange={onDaysChange}
+//         />
+//         {programExerciseErrors?.daysOfWeek ? (
+//           <Label htmlFor="order" className=" text-sm text-red-orange">
+//             {programExerciseErrors?.daysOfWeek}
+//           </Label>
+//         ) : null}
+//       </div>
+
+// const onDaysChange = (e: ChangeEvent) => {
+//   const target = e.target as HTMLInputElement;
+//   const value = target.value;
+//   const isChecked = target.checked;
+//   const fixedDay = calendarUtil.shortWeekdayToFull(value);
+//   setWorkoutExerciseToEdit((prev) => {
+//     if (!prev) return null;
+//     const newDaysOfWeek = isChecked
+//       ? [...(prev.daysOfWeek || []), fixedDay]
+//       : (prev.daysOfWeek || []).filter((day) => day !== fixedDay);
+//     return {
+//       ...prev,
+//       daysOfWeek: newDaysOfWeek,
+//     };
+//   });
+// };

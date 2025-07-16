@@ -62,7 +62,8 @@ export const useModel = (
       //     return
       //   }
       // }
-
+      
+      console.log("🚀 ~ target:", target)
       // Handle normal outside clicks
       if (!open || !ref?.current || ref?.current.contains(target)) return;
 

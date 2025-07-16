@@ -35,8 +35,7 @@ export default function DateInput({
   errorRange,
 }: DateInputProps) {
   const calendarRef = useRef<HTMLDivElement>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isOpen, _, handleModel] = useModel(calendarRef);
+  const [isOpen, , handleModel] = useModel(calendarRef);
   const {
     currentDate,
     setCurrentDate,

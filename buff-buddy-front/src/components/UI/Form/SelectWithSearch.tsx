@@ -19,7 +19,6 @@ interface SelectWithSearchProps<T> {
   handleSelect: (option: T) => void;
   filterOptions: (searchValue: string) => T[];
   error?: string | null;
-
   parentModelRef?: React.RefObject<HTMLDivElement | null>;
   SelectedComponent?: React.ReactNode;
   AddComponent?: React.ComponentType<IComponentProps<T>>;
@@ -55,6 +54,7 @@ export default function SelectWithSearch<T>({
   useEffect(() => {
     setOptionsList(options ? [...options] : []);
   }, [options]);
+  
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const searchValue = e.currentTarget.value;
     const filteredOptions = filterOptions(searchValue);

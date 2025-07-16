@@ -1,6 +1,4 @@
-
+//TODO?? implement ProfilePage
 export default function ProfilePage() {
-  return (
-    <div>ProfilePage</div>
-  )
+  return <div>ProfilePage-TBA</div>;
 }

@@ -1,8 +1,8 @@
-import { connect } from "http2";
 import { Prisma, Workout } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
 import { IWorkoutFilter } from "./workouts.models";
 import { CreateWorkoutInput } from "./workouts.validations";
+import { dbUtil } from "../../shared/utils/db.util";
 
 export const workoutsService = {
   get: async (filter: IWorkoutFilter): Promise<Workout[]> => {
@@ -18,13 +18,12 @@ export const workoutsService = {
       skip,
       take,
       include: {
-        workoutSets: {
+        workoutExercises: {
           include: {
-            userSet: true,
-            coreSet: true,
+            exercise: true,
+            coreSets: true,
           },
         },
-        program: true,
       },
     });
   },
@@ -32,57 +31,38 @@ export const workoutsService = {
     return prisma.workout.findUnique({
       where: { id },
       include: {
-        workoutSets: {
-          include: {
-            userSet: true,
-            coreSet: true,
-          },
-        },
-        program: true,
+        workoutExercises: true,
       },
     });
   },
   create: async (dto: CreateWorkoutInput, userId: string): Promise<Workout> => {
     return prisma.workout.create({
       data: {
-        date: dto.date,
-        program: {
-          connect: {
-            id: dto.programId,
-          },
-        },
+        name: dto.name,
         user: {
           connect: {
             id: userId,
           },
         },
-        workoutSets: {
-          create: dto.workoutSets.map((set) => ({
-            userSet: {
-              create: {
-                reps: set.reps,
-                weight: set.weight,
-                restTime: set.restTime,
-                isBodyWeight: set.isBodyWeight,
-                isCompleted: set.isCompleted,
-                isMuscleFailure: set.isMuscleFailure,
-                isJointPain: set.isJointPain,
-                coreSet: {
-                  connect: {
-                    id: set.coreSetId,
-                  },
-                },
-                user: {
-                  connect: {
-                    id: userId,
-                  },
-                },
+        workoutExercises: {
+          create: dto.workoutExercises.map((we) => ({
+            order: we.order,
+            notes: we.notes,
+            exercise: {
+              connect: {
+                id: we.exerciseId,
               },
             },
-            coreSet: {
-              connect: {
-                id: set.coreSetId,
-              },
+            coreSets: {
+              create: we.coreSets.map((cs) => ({
+                order: cs.order,
+                reps: cs.reps,
+                weight: cs.weight,
+                restTime: cs.restTime,
+                isBodyWeight: cs.isBodyWeight,
+                isWarmup: cs.isWarmup,
+                repsInReserve: cs.repsInReserve,
+              })),
             },
           })),
         },
@@ -94,75 +74,85 @@ export const workoutsService = {
     dto: CreateWorkoutInput,
     userId: string
   ): Promise<Workout> => {
+    const workoutData = dbUtil.cleanData({
+      notes: dto.notes,
+      userId: userId,
+      name: dto.name,
+      daysOfWeek: dto.daysOfWeek,
+    });
     return prisma.workout.update({
       where: { id },
       data: {
-        date: dto.date,
-        program: {
-          connect: {
-            id: dto.programId,
-          },
-        },
-        user: {
-          connect: {
-            id: userId,
-          },
-        },
-        workoutSets: {
-          deleteMany: {},
-          create: dto.workoutSets.map((set) => ({
-            userSet: {
-              create: {
-                reps: set.reps,
-                weight: set.weight,
-                restTime: set.restTime,
-                isBodyWeight: set.isBodyWeight,
-                isCompleted: set.isCompleted,
-                isMuscleFailure: set.isMuscleFailure,
-                isJointPain: set.isJointPain,
-                coreSet: {
-                  connect: {
-                    id: set.coreSetId,
+        ...workoutData,
+        workoutExercises: {
+          upsert: dto.workoutExercises.map((we) => ({
+            where: { id: we.id ?? "test-we" },
+            update: {
+              ...dbUtil.cleanData({
+                order: we.order,
+                notes: we.notes,
+                isActive: we.isActive,
+              }),
+              exerciseId: we.exerciseId,
+              coreSets: {
+                upsert: we.coreSets.map((cs) => ({
+                  where: { id: cs.id ?? "test-cs" },
+                  update: {
+                    // Clean coreSet data
+                    ...dbUtil.cleanData({
+                      reps: cs.reps,
+                      weight: cs.weight,
+                      restTime: cs.restTime,
+                      order: cs.order,
+                      isWarmup: cs.isWarmup,
+                      isBodyWeight: cs.isBodyWeight,
+                      repsInReserve: cs.repsInReserve,
+                    }),
                   },
-                },
-                user: {
-                  connect: {
-                    id: userId,
+                  create: {
+                    reps: cs.reps,
+                    weight: cs.weight,
+                    restTime: cs.restTime,
+                    order: cs.order,
+                    isBodyWeight: cs.isBodyWeight,
+                    isWarmup: cs.isWarmup,
+                    repsInReserve: cs.repsInReserve,
                   },
-                },
+                })),
+                deleteMany: we.coreSets
+                  .filter((cs) => cs.crudOperation === "delete")
+                  .map((cs) => ({ id: cs.id })),
               },
             },
-            coreSet: {
-              connect: {
-                id: set.coreSetId,
+            create: {
+              order: we.order,
+              notes: we.notes,
+              isActive: we.isActive,
+              exerciseId: we.exerciseId,
+              coreSets: {
+                create: we.coreSets.map((cs) => ({
+                  reps: cs.reps,
+                  weight: cs.weight,
+                  restTime: cs.restTime,
+                  isBodyWeight: cs.isBodyWeight,
+                  order: cs.order,
+                  isWarmup: cs.isWarmup,
+                  repsInReserve: cs.repsInReserve,
+                })),
               },
             },
           })),
+          deleteMany: (dto.workoutExercises ?? [])
+            .filter((we) => we.crudOperation === "delete")
+            .map((we) => ({ id: we.id })),
         },
       },
-      include: {
-        workoutSets: {
-          include: {
-            userSet: true,
-            coreSet: true,
-          },
-        },
-        program: true,
-      },
+      include: {},
     });
   },
   delete: async (id: string): Promise<Workout> => {
     return prisma.workout.delete({
       where: { id },
-      include: {
-        workoutSets: {
-          include: {
-            userSet: true,
-            coreSet: true,
-          },
-        },
-        program: true,
-      },
     });
   },
 };

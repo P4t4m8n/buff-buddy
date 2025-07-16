@@ -6,13 +6,8 @@ import {
 } from "./auth.validations";
 import { authService } from "./auth.service";
 import { AppError } from "../../shared/services/Error.service";
-
-const COOKIE: CookieOptions = {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "strict",
-  maxAge: 24 * 60 * 60 * 1000 * 7, // 7 days
-};
+import { COOKIE } from "./auth.consts";
+import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
 
 type TGoogleUserResponse = {
   email: string;
@@ -74,14 +69,7 @@ export const signOut = async (req: Request, res: Response) => {
 
 export const getSessionUser = async (req: Request, res: Response) => {
   try {
-    const token = req.cookies.token;
-    if (!token) {
-      throw AppError.create("Unauthorized", 401);
-    }
-    const user = await authService.validateToken(token);
-    if (!user) {
-      throw AppError.create("Unauthorized", 401);
-    }
+    const user = asyncLocalStorage.getStore()?.sessionUser;
     res.status(200).json({
       message: "User session retrieved successfully",
       user,

@@ -6,19 +6,17 @@ import Label from "../components/UI/Form/Label";
 import Button from "../components/UI/Button";
 import AuthPageHeader from "../components/Auth/AuthPageHeader";
 import AuthPageFooter from "../components/Auth/AuthPageFooter";
+import { GOOGLE_AUTH_URL } from "../consts/auth.const";
 
 export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(false);
 
   const { signIn, signUp, isLoading, error } = useAuthStore();
 
-  const clientId = import.meta.env.VITE_PUBLIC_GOOGLE_CLIENT_ID;
-  const redirectUri = import.meta.env.VITE_PUBLIC_GOOGLE_REDIRECT_URI;
-  const googleAuthURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email%20profile`;
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
+
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
@@ -77,7 +75,7 @@ export default function AuthPage() {
           )}
 
           <a
-            href={googleAuthURL}
+            href={GOOGLE_AUTH_URL}
             className=" flex items-center gap-2 justify-center border h-12 px-2
           border-gray-300 rounded-xl shadow-sm bg-white
           text-gray-700 font-medium hover:bg-gray-50 transition-colors w-fit"

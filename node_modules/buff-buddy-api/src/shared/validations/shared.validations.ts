@@ -1,4 +1,5 @@
 import { z } from "zod";
+import sanitizeHtml from "sanitize-html";
 
 export const conditionalOrderRefinement = (
   data: { order?: number; crudOperation?: string },
@@ -59,11 +60,83 @@ export const conditionalWeightRefinement = (
     });
   }
 };
+export const idSchema = ({ errorMsg }: { errorMsg: string }) => {
+  return z
+    .string()
+    .min(1, errorMsg)
+    .transform((val) =>
+      sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} })
+    )
+    .transform((val) => val.trim())
+    .refine((val) => val.length >= 1, `${errorMsg} after sanitization`);
+};
 
-export const crudOperationSchema = z.enum([
+export const NotesSchema = z
+  .string()
+  .optional()
+  .transform((val) => {
+    if (!val) return undefined;
+    return sanitizeHtml(val, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
+  })
+  .transform((val) => {
+    if (!val) return undefined;
+    return val.trim();
+  })
+  .transform((val) => {
+    if (!val) return undefined;
+    return val.replace(/\s+/g, " ");
+  })
+  .refine(
+    (val) => !val || val.length <= 1000,
+    "Notes must be less than 1000 characters"
+  );
+
+export const CrudOperationEnumSchema = z.enum([
   "create",
   "update",
   "edit",
   "delete",
   "read",
 ]);
+
+export const DaysOfWeekEnumSchema = z.enum([
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
+]);
+
+export const DaysOfWeekSchema = z
+  .array(DaysOfWeekEnumSchema)
+  .max(7, "Maximum 7 days allowed")
+  .transform((days) => [...new Set(days)]); // Remove duplicates
+
+export const OrderSchema = z.coerce
+  .number()
+  .int("Order must be a whole number")
+  .min(1, "Order must be at least 1")
+  .max(100, "Order cannot exceed 100");
+
+export const NameSchema = z
+  .string()
+  .min(1, "Program name is required")
+  .max(200, "Program name must be less than 200 characters")
+  .transform((val) =>
+    sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} })
+  )
+  .transform((val) => val.trim())
+  .transform((val) => val.replace(/\s+/g, " "))
+  .refine(
+    (val) => val.length >= 1,
+    "Program name is required after sanitization"
+  )
+  .refine(
+    (val) => val.length <= 100,
+    "Program name must be less than 100 characters"
+  );

@@ -1,13 +1,14 @@
 import type { ReactNode } from "react";
 import { Route } from "react-router";
 import HomePage from "./pages/HomePage";
-import WorkoutPage from "./pages/WorkoutPage";
 import ProgramPage from "./pages/Program/ProgramPage";
 import ExercisePage from "./pages/ExercisePage";
 import ProfilePage from "./pages/ProfilePage";
 import AdminPage from "./pages/AdminPage";
 import ProgramEdit from "./pages/Program/ProgramEdit";
 import ProgramDetails from "./pages/Program/ProgramDetails";
+import WorkoutPage from "./pages/WorkoutPage";
+import ProgramWorkoutEdit from "./components/Program/ProgramWorkoutEdit";
 
 export interface RouteConfig {
   path: string;
@@ -31,12 +32,11 @@ export const ROUTES: RouteConfig[] = [
   {
     path: "/workouts",
     element: <WorkoutPage />,
-    // children: [
-    //   {
-    //     path: "/workouts/edit/:programId/:workoutId",
-    //     element: <WorkoutEdit />,
-    //   },
-    // ],
+   
+  },
+  {
+    path: "/workouts/edit/",
+    element: <ProgramWorkoutEdit/>,
   },
   {
     path: "/programs",

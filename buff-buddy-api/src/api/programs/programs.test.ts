@@ -97,7 +97,6 @@ describe("Programs API", () => {
       const res = await request(app)
       .post("/api/v1/programs/edit")
       .send(newProgram);
-      console.log(" it ~ res:", res.status)
 
       expect(res.status).toBe(201);
       expect(res.body.message).toBe("Program created successfully");

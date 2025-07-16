@@ -12,17 +12,20 @@ const BUTTON_STYLES = {
             hover:cursor-pointer  `,
 };
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export type TButtonStyle = keyof typeof BUTTON_STYLES;
+
+export interface IButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
   className?: string;
-  buttonStyle?: keyof typeof BUTTON_STYLES | null;
+  buttonStyle?: TButtonStyle | null;
 }
 
 export default function Button({
   children,
   buttonStyle,
   ...props
-}: ButtonProps) {
+}: IButtonProps) {
   const _buttonStyle = buttonStyle ? BUTTON_STYLES[buttonStyle] : "";
   const style = twMerge(`cursor-pointer`, _buttonStyle, props.className);
 

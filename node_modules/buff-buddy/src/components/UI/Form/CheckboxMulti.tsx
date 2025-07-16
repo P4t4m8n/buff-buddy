@@ -14,10 +14,11 @@ export default function CheckboxMulti({
   options,
   selectedOptions,
   inputName,
+  listStyle,
   onChange,
 }: CheckboxMultiProps) {
   return (
-    <ul className="border rounded p-1  gap-2 w-full grid grid-cols-4 justify-center justify-items-center">
+    <ul className={listStyle}>
       {options.map((option) => (
         <li key={option}>
           <Input

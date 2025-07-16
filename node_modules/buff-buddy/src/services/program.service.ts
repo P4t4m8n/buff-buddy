@@ -14,7 +14,7 @@ export const programService = {
   },
 
   async getById(id: string) {
-    return await apiService.get<IProgramEditDTO>(`${this.rootPath}/${id}`);
+    return await apiService.get<IProgramDTO>(`${this.rootPath}/${id}`);
   },
 
   async save(dto: IProgramEditDTO): Promise<THttpPostResponse<IProgramDTO>> {

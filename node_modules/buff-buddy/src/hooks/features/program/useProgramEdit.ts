@@ -1,23 +1,24 @@
 import { useEffect, useState, type ChangeEvent } from "react";
-import type { IProgramEditDTO } from "../../../models/program.model";
 import type {
-  IProgramExerciseEditDTO,
-  TProgramExerciseEditRecord,
-} from "../../../models/programExercise.model";
+  IProgramEditDTO,
+  TProgramWorkoutEditRecord,
+} from "../../../models/program.model";
 import type { IDateRange } from "../../../models/calendar.model";
 import { useProgramStore } from "../../../store/program.store";
 import { useNavigate } from "react-router";
 import { programUtils } from "../../../utils/program.util";
+import type {
+  IWorkoutDTO,
+  IWorkoutEditDTO,
+} from "../../../models/workout.model";
 
 interface IProgramEditHook {
   programToEdit: IProgramEditDTO | null;
   isLoading: boolean;
   handleDateSelect: (range: IDateRange) => void;
   onSaveProgram: (e: React.FormEvent<HTMLFormElement>) => void;
-  handleProgramExercise: (programExercise: IProgramExerciseEditDTO) => void;
-  groupProgramExercisesByDay: (
-    pe: IProgramExerciseEditDTO[]
-  ) => TProgramExerciseEditRecord;
+  handleWorkouts: (workout: IWorkoutDTO) => void;
+  groupWorkoutsByDay: (workout: IWorkoutDTO[]) => TProgramWorkoutEditRecord;
   navigate: ReturnType<typeof useNavigate>;
   handleInputChange: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -38,7 +39,7 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
     getProgramById(id).then((program) => {
       if (!program) {
         setProgramToEdit(programUtils.getEmpty());
-        return
+        return;
       }
       setProgramToEdit(program);
     });
@@ -72,52 +73,26 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
   };
 
   //TODO?? improve logic, specially change of order
-  const handleProgramExercise = (programExercise: IProgramExerciseEditDTO) => {
+  const handleWorkouts = (workout: IWorkoutEditDTO) => {
+    console.log("🚀 ~ handleWorkouts ~ workouts:", workout);
     setProgramToEdit((prev) => {
       if (!prev) return null;
-      const programExercises = prev?.programExercises ?? [];
+      const programExercises = prev?.workouts ?? [];
 
-      const idx = prev?.programExercises?.findIndex(
-        (ex) => ex.id === programExercise.id
-      );
-
-      // Check if this a new item and its not an update of a new item
-      if (
-        (idx === undefined || idx === -1) &&
-        programExercise?.crudOperation === "create"
-      ) {
-        return {
-          ...prev,
-          programExercises: [...programExercises, programExercise],
-        };
-      }
-
-      if (idx === undefined || idx === -1) {
-        return prev;
-      }
+      const idx = prev?.workouts?.findIndex((w) => w.id === workout.id);
 
       return {
         ...prev,
-        programExercises: programExercises
-          .toSpliced(idx!, 1, programExercise)
-          .sort((a, b) => a.order - b.order)
-          .map((ex, i) => {
-            const isChangeOrder = ex.order !== i + 1;
-
-            if (!isChangeOrder || ex.crudOperation === "delete") return ex;
-            return {
-              ...ex,
-              order: i + 1,
-              crudOperation:
-                ex.crudOperation !== "create" ? "update" : ex.crudOperation,
-            };
-          }),
+        workouts:
+          idx !== undefined && idx >= 0
+            ? programExercises.toSpliced(idx, 1, workout)
+            : [...programExercises, workout],
       };
     });
   };
 
-  const groupProgramExercisesByDay = (pe: IProgramExerciseEditDTO[]) => {
-    const peByDay: TProgramExerciseEditRecord = {
+  const groupWorkoutsByDay = (workouts: IWorkoutDTO[]) => {
+    const peByDay: TProgramWorkoutEditRecord = {
       monday: [],
       tuesday: [],
       wednesday: [],
@@ -126,12 +101,12 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
       saturday: [],
       sunday: [],
     };
-    pe.forEach((programExercise) => {
-      programExercise.daysOfWeek?.forEach((day) => {
+    workouts.forEach((workout) => {
+      workout.daysOfWeek?.forEach((day) => {
         if (!peByDay[day]) {
           peByDay[day] = [];
         }
-        peByDay[day].push(programExercise);
+        peByDay[day].push(workout);
       });
     });
     return peByDay;
@@ -162,9 +137,9 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
     isLoading,
     handleDateSelect,
     onSaveProgram,
-    handleProgramExercise,
+    handleWorkouts,
     navigate,
-    groupProgramExercisesByDay,
+    groupWorkoutsByDay,
     handleInputChange,
   };
 };

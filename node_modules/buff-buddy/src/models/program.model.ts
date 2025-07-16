@@ -1,9 +1,6 @@
-import type { IBaseFilter } from "./app.model";
+import type { IBaseFilter, TDayOfWeek } from "./app.model";
 import type { IEntity } from "./entity.model";
-import type {
-  IProgramExerciseDTO,
-  IProgramExerciseEditDTO,
-} from "./programExercise.model";
+import type { IWorkoutDTO, IWorkoutEditDTO } from "./workout.model";
 
 export interface IProgramDTO extends IEntity {
   name?: string | null | undefined;
@@ -11,13 +8,15 @@ export interface IProgramDTO extends IEntity {
   startDate?: Date | string | null;
   endDate?: Date | string | null;
   isActive: boolean;
-  programExercises?: IProgramExerciseDTO[];
+  workouts?: IWorkoutDTO[];
 }
 
-export interface IProgramEditDTO extends Omit<IProgramDTO, "programExercises"> {
-  programExercises?: IProgramExerciseEditDTO[];
+export interface IProgramEditDTO extends Omit<IProgramDTO, "workouts"> {
+  workouts?: IWorkoutEditDTO[];
 }
 
 export interface IProgramFilter extends IBaseFilter {
   name?: string;
 }
+
+export type TProgramWorkoutEditRecord = Record<TDayOfWeek, IWorkoutDTO[]>;

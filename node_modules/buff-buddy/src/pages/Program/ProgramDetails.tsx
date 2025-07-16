@@ -3,9 +3,9 @@ import { useParams } from "react-router";
 import type { IProgramDTO } from "../../models/program.model";
 import { useProgramStore } from "../../store/program.store";
 import { toTitle } from "../../utils/toTitle";
-
 import { toDisplayDates } from "../../utils/toDisplayDates";
 import ActiveButtonIcon from "../../utils/ActiveButtonIcon.util";
+import Loader from "../../components/UI/Loader";
 
 export default function ProgramDetails() {
   const { id } = useParams<{ id?: string }>();
@@ -28,9 +28,9 @@ export default function ProgramDetails() {
         });
     }
   }, [id, getProgramById]);
-  //TODO?? Add loading component
+
   if (isLoading) {
-    return <section className="h-main">Loading...</section>;
+    return <Loader />;
   }
 
   //TODO?? handle error better

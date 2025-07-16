@@ -13,7 +13,7 @@ const labelPositionClasses = {
   input: " top-1/2 left-2 -translate-y-1/2",
   textArea: " top-4 left-2 -translate-y-1/2",
 };
-
+//TODO??BUG?? label when click not propagate to the input to start the animation
 export default function Label({
   isMoveUpEffect,
   labelPosition,

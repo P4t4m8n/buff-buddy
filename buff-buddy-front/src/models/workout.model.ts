@@ -2,26 +2,44 @@ import type { IBaseFilter, TDayOfWeek } from "./app.model";
 import type { IEntity } from "./entity.model";
 import type { IExerciseDTO } from "./exercise.model";
 import type { IProgramDTO } from "./program.model";
-import type { ICoreSetDTO, IUserSetEditDTO } from "./set.model";
+import type { TCrudOperation } from "./programExercise.model";
+import type {
+  ICoreSetDTO,
+  ICoreSetEditDTO,
+  IUserSetEditDTO,
+} from "./set.model";
+import type { IUserDTO } from "./user.model";
 
-export interface IWorkoutDTO extends IEntity {
-  program: Partial<IProgramDTO>;
-  dayOfWeek: TDayOfWeek;
+interface IWorkoutBase extends IEntity {
+  name?: string;
+  notes?: string;
+  daysOfWeek?: TDayOfWeek[];
+}
+
+export interface IWorkoutDTO extends IWorkoutBase {
+  program?: Partial<IProgramDTO>;
+  user?: Partial<IUserDTO>;
   workoutExercises?: IWorkoutExerciseDTO[];
 }
-export interface IWorkoutEditDTO extends IEntity {
-  programId?: string;
-  date: Date;
-  workoutSets: IUserSetEditDTO[];
+
+export interface IWorkoutEditDTO extends IWorkoutBase {
+  programId?: string | null;
+  userId?: string | null;
+  workoutExercises?: IWorkoutExerciseEditDTO[];
+  crudOperation?: TCrudOperation;
 }
 
 export interface IWorkoutExerciseDTO extends IEntity {
-  exercise: IExerciseDTO;
-  sets: IWorkoutSets[];
+  exercise?: IExerciseDTO;
+  coreSets?: ICoreSetDTO[];
 }
 export interface IWorkoutExerciseEditDTO extends IEntity {
-  exerciseId?: string;
-  sets: IUserSetEditDTO[];
+  order?: number;
+  notes?: string;
+  coreSets?: ICoreSetEditDTO[];
+  exerciseId?: string; //For backend relationship
+  exercise?: IExerciseDTO; //Exists only on the front to show the exercise details
+  crudOperation?: TCrudOperation;
 }
 
 export interface IWorkoutSets {
@@ -38,4 +56,15 @@ export interface IWorkoutFilter extends IBaseFilter {
   dayOfWeek?: TDayOfWeek;
   exerciseId?: string;
   isCompleted?: boolean;
+}
+
+export interface IOldWorkOut extends IEntity {
+  program: Partial<IProgramDTO>;
+  dayOfWeek: TDayOfWeek;
+  workoutExercises?: IWorkoutExerciseDTO[];
+}
+export interface IIOldWorkOutEditDTO extends IEntity {
+  programId?: string;
+  date: Date;
+  workoutSets: IUserSetEditDTO[];
 }
