@@ -37,6 +37,7 @@ export async function setupAsyncLocalStorage(
         }
       }
     } catch (error) {
+      console.error("Error setting up async local storage:", error);
       res.clearCookie("token", COOKIE);
     } finally {
       next();

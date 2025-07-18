@@ -1,4 +1,4 @@
-import type { IEntity } from "../../../shared/models/entity.model";
+import type { IEntity } from "./entity.model";
 
 export interface IAuthSignInDTO {
   email: string;

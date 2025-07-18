@@ -1,4 +1,4 @@
-import { CookieOptions, Request, Response } from "express";
+import {  Request, Response } from "express";
 import {
   CreateUserSchema,
   GoogleOAuthSchema,
@@ -24,7 +24,7 @@ export const signUp = async (req: Request, res: Response) => {
 
     res.cookie("token", token, COOKIE).status(201).json({
       message: "User created successfully",
-      user,
+      data: user,
     });
   } catch (error) {
     const err = AppError.handleResponse(error);
@@ -42,7 +42,7 @@ export const signIn = async (req: Request, res: Response) => {
 
     res.cookie("token", token, COOKIE).status(200).json({
       message: "User signed in successfully",
-      user,
+      data: user,
     });
   } catch (error) {
     const err = AppError.handleResponse(error);
@@ -176,6 +176,29 @@ export const googleCallback = async (req: Request, res: Response) => {
 
     const frontendUrl = process.env.FRONTEND_URL;
     res.cookie("token", token, COOKIE).redirect(frontendUrl!);
+  } catch (error) {
+    const err = AppError.handleResponse(error);
+    res.status(err.status || 500).json({
+      message: err.message || "An unexpected error occurred",
+      errors: err.errors || {},
+    });
+  }
+};
+
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
+
+    if (!userId) {
+      throw AppError.create("User not authenticated", 401);
+    }
+
+    await authService.deleteUser(id);
+    res.clearCookie("token", COOKIE).status(200).json({
+      message: "User deleted successfully",
+    });
   } catch (error) {
     const err = AppError.handleResponse(error);
     res.status(err.status || 500).json({

@@ -1,230 +1,97 @@
 import request from "supertest";
-import { app, server } from "../../server";
+import { app } from "../../server";
+import { IProgramDTO } from "../../../../shared/models/program.model";
 
 describe("Programs API", () => {
-  let testExerciseId: string;
+  let authToken: string;
+  let testUserId: string;
+  let testWorkoutId: string;
   const createdProgramIds: string[] = [];
 
   beforeAll(async () => {
-    const testExercise = {
-      name: "Test Program Exercise",
-      youtubeUrl: "https://www.youtube.com/watch?v=test123",
-      types: ["strength"],
-      equipment: ["dumbbell"],
-      muscles: ["chest"],
+    const userCredentials = {
+      email: `test-program-user-${Date.now()}@example.com`,
+      password: "Password123!",
+      confirmPassword: "Password123!",
+      firstName: "Program",
+      lastName: "Tester",
     };
+    const userRes = await request(app)
+      .post("/api/v1/auth/sign-up")
+      .send(userCredentials);
+    testUserId = userRes.body.data.id;
+    authToken = userRes.headers["set-cookie"][0].split(";")[0].split("=")[1];
 
     const exerciseRes = await request(app)
       .post("/api/v1/exercises/edit")
-      .send(testExercise);
+      .set("Cookie", `token=${authToken}`)
+      .send({
+        name: `Program Test Exercise ${Date.now()}`,
+        youtubeUrl: "https://www.youtube.com/watch?v=prgtest",
+        types: ["strength"],
+        equipment: ["barbell"],
+        muscles: ["chest"],
+      });
+    const testExerciseId = exerciseRes.body.data.id;
 
-    testExerciseId = exerciseRes.body.data.id;
-  });
-
-  describe("GET /api/v1/programs", () => {
-    it("should return all programs", async () => {
-      const res = await request(app).get("/api/v1/programs");
-      expect(res.status).toBe(200);
-      expect(Array.isArray(res.body)).toBe(true);
-    });
-
-    it("should filter programs by name", async () => {
-      const res = await request(app).get("/api/v1/programs?name=Test");
-      expect(res.status).toBe(200);
-      expect(Array.isArray(res.body)).toBe(true);
-    });
+    const workoutRes = await request(app)
+      .post("/api/v1/workouts/edit")
+      .set("Cookie", `token=${authToken}`)
+      .send({
+        name: "Test Workout for Programs",
+        workoutExercises: [
+          {
+            order: 1,
+            exerciseId: testExerciseId,
+            coreSets: [{ order: 1, reps: 10, weight: 100,restTime:45 }],
+          },
+        ],
+      });
+    testWorkoutId = workoutRes.body.data.id;
   });
 
   describe("POST /api/v1/programs/edit", () => {
-    it("should create a new program with nested programExercises and coreSets", async () => {
+    it("should create a new program successfully", async () => {
       const newProgram = {
-        name: "Test Workout Program",
-        notes: "This is a test program",
-        startDate: "2025-01-01",
-        endDate: "2025-03-01",
-        isActive: true,
-        programExercises: [
+        name: "My New Lifting Program",
+        notes: "3-day split for strength.",
+        startDate: "2025-08-01",
+        endDate: "2025-10-31",
+        workouts: [
           {
-            order: 1,
-            notes: "Focus on form",
-            daysOfWeek: ["monday", "wednesday", "friday"],
-            exerciseId: testExerciseId,
-            isActive: true,
-            crudOperation: "create",
-            coreSets: [
-              {
-                reps: 10,
-                weight: 135.5,
-                restTime: 120,
-                order: 1,
-                isWarmup: false,
-                repsInReserve: 2,
-                crudOperation: "create",
-              },
-              {
-                reps: 8,
-                weight: 145.0,
-                restTime: 150,
-                order: 2,
-                isWarmup: false,
-                repsInReserve: 1,
-                crudOperation: "create",
-              },
-            ],
-          },
-          {
-            order: 2,
-            notes: "Warm up set",
-            daysOfWeek: ["monday"],
-            exerciseId: testExerciseId,
-            isActive: true,
-            crudOperation: "create",
-            coreSets: [
-              {
-                reps: 15,
-                weight: 95.0,
-                restTime: 60,
-                order: 1,
-                isWarmup: true,
-                repsInReserve: 5,
-                crudOperation: "create",
-              },
-            ],
+            id: testWorkoutId,
+            daysOfWeek: ["monday", "friday"],
           },
         ],
       };
 
       const res = await request(app)
-      .post("/api/v1/programs/edit")
-      .send(newProgram);
+        .post("/api/v1/programs/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(newProgram);
 
       expect(res.status).toBe(201);
       expect(res.body.message).toBe("Program created successfully");
-      expect(res.body.data).toHaveProperty("id");
-      expect(res.body.data.name).toBe(newProgram.name);
-      expect(res.body.data.notes).toBe(newProgram.notes);
-
-      createdProgramIds.push(res.body.data.id);
+      const program = res.body.data;
+      expect(program.id).toBeDefined();
+      expect(program.name).toBe(newProgram.name);
+      expect(program.workouts).toHaveLength(1);
+      expect(program?.workouts[0]?.id).toBe(testWorkoutId);
+      expect(program?.workouts[0]?.daysOfWeek).toEqual(["monday", "friday"]);
+      createdProgramIds.push(program.id);
     });
 
-    it("should reject program with invalid weights due to both of them include", async () => {
-      const newProgram = {
-        name: "Test Workout Program",
-        notes: "This is a test program",
-        startDate: "2025-01-01",
-        endDate: "2025-03-01",
-        isActive: true,
-        programExercises: [
-          {
-            order: 1,
-            notes: "Focus on form",
-            daysOfWeek: ["monday", "wednesday", "friday"],
-            exerciseId: testExerciseId,
-            isActive: true,
-            crudOperation: "create",
-            coreSets: [
-              {
-                reps: 10,
-                isBodyWeight: true,
-                weight: 135.5,
-                restTime: 120,
-                order: 1,
-                isWarmup: false,
-                repsInReserve: 2,
-                crudOperation: "create",
-              },
-            ],
-          },
-        ],
-      };
-
-      const res = await request(app)
-        .post("/api/v1/programs/edit")
-        .send(newProgram);
-
-      expect(res.status).toBe(400);
-      expect(res.body).toHaveProperty("errors");
-
-    });
-    it("should reject program with invalid weights - no weights", async () => {
-      const newProgram = {
-        name: "Test Workout Program",
-        notes: "This is a test program",
-        startDate: "2025-01-01",
-        endDate: "2025-03-01",
-        isActive: true,
-        programExercises: [
-          {
-            order: 1,
-            notes: "Focus on form",
-            daysOfWeek: ["monday", "wednesday", "friday"],
-            exerciseId: testExerciseId,
-            isActive: true,
-            crudOperation: "create",
-            coreSets: [
-              {
-                weight: 135.5,
-                restTime: 120,
-                order: 1,
-                isWarmup: false,
-                repsInReserve: 2,
-                crudOperation: "create",
-              },
-            ],
-          },
-        ],
-      };
-
-      const res = await request(app)
-        .post("/api/v1/programs/edit")
-        .send(newProgram);
-
-      expect(res.status).toBe(400);
-      expect(res.body).toHaveProperty("errors");
-    });
-
-    it("should reject program with invalid data", async () => {
-      const invalidProgram = {
-        name: "",
-        startDate: "invalid-date",
-        endDate: "2025-01-01",
-        programExercises: [],
-      };
-
-      const res = await request(app)
-        .post("/api/v1/programs/edit")
-        .send(invalidProgram);
-
-      expect(res.status).toBe(400);
-      expect(res.body).toHaveProperty("errors");
-    });
-
-    it("should reject program with end date before start date", async () => {
+    it("should reject program if end date is before start date", async () => {
       const invalidProgram = {
         name: "Invalid Date Program",
-        startDate: "2025-03-01",
-        endDate: "2025-01-01",
-        programExercises: [
-          {
-            order: 1,
-            daysOfWeek: ["monday"],
-            exerciseId: testExerciseId,
-            crudOperation: "create",
-            coreSets: [
-              {
-                reps: 10,
-                weight: 100,
-                restTime: 60,
-                order: 1,
-                crudOperation: "create",
-              },
-            ],
-          },
-        ],
+        startDate: "2025-10-31",
+        endDate: "2025-08-01",
+        workouts: [{ id: testWorkoutId, daysOfWeek: ["monday"] }],
       };
 
       const res = await request(app)
         .post("/api/v1/programs/edit")
+        .set("Cookie", `token=${authToken}`)
         .send(invalidProgram);
 
       expect(res.status).toBe(400);
@@ -232,223 +99,145 @@ describe("Programs API", () => {
         "End date must be after start date"
       );
     });
+
+    it("should reject program with missing required fields", async () => {
+      const res = await request(app)
+        .post("/api/v1/programs/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send({ name: "Only a name" });
+
+      expect(res.status).toBe(400);
+      expect(res.body).toHaveProperty("errors");
+    });
+  });
+
+  describe("GET /api/v1/programs", () => {
+    it("should return a list of programs", async () => {
+      const res = await request(app)
+        .get("/api/v1/programs")
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(200);
+      expect(Array.isArray(res.body)).toBe(true);
+    });
+
+    it("should filter programs by name", async () => {
+      const res = await request(app)
+        .get("/api/v1/programs?name=Lifting")
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(200);
+      expect(
+        res.body.every((p: IProgramDTO) => (p?.name || "").includes("Lifting"))
+      ).toBe(true);
+    });
   });
 
   describe("GET /api/v1/programs/:id", () => {
-    let createdProgramId: string;
-
+    let programId: string;
     beforeAll(async () => {
-      const newProgram = {
-        name: "Test GetById Program",
-        note: "Program for testing getById",
-        startDate: "2025-02-01",
-        endDate: "2025-04-01",
-        programExercises: [
-          {
-            order: 1,
-            daysOfWeek: ["tuesday"],
-            exerciseId: testExerciseId,
-            crudOperation: "create",
-            coreSets: [
-              {
-                reps: 12,
-                weight: 120,
-                restTime: 90,
-                order: 1,
-                crudOperation: "create",
-              },
-            ],
-          },
-        ],
-      };
-
-      const createRes = await request(app)
+      const res = await request(app)
         .post("/api/v1/programs/edit")
-        .send(newProgram);
-
-      createdProgramId = createRes.body.data.id;
-      createdProgramIds.push(createdProgramId);
+        .set("Cookie", `token=${authToken}`)
+        .send({
+          name: "Program To Get",
+          startDate: "2025-01-01",
+          endDate: "2025-02-01",
+          workouts: [{ id: testWorkoutId, daysOfWeek: ["saturday"] }],
+        });
+      programId = res.body.data.id;
+      createdProgramIds.push(programId);
     });
 
-    it("should get program by id with nested data", async () => {
-      const res = await request(app).get(
-        `/api/v1/programs/${createdProgramId}`
-      );
+    it("should get a single program by its ID", async () => {
+      const res = await request(app)
+        .get(`/api/v1/programs/${programId}`)
+        .set("Cookie", `token=${authToken}`);
 
       expect(res.status).toBe(200);
-      expect(res.body).toHaveProperty("id", createdProgramId);
-      expect(res.body.name).toBe("Test GetById Program");
-      expect(res.body.programExercises).toHaveLength(1);
-      expect(res.body.programExercises[0].coreSets).toHaveLength(1);
-      expect(res.body.programExercises[0].exercise).toHaveProperty(
-        "id",
-        testExerciseId
-      );
+      expect(res.body.id).toBe(programId);
+      expect(res.body.name).toBe("Program To Get");
     });
 
-    it("should return 404 for non-existent program", async () => {
-      const res = await request(app).get("/api/v1/programs/non-existent-id");
+    it("should return 404 for a non-existent program ID", async () => {
+      const res = await request(app)
+        .get("/api/v1/programs/non-existent-id")
+        .set("Cookie", `token=${authToken}`);
       expect(res.status).toBe(404);
     });
   });
 
   describe("PUT /api/v1/programs/edit/:id", () => {
-    let createdProgramId: string;
-
-    beforeAll(async () => {
-      const newProgram = {
-        name: "Test Update Program",
-        notes: "Program for testing updates",
-        startDate: "2025-03-01",
-        endDate: "2025-05-01",
-        programExercises: [
-          {
-            order: 1,
-            daysOfWeek: ["thursday"],
-            exerciseId: testExerciseId,
-            crudOperation: "create",
-            coreSets: [
-              {
-                reps: 8,
-                weight: 155,
-                restTime: 180,
-                order: 1,
-                crudOperation: "create",
-              },
-            ],
-          },
-        ],
-      };
-
-      const createRes = await request(app)
+    let programId: string;
+    beforeEach(async () => {
+      const res = await request(app)
         .post("/api/v1/programs/edit")
-        .send(newProgram);
-
-      createdProgramId = createRes.body.data.id;
-      createdProgramIds.push(createdProgramId);
+        .set("Cookie", `token=${authToken}`)
+        .send({
+          name: "Program To Update",
+          startDate: "2025-03-01",
+          endDate: "2025-04-01",
+          workouts: [{ id: testWorkoutId, daysOfWeek: ["tuesday"] }],
+        });
+      programId = res.body.data.id;
+      createdProgramIds.push(programId);
     });
 
-    it("should update program with nested data", async () => {
+    it("should update an existing program", async () => {
       const updateData = {
         name: "Updated Program Name",
-        notes: "Updated program description",
-        programExercises: [
-          {
-            order: 1,
-            notes: "Updated exercise notes",
-            daysOfWeek: ["thursday", "saturday"],
-            exerciseId: testExerciseId,
-            crudOperation: "update",
-            coreSets: [
-              {
-                reps: 10,
-                weight: 165,
-                restTime: 150,
-                order: 1,
-                crudOperation: "update",
-              },
-              {
-                reps: 6,
-                weight: 175,
-                restTime: 200,
-                order: 2,
-                crudOperation: "create",
-              },
-            ],
-          },
-        ],
+        notes: "This program has been updated.",
       };
-
       const res = await request(app)
-        .put(`/api/v1/programs/edit/${createdProgramId}`)
+        .put(`/api/v1/programs/edit/${programId}`)
+        .set("Cookie", `token=${authToken}`)
         .send(updateData);
 
       expect(res.status).toBe(200);
-      expect(res.body.message).toBe("Program updated successfully");
-      expect(res.body.data.name).toBe("Updated Program Name");
-      expect(res.body.data.notes).toBe("Updated program description");
-    });
-
-    it("should return 400 for updating non-existent program", async () => {
-      const updateData = {
-        name: "Updated Name",
-      };
-
-      const res = await request(app)
-        .put("/api/v1/programs/edit/non-existent-id")
-        .send(updateData);
-
-      expect(res.status).toBe(400);
+      expect(res.body.data.name).toBe(updateData.name);
+      expect(res.body.data.notes).toBe(updateData.notes);
     });
   });
 
-  describe("DELETE /api/v1/programs/edit/:id", () => {
-    let createdProgramId: string;
-
-    beforeAll(async () => {
-      const newProgram = {
-        name: "Test Delete Program",
-        note: "Program for testing deletion",
-        startDate: "2025-04-01",
-        endDate: "2025-06-01",
-        programExercises: [
-          {
-            order: 1,
-            daysOfWeek: ["sunday"],
-            exerciseId: testExerciseId,
-            crudOperation: "create",
-            coreSets: [
-              {
-                reps: 15,
-                weight: 75,
-                restTime: 45,
-                order: 1,
-                crudOperation: "create",
-              },
-            ],
-          },
-        ],
-      };
-
-      const createRes = await request(app)
+  describe("DELETE /api/v1/programs/:id", () => {
+    it("should delete an existing program", async () => {
+      const res = await request(app)
         .post("/api/v1/programs/edit")
-        .send(newProgram);
+        .set("Cookie", `token=${authToken}`)
+        .send({
+          name: "Program To Delete",
+          startDate: "2025-05-01",
+          endDate: "2025-06-01",
+          workouts: [{ id: testWorkoutId, daysOfWeek: ["wednesday"] }],
+        });
+      const programIdToDelete = res.body.data.id;
 
-      createdProgramId = createRes.body.data.id;
-    });
+      const deleteRes = await request(app)
+        .delete(`/api/v1/programs/${programIdToDelete}`)
+        .set("Cookie", `token=${authToken}`);
+      expect(deleteRes.status).toBe(200);
+      expect(deleteRes.body.message).toBe("Program deleted successfully");
 
-    it("should delete program and all nested data", async () => {
-      const res = await request(app).delete(
-        `/api/v1/programs/${createdProgramId}`
-      );
-
-      expect(res.status).toBe(200);
-      expect(res.body.message).toBe("Program deleted successfully");
-
-      // Verify program is deleted
-      const getRes = await request(app).get(
-        `/api/v1/programs/${createdProgramId}`
-      );
+      const getRes = await request(app)
+        .get(`/api/v1/programs/${programIdToDelete}`)
+        .set("Cookie", `token=${authToken}`);
       expect(getRes.status).toBe(404);
-    });
-
-    it("should return 400 for deleting non-existent program", async () => {
-      const res = await request(app).delete("/api/v1/programs/non-existent-id");
-      expect(res.status).toBe(400);
     });
   });
 
   afterAll(async () => {
+    // The user deletion will cascade and delete programs, but we can be explicit
     for (const id of createdProgramIds) {
-      try {
-        await request(app).delete(`/api/v1/programs/${id}`);
-      } catch (error) {}
+      await request(app)
+        .delete(`/api/v1/programs/${id}`)
+        .set("Cookie", `token=${authToken}`)
+        .catch(() => {});
     }
-
-    if (testExerciseId) {
-      try {
-        await request(app).delete(`/api/v1/exercises/${testExerciseId}`);
-      } catch (error) {}
+    if (testUserId) {
+      await request(app)
+        .delete(`/api/v1/auth/delete-user/${testUserId}`)
+        .set("Cookie", `token=${authToken}`)
+        .catch(() => {});
     }
   });
 });

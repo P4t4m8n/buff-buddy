@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import {  useState } from 'react'
 import Label from './Label'
 import Input from './Input'
 import type { ChangeEvent } from 'react'

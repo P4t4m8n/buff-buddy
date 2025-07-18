@@ -1,9 +1,9 @@
 import type { MouseEvent, RefObject } from "react";
-import type { ICoreSetEditDTO } from "../../../../../models/set.model";
 import Input from "../../../../UI/Form/Input";
 import Label from "../../../../UI/Form/Label";
 import { toTitle } from "../../../../../utils/toTitle";
 import Button from "../../../../UI/Button";
+import type { ICoreSetEditDTO } from "../../../../../../../shared/models/set.model";
 
 const INFINITY = 100000;
 

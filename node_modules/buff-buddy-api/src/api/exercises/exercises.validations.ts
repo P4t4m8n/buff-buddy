@@ -49,7 +49,7 @@ export const CreateExerciseSchema = z.object({
     .transform((val) =>
       sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} })
     )
-    .transform((val) => val.trim()) 
+    .transform((val) => val.trim())
     .transform((val) => val.replace(/\s+/g, " ")) // Replace multiple spaces with single space
     .refine(
       (val) => val.length >= 1,
@@ -125,14 +125,26 @@ export const ExerciseParamsSchema = z.object({
 
 export const ExerciseQuerySchema = z.object({
   name: z.string().optional(),
-  typeId: z.string().optional(),
-  equipmentId: z.string().optional(),
-  muscleId: z.string().optional(),
-  typeName: ExerciseTypeSchema.optional(),
-  equipmentName: ExerciseEquipmentSchema.optional(),
-  muscleName: ExerciseMuscleSchema.optional(),
+  types: z
+    .string()
+    .transform((val) => val.split(","))
+    .pipe(z.array(ExerciseTypeSchema))
+    .optional(),
+
+  equipment: z
+    .string()
+    .transform((val) => val.split(","))
+    .pipe(z.array(ExerciseEquipmentSchema))
+    .optional(),
+
+  muscles: z
+    .string()
+    .transform((val) => val.split(","))
+    .pipe(z.array(ExerciseMuscleSchema))
+    .optional(),
+
   skip: z.coerce.number().min(0).optional(),
-  page: z.coerce.number().min(1).optional(),
+  take: z.coerce.number().min(1).optional(),
 });
 
 export type CreateExerciseInput = z.infer<typeof CreateExerciseSchema>;

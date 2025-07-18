@@ -1,4 +1,3 @@
-import { Program } from "../../../prisma/generated/prisma";
 import { IProgramDTO } from "../../../../shared/models/program.model";
 import { IProgramWithRelations } from "./programs.models";
 
@@ -10,7 +9,12 @@ export const programsUtils = {
     startDate: program.startDate,
     endDate: program.endDate,
     isActive: program.isActive ?? false,
-    workouts: (program.programWorkouts ?? []).map((pw: any) => ({
+    owner: {
+      id: program.owner.id,
+      firstName: program.owner.firstName || "",
+      lastName: program.owner.lastName || "",
+    },
+    workouts: (program.programWorkouts ?? []).map((pw) => ({
       ...pw.workout,
       daysOfWeek: pw.daysOfWeek ?? [],
     })),

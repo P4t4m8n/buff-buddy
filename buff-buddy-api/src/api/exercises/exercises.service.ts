@@ -1,11 +1,9 @@
-import {
-  Exercise,
-  Prisma,
-  ExerciseType,
-  ExerciseEquipment,
-  ExerciseMuscle,
-} from "../../../prisma/generated/prisma";
+import { IExerciseDTO } from "../../../../shared/models/exercise.model";
+import { Exercise, Prisma } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
+import { dbUtil } from "../../shared/utils/db.util";
+import { EXERCISE_SELECT } from "./exercise.sql";
+import { exerciseUtil } from "./exercise.util";
 import { IExerciseFilter } from "./exercises.models";
 import {
   CreateExerciseInput,
@@ -13,44 +11,11 @@ import {
 } from "./exercises.validations";
 
 export const exerciseService = {
-  getAll: async (filter: IExerciseFilter): Promise<Exercise[]> => {
-    const where: Prisma.ExerciseWhereInput = {};
+  getAll: async (filter: IExerciseFilter): Promise<IExerciseDTO[]> => {
+    const where: Prisma.ExerciseWhereInput =
+      exerciseUtil.buildWhereClause(filter);
 
-    if (filter.name) {
-      where.name = { contains: filter.name, mode: "insensitive" };
-    }
-    if (filter.types) {
-      const matchedTypes = Object.values(ExerciseType).filter((type) =>
-        type.toLowerCase().includes(filter.types!.toLowerCase())
-      );
-      if (matchedTypes.length > 0) {
-        where.types = { hasSome: matchedTypes };
-      } else {
-        return [];
-      }
-    }
-    if (filter.equipment) {
-      const matchedEquipment = Object.values(ExerciseEquipment).filter((eq) =>
-        eq.toLowerCase().includes(filter.equipment!.toLowerCase())
-      );
-      if (matchedEquipment.length > 0) {
-        where.equipment = { hasSome: matchedEquipment };
-      } else {
-        return [];
-      }
-    }
-    if (filter.muscles) {
-      const matchedMuscles = Object.values(ExerciseMuscle).filter((muscle) =>
-        muscle.toLowerCase().includes(filter.muscles!.toLowerCase())
-      );
-      if (matchedMuscles.length > 0) {
-        where.muscles = { hasSome: matchedMuscles };
-      } else {
-        return [];
-      }
-    }
-
-    const take = 20;
+    const take = filter.take ?? 10;
     const skip =
       filter.skip ??
       (filter.page && filter.page > 1 ? (filter.page - 1) * take : 0);
@@ -59,14 +24,16 @@ export const exerciseService = {
       where,
       skip,
       take,
+      select: EXERCISE_SELECT,
     });
   },
-  getBtyId: async (id: string): Promise<Exercise | null> => {
+  getBtyId: async (id: string): Promise<IExerciseDTO | null> => {
     return await prisma.exercise.findUnique({
       where: { id },
+      select: EXERCISE_SELECT,
     });
   },
-  create: async (dto: CreateExerciseInput): Promise<Exercise> => {
+  create: async (dto: CreateExerciseInput): Promise<IExerciseDTO> => {
     return await prisma.exercise.create({
       data: {
         name: dto.name,
@@ -75,12 +42,13 @@ export const exerciseService = {
         equipment: dto.equipment,
         types: dto.types,
       },
+      select: EXERCISE_SELECT,
     });
   },
   update: async (id: string, dto: UpdateExerciseInput): Promise<Exercise> => {
     return await prisma.exercise.update({
       where: { id },
-      data: dto,
+      data: dbUtil.cleanData({ ...dto }),
     });
   },
   delete: async (id: string): Promise<Exercise> => {

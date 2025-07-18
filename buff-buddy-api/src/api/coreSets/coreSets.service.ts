@@ -1,4 +1,3 @@
-import { get } from "http";
 import { CoreSet, Prisma } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
 import { CoreSetQuery, CreateCoreSetInput } from "./coreSets.validations";
@@ -7,7 +6,6 @@ export const coreSetsService = {
   //TODO: Improve this to use a more efficient query
   getAll: async (query: CoreSetQuery): Promise<CoreSet[]> => {
     const where: Prisma.CoreSetWhereInput = {
-      programExerciseId: query.programExerciseId,
       isWarmup: query.isWarmup,
       weight: {
         gte: query.minWeight ?? 0,

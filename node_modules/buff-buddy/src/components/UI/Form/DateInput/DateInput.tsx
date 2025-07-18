@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { DAY_OF_WEEK } from "../../../../models/app.model";
+import { DAY_OF_WEEK } from "../../../../models/UI.model";
 import { toTitle } from "../../../../utils/toTitle";
 import Button from "../../Button";
 import IconCalendar from "../../Icons/IconCalendar";

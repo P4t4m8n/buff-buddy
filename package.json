@@ -12,6 +12,7 @@
     "studio": "npm run studio --workspace=buff-buddy-api",
     "test": "npm test --workspace=buff-buddy-api",
     "migrate": "npm run migrate --workspace=buff-buddy-api",
-    "gen": "npm run gen --workspace=buff-buddy-api"
+    "gen": "npm run gen --workspace=buff-buddy-api",
+    "lint": "eslint ."
   }
 }

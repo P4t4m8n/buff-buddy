@@ -1,8 +1,5 @@
 import { z } from "zod";
-import {
-  CreateWorkoutSchema,
-  UpdateWorkoutSchema,
-} from "../workouts/workouts.validations";
+import { UpdateWorkoutSchema } from "../workouts/workouts.validations";
 import {
   NameSchema,
   NotesSchema,

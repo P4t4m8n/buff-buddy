@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  deleteUser,
   getSessionUser,
   googleCallback,
   signIn,
@@ -16,3 +17,5 @@ authRoutes.post("/sign-out", signOut);
 
 authRoutes.get("/google/callback", googleCallback);
 authRoutes.get("/session-user", getSessionUser);
+
+authRoutes.delete("/delete-user/:id", deleteUser);

@@ -1,13 +1,13 @@
-import type { IEntity } from "../../../shared/models/entity.model";
-import type { TCrudOperation } from "./programExercise.model";
+import { TCrudOperation } from "./app.model";
+import type { IEntity } from "./entity.model";
 
 export interface ICoreSetDTO extends IEntity {
   reps: number | null; // Target number of repetitions for the set
   weight?: number | null; // Weight lifted in kg
   isBodyWeight?: boolean; // Indicates if the set is bodyweight only
-  restTime: number | null; // Rest time in seconds before the next set
+  restTime?: number | null; // Rest time in seconds before the next set
   order: number | null; // Order of the set in the exercise
-  isWarmup: boolean; // Indicates if the set was a warmup set
+  isWarmup?: boolean; // Indicates if the set was a warmup set
 }
 export interface ICoreSetEditDTO extends ICoreSetDTO {
   crudOperation?: TCrudOperation;

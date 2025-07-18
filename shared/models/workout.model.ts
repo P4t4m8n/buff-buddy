@@ -1,18 +1,14 @@
-import type { IBaseFilter, TDayOfWeek } from "./app.model";
-import type { IEntity } from "../../../shared/models/entity.model";
-import type { IExerciseDTO } from "./exercise.model";
-import type { IProgramDTO } from "../../../shared/models/program.model";
-import type { TCrudOperation } from "./programExercise.model";
-import type {
-  ICoreSetDTO,
-  ICoreSetEditDTO,
-  IUserSetEditDTO,
-} from "./set.model";
 import type { IUserDTO } from "./user.model";
+import type { IExerciseDTO } from "./exercise.model";
+import type { IUserSetEditDTO } from "./set.model";
+import type { ICoreSetDTO, ICoreSetEditDTO } from "./set.model";
+import type { IEntity } from "./entity.model";
+import type { TDayOfWeek, IBaseFilter, TCrudOperation } from "./app.model";
+import type { IProgramDTO } from "./program.model";
 
 interface IWorkoutBase extends IEntity {
-  name?: string;
-  notes?: string;
+  name?: string | null;
+  notes?: string | null;
   daysOfWeek?: TDayOfWeek[];
 }
 
@@ -30,6 +26,8 @@ export interface IWorkoutEditDTO extends IWorkoutBase {
 }
 
 export interface IWorkoutExerciseDTO extends IEntity {
+  order?: number;
+  notes?: string | null;
   exercise?: IExerciseDTO;
   coreSets?: ICoreSetDTO[];
 }

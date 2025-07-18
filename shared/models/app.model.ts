@@ -1,19 +1,6 @@
-import type { ReactNode } from "react";
-import type { IEntity } from "../../../shared/models/entity.model";
-
-export interface IAppNav {
-  label: string;
-  path: string;
-  icon?: ReactNode;
-}
-
 export interface IBaseFilter {
   skip?: number;
   page?: number;
-}
-
-export interface IBaseNameAndId extends IEntity {
-  name?: string;
 }
 
 export const DAY_OF_WEEK = [
@@ -42,3 +29,12 @@ export const MONTHS = [
   "december",
 ] as const;
 export type TMonth = (typeof MONTHS)[number];
+
+export const CRUD_OPERATIONS = [
+  "create",
+  "update",
+  "edit",
+  "delete",
+  "read",
+] as const;
+export type TCrudOperation = (typeof CRUD_OPERATIONS)[number];

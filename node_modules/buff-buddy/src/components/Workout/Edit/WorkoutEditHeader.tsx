@@ -1,5 +1,5 @@
 import type { ChangeEvent, MouseEvent } from "react";
-import type { TDayOfWeek } from "../../../models/app.model";
+import type { TDayOfWeek } from "../../../models/UI.model";
 import { calendarUtil } from "../../../utils/calendar.util";
 import CheckboxMulti from "../../UI/Form/CheckboxMulti";
 import Input from "../../UI/Form/Input";

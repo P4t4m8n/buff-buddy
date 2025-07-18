@@ -27,6 +27,11 @@ export const CreateWorkoutSchema = BaseWorkoutSchema;
 
 export const UpdateWorkoutSchema = BaseWorkoutSchema.partial().extend({
   id: IDSchema,
+  workoutExercises: z
+    .array(UpdateNestedWorkoutExerciseSchema)
+    .min(1, "At least one workout set is required")
+    .max(50, "Maximum 50 workout sets allowed per workout")
+    .optional(),
 });
 
 export const WorkoutQuerySchema = z.object({

@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import { useModel } from "../../../../hooks/shared/useModel";
-import type { IWorkoutExerciseDTO } from "../../../../models/workout.model";
 import Button from "../../../UI/Button";
 import { ModelButtonIcon } from "../../../../utils/ModelButtonIcon.util";
 import ModelOverlay from "../../../UI/ModelOverlay";
+import type { IWorkoutExerciseDTO } from "../../../../../../shared/models/workout.model";
 
 interface WorkoutExerciseDetailsProps {
   workoutExercise: IWorkoutExerciseDTO;
@@ -11,8 +11,9 @@ interface WorkoutExerciseDetailsProps {
 export default function WorkoutExerciseDetails({
   workoutExercise,
 }: WorkoutExerciseDetailsProps) {
+  console.log("🚀 ~ workoutExercise:", workoutExercise);
   const modelRef = useRef<HTMLDivElement>(null);
-  const [isOpen, setIsOpen, handleModel] = useModel(modelRef);
+  const [isOpen, , handleModel] = useModel(modelRef);
   const buttonMode = "details";
   return (
     <>

@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-import type { IAppNav } from "../../models/app.model";
+import type { IAppNav } from "../../models/UI.model";
 
 interface NavItemProps {
   navItem: IAppNav;

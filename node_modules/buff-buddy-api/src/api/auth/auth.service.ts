@@ -92,12 +92,12 @@ export const authService = {
     if (!token) {
       return null;
     }
-    
+
     const secret = process.env.JWT_SECRET;
     if (!secret) {
       throw AppError.create("JWT_SECRET is not defined", 500);
     }
-    
+
     const decoded = jwt.verify(token, secret) as {
       userId: string;
       isAdmin: boolean;
@@ -115,6 +115,19 @@ export const authService = {
       ...user,
       isAdmin: user.isAdmin,
     };
+  },
+
+  deleteUser: async (userId: string) => {
+    const user = await prisma.user.delete({
+      where: { id: userId },
+      select: { id: true, firstName: true, lastName: true },
+    });
+
+    if (!user) {
+      throw AppError.create("User not found", 404);
+    }
+
+    return user;
   },
 };
 

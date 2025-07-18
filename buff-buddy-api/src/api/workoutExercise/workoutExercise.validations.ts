@@ -1,8 +1,5 @@
 import { z } from "zod";
-import sanitizeHtml from "sanitize-html";
-import {
-  CreateNestedCoreSetSchema,
-} from "../coreSets/coreSets.validations";
+import { CreateNestedCoreSetSchema } from "../coreSets/coreSets.validations";
 import {
   conditionalOrderRefinement,
   NotesSchema,
@@ -32,7 +29,7 @@ export const CreateNestedWorkoutExerciseSchema =
   CreateWorkoutExerciseSchema.superRefine(conditionalOrderRefinement);
 
 export const UpdateNestedWorkoutExerciseSchema =
-  UpdateWorkoutExerciseSchema.superRefine(conditionalOrderRefinement);
+  UpdateWorkoutExerciseSchema.partial().superRefine(conditionalOrderRefinement);
 
 export const WorkoutExerciseParamsSchema = z.object({
   id: z.string().min(1, "WorkoutExercise ID is required"),

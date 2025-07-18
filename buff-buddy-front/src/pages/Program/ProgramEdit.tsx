@@ -8,7 +8,7 @@ import Input from "../../components/UI/Form/Input";
 import { calendarUtil } from "../../utils/calendar.util";
 import Loader from "../../components/UI/Loader";
 import ProgramEditWorkoutModel from "../../components/Program/ProgramEditWorkoutModel";
-import { DAY_OF_WEEK } from "../../models/app.model";
+import { DAY_OF_WEEK } from "../../models/UI.model";
 import { toTitle } from "../../utils/toTitle";
 
 export default function ProgramEdit() {

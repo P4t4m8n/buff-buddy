@@ -1,5 +1,7 @@
 import { DaysOfWeek } from "../../../prisma/generated/prisma";
 import { IBaseFilter } from "../../shared/models/base.model";
+import { IExercise } from "../exercises/exercises.models";
+import { IUserBase } from "../users/users.model";
 
 export interface IProgramFilter extends IBaseFilter {
   name?: string;
@@ -16,11 +18,7 @@ export interface IProgramWithRelations {
   isActive?: boolean;
   startDate?: Date | null;
   endDate?: Date | null;
-  owner: {
-    id: string;
-    firstName?: string | null;
-    lastName?: string | null;
-  };
+  owner: IUserBase;
 
   programWorkouts: Array<{
     daysOfWeek: DaysOfWeek[];
@@ -28,19 +26,11 @@ export interface IProgramWithRelations {
       id: string;
       name?: string | null;
       notes?: string | null;
-
       workoutExercises: Array<{
         id: string;
         order: number;
         notes?: string | null;
-        exercise: {
-          id: string;
-          name: string;
-          youtubeUrl?: string | null;
-          types: string[];
-          equipment: string[];
-          muscles: string[];
-        };
+        exercise: IExercise;
         coreSets: Array<{
           id: string;
           reps: number;
