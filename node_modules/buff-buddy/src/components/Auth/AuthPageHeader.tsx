@@ -1,5 +1,6 @@
 import IconLogo from "../UI/Icons/IconLogo";
 
+//TODO??Placeholder for future header content
 export default function AuthPageHeader() {
   return (
     <header className="text-center grid gap-1 justify-items-center ">

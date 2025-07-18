@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { DAY_OF_WEEK } from "../../../../models/UI.model";
 import { toTitle } from "../../../../utils/toTitle";
 import Button from "../../Button";
 import IconCalendar from "../../Icons/IconCalendar";
@@ -13,6 +12,7 @@ import type {
   TDateInputMode,
 } from "../../../../models/calendar.model";
 import { useDateInput } from "../../../../hooks/features/calendar/useDateInput";
+import { DAY_OF_WEEK } from "../../../../../../shared/models/app.model";
 
 interface DateInputProps {
   handleDateSelect: (range: IDateRange) => void;

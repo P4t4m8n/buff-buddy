@@ -5,7 +5,7 @@ import {
   EXERCISE_TYPES,
   type IExerciseDTO,
   type TExerciseInfo,
-} from "../../models/exercise.model";
+} from "../../../../shared/models/exercise.model";
 import { useExerciseStore } from "../../store/exercise.store";
 import Button from "../UI/Button";
 import Input from "../UI/Form/Input";
@@ -47,7 +47,12 @@ export default function ExerciseEdit({
       const youtubeUrl = formData.get("youtubeUrl") as string;
       const id = formData.get("id") as string;
 
-     const res =  await saveExercise({ ...exerciseToEdit, name, youtubeUrl, id });
+      const res = await saveExercise({
+        ...exerciseToEdit,
+        name,
+        youtubeUrl,
+        id,
+      });
       if (res && setIsOpen) {
         setIsOpen((prev) => !prev);
       }

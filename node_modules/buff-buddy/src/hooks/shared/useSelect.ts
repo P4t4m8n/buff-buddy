@@ -1,4 +1,4 @@
-import { useRef, useState, type ChangeEvent, type MouseEvent } from "react";
+import { useRef, useState, type ChangeEvent,  } from "react";
 import { useModel } from "./useModel";
 
 export const useSelect = <T>(

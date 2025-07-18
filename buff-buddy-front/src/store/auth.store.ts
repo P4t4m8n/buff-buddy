@@ -4,7 +4,7 @@ import type {
   IAuthSignInDTO,
   IAuthUserDTO,
   IAuthSignUpDTO,
-} from "../models/auth.model";
+} from "../../../shared/models/auth.model";
 import { ApiError } from "../utils/ApiError.util";
 
 interface IAuthStore {

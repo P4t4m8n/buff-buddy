@@ -1,7 +1,7 @@
-import { Fragment } from "react/jsx-runtime";
-import type { IWorkoutExerciseEditDTO } from "../../../../../models/workout.model";
 import WorkoutExerciseListItem from "./WorkoutExerciseEditListItem";
 import { toTitle } from "../../../../../utils/toTitle";
+import type { IWorkoutExerciseEditDTO } from "../../../../../../../shared/models/workout.model";
+import GenericList from "../../../../UI/GenericList";
 
 interface IWorkoutExerciseEditListProps {
   workoutExercises?: IWorkoutExerciseEditDTO[];
@@ -19,30 +19,36 @@ export default function WorkoutExerciseEditList({
   return (
     <div>
       <header className={`border-b grid ${gridCols}`}>
-        {tableHeader.map((title, idx) => (
-          <p
-            key={title}
-            className={`${
-              idx > 0 && idx < tableHeader.length - 1 ? hiddenClass : ""
-            } $ ${
-              idx === tableHeader.length - 1 ? "text-center lg:text-left " : ""
-            }`}
-          >
-            {toTitle(title)}
-          </p>
-        ))}
+        <ul>
+          {tableHeader.map((title, idx) => (
+            <li key={title}>
+              <p
+                className={`${
+                  idx > 0 && idx < tableHeader.length - 1 ? hiddenClass : ""
+                } $ ${
+                  idx === tableHeader.length - 1
+                    ? "text-center lg:text-left "
+                    : ""
+                }`}
+              >
+                {toTitle(title)}
+              </p>
+            </li>
+          ))}
+        </ul>
       </header>
-      <ul>
-        {workoutExercises?.map((we) => (
-          <Fragment key={we.id}>
-            <WorkoutExerciseListItem
-              workoutExercise={we}
-              handleWorkoutExercise={handleWorkoutExercise}
-              gridCols={gridCols}
-            />
-          </Fragment>
-        ))}
-      </ul>
+      <GenericList
+        items={workoutExercises ?? []}
+        getKey={(we) => we.id!}
+        className="flex justify-around items-center h-full bg-main-black text-white"
+        renderItem={(we) => (
+          <WorkoutExerciseListItem
+            workoutExercise={we}
+            handleWorkoutExercise={handleWorkoutExercise}
+            gridCols={gridCols}
+          />
+        )}
+      />
     </div>
   );
 }

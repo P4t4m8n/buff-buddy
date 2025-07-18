@@ -9,7 +9,7 @@ export interface IProgramDTO extends IEntity {
   startDate?: Date | string | null;
   endDate?: Date | string | null;
   isActive: boolean;
-  owner: Partial<IUserDTO>;
+  owner?: Partial<IUserDTO>;
   workouts?: IWorkoutDTO[];
 }
 

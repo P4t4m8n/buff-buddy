@@ -10,7 +10,7 @@ import { programUtils } from "../../../utils/program.util";
 import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
-} from "../../../models/workout.model";
+} from "../../../../../shared/models/workout.model";
 import type { THttpErrorResponse } from "../../../services/api.service";
 
 interface IProgramEditHook {

@@ -1,11 +1,11 @@
 import { useRef } from "react";
 import { useModel } from "../../hooks/shared/useModel";
-import type { IExerciseDTO } from "../../models/exercise.model";
 import Button from "../UI/Button";
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
 import { createPortal } from "react-dom";
 import ExerciseEdit from "./ExerciseEdit";
 import ModelOverlay from "../UI/ModelOverlay";
+import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
 
 interface ExerciseEditModelProps {
   exercise?: IExerciseDTO;

@@ -3,7 +3,7 @@ import { useExerciseStore } from "../store/exercise.store";
 import ExerciseEdit from "../components/Exercise/ExerciseEdit";
 import WrapperModel from "../components/UI/Wrappers/WrapperModel";
 import ExerciseTable from "../components/Exercise/ExerciseTable";
-import type { IExerciseDTO } from "../models/exercise.model";
+import type { IExerciseDTO } from "../../../shared/models/exercise.model";
 
 export default function ExercisePage() {
   const exercises = useExerciseStore((state) => state.exercises);

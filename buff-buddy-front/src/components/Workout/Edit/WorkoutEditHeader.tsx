@@ -1,5 +1,4 @@
 import type { ChangeEvent, MouseEvent } from "react";
-import type { TDayOfWeek } from "../../../models/UI.model";
 import { calendarUtil } from "../../../utils/calendar.util";
 import CheckboxMulti from "../../UI/Form/CheckboxMulti";
 import Input from "../../UI/Form/Input";
@@ -7,11 +6,12 @@ import Label from "../../UI/Form/Label";
 import TextArea from "../../UI/Form/TextArea";
 import WorkoutExerciseEditModel from "../WorkoutExercise/Edit/WorkoutExerciseEditModel";
 import Button from "../../UI/Button";
-import type { IWorkoutExerciseEditDTO } from "../../../models/workout.model";
+import type { IWorkoutExerciseEditDTO } from "../../../../../shared/models/workout.model";
+import type { TDayOfWeek } from "../../../../../shared/models/app.model";
 
 interface WorkoutEditHeaderProps {
-  name?: string;
-  notes?: string;
+  name?: string | null;
+  notes?: string | null;
   daysOfWeek?: TDayOfWeek[];
   isProgramEdit?: boolean;
   handleInputChange: (
@@ -66,7 +66,7 @@ export default function WorkoutEditHeader({
               </Label> */}
       </Input>
       <TextArea
-        defaultValue={notes}
+        value={notes || ""}
         name="notes"
         rows={3}
         placeholder=""

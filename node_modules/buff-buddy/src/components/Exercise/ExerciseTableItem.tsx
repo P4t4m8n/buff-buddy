@@ -1,4 +1,4 @@
-import type { IExerciseDTO } from "../../models/exercise.model";
+import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
 import { useExerciseStore } from "../../store/exercise.store";
 import { toTitle } from "../../utils/toTitle";
 import Button from "../UI/Button";

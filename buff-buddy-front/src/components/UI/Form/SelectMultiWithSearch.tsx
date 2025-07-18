@@ -5,7 +5,7 @@ import IconTrash from "../Icons/IconTrash";
 import IconPlus from "../Icons/IconPlus";
 import Input from "./Input";
 import Button from "../Button";
-import type { TExerciseInfo } from "../../../models/exercise.model";
+import type { TExerciseInfo } from "../../../../../shared/models/exercise.model";
 import type { ChangeEvent, MouseEvent } from "react";
 import { toTitle } from "../../../utils/toTitle";
 

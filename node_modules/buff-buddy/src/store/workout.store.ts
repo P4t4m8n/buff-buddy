@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { IWorkoutDTO, IWorkoutEditDTO } from "../models/workout.model";
+import type { IWorkoutDTO, IWorkoutEditDTO } from "../../../shared/models/workout.model";
 import { workoutService } from "../services/workout.service";
 import { ApiError } from "../utils/ApiError.util";
 

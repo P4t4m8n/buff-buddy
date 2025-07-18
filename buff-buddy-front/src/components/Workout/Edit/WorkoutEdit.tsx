@@ -5,7 +5,7 @@ import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
   IWorkoutExerciseEditDTO,
-} from "../../../models/workout.model";
+} from "../../../../../shared/models/workout.model";
 import { useWorkoutStore } from "../../../store/workout.store";
 import { workoutUtils } from "../../../utils/workout.util";
 import Loader from "../../UI/Loader";

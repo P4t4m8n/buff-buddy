@@ -1,4 +1,3 @@
-import React from "react";
 import IconCheckMark from "../components/UI/Icons/IconCheckMark";
 import IconInactive from "../components/UI/Icons/IconInactive";
 

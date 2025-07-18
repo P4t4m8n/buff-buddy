@@ -2,7 +2,7 @@ import type {
   IWorkoutEditDTO,
   IWorkoutFilter,
   IWorkoutDTO,
-} from "../models/workout.model";
+} from "../../../shared/models/workout.model";
 import { apiService, type THttpPostResponse } from "./api.service";
 
 export const workoutService = {

@@ -40,14 +40,14 @@ export interface IWorkoutExerciseEditDTO extends IEntity {
   crudOperation?: TCrudOperation;
 }
 
-export interface IWorkoutSets {
-  coreSet: ICoreSetDTO;
-  userSet: IUserSetEditDTO;
-}
-export interface IWorkoutEditSets {
-  coreSetId: string;
-  userSet: IUserSetEditDTO;
-}
+// export interface IWorkoutSets {
+//   coreSet: ICoreSetDTO;
+//   userSet: IUserSetEditDTO;
+// }
+// export interface IWorkoutEditSets {
+//   coreSetId: string;
+//   userSet: IUserSetEditDTO;
+// }
 
 export interface IWorkoutFilter extends IBaseFilter {
   programId?: string;
@@ -56,13 +56,4 @@ export interface IWorkoutFilter extends IBaseFilter {
   isCompleted?: boolean;
 }
 
-export interface IOldWorkOut extends IEntity {
-  program: Partial<IProgramDTO>;
-  dayOfWeek: TDayOfWeek;
-  workoutExercises?: IWorkoutExerciseDTO[];
-}
-export interface IIOldWorkOutEditDTO extends IEntity {
-  programId?: string;
-  date: Date;
-  workoutSets: IUserSetEditDTO[];
-}
+

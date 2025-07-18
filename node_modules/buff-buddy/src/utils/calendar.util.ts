@@ -1,4 +1,4 @@
-import { DAY_OF_WEEK, type TDayOfWeek } from "../models/UI.model";
+import { DAY_OF_WEEK, type TDayOfWeek } from "../../../shared/models/app.model";
 import { toTitle } from "./toTitle";
 
 export const calendarUtil = {

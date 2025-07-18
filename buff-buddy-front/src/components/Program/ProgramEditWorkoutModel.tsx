@@ -2,10 +2,13 @@ import { useRef } from "react";
 import Button from "../UI/Button";
 import { useModel } from "../../hooks/shared/useModel";
 import ProgramWorkoutEdit from "./ProgramWorkoutEdit";
-import type { IWorkoutDTO, IWorkoutEditDTO } from "../../models/workout.model";
+import type {
+  IWorkoutDTO,
+  IWorkoutEditDTO,
+} from "../../../../shared/models/workout.model";
 interface ProgramEditWorkoutModelProps {
   workout?: IWorkoutDTO | IWorkoutEditDTO;
-  handleWorkouts?: (workout: IWorkoutEditDTO) => void;
+  handleWorkouts?: (workout: IWorkoutDTO) => void;
 }
 
 export default function ProgramEditWorkoutModel({

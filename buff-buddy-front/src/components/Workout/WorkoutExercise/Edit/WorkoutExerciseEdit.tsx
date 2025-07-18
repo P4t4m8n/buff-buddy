@@ -6,9 +6,9 @@ import Button from "../../../UI/Button";
 import ExerciseEditModel from "../../../Exercise/ExerciseEditModel";
 import { useWorkoutExerciseEdit } from "../../../../hooks/features/program/useWorkoutExerciseEdit";
 import type { Dispatch, MouseEvent } from "react";
-import type { IWorkoutExerciseEditDTO } from "../../../../models/workout.model";
 import WorkoutExerciseCoreSetsEditList from "../Components/WorkoutExerciseCoreSets/WorkoutExerciseCoreSetsEditList";
 import Loader from "../../../UI/Loader";
+import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
 
 interface WorkoutExerciseEditProps {
   workoutExercise?: IWorkoutExerciseEditDTO;
@@ -70,7 +70,7 @@ export default function WorkoutExerciseEdit({
     setIsOpen!(false);
   };
 
-  if (!workoutExerciseToEdit) return <Loader/>
+  if (!workoutExerciseToEdit) return <Loader />;
 
   const { order, notes, exercise, coreSets } = workoutExerciseToEdit;
 

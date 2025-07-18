@@ -1,3 +1,4 @@
+//TODO?? Placeholder for future footer content
 export default function AuthPageFooter() {
   return (
     <footer className="text-center  text-white/80 text-sm mt-auto">

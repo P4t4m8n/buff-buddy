@@ -21,13 +21,22 @@ export const programUtils = {
   },
   dtoToEditDto: (dto: IProgramDTO): IProgramEditDTO => {
     return {
-      ...dto,
-      workouts: dto.workouts?.map((w) => ({
-        ...w,
-        id: w.id ?? "",
-        name: w.name ?? "",
-        notes: w.notes ?? "",
-      })),
+      id: dto.id,
+      name: dto.name || "",
+      notes: dto.notes || "",
+      startDate: dto.startDate ? new Date(dto.startDate) : null,
+      endDate: dto.endDate ? new Date(dto.endDate) : null,
+      isActive: dto.isActive,
+      workouts:
+        dto.workouts?.map((workout) => ({
+          ...workout,
+          daysOfWeek: workout.daysOfWeek || [],
+          workoutExercises:
+            workout.workoutExercises?.map((ex) => ({
+              ...ex,
+              notes: ex.notes === null ? undefined : ex.notes,
+            })) || [],
+        })) || [],
     };
   },
   getEmpty(): IProgramEditDTO {

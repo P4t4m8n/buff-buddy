@@ -1,6 +1,6 @@
 import type { MouseEvent } from "react";
-import type { IWorkoutDTO } from "../../models/workout.model";
 import Button from "../UI/Button";
+import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
 
 interface WorkoutPreviewProps {
   workout: IWorkoutDTO;

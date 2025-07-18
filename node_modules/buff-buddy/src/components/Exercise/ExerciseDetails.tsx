@@ -1,6 +1,5 @@
-import type { IExerciseDTO } from "../../models/exercise.model";
+import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
 import Button from "../UI/Button";
-
 import YoutubePlayer from "../UI/YoutubePlayer";
 
 interface ExerciseDetailsProps {

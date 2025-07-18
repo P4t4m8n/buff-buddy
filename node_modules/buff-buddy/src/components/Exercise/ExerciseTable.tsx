@@ -1,4 +1,4 @@
-import type { IExerciseDTO } from "../../models/exercise.model";
+import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
 import { toTitle } from "../../utils/toTitle";
 import ExerciseTableItem from "./ExerciseTableItem";
 
@@ -14,6 +14,7 @@ export default function ExerciseTable({
   const gridCols =
     "grid-cols-[1fr_5.75rem] md:grid-cols-[minmax(10rem,1fr)_repeat(3,_1fr)_12.5rem]";
   return (
+    
     <ul className="grid gap-2 p-4 w-full">
       <li className={`border-b grid ${gridCols} gap-6 p-4 `}>
         {tableHeader.map((title, idx) => (
@@ -21,7 +22,9 @@ export default function ExerciseTable({
             key={title}
             className={`${
               idx > 0 && idx < tableHeader.length - 1 ? "hidden md:inline" : ""
-            } $ ${idx === tableHeader.length-1 ? "text-center lg:text-left " : ""}`}
+            } $ ${
+              idx === tableHeader.length - 1 ? "text-center lg:text-left " : ""
+            }`}
           >
             {toTitle(title)}
           </h3>

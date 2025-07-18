@@ -5,9 +5,9 @@ import {
   type ChangeEvent,
   type MouseEvent,
 } from "react";
-import type { ICoreSetEditDTO } from "../../../../../models/set.model";
 import WorkoutExerciseCoreSetsEdit from "./WorkoutExerciseCoreSetsEdit";
 import Button from "../../../../UI/Button";
+import type { ICoreSetEditDTO } from "../../../../../../../shared/models/set.model";
 interface WorkoutExerciseCoreSetsEditListProps {
   coreSets?: ICoreSetEditDTO[];
   handleSets: (set?: ICoreSetEditDTO) => void;

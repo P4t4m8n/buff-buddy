@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { IExerciseDTO } from "../models/exercise.model";
+import type { IExerciseDTO } from "../../../shared/models/exercise.model";
 import { exerciseService } from "../services/exercise.service";
 import { ApiError } from "../utils/ApiError.util";
 

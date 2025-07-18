@@ -7,7 +7,7 @@ import Label from "../UI/Form/Label";
 import CheckboxMulti from "../UI/Form/CheckboxMulti";
 import { calendarUtil } from "../../utils/calendar.util";
 import { useState, useEffect, Fragment } from "react";
-import type { IWorkoutDTO } from "../../models/workout.model";
+import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
 import type { MouseEvent, RefObject } from "react";
 
 interface ProgramWorkoutProps {

@@ -1,4 +1,4 @@
-import type { IExerciseDTO, IExerciseFilter } from "../models/exercise.model";
+import type { IExerciseDTO, IExerciseFilter } from "../../../shared/models/exercise.model";
 import { apiService, type THttpPostResponse } from "./api.service";
 
 export const exerciseService = {

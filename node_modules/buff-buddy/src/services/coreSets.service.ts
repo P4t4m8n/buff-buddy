@@ -1,4 +1,4 @@
-import type { ICoreSetEditDTO } from "../models/set.model";
+import type { ICoreSetEditDTO } from "../../../shared/models/set.model";
 import { appUtil } from "../utils/app.util";
 
 export const coreSetsService = {

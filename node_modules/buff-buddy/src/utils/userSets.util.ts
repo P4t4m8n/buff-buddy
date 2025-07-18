@@ -1,4 +1,4 @@
-import type { IUserSetEditDTO } from "../models/set.model";
+import type { IUserSetEditDTO } from "../../../shared/models/set.model";
 import { appUtil } from "./app.util";
 
 export const userSetsUtil = {

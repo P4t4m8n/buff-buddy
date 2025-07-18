@@ -5,6 +5,7 @@ import IconExercise from "../UI/Icons/IconExercise";
 import IconProfile from "../UI/Icons/IconProfile";
 // import IconAdmin from "../UI/Icons/IconAdmin";
 import NavItem from "../UI/NavItem";
+import GenericList from "../UI/GenericList";
 
 export default function AppNavList() {
   const paths = [
@@ -42,17 +43,20 @@ export default function AppNavList() {
 
   return (
     <nav className="w-full h-full">
-      <ul className="flex justify-around items-center h-full bg-main-black text-white">
-        {paths.map((p) => (
-          <li key={p.path}>
+      <GenericList
+        items={paths}
+        getKey={(item) => item.path}
+        className="flex justify-around items-center h-full bg-main-black text-white"
+        renderItem={(item) => (
+          <li key={item.path}>
             <NavItem
-              navItem={p}
+              navItem={item}
               activeClass="text-amber stroke-amber"
               inactiveClass="grid items-center justify-items-center stroke-white transition-all duration-300"
             />
           </li>
-        ))}
-      </ul>
+        )}
+      />
     </nav>
   );
 }

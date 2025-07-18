@@ -4,7 +4,7 @@ import { useModel } from "../../../../hooks/shared/useModel";
 import { ModelButtonIcon } from "../../../../utils/ModelButtonIcon.util";
 import ModelOverlay from "../../../UI/ModelOverlay";
 import WorkoutExerciseEdit from "./WorkoutExerciseEdit";
-import type { IWorkoutExerciseEditDTO } from "../../../../models/workout.model";
+import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
 
 interface WorkoutExerciseEditModelProps {
   workoutExercise?: IWorkoutExerciseEditDTO;

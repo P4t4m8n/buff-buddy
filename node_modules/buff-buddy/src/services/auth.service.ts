@@ -2,7 +2,7 @@ import type {
   IAuthSignInDTO,
   IAuthUserDTO,
   IAuthSignUpDTO,
-} from "../models/auth.model";
+} from "../../../shared/models/auth.model";
 import { apiService } from "./api.service";
 
 export const authService = {

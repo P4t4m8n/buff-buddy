@@ -1,4 +1,4 @@
-import type { IWorkoutDTO } from "../../models/workout.model";
+import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
 import WorkoutEdit from "../Workout/Edit/WorkoutEdit";
 
 interface ProgramWorkoutEditWrapperProps {

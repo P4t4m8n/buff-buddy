@@ -2,11 +2,12 @@ import { useCallback, useEffect, useState } from "react";
 import type { SetStateAction, Dispatch, ChangeEvent } from "react";
 import { useExerciseStore } from "../../../store/exercise.store";
 import { coreSetsService } from "../../../services/coreSets.service";
-import type { IExerciseDTO } from "../../../models/exercise.model";
-import type { ICoreSetEditDTO } from "../../../models/set.model";
-import type { IWorkoutExerciseEditDTO } from "../../../models/workout.model";
-import type { TCrudOperation } from "../../../models/programExercise.model";
+
 import { workoutExerciseUtils } from "../../../utils/workoutExercises.util";
+import type { IWorkoutExerciseEditDTO } from "../../../../../shared/models/workout.model";
+import type { IExerciseDTO } from "../../../../../shared/models/exercise.model";
+import type { ICoreSetEditDTO } from "../../../../../shared/models/set.model";
+import type { TCrudOperation } from "../../../../../shared/models/app.model";
 
 interface IWorkoutExerciseEditHook {
   setWorkoutExerciseToEdit: Dispatch<
