@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { IEntity } from "./entity.model";
+import type { IEntity } from "../../../shared/models/entity.model";
 
 export interface IAppNav {
   label: string;

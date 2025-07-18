@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import type { IProgramDTO } from "../../models/program.model";
+import type { IProgramDTO } from "../../../../shared/models/program.model";
 import { useProgramStore } from "../../store/program.store";
 import { toTitle } from "../../utils/toTitle";
 import { toDisplayDates } from "../../utils/toDisplayDates";

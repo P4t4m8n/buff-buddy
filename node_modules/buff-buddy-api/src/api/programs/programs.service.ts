@@ -1,11 +1,13 @@
 import { Prisma, Program } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
 import { dbUtil } from "../../shared/utils/db.util";
-import { IProgramFilter } from "./programs.models";
+import { programSelect } from "./program.sql";
+import { IProgramFilter, IProgramWithRelations } from "./programs.models";
 import { CreateProgramInput, UpdateProgramInput } from "./programs.validations";
 
+//TODO?? move to raw SQL for performance due to junction tables and reorganize of structure data
 export const programsService = {
-  getAll: async (filter: IProgramFilter): Promise<Program[]> => {
+  getAll: async (filter: IProgramFilter): Promise<IProgramWithRelations[]> => {
     const where: Prisma.ProgramWhereInput = buildWhereClause(filter);
 
     const take = filter.take ?? 20;
@@ -17,22 +19,21 @@ export const programsService = {
       where,
       skip,
       take,
-      include: {
-      
-      },
+      select: programSelect,
     });
   },
 
-  getById: async (id: string): Promise<Program | null> => {
+  getById: async (id: string): Promise<IProgramWithRelations | null> => {
     return await prisma.program.findUnique({
       where: { id },
-      include: {
-       
-      },
+      select: programSelect,
     });
   },
 
-  create: async (dto: CreateProgramInput, userId: string): Promise<Program> => {
+  create: async (
+    dto: CreateProgramInput,
+    userId: string
+  ): Promise<IProgramWithRelations> => {
     return await prisma.program.create({
       data: {
         name: dto.name,
@@ -43,45 +44,24 @@ export const programsService = {
         owner: {
           connect: { id: userId },
         },
-        // programExercises: {
-        //   create: dto.programExercises
-        //     .filter((pe) => pe.crudOperation === "create")
-        //     .map((pe) => ({
-        //       order: pe.order,
-        //       notes: pe.notes,
-        //       isActive: pe.isActive,
-        //       daysOfWeek: pe.daysOfWeek,
-        //       exercise: {
-        //         connect: { id: pe.exerciseId },
-        //       },
-        //       coreSets: {
-        //         create: pe.coreSets
-        //           .filter((cs) => cs.crudOperation === "create")
-        //           .map((cs) => ({
-        //             reps: cs.reps,
-        //             weight: cs.weight,
-        //             restTime: cs.restTime,
-        //             isBodyWeight: cs.isBodyWeight,
-        //             order: cs.order,
-        //             isWarmup: cs.isWarmup,
-        //             repsInReserve: cs.repsInReserve,
-        //           })),
-        //       },
-        //     })),
-        // },
+        programWorkouts: {
+          create: (dto.workouts ?? []).map((w) => ({
+            workout: {
+              connect: { id: w.id },
+            },
+            daysOfWeek: w.daysOfWeek,
+          })),
+        },
       },
-      include: {
-        // programExercises: {
-        //   include: {
-        //     exercise: true,
-        //     coreSets: true,
-        //   },
-        // },
-      },
+      select: programSelect,
     });
   },
 
-  update: async (id: string, dto: UpdateProgramInput): Promise<Program> => {
+  update: async (
+    id: string,
+    dto: UpdateProgramInput,
+    userId: string
+  ): Promise<IProgramWithRelations> => {
     const programData = dbUtil.cleanData({
       name: dto.name,
       notes: dto.notes,
@@ -93,76 +73,19 @@ export const programsService = {
       where: { id },
       data: {
         ...programData,
-        // programExercises: {
-        //   upsert: (dto?.programExercises ?? []).map((pe) => ({
-        //     where: { id: pe.id ?? "test-pe" },
-        //     update: {
-        //       // Clean programExercise data
-        //       ...dbUtil.cleanData({
-        //         order: pe.order,
-        //         notes: pe.notes,
-        //         isActive: pe.isActive,
-        //         daysOfWeek: pe.daysOfWeek,
-        //       }),
-        //       exercise: pe.exerciseId
-        //         ? {
-        //             connect: { id: pe.exerciseId },
-        //           }
-        //         : undefined,
-        //       // coreSets: {
-        //       //   upsert: pe.coreSets.map((cs) => ({
-        //       //     where: { id: cs.id ?? "test-cs" },
-        //       //     update: {
-        //       //       // Clean coreSet data
-        //       //       ...dbUtil.cleanData({
-        //       //         reps: cs.reps,
-        //       //         weight: cs.weight,
-        //       //         restTime: cs.restTime,
-        //       //         order: cs.order,
-        //       //         isWarmup: cs.isWarmup,
-        //       //         isBodyWeight: cs.isBodyWeight,
-        //       //         repsInReserve: cs.repsInReserve,
-        //       //       }),
-        //       //     },
-        //       //     create: {
-        //       //       reps: cs.reps,
-        //       //       weight: cs.weight,
-        //       //       restTime: cs.restTime,
-        //       //       order: cs.order,
-        //       //       isBodyWeight: cs.isBodyWeight,
-        //       //       isWarmup: cs.isWarmup,
-        //       //       repsInReserve: cs.repsInReserve,
-        //       //     },
-        //       //   })),
-        //       //   deleteMany: pe.coreSets
-        //       //     .filter((cs) => cs.crudOperation === "delete")
-        //       //     .map((cs) => ({ id: cs.id })),
-        //       // },
-        //     },
-        //     // create: {
-        //     //   order: pe.order,
-        //     //   notes: pe.notes,
-        //     //   isActive: pe.isActive,
-        //     //   daysOfWeek: pe.daysOfWeek,
-        //     //   exerciseId: pe.exerciseId,
-        //     //   // coreSets: {
-        //     //   //   create: pe.coreSets.map((cs) => ({
-        //     //   //     reps: cs.reps,
-        //     //   //     weight: cs.weight,
-        //     //   //     restTime: cs.restTime,
-        //     //   //     isBodyWeight: cs.isBodyWeight,
-        //     //   //     order: cs.order,
-        //     //   //     isWarmup: cs.isWarmup,
-        //     //   //     repsInReserve: cs.repsInReserve,
-        //     //   //   })),
-        //     //   // },
-        //     // },
-        //   })),
-        //   // deleteMany: (dto?.programExercises ?? [])
-        //   //   .filter((pe) => pe.crudOperation === "delete")
-        //   //   .map((pe) => ({ id: pe.id })),
-        // },
+        owner: {
+          connect: { id: userId },
+        },
+        programWorkouts: {
+          create: (dto.workouts ?? []).map((w) => ({
+            workout: {
+              connect: { id: w.id },
+            },
+            daysOfWeek: w.daysOfWeek,
+          })),
+        },
       },
+      select: programSelect,
     });
   },
 

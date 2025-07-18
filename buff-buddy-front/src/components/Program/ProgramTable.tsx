@@ -1,4 +1,4 @@
-import type { IProgramDTO } from "../../models/program.model";
+import type { IProgramDTO } from "../../../../shared/models/program.model";
 import Table from "../UI/Table";
 import ProgramPreview from "./ProgramPreview";
 

@@ -1,6 +1,8 @@
 import { z } from "zod";
-import sanitizeHtml from "sanitize-html";
-import { CreateWorkoutSchema } from "../workouts/workouts.validations";
+import {
+  CreateWorkoutSchema,
+  UpdateWorkoutSchema,
+} from "../workouts/workouts.validations";
 import {
   NameSchema,
   NotesSchema,
@@ -22,8 +24,8 @@ const BaseProgramSchema = z.object({
 
   isActive: z.coerce.boolean().default(true),
 
-  programExercises: z
-    .array(CreateWorkoutSchema)
+  workouts: z
+    .array(UpdateWorkoutSchema)
     .min(1, "At least one exercise is required")
     .max(50, "Maximum 50 exercises allowed per program"),
 });
@@ -38,10 +40,6 @@ export const CreateProgramSchema = BaseProgramSchema.refine(
 
 export const UpdateProgramSchema = BaseProgramSchema.partial();
 
-export const ProgramParamsSchema = z.object({
-  id: z.string().min(1, "Program ID is required"),
-});
-
 export const ProgramQuerySchema = z.object({
   name: z.string().optional(),
   isActive: z.coerce.boolean().optional(),
@@ -53,5 +51,4 @@ export const ProgramQuerySchema = z.object({
 
 export type CreateProgramInput = z.infer<typeof CreateProgramSchema>;
 export type UpdateProgramInput = z.infer<typeof UpdateProgramSchema>;
-export type ProgramParams = z.infer<typeof ProgramParamsSchema>;
 export type ProgramQuery = z.infer<typeof ProgramQuerySchema>;

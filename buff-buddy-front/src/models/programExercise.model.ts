@@ -1,5 +1,5 @@
 import type { TDayOfWeek } from "./app.model";
-import type { IEntity } from "./entity.model";
+import type { IEntity } from "../../../shared/models/entity.model";
 import type { IExerciseDTO } from "./exercise.model";
 import type {
   ICoreSetDTO,

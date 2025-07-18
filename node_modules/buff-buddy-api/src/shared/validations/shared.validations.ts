@@ -73,6 +73,7 @@ export const idSchema = ({ errorMsg }: { errorMsg: string }) => {
 
 export const NotesSchema = z
   .string()
+  .nullish()
   .optional()
   .transform((val) => {
     if (!val) return undefined;
@@ -140,3 +141,13 @@ export const NameSchema = z
     (val) => val.length <= 100,
     "Program name must be less than 100 characters"
   );
+
+export const IDSchema = z
+  .string()
+  .min(1, "ID is required")
+  .transform((val) =>
+    sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} })
+  )
+  .transform((val) => val.trim())
+  .refine((val) => val.length >= 1, "ID must be at least 1 character long")
+  .refine((val) => val.length <= 50, "ID must be less than 50 characters long");

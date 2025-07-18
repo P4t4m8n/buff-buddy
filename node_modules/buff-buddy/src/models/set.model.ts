@@ -1,4 +1,4 @@
-import type { IEntity } from "./entity.model";
+import type { IEntity } from "../../../shared/models/entity.model";
 import type { TCrudOperation } from "./programExercise.model";
 
 export interface ICoreSetDTO extends IEntity {

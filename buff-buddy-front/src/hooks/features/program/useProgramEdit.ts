@@ -2,7 +2,7 @@ import { useEffect, useState, type ChangeEvent } from "react";
 import type {
   IProgramEditDTO,
   TProgramWorkoutEditRecord,
-} from "../../../models/program.model";
+} from "../../../../../shared/models/program.model";
 import type { IDateRange } from "../../../models/calendar.model";
 import { useProgramStore } from "../../../store/program.store";
 import { useNavigate } from "react-router";
@@ -11,10 +11,12 @@ import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
 } from "../../../models/workout.model";
+import type { THttpErrorResponse } from "../../../services/api.service";
 
 interface IProgramEditHook {
   programToEdit: IProgramEditDTO | null;
   isLoading: boolean;
+  error: THttpErrorResponse | null;
   handleDateSelect: (range: IDateRange) => void;
   onSaveProgram: (e: React.FormEvent<HTMLFormElement>) => void;
   handleWorkouts: (workout: IWorkoutDTO) => void;
@@ -32,6 +34,8 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
   const isLoading = useProgramStore((state) => state.isLoading);
   const getProgramById = useProgramStore((state) => state.getProgramById);
   const saveProgram = useProgramStore((state) => state.saveProgram);
+  const error = useProgramStore((state) => state.error);
+
   const navigate = useNavigate();
 
   //TODO?? Ugly refactor later
@@ -74,7 +78,6 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
 
   //TODO?? improve logic, specially change of order
   const handleWorkouts = (workout: IWorkoutEditDTO) => {
-    console.log("🚀 ~ handleWorkouts ~ workouts:", workout);
     setProgramToEdit((prev) => {
       if (!prev) return null;
       const programExercises = prev?.workouts ?? [];
@@ -141,5 +144,6 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
     navigate,
     groupWorkoutsByDay,
     handleInputChange,
+    error,
   };
 };

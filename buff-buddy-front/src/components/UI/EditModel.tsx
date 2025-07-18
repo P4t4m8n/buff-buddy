@@ -4,7 +4,7 @@ import Button, { type IButtonProps } from "../UI/Button";
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
 import { createPortal } from "react-dom";
 import ModelOverlay from "../UI/ModelOverlay";
-import type { IEntity } from "../../models/entity.model";
+import type { IEntity } from "../../../../shared/models/entity.model";
 
 interface EditModelProps<T extends IEntity> {
   data?: T;

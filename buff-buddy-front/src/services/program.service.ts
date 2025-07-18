@@ -2,7 +2,7 @@ import type {
   IProgramDTO,
   IProgramFilter,
   IProgramEditDTO,
-} from "../models/program.model";
+} from "../../../shared/models/program.model";
 
 import { apiService, type THttpPostResponse } from "./api.service";
 

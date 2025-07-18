@@ -1,6 +1,6 @@
 import { Fragment, type ComponentType } from "react";
 import { toTitle } from "../../utils/toTitle";
-import type { IEntity } from "../../models/entity.model";
+import type { IEntity } from "../../../../shared/models/entity.model";
 
 interface TableProps<T extends IEntity> {
   tableHeader: string[];

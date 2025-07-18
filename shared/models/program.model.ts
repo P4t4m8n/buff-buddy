@@ -1,6 +1,6 @@
-import type { IBaseFilter, TDayOfWeek } from "./app.model";
+import type { IBaseFilter, TDayOfWeek } from "../../buff-buddy-front/src/models/app.model";
 import type { IEntity } from "./entity.model";
-import type { IWorkoutDTO, IWorkoutEditDTO } from "./workout.model";
+import type { IWorkoutDTO, IWorkoutEditDTO } from "../../buff-buddy-front/src/models/workout.model";
 
 export interface IProgramDTO extends IEntity {
   name?: string | null | undefined;

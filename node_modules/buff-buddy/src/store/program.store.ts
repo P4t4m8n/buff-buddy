@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { programService } from "../services/program.service";
-import type { IProgramDTO, IProgramEditDTO } from "../models/program.model";
+import type { IProgramDTO, IProgramEditDTO } from "../../../shared/models/program.model";
 import { ApiError } from "../utils/ApiError.util";
 
 interface IProgramStore {
@@ -51,9 +51,11 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
         return null;
       }
       set({ isLoading: true, error: null });
-
+      
       const program = get().programs.find((p) => p.id === id);
-      return !program ? await programService.getById(id) : program;
+      const x = !program ? await programService.getById(id) : program;
+      console.log("🚀 ~ getProgramById: ~  x:",  x)
+      return x
     } catch (error) {
       set({
         error:

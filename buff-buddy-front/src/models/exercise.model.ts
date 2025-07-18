@@ -1,5 +1,5 @@
 import type { IBaseFilter } from "./app.model";
-import type { IEntity } from "./entity.model";
+import type { IEntity } from "../../../shared/models/entity.model";
 
 interface IExerciseBase extends IEntity {
   name?: string;

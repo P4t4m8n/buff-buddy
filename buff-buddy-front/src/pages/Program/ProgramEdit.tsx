@@ -6,7 +6,6 @@ import Button from "../../components/UI/Button";
 import DateInput from "../../components/UI/Form/DateInput/DateInput";
 import Input from "../../components/UI/Form/Input";
 import { calendarUtil } from "../../utils/calendar.util";
-import { useProgramStore } from "../../store/program.store";
 import Loader from "../../components/UI/Loader";
 import ProgramEditWorkoutModel from "../../components/Program/ProgramEditWorkoutModel";
 import { DAY_OF_WEEK } from "../../models/app.model";
@@ -18,6 +17,7 @@ export default function ProgramEdit() {
   const {
     programToEdit,
     isLoading,
+    error,
     handleDateSelect,
     onSaveProgram,
     handleWorkouts,
@@ -26,14 +26,11 @@ export default function ProgramEdit() {
     handleInputChange,
   } = useProgramEdit(id);
 
-  const error = useProgramStore((state) => state.error);
-
   if (isLoading || !programToEdit) {
     return <Loader />;
   }
 
   const { name, notes, startDate, endDate, workouts, isActive } = programToEdit;
-  console.log("🚀 ~ ProgramEdit ~ workouts:", workouts);
 
   const headerText = id ? `Edit Program: ${name}` : `Create New Program`;
   const cleanedWorkouts = workouts?.filter(
@@ -159,9 +156,7 @@ export default function ProgramEdit() {
                     className="border text-center w-20 lg:w-full grid
                  justify-items-center gap-1 p-1 rounded"
                   >
-                    <h5 className="font-medium">
-                      {workout.name}
-                    </h5>
+                    <h5 className="font-medium">{workout.name}</h5>
                   </li>
                 ))}
               </ul>

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { TDayOfWeek } from "../models/app.model";
 import type { IExerciseDTO } from "../models/exercise.model";
-import type { IProgramDTO } from "../models/program.model";
+import type { IProgramDTO } from "../../../shared/models/program.model";
 import type { IProgramExerciseDTO } from "../models/programExercise.model";
 import type {
   IOldWorkOut,

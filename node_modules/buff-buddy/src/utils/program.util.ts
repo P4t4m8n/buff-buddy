@@ -1,7 +1,7 @@
 import type {
   IProgramDTO,
   IProgramEditDTO,
-} from "../models/program.model";
+} from "../../../shared/models/program.model";
 
 export const programUtils = {
   isProgramActive: ({ startDate, endDate }: Partial<IProgramDTO>) => {

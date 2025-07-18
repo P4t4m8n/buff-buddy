@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import type { IProgramDTO } from "../../models/program.model";
+import type { IProgramDTO } from "../../../../shared/models/program.model";
 import IconEdit from "../UI/Icons/IconEdit";
 import IconDetails from "../UI/Icons/IconDetails";
 import Button from "../UI/Button";

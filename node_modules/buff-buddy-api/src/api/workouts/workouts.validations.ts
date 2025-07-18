@@ -1,6 +1,7 @@
 import { z } from "zod";
 import {
   DaysOfWeekSchema,
+  IDSchema,
   NameSchema,
   NotesSchema,
 } from "../../shared/validations/shared.validations";
@@ -25,14 +26,7 @@ const BaseWorkoutSchema = z.object({
 export const CreateWorkoutSchema = BaseWorkoutSchema;
 
 export const UpdateWorkoutSchema = BaseWorkoutSchema.partial().extend({
-  workoutExercises: z
-    .array(UpdateNestedWorkoutExerciseSchema)
-    .min(1, "At least one workout set is required")
-    .max(50, "Maximum 50 workout sets allowed per workout"),
-});
-
-export const WorkoutParamsSchema = z.object({
-  id: z.string().min(1, "Workout ID is required"),
+  id: IDSchema,
 });
 
 export const WorkoutQuerySchema = z.object({
@@ -46,5 +40,4 @@ export const WorkoutQuerySchema = z.object({
 
 export type CreateWorkoutInput = z.infer<typeof CreateWorkoutSchema>;
 export type UpdateWorkoutInput = z.infer<typeof UpdateWorkoutSchema>;
-export type WorkoutParams = z.infer<typeof WorkoutParamsSchema>;
 export type WorkoutQuery = z.infer<typeof WorkoutQuerySchema>;
