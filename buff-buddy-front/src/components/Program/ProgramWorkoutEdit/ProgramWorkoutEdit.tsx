@@ -4,15 +4,19 @@ import DynamicWorkoutPreview from "../../Workout/DynamicWorkoutPreview";
 import Button from "../../UI/Button";
 import { calendarUtil } from "../../../utils/calendar.util";
 import { useState, useEffect, Fragment } from "react";
-import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
+import type {
+  IWorkoutDTO,
+  IWorkoutEditDTO,
+} from "../../../../../shared/models/workout.model";
 import type { MouseEvent } from "react";
 import type { IModelProps } from "../../UI/GenericModel";
 import ProgramWorkoutEditSelected from "./ProgramWorkoutEditSelected";
 import GenericModel from "../../UI/GenericModel";
+import { workoutUtils } from "../../../utils/workout.util";
 
 interface ProgramWorkoutProps extends IModelProps<HTMLDivElement> {
-  workout?: IWorkoutDTO;
-  handleWorkouts?: (workout: IWorkoutDTO) => void;
+  workout?: IWorkoutEditDTO;
+  handleWorkouts?: (workout: IWorkoutEditDTO) => void;
 }
 
 export default function ProgramWorkoutEdit({
@@ -20,9 +24,8 @@ export default function ProgramWorkoutEdit({
   handleWorkouts,
   ...props
 }: ProgramWorkoutProps) {
-  const [selectedWorkout, setSelectedWorkout] = useState<IWorkoutDTO | null>(
-    workout || null
-  );
+  const [selectedWorkout, setSelectedWorkout] =
+    useState<IWorkoutEditDTO | null>(workout || null);
   const workouts = useWorkoutStore((state) => state.workouts);
   const loadWorkouts = useWorkoutStore((state) => state.loadWorkouts);
   const { modelRef, handleModel } = props;
@@ -45,7 +48,8 @@ export default function ProgramWorkoutEdit({
   };
 
   const onSelectWorkout = (workout?: IWorkoutDTO) => {
-    setSelectedWorkout(workout ?? null);
+    const _workout = workout ? workoutUtils.dtoToEditDto(workout) : null;
+    setSelectedWorkout(_workout);
   };
 
   const saveToProgram = (e: MouseEvent<HTMLButtonElement>) => {
