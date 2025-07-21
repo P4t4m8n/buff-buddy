@@ -1,10 +1,4 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  type ChangeEvent,
-  type MouseEvent,
-} from "react";
+import { useEffect, useState, type ChangeEvent, type MouseEvent } from "react";
 import { useModel } from "../../../hooks/shared/useModel";
 import Button from "../Button";
 import IconArrow from "../Icons/IconArrow";
@@ -43,10 +37,9 @@ export default function SelectWithSearch<T>({
 }: SelectWithSearchProps<T>) {
   const [optionsList, setOptionsList] = useState<T[]>([]);
 
-  const modelRef = useRef<HTMLDivElement>(null);
   // const fieldRef = useRef<HTMLDivElement>(null);
 
-  const [open, setOpen] = useModel(modelRef);
+  const [open, modelRef, setOpen] = useModel<HTMLDivElement>();
   const [modelPositionClass, setModelPositionClass] = useState(
     "top-[calc(100%+.25rem)]"
   );
@@ -54,7 +47,7 @@ export default function SelectWithSearch<T>({
   useEffect(() => {
     setOptionsList(options ? [...options] : []);
   }, [options]);
-  
+
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const searchValue = e.currentTarget.value;
     const filteredOptions = filterOptions(searchValue);

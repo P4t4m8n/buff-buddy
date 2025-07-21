@@ -24,8 +24,8 @@
  * toTitle("kebab-case-example");
  * // Returns "Kebab Case Example"
  */
-export const toTitle = (str?: string|null) => {
-  return str
+export const toTitle = (str?: string | null | unknown): string => {
+  return str && typeof str === "string"
     ? str
         .replace(/([A-Z])/g, " $1")
         .replace(/([a-z])([A-Z])/g, "$1 $2")

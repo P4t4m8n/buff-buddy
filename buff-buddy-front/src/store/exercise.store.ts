@@ -1,24 +1,26 @@
 import { create } from "zustand";
 import type { IExerciseDTO } from "../../../shared/models/exercise.model";
 import { exerciseService } from "../services/exercise.service";
-import { ApiError } from "../utils/ApiError.util";
 
 interface IExerciseStore {
   exercises: IExerciseDTO[];
-  isLoading: boolean;
   loadExercises: () => Promise<void>;
   saveExercise: (exerciseToSave: IExerciseDTO) => Promise<boolean>;
   deleteExercise: (id: string) => Promise<void>;
-  error: { errors?: Record<string, string>; message: string } | null;
+  isLoading: boolean; //Loading state for exercises
+  isSavingId: string | null; //loading state for the currently edited exercise
+  isDeleting: boolean; //Loading state for exercise deletion
 }
 export const useExerciseStore = create<IExerciseStore>((set, get) => ({
   exercises: [],
   isLoading: false,
-  error: null,
+  isDeleting: false,
+  isSavingId: null,
 
+  //Error catch is handled in the component level
   loadExercises: async () => {
     try {
-      set({ isLoading: true, error: null });
+      set({ isLoading: true });
 
       if (get().exercises.length > 0) {
         return;
@@ -26,33 +28,24 @@ export const useExerciseStore = create<IExerciseStore>((set, get) => ({
 
       const _exercises = await exerciseService.get({});
       set({ exercises: _exercises, isLoading: false });
-    } catch (error) {
-      set({
-        error:
-          error instanceof ApiError
-            ? { errors: error.errors, message: error.message }
-            : {
-                errors: { unknown: "Error" },
-                message: "Unknown",
-              },
-      });
     } finally {
       set({ isLoading: false });
     }
   },
-
+  //Error catch is handled in the component level
   saveExercise: async (exerciseToSave: IExerciseDTO) => {
+    const currentId = exerciseToSave.id;
+    set({ isSavingId: currentId });
     try {
-      set({ isLoading: true, error: null });
       const { data } = await exerciseService.save(exerciseToSave);
 
       set((state) => {
         const idx = state.exercises.findIndex(
-          (exercise) => exercise.id === data.id
+          (exercise) => exercise.id === currentId
         );
 
+        const updatedExercises = [...state.exercises];
         if (idx !== -1) {
-          const updatedExercises = [...state.exercises];
           updatedExercises[idx] = data;
           return { exercises: updatedExercises };
         } else {
@@ -60,41 +53,24 @@ export const useExerciseStore = create<IExerciseStore>((set, get) => ({
         }
       });
       return true;
-    } catch (error) {
-      set({
-        error:
-          error instanceof ApiError
-            ? { errors: error.errors, message: error.message }
-            : {
-                errors: { unknown: "Error" },
-                message: "Unknown",
-              },
-      });
-      return false;
     } finally {
-      set({ isLoading: false });
+      //To prevent race conditions of a loading state
+      //TODO??basic tests done, needs more tests
+      if (get().isSavingId === currentId) {
+        set({ isSavingId: null });
+      }
     }
   },
-
+  //Error catch is handled in the component level
   deleteExercise: async (id: string) => {
-    set({ isLoading: true, error: null });
+    set({ isDeleting: true });
     try {
       await exerciseService.delete(id);
       set((state) => ({
         exercises: state.exercises.filter((exercise) => exercise.id !== id),
       }));
-    } catch (error) {
-      set({
-        error:
-          error instanceof ApiError
-            ? { errors: error.errors, message: error.message }
-            : {
-                errors: { unknown: "Error" },
-                message: "Unknown",
-              },
-      });
     } finally {
-      set({ isLoading: false });
+      set({ isDeleting: false });
     }
   },
 }));

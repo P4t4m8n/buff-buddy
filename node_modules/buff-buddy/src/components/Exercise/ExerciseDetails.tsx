@@ -1,21 +1,23 @@
 import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
 import Button from "../UI/Button";
+import type { IModelProps } from "../UI/GenericModel";
 import YoutubePlayer from "../UI/YoutubePlayer";
 
-interface ExerciseDetailsProps {
+interface ExerciseDetailsProps extends IModelProps<HTMLDivElement> {
   exercise: IExerciseDTO;
-  modelRef?: React.RefObject<HTMLDivElement | null>;
-  handleModel?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 export default function ExerciseDetails({
   exercise,
-  modelRef,
-  handleModel,
+  ...props
 }: ExerciseDetailsProps) {
   const { name, muscles, equipment, types, youtubeUrl } = exercise;
+  const { handleModel } = props;
 
   return (
-    <div ref={modelRef} className="w-small bg-amber  p-4 grid gap-4 rounded">
+    <div
+      className="bg-amber p-4 grid gap-4 rounded w-[calc(100%-1rem)]
+       max-w-96 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50"
+    >
       <h3>{name}</h3>
       <YoutubePlayer youtubeUrl={youtubeUrl!} />
       <p>{muscles?.join(", ")}</p>
@@ -27,7 +29,7 @@ export default function ExerciseDetails({
                                hover:text-red-orange transition-all duration-300"
         onClick={handleModel}
       >
-        Cancel
+        Close
       </Button>
     </div>
   );

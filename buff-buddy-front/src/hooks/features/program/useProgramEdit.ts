@@ -11,15 +11,15 @@ import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
 } from "../../../../../shared/models/workout.model";
-import type { THttpErrorResponse } from "../../../services/api.service";
+import { useFormErrors } from "../../shared/useFormErrors";
 
 interface IProgramEditHook {
   programToEdit: IProgramEditDTO | null;
   isLoading: boolean;
-  error: THttpErrorResponse | null;
+  errors: Partial<Record<keyof IProgramEditDTO, string>> | null;
   handleDateSelect: (range: IDateRange) => void;
   onSaveProgram: (e: React.FormEvent<HTMLFormElement>) => void;
-  handleWorkouts: (workout: IWorkoutDTO) => void;
+  handleWorkouts: (workout: IWorkoutEditDTO) => void;
   groupWorkoutsByDay: (workout: IWorkoutDTO[]) => TProgramWorkoutEditRecord;
   navigate: ReturnType<typeof useNavigate>;
   handleInputChange: (
@@ -31,10 +31,13 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
   const [programToEdit, setProgramToEdit] = useState<IProgramEditDTO | null>(
     null
   );
+  const { errors, setErrors, clearErrors } = useFormErrors<IProgramEditDTO>();
+  console.log("🚀 ~ useProgramEdit ~ clearErrors:", clearErrors);
+  console.log("🚀 ~ useProgramEdit ~ setErrors:", setErrors);
+
   const isLoading = useProgramStore((state) => state.isLoading);
   const getProgramById = useProgramStore((state) => state.getProgramById);
   const saveProgram = useProgramStore((state) => state.saveProgram);
-  const error = useProgramStore((state) => state.error);
 
   const navigate = useNavigate();
 
@@ -45,7 +48,8 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
         setProgramToEdit(programUtils.getEmpty());
         return;
       }
-      setProgramToEdit(program);
+      const programEdit = programUtils.dtoToEditDto(program);
+      setProgramToEdit(programEdit);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
@@ -138,12 +142,12 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
   return {
     programToEdit,
     isLoading,
+    errors,
     handleDateSelect,
     onSaveProgram,
-    handleWorkouts,
     navigate,
     groupWorkoutsByDay,
     handleInputChange,
-    error,
+    handleWorkouts,
   };
 };

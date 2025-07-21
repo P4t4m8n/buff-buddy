@@ -3,9 +3,9 @@ import { useParams } from "react-router";
 import type { IProgramDTO } from "../../../../shared/models/program.model";
 import { useProgramStore } from "../../store/program.store";
 import { toTitle } from "../../utils/toTitle";
-import { toDisplayDates } from "../../utils/toDisplayDates";
 import ActiveButtonIcon from "../../utils/ActiveButtonIcon.util";
 import Loader from "../../components/UI/Loader";
+import { calendarUtil } from "../../utils/calendar.util";
 
 export default function ProgramDetails() {
   const { id } = useParams<{ id?: string }>();
@@ -13,7 +13,6 @@ export default function ProgramDetails() {
     null
   );
   const isLoading = useProgramStore((state) => state.isLoading);
-  const error = useProgramStore((state) => state.error);
 
   const getProgramById = useProgramStore((state) => state.getProgramById);
 
@@ -34,13 +33,6 @@ export default function ProgramDetails() {
   }
 
   //TODO?? handle error better
-  if (error) {
-    return (
-      <section className="h-main">
-        <p>{error.message || "An error occurred while loading the program."}</p>
-      </section>
-    );
-  }
   //TODO?? handle no program found
   if (!programToDisplay) {
     return (
@@ -51,7 +43,7 @@ export default function ProgramDetails() {
   }
   const { name, notes, startDate, endDate, isActive } = programToDisplay;
   const title = toTitle(name + " Program Details");
-  const dates = toDisplayDates(startDate, endDate);
+  const dates = calendarUtil.getFormatDateRange(startDate, endDate);
 
   return (
     <section className="h-main p-4">

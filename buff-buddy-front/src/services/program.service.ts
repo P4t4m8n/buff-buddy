@@ -34,6 +34,4 @@ export const programService = {
   async delete(id: string): Promise<void> {
     return await apiService.delete(`${this.rootPath}/${id}`);
   },
-
- 
 };

@@ -19,18 +19,23 @@
  * const [open, setOpen] = useModel(ref, () => console.info("Clicked outside the target element"));
  */
 
+//TODO?? Update JSdocs
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 
-export const useModel = (
-  ref: React.RefObject<Element | null>|null,
-  callBack?: null | (() => void)
-): [
+type TUseModelHook<T extends HTMLElement> = [
   boolean,
+  React.RefObject<T | null>,
   Dispatch<SetStateAction<boolean>>,
   (e: React.MouseEvent<HTMLButtonElement>) => void
-] => {
+];
+
+export const useModel = <T extends HTMLElement>(
+  callBack?: null | (() => void)
+): TUseModelHook<T> => {
   const [open, setOpen] = useState(false);
+  const modelRef = useRef<T>(null);
+
   const eventListenerRef = useRef<{
     click: (ev: MouseEvent) => void;
     keydown: (ev: KeyboardEvent) => void;
@@ -47,24 +52,10 @@ export const useModel = (
 
   const checkClickOutside = useCallback(
     (ev: MouseEvent) => {
-      // ev.preventDefault();
-      // ev.stopPropagation();
       const target = ev.target as HTMLElement;
 
-      // If clicking a link, delay modal closing until navigation starts
-      // if (target.closest('a')) {
-      //   ev.preventDefault() // Prevent default anchor behavior
-      //   const href = target.closest('a')?.getAttribute('href') // Get link URL
-
-      //   if (href) {
-      //     router.navigate({ to: href })
-      //     setTimeout(() => setOpen(false), 100) // Delay modal close slightly
-      //     return
-      //   }
-      // }
-      
-      // Handle normal outside clicks
-      if (!open || !ref?.current || ref?.current.contains(target)) return;
+      if (!open || !modelRef?.current || modelRef?.current.contains(target))
+        return;
 
       if (callBack) {
         callBack();
@@ -72,7 +63,7 @@ export const useModel = (
       }
       setOpen(false);
     },
-    [open, ref, callBack]
+    [open, modelRef, callBack]
   );
 
   const checkKeyPress = useCallback((ev: KeyboardEvent) => {
@@ -82,7 +73,7 @@ export const useModel = (
   }, []);
 
   useEffect(() => {
-    if (!ref?.current || !open) return;
+    if (!modelRef?.current || !open) return;
 
     const currentEventListeners = eventListenerRef.current;
     currentEventListeners.click = checkClickOutside;
@@ -98,13 +89,12 @@ export const useModel = (
     return () => {
       controller.abort();
     };
-  }, [open, ref, checkClickOutside, checkKeyPress]);
+  }, [open, modelRef, checkClickOutside, checkKeyPress]);
 
-  const memoizedValue: [
-    boolean,
-    Dispatch<SetStateAction<boolean>>,
-    (e: React.MouseEvent<HTMLButtonElement>) => void
-  ] = useMemo(() => [open, setOpen, handleModel], [open, setOpen, handleModel]);
+  const memoizedValue: TUseModelHook<T> = useMemo(
+    () => [open, modelRef, setOpen, handleModel],
+    [open, modelRef, setOpen, handleModel]
+  );
 
   return memoizedValue;
 };

@@ -7,7 +7,6 @@ export const calendarUtil = {
       ? DAY_OF_WEEK.map((day) => toTitle(day.substring(0, 3)))
       : DAY_OF_WEEK.map((day) => day.substring(0, 3));
   },
-
   shortWeekdayToFull: (shortDay: string): TDayOfWeek => {
     const newDay = DAY_OF_WEEK.find(
       (day) => day.substring(0, 3).toLowerCase() === shortDay.toLowerCase()
@@ -46,6 +45,14 @@ export const calendarUtil = {
       day: "2-digit",
       ...options,
     });
+  },
+  getFormatDateRange: (
+    startDate?: Date | string | null,
+    endDate?: Date | string | null
+  ): string => {
+    return `${calendarUtil.formatDate(startDate)} - ${calendarUtil.formatDate(
+      endDate
+    )}`;
   },
   convertDate: (date?: Date | string | null): Date | null => {
     if (!date) return null;

@@ -13,10 +13,7 @@ export const authService = {
   },
 
   async signUp(dto: IAuthSignUpDTO): Promise<IAuthUserDTO> {
-    return await apiService.post<IAuthUserDTO>(
-      `${this.rootPath}/sign-up`,
-      dto
-    );
+    return await apiService.post<IAuthUserDTO>(`${this.rootPath}/sign-up`, dto);
   },
 
   async signOut(): Promise<void> {

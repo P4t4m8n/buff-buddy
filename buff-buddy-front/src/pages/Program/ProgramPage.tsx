@@ -1,9 +1,10 @@
 import { Link } from "react-router";
-import IconEdit from "../../components/UI/Icons/IconEdit";
 import { useProgramStore } from "../../store/program.store";
-import ProgramList from "../../components/Program/ProgramTable";
+import ProgramList from "../../components/Program/ProgramList";
 import { useCallback, useEffect } from "react";
 import Button from "../../components/UI/Button";
+import Loader from "../../components/UI/Loader";
+import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
 
 export default function ProgramPage() {
   const programs = useProgramStore((state) => state.programs);
@@ -24,8 +25,8 @@ export default function ProgramPage() {
   );
 
   return (
-    <section className="h-main flex flex-col p-4">
-      <header>
+    <section className="h-main flex flex-col ">
+      <header className="p-mobile md:p-desktop">
         <span className="text-center">
           <h2 className="text-3xl font-bold text-main-black ">Your Programs</h2>
           <p className="text-gray-600 text-lg">
@@ -33,16 +34,11 @@ export default function ProgramPage() {
           </p>
         </span>
         <Link to={"/programs/edit"}>
-          <Button buttonStyle="model">
-            <IconEdit
-              className="fill-none stroke-amber h-full aspect-square
-                    group-hover:stroke-main-black transition-all duration-300"
-            />
-          </Button>
+          <Button buttonStyle="model">{ModelButtonIcon("edit")}</Button>
         </Link>
       </header>
       {isLoading ? (
-        <p>Loading...</p>
+        <Loader />
       ) : (
         <ProgramList
           programs={programs || []}

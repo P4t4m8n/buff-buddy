@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import AuthPage from "../pages/AuthPage";
 import { useAuthStore } from "../store/auth.store";
+import Loader from "../components/UI/Loader";
 interface AuthProviderProps {
   children: React.ReactNode;
 }
@@ -13,15 +14,7 @@ export default function AuthGuard({ children }: AuthProviderProps) {
     loadSessionUser();
   }, [loadSessionUser]);
 
-  if (isLoading)
-    return (
-      <div
-        className="h-screen w-screen bg-gradient-to-br from-main-orange
-     via-main-orange/80 to-red-orange flex items-center justify-center"
-      >
-        Loading...
-      </div>
-    );
+  if (isLoading) return <Loader />;
 
   return user ? <>{children}</> : <AuthPage />;
 }

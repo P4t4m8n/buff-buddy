@@ -5,6 +5,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export default function Input({ divStyle, children, ...props }: Props) {
+  
   return (
     <div className={divStyle + " relative group"}>
       <input {...props} />

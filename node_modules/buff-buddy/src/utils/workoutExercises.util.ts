@@ -1,4 +1,4 @@
-import type { IWorkoutExerciseEditDTO } from "../models/workout.model";
+import type { IWorkoutExerciseEditDTO } from "../../../shared/models/workout.model";
 import { appUtil } from "./app.util";
 
 export const workoutExerciseUtils = {

@@ -3,26 +3,22 @@ import Label from "../../../UI/Form/Label";
 import TextArea from "../../../UI/Form/TextArea";
 import SelectWithSearch from "../../../UI/Form/SelectWithSearch";
 import Button from "../../../UI/Button";
-import ExerciseEditModel from "../../../Exercise/ExerciseEditModel";
 import { useWorkoutExerciseEdit } from "../../../../hooks/features/program/useWorkoutExerciseEdit";
-import type { Dispatch, MouseEvent } from "react";
 import WorkoutExerciseCoreSetsEditList from "../Components/WorkoutExerciseCoreSets/WorkoutExerciseCoreSetsEditList";
 import Loader from "../../../UI/Loader";
 import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
+import type { IModelProps } from "../../../UI/GenericModel";
 
-interface WorkoutExerciseEditProps {
+interface WorkoutExerciseEditProps extends IModelProps<HTMLDivElement> {
   workoutExercise?: IWorkoutExerciseEditDTO;
   workoutExerciseLength?: number;
-  modelRef?: React.RefObject<HTMLDivElement | null>;
-  handleWorkoutExercise: (workoutExercise: IWorkoutExerciseEditDTO) => void;
-  setIsOpen?: Dispatch<React.SetStateAction<boolean>>;
+  handleWorkoutExercises: (workoutExercise: IWorkoutExerciseEditDTO) => void;
 }
 export default function WorkoutExerciseEdit({
   workoutExercise,
   workoutExerciseLength,
-  modelRef,
-  setIsOpen,
-  handleWorkoutExercise,
+  handleWorkoutExercises,
+  ...props
 }: WorkoutExerciseEditProps) {
   const {
     handleSelectExercise,
@@ -38,7 +34,9 @@ export default function WorkoutExerciseEdit({
     resetWorkoutExerciseToEdit,
   } = useWorkoutExerciseEdit(workoutExercise, workoutExerciseLength);
 
-  const onUpsertWorkoutExercise = (e: MouseEvent) => {
+  const { modelRef, setOpen } = props;
+
+  const onUpsertWorkoutExercise = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -53,12 +51,12 @@ export default function WorkoutExerciseEdit({
         : "create",
     };
 
-    handleWorkoutExercise(peToUpsert);
+    handleWorkoutExercises(peToUpsert);
     resetWorkoutExerciseToEdit();
-    setIsOpen!(false);
+    if (setOpen) setOpen(false);
   };
 
-  const onDeleteWorkoutExercise = (e: MouseEvent) => {
+  const onDeleteWorkoutExercise = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     const peToRemove: IWorkoutExerciseEditDTO = {
@@ -66,8 +64,15 @@ export default function WorkoutExerciseEdit({
       crudOperation: "delete",
       order: workoutExerciseLength ?? Infinity,
     };
-    handleWorkoutExercise(peToRemove);
-    setIsOpen!(false);
+    handleWorkoutExercises(peToRemove);
+    if (setOpen) setOpen(false);
+  };
+
+  const onCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    resetWorkoutExerciseToEdit();
+    if (setOpen) setOpen(false);
   };
 
   if (!workoutExerciseToEdit) return <Loader />;
@@ -134,7 +139,7 @@ export default function WorkoutExerciseEdit({
           SelectItemComponent={({ option }) => (
             <span className="w-full h-full">{option?.name}</span>
           )}
-          AddComponent={ExerciseEditModel}
+          // AddComponent={ExerciseEditModel}
         />
       </div>
 
@@ -147,15 +152,7 @@ export default function WorkoutExerciseEdit({
         />
       ) : null}
       <div className="col-span-full w-full flex justify-between px-4 pb-4">
-        <Button
-          buttonStyle="warning"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            resetWorkoutExerciseToEdit();
-            setIsOpen!(false);
-          }}
-        >
+        <Button buttonStyle="warning" onClick={onCancel}>
           Cancel
         </Button>
         <div className="inline-flex gap-2">

@@ -1,38 +1,45 @@
 import { useEffect, useState } from "react";
+
 import {
   EXERCISE_EQUIPMENT,
   EXERCISE_MUSCLES,
   EXERCISE_TYPES,
-  type IExerciseDTO,
-  type TExerciseInfo,
-} from "../../../../shared/models/exercise.model";
+} from "../../../../shared/consts/exercise.consts";
+
+import { ApiError } from "../../utils/ApiError.util";
 import { useExerciseStore } from "../../store/exercise.store";
+import { exerciseService } from "../../services/exercise.service";
+import { useFormErrors } from "../../hooks/shared/useFormErrors";
+
 import Button from "../UI/Button";
 import Input from "../UI/Form/Input";
-import Label from "../UI/Form/Label";
 import YoutubeInput from "../UI/Form/YoutubeInput";
-import { exerciseService } from "../../services/exercise.service";
 import SelectWithSearch from "../UI/Form/SelectMultiWithSearch";
+import GenericSaveButton from "../UI/GenericSaveButton";
+import LabelWithError from "../UI/Form/LabelWithError";
 
-interface ExerciseEditProps {
+import type {
+  IExerciseDTO,
+  TExerciseInfo,
+} from "../../../../shared/models/exercise.model";
+import type { IModelProps } from "../UI/GenericModel";
+
+interface ExerciseEditProps extends IModelProps<HTMLFormElement> {
   exercise?: IExerciseDTO;
-  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-  modelRef?: React.RefObject<HTMLDivElement | HTMLFormElement | null>;
-  handleModel?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export default function ExerciseEdit({
   exercise,
-  modelRef,
-  setIsOpen,
-  handleModel,
+  ...props
 }: ExerciseEditProps) {
   const [exerciseToEdit, setExerciseToEdit] = useState<
     IExerciseDTO | undefined | null
   >(null);
   const saveExercise = useExerciseStore((state) => state.saveExercise);
-  const pending = useExerciseStore((state) => state.isLoading);
-  // const error = useExerciseStore((state) => state.error);
+
+  const { errors, setErrors, clearErrors } = useFormErrors<IExerciseDTO>();
+
+  const { setOpen, modelRef } = props;
 
   useEffect(() => {
     setExerciseToEdit(() => (exercise ? exercise : exerciseService.getEmpty()));
@@ -41,6 +48,7 @@ export default function ExerciseEdit({
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
+    clearErrors();
     try {
       const formData = new FormData(e.currentTarget);
       const name = formData.get("name") as string;
@@ -53,11 +61,21 @@ export default function ExerciseEdit({
         youtubeUrl,
         id,
       });
-      if (res && setIsOpen) {
-        setIsOpen((prev) => !prev);
+      if (res && setOpen) {
+        setOpen(false);
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      if (error instanceof ApiError) {
+        setErrors((prev) => ({
+          ...prev,
+          ...error.errors,
+        }));
+      } else {
+        setErrors((prev) => ({
+          ...prev,
+          unknown: "An unknown error occurred while saving.",
+        }));
+      }
     }
   };
 
@@ -80,11 +98,40 @@ export default function ExerciseEdit({
     });
   };
 
+  const onCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    clearErrors();
+    setExerciseToEdit(null);
+    if (setOpen) setOpen(false);
+  };
+
+  const { id, muscles, equipment, types } = exerciseToEdit || {};
+
+  const selects = [
+    {
+      name: "muscles",
+      options: EXERCISE_MUSCLES,
+      selectedOptions: muscles,
+    },
+    {
+      name: "equipment",
+      options: EXERCISE_EQUIPMENT,
+      selectedOptions: equipment,
+    },
+    {
+      name: "types",
+      options: EXERCISE_TYPES,
+      selectedOptions: types,
+    },
+  ];
+
   return (
     <form
-      ref={modelRef as React.RefObject<HTMLFormElement>}
+      ref={modelRef}
       onSubmit={onSubmit}
-      className="bg-amber p-4 grid gap-4 rounded w-[calc(100%-1rem)] max-w-96 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50"
+      className="bg-amber p-4 grid gap-4 rounded w-[calc(100%-1rem)]
+       max-w-96 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50"
     >
       <Input hidden defaultValue={exercise?.id} name="id" />
 
@@ -96,55 +143,36 @@ export default function ExerciseEdit({
         pattern="^[a-zA-Z0-9\s]+$"
         title="Name should only contain letters, numbers, and spaces."
         defaultValue={exerciseToEdit?.name}
-        className="w-full h-10 peer outline-offset-0  pl-2 peer"
-        divStyle="bg-main-orange border-1 rounded h-full"
+        className={`w-full h-10 peer outline-offset-0 pl-2 border-1 rounded`}
+        divStyle="bg-main-orange  rounded h-full border-black outline-black"
       >
-        <Label isMoveUpEffect={true} labelPosition="input" htmlFor="name">
-          Name
-        </Label>
+        <LabelWithError
+          htmlFor="name"
+          error={errors?.name}
+          labelText="Program Name"
+        />
       </Input>
-      <YoutubeInput youtubeUrlProps={exerciseToEdit?.youtubeUrl} />
+      <YoutubeInput
+        youtubeUrlProps={exerciseToEdit?.youtubeUrl}
+        error={errors?.youtubeUrl}
+      />
+      {selects.map((select) => (
+        <SelectWithSearch
+          key={select.name}
+          error={errors?.[select.name as keyof IExerciseDTO]}
+          options={select.options}
+          inputName={select.name as TExerciseInfo}
+          selectedOptions={select.selectedOptions}
+          handleSelect={handleExerciseInfo}
+          parentModelRef={modelRef}
+        />
+      ))}
 
-      <SelectWithSearch
-        options={EXERCISE_MUSCLES}
-        inputName="muscles"
-        selectedOptions={exerciseToEdit?.muscles}
-        handleSelect={handleExerciseInfo}
-        parentModelRef={modelRef}
-      />
-      <SelectWithSearch
-        options={EXERCISE_EQUIPMENT}
-        inputName="equipment"
-        selectedOptions={exerciseToEdit?.equipment}
-        handleSelect={handleExerciseInfo}
-        parentModelRef={modelRef}
-      />
-      <SelectWithSearch
-        options={EXERCISE_TYPES}
-        inputName="types"
-        selectedOptions={exerciseToEdit?.types}
-        handleSelect={handleExerciseInfo}
-        parentModelRef={modelRef}
-      />
       <div className="inline-flex items-center justify-between gap-2">
-        <Button
-          className="px-2 py-1 border rounded hover:border-red-orange
-                   cursor-pointer
-                   hover:text-red-orange transition-all duration-300"
-          type="button"
-          onClick={handleModel}
-        >
+        <Button type="button" buttonStyle="warning" onClick={onCancel}>
           Cancel
         </Button>
-        <Button
-          type="submit"
-          aria-disabled={pending}
-          className={`bg-inherit border-1 p-2 hover:bg-main-orange
-                          hover:text-white rounded transition-all duration-300
-                          hover:cursor-pointer ${pending ? "opacity-50" : ""} `}
-        >
-          Save
-        </Button>
+        <GenericSaveButton useStore={useExerciseStore} itemId={id} />
       </div>
     </form>
   );

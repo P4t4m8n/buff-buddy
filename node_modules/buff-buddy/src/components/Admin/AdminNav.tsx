@@ -1,3 +1,4 @@
+import type { IAppNav } from "../../models/UI.model";
 import GenericList from "../UI/GenericList";
 import NavItem from "../UI/NavItem";
 
@@ -9,17 +10,21 @@ export default function AdminNav() {
       <GenericList
         items={paths}
         getKey={(item) => item.path}
-        className="flex justify-around items-center h-full bg-main-black text-white"
-        renderItem={(item) => (
-          <li key={item.path} className="w-full h-full">
-            <NavItem
-              navItem={item}
-              activeClass="bg-main-orange"
-              inactiveClass="bg-inherit"
-            />
-          </li>
-        )}
+        ulStyle="flex justify-around items-center h-full bg-main-black text-white"
+        ItemComponent={ItemComponent}
       />
     </nav>
   );
 }
+
+const ItemComponent = ({ item }: { item: IAppNav }) => {
+  return (
+    <li key={item.path} className="w-full h-full">
+      <NavItem
+        navItem={item}
+        activeClass="bg-main-orange"
+        inactiveClass="bg-inherit"
+      />
+    </li>
+  );
+};

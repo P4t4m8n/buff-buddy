@@ -4,28 +4,29 @@ import type {
   IProgramDTO,
   IProgramEditDTO,
 } from "../../../shared/models/program.model";
-import { ApiError } from "../utils/ApiError.util";
 
 interface IProgramStore {
   programs: IProgramDTO[];
   isLoading: boolean;
+  isDeleting: boolean;
+  isSavingId: string | null;
+  isLoadingId: string | null;
   loadPrograms: () => Promise<void>;
-  getProgramById: (
-    id?: string
-  ) => Promise<IProgramDTO | IProgramEditDTO | null>;
+  getProgramById: (id?: string) => Promise<IProgramDTO | null>;
   saveProgram: (programToSave: IProgramEditDTO) => Promise<IProgramDTO | null>;
   deleteProgram: (id: string) => Promise<void>;
-  error: { errors?: Record<string, string>; message: string } | null;
 }
 
 export const useProgramStore = create<IProgramStore>((set, get) => ({
   programs: [],
   isLoading: false,
-  error: null,
+  isDeleting: false,
+  isLoadingId: null,
+  isSavingId: null,
 
   loadPrograms: async () => {
     try {
-      set({ isLoading: true, error: null });
+      set({ isLoading: true });
 
       if (get().programs.length > 0) {
         return;
@@ -33,16 +34,6 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
 
       const _programs = await programService.get({});
       set({ programs: _programs, isLoading: false });
-    } catch (error) {
-      set({
-        error:
-          error instanceof ApiError
-            ? { errors: error.errors, message: error.message }
-            : {
-                errors: { unknown: "Error" },
-                message: "Unknown",
-              },
-      });
     } finally {
       set({ isLoading: false });
     }
@@ -53,21 +44,10 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
       if (!id) {
         return null;
       }
-      set({ isLoading: true, error: null });
+      set({ isLoadingId: id });
 
       const program = get().programs.find((p) => p.id === id);
       return !program ? await programService.getById(id) : program;
-    } catch (error) {
-      set({
-        error:
-          error instanceof ApiError
-            ? { errors: error.errors, message: error.message }
-            : {
-                errors: { unknown: "Error" },
-                message: "Unknown",
-              },
-      });
-      return null;
     } finally {
       set({ isLoading: false });
     }
@@ -75,7 +55,7 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
 
   saveProgram: async (programToSave: IProgramEditDTO) => {
     try {
-      set({ isLoading: true, error: null });
+      set({ isLoading: true });
       const { data } = await programService.save(
         programToSave as IProgramEditDTO
       );
@@ -93,17 +73,6 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
         }
       });
       return data;
-    } catch (error) {
-      set({
-        error:
-          error instanceof ApiError
-            ? { errors: error.errors, message: error.message }
-            : {
-                errors: { unknown: "Error" },
-                message: "Unknown",
-              },
-      });
-      return null;
     } finally {
       set({ isLoading: false });
     }
@@ -111,23 +80,13 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
 
   deleteProgram: async (id: string) => {
     try {
-      set({ isLoading: true, error: null });
+      set({ isDeleting: true });
       await programService.delete(id);
       set((state) => ({
         programs: state.programs.filter((program) => program.id !== id),
       }));
-    } catch (error) {
-      set({
-        error:
-          error instanceof ApiError
-            ? { errors: error.errors, message: error.message }
-            : {
-                errors: { unknown: "Error" },
-                message: "Unknown",
-              },
-      });
     } finally {
-      set({ isLoading: false });
+      set({ isDeleting: false });
     }
   },
 }));

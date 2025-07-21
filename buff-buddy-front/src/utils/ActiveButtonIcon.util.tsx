@@ -7,8 +7,14 @@ interface ActiveButtonIconProps {
 
 export default function ActiveButtonIcon({ isActive }: ActiveButtonIconProps) {
   return isActive ? (
-    <IconCheckMark className="border-2 border-green-600 rounded-full stroke-none fill-green-600 p-1 w-12 aspect-square" />
+    <IconCheckMark
+      className="border-2 border-green-600 rounded-full
+     stroke-none fill-green-600 p-1 w-8 aspect-square"
+    />
   ) : (
-    <IconInactive className=" stroke-none fill-red-orange w-12 aspect-square" />
+    <IconInactive
+      className=" stroke-none fill-red-orange
+     w-8 aspect-square"
+    />
   );
 }

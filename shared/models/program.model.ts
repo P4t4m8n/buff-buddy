@@ -3,17 +3,20 @@ import type { IEntity } from "./entity.model";
 import type { IUserDTO } from "./user.model";
 import type { IWorkoutDTO, IWorkoutEditDTO } from "./workout.model";
 
-export interface IProgramDTO extends IEntity {
+interface IProgramBase extends IEntity {
   name?: string | null | undefined;
-  notes?: string|null;
+  notes?: string | null;
   startDate?: Date | string | null;
   endDate?: Date | string | null;
   isActive: boolean;
   owner?: Partial<IUserDTO>;
+}
+
+export interface IProgramDTO extends IProgramBase {
   workouts?: IWorkoutDTO[];
 }
 
-export interface IProgramEditDTO extends Omit<IProgramDTO, "workouts"> {
+export interface IProgramEditDTO extends IProgramBase {
   workouts?: IWorkoutEditDTO[];
 }
 

@@ -1,4 +1,4 @@
-import { toFormatDate } from "../../../../utils/toFormatDate";
+import { calendarUtil } from "../../../../utils/calendar.util";
 
 interface DateInputDateDisplayProps {
   mode: "single" | "range";
@@ -16,14 +16,16 @@ export default function DateInputDateDisplay({
       return "Select date" + (mode === "range" ? " range" : "");
     }
     if (mode === "single") {
-      return toFormatDate(startDate);
+      return calendarUtil.formatDate(startDate);
     }
 
     if (endDate) {
-      return `${toFormatDate(startDate)} - ${toFormatDate(endDate)}`;
+      return `${calendarUtil.formatDate(startDate)} - ${calendarUtil.formatDate(
+        endDate
+      )}`;
     }
 
-    return `${toFormatDate(startDate)} - Select end date`;
+    return `${calendarUtil.formatDate(startDate)} - Select end date`;
   };
   return <span className="">{getDisplayText()}</span>;
 }

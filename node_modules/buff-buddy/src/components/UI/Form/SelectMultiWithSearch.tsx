@@ -15,21 +15,23 @@ interface SelectWithSearchProps {
   inputName: TExerciseInfo;
   handleSelect: (inputName: TExerciseInfo, option: string) => void;
   parentModelRef?: React.RefObject<HTMLDivElement | Element | null>;
+  error?: string;
 }
 
+//TODO??Improve error UI
 export default function SelectMultiWithSearch({
   options,
   selectedOptions,
   inputName,
   handleSelect,
   parentModelRef,
+  error,
 }: SelectWithSearchProps) {
   const [optionsList, setOptionsList] = useState<string[]>([]);
   const [optionsSelected, setOptionsSelected] = useState<string[]>([]);
-  const modelRef = useRef<HTMLDivElement>(null);
   const fieldRef = useRef<HTMLDivElement>(null);
 
-  const [open, setOpen] = useModel(modelRef);
+  const [open, modelRef, setOpen] = useModel<HTMLDivElement>();
   const [modelPositionClass, setModelPositionClass] = useState(
     "top-[calc(100%+.25rem)]"
   );
@@ -106,7 +108,15 @@ export default function SelectMultiWithSearch({
         ref={fieldRef}
         className="inline-flex items-center gap-2 h-full w-full border rounded pl-2  min-h-10"
       >
-        {optionsSelected.length ? (
+        {error ? (
+          <p
+            className="text-sm w-fit text-red-orange
+     peer-[:not(:placeholder-shown)]:text-red-orange
+                  peer-focus:text-red-orange"
+          >
+            {error}
+          </p>
+        ) : optionsSelected.length ? (
           <ul className="p-2 w-full flex flex-wrap gap-2">
             {optionsSelected.map((option, index) => (
               <li key={index}>
@@ -121,7 +131,7 @@ export default function SelectMultiWithSearch({
             ))}
           </ul>
         ) : (
-          <div>No selected options</div>
+          <p>No selected options</p>
         )}
         <Button
           className=" cursor-pointer h-8 aspect-square ml-auto"

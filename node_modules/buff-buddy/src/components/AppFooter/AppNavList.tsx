@@ -6,6 +6,7 @@ import IconProfile from "../UI/Icons/IconProfile";
 // import IconAdmin from "../UI/Icons/IconAdmin";
 import NavItem from "../UI/NavItem";
 import GenericList from "../UI/GenericList";
+import type { IAppNav } from "../../models/UI.model";
 
 export default function AppNavList() {
   const paths = [
@@ -46,17 +47,21 @@ export default function AppNavList() {
       <GenericList
         items={paths}
         getKey={(item) => item.path}
-        className="flex justify-around items-center h-full bg-main-black text-white"
-        renderItem={(item) => (
-          <li key={item.path}>
-            <NavItem
-              navItem={item}
-              activeClass="text-amber stroke-amber"
-              inactiveClass="grid items-center justify-items-center stroke-white transition-all duration-300"
-            />
-          </li>
-        )}
+        ulStyle="flex justify-around items-center h-full bg-main-black text-white"
+        ItemComponent={ItemComponent}
       />
     </nav>
   );
 }
+
+const ItemComponent = ({ item }: { item: IAppNav }) => {
+  return (
+    <li key={item.path}>
+      <NavItem
+        navItem={item}
+        activeClass="text-amber stroke-amber"
+        inactiveClass="grid items-center justify-items-center stroke-white transition-all duration-300"
+      />
+    </li>
+  );
+};

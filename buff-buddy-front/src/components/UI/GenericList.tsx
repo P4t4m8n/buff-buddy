@@ -1,29 +1,36 @@
 import React from "react";
-
-interface GenericListProps<T> {
-  items: T[];
-  renderItem: (item: T) => React.ReactNode;
-  getKey: (item: T) => string | number;
-  className?: string; // Optional classes for the <ul> container
-}
+import type { ComponentType } from "react";
 
 /**
  * A reusable list component that renders a <ul> with items.
  * @param items - The array of data to render.
- * @param renderItem - A function that takes an item and returns a React node to render.
+ * @param ItemComponent - The React component to render for each item in the list.
+ * @param itemComponentProps - The props to pass down to each `ItemComponent`.
  * @param getKey - A function that takes an item and returns a unique key.
- * @param className - Optional Tailwind classes for the <ul> container.
+ * @param ulStyle - Optional Tailwind classes for the <ul> container.
  */
-export default function GenericList<T>({
+
+interface GenericListProps<T, P> {
+  items: T[];
+  ItemComponent: ComponentType<{ item: T } & P>;
+  itemComponentProps?: P;
+  ulStyle?: string;
+  getKey: (item: T) => string | number;
+}
+
+export default function GenericList<T, P>({
   items,
-  renderItem,
+  ulStyle,
+  itemComponentProps,
+  ItemComponent,
   getKey,
-  className,
-}: GenericListProps<T>) {
+}: GenericListProps<T, P>) {
   return (
-    <ul className={className}>
+    <ul className={ulStyle}>
       {items.map((item) => (
-        <React.Fragment key={getKey(item)}>{renderItem(item)}</React.Fragment>
+        <React.Fragment key={getKey(item)}>
+          <ItemComponent item={item} {...(itemComponentProps as P)} />
+        </React.Fragment>
       ))}
     </ul>
   );

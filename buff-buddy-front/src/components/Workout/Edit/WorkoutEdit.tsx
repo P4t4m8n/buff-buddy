@@ -1,6 +1,5 @@
-import { useEffect, useState, type ChangeEvent, type MouseEvent } from "react";
-
-import { useLocation, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
@@ -9,9 +8,8 @@ import type {
 import { useWorkoutStore } from "../../../store/workout.store";
 import { workoutUtils } from "../../../utils/workout.util";
 import Loader from "../../UI/Loader";
-import WorkoutExerciseEditList from "../WorkoutExercise/Edit/List/WorkoutExerciseEditList";
-import { calendarUtil } from "../../../utils/calendar.util";
 import WorkoutEditHeader from "./WorkoutEditHeader";
+import WorkoutExerciseEditList from "../WorkoutExercise/Edit/WorkoutExerciseEditList";
 
 interface WorkoutCreateProps {
   workout?: IWorkoutDTO | IWorkoutEditDTO;
@@ -27,10 +25,9 @@ export default function WorkoutEdit({
     null
   );
   const navigate = useNavigate();
-  const pathname = useLocation();
-  const isProgramEdit = pathname.pathname.includes("programs");
+  // const pathname = useLocation();
+  // const isProgramEdit = pathname.pathname.includes("programs");
 
-  const isLoading = useWorkoutStore((state) => state.isLoading);
   const saveWorkout = useWorkoutStore((state) => state.saveWorkout);
 
   useEffect(() => {
@@ -112,23 +109,6 @@ export default function WorkoutEdit({
     }
   };
 
-  const onDaysChange = (e: ChangeEvent) => {
-    const target = e.target as HTMLInputElement;
-    const value = target.value;
-    const isChecked = target.checked;
-    const fixedDay = calendarUtil.shortWeekdayToFull(value);
-    setWorkoutToEdit((prev) => {
-      if (!prev) return null;
-      const newDaysOfWeek = isChecked
-        ? [...(prev.daysOfWeek || []), fixedDay]
-        : (prev.daysOfWeek || []).filter((day) => day !== fixedDay);
-      return {
-        ...prev,
-        daysOfWeek: newDaysOfWeek,
-      };
-    });
-  };
-
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -142,7 +122,7 @@ export default function WorkoutEdit({
     }
   };
 
-  const onCancel = (e: MouseEvent<HTMLButtonElement>) => {
+  const onCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     if (handleModel) {
@@ -156,7 +136,7 @@ export default function WorkoutEdit({
     return <Loader />;
   }
 
-  const { notes, workoutExercises, name, daysOfWeek } = workoutToEdit;
+  const { notes, workoutExercises, name } = workoutToEdit;
   const cleanedWorkoutExercises = workoutExercises
     ?.filter((ex) => ex.crudOperation !== "delete")
     .sort((a, b) => (a?.order || 0) - (b?.order || 0));
@@ -167,20 +147,17 @@ export default function WorkoutEdit({
       className="h-main p-1 py-2 grid grid-cols-1 grid-rows-[21rem_calc(100%-22rem)] gap-4"
     >
       <WorkoutEditHeader
+        workoutId={workoutToEdit.id}
         name={name}
         notes={notes}
-        daysOfWeek={daysOfWeek}
-        isProgramEdit={isProgramEdit}
         handleInputChange={handleInputChange}
         onCancel={onCancel}
-        isLoading={isLoading}
         workoutExerciseLength={(cleanedWorkoutExercises?.length || 0) + 1}
-        onDaysChange={onDaysChange}
         handleWorkoutExercises={handleWorkoutExercises}
       />
       <WorkoutExerciseEditList
         workoutExercises={cleanedWorkoutExercises || []}
-        handleWorkoutExercise={handleWorkoutExercises}
+        handleWorkoutExercises={handleWorkoutExercises}
       />
     </form>
   );

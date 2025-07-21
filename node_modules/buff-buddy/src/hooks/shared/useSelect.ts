@@ -1,20 +1,19 @@
-import { useRef, useState, type ChangeEvent,  } from "react";
+import { useRef, useState, type ChangeEvent } from "react";
 import { useModel } from "./useModel";
 
 export const useSelect = <T>(
-  options:readonly T[],
+  options: readonly T[],
   modelPosition: string,
   filterOptions: (searchValue: string) => T[],
-  parentModelRef?: React.RefObject<HTMLDivElement | null>,
+  parentModelRef?: React.RefObject<HTMLDivElement | null>
 ) => {
   const [optionsList, setOptionsList] = useState<T[]>(
     options ? [...options] : []
   );
 
-  const modelRef = useRef<HTMLDivElement>(null);
   const fieldRef = useRef<HTMLDivElement>(null);
 
-  const [open, setOpen] = useModel(modelRef);
+  const [open, modelRef, setOpen] = useModel<HTMLDivElement>();
   const [modelPositionClass, setModelPositionClass] = useState(modelPosition);
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {

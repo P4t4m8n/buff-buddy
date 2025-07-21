@@ -1,6 +1,4 @@
 @import "tailwindcss";
-:root {
-}
 
 @theme {
   --color-main-orange: rgb(253, 127, 32);
@@ -24,6 +22,9 @@
 
   --min-width-small: var(--width-small);
   --font-display: "Gloria Hallelujah", cursive;
+
+  --padding-mobile: 0.5rem;
+  --padding-desktop: 1rem;
 }
 @layer utilities {
   .flex-center {
@@ -98,4 +99,24 @@ input[type="number"] {
     rgba(253, 127, 32, 0.9),
     rgba(252, 46, 32, 0.85)
   );
+}
+
+@utility scrollbar-hide {
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* Safari and Chrome */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility scrollbar-default {
+  /* Firefox */
+  scrollbar-width: auto;
+
+  /* Safari and Chrome */
+  &::-webkit-scrollbar {
+    display: block;
+  }
 }

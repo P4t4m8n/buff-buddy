@@ -1,76 +1,62 @@
 import { create } from "zustand";
-import type { IWorkoutDTO, IWorkoutEditDTO } from "../../../shared/models/workout.model";
+import type {
+  IWorkoutDTO,
+  IWorkoutEditDTO,
+} from "../../../shared/models/workout.model";
 import { workoutService } from "../services/workout.service";
-import { ApiError } from "../utils/ApiError.util";
 
 interface WorkoutStore {
   workouts: IWorkoutDTO[];
   isLoading: boolean;
+  isDeleting: boolean;
+  isSavingId: string | null;
+  isLoadingId: string | null;
   loadWorkouts: () => Promise<void>;
   getWorkoutById: (id?: string) => Promise<IWorkoutDTO | null>;
   saveWorkout: (
     workoutToSave: IWorkoutEditDTO
   ) => Promise<IWorkoutDTO | null | undefined>;
   deleteWorkout: (id: string) => Promise<void>;
-  error: { errors?: Record<string, string>; message: string } | null;
 }
 
 export const useWorkoutStore = create<WorkoutStore>((set, get) => ({
   workouts: [],
   isLoading: false,
-  error: null,
+  isLoadingId: null,
+  isDeleting: false,
+  isSavingId: null,
 
   loadWorkouts: async () => {
     try {
-      set({ isLoading: true, error: null });
+      set({ isLoading: true });
 
       if (get().workouts.length > 0) {
         return;
       }
-
       const _workouts = await workoutService.get({});
       set({ workouts: _workouts, isLoading: false });
-    } catch (error) {
-      set({
-        error:
-          error instanceof ApiError
-            ? { errors: error.errors, message: error.message }
-            : {
-                errors: { unknown: "Error" },
-                message: "Unknown",
-              },
-      });
     } finally {
       set({ isLoading: false });
     }
   },
   getWorkoutById: async (id?: string) => {
+    if (!id) {
+      return null;
+    }
     try {
-      if (!id) {
-        return null;
-      }
-      set({ isLoading: true, error: null });
-
+      set({ isLoadingId: id });
       const workout = get().workouts.find((w) => w.id === id);
       return !workout ? await workoutService.getById(id) : workout;
-    } catch (error) {
-      set({
-        error:
-          error instanceof ApiError
-            ? { errors: error.errors, message: error.message }
-            : {
-                errors: { unknown: "Error" },
-                message: "Unknown",
-              },
-      });
-      return null;
     } finally {
-      set({ isLoading: false });
+      if (get().isLoadingId === id) {
+        set({ isLoadingId: null });
+      }
     }
   },
   saveWorkout: async (workoutToSave: IWorkoutEditDTO) => {
+    const currentId = workoutToSave.id;
     try {
-      set({ isLoading: true, error: null });
+      set({ isLoading: true, isSavingId: workoutToSave.id });
       const savedWorkout = await workoutService.save(workoutToSave);
       if (savedWorkout) {
         set((state) => {
@@ -86,38 +72,21 @@ export const useWorkoutStore = create<WorkoutStore>((set, get) => ({
         });
       }
       return savedWorkout;
-    } catch (error) {
-      set({
-        error:
-          error instanceof ApiError
-            ? { errors: error.errors, message: error.message }
-            : {
-                errors: { unknown: "Error" },
-                message: "Unknown",
-              },
-      });
-      return null;
     } finally {
-      set({ isLoading: false });
+      //To prevent race conditions of a loading state
+      //TODO??basic tests done, needs more tests
+      if (get().isSavingId === currentId) {
+        set({ isSavingId: null });
+      }
     }
   },
   deleteWorkout: async (id: string) => {
     try {
-      set({ isLoading: true, error: null });
+      set({ isLoading: true, isDeleting: true });
       await workoutService.delete(id);
       set((state) => ({
         workouts: state.workouts.filter((w) => w.id !== id),
       }));
-    } catch (error) {
-      set({
-        error:
-          error instanceof ApiError
-            ? { errors: error.errors, message: error.message }
-            : {
-                errors: { unknown: "Error" },
-                message: "Unknown",
-              },
-      });
     } finally {
       set({ isLoading: false });
     }

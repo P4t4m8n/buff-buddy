@@ -7,9 +7,11 @@ import DateInput from "../../components/UI/Form/DateInput/DateInput";
 import Input from "../../components/UI/Form/Input";
 import { calendarUtil } from "../../utils/calendar.util";
 import Loader from "../../components/UI/Loader";
-import ProgramEditWorkoutModel from "../../components/Program/ProgramEditWorkoutModel";
 import { toTitle } from "../../utils/toTitle";
 import { DAY_OF_WEEK } from "../../../../shared/models/app.model";
+import ProgramWorkoutEdit from "../../components/Program/ProgramWorkoutEdit/ProgramWorkoutEdit";
+import LabelWithError from "../../components/UI/Form/LabelWithError";
+import GenericModel from "../../components/UI/GenericModel";
 
 export default function ProgramEdit() {
   const { id } = useParams<{ id?: string }>();
@@ -17,7 +19,7 @@ export default function ProgramEdit() {
   const {
     programToEdit,
     isLoading,
-    error,
+    errors,
     handleDateSelect,
     onSaveProgram,
     handleWorkouts,
@@ -33,6 +35,7 @@ export default function ProgramEdit() {
   const { name, notes, startDate, endDate, workouts, isActive } = programToEdit;
 
   const headerText = id ? `Edit Program: ${name}` : `Create New Program`;
+
   const cleanedWorkouts = workouts?.filter(
     (ex) => ex.crudOperation !== "delete"
   );
@@ -50,8 +53,9 @@ export default function ProgramEdit() {
         className="h-main bg-main-orange px-4 pt-4 grid grid-rows-[auto_1fr] gap-4"
       >
         <header
-          className="grid grid-rows-[2rem_2.5rem_2.5rem_5rem_2.5rem] lg:grid-rows-[2rem_3.5rem_9.5rem] grid-cols-3
-        lg:grid-cols-[1fr_1fr_8.5rem] lg:h-68 gap-4 justify-around"
+          className={`grid grid-rows-[2rem_2.5rem_2.5rem_5rem_2.5rem]
+                      lg:grid-rows-[2rem_3.5rem_9.5rem] grid-cols-3
+                      lg:grid-cols-[1fr_1fr_8.5rem] lg:h-68 gap-4 justify-around`}
         >
           <h2 className="text-2xl font-semibold col-span-full">{headerText}</h2>
           <Input
@@ -62,31 +66,23 @@ export default function ProgramEdit() {
             placeholder=""
             onChange={handleInputChange}
             className={`w-full h-10 peer outline-offset-0 pl-2 border-1 rounded ${
-              error?.errors?.name ? "border-red-orange outline-red-orange" : ""
+              errors?.name ? "border-red-orange outline-red-orange" : ""
             }`}
             divStyle="bg-main-orange h-fit order-1 w-full col-span-2 lg:col-span-1"
           >
-            <Label
-              isMoveUpEffect={true}
+            <LabelWithError
               htmlFor="name"
-              className={`${
-                error?.errors?.name
-                  ? " text-sm w-fit text-red-orange peer-[:not(:placeholder-shown)]:text-red-orange peer-focus:text-red-orange"
-                  : ""
-              }`}
-            >
-              {error?.errors?.name
-                ? " Program name is required"
-                : "Program Name"}
-            </Label>
+              error={errors?.name}
+              labelText="Program Name"
+            />
           </Input>
           <DateInput
             handleDateSelect={handleDateSelect}
             selectedRange={dateRange}
             className=" col-span-full lg:col-span-1 order-3 lg:order-2"
             errorRange={{
-              startDate: error?.errors?.startDate,
-              endDate: error?.errors?.endDate,
+              startDate: errors?.startDate,
+              endDate: errors?.endDate,
             }}
           />
           <Input
@@ -114,7 +110,14 @@ export default function ProgramEdit() {
             className="inline-flex lg:grid items-center lg:justify-items-center gap-2 order-5
           w-full col-span-full lg-col-span-1 lg:col-start-3"
           >
-            <ProgramEditWorkoutModel handleWorkouts={handleWorkouts} />
+            <GenericModel
+              Model={ProgramWorkoutEdit}
+              modelProps={{ handleWorkouts }}
+              mode="create"
+              buttonProps={{ buttonStyle: "model" }}
+              isOverlay={false}
+            />
+
             <Button
               className="w-16 border rounded lg:w-full hover:border-red-orange
             cursor-pointer h-10

@@ -12,7 +12,7 @@ export default function YoutubePlayer({ youtubeUrl }: YoutubePlayerProps) {
       src={youtubeUrl?.replace("watch?v=", "embed/")}
       title="YouTube video player"
       allowFullScreen
-      className="aspect-video min-w-small-with-padding max-w-[40rem] rounded "
+      className="aspect-video  max-w-[40rem] rounded "
     ></iframe>
   );
 }

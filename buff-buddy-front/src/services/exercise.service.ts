@@ -1,4 +1,8 @@
-import type { IExerciseDTO, IExerciseFilter } from "../../../shared/models/exercise.model";
+import type {
+  IExerciseDTO,
+  IExerciseFilter,
+} from "../../../shared/models/exercise.model";
+import { appUtil } from "../utils/app.util";
 import { apiService, type THttpPostResponse } from "./api.service";
 
 export const exerciseService = {
@@ -33,7 +37,7 @@ export const exerciseService = {
 
   getEmpty(): IExerciseDTO {
     return {
-      id: "",
+      id: appUtil.getTempId(),
       name: "",
       youtubeUrl: "",
       muscles: [],

@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { toTitle } from "../../../../utils/toTitle";
 import Button from "../../Button";
 import IconCalendar from "../../Icons/IconCalendar";
@@ -34,8 +33,7 @@ export default function DateInput({
   className = "",
   errorRange,
 }: DateInputProps) {
-  const calendarRef = useRef<HTMLDivElement>(null);
-  const [isOpen, , handleModel] = useModel(calendarRef);
+  const [isOpen, modelRef, , handleModel] = useModel<HTMLDivElement>();
   const {
     currentDate,
     setCurrentDate,
@@ -71,7 +69,7 @@ export default function DateInput({
   };
 
   return (
-    <div className={`relative w-full   ${className}`} ref={calendarRef}>
+    <div className={`relative w-full   ${className}`} ref={modelRef}>
       <Button
         onClick={handleModel}
         className={`border ${

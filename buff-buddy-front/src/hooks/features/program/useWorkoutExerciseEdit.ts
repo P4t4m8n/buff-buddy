@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import type { SetStateAction, Dispatch, ChangeEvent } from "react";
 import { useExerciseStore } from "../../../store/exercise.store";
-import { coreSetsService } from "../../../services/coreSets.service";
 
 import { workoutExerciseUtils } from "../../../utils/workoutExercises.util";
 import type { IWorkoutExerciseEditDTO } from "../../../../../shared/models/workout.model";
 import type { IExerciseDTO } from "../../../../../shared/models/exercise.model";
 import type { ICoreSetEditDTO } from "../../../../../shared/models/set.model";
 import type { TCrudOperation } from "../../../../../shared/models/app.model";
+import { coreSetsUtil } from "../../../utils/coreSets.util";
 
 interface IWorkoutExerciseEditHook {
   setWorkoutExerciseToEdit: Dispatch<
@@ -61,7 +61,7 @@ export const useWorkoutExerciseEdit = (
         exerciseId: exercise.id,
         coreSets: prev?.coreSets?.length
           ? prev.coreSets
-          : [coreSetsService.getEmpty()],
+          : [coreSetsUtil.getEmpty()],
       };
     });
   };
@@ -80,7 +80,7 @@ export const useWorkoutExerciseEdit = (
       const coreSets = prev?.coreSets ?? [];
 
       if (!coreSet) {
-        const emptySet = coreSetsService.getEmpty(coreSets?.length + 1);
+        const emptySet = coreSetsUtil.getEmpty(coreSets?.length + 1);
         return {
           ...prev,
           coreSets: organizeCoreSets([...coreSets, emptySet]),

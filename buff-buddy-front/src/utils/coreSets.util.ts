@@ -1,7 +1,7 @@
 import type { ICoreSetEditDTO } from "../../../shared/models/set.model";
 import { appUtil } from "../utils/app.util";
 
-export const coreSetsService = {
+export const coreSetsUtil = {
   getEmpty: (order?: number): ICoreSetEditDTO => ({
     id: appUtil.getTempId("temp"),
     order: order ?? 1,
