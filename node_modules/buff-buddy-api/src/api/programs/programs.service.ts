@@ -47,7 +47,39 @@ export const programsService = {
         programWorkouts: {
           create: (dto.workouts ?? []).map((w) => ({
             workout: {
-              connect: { id: w.id },
+              connectOrCreate: {
+                where: { id: w?.id },
+                create: {
+                  name: w?.name ?? dto.name,
+                  user: {
+                    connect: {
+                      id: userId,
+                    },
+                  },
+                  workoutExercises: {
+                    create: (w?.workoutExercises ?? []).map((we) => ({
+                      order: we.order || 1,
+                      notes: we.notes,
+                      exercise: {
+                        connect: {
+                          id: we.exerciseId,
+                        },
+                      },
+                      coreSets: {
+                        create: (we.coreSets ?? []).map((cs) => ({
+                          order: cs.order || 1,
+                          reps: cs.reps,
+                          weight: cs.weight,
+                          restTime: cs.restTime,
+                          isBodyWeight: cs.isBodyWeight,
+                          isWarmup: cs.isWarmup,
+                          repsInReserve: cs.repsInReserve,
+                        })),
+                      },
+                    })),
+                  },
+                },
+              },
             },
             daysOfWeek: w.daysOfWeek,
           })),
@@ -77,12 +109,7 @@ export const programsService = {
           connect: { id: userId },
         },
         programWorkouts: {
-          create: (dto.workouts ?? []).map((w) => ({
-            workout: {
-              connect: { id: w.id },
-            },
-            daysOfWeek: w.daysOfWeek,
-          })),
+       
         },
       },
       select: programSelect,

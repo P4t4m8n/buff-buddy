@@ -69,7 +69,7 @@ export const workoutsService = {
   },
   update: async (
     id: string,
-    dto: UpdateWorkoutInput,
+    dto: UpdateWorkoutInput
   ): Promise<IWorkoutWithRelations> => {
     const { workoutExercises, ...workoutData } = dto;
 
@@ -87,7 +87,6 @@ export const workoutsService = {
         data: dbUtil.cleanData({
           notes: workoutData.notes,
           name: workoutData.name,
-          daysOfWeek: workoutData.daysOfWeek,
         }),
       });
 
@@ -146,7 +145,15 @@ export const workoutsService = {
                     isWarmup: cs.isWarmup,
                     repsInReserve: cs.repsInReserve,
                   },
-                  update: dbUtil.cleanData(cs),
+                  update: dbUtil.cleanData({
+                    order: cs.order,
+                    reps: cs.reps,
+                    weight: cs.weight,
+                    restTime: cs.restTime,
+                    isBodyWeight: cs.isBodyWeight,
+                    isWarmup: cs.isWarmup,
+                    repsInReserve: cs.repsInReserve,
+                  }),
                 })),
                 deleteMany: (we.coreSets ?? [])
                   .filter((cs) => cs.crudOperation === "delete")

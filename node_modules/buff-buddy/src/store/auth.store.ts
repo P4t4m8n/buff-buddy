@@ -26,9 +26,8 @@ export const useAuthStore = create<IAuthStore>((set) => ({
     try {
       set({ isLoading: true, error: null });
       const res = await authService.getSessionUser();
-      set({ user: res, error: null });
+      set({ user: res.data, error: null });
     } catch (error) {
-
       set({
         error:
           error instanceof ApiError

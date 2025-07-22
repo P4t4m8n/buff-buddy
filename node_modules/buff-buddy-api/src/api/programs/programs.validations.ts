@@ -1,5 +1,7 @@
 import { z } from "zod";
-import { UpdateWorkoutSchema } from "../workouts/workouts.validations";
+import {
+  UpdateWorkoutSchema,
+} from "../workouts/workouts.validations";
 import {
   NameSchema,
   NotesSchema,
@@ -35,7 +37,12 @@ export const CreateProgramSchema = BaseProgramSchema.refine(
   }
 );
 
-export const UpdateProgramSchema = BaseProgramSchema.partial();
+export const UpdateProgramSchema = BaseProgramSchema.partial().extend({
+  workouts: z
+    .array(UpdateWorkoutSchema)
+    .min(1, "At least one exercise is required")
+    .max(50, "Maximum 50 exercises allowed per program"),
+});
 
 export const ProgramQuerySchema = z.object({
   name: z.string().optional(),

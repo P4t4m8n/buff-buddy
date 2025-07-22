@@ -1,25 +1,75 @@
 import type { MouseEvent } from "react";
 import Button from "../UI/Button";
-import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
+import type {
+  IWorkoutDTO,
+  IWorkoutEditDTO,
+} from "../../../../shared/models/workout.model";
+import GenericModel from "../UI/GenericModel";
+import ProgramWorkoutEdit from "../Program/ProgramWorkoutEdit/ProgramWorkoutEdit";
+import { workoutUtils } from "../../utils/workout.util";
 
 interface WorkoutPreviewProps {
-  workout: IWorkoutDTO;
-  onSelectWorkout?: (workout?: IWorkoutDTO) => void;
-  detailsModelComponent?: React.ComponentType<unknown>;
+  item?: IWorkoutDTO;
+  onSelectWorkout?: (workout?: IWorkoutDTO, isCopy?: boolean) => void;
+  handleWorkouts?: (workout: IWorkoutEditDTO) => void;
+  pageName?: TWorkoutPreviewPageName;
   isSelected?: boolean;
-  mode?: "programAdd" | "programView" | "workoutStart";
 }
 
-type WorkoutPreviewMode = "programAdd" | "programView" | "workoutStart";
+export type TWorkoutPreviewPageName =
+  | "programAdd"
+  | "programView"
+  | "workoutStart"
+  | "ProgramEdit"
+  | "ProgramWorkoutSelected";
 
 //TODO?? Improve exercises names flex to have scroll btns
 //TODO?? Add dynamic preview based on location. When adding to a program details,when show a program edit and details and when starting a workout details edit and start workout
 export default function DynamicWorkoutPreview({
-  workout,
+  item: workout,
   onSelectWorkout,
-  mode = "programAdd",
+  pageName = "programAdd",
+  isSelected,
+  handleWorkouts,
 }: WorkoutPreviewProps) {
-  const { name, workoutExercises } = workout;
+  if (!workout) return null;
+
+  const getComponent = (pageName: TWorkoutPreviewPageName) => {
+    switch (pageName) {
+      case "programAdd":
+        return (
+          <ProgramWorkoutEditPreview
+            onSelectWorkout={onSelectWorkout}
+            item={workout}
+            isSelected={isSelected}
+          />
+        );
+      case "programView":
+        return <></>;
+      case "workoutStart":
+        return <></>;
+      case "ProgramWorkoutSelected":
+        return (
+          <ProgramWorkoutSelected
+            item={workout}
+            handleWorkouts={handleWorkouts}
+          />
+        );
+      case "ProgramEdit":
+        return <ProgramEdit item={workout} handleWorkouts={handleWorkouts} />;
+      default:
+        return null;
+    }
+  };
+  return getComponent(pageName);
+}
+
+const ProgramWorkoutEditPreview = ({
+  onSelectWorkout,
+  item: workout,
+  isSelected,
+}: Partial<WorkoutPreviewProps>) => {
+  const { name, workoutExercises } = workout!;
 
   const exercisesNames =
     workoutExercises?.map((ex) => {
@@ -34,22 +84,20 @@ export default function DynamicWorkoutPreview({
       );
     }) ?? [];
 
-  const getActions = (mode: WorkoutPreviewMode) => {
-    switch (mode) {
-      case "programAdd":
-        return (
-          <ProgramWorkoutEditActions
-            workout={workout}
-            onSelectWorkout={onSelectWorkout}
-          />
-        );
-      case "programView":
-        return <></>;
-      case "workoutStart":
-        return <></>;
-      default:
-        return null;
+  const isCopy = true;
+  const onClick = (e: MouseEvent<HTMLButtonElement>, isCopy: boolean) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!onSelectWorkout) {
+      console.warn("onSelectWorkout function is not provided");
+      return;
     }
+
+    if (isSelected) {
+      onSelectWorkout();
+      return;
+    }
+    onSelectWorkout(workout, isCopy);
   };
   return (
     <li className="p-2 border rounded grid gap-2">
@@ -57,32 +105,79 @@ export default function DynamicWorkoutPreview({
       <ul className="flex w-full overflow-auto gap-2 py-2">
         {...exercisesNames}
       </ul>
-      {getActions(mode)}
+      {isSelected ? (
+        <Button buttonStyle="save" className="w-full" onClick={(e) => onClick(e, isCopy)}>
+          Cancel
+        </Button>
+      ) : (
+        <div className="flex gap-2">
+          <Button
+            className={`bg-inherit border-1 w-full hover:bg-main-orange h-10 mt-auto
+            hover:text-white rounded transition-all duration-300
+            hover:cursor-pointer  `}
+            onClick={(e) => onClick(e, isCopy)}
+          >
+            Copy
+          </Button>
+          <Button
+            className={`bg-inherit border-1 w-full hover:bg-main-orange h-10 mt-auto
+            hover:text-white rounded transition-all duration-300
+            hover:cursor-pointer  `}
+            onClick={(e) => onClick(e, !isCopy)}
+          >
+            Select
+          </Button>
+        </div>
+      )}
     </li>
   );
-}
-
-const ProgramWorkoutEditActions = ({
-  onSelectWorkout,
-  workout,
+};
+const ProgramEdit = ({
+  item,
+  handleWorkouts,
 }: Partial<WorkoutPreviewProps>) => {
-  const onClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (onSelectWorkout) {
-      onSelectWorkout(workout);
-    }
-  };
+  const workout = workoutUtils.dtoToEditDto(item!);
   return (
-    <div>
-      <Button
-        className={`bg-inherit border-1 w-full hover:bg-main-orange h-10 mt-auto
-              hover:text-white rounded transition-all duration-300
-              hover:cursor-pointer  `}
-        onClick={onClick}
-      >
-        Select
-      </Button>
-    </div>
+    <li
+      key={workout!.id!}
+      className="border text-center w-20 lg:w-full grid
+                 justify-items-center gap-1 p-1 rounded"
+    >
+      <h5 className="font-medium">{workout!.name}</h5>
+      <div>
+        <GenericModel
+          Model={ProgramWorkoutEdit}
+          modelProps={{ handleWorkouts, workout }}
+          mode="create"
+          buttonProps={{ buttonStyle: "model", className: "mr-auto" }}
+          isOverlay={false}
+        />
+      </div>
+    </li>
+  );
+};
+
+const ProgramWorkoutSelected = ({
+  item,
+  handleWorkouts,
+}: Partial<WorkoutPreviewProps>) => {
+  const workout = workoutUtils.dtoToEditDto(item!);
+  return (
+    <li
+      key={workout!.id!}
+      className="border text-center w-20 lg:w-full grid
+                 justify-items-center gap-1 p-1 rounded"
+    >
+      <h5 className="font-medium">{workout!.name}</h5>
+      <div>
+        <GenericModel
+          Model={ProgramWorkoutEdit}
+          modelProps={{ handleWorkouts, workout }}
+          mode="create"
+          buttonProps={{ buttonStyle: "model", className: "mr-auto" }}
+          isOverlay={false}
+        />
+      </div>
+    </li>
   );
 };

@@ -3,7 +3,7 @@ import type {
   IAuthUserDTO,
   IAuthSignUpDTO,
 } from "../../../shared/models/auth.model";
-import { apiService } from "./api.service";
+import { apiService, type THttpPostResponse } from "./api.service";
 
 export const authService = {
   rootPath: "/auth",
@@ -20,8 +20,8 @@ export const authService = {
     await apiService.post<void>(`${this.rootPath}/sign-out`);
   },
 
-  async getSessionUser(): Promise<IAuthUserDTO | null> {
-    return await apiService.get<IAuthUserDTO | null>(
+  async getSessionUser(): Promise<THttpPostResponse<IAuthUserDTO | null>> {
+    return await apiService.get<THttpPostResponse<IAuthUserDTO | null>>(
       `${this.rootPath}/session-user`
     );
   },

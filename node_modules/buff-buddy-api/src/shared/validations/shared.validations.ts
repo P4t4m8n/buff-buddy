@@ -103,6 +103,10 @@ export const CrudOperationEnumSchema = z.enum([
   "read",
 ]);
 
+export const CrudOperationSchema = z
+  .optional(CrudOperationEnumSchema)
+  .default("read");
+
 export const DaysOfWeekEnumSchema = z.enum([
   "monday",
   "tuesday",
@@ -145,9 +149,11 @@ export const NameSchema = z
 export const IDSchema = z
   .string()
   .min(1, "ID is required")
+  .transform((val) => (val.startsWith("temp-") ? "" : val))
   .transform((val) =>
     sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} })
   )
   .transform((val) => val.trim())
   .refine((val) => val.length >= 1, "ID must be at least 1 character long")
-  .refine((val) => val.length <= 50, "ID must be less than 50 characters long");
+  .refine((val) => val.length <= 50, "ID must be less than 50 characters long")
+  .optional();

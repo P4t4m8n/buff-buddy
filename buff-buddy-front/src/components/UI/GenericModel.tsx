@@ -53,7 +53,6 @@ export default function GenericModel<T extends HTMLElement, P>({
   };
   return (
     <>
-      {" "}
       <Button onClick={handleModel} type="button" {...buttonProps}>
         {buttonProps?.children ?? ModelButtonIcon(mode)}
       </Button>

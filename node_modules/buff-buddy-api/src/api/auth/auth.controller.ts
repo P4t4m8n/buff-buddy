@@ -72,7 +72,7 @@ export const getSessionUser = async (req: Request, res: Response) => {
     const user = asyncLocalStorage.getStore()?.sessionUser;
     res.status(200).json({
       message: "User session retrieved successfully",
-      user,
+      data:user,
     });
   } catch (error) {
     const err = AppError.handleResponse(error);

@@ -5,16 +5,25 @@ import type {
 import { appUtil } from "./app.util";
 
 export const workoutUtils = {
-  dtoToEditDto: (dto: IWorkoutDTO): IWorkoutEditDTO => {
+  dtoToEditDto: (dto: IWorkoutDTO, isCopy?: boolean): IWorkoutEditDTO => {
     return {
-      id: dto.id,
-      programId: dto.program?.id,
-
-      userId: dto.user?.id,
+      id: isCopy ? appUtil.getTempId() : dto.id,
       notes: dto.notes,
-      workoutExercises: (dto.workoutExercises || []).map((exercise) => ({
-        id: exercise.id,
-        exerciseId: exercise?.exercise?.id,
+      name: dto.name,
+      programId: dto.program?.id ?? null,
+      daysOfWeek: dto.daysOfWeek,
+      userId: dto.user?.id,
+      crudOperation: isCopy ? "create" : "update",
+      workoutExercises: (dto.workoutExercises || []).map((we) => ({
+        id: isCopy ? appUtil.getTempId() : we.id,
+        order: we.order,
+        notes: we.notes || "",
+        exercise: we.exercise,
+        exerciseId: we?.exercise?.id,
+        coreSets: (we.coreSets || []).map((set) => ({
+          ...set,
+          id: isCopy ? appUtil.getTempId() : set.id,
+        })),
       })),
     };
   },

@@ -3,7 +3,7 @@ import ProgramWorkoutEditWrapper from "./ProgramWorkoutEditWrapper";
 import DynamicWorkoutPreview from "../../Workout/DynamicWorkoutPreview";
 import Button from "../../UI/Button";
 import { calendarUtil } from "../../../utils/calendar.util";
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
@@ -13,6 +13,7 @@ import type { IModelProps } from "../../UI/GenericModel";
 import ProgramWorkoutEditSelected from "./ProgramWorkoutEditSelected";
 import GenericModel from "../../UI/GenericModel";
 import { workoutUtils } from "../../../utils/workout.util";
+import GenericList from "../../UI/GenericList";
 
 interface ProgramWorkoutProps extends IModelProps<HTMLDivElement> {
   workout?: IWorkoutEditDTO;
@@ -25,7 +26,8 @@ export default function ProgramWorkoutEdit({
   ...props
 }: ProgramWorkoutProps) {
   const [selectedWorkout, setSelectedWorkout] =
-    useState<IWorkoutEditDTO | null>(workout || null);
+    useState<IWorkoutEditDTO | null>(null);
+  console.log("🚀 ~ selectedWorkout:", selectedWorkout)
   const workouts = useWorkoutStore((state) => state.workouts);
   const loadWorkouts = useWorkoutStore((state) => state.loadWorkouts);
   const { modelRef, handleModel } = props;
@@ -47,8 +49,11 @@ export default function ProgramWorkoutEdit({
     });
   };
 
-  const onSelectWorkout = (workout?: IWorkoutDTO) => {
-    const _workout = workout ? workoutUtils.dtoToEditDto(workout) : null;
+  const onSelectWorkout = (workout?: IWorkoutDTO, isCopy?: boolean) => {
+    console.log("🚀 ~ onSelectWorkout ~ workout:", workout);
+    const _workout = workout
+      ? workoutUtils.dtoToEditDto(workout, isCopy)
+      : null;
     setSelectedWorkout(_workout);
   };
 
@@ -83,6 +88,8 @@ export default function ProgramWorkoutEdit({
           selectedWorkout={selectedWorkout}
           onDaysChange={onDaysChange}
           saveToProgram={saveToProgram}
+          onSelectWorkout={onSelectWorkout}
+          parentRef={modelRef}
         />
       </header>
 
@@ -94,16 +101,14 @@ export default function ProgramWorkoutEdit({
         parentRef={modelRef}
       />
 
-      <ul className="flex flex-col gap-4 h-[calc(100%-9.5rem)] overflow-auto">
-        {availableWorkouts.map((wo) => (
-          <Fragment key={wo.id}>
-            <DynamicWorkoutPreview
-              workout={wo}
-              onSelectWorkout={onSelectWorkout}
-            />
-          </Fragment>
-        ))}
-      </ul>
+      <GenericList
+        items={availableWorkouts}
+        ItemComponent={DynamicWorkoutPreview}
+        itemComponentProps={{ onSelectWorkout }}
+        getKey={(item) => item.id!}
+        ulStyle="flex flex-col gap-4 h-[calc(100%-9.5rem)] overflow-auto"
+      />
+
       <Button
         onClick={handleModel}
         className={`bg-inherit border-1 w-full hover:bg-main-orange h-10 min-h-10 mt-auto

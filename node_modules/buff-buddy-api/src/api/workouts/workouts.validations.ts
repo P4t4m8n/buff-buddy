@@ -1,5 +1,6 @@
 import { z } from "zod";
 import {
+  CrudOperationSchema,
   DaysOfWeekSchema,
   IDSchema,
   NameSchema,
@@ -16,7 +17,7 @@ const BaseWorkoutSchema = z.object({
   notes: NotesSchema,
   name: NameSchema,
   daysOfWeek: DaysOfWeekSchema.optional(),
-
+  crudOperation: CrudOperationSchema,
   workoutExercises: z
     .array(CreateNestedWorkoutExerciseSchema)
     .min(1, "At least one workout set is required")

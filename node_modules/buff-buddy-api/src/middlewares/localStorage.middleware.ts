@@ -22,7 +22,7 @@ export async function setupAsyncLocalStorage(
       if (!req.cookies) {
         return;
       }
-
+      
       const { token } = req.cookies;
       if (typeof token !== "string") {
         return;

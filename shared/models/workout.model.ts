@@ -1,6 +1,5 @@
 import type { IUserDTO } from "./user.model";
 import type { IExerciseDTO } from "./exercise.model";
-import type { IUserSetEditDTO } from "./set.model";
 import type { ICoreSetDTO, ICoreSetEditDTO } from "./set.model";
 import type { IEntity } from "./entity.model";
 import type { TDayOfWeek, IBaseFilter, TCrudOperation } from "./app.model";
@@ -18,6 +17,13 @@ export interface IWorkoutDTO extends IWorkoutBase {
   workoutExercises?: IWorkoutExerciseDTO[];
 }
 
+export interface IWorkoutExerciseDTO extends IEntity {
+  order?: number;
+  notes?: string | null;
+  exercise?: IExerciseDTO;
+  coreSets?: ICoreSetDTO[];
+}
+
 export interface IWorkoutEditDTO extends IWorkoutBase {
   programId?: string | null;
   userId?: string | null;
@@ -25,12 +31,6 @@ export interface IWorkoutEditDTO extends IWorkoutBase {
   crudOperation?: TCrudOperation;
 }
 
-export interface IWorkoutExerciseDTO extends IEntity {
-  order?: number;
-  notes?: string | null;
-  exercise?: IExerciseDTO;
-  coreSets?: ICoreSetDTO[];
-}
 export interface IWorkoutExerciseEditDTO extends IEntity {
   order?: number;
   notes?: string;
@@ -55,5 +55,3 @@ export interface IWorkoutFilter extends IBaseFilter {
   exerciseId?: string;
   isCompleted?: boolean;
 }
-
-

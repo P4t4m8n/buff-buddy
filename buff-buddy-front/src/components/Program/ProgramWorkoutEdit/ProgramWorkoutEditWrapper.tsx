@@ -3,10 +3,10 @@ import type { IModelProps } from "../../UI/GenericModel";
 import WorkoutEdit from "../../Workout/Edit/WorkoutEdit";
 
 interface ProgramWorkoutEditWrapperProps extends IModelProps<HTMLDivElement> {
-  data?: IWorkoutDTO;
+  workout?: IWorkoutDTO;
 }
 export default function ProgramWorkoutEditWrapper({
-  data,
+  workout,
   ...props
 }: ProgramWorkoutEditWrapperProps) {
   const { modelRef, handleModel, setOpen } = props;
@@ -16,7 +16,7 @@ export default function ProgramWorkoutEditWrapper({
       className="fixed inset-0 h-main bg-main-orange w-full z-20"
     >
       <WorkoutEdit
-        workout={data}
+        workout={workout}
         setIsOpen={setOpen}
         handleModel={handleModel}
       />

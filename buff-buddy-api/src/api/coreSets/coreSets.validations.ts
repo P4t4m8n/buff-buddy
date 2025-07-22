@@ -1,6 +1,8 @@
 import { z } from "zod";
-import { conditionalOrderRefinement, CrudOperationEnumSchema } from "../../shared/validations/shared.validations";
-
+import {
+  conditionalOrderRefinement,
+  CrudOperationSchema,
+} from "../../shared/validations/shared.validations";
 
 const coreSetWeightRefinement = (
   data: { weight?: number; isBodyWeight?: boolean },
@@ -64,7 +66,7 @@ const CoreSetSchema = z.object({
     .max(20, "Reps in reserve cannot exceed 20")
     .nullable()
     .default(0),
-  crudOperation: z.optional(CrudOperationEnumSchema).default("read"),
+  crudOperation: CrudOperationSchema,
   id: z.optional(z.string()),
   programExerciseId: z.string().optional(),
 });

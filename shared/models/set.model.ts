@@ -1,4 +1,4 @@
-import { TCrudOperation } from "./app.model";
+import type { TCrudOperation } from "./app.model";
 import type { IEntity } from "./entity.model";
 
 export interface ICoreSetDTO extends IEntity {
@@ -11,7 +11,7 @@ export interface ICoreSetDTO extends IEntity {
 }
 export interface ICoreSetEditDTO extends ICoreSetDTO {
   crudOperation?: TCrudOperation;
-  programExerciseId?: string; // Foreign key to ProgramExercise
+  workoutExerciseId?: string; // Foreign key to ProgramExercise
 }
 
 export interface IUserSetDTO extends IEntity {

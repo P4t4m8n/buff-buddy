@@ -12,6 +12,10 @@ import { DAY_OF_WEEK } from "../../../../shared/models/app.model";
 import ProgramWorkoutEdit from "../../components/Program/ProgramWorkoutEdit/ProgramWorkoutEdit";
 import LabelWithError from "../../components/UI/Form/LabelWithError";
 import GenericModel from "../../components/UI/GenericModel";
+import GenericList from "../../components/UI/GenericList";
+import DynamicWorkoutPreview, {
+  type TWorkoutPreviewPageName,
+} from "../../components/Workout/DynamicWorkoutPreview";
 
 export default function ProgramEdit() {
   const { id } = useParams<{ id?: string }>();
@@ -33,6 +37,7 @@ export default function ProgramEdit() {
   }
 
   const { name, notes, startDate, endDate, workouts, isActive } = programToEdit;
+  console.dir( programToEdit)
 
   const headerText = id ? `Edit Program: ${name}` : `Create New Program`;
 
@@ -108,13 +113,13 @@ export default function ProgramEdit() {
           ></TextArea>
           <div
             className="inline-flex lg:grid items-center lg:justify-items-center gap-2 order-5
-          w-full col-span-full lg-col-span-1 lg:col-start-3"
+                       w-full col-span-full lg-col-span-1 lg:col-start-3"
           >
             <GenericModel
               Model={ProgramWorkoutEdit}
               modelProps={{ handleWorkouts }}
               mode="create"
-              buttonProps={{ buttonStyle: "model" }}
+              buttonProps={{ buttonStyle: "model", className: "mr-auto" }}
               isOverlay={false}
             />
 
@@ -133,8 +138,10 @@ export default function ProgramEdit() {
               type="submit"
               aria-disabled={isLoading}
               className={`bg-inherit border-1 w-16 lg:w-full hover:bg-main-orange h-10
-              hover:text-white rounded transition-all duration-300
-              hover:cursor-pointer ${isLoading ? "opacity-50" : ""} `}
+                        hover:text-white rounded transition-all duration-300
+                         hover:cursor-pointer ${
+                           isLoading ? "opacity-50" : ""
+                         } `}
             >
               Save
             </Button>
@@ -142,7 +149,7 @@ export default function ProgramEdit() {
         </header>
         <ul
           className="grid grid-rows-[repeat(7,10rem)] lg:grid-rows-1 grid-cols-1 lg:grid-cols-7
-     justify-around gap-2 w-full h-[31rem] lg:h-[calc(100%)] lg:pb-4 overflow-y-auto "
+                     justify-around gap-2 w-full h-[31rem] lg:h-[calc(100%)] lg:pb-4 overflow-y-auto"
         >
           {DAY_OF_WEEK.map((day) => (
             <li
@@ -152,17 +159,16 @@ export default function ProgramEdit() {
               <h4 className="font-bold decoration-2 underline">
                 {toTitle(day)}
               </h4>
-              <ul className="p-1 flex lg:flex-col gap-2">
-                {groupedWorkouts[day].map((workout) => (
-                  <li
-                    key={workout.id}
-                    className="border text-center w-20 lg:w-full grid
-                 justify-items-center gap-1 p-1 rounded"
-                  >
-                    <h5 className="font-medium">{workout.name}</h5>
-                  </li>
-                ))}
-              </ul>
+              <GenericList
+                items={groupedWorkouts[day]}
+                ItemComponent={DynamicWorkoutPreview}
+                itemComponentProps={{
+                  pageName: "ProgramEdit" as TWorkoutPreviewPageName,
+                  handleWorkouts,
+                }}
+                getKey={(item) => item.id!}
+                ulStyle="p-1 flex lg:flex-col gap-2"
+              />
             </li>
           ))}
         </ul>
@@ -170,38 +176,3 @@ export default function ProgramEdit() {
     </div>
   );
 }
-
-// <div className="grid gap-1">
-//         <Label htmlFor="daysOfWeek">Days of the week</Label>
-//         <CheckboxMulti
-//           options={calendarUtil.getShortWeekDays(true)}
-//           selectedOptions={
-//             calendarUtil.fullWeekdaysToShort(daysOfWeek!) ?? []
-//           }
-//           inputName="daysOfWeek"
-//           listStyle=""
-//           onChange={onDaysChange}
-//         />
-//         {programExerciseErrors?.daysOfWeek ? (
-//           <Label htmlFor="order" className=" text-sm text-red-orange">
-//             {programExerciseErrors?.daysOfWeek}
-//           </Label>
-//         ) : null}
-//       </div>
-
-// const onDaysChange = (e: ChangeEvent) => {
-//   const target = e.target as HTMLInputElement;
-//   const value = target.value;
-//   const isChecked = target.checked;
-//   const fixedDay = calendarUtil.shortWeekdayToFull(value);
-//   setWorkoutExerciseToEdit((prev) => {
-//     if (!prev) return null;
-//     const newDaysOfWeek = isChecked
-//       ? [...(prev.daysOfWeek || []), fixedDay]
-//       : (prev.daysOfWeek || []).filter((day) => day !== fixedDay);
-//     return {
-//       ...prev,
-//       daysOfWeek: newDaysOfWeek,
-//     };
-//   });
-// };
