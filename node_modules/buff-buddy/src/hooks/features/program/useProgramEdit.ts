@@ -1,16 +1,12 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import type {
   IProgramEditDTO,
-  TProgramWorkoutEditRecord,
+  IProgramWorkoutEditDTO,
 } from "../../../../../shared/models/program.model";
 import type { IDateRange } from "../../../models/calendar.model";
 import { useProgramStore } from "../../../store/program.store";
 import { useNavigate } from "react-router";
 import { programUtils } from "../../../utils/program.util";
-import type {
-  IWorkoutDTO,
-  IWorkoutEditDTO,
-} from "../../../../../shared/models/workout.model";
 import { useFormErrors } from "../../shared/useFormErrors";
 
 interface IProgramEditHook {
@@ -19,8 +15,7 @@ interface IProgramEditHook {
   errors: Partial<Record<keyof IProgramEditDTO, string>> | null;
   handleDateSelect: (range: IDateRange) => void;
   onSaveProgram: (e: React.FormEvent<HTMLFormElement>) => void;
-  handleWorkouts: (workout: IWorkoutEditDTO) => void;
-  groupWorkoutsByDay: (workout: IWorkoutDTO[]) => TProgramWorkoutEditRecord;
+  handleProgramWorkouts: (workout: IProgramWorkoutEditDTO) => void;
   navigate: ReturnType<typeof useNavigate>;
   handleInputChange: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -68,7 +63,6 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
     const notes = formData.get("notes") as string;
     const isActive = formData.get("isActive") === "on";
     const programToSave = { ...programToEdit, name, notes, isActive };
-    console.log("🚀 ~ onSaveProgram ~ programToSave:", programToSave)
     const res = await saveProgram(programToSave);
     if (!res) {
       console.error("Failed to save program");
@@ -80,42 +74,23 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
   };
 
   //TODO?? improve logic, specially change of order
-  const handleWorkouts = (workout: IWorkoutEditDTO) => {
+  const handleProgramWorkouts = (programWorkout: IProgramWorkoutEditDTO) => {
     setProgramToEdit((prev) => {
       if (!prev) return null;
-      const programExercises = prev?.workouts ?? [];
+      const programWorkouts = prev?.programWorkouts ?? [];
 
-      const idx = prev?.workouts?.findIndex((w) => w.id === workout.id);
+      const idx = programWorkouts.findIndex(
+        (pw) => pw.id === programWorkout.id
+      );
 
       return {
         ...prev,
         workouts:
           idx !== undefined && idx >= 0
-            ? programExercises.toSpliced(idx, 1, workout)
-            : [...programExercises, workout],
+            ? programWorkouts.toSpliced(idx, 1, programWorkout)
+            : [...programWorkouts, programWorkout],
       };
     });
-  };
-
-  const groupWorkoutsByDay = (workouts: IWorkoutDTO[]) => {
-    const peByDay: TProgramWorkoutEditRecord = {
-      monday: [],
-      tuesday: [],
-      wednesday: [],
-      thursday: [],
-      friday: [],
-      saturday: [],
-      sunday: [],
-    };
-    workouts.forEach((workout) => {
-      workout.daysOfWeek?.forEach((day) => {
-        if (!peByDay[day]) {
-          peByDay[day] = [];
-        }
-        peByDay[day].push(workout);
-      });
-    });
-    return peByDay;
   };
 
   const handleInputChange = (
@@ -145,8 +120,7 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
     handleDateSelect,
     onSaveProgram,
     navigate,
-    groupWorkoutsByDay,
     handleInputChange,
-    handleWorkouts,
+    handleProgramWorkouts,
   };
 };

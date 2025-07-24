@@ -141,7 +141,6 @@ model Program {
 
 model ProgramWorkout {
   id         String       @id @default(cuid())
-  isActive   Boolean      @default(true)
   programId  String
   program    Program      @relation(fields: [programId], references: [id], onDelete: Cascade)
   workoutId  String
@@ -149,14 +148,16 @@ model ProgramWorkout {
   daysOfWeek DaysOfWeek[]
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
+
+  @@unique([programId, workoutId])
 }
 
 model Workout {
   id                       String                    @id @default(cuid())
   name                     String?                   @default("New Workout")
   notes                    String?
-  userId                   String
-  user                     User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ownerId                  String?
+  owner                    User?                      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   workoutExercises         WorkoutExercise[]
   workoutExerciseSuperSets WorkoutExerciseSuperSet[]
   programWorkouts          ProgramWorkout[]

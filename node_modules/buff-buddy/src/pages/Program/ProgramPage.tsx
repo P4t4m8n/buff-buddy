@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { useProgramStore } from "../../store/program.store";
-import ProgramList from "../../components/Program/ProgramList";
+import ProgramList from "../../components/Program/ProgramPage/ProgramList";
 import { useCallback, useEffect } from "react";
 import Button from "../../components/UI/Button";
 import Loader from "../../components/UI/Loader";

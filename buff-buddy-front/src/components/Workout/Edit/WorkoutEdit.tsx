@@ -25,8 +25,6 @@ export default function WorkoutEdit({
     null
   );
   const navigate = useNavigate();
-  // const pathname = useLocation();
-  // const isProgramEdit = pathname.pathname.includes("programs");
 
   const saveWorkout = useWorkoutStore((state) => state.saveWorkout);
 
@@ -144,7 +142,8 @@ export default function WorkoutEdit({
   return (
     <form
       onSubmit={onSubmit}
-      className="h-main p-1 py-2 grid grid-cols-1 grid-rows-[21rem_calc(100%-22rem)] gap-4"
+      className="h-main p-1 py-2 grid grid-cols-1 grid-rows-[21rem_calc(100%-22rem)]
+                 gap-4 fixed inset-0 bg-main-orange w-full z-20"
     >
       <WorkoutEditHeader
         workoutId={workoutToEdit.id}

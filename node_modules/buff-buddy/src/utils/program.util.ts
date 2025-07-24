@@ -27,15 +27,9 @@ export const programUtils = {
       startDate: dto.startDate ? new Date(dto.startDate) : null,
       endDate: dto.endDate ? new Date(dto.endDate) : null,
       isActive: dto.isActive,
-      workouts:
-        dto.workouts?.map((workout) => ({
-          ...workout,
-          daysOfWeek: workout.daysOfWeek || [],
-          workoutExercises:
-            workout.workoutExercises?.map((ex) => ({
-              ...ex,
-              notes: ex.notes === null ? undefined : ex.notes,
-            })) || [],
+      programWorkouts:
+        dto.programWorkouts?.map((pw) => ({
+          ...pw,
         })) || [],
     };
   },
@@ -47,7 +41,7 @@ export const programUtils = {
       startDate: null,
       endDate: null,
       isActive: false,
-      workouts: [],
+      programWorkouts: [],
     };
   },
 };

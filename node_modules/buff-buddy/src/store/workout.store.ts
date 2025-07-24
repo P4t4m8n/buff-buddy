@@ -82,13 +82,13 @@ export const useWorkoutStore = create<WorkoutStore>((set, get) => ({
   },
   deleteWorkout: async (id: string) => {
     try {
-      set({ isLoading: true, isDeleting: true });
+      set({ isDeleting: true });
       await workoutService.delete(id);
       set((state) => ({
         workouts: state.workouts.filter((w) => w.id !== id),
       }));
     } finally {
-      set({ isLoading: false });
+      set({ isDeleting: false });
     }
   },
 }));

@@ -1,14 +1,13 @@
 import { Link } from "react-router";
-import { useProgramStore } from "../../store/program.store";
-import { calendarUtil } from "../../utils/calendar.util";
-import { toTitle } from "../../utils/toTitle";
-import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
+import { useProgramStore } from "../../../store/program.store";
+import { calendarUtil } from "../../../utils/calendar.util";
+import { toTitle } from "../../../utils/toTitle";
+import { ModelButtonIcon } from "../../../utils/ModelButtonIcon.util";
+import GenericDeleteButton from "../../UI/GenericDeleteButton";
+import Button from "../../UI/Button";
 
-import GenericDeleteButton from "../UI/GenericDeleteButton";
-import Button from "../UI/Button";
-
-import type { IProgramDTO } from "../../../../shared/models/program.model";
-import ActiveButtonIcon from "../../utils/ActiveButtonIcon.util";
+import type { IProgramDTO } from "../../../../../shared/models/program.model";
+import ActiveButtonIcon from "../../../utils/ActiveButtonIcon.util";
 interface ProgramPreviewProps {
   item: IProgramDTO;
   onDeleteProgram?: (id?: string) => Promise<void>;

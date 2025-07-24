@@ -1,11 +1,12 @@
 import { z } from "zod";
 import {
-  UpdateWorkoutSchema,
-} from "../workouts/workouts.validations";
-import {
   NameSchema,
   NotesSchema,
 } from "../../shared/validations/shared.validations";
+import {
+  CreateProgramWorkoutSchema,
+  UpdateProgramWorkoutSchema,
+} from "../programWorkout/programWorkout.validations";
 
 const BaseProgramSchema = z.object({
   name: NameSchema,
@@ -23,8 +24,8 @@ const BaseProgramSchema = z.object({
 
   isActive: z.coerce.boolean().default(true),
 
-  workouts: z
-    .array(UpdateWorkoutSchema)
+  programWorkouts: z
+    .array(CreateProgramWorkoutSchema)
     .min(1, "At least one exercise is required")
     .max(50, "Maximum 50 exercises allowed per program"),
 });
@@ -38,8 +39,8 @@ export const CreateProgramSchema = BaseProgramSchema.refine(
 );
 
 export const UpdateProgramSchema = BaseProgramSchema.partial().extend({
-  workouts: z
-    .array(UpdateWorkoutSchema)
+  programWorkouts: z
+    .array(UpdateProgramWorkoutSchema)
     .min(1, "At least one exercise is required")
     .max(50, "Maximum 50 exercises allowed per program"),
 });

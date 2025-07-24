@@ -1,5 +1,5 @@
-import type { IProgramDTO } from "../../../../shared/models/program.model";
-import GenericList from "../UI/GenericList";
+import type { IProgramDTO } from "../../../../../shared/models/program.model";
+import GenericList from "../../UI/GenericList";
 import ProgramPreview from "./ProgramPreview";
 
 interface ExerciseTableProps {
@@ -13,8 +13,9 @@ export default function ProgramList({
   return (
     <GenericList
       items={programs}
-      ulStyle="grid grid-cols-[repeat(auto-fit,minmax(18rem,20rem))] 
-        h-auto overflow-auto gap-4 p-mobile md:p-desktop"
+      ulStyle="grid grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]
+               md:grid-cols-[repeat(auto-fit,minmax(18rem,22rem))]
+               h-auto overflow-auto gap-4 p-mobile md:p-desktop"
       ItemComponent={ProgramPreview}
       itemComponentProps={{ onDeleteProgram }}
       getKey={(item) => item.id!}

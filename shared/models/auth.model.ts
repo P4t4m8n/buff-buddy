@@ -15,7 +15,7 @@ export interface IAuthSignUpDTO {
 }
 
 export interface IAuthUserDTO extends IEntity {
-  firstName?: string;
-  lastName?: string;
-  imgUrl?: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  imgUrl?: string | null;
 }

@@ -4,15 +4,14 @@ import {
   conditionalOrderRefinement,
   NotesSchema,
   OrderSchema,
-  idSchema,
   CrudOperationEnumSchema,
+  IDSchema,
 } from "../../shared/validations/shared.validations";
 
 export const CreateWorkoutExerciseSchema = z.object({
   order: OrderSchema,
   notes: NotesSchema,
-  exerciseId: idSchema({ errorMsg: "Exercise ID is required" }),
-  // workoutId: idSchema({ errorMsg: "Workout ID is required" }),
+  exerciseId:IDSchema,
   isActive: z.coerce.boolean().default(true),
   coreSets: z
     .array(CreateNestedCoreSetSchema)

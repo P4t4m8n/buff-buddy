@@ -1,33 +1,32 @@
 import { useWorkoutStore } from "../../../store/workout.store";
-import ProgramWorkoutEditWrapper from "./ProgramWorkoutEditWrapper";
-import DynamicWorkoutPreview from "../../Workout/DynamicWorkoutPreview";
 import Button from "../../UI/Button";
 import { calendarUtil } from "../../../utils/calendar.util";
 import { useState, useEffect } from "react";
-import type {
-  IWorkoutDTO,
-  IWorkoutEditDTO,
-} from "../../../../../shared/models/workout.model";
 import type { MouseEvent } from "react";
 import type { IModelProps } from "../../UI/GenericModel";
-import ProgramWorkoutEditSelected from "./ProgramWorkoutEditSelected";
 import GenericModel from "../../UI/GenericModel";
-import { workoutUtils } from "../../../utils/workout.util";
 import GenericList from "../../UI/GenericList";
+import type {
+  IProgramWorkoutDTO,
+  IProgramWorkoutEditDTO,
+} from "../../../../../shared/models/program.model";
+import { programWorkoutUtil } from "../../../utils/programWorkout.util";
+import ProgramWorkoutEditSelected from "./ProgramWorkoutEditSelected";
+import WorkoutEdit from "../../Workout/Edit/WorkoutEdit";
+import AvailableWorkoutPreview from "./AvailableWorkoutPreview";
 
 interface ProgramWorkoutProps extends IModelProps<HTMLDivElement> {
-  workout?: IWorkoutEditDTO;
-  handleWorkouts?: (workout: IWorkoutEditDTO) => void;
+  programWorkout?: IProgramWorkoutDTO;
+  handleWorkouts?: (workout: IProgramWorkoutDTO) => void;
 }
 
 export default function ProgramWorkoutEdit({
-  workout,
+  programWorkout,
   handleWorkouts,
   ...props
 }: ProgramWorkoutProps) {
   const [selectedWorkout, setSelectedWorkout] =
-    useState<IWorkoutEditDTO | null>(null);
-  console.log("🚀 ~ selectedWorkout:", selectedWorkout)
+    useState<IProgramWorkoutEditDTO | null>(null);
   const workouts = useWorkoutStore((state) => state.workouts);
   const loadWorkouts = useWorkoutStore((state) => state.loadWorkouts);
   const { modelRef, handleModel } = props;
@@ -49,10 +48,12 @@ export default function ProgramWorkoutEdit({
     });
   };
 
-  const onSelectWorkout = (workout?: IWorkoutDTO, isCopy?: boolean) => {
-    console.log("🚀 ~ onSelectWorkout ~ workout:", workout);
+  const onSelectProgramWorkout = (
+    workout?: IProgramWorkoutDTO,
+    isCopy?: boolean
+  ) => {
     const _workout = workout
-      ? workoutUtils.dtoToEditDto(workout, isCopy)
+      ? programWorkoutUtil.dtoToEditDto(workout, isCopy)
       : null;
     setSelectedWorkout(_workout);
   };
@@ -69,9 +70,12 @@ export default function ProgramWorkoutEdit({
   useEffect(() => {
     loadWorkouts();
   }, [loadWorkouts]);
+
   useEffect(() => {
-    setSelectedWorkout(workout ?? null);
-  }, [workout]);
+    const workoutEdit = programWorkoutUtil.dtoToEditDto(programWorkout);
+
+    setSelectedWorkout(workoutEdit ?? null);
+  }, [programWorkout]);
 
   const availableWorkouts = workouts.filter(
     (wo) => !selectedWorkout || wo.id !== selectedWorkout.id
@@ -85,16 +89,16 @@ export default function ProgramWorkoutEdit({
       <header className={""}>
         <h3 className="text-center">Pick a workout</h3>
         <ProgramWorkoutEditSelected
-          selectedWorkout={selectedWorkout}
+          selectedProgramWorkout={selectedWorkout}
           onDaysChange={onDaysChange}
           saveToProgram={saveToProgram}
-          onSelectWorkout={onSelectWorkout}
+          onSelectProgramWorkout={onSelectProgramWorkout}
           parentRef={modelRef}
         />
       </header>
 
       <GenericModel
-        Model={ProgramWorkoutEditWrapper}
+        Model={WorkoutEdit}
         mode="create"
         buttonProps={{ buttonStyle: "model" }}
         isPortal={true}
@@ -103,8 +107,8 @@ export default function ProgramWorkoutEdit({
 
       <GenericList
         items={availableWorkouts}
-        ItemComponent={DynamicWorkoutPreview}
-        itemComponentProps={{ onSelectWorkout }}
+        ItemComponent={AvailableWorkoutPreview}
+        itemComponentProps={{ onSelectProgramWorkout }}
         getKey={(item) => item.id!}
         ulStyle="flex flex-col gap-4 h-[calc(100%-9.5rem)] overflow-auto"
       />

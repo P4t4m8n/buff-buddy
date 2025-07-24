@@ -5,7 +5,10 @@ import type {
 import { appUtil } from "./app.util";
 
 export const workoutUtils = {
-  dtoToEditDto: (dto: IWorkoutDTO, isCopy?: boolean): IWorkoutEditDTO => {
+  dtoToEditDto(dto?: IWorkoutDTO, isCopy?: boolean): IWorkoutEditDTO {
+    if (!dto) {
+      return this.getEmpty();
+    }
     return {
       id: isCopy ? appUtil.getTempId() : dto.id,
       notes: dto.notes,

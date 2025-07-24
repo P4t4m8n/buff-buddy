@@ -1,4 +1,7 @@
-export const programSelect = {
+import { Prisma } from "../../../prisma/generated/prisma";
+import { WORKOUT_SELECT } from "../workouts/workout.sql";
+
+export const PROGRAM_SELECT: Prisma.ProgramSelect = {
   id: true,
   name: true,
   notes: true,
@@ -18,42 +21,9 @@ export const programSelect = {
   programWorkouts: {
     select: {
       daysOfWeek: true,
+      id: true,
       workout: {
-        select: {
-          id: true,
-          name: true,
-          notes: true,
-          workoutExercises: {
-            select: {
-              id: true,
-              order: true,
-              notes: true,
-              exercise: {
-                select: {
-                  id: true,
-                  name: true,
-                  youtubeUrl: true,
-                  types: true,
-                  equipment: true,
-                  muscles: true,
-                },
-              },
-              coreSets: {
-                select: {
-                  id: true,
-                  reps: true,
-                  weight: true,
-                  restTime: true,
-                  isBodyWeight: true,
-                  order: true,
-                  isWarmup: true,
-                  repsInReserve: true,
-                  isHistory: true,
-                },
-              },
-            },
-          },
-        },
+        select: WORKOUT_SELECT,
       },
     },
   },

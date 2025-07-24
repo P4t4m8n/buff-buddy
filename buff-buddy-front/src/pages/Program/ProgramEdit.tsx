@@ -7,15 +7,12 @@ import DateInput from "../../components/UI/Form/DateInput/DateInput";
 import Input from "../../components/UI/Form/Input";
 import { calendarUtil } from "../../utils/calendar.util";
 import Loader from "../../components/UI/Loader";
-import { toTitle } from "../../utils/toTitle";
-import { DAY_OF_WEEK } from "../../../../shared/models/app.model";
-import ProgramWorkoutEdit from "../../components/Program/ProgramWorkoutEdit/ProgramWorkoutEdit";
 import LabelWithError from "../../components/UI/Form/LabelWithError";
 import GenericModel from "../../components/UI/GenericModel";
-import GenericList from "../../components/UI/GenericList";
-import DynamicWorkoutPreview, {
-  type TWorkoutPreviewPageName,
-} from "../../components/Workout/DynamicWorkoutPreview";
+import GenericSaveButton from "../../components/UI/GenericSaveButton";
+import { useProgramStore } from "../../store/program.store";
+import ProgramWorkoutEditWeekList from "../../components/Program/ProgramEdit/ProgramWorkoutEditWeekList";
+import ProgramWorkoutEdit from "../../components/Program/ProgramEdit/ProgramWorkoutEdit";
 
 export default function ProgramEdit() {
   const { id } = useParams<{ id?: string }>();
@@ -26,8 +23,7 @@ export default function ProgramEdit() {
     errors,
     handleDateSelect,
     onSaveProgram,
-    handleWorkouts,
-    groupWorkoutsByDay,
+    handleProgramWorkouts,
     navigate,
     handleInputChange,
   } = useProgramEdit(id);
@@ -36,15 +32,10 @@ export default function ProgramEdit() {
     return <Loader />;
   }
 
-  const { name, notes, startDate, endDate, workouts, isActive } = programToEdit;
-  console.dir( programToEdit)
+  const { name, notes, startDate, endDate, programWorkouts, isActive } =
+    programToEdit;
 
   const headerText = id ? `Edit Program: ${name}` : `Create New Program`;
-
-  const cleanedWorkouts = workouts?.filter(
-    (ex) => ex.crudOperation !== "delete"
-  );
-  const groupedWorkouts = groupWorkoutsByDay(cleanedWorkouts || []);
 
   const dateRange = {
     start: calendarUtil.convertDate(startDate),
@@ -117,16 +108,14 @@ export default function ProgramEdit() {
           >
             <GenericModel
               Model={ProgramWorkoutEdit}
-              modelProps={{ handleWorkouts }}
+              modelProps={{ handleProgramWorkouts }}
               mode="create"
               buttonProps={{ buttonStyle: "model", className: "mr-auto" }}
               isOverlay={false}
             />
 
             <Button
-              className="w-16 border rounded lg:w-full hover:border-red-orange
-            cursor-pointer h-10
-            hover:text-red-orange transition-all duration-300"
+              buttonStyle="warning"
               onClick={(e) => {
                 e.preventDefault();
                 navigate(-1);
@@ -134,44 +123,17 @@ export default function ProgramEdit() {
             >
               Cancel
             </Button>
-            <Button
+            <GenericSaveButton
+              itemId={programToEdit.id}
+              useStore={useProgramStore}
               type="submit"
-              aria-disabled={isLoading}
-              className={`bg-inherit border-1 w-16 lg:w-full hover:bg-main-orange h-10
-                        hover:text-white rounded transition-all duration-300
-                         hover:cursor-pointer ${
-                           isLoading ? "opacity-50" : ""
-                         } `}
-            >
-              Save
-            </Button>
+            />
           </div>
         </header>
-        <ul
-          className="grid grid-rows-[repeat(7,10rem)] lg:grid-rows-1 grid-cols-1 lg:grid-cols-7
-                     justify-around gap-2 w-full h-[31rem] lg:h-[calc(100%)] lg:pb-4 overflow-y-auto"
-        >
-          {DAY_OF_WEEK.map((day) => (
-            <li
-              key={day}
-              className="text-center text-sm  border rounded p-2 h-40 lg:h-full "
-            >
-              <h4 className="font-bold decoration-2 underline">
-                {toTitle(day)}
-              </h4>
-              <GenericList
-                items={groupedWorkouts[day]}
-                ItemComponent={DynamicWorkoutPreview}
-                itemComponentProps={{
-                  pageName: "ProgramEdit" as TWorkoutPreviewPageName,
-                  handleWorkouts,
-                }}
-                getKey={(item) => item.id!}
-                ulStyle="p-1 flex lg:flex-col gap-2"
-              />
-            </li>
-          ))}
-        </ul>
+        <ProgramWorkoutEditWeekList
+          programWorkouts={programWorkouts ?? []}
+          handleWorkouts={handleProgramWorkouts}
+        />
       </form>
     </div>
   );

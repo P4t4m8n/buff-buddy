@@ -1,4 +1,5 @@
-import type { IBaseFilter, TDayOfWeek } from "./app.model";
+import { DaysOfWeek } from "../../buff-buddy-api/prisma/generated/prisma";
+import type { IBaseFilter, TCrudOperation, TDayOfWeek } from "./app.model";
 import type { IEntity } from "./entity.model";
 import type { IUserDTO } from "./user.model";
 import type { IWorkoutDTO, IWorkoutEditDTO } from "./workout.model";
@@ -13,15 +14,26 @@ interface IProgramBase extends IEntity {
 }
 
 export interface IProgramDTO extends IProgramBase {
-  workouts?: IWorkoutDTO[];
+  programWorkouts?: IProgramWorkoutDTO[];
 }
 
 export interface IProgramEditDTO extends IProgramBase {
-  workouts?: IWorkoutEditDTO[];
+  programWorkouts?: IProgramWorkoutEditDTO[];
 }
 
 export interface IProgramFilter extends IBaseFilter {
   name?: string;
 }
 
-export type TProgramWorkoutEditRecord = Record<TDayOfWeek, IWorkoutDTO[]>;
+export type TProgramWorkoutEditRecord = Record<TDayOfWeek, IProgramWorkoutEditDTO[]>;
+
+interface IProgramWorkoutBase extends IEntity {
+  daysOfWeek: DaysOfWeek[];
+}
+export interface IProgramWorkoutDTO extends IProgramWorkoutBase {
+  workout?: IWorkoutDTO;
+}
+export interface IProgramWorkoutEditDTO extends IProgramWorkoutBase {
+  workout?: IWorkoutEditDTO;
+  crudOperation?: TCrudOperation;
+}

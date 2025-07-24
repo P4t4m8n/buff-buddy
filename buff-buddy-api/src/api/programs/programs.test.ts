@@ -43,7 +43,7 @@ describe("Programs API", () => {
           {
             order: 1,
             exerciseId: testExerciseId,
-            coreSets: [{ order: 1, reps: 10, weight: 100,restTime:45 }],
+            coreSets: [{ order: 1, reps: 10, weight: 100, restTime: 45 }],
           },
         ],
       });
@@ -57,10 +57,13 @@ describe("Programs API", () => {
         notes: "3-day split for strength.",
         startDate: "2025-08-01",
         endDate: "2025-10-31",
-        workouts: [
+        programWorkouts: [
           {
-            id: testWorkoutId,
             daysOfWeek: ["monday", "friday"],
+            crudOperation: "create",
+            workout: {
+              id: testWorkoutId,
+            },
           },
         ],
       };
@@ -177,7 +180,9 @@ describe("Programs API", () => {
           name: "Program To Update",
           startDate: "2025-03-01",
           endDate: "2025-04-01",
-          workouts: [{ id: testWorkoutId, daysOfWeek: ["tuesday"] }],
+          programWorkouts: [
+            { workout: { id: testWorkoutId }, daysOfWeek: ["tuesday"] },
+          ],
         });
       programId = res.body.data.id;
       createdProgramIds.push(programId);

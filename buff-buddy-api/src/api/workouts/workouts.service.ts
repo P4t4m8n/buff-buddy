@@ -1,13 +1,14 @@
 import { Prisma, Workout } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
-import { IWorkoutFilter, IWorkoutWithRelations } from "./workouts.models";
+import { IWorkoutFilter } from "./workouts.models";
 import { CreateWorkoutInput, UpdateWorkoutInput } from "./workouts.validations";
 import { dbUtil } from "../../shared/utils/db.util";
 import { workoutUtils } from "./workout.utils";
 import { WORKOUT_SELECT } from "./workout.sql";
+import { IWorkoutDTO } from "../../../../shared/models/workout.model";
 
 export const workoutsService = {
-  get: async (filter: IWorkoutFilter): Promise<IWorkoutWithRelations[]> => {
+  get: async (filter: IWorkoutFilter): Promise<IWorkoutDTO[]> => {
     const where: Prisma.WorkoutWhereInput =
       workoutUtils.buildWhereClause(filter);
 
@@ -23,7 +24,7 @@ export const workoutsService = {
       select: WORKOUT_SELECT,
     });
   },
-  getById: async (id: string): Promise<IWorkoutWithRelations | null> => {
+  getById: async (id: string): Promise<IWorkoutDTO | null> => {
     return prisma.workout.findUnique({
       where: { id },
       select: WORKOUT_SELECT,
@@ -32,11 +33,11 @@ export const workoutsService = {
   create: async (
     dto: CreateWorkoutInput,
     userId: string
-  ): Promise<IWorkoutWithRelations> => {
+  ): Promise<IWorkoutDTO> => {
     return prisma.workout.create({
       data: {
         name: dto.name,
-        user: {
+        owner: {
           connect: {
             id: userId,
           },
@@ -70,7 +71,7 @@ export const workoutsService = {
   update: async (
     id: string,
     dto: UpdateWorkoutInput
-  ): Promise<IWorkoutWithRelations> => {
+  ): Promise<IWorkoutDTO> => {
     const { workoutExercises, ...workoutData } = dto;
 
     const exercisesToCreate =

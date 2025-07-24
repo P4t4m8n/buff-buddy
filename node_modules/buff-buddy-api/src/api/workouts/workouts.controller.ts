@@ -5,18 +5,14 @@ import { workoutsService } from "./workouts.service";
 import {
   CreateWorkoutSchema,
   UpdateWorkoutSchema,
+  WorkoutQuerySchema,
 } from "./workouts.validations";
-import { workoutUtils } from "./workout.utils";
 
 export const getWorkouts = async (req: Request, res: Response) => {
   try {
-    const filter = req.query as Record<string, string>;
+    const filter = WorkoutQuerySchema.parse(req.query);
 
-    const rawWorkouts = await workoutsService.get(filter);
-
-    const workouts = rawWorkouts.map((workout) =>
-      workoutUtils.buildDTO(workout)
-    );
+    const workouts = await workoutsService.get(filter);
 
     res.status(200).json(workouts);
   } catch (error) {
@@ -33,13 +29,11 @@ export const getWorkoutById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const rawWorkout = await workoutsService.getById(id);
+    const workout = await workoutsService.getById(id);
 
-    if (!rawWorkout) {
+    if (!workout) {
       throw new AppError("Workout not found", 404);
     }
-
-    const workout = workoutUtils.buildDTO(rawWorkout);
 
     res.status(200).json(workout);
   } catch (error) {
@@ -65,9 +59,7 @@ export const createWorkout = async (req: Request, res: Response) => {
 
     const validatedData = CreateWorkoutSchema.parse(invalidatedData);
 
-    const rawWorkout = await workoutsService.create(validatedData, id);
-
-    const workout = workoutUtils.buildDTO(rawWorkout);
+    const workout = await workoutsService.create(validatedData, id);
 
     res.status(201).json({
       message: "Workout created successfully",
@@ -98,17 +90,15 @@ export const updateWorkout = async (req: Request, res: Response) => {
 
     const validatedData = UpdateWorkoutSchema.parse(invalidatedData);
 
-    const rawWorkout = await workoutsService.update(id, validatedData);
+    const workout = await workoutsService.update(id, validatedData);
 
-    if (!rawWorkout) {
+    if (!workout) {
       throw new AppError("Workout not found", 404);
     }
 
-    const updatedWorkout = workoutUtils.buildDTO(rawWorkout);
-
     res.status(200).json({
       message: "Workout updated successfully",
-      data: updatedWorkout,
+      data: workout,
     });
   } catch (error) {
     const err = AppError.handleResponse(error);

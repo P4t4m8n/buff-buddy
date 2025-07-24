@@ -8,7 +8,6 @@ import type { IProgramDTO } from "./program.model";
 interface IWorkoutBase extends IEntity {
   name?: string | null;
   notes?: string | null;
-  daysOfWeek?: TDayOfWeek[];
 }
 
 export interface IWorkoutDTO extends IWorkoutBase {
@@ -33,7 +32,7 @@ export interface IWorkoutEditDTO extends IWorkoutBase {
 
 export interface IWorkoutExerciseEditDTO extends IEntity {
   order?: number;
-  notes?: string;
+  notes?: string | null;
   coreSets?: ICoreSetEditDTO[];
   exerciseId?: string; //For backend relationship
   exercise?: IExerciseDTO; //Exists only on the front to show the exercise details

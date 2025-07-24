@@ -1,10 +1,11 @@
+import { Prisma } from "../../../prisma/generated/prisma";
 import { SMALL_USER_SELECT } from "../users/users.sql";
 
-export const WORKOUT_SELECT = {
+export const WORKOUT_SELECT: Prisma.WorkoutSelect = {
   id: true,
   name: true,
   notes: true,
-  user: {
+  owner: {
     select: SMALL_USER_SELECT,
   },
   workoutExercises: {

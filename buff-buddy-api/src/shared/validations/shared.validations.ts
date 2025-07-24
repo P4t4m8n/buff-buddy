@@ -60,16 +60,6 @@ export const conditionalWeightRefinement = (
     });
   }
 };
-export const idSchema = ({ errorMsg }: { errorMsg: string }) => {
-  return z
-    .string()
-    .min(1, errorMsg)
-    .transform((val) =>
-      sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} })
-    )
-    .transform((val) => val.trim())
-    .refine((val) => val.length >= 1, `${errorMsg} after sanitization`);
-};
 
 export const NotesSchema = z
   .string()

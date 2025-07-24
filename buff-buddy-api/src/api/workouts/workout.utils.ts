@@ -37,7 +37,7 @@ export const workoutUtils = {
     }
 
     if (filter.ownerName) {
-      where.user = {
+      where.owner = {
         OR: [
           { firstName: { contains: filter.ownerName, mode: "insensitive" } },
           { lastName: { contains: filter.ownerName, mode: "insensitive" } },
