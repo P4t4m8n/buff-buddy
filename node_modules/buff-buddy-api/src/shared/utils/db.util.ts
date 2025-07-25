@@ -9,4 +9,5 @@ export const dbUtil = {
     });
     return cleaned;
   },
+  isUpdate: true,
 };

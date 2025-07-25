@@ -3,11 +3,16 @@ import Label from "../../../UI/Form/Label";
 import TextArea from "../../../UI/Form/TextArea";
 import SelectWithSearch from "../../../UI/Form/SelectWithSearch";
 import Button from "../../../UI/Button";
-import { useWorkoutExerciseEdit } from "../../../../hooks/features/program/useWorkoutExerciseEdit";
-import WorkoutExerciseCoreSetsEditList from "../Components/WorkoutExerciseCoreSets/WorkoutExerciseCoreSetsEditList";
 import Loader from "../../../UI/Loader";
+
+import WorkoutExerciseCoreSet from "../Components/WorkoutExerciseCoreSets/WorkoutExerciseCoreSet";
+
+import { useWorkoutExerciseEdit } from "../../../../hooks/features/program/useWorkoutExerciseEdit";
+import { useFormErrors } from "../../../../hooks/shared/useFormErrors";
+
 import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
 import type { IModelProps } from "../../../UI/GenericModel";
+import type { ICoreSetEditDTO } from "../../../../../../shared/models/set.model";
 
 interface WorkoutExerciseEditProps extends IModelProps<HTMLDivElement> {
   workoutExercise?: IWorkoutExerciseEditDTO;
@@ -23,16 +28,16 @@ export default function WorkoutExerciseEdit({
   const {
     handleSelectExercise,
     filterExercises,
-    handleSets,
     handleInputChange,
     handleSetChange,
-    validateWorkoutExercise,
-    workoutExerciseErrors,
-    coreSetsErrors,
     workoutExerciseToEdit,
     exercises,
     resetWorkoutExerciseToEdit,
   } = useWorkoutExerciseEdit(workoutExercise, workoutExerciseLength);
+
+  const { errors: coreSetsErrors } = useFormErrors<ICoreSetEditDTO>();
+  const { errors: workoutExerciseErrors } =
+    useFormErrors<IWorkoutExerciseEditDTO>();
 
   const { modelRef, setOpen } = props;
 
@@ -41,17 +46,16 @@ export default function WorkoutExerciseEdit({
     e.stopPropagation();
 
     if (!workoutExerciseToEdit) return;
-    const isValid = validateWorkoutExercise(workoutExerciseToEdit);
-    if (!isValid) return;
 
-    const peToUpsert: IWorkoutExerciseEditDTO = {
+    const weToUpsert: IWorkoutExerciseEditDTO = {
       ...workoutExerciseToEdit,
       crudOperation: !workoutExerciseToEdit?.id?.startsWith("temp")
         ? "update"
         : "create",
     };
+    console.log("🚀 ~ onUpsertWorkoutExercise ~ weToUpsert:", weToUpsert)
 
-    handleWorkoutExercises(peToUpsert);
+    handleWorkoutExercises(weToUpsert);
     resetWorkoutExerciseToEdit();
     if (setOpen) setOpen(false);
   };
@@ -107,7 +111,7 @@ export default function WorkoutExerciseEdit({
           ) : null}
         </Input>
         <TextArea
-          defaultValue={notes}
+          defaultValue={notes ?? ""}
           name="notes"
           rows={3}
           placeholder=""
@@ -144,9 +148,8 @@ export default function WorkoutExerciseEdit({
       </div>
 
       {isExercise ? (
-        <WorkoutExerciseCoreSetsEditList
+        <WorkoutExerciseCoreSet
           coreSets={coreSets}
-          handleSets={handleSets}
           handleChange={handleSetChange}
           errors={coreSetsErrors}
         />

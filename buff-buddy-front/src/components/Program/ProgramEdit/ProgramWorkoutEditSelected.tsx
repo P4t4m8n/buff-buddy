@@ -1,4 +1,5 @@
 import type { IProgramWorkoutDTO } from "../../../../../shared/models/program.model";
+import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
 import { calendarUtil } from "../../../utils/calendar.util";
 import Button from "../../UI/Button";
 import CheckboxMulti from "../../UI/Form/CheckboxMulti";
@@ -13,7 +14,8 @@ interface IProgramWorkoutEditSelectedProps {
   onDaysChange: (e: React.ChangeEvent) => void;
   saveToProgram: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onSelectProgramWorkout: (
-    workout?: IProgramWorkoutDTO,
+    e: React.MouseEvent<HTMLButtonElement>,
+    workout?: IWorkoutDTO,
     isCopy?: boolean
   ) => void;
   parentRef?: React.RefObject<HTMLDivElement | null>;
@@ -27,24 +29,27 @@ export default function ProgramWorkoutEditSelected({
 }: IProgramWorkoutEditSelectedProps) {
   const options = calendarUtil.getShortWeekDays(true);
   const selectedOptions =
-  calendarUtil.fullWeekdaysToShort(
-    selectedProgramWorkout?.daysOfWeek || []
-  ) ?? [];
-  
+    calendarUtil.fullWeekdaysToShort(
+      selectedProgramWorkout?.daysOfWeek || []
+    ) ?? [];
+
   if (!selectedProgramWorkout) {
     return <p className="text-center">No workout selected</p>;
   }
-  
-  console.log("🚀 ~ ProgramWorkoutEditSelected ~ selectedProgramWorkout:", selectedProgramWorkout)
+
+  console.log(
+    "🚀 ~ ProgramWorkoutEditSelected ~ selectedProgramWorkout:",
+    selectedProgramWorkout
+  );
   const { workout } = selectedProgramWorkout;
   return (
     <div className="border p-2">
       <div className="p-2 border rounded grid gap-2">
-        <WorkoutTags workout={workout} />
+        <WorkoutTags workoutExercises={workout?.workoutExercises} />
         <Button
           buttonStyle="save"
           className="w-full"
-          onClick={() => onSelectProgramWorkout()}
+          onClick={onSelectProgramWorkout}
         >
           Cancel
         </Button>

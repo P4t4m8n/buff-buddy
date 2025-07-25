@@ -56,7 +56,7 @@ export default function ProgramWorkoutEditWeekList({
             itemComponentProps={{
               handleWorkouts,
             }}
-            getKey={(item) => item.id!}
+            getKey={(item) => item.id! + "1"}
             ulStyle="p-1 flex lg:flex-col gap-2"
           />
         </li>

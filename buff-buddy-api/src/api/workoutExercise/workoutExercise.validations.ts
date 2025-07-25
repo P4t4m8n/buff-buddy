@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { CreateNestedCoreSetSchema } from "../coreSets/coreSets.validations";
 import {
   conditionalOrderRefinement,
   NotesSchema,
@@ -7,16 +6,14 @@ import {
   CrudOperationEnumSchema,
   IDSchema,
 } from "../../shared/validations/shared.validations";
+import { CreateCoreSetSchema } from "../coreSets/coreSets.validations";
 
 export const CreateWorkoutExerciseSchema = z.object({
   order: OrderSchema,
   notes: NotesSchema,
-  exerciseId:IDSchema,
+  exerciseId: IDSchema,
   isActive: z.coerce.boolean().default(true),
-  coreSets: z
-    .array(CreateNestedCoreSetSchema)
-    .min(1, "At least one set is required"),
-
+  coreSets: CreateCoreSetSchema,
   crudOperation: z.optional(CrudOperationEnumSchema).default("read"),
   id: z.string().optional(),
 });

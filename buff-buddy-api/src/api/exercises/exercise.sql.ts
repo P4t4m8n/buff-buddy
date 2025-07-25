@@ -1,8 +1,16 @@
-export const EXERCISE_SELECT = {
-  id: true,
-  name: true,
-  youtubeUrl: true,
-  types: true,
-  equipment: true,
-  muscles: true,
+import { Prisma } from "../../../prisma/generated/prisma";
+
+interface ExerciseSQL {
+  EXERCISE_SELECT: Prisma.ExerciseSelect;
+}
+
+export const exerciseSQL: ExerciseSQL = {
+  EXERCISE_SELECT: {
+    id: true,
+    name: true,
+    youtubeUrl: true,
+    types: true,
+    equipment: true,
+    muscles: true,
+  },
 };

@@ -2,7 +2,7 @@ import { IExerciseDTO } from "../../../../shared/models/exercise.model";
 import { Exercise, Prisma } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
 import { dbUtil } from "../../shared/utils/db.util";
-import { EXERCISE_SELECT } from "./exercise.sql";
+import { exerciseSQL } from "./exercise.sql";
 import { exerciseUtil } from "./exercise.util";
 import { IExerciseFilter } from "./exercises.models";
 import {
@@ -24,13 +24,13 @@ export const exerciseService = {
       where,
       skip,
       take,
-      select: EXERCISE_SELECT,
+      select: exerciseSQL.EXERCISE_SELECT,
     });
   },
   getBtyId: async (id: string): Promise<IExerciseDTO | null> => {
     return await prisma.exercise.findUnique({
       where: { id },
-      select: EXERCISE_SELECT,
+      select: exerciseSQL.EXERCISE_SELECT,
     });
   },
   create: async (dto: CreateExerciseInput): Promise<IExerciseDTO> => {
@@ -42,7 +42,7 @@ export const exerciseService = {
         equipment: dto.equipment,
         types: dto.types,
       },
-      select: EXERCISE_SELECT,
+      select: exerciseSQL.EXERCISE_SELECT,
     });
   },
   update: async (id: string, dto: UpdateExerciseInput): Promise<Exercise> => {

@@ -1,8 +1,5 @@
 import { z } from "zod";
-import {
-  conditionalOrderRefinement,
-  CrudOperationSchema,
-} from "../../shared/validations/shared.validations";
+import { CrudOperationSchema } from "../../shared/validations/shared.validations";
 
 const coreSetWeightRefinement = (
   data: { weight?: number; isBodyWeight?: boolean },
@@ -24,20 +21,25 @@ const coreSetWeightRefinement = (
   }
 };
 
-const coreSetProgramExerciseIdRefinement = (
-  data: { programExerciseId?: string },
-  ctx: z.RefinementCtx
-) => {
-  if (!data.programExerciseId || data.programExerciseId.trim() === "") {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: "Program Exercise ID is required.",
-    });
-  }
-};
+// const coreSetProgramExerciseIdRefinement = (
+//   data: { programExerciseId?: string },
+//   ctx: z.RefinementCtx
+// ) => {
+//   if (!data.programExerciseId || data.programExerciseId.trim() === "") {
+//     ctx.addIssue({
+//       code: z.ZodIssueCode.custom,
+//       message: "Program Exercise ID is required.",
+//     });
+//   }
+// };
 
 const CoreSetSchema = z.object({
-  order: z.coerce.number(),
+  numberOfSets: z.coerce
+    .number()
+    .int("Number of sets must be a whole number")
+    .min(1, "Number of sets must be at least 1")
+    .max(100, "Number of sets cannot exceed 100"),
+
   reps: z.coerce
     .number()
     .int("Reps must be a whole number")
@@ -57,15 +59,9 @@ const CoreSetSchema = z.object({
     .int("Rest time must be a whole number")
     .min(0, "Rest time cannot be negative")
     .max(3600, "Rest time cannot exceed 1 hour (3600 seconds)"),
-  isWarmup: z.coerce.boolean().default(false),
 
-  repsInReserve: z.coerce
-    .number()
-    .int("Reps in reserve must be a whole number")
-    .min(0, "Reps in reserve cannot be negative")
-    .max(20, "Reps in reserve cannot exceed 20")
-    .nullable()
-    .default(0),
+  hasWarmup: z.coerce.boolean().default(false),
+
   crudOperation: CrudOperationSchema,
   id: z.optional(z.string()),
   programExerciseId: z.string().optional(),
@@ -73,21 +69,11 @@ const CoreSetSchema = z.object({
 
 //TODO:Create and nested are the same, maybe join them later?
 export const CreateCoreSetSchema = CoreSetSchema.superRefine(
-  conditionalOrderRefinement
-)
-  .superRefine(coreSetWeightRefinement)
-  .superRefine(coreSetProgramExerciseIdRefinement);
+  coreSetWeightRefinement
+);
 
-export const UpdateCoreSetSchema = CoreSetSchema.partial()
-  .superRefine(conditionalOrderRefinement)
-  .superRefine(coreSetWeightRefinement);
-
-export const CreateNestedCoreSetSchema = CoreSetSchema.superRefine(
-  conditionalOrderRefinement
-).superRefine(coreSetWeightRefinement);
-
-export const UpdateNestedCoreSetSchema = CoreSetSchema.partial().superRefine(
-  conditionalOrderRefinement
+export const UpdateCoreSetSchema = CoreSetSchema.partial().superRefine(
+  coreSetWeightRefinement
 );
 
 export const CoreSetParamsSchema = z.object({
@@ -96,7 +82,7 @@ export const CoreSetParamsSchema = z.object({
 
 export const CoreSetQuerySchema = z.object({
   programExerciseId: z.string().optional(),
-  isWarmup: z.coerce.boolean().optional(),
+  hasWarmup: z.coerce.boolean().optional(),
   minWeight: z.coerce.number().min(0).optional(),
   maxWeight: z.coerce.number().min(0).optional(),
   minReps: z.coerce.number().min(1).optional(),
@@ -109,12 +95,7 @@ export type CreateCoreSetInput = z.infer<typeof CreateCoreSetSchema>;
 export type UpdateCoreSetInput = z.infer<typeof UpdateCoreSetSchema>;
 export type CoreSetParams = z.infer<typeof CoreSetParamsSchema>;
 export type CoreSetQuery = z.infer<typeof CoreSetQuerySchema>;
-export type CreateNestedCoreSetInput = z.infer<
-  typeof CreateNestedCoreSetSchema
->;
-export type UpdateNestedCoreSetInput = z.infer<
-  typeof UpdateNestedCoreSetSchema
->;
+
 export type CreateCoreSetInputWithOperation = z.infer<
   typeof CreateCoreSetSchema
 >;

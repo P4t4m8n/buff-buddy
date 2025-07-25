@@ -1,20 +1,13 @@
-import { CoreSet, Prisma } from "../../../prisma/generated/prisma";
+import { Prisma } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
+import { ICoreSet } from "./coreSets.models";
+import { CORE_SET_SELECT } from "./coreSets.sql";
 import { CoreSetQuery, CreateCoreSetInput } from "./coreSets.validations";
 
 export const coreSetsService = {
-  //TODO: Improve this to use a more efficient query
-  getAll: async (query: CoreSetQuery): Promise<CoreSet[]> => {
+  getAll: async (query: CoreSetQuery): Promise<ICoreSet[]> => {
     const where: Prisma.CoreSetWhereInput = {
-      isWarmup: query.isWarmup,
-      weight: {
-        gte: query.minWeight ?? 0,
-        lte: query.maxWeight ?? Infinity,
-      },
-      reps: {
-        gte: query.minReps ?? 1,
-        lte: query.maxReps ?? Infinity,
-      },
+      hasWarmup: query.hasWarmup,
     };
 
     const take = query.page ? 20 : undefined;
@@ -25,24 +18,32 @@ export const coreSetsService = {
       where,
       skip,
       take,
-      orderBy: { order: "asc" },
+      orderBy: { createdAt: "asc" },
+      select: CORE_SET_SELECT,
     });
   },
-  getById: async (id: string): Promise<CoreSet | null> => {
+  getById: async (id: string): Promise<ICoreSet | null> => {
     return await prisma.coreSet.findUnique({
       where: { id },
+      select: CORE_SET_SELECT,
     });
   },
-  create: async (dto: CreateCoreSetInput): Promise<CoreSet> => {
+  create: async (dto: CreateCoreSetInput): Promise<ICoreSet> => {
     return await prisma.coreSet.create({
       data: {
-        order: dto.order,
-        reps: dto.reps,
-        weight: dto.weight,
-        isWarmup: dto.isWarmup,
         restTime: dto.restTime,
-        isBodyWeight: dto.isBodyWeight,
+        numberOfSets: dto.numberOfSets,
+        hasWarmup: dto.hasWarmup,
+        reps: {
+          create: {
+            reps: dto.reps,
+          },
+        },
+        weight: {
+          create: { weight: dto.weight, isBodyWeight: dto.isBodyWeight },
+        },
       },
+      select: CORE_SET_SELECT,
     });
   },
 };

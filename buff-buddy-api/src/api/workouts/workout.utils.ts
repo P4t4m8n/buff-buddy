@@ -1,6 +1,6 @@
 import { IWorkoutDTO } from "../../../../shared/models/workout.model";
 import { Prisma } from "../../../prisma/generated/prisma";
-import { IWorkoutFilter, IWorkoutWithRelations } from "./workouts.models";
+import { IWorkout, IWorkoutFilter } from "./workouts.models";
 
 export const workoutUtils = {
   buildWhereClause(filter: IWorkoutFilter): Prisma.WorkoutWhereInput {
@@ -47,42 +47,20 @@ export const workoutUtils = {
 
     return where;
   },
-  buildDTO(rawData: IWorkoutWithRelations): IWorkoutDTO {
-    return {
-      id: rawData.id,
-      name: rawData.name,
-      notes: rawData.notes,
-      user: rawData.user
-        ? {
-            id: rawData.user.id ?? "",
-            firstName: rawData.user.firstName ?? "",
-            lastName: rawData.user.lastName ?? "",
-          }
-        : undefined,
-      workoutExercises: rawData.workoutExercises.map((exercise) => ({
-        id: exercise.id || "",
-        order: exercise.order,
-        notes: exercise.notes || "",
-        exercise: exercise.exercise
-          ? {
-              id: exercise.exercise.id,
-              name: exercise.exercise.name,
-              youtubeUrl: exercise.exercise.youtubeUrl,
-              types: exercise.exercise.types,
-              equipment: exercise.exercise.equipment,
-              muscles: exercise.exercise.muscles,
-            }
-          : undefined,
-        coreSets: exercise.coreSets.map((coreSet) => ({
-          id: coreSet.id,
-          reps: coreSet.reps,
-          weight: coreSet.weight,
-          isBodyWeight: coreSet.isBodyWeight,
-          restTime: coreSet.restTime,
-          order: coreSet.order,
-          isWarmup: coreSet.isWarmup,
-        })),
-      })),
-    };
+  buildDTO: (workout: IWorkout): IWorkoutDTO => ({
+    ...workout,
+    workoutExercises: workout.workoutExercises.map((we) => ({
+      ...we,
+      coreSets: {
+        ...we.coreSets,
+        reps: we.coreSets.reps[0].reps,
+        weight: we.coreSets.weight[0].weight,
+        isBodyWeight: we.coreSets.weight[0].isBodyWeight ?? false,
+      },
+    })),
+  }),
+
+  buildDTOArr(programs: IWorkout[]): IWorkoutDTO[] {
+    return programs.map((program) => this.buildDTO(program));
   },
 };

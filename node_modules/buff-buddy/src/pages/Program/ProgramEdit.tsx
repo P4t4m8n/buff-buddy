@@ -34,6 +34,7 @@ export default function ProgramEdit() {
 
   const { name, notes, startDate, endDate, programWorkouts, isActive } =
     programToEdit;
+  console.log("🚀 ~ ProgramEdit ~ programToEdit:", programToEdit);
 
   const headerText = id ? `Edit Program: ${name}` : `Create New Program`;
 

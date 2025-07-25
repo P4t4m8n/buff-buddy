@@ -14,20 +14,22 @@ import { programWorkoutUtil } from "../../../utils/programWorkout.util";
 import ProgramWorkoutEditSelected from "./ProgramWorkoutEditSelected";
 import WorkoutEdit from "../../Workout/Edit/WorkoutEdit";
 import AvailableWorkoutPreview from "./AvailableWorkoutPreview";
+import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
 
 interface ProgramWorkoutProps extends IModelProps<HTMLDivElement> {
   programWorkout?: IProgramWorkoutDTO;
-  handleWorkouts?: (workout: IProgramWorkoutDTO) => void;
+  handleProgramWorkouts?: (workout: IProgramWorkoutDTO) => void;
 }
 
 export default function ProgramWorkoutEdit({
   programWorkout,
-  handleWorkouts,
+  handleProgramWorkouts,
   ...props
 }: ProgramWorkoutProps) {
   const [selectedWorkout, setSelectedWorkout] =
     useState<IProgramWorkoutEditDTO | null>(null);
   const workouts = useWorkoutStore((state) => state.workouts);
+  console.log("🚀 ~ ProgramWorkoutEdit ~ workouts:", workouts)
   const loadWorkouts = useWorkoutStore((state) => state.loadWorkouts);
   const { modelRef, handleModel } = props;
 
@@ -49,20 +51,29 @@ export default function ProgramWorkoutEdit({
   };
 
   const onSelectProgramWorkout = (
-    workout?: IProgramWorkoutDTO,
+    e: React.MouseEvent<HTMLButtonElement>,
+    workout?: IWorkoutDTO,
     isCopy?: boolean
   ) => {
-    const _workout = workout
-      ? programWorkoutUtil.dtoToEditDto(workout, isCopy)
-      : null;
+    e.preventDefault();
+    e.stopPropagation();
+    let _workout = null;
+    if (workout) {
+      const empty = programWorkoutUtil.getEmpty();
+      _workout = programWorkoutUtil.dtoToEditDto({ ...empty, workout }, isCopy);
+    }
+
     setSelectedWorkout(_workout);
   };
 
   const saveToProgram = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    if (selectedWorkout && handleWorkouts && handleModel) {
-      handleWorkouts(selectedWorkout);
+    console.log("🚀 ~ saveToProgram ~ selectedWorkout:", selectedWorkout)
+    console.log("🚀 ~ saveToProgram ~ handleWorkouts:", handleProgramWorkouts)
+    console.log("🚀 ~ saveToProgram ~ handleModel:", handleModel)
+    if (selectedWorkout && handleProgramWorkouts && handleModel) {
+      handleProgramWorkouts(selectedWorkout);
       handleModel(e);
     }
   };
@@ -78,7 +89,7 @@ export default function ProgramWorkoutEdit({
   }, [programWorkout]);
 
   const availableWorkouts = workouts.filter(
-    (wo) => !selectedWorkout || wo.id !== selectedWorkout.id
+    (wo) => !selectedWorkout || wo.id !== selectedWorkout.workout?.id
   );
 
   return (
@@ -101,6 +112,7 @@ export default function ProgramWorkoutEdit({
         Model={WorkoutEdit}
         mode="create"
         buttonProps={{ buttonStyle: "model" }}
+        isOverlay={false}
         isPortal={true}
         parentRef={modelRef}
       />

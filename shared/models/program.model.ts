@@ -4,7 +4,7 @@ import type { IEntity } from "./entity.model";
 import type { IUserDTO } from "./user.model";
 import type { IWorkoutDTO, IWorkoutEditDTO } from "./workout.model";
 
-interface IProgramBase extends IEntity {
+export interface IProgramBase extends IEntity {
   name?: string | null | undefined;
   notes?: string | null;
   startDate?: Date | string | null;

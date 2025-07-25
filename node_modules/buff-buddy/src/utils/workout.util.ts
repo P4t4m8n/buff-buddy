@@ -14,7 +14,6 @@ export const workoutUtils = {
       notes: dto.notes,
       name: dto.name,
       programId: dto.program?.id ?? null,
-      daysOfWeek: dto.daysOfWeek,
       userId: dto.user?.id,
       crudOperation: isCopy ? "create" : "update",
       workoutExercises: (dto.workoutExercises || []).map((we) => ({

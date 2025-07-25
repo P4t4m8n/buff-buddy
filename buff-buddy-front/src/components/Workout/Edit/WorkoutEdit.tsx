@@ -10,17 +10,19 @@ import { workoutUtils } from "../../../utils/workout.util";
 import Loader from "../../UI/Loader";
 import WorkoutEditHeader from "./WorkoutEditHeader";
 import WorkoutExerciseEditList from "../WorkoutExercise/Edit/WorkoutExerciseEditList";
+import type { IModelProps } from "../../UI/GenericModel";
 
-interface WorkoutCreateProps {
+interface WorkoutCreateProps extends IModelProps<HTMLFormElement> {
   workout?: IWorkoutDTO | IWorkoutEditDTO;
-  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   handleModel?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 export default function WorkoutEdit({
   workout,
-  setIsOpen,
   handleModel,
+  ...props
 }: WorkoutCreateProps) {
+  const { setOpen } = props;
+
   const [workoutToEdit, setWorkoutToEdit] = useState<IWorkoutEditDTO | null>(
     null
   );
@@ -113,8 +115,8 @@ export default function WorkoutEdit({
     if (!workoutToEdit) return;
     const savedWorkout = await saveWorkout(workoutToEdit);
 
-    if (savedWorkout && setIsOpen) {
-      setIsOpen((prev) => !prev);
+    if (savedWorkout && setOpen) {
+      setOpen((prev) => !prev);
     } else if (savedWorkout) {
       navigate(-1);
     }

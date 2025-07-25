@@ -1,9 +1,9 @@
+import { IBaseFilter } from "../../../../shared/models/app.model";
 import {
   ExerciseEquipment,
   ExerciseMuscle,
   ExerciseType,
 } from "../../../prisma/generated/prisma";
-import { IBaseFilter } from "../../shared/models/base.model";
 
 export interface IExerciseFilter extends IBaseFilter {
   name?: string;

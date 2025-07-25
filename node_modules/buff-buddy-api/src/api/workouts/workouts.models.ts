@@ -1,5 +1,11 @@
-import { DaysOfWeek, ExerciseEquipment, ExerciseMuscle, ExerciseType } from "../../../prisma/generated/prisma";
-import { IBaseFilter } from "../../shared/models/base.model";
+import { IBaseFilter } from "../../../../shared/models/app.model";
+import {
+  DaysOfWeek,
+  ExerciseEquipment,
+  ExerciseMuscle,
+  ExerciseType,
+} from "../../../prisma/generated/prisma";
+import { ICoreSet } from "../coreSets/coreSets.models";
 import { IUserBase } from "../users/users.model";
 
 export interface IWorkoutFilter extends IBaseFilter {
@@ -9,33 +15,23 @@ export interface IWorkoutFilter extends IBaseFilter {
   ownerName?: string;
 }
 
-export interface IWorkoutWithRelations {
+export interface IWorkout {
   id: string;
   name: string | null;
   notes: string | null;
-  user: IUserBase;
-  workoutExercises: Array<{
+  owner: IUserBase | null;
+  workoutExercises: {
     id: string;
     order: number;
     notes: string | null;
     exercise: {
       id: string;
+      youtubeUrl: string | null;
       name: string;
-      youtubeUrl: string;
-      types: ExerciseType[]; // ExerciseType[]
-      equipment: ExerciseEquipment[]; // ExerciseEquipment[]
-      muscles: ExerciseMuscle[]; // ExerciseMuscle[]
+      types: ExerciseType[];
+      muscles: ExerciseMuscle[];
+      equipment: ExerciseEquipment[];
     };
-    coreSets: Array<{
-      id: string;
-      reps: number;
-      weight: number | null;
-      isBodyWeight: boolean;
-      restTime: number;
-      order: number;
-      isWarmup: boolean;
-      repsInReserve: number | null;
-      isHistory: boolean;
-    }>;
-  }>;
+    coreSets: ICoreSet;
+  }[];
 }

@@ -9,7 +9,7 @@ import {
 
 interface IExerciseBase extends IEntity {
   name?: string;
-  youtubeUrl?: string;
+  youtubeUrl?: string|null;
 }
 export interface IExerciseDTO extends IExerciseBase {
   types?: TExerciseType[];

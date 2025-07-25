@@ -1,14 +1,14 @@
 import { Prisma, Workout } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
-import { IWorkoutFilter } from "./workouts.models";
+import { IWorkout, IWorkoutFilter } from "./workouts.models";
 import { CreateWorkoutInput, UpdateWorkoutInput } from "./workouts.validations";
 import { dbUtil } from "../../shared/utils/db.util";
 import { workoutUtils } from "./workout.utils";
 import { WORKOUT_SELECT } from "./workout.sql";
-import { IWorkoutDTO } from "../../../../shared/models/workout.model";
+import { coreSetsSQL } from "../coreSets/coreSets.sql";
 
 export const workoutsService = {
-  get: async (filter: IWorkoutFilter): Promise<IWorkoutDTO[]> => {
+  get: async (filter: IWorkoutFilter): Promise<IWorkout[]> => {
     const where: Prisma.WorkoutWhereInput =
       workoutUtils.buildWhereClause(filter);
 
@@ -17,23 +17,23 @@ export const workoutsService = {
       filter.skip ??
       (filter.page && filter.page > 1 ? (filter.page - 1) * take : 0);
 
-    return await prisma.workout.findMany({
+    return (await prisma.workout.findMany({
       where,
       skip,
       take,
       select: WORKOUT_SELECT,
-    });
+    })) as unknown as Promise<IWorkout[]>;
   },
-  getById: async (id: string): Promise<IWorkoutDTO | null> => {
+  getById: async (id: string): Promise<IWorkout | null> => {
     return prisma.workout.findUnique({
       where: { id },
       select: WORKOUT_SELECT,
-    });
+    }) as unknown as Promise<IWorkout>;
   },
   create: async (
     dto: CreateWorkoutInput,
     userId: string
-  ): Promise<IWorkoutDTO> => {
+  ): Promise<IWorkout> => {
     return prisma.workout.create({
       data: {
         name: dto.name,
@@ -52,26 +52,15 @@ export const workoutsService = {
               },
             },
             coreSets: {
-              create: we.coreSets.map((cs) => ({
-                order: cs.order,
-                reps: cs.reps,
-                weight: cs.weight,
-                restTime: cs.restTime,
-                isBodyWeight: cs.isBodyWeight,
-                isWarmup: cs.isWarmup,
-                repsInReserve: cs.repsInReserve,
-              })),
+              create: coreSetsSQL.getCreateCoreSets(we.coreSets),
             },
           })),
         },
       },
       select: WORKOUT_SELECT,
-    });
+    }) as unknown as Promise<IWorkout>;
   },
-  update: async (
-    id: string,
-    dto: UpdateWorkoutInput
-  ): Promise<IWorkoutDTO> => {
+  update: async (id: string, dto: UpdateWorkoutInput): Promise<IWorkout> => {
     const { workoutExercises, ...workoutData } = dto;
 
     const exercisesToCreate =
@@ -108,15 +97,7 @@ export const workoutsService = {
               workout: { connect: { id } },
               exercise: { connect: { id: we.exerciseId! } },
               coreSets: {
-                create: we.coreSets?.map((cs) => ({
-                  order: cs.order,
-                  reps: cs.reps,
-                  weight: cs.weight,
-                  restTime: cs.restTime,
-                  isBodyWeight: cs.isBodyWeight,
-                  isWarmup: cs.isWarmup,
-                  repsInReserve: cs.repsInReserve,
-                })),
+                create: coreSetsSQL.getCreateCoreSets(we.coreSets),
               },
             },
           });
@@ -135,30 +116,11 @@ export const workoutsService = {
                 isActive: we.isActive,
               }),
               coreSets: {
-                upsert: (we.coreSets ?? []).map((cs) => ({
-                  where: { id: cs.id ?? "new-cs" },
-                  create: {
-                    order: cs.order,
-                    reps: cs.reps,
-                    weight: cs.weight,
-                    restTime: cs.restTime,
-                    isBodyWeight: cs.isBodyWeight,
-                    isWarmup: cs.isWarmup,
-                    repsInReserve: cs.repsInReserve,
-                  },
-                  update: dbUtil.cleanData({
-                    order: cs.order,
-                    reps: cs.reps,
-                    weight: cs.weight,
-                    restTime: cs.restTime,
-                    isBodyWeight: cs.isBodyWeight,
-                    isWarmup: cs.isWarmup,
-                    repsInReserve: cs.repsInReserve,
-                  }),
-                })),
-                deleteMany: (we.coreSets ?? [])
-                  .filter((cs) => cs.crudOperation === "delete")
-                  .map((cs) => ({ id: cs.id! })),
+                upsert: {
+                  where: { id: we.coreSets?.id ?? "new-cs" },
+                  create: coreSetsSQL.getCreateCoreSets(we.coreSets),
+                  update: coreSetsSQL.getUpdateCoreSets(we.coreSets),
+                },
               },
             },
           });
@@ -169,7 +131,7 @@ export const workoutsService = {
         where: { id },
         select: WORKOUT_SELECT,
       });
-    });
+    }) as unknown as Promise<IWorkout>;
   },
   delete: async (id: string): Promise<Workout> => {
     return prisma.workout.delete({

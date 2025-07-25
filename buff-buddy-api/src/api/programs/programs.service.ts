@@ -1,15 +1,14 @@
-import { IProgramDTO } from "../../../../shared/models/program.model";
 import { DaysOfWeek, Prisma, Program } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
 import { dbUtil } from "../../shared/utils/db.util";
-import { getCreateCoreSets } from "../coreSets/coreSets.sql";
+import { coreSetsSQL } from "../coreSets/coreSets.sql";
 import { PROGRAM_SELECT } from "./program.sql";
-import { IProgramFilter } from "./programs.models";
+import { IProgram, IProgramFilter } from "./programs.models";
 import { CreateProgramInput, UpdateProgramInput } from "./programs.validations";
 
 //TODO?? move to raw SQL for performance due to junction tables and reorganize of structure data
 export const programsService = {
-  getAll: async (filter: IProgramFilter): Promise<IProgramDTO[]> => {
+  getAll: async (filter: IProgramFilter): Promise<IProgram[]> => {
     const where: Prisma.ProgramWhereInput = buildWhereClause(filter);
 
     const take = filter.take ?? 20;
@@ -17,25 +16,26 @@ export const programsService = {
       filter.skip ??
       (filter.page && filter.page > 1 ? (filter.page - 1) * take : 0);
 
-    return await prisma.program.findMany({
+    //TODO?? I have no idea hwy the type dont work
+    return (await prisma.program.findMany({
       where,
       skip,
       take,
       select: PROGRAM_SELECT,
-    });
+    })) as unknown as IProgram[];
   },
-  getById: async (id: string): Promise<IProgramDTO | null> => {
-    return await prisma.program.findUnique({
+  getById: async (id: string): Promise<IProgram | null> => {
+    return (await prisma.program.findUnique({
       where: { id },
       select: PROGRAM_SELECT,
-    });
+    })) as unknown as IProgram;
   },
 
   create: async (
     dto: CreateProgramInput,
     userId: string
-  ): Promise<IProgramDTO> => {
-    return await prisma.program.create({
+  ): Promise<IProgram> => {
+    return (await prisma.program.create({
       data: {
         name: dto.name,
         notes: dto.notes,
@@ -67,9 +67,7 @@ export const programsService = {
                         },
                       },
                       coreSets: {
-                        create: (we.coreSets ?? []).map((cs) => ({
-                          ...getCreateCoreSets(cs),
-                        })),
+                        create: coreSetsSQL.getCreateCoreSets(we.coreSets),
                       },
                     })),
                   },
@@ -81,7 +79,7 @@ export const programsService = {
         },
       },
       select: PROGRAM_SELECT,
-    });
+    })) as unknown as IProgram;
   },
 
   //TODO?? moving to raw sql in the end, so lazy solution for now
@@ -89,7 +87,7 @@ export const programsService = {
     id: string,
     dto: UpdateProgramInput,
     userId: string
-  ): Promise<IProgramDTO> => {
+  ): Promise<IProgram> => {
     const programData = dbUtil.cleanData({
       name: dto.name,
       notes: dto.notes,
@@ -106,7 +104,7 @@ export const programsService = {
       dto.programWorkouts?.filter((wo) => wo.crudOperation === "delete") ?? [];
 
     // Start transaction
-    return await prisma.$transaction(async (tx) => {
+    return (await prisma.$transaction(async (tx) => {
       // Update the program itself
       await tx.program.update({
         where: { id },
@@ -143,9 +141,9 @@ export const programsService = {
                             notes: we.notes,
                             exercise: { connect: { id: we.exerciseId } },
                             coreSets: {
-                              create: (we.coreSets ?? []).map((cs) => ({
-                                ...getCreateCoreSets(cs),
-                              })),
+                              create: coreSetsSQL.getCreateCoreSets(
+                                we.coreSets
+                              ),
                             },
                           })
                         ),
@@ -180,9 +178,9 @@ export const programsService = {
                             notes: we.notes,
                             exercise: { connect: { id: we.exerciseId } },
                             coreSets: {
-                              create: (we.coreSets ?? []).map((cs) => ({
-                                ...getCreateCoreSets(cs),
-                              })),
+                              create: coreSetsSQL.getCreateCoreSets(
+                                we.coreSets
+                              ),
                             },
                           })
                         ),
@@ -201,7 +199,7 @@ export const programsService = {
         where: { id },
         select: PROGRAM_SELECT,
       });
-    });
+    })) as unknown as IProgram;
   },
 
   delete: async (id: string): Promise<Program> => {

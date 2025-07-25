@@ -12,7 +12,7 @@ interface IWorkoutBase extends IEntity {
 
 export interface IWorkoutDTO extends IWorkoutBase {
   program?: Partial<IProgramDTO>;
-  user?: Partial<IUserDTO>;
+  owner?: Partial<IUserDTO>|null;
   workoutExercises?: IWorkoutExerciseDTO[];
 }
 
@@ -20,7 +20,7 @@ export interface IWorkoutExerciseDTO extends IEntity {
   order?: number;
   notes?: string | null;
   exercise?: IExerciseDTO;
-  coreSets?: ICoreSetDTO[];
+  coreSets?: ICoreSetDTO;
 }
 
 export interface IWorkoutEditDTO extends IWorkoutBase {
@@ -33,7 +33,7 @@ export interface IWorkoutEditDTO extends IWorkoutBase {
 export interface IWorkoutExerciseEditDTO extends IEntity {
   order?: number;
   notes?: string | null;
-  coreSets?: ICoreSetEditDTO[];
+  coreSets?: ICoreSetEditDTO;
   exerciseId?: string; //For backend relationship
   exercise?: IExerciseDTO; //Exists only on the front to show the exercise details
   crudOperation?: TCrudOperation;

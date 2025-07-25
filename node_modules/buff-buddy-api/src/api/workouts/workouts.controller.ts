@@ -7,12 +7,14 @@ import {
   UpdateWorkoutSchema,
   WorkoutQuerySchema,
 } from "./workouts.validations";
+import { workoutUtils } from "./workout.utils";
 
 export const getWorkouts = async (req: Request, res: Response) => {
   try {
     const filter = WorkoutQuerySchema.parse(req.query);
 
-    const workouts = await workoutsService.get(filter);
+    const workoutsData = await workoutsService.get(filter);
+    const workouts = workoutUtils.buildDTOArr(workoutsData);
 
     res.status(200).json(workouts);
   } catch (error) {
@@ -29,7 +31,11 @@ export const getWorkoutById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const workout = await workoutsService.getById(id);
+    const workoutData = await workoutsService.getById(id);
+    if (!workoutData) {
+      throw new AppError("Workout not found", 404);
+    }
+    const workout = workoutUtils.buildDTO(workoutData);
 
     if (!workout) {
       throw new AppError("Workout not found", 404);
@@ -59,7 +65,8 @@ export const createWorkout = async (req: Request, res: Response) => {
 
     const validatedData = CreateWorkoutSchema.parse(invalidatedData);
 
-    const workout = await workoutsService.create(validatedData, id);
+    const workoutData = await workoutsService.create(validatedData, id);
+    const workout = workoutUtils.buildDTO(workoutData);
 
     res.status(201).json({
       message: "Workout created successfully",
@@ -67,6 +74,7 @@ export const createWorkout = async (req: Request, res: Response) => {
     });
   } catch (error) {
     const err = AppError.handleResponse(error);
+    console.log("🚀 ~ createWorkout ~ err:", err);
     res.status(err.status || 500).json({
       message: err.message || "An unexpected error occurred",
       errors: err.errors || {},
@@ -90,11 +98,8 @@ export const updateWorkout = async (req: Request, res: Response) => {
 
     const validatedData = UpdateWorkoutSchema.parse(invalidatedData);
 
-    const workout = await workoutsService.update(id, validatedData);
-
-    if (!workout) {
-      throw new AppError("Workout not found", 404);
-    }
+    const workoutData = await workoutsService.update(id, validatedData);
+    const workout = workoutUtils.buildDTO(workoutData);
 
     res.status(200).json({
       message: "Workout updated successfully",

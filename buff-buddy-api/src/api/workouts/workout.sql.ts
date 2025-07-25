@@ -1,4 +1,6 @@
 import { Prisma } from "../../../prisma/generated/prisma";
+import { coreSetsSQL } from "../coreSets/coreSets.sql";
+import { exerciseSQL } from "../exercises/exercise.sql";
 import { SMALL_USER_SELECT } from "../users/users.sql";
 
 export const WORKOUT_SELECT: Prisma.WorkoutSelect = {
@@ -14,27 +16,10 @@ export const WORKOUT_SELECT: Prisma.WorkoutSelect = {
       order: true,
       notes: true,
       exercise: {
-        select: {
-          id: true,
-          youtubeUrl: true,
-          name: true,
-          types: true,
-          muscles: true,
-          equipment: true,
-        },
+        select: exerciseSQL.EXERCISE_SELECT,
       },
       coreSets: {
-        select: {
-          id: true,
-          reps: true,
-          weight: true,
-          isBodyWeight: true,
-          repsInReserve: true,
-          restTime: true,
-          isWarmup: true,
-          isHistory: true,
-          order: true,
-        },
+        select: coreSetsSQL.CORE_SET_SELECT,
       },
     },
   },

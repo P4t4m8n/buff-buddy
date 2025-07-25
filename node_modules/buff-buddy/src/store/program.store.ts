@@ -53,12 +53,27 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
     }
   },
 
-  saveProgram: async (programToSave: IProgramEditDTO) => {
+  saveProgram: async (program: IProgramEditDTO) => {
     try {
+      const programToSave: IProgramEditDTO = {
+        ...program,
+        programWorkouts: program?.programWorkouts?.map((pw) => ({
+          ...pw,
+          workout: {
+            ...pw.workout,
+            workoutExercises: pw.workout?.workoutExercises?.map((we) => ({
+              coreSets: we.coreSets,
+              id: we.id,
+              notes: we.notes,
+              order: we.order,
+              exerciseId: we.exercise?.id,
+            })),
+          },
+        })),
+      };
+      console.log("🚀 ~ programToSave:", programToSave)
       set({ isLoading: true });
-      const { data } = await programService.save(
-        programToSave as IProgramEditDTO
-      );
+      const { data } = await programService.save(programToSave);
       set((state) => {
         const idx = state.programs.findIndex(
           (program) => program.id === data.id
