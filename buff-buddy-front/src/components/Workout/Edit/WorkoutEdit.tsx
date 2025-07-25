@@ -21,6 +21,7 @@ export default function WorkoutEdit({
   handleModel,
   ...props
 }: WorkoutCreateProps) {
+  console.log("🚀 ~ WorkoutEdit ~ workout:", workout)
   const { setOpen } = props;
 
   const [workoutToEdit, setWorkoutToEdit] = useState<IWorkoutEditDTO | null>(

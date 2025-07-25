@@ -30,16 +30,13 @@ export const workoutsService = {
       select: WORKOUT_SELECT,
     }) as unknown as Promise<IWorkout>;
   },
-  create: async (
-    dto: CreateWorkoutInput,
-    userId: string
-  ): Promise<IWorkout> => {
+  create: async (dto: CreateWorkoutInput): Promise<IWorkout> => {
     return prisma.workout.create({
       data: {
         name: dto.name,
         owner: {
           connect: {
-            id: userId,
+            id: dto.ownerId,
           },
         },
         workoutExercises: {

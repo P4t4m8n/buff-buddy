@@ -66,10 +66,7 @@ export const createProgram = async (req: Request, res: Response) => {
     }
 
     const programData = await programsService.create(validatedData, id);
-    console.log(
-      "🚀 ~ createProgram ~ programData:",
-      programData.programWorkouts[0].workout.workoutExercises[0].coreSets
-    );
+
 
     const program = programsUtils.buildDTO(programData);
 
@@ -79,7 +76,6 @@ export const createProgram = async (req: Request, res: Response) => {
     });
   } catch (error) {
     const err = AppError.handleResponse(error);
-    console.log("🚀 ~ createProgram ~ err:", err);
     res.status(err.status || 500).json({
       message: err.message || "An unexpected error occurred",
       errors: err.errors || {},

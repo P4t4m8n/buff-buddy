@@ -12,7 +12,7 @@ import {
 
 const BaseWorkoutSchema = z.object({
   programId: z.string().nullish().optional(),
-  userId: z.string().min(1, "User ID is required"),
+  ownerId: z.string().min(1, "User ID is required"),
   notes: NotesSchema,
   name: NameSchema,
   crudOperation: CrudOperationSchema,

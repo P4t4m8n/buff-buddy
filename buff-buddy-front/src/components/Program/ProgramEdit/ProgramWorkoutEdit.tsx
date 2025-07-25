@@ -29,7 +29,6 @@ export default function ProgramWorkoutEdit({
   const [selectedWorkout, setSelectedWorkout] =
     useState<IProgramWorkoutEditDTO | null>(null);
   const workouts = useWorkoutStore((state) => state.workouts);
-  console.log("🚀 ~ ProgramWorkoutEdit ~ workouts:", workouts)
   const loadWorkouts = useWorkoutStore((state) => state.loadWorkouts);
   const { modelRef, handleModel } = props;
 
@@ -69,9 +68,7 @@ export default function ProgramWorkoutEdit({
   const saveToProgram = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("🚀 ~ saveToProgram ~ selectedWorkout:", selectedWorkout)
-    console.log("🚀 ~ saveToProgram ~ handleWorkouts:", handleProgramWorkouts)
-    console.log("🚀 ~ saveToProgram ~ handleModel:", handleModel)
+ 
     if (selectedWorkout && handleProgramWorkouts && handleModel) {
       handleProgramWorkouts(selectedWorkout);
       handleModel(e);

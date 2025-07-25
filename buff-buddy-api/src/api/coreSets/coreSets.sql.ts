@@ -19,7 +19,6 @@ export const coreSetsSQL: CoreSetSQL = {
   getCreateCoreSets(
     coreSets?: CreateCoreSetInput | UpdateCoreSetInput
   ): Prisma.CoreSetCreateInput {
-    console.log("🚀 ~ getCreateCoreSets ~ coreSets:", coreSets)
     const data: Prisma.CoreSetCreateInput = {
       restTime: coreSets?.restTime,
       numberOfSets: coreSets?.numberOfSets,

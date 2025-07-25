@@ -37,11 +37,8 @@ export default function ProgramWorkoutEditSelected({
     return <p className="text-center">No workout selected</p>;
   }
 
-  console.log(
-    "🚀 ~ ProgramWorkoutEditSelected ~ selectedProgramWorkout:",
-    selectedProgramWorkout
-  );
   const { workout } = selectedProgramWorkout;
+  console.log("🚀 ~ ProgramWorkoutEditSelected ~ selectedProgramWorkout:", selectedProgramWorkout)
   return (
     <div className="border p-2">
       <div className="p-2 border rounded grid gap-2">
@@ -55,7 +52,7 @@ export default function ProgramWorkoutEditSelected({
         </Button>
         <GenericModel
           Model={WorkoutEdit}
-          modelProps={{ workout: selectedProgramWorkout }}
+          modelProps={{ workout }}
           mode="edit"
           buttonProps={{ buttonStyle: "model" }}
           isPortal={true}

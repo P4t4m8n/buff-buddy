@@ -14,19 +14,24 @@ export const workoutUtils = {
       notes: dto.notes,
       name: dto.name,
       programId: dto.program?.id ?? null,
-      userId: dto.user?.id,
+      ownerId: dto.owner?.id,
       crudOperation: isCopy ? "create" : "update",
-      workoutExercises: (dto.workoutExercises || []).map((we) => ({
-        id: isCopy ? appUtil.getTempId() : we.id,
-        order: we.order,
-        notes: we.notes || "",
-        exercise: we.exercise,
-        exerciseId: we?.exercise?.id,
-        coreSets: (we.coreSets || []).map((set) => ({
-          ...set,
-          id: isCopy ? appUtil.getTempId() : set.id,
-        })),
-      })),
+      workoutExercises: (dto.workoutExercises || []).map((we) => {
+        const workoutExerciseId = isCopy ? appUtil.getTempId() : we.id;
+        return {
+          id: workoutExerciseId,
+          order: we.order,
+          notes: we.notes || "",
+          exercise: we.exercise,
+          crudOperation: isCopy ? "create" : "update",
+          exerciseId: we?.exercise?.id,
+          coreSets: {
+            ...we.coreSets,
+            crudOperation: isCopy ? "create" : "update",
+            workoutExerciseId: workoutExerciseId,
+          },
+        };
+      }),
     };
   },
   editDtoToDto: (dto: IWorkoutEditDTO): IWorkoutDTO => {
@@ -38,7 +43,7 @@ export const workoutUtils = {
     return {
       id: appUtil.getTempId(),
       programId: null,
-      userId: null,
+      ownerId: null,
       notes: "",
       workoutExercises: [],
     };

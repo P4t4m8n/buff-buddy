@@ -25,7 +25,7 @@ export interface IWorkoutExerciseDTO extends IEntity {
 
 export interface IWorkoutEditDTO extends IWorkoutBase {
   programId?: string | null;
-  userId?: string | null;
+  ownerId?: string | null;
   workoutExercises?: IWorkoutExerciseEditDTO[];
   crudOperation?: TCrudOperation;
 }

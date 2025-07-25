@@ -53,7 +53,6 @@ export default function WorkoutExerciseEdit({
         ? "update"
         : "create",
     };
-    console.log("🚀 ~ onUpsertWorkoutExercise ~ weToUpsert:", weToUpsert)
 
     handleWorkoutExercises(weToUpsert);
     resetWorkoutExerciseToEdit();

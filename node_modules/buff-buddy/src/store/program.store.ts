@@ -71,7 +71,6 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
           },
         })),
       };
-      console.log("🚀 ~ programToSave:", programToSave)
       set({ isLoading: true });
       const { data } = await programService.save(programToSave);
       set((state) => {
