@@ -1,13 +1,13 @@
 import type { MouseEvent } from "react";
-import Input from "../../UI/Form/Input";
-import Label from "../../UI/Form/Label";
-import TextArea from "../../UI/Form/TextArea";
-import Button from "../../UI/Button";
-import type { IWorkoutExerciseEditDTO } from "../../../../../shared/models/workout.model";
-import GenericSaveButton from "../../UI/GenericSaveButton";
-import { useWorkoutStore } from "../../../store/workout.store";
-import GenericModel from "../../UI/GenericModel";
-import WorkoutExerciseEdit from "../WorkoutExercise/Edit/WorkoutExerciseEdit";
+import Input from "../UI/Form/Input";
+import Label from "../UI/Form/Label";
+import TextArea from "../UI/Form/TextArea";
+import Button from "../UI/Button";
+import type { IWorkoutExerciseEditDTO } from "../../../../shared/models/workout.model";
+import GenericSaveButton from "../UI/GenericSaveButton";
+import { useWorkoutStore } from "../../store/workout.store";
+import GenericModel from "../UI/GenericModel";
+import WorkoutExerciseEdit from "./WorkoutExerciseEdit";
 
 interface WorkoutEditHeaderProps {
   name?: string | null;

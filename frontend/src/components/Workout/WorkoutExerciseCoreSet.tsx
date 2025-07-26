@@ -1,11 +1,11 @@
-import Input from "../../../../UI/Form/Input";
-import Label from "../../../../UI/Form/Label";
+import Label from "../UI/Form/Label";
+import Input from "../UI/Form/Input";
 
-import { toTitle } from "../../../../../utils/toTitle";
+import { toTitle } from "../../utils/toTitle";
 
 import type { ChangeEvent } from "react";
-import type { ICoreSetEditDTO } from "../../../../../../../shared/models/set.model";
-import type { TErrorCoreSets } from "../../../../../models/errors.model";
+import type { ICoreSetEditDTO } from "../../../../shared/models/set.model";
+import type { TErrorCoreSets } from "../../models/errors.model";
 
 interface IWorkoutExerciseCoreSetProps {
   coreSets?: ICoreSetEditDTO;

@@ -5,7 +5,7 @@ import Button from "../../UI/Button";
 import CheckboxMulti from "../../UI/Form/CheckboxMulti";
 import Label from "../../UI/Form/Label";
 import GenericModel from "../../UI/GenericModel";
-import WorkoutEdit from "../../Workout/Edit/WorkoutEdit";
+import WorkoutEdit from "../../Workout/WorkoutEdit";
 
 import WorkoutTags from "../../Workout/WorkoutTags";
 
@@ -38,7 +38,6 @@ export default function ProgramWorkoutEditSelected({
   }
 
   const { workout } = selectedProgramWorkout;
-  console.log("🚀 ~ ProgramWorkoutEditSelected ~ selectedProgramWorkout:", selectedProgramWorkout)
   return (
     <div className="border p-2">
       <div className="p-2 border rounded grid gap-2">

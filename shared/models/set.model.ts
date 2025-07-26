@@ -17,11 +17,9 @@ export interface ICoreSetEditDTO extends ICoreSetDTO {
 export interface IUserSetDTO extends IEntity {
   reps?: number | null; // Actual number of repetitions performed
   weight?: number | null; // Actual weight lifted in kg
-  restTime?: number | null; // Actual rest time in seconds before the next set
   isCompleted?: boolean | null; // Indicates if the set was completed but not necessarily successful
   isMuscleFailure?: boolean | null; // Indicates if the set was a muscle failure
   isJointPain?: boolean | null; // Indicates if the set was a joint part
-  coreSet?: ICoreSetDTO; // Reference to the core set associated with this user set
   isBodyWeight?: boolean; // Indicates if the set was bodyweight only
 }
 

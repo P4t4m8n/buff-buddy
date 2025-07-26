@@ -38,3 +38,5 @@ export const CRUD_OPERATIONS = [
   "read",
 ] as const;
 export type TCrudOperation = (typeof CRUD_OPERATIONS)[number];
+
+export type TIconMode = "create" | "edit" | "details" | "delete";

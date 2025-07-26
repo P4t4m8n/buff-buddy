@@ -1,25 +1,11 @@
 import { create } from "zustand";
 import type {
-  IWorkoutDTO,
   IWorkoutEditDTO,
 } from "../../../shared/models/workout.model";
 import { workoutService } from "../services/workout.service";
+import type { IWorkoutStore } from "../models/store.model";
 
-interface WorkoutStore {
-  workouts: IWorkoutDTO[];
-  isLoading: boolean;
-  isDeleting: boolean;
-  isSavingId: string | null;
-  isLoadingId: string | null;
-  loadWorkouts: () => Promise<void>;
-  getWorkoutById: (id?: string) => Promise<IWorkoutDTO | null>;
-  saveWorkout: (
-    workoutToSave: IWorkoutEditDTO
-  ) => Promise<IWorkoutDTO | null | undefined>;
-  deleteWorkout: (id: string) => Promise<void>;
-}
-
-export const useWorkoutStore = create<WorkoutStore>((set, get) => ({
+export const useWorkoutStore = create<IWorkoutStore>((set, get) => ({
   workouts: [],
   isLoading: false,
   isLoadingId: null,
@@ -39,7 +25,7 @@ export const useWorkoutStore = create<WorkoutStore>((set, get) => ({
       set({ isLoading: false });
     }
   },
-  getWorkoutById: async (id?: string) => {
+  getById: async (id?: string) => {
     if (!id) {
       return null;
     }

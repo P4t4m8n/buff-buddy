@@ -7,8 +7,9 @@ import ProfilePage from "./pages/ProfilePage";
 import AdminPage from "./pages/AdminPage";
 import ProgramEdit from "./pages/Program/ProgramEdit";
 import ProgramDetails from "./pages/Program/ProgramDetails";
-import WorkoutPage from "./pages/WorkoutPage";
-// import ProgramWorkoutEdit from "./components/Program/ProgramWorkoutEdit";
+import WorkoutPage from "./pages/Workout/WorkoutPage";
+import WorkoutDetailsPage from "./pages/Workout/WorkoutDetailsPage";
+import WorkoutStartPage from "./pages/Workout/WorkoutStartPage";
 
 export interface RouteConfig {
   path: string;
@@ -32,12 +33,18 @@ export const ROUTES: RouteConfig[] = [
   {
     path: "/workouts",
     element: <WorkoutPage />,
-   
+    children: [
+      {
+        path: "/workouts/:id",
+        element: <WorkoutDetailsPage />,
+      },
+      {
+        path: "/workouts/workout-start/:id",
+        element: <WorkoutStartPage />,
+      },
+    ],
   },
-  // {
-  //   path: "/workouts/edit/",
-  //   element: <ProgramWorkoutEdit/>,
-  // },
+
   {
     path: "/programs",
     element: <ProgramPage />,

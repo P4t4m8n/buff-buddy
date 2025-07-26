@@ -14,7 +14,7 @@ import { useDateInput } from "../../../../hooks/features/calendar/useDateInput";
 import { DAY_OF_WEEK } from "../../../../../../shared/models/app.model";
 
 interface DateInputProps {
-  handleDateSelect: (range: IDateRange) => void;
+  handleDateSelect: (range: IDateRange ) => void;
   initialMode?: TDateInputMode;
   disabled?: boolean;
   className?: string;

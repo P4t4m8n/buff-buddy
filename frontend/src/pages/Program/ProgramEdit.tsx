@@ -132,7 +132,7 @@ export default function ProgramEdit() {
         </header>
         <ProgramWorkoutEditWeekList
           programWorkouts={programWorkouts ?? []}
-          handleWorkouts={handleProgramWorkouts}
+          handleProgramWorkouts={handleProgramWorkouts}
         />
       </form>
     </div>

@@ -12,7 +12,7 @@ import type {
 } from "../../../../../shared/models/program.model";
 import { programWorkoutUtil } from "../../../utils/programWorkout.util";
 import ProgramWorkoutEditSelected from "./ProgramWorkoutEditSelected";
-import WorkoutEdit from "../../Workout/Edit/WorkoutEdit";
+import WorkoutEdit from "../../Workout/WorkoutEdit";
 import AvailableWorkoutPreview from "./AvailableWorkoutPreview";
 import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
 

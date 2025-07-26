@@ -17,7 +17,6 @@ export type TButtonStyle = keyof typeof BUTTON_STYLES;
 export interface IButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
-  className?: string;
   buttonStyle?: TButtonStyle | null;
 }
 
@@ -26,6 +25,8 @@ export default function Button({
   buttonStyle,
   ...props
 }: IButtonProps) {
+  
+
   const _buttonStyle = buttonStyle ? BUTTON_STYLES[buttonStyle] : "";
   const style = twMerge(`cursor-pointer`, _buttonStyle, props.className);
 

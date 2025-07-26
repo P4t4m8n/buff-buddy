@@ -7,17 +7,17 @@ import ProgramWorkoutEdit from "./ProgramWorkoutEdit";
 
 interface IProgramWorkoutEditPreview {
   item: IProgramWorkoutDTO;
-  handleWorkouts?: (workout: IProgramWorkoutEditDTO) => void;
+  handleProgramWorkouts?: (workout: IProgramWorkoutEditDTO) => void;
 }
 
 export default function ProgramWorkoutEditPreview({
-  item: pw,
-  handleWorkouts,
+  item: programWorkout,
+  handleProgramWorkouts,
 }: IProgramWorkoutEditPreview) {
-  const name = pw.workout?.name || "No Workout Assigned";
+  const name = programWorkout.workout?.name || "No Workout Assigned";
   return (
     <li
-      key={pw!.id!}
+      key={programWorkout!.id!}
       className="border text-center w-20 lg:w-full grid
                  justify-items-center gap-1 p-1 rounded"
     >
@@ -25,7 +25,7 @@ export default function ProgramWorkoutEditPreview({
       <div>
         <GenericModel
           Model={ProgramWorkoutEdit}
-          modelProps={{ handleWorkouts, pw }}
+          modelProps={{ handleProgramWorkouts, programWorkout }}
           mode="create"
           buttonProps={{ buttonStyle: "model", className: "mr-auto" }}
           isOverlay={false}

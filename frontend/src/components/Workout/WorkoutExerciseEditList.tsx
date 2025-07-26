@@ -1,5 +1,5 @@
-import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
-import GenericList from "../../../UI/GenericList";
+import type { IWorkoutExerciseEditDTO } from "../../../../shared/models/workout.model";
+import GenericList from "../UI/GenericList";
 import WorkoutExerciseEditListItem from "./WorkoutExerciseEditListItem";
 
 interface IWorkoutExerciseEditListProps {

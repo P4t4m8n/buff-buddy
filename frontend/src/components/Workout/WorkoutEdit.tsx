@@ -4,13 +4,13 @@ import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
   IWorkoutExerciseEditDTO,
-} from "../../../../../shared/models/workout.model";
-import { useWorkoutStore } from "../../../store/workout.store";
-import { workoutUtils } from "../../../utils/workout.util";
-import Loader from "../../UI/Loader";
+} from "../../../../shared/models/workout.model";
+import { useWorkoutStore } from "../../store/workout.store";
+import { workoutUtils } from "../../utils/workout.util";
+import Loader from "../UI/Loader";
 import WorkoutEditHeader from "./WorkoutEditHeader";
-import WorkoutExerciseEditList from "../WorkoutExercise/Edit/WorkoutExerciseEditList";
-import type { IModelProps } from "../../UI/GenericModel";
+import type { IModelProps } from "../UI/GenericModel";
+import WorkoutExerciseEditList from "./WorkoutExerciseEditList";
 
 interface WorkoutCreateProps extends IModelProps<HTMLFormElement> {
   workout?: IWorkoutDTO | IWorkoutEditDTO;
@@ -21,7 +21,6 @@ export default function WorkoutEdit({
   handleModel,
   ...props
 }: WorkoutCreateProps) {
-  console.log("🚀 ~ WorkoutEdit ~ workout:", workout)
   const { setOpen } = props;
 
   const [workoutToEdit, setWorkoutToEdit] = useState<IWorkoutEditDTO | null>(

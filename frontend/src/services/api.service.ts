@@ -64,7 +64,7 @@ const ajax = async <T>(
     url += `?${queryParams.toString()}`;
   }
 
-  console.info("Calling API endpoint:", url, "with options:", options);
+  // console.info("Calling API endpoint:", url, "with options:", options);
   const res = await fetch(url, options);
   if (!res.ok) {
     let errorBody: THttpErrorResponse;

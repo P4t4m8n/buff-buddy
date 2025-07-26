@@ -1,18 +1,18 @@
-import Input from "../../../UI/Form/Input";
-import Label from "../../../UI/Form/Label";
-import TextArea from "../../../UI/Form/TextArea";
-import SelectWithSearch from "../../../UI/Form/SelectWithSearch";
-import Button from "../../../UI/Button";
-import Loader from "../../../UI/Loader";
+import Input from "../UI/Form/Input";
+import Label from "../UI/Form/Label";
+import TextArea from "../UI/Form/TextArea";
+import SelectWithSearch from "../UI/Form/SelectWithSearch";
+import Button from "../UI/Button";
+import Loader from "../UI/Loader";
 
-import WorkoutExerciseCoreSet from "../Components/WorkoutExerciseCoreSets/WorkoutExerciseCoreSet";
+import WorkoutExerciseCoreSet from "./WorkoutExerciseCoreSet";
 
-import { useWorkoutExerciseEdit } from "../../../../hooks/features/program/useWorkoutExerciseEdit";
-import { useFormErrors } from "../../../../hooks/shared/useFormErrors";
+import { useWorkoutExerciseEdit } from "../../hooks/features/program/useWorkoutExerciseEdit";
+import { useFormErrors } from "../../hooks/shared/useFormErrors";
 
-import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
-import type { IModelProps } from "../../../UI/GenericModel";
-import type { ICoreSetEditDTO } from "../../../../../../shared/models/set.model";
+import type { IWorkoutExerciseEditDTO } from "../../../../shared/models/workout.model";
+import type { IModelProps } from "../UI/GenericModel";
+import type { ICoreSetEditDTO } from "../../../../shared/models/set.model";
 
 interface WorkoutExerciseEditProps extends IModelProps<HTMLDivElement> {
   workoutExercise?: IWorkoutExerciseEditDTO;

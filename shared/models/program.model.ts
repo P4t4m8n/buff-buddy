@@ -1,4 +1,4 @@
-import { DaysOfWeek } from "../../buff-buddy-api/prisma/generated/prisma";
+import { DaysOfWeek } from "../../backend/prisma/generated/prisma";
 import type { IBaseFilter, TCrudOperation, TDayOfWeek } from "./app.model";
 import type { IEntity } from "./entity.model";
 import type { IUserDTO } from "./user.model";
@@ -25,7 +25,10 @@ export interface IProgramFilter extends IBaseFilter {
   name?: string;
 }
 
-export type TProgramWorkoutEditRecord = Record<TDayOfWeek, IProgramWorkoutEditDTO[]>;
+export type TProgramWorkoutEditRecord = Record<
+  TDayOfWeek,
+  IProgramWorkoutEditDTO[]
+>;
 
 interface IProgramWorkoutBase extends IEntity {
   daysOfWeek: DaysOfWeek[];

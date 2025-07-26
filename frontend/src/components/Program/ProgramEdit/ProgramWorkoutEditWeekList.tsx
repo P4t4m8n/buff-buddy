@@ -7,12 +7,12 @@ import type {
 } from "../../../../../shared/models/program.model";
 import ProgramWorkoutEditPreview from "./ProgramWorkoutEditPreview";
 interface IProgramEditWeekListProps {
-  handleWorkouts?: (workout: IProgramWorkoutEditDTO) => void;
+  handleProgramWorkouts?: (workout: IProgramWorkoutEditDTO) => void;
   programWorkouts: IProgramWorkoutEditDTO[];
 }
 
 export default function ProgramWorkoutEditWeekList({
-  handleWorkouts,
+  handleProgramWorkouts,
   programWorkouts,
 }: IProgramEditWeekListProps) {
   const cleanedWorkouts = programWorkouts?.filter(
@@ -54,7 +54,7 @@ export default function ProgramWorkoutEditWeekList({
             items={groupedWorkouts[day]}
             ItemComponent={ProgramWorkoutEditPreview}
             itemComponentProps={{
-              handleWorkouts,
+              handleProgramWorkouts,
             }}
             getKey={(item) => item.id! + "1"}
             ulStyle="p-1 flex lg:flex-col gap-2"

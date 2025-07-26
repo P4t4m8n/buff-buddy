@@ -12,7 +12,7 @@ interface IWorkoutBase extends IEntity {
 
 export interface IWorkoutDTO extends IWorkoutBase {
   program?: Partial<IProgramDTO>;
-  owner?: Partial<IUserDTO>|null;
+  owner?: Partial<IUserDTO> | null;
   workoutExercises?: IWorkoutExerciseDTO[];
 }
 
@@ -39,18 +39,10 @@ export interface IWorkoutExerciseEditDTO extends IEntity {
   crudOperation?: TCrudOperation;
 }
 
-// export interface IWorkoutSets {
-//   coreSet: ICoreSetDTO;
-//   userSet: IUserSetEditDTO;
-// }
-// export interface IWorkoutEditSets {
-//   coreSetId: string;
-//   userSet: IUserSetEditDTO;
-// }
-
 export interface IWorkoutFilter extends IBaseFilter {
   programId?: string;
   dayOfWeek?: TDayOfWeek;
   exerciseId?: string;
   isCompleted?: boolean;
 }
+
