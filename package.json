@@ -1,5 +1,5 @@
 {
-  "name": "buff-buddy-monorepo",
+  "name": "buff-buddy",
   "private": true,
   "workspaces": [
     "backend",
