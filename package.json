@@ -2,17 +2,17 @@
   "name": "buff-buddy-monorepo",
   "private": true,
   "workspaces": [
-    "buff-buddy-api",
-    "buff-buddy-front"
+    "backend",
+    "frontend"
   ],
   "scripts": {
-    "build": "npm run build --workspace=buff-buddy-api && npm run build --workspace=buff-buddy-front",
-    "dev:api": "npm run dev --workspace=buff-buddy-api",
-    "dev:front": "npm run dev --workspace=buff-buddy-front",
-    "studio": "npm run studio --workspace=buff-buddy-api",
-    "test": "npm test --workspace=buff-buddy-api",
-    "migrate": "npm run migrate --workspace=buff-buddy-api",
-    "gen": "npm run gen --workspace=buff-buddy-api",
+    "build": "npm run build --workspace=backend && npm run build --workspace=frontend",
+    "dev:back": "npm run dev --workspace=backend",
+    "dev:front": "npm run dev --workspace=frontend",
+    "studio": "npm run studio --workspace=backend",
+    "test": "npm test --workspace=backend",
+    "migrate": "npm run migrate --workspace=backend",
+    "gen": "npm run gen --workspace=backend",
     "lint": "eslint ."
   }
 }
