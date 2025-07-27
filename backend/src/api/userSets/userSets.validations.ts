@@ -1,7 +1,10 @@
 import { z } from "zod";
 import sanitizeHtml from "sanitize-html";
-import { conditionalWeightRefinement } from "../../shared/validations/shared.validations";
-import { crudOperationSchema } from "../coreSets/coreSets.validations";
+import {
+  BooleanSchema,
+  conditionalWeightRefinement,
+  CrudOperationSchema,
+} from "../../shared/validations/shared.validations";
 
 const UserSetSchema = z.object({
   reps: z.coerce
@@ -21,12 +24,14 @@ const UserSetSchema = z.object({
     .int("Rest time must be a whole number")
     .min(0, "Rest time cannot be negative")
     .max(3600, "Rest time cannot exceed 1 hour (3600 seconds)"),
-  isBodyWeight: z.coerce.boolean().default(false),
-  isCompleted: z.coerce.boolean().default(false),
-  isJointPain: z.coerce.boolean().default(false),
-  isMuscleFailure: z.coerce.boolean().default(false),
 
-  crudOperation: z.optional(crudOperationSchema).default("read"),
+  isBodyWeight: BooleanSchema,
+  isCompleted: BooleanSchema,
+  isJointPain: BooleanSchema,
+  isMuscleFailure: BooleanSchema,
+  isWarmup: BooleanSchema,
+
+  crudOperation: CrudOperationSchema,
   id: z.optional(z.string()),
   coreSetId: z
     .string()

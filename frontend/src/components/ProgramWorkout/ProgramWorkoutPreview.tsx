@@ -50,7 +50,7 @@ export default function ProgramWorkoutPreview({
           linkStyle="model"
           mode="details"
           className="text-amber w-36 hover:text-black"
-          to={`/workouts/workout-start/${id}`}
+          to={`/workouts/workout-start/${programWorkout.id}/${id}`}
         >
           Start Workout
         </LinkComponent>

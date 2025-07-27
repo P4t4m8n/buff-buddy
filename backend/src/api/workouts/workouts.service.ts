@@ -48,8 +48,8 @@ export const workoutsService = {
                 id: we.exerciseId,
               },
             },
-            coreSets: {
-              create: coreSetsSQL.getCreateCoreSets(we.coreSets),
+            coreSet: {
+              create: coreSetsSQL.getCreateCoreSets(we.coreSet),
             },
           })),
         },
@@ -93,8 +93,8 @@ export const workoutsService = {
               notes: we.notes,
               workout: { connect: { id } },
               exercise: { connect: { id: we.exerciseId! } },
-              coreSets: {
-                create: coreSetsSQL.getCreateCoreSets(we.coreSets),
+              coreSet: {
+                create: coreSetsSQL.getCreateCoreSets(we.coreSet),
               },
             },
           });
@@ -112,11 +112,11 @@ export const workoutsService = {
                 notes: we.notes,
                 isActive: we.isActive,
               }),
-              coreSets: {
+              coreSet: {
                 upsert: {
-                  where: { id: we.coreSets?.id ?? "new-cs" },
-                  create: coreSetsSQL.getCreateCoreSets(we.coreSets),
-                  update: coreSetsSQL.getUpdateCoreSets(we.coreSets),
+                  where: { id: we.coreSet?.id ?? "new-cs" },
+                  create: coreSetsSQL.getCreateCoreSets(we.coreSet),
+                  update: coreSetsSQL.getUpdateCoreSets(we.coreSet),
                 },
               },
             },
@@ -149,8 +149,8 @@ export const workoutsService = {
 //               isActive: we.isActive,
 //               exerciseId: we.exerciseId,
 //             }),
-//             coreSets: {
-//               upsert: (we.coreSets ?? []).map((cs) => ({
+//             coreSet: {
+//               upsert: (we.coreSet ?? []).map((cs) => ({
 //                 where: { id: cs?.id },
 //                 update: {
 //                   // Clean coreSet data
@@ -174,7 +174,7 @@ export const workoutsService = {
 //                   repsInReserve: cs.repsInReserve,
 //                 },
 //               })),
-//               deleteMany: (we?.coreSets ?? [])
+//               deleteMany: (we?.coreSet ?? [])
 //                 .filter((cs) => cs.crudOperation === "delete")
 //                 .map((cs) => ({ id: cs.id })),
 //             },
@@ -188,8 +188,8 @@ export const workoutsService = {
 //                 id: we.exerciseId,
 //               },
 //             },
-//             coreSets: {
-//               create: we.coreSets?.map((cs) => ({
+//             coreSet: {
+//               create: we.coreSet?.map((cs) => ({
 //                 reps: cs.reps,
 //                 weight: cs.weight,
 //                 restTime: cs.restTime,

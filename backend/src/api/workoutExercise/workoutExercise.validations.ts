@@ -13,7 +13,7 @@ export const CreateWorkoutExerciseSchema = z.object({
   notes: NotesSchema,
   exerciseId: IDSchema,
   isActive: z.coerce.boolean().default(true),
-  coreSets: CreateCoreSetSchema,
+  coreSet: CreateCoreSetSchema,
   crudOperation: z.optional(CrudOperationEnumSchema).default("read"),
   id: z.string().optional(),
 });

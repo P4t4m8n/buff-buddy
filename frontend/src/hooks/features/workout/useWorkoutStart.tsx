@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useWorkoutStore } from "../../../store/workout.store";
-import type { IWorkoutStartDTO } from "../../../../../shared/models/workoutStart.model";
+import type { IUserWorkoutDTO } from "../../../../../shared/models/workoutStart.model";
 import { workoutStartUtil } from "../../../utils/workoutStart.util";
 
 export const useWorkoutStart = () => {
@@ -10,7 +10,7 @@ export const useWorkoutStart = () => {
   const navigate = useNavigate();
 
   const [workoutStart, setWorkoutStart] =
-    React.useState<IWorkoutStartDTO | null>(null);
+    React.useState<IUserWorkoutDTO | null>(null);
 
   const getById = useWorkoutStore((state) => state.getById);
 

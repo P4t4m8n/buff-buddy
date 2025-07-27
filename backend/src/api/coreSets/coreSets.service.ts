@@ -1,7 +1,7 @@
 import { Prisma } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
 import { ICoreSet } from "./coreSets.models";
-import { CORE_SET_SELECT } from "./coreSets.sql";
+import { coreSetsSQL } from "./coreSets.sql";
 import { CoreSetQuery, CreateCoreSetInput } from "./coreSets.validations";
 
 export const coreSetsService = {
@@ -19,13 +19,13 @@ export const coreSetsService = {
       skip,
       take,
       orderBy: { createdAt: "asc" },
-      select: CORE_SET_SELECT,
+      select: coreSetsSQL.CORE_SET_SELECT,
     });
   },
   getById: async (id: string): Promise<ICoreSet | null> => {
     return await prisma.coreSet.findUnique({
       where: { id },
-      select: CORE_SET_SELECT,
+      select: coreSetsSQL.CORE_SET_SELECT,
     });
   },
   create: async (dto: CreateCoreSetInput): Promise<ICoreSet> => {
@@ -43,7 +43,7 @@ export const coreSetsService = {
           create: { weight: dto.weight, isBodyWeight: dto.isBodyWeight },
         },
       },
-      select: CORE_SET_SELECT,
+      select: coreSetsSQL.CORE_SET_SELECT,
     });
   },
 };

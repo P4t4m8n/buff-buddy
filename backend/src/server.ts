@@ -9,6 +9,7 @@ import { programsRoutes } from "./api/programs/programs.routes";
 import { authRoutes } from "./api/auth/auth.routes";
 import { setupAsyncLocalStorage } from "./middlewares/localStorage.middleware";
 import { workoutRoutes } from "./api/workouts/workouts.routes";
+import { userWorkoutsRoutes } from "./api/userWorkouts/userWorkouts.routes";
 
 dotenv.config();
 
@@ -39,6 +40,10 @@ app.use(`/api/v${process.env.CURRENT_API_VERSION}/auth`, authRoutes);
 app.use(`/api/v${process.env.CURRENT_API_VERSION}/exercises`, exerciseRoutes);
 app.use(`/api/v${process.env.CURRENT_API_VERSION}/programs`, programsRoutes);
 app.use(`/api/v${process.env.CURRENT_API_VERSION}/workouts`, workoutRoutes);
+app.use(
+  `/api/v${process.env.CURRENT_API_VERSION}/workouts-user`,
+  userWorkoutsRoutes
+);
 // Catch-all route
 app.all("/{*any}", (req: Request, res: Response) => {
   res.sendFile(path.resolve("public/index.html"));

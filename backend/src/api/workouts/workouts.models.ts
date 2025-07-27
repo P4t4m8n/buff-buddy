@@ -32,6 +32,6 @@ export interface IWorkout {
       muscles: ExerciseMuscle[];
       equipment: ExerciseEquipment[];
     };
-    coreSets: ICoreSet;
+    coreSet: ICoreSet;
   }[];
 }

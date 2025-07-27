@@ -51,11 +51,11 @@ export const workoutUtils = {
     ...workout,
     workoutExercises: workout.workoutExercises.map((we) => ({
       ...we,
-      coreSets: {
-        ...we.coreSets,
-        reps: we.coreSets.reps[0].reps,
-        weight: we.coreSets.weight[0].weight,
-        isBodyWeight: we.coreSets.weight[0].isBodyWeight ?? false,
+      coreSet: {
+        ...we.coreSet,
+        reps: we.coreSet.reps[0].reps,
+        weight: we.coreSet.weight[0].weight,
+        isBodyWeight: we.coreSet.weight[0].isBodyWeight ?? false,
       },
     })),
   }),

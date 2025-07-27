@@ -66,8 +66,8 @@ export const programsService = {
                           id: we.exerciseId,
                         },
                       },
-                      coreSets: {
-                        create: coreSetsSQL.getCreateCoreSets(we.coreSets),
+                      coreSet: {
+                        create: coreSetsSQL.getCreateCoreSets(we.coreSet),
                       },
                     })),
                   },
@@ -140,9 +140,9 @@ export const programsService = {
                             order: we.order || 1,
                             notes: we.notes,
                             exercise: { connect: { id: we.exerciseId } },
-                            coreSets: {
+                            coreSet: {
                               create: coreSetsSQL.getCreateCoreSets(
-                                we.coreSets
+                                we.coreSet
                               ),
                             },
                           })
@@ -177,9 +177,9 @@ export const programsService = {
                             order: we.order || 1,
                             notes: we.notes,
                             exercise: { connect: { id: we.exerciseId } },
-                            coreSets: {
+                            coreSet: {
                               create: coreSetsSQL.getCreateCoreSets(
-                                we.coreSets
+                                we.coreSet
                               ),
                             },
                           })

@@ -33,7 +33,7 @@ type TUseModelHook<T extends HTMLElement> = [
 export const useModel = <T extends HTMLElement>(
   callBack?: null | (() => void)
 ): TUseModelHook<T> => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const modelRef = useRef<T>(null);
 
   const eventListenerRef = useRef<{
@@ -47,33 +47,33 @@ export const useModel = <T extends HTMLElement>(
   const handleModel = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    setOpen((prev) => !prev);
+    setIsOpen((prev) => !prev);
   }, []);
 
   const checkClickOutside = useCallback(
     (ev: MouseEvent) => {
       const target = ev.target as HTMLElement;
 
-      if (!open || !modelRef?.current || modelRef?.current.contains(target))
+      if (!isOpen || !modelRef?.current || modelRef?.current.contains(target))
         return;
 
       if (callBack) {
         callBack();
         return;
       }
-      setOpen(false);
+      setIsOpen(false);
     },
-    [open, modelRef, callBack]
+    [isOpen, modelRef, callBack]
   );
 
   const checkKeyPress = useCallback((ev: KeyboardEvent) => {
     if (ev.key === "Escape") {
-      setOpen(false);
+      setIsOpen(false);
     }
   }, []);
 
   useEffect(() => {
-    if (!modelRef?.current || !open) return;
+    if (!modelRef?.current || !isOpen) return;
 
     const currentEventListeners = eventListenerRef.current;
     currentEventListeners.click = checkClickOutside;
@@ -89,11 +89,11 @@ export const useModel = <T extends HTMLElement>(
     return () => {
       controller.abort();
     };
-  }, [open, modelRef, checkClickOutside, checkKeyPress]);
+  }, [isOpen, modelRef, checkClickOutside, checkKeyPress]);
 
   const memoizedValue: TUseModelHook<T> = useMemo(
-    () => [open, modelRef, setOpen, handleModel],
-    [open, modelRef, setOpen, handleModel]
+    () => [isOpen, modelRef, setIsOpen, handleModel],
+    [isOpen, modelRef, setIsOpen, handleModel]
   );
 
   return memoizedValue;

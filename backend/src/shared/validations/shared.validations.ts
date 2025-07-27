@@ -146,4 +146,11 @@ export const IDSchema = z
   .transform((val) => val.trim())
   .refine((val) => val.length >= 1, "ID must be at least 1 character long")
   .refine((val) => val.length <= 50, "ID must be less than 50 characters long")
-  .optional();
+ 
+
+export const BooleanSchema = z.coerce.boolean().default(false);
+
+export const DateSchema = z
+  .string()
+  .transform((val) => new Date(val))
+  .refine((date) => !isNaN(date.getTime()), "Invalid  date");

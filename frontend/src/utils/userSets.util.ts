@@ -13,4 +13,43 @@ export const userSetsUtil = {
       isBodyWeight,
     };
   },
+  //TODO??HArdcoded at the moment improve later maybe move to backend
+  getWarmupSet: (
+    isBodyWeight?: boolean,
+    weight?: number | null
+  ): IUserSetEditDTO => {
+    const warmupWeight = isBodyWeight
+      ? null
+      : weight
+      ? Math.round((weight ?? 0) * 0.35)
+      : null;
+    return {
+      id: appUtil.getTempId("warmup"),
+      reps: 10,
+      weight: warmupWeight,
+      isCompleted: false,
+      isMuscleFailure: false,
+      isJointPain: false,
+      isBodyWeight,
+      
+    };
+  },
+
+  createUserSets(
+    numberOfSets: number = 1,
+    isBodyWeight?: boolean,
+    hasWarmup?: boolean,
+    weight?: number | null
+  ): IUserSetEditDTO[] {
+    const sets = Array.from({ length: numberOfSets }).map(() =>
+      userSetsUtil.getEmpty(isBodyWeight)
+    );
+
+    if (hasWarmup) {
+      const warmupSet = this.getWarmupSet(isBodyWeight, weight);
+      sets.unshift(warmupSet);
+    }
+
+    return sets;
+  },
 };

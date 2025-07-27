@@ -1,5 +1,5 @@
 interface YoutubePlayerProps {
-  youtubeUrl?: string;
+  youtubeUrl?: string | null;
 }
 //TODO?? Add error handling for invalid YouTube URLs
 //TODO?? Add loading state for YouTube video
