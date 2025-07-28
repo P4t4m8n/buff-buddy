@@ -1,11 +1,11 @@
 import { TCreateUserWorkoutInput } from "./userWorkout.validations";
 import { prisma } from "../../../prisma/prisma";
-import { PROGRAM_SELECT } from "../programs/program.sql";
-import { SMALL_USER_SELECT } from "../users/users.sql";
-import { WORKOUT_EXERCISE_SELECT } from "../workouts/workout.sql";
+import { IUserWorkout } from "./userWorkouts.model";
+import { exerciseSQL } from "../exercises/exercise.sql";
+import { coreSetsSQL } from "../coreSets/coreSets.sql";
 
 export const userWorkoutService = {
-  create: async (dto: TCreateUserWorkoutInput) => {
+  create: async (dto: TCreateUserWorkoutInput): Promise<IUserWorkout> => {
     return await prisma.userWorkout.create({
       data: {
         dateCompleted: dto.dateCompleted,
@@ -17,6 +17,11 @@ export const userWorkoutService = {
         program: {
           connect: {
             id: dto.programId,
+          },
+        },
+        workout: {
+          connect: {
+            id: dto.workoutId,
           },
         },
         userWorkoutExercises: {
@@ -48,13 +53,45 @@ export const userWorkoutService = {
       select: {
         id: true,
         dateCompleted: true,
-        program: { select: PROGRAM_SELECT },
-        owner: { select: SMALL_USER_SELECT },
+        program: {
+          select: {
+            id: true,
+            name: true,
+            notes: true,
+            isActive: true,
+            startDate: true,
+            endDate: true,
+          },
+        },
+        owner: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+          },
+        },
+        workout: {
+          select: {
+            id: true,
+            name: true,
+            notes: true,
+          },
+        },
         userWorkoutExercises: {
           select: {
             id: true,
             workoutExercise: {
-              select: WORKOUT_EXERCISE_SELECT,
+              select: {
+                id: true,
+                order: true,
+                notes: true,
+                exercise: {
+                  select: exerciseSQL.EXERCISE_SELECT,
+                },
+                coreSet: {
+                  select: coreSetsSQL.CORE_SET_SELECT,
+                },
+              },
             },
             userSets: {
               select: {

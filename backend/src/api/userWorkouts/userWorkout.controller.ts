@@ -3,10 +3,12 @@ import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
 import { AppError } from "../../shared/services/Error.service";
 import { CreateUserWorkoutSchema } from "./userWorkout.validations";
 import { userWorkoutService } from "./userWorkouts.service";
+import { userWorkoutsUtils } from "./userWorkouts.util";
 
 export const createUserWorkout = async (req: Request, res: Response) => {
   try {
     const ownerId = asyncLocalStorage.getStore()?.sessionUser?.id;
+    console.log("🚀 ~ createUserWorkout ~ ownerId:", ownerId);
 
     if (!ownerId) {
       throw new AppError("User not authenticated", 401);
@@ -17,12 +19,12 @@ export const createUserWorkout = async (req: Request, res: Response) => {
 
     const validatedData = CreateUserWorkoutSchema.parse(invalidatedData);
 
-    const workoutData = await userWorkoutService.create(validatedData);
-    // const workout = workoutUtils.buildDTO(workoutData);
+    const userWorkoutData = await userWorkoutService.create(validatedData);
+    const userWorkoutDTO = userWorkoutsUtils.toDTO(userWorkoutData);
 
     res.status(201).json({
       message: "User-Workout created successfully",
-      data: workoutData,
+      data: userWorkoutDTO,
     });
   } catch (error) {
     const err = AppError.handleResponse(error);

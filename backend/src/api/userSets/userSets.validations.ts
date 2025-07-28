@@ -19,11 +19,6 @@ const UserSetSchema = z.object({
     .max(10000, "Weight cannot exceed 10000")
     .transform((val) => Math.round(val * 100) / 100),
 
-  restTime: z.coerce
-    .number()
-    .int("Rest time must be a whole number")
-    .min(0, "Rest time cannot be negative")
-    .max(3600, "Rest time cannot exceed 1 hour (3600 seconds)"),
 
   isBodyWeight: BooleanSchema,
   isCompleted: BooleanSchema,

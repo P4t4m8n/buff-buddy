@@ -38,7 +38,9 @@ const CoreSetSchema = z.object({
     .number()
     .int("Number of sets must be a whole number")
     .min(1, "Number of sets must be at least 1")
-    .max(100, "Number of sets cannot exceed 100"),
+    .max(100, "Number of sets cannot exceed 100")
+    .optional()
+    .default(1),
 
   reps: z.coerce
     .number()

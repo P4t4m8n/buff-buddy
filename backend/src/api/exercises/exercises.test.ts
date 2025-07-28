@@ -232,13 +232,17 @@ describe("Exercises API", () => {
       await request(app)
         .delete(`/api/v1/exercises/${id}`)
         .set("Cookie", `token=${authToken}`)
-        .catch(() => {});
+        .catch((err) => {
+          console.error(err);
+        });
     }
     if (testUserId) {
       await request(app)
         .delete(`/api/v1/auth/delete-user/${testUserId}`)
         .set("Cookie", `token=${authToken}`)
-        .catch(() => {});
+        .catch((err) => {
+          console.error(err);
+        });
     }
   });
 });

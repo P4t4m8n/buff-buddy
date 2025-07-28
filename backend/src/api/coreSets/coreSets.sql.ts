@@ -7,7 +7,7 @@ import type {
 
 interface CoreSetSQL {
   getCreateCoreSets: (
-    coreSets?: CreateCoreSetInput | UpdateCoreSetInput
+    coreSet?: CreateCoreSetInput | UpdateCoreSetInput
   ) => Prisma.CoreSetCreateInput;
   getUpdateCoreSets: (
     coreSets?: UpdateCoreSetInput
@@ -17,21 +17,21 @@ interface CoreSetSQL {
 
 export const coreSetsSQL: CoreSetSQL = {
   getCreateCoreSets(
-    coreSets?: CreateCoreSetInput | UpdateCoreSetInput
+    coreSet?: CreateCoreSetInput | UpdateCoreSetInput
   ): Prisma.CoreSetCreateInput {
     const data: Prisma.CoreSetCreateInput = {
-      restTime: coreSets?.restTime,
-      numberOfSets: coreSets?.numberOfSets,
-      hasWarmup: coreSets?.hasWarmup,
+      restTime: coreSet?.restTime,
+      numberOfSets: coreSet?.numberOfSets,
+      hasWarmup: coreSet?.hasWarmup,
       reps: {
         create: {
-          reps: coreSets?.reps,
+          reps: coreSet?.reps,
         },
       },
       weight: {
         create: {
-          weight: coreSets?.weight,
-          isBodyWeight: coreSets?.isBodyWeight,
+          weight: coreSet?.weight,
+          isBodyWeight: coreSet?.isBodyWeight,
         },
       },
     };
@@ -39,7 +39,7 @@ export const coreSetsSQL: CoreSetSQL = {
   },
   getUpdateCoreSets(coreSet?: UpdateCoreSetInput) {
     const _coreSet = this.getCreateCoreSets(coreSet);
-    return dbUtil.cleanData(_coreSet);
+    return dbUtil.cleanData({ ..._coreSet });
   },
 
   CORE_SET_SELECT: {

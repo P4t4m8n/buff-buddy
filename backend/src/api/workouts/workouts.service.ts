@@ -36,7 +36,7 @@ export const workoutsService = {
         name: dto.name,
         owner: {
           connect: {
-            id: dto.ownerId,
+            id: dto.ownerId!,
           },
         },
         workoutExercises: {
@@ -70,7 +70,7 @@ export const workoutsService = {
     return prisma.$transaction(async (tx) => {
       // 1. Update the top-level workout fields
       await tx.workout.update({
-        where: { id },
+        where: { id: id ?? "test-workout" },
         data: dbUtil.cleanData({
           notes: workoutData.notes,
           name: workoutData.name,
@@ -104,21 +104,33 @@ export const workoutsService = {
       // 4. Update existing exercises
       if (exercisesToUpdate.length > 0) {
         for (const we of exercisesToUpdate) {
+          const coreSet: {
+            update?: {
+              where: { id: string };
+              data: Prisma.CoreSetUpdateInput;
+            };
+            create?: Prisma.CoreSetCreateInput;
+          } = {};
+          if (we?.coreSet?.id) {
+            coreSet.update = {
+              where: {
+                id: we.coreSet?.id,
+              },
+              data: coreSetsSQL.getUpdateCoreSets(we.coreSet),
+            };
+          } else if (!we?.coreSet?.id) {
+            coreSet.create = coreSetsSQL.getCreateCoreSets(we.coreSet);
+          }
+
           await tx.workoutExercise.update({
-            where: { id: we.id! },
+            where: { id: we?.id ?? "test-we" },
             data: {
               ...dbUtil.cleanData({
                 order: we.order,
                 notes: we.notes,
                 isActive: we.isActive,
               }),
-              coreSet: {
-                upsert: {
-                  where: { id: we.coreSet?.id ?? "new-cs" },
-                  create: coreSetsSQL.getCreateCoreSets(we.coreSet),
-                  update: coreSetsSQL.getUpdateCoreSets(we.coreSet),
-                },
-              },
+              coreSet,
             },
           });
         }

@@ -172,6 +172,7 @@ model Workout {
   owner            User?             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   workoutExercises WorkoutExercise[]
   programWorkouts  ProgramWorkout[]
+  userWorkouts     UserWorkout[]
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
 }
@@ -208,4 +209,7 @@ model UserWorkout {
   userWorkoutExercises UserWorkoutExercise[]
   programId            String?
   program              Program?              @relation(fields: [programId], references: [id], onDelete: Cascade)
+  workoutId            String?
+  workout              Workout?              @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  createdAt            DateTime              @default(now())
 }

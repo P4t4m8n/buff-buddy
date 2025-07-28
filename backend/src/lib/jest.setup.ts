@@ -1,7 +1,9 @@
 import { server } from "../server";
-
+process.env.NODE_ENV = "test";
 afterAll((done) => {
-  server.close(done);
+  if (server.listening) {
+    server.close(done);
+  } else {
+    done();
+  }
 });
-
-

@@ -9,7 +9,7 @@ interface IUserWorkoutBase extends IEntity {
 }
 
 export interface IUserWorkoutDTO extends IUserWorkoutBase {
-  program?: IProgramDTO;
+  program?: IProgramDTO | null;
   workout?: IWorkoutDTO;
   owner?: Partial<IUserDTO> | null;
   workoutExercises: IUserWorkoutExercisesDTO[];
@@ -18,6 +18,8 @@ export interface IUserWorkoutDTO extends IUserWorkoutBase {
 export interface IUserWorkoutEditDTO extends IUserWorkoutBase {
   ownerId?: string;
   programId?: string;
+  workout?: IWorkoutDTO;
+  workoutId?: string;
   workoutExercises: IUserWorkoutEditExercisesDTO[];
 }
 

@@ -41,7 +41,7 @@ app.use(`/api/v${process.env.CURRENT_API_VERSION}/exercises`, exerciseRoutes);
 app.use(`/api/v${process.env.CURRENT_API_VERSION}/programs`, programsRoutes);
 app.use(`/api/v${process.env.CURRENT_API_VERSION}/workouts`, workoutRoutes);
 app.use(
-  `/api/v${process.env.CURRENT_API_VERSION}/workouts-user`,
+  `/api/v${process.env.CURRENT_API_VERSION}/user-workouts`,
   userWorkoutsRoutes
 );
 // Catch-all route
@@ -50,6 +50,8 @@ app.all("/{*any}", (req: Request, res: Response) => {
 });
 const port = process.env.PORT || 3030;
 
-server.listen(port, async () =>
-  console.info(`Server ready at: http://localhost:${port}`)
-);
+if (process.env.NODE_ENV !== "test") {
+  server.listen(port, async () =>
+    console.info(`Server ready at: http://localhost:${port}`)
+  );
+}

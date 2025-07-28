@@ -12,7 +12,7 @@ import {
 
 const BaseWorkoutSchema = z.object({
   programId: z.string().nullish().optional(),
-  ownerId: z.string().min(1, "User ID is required"),
+  ownerId: z.string().nullish().optional(),
   notes: NotesSchema,
   name: NameSchema,
   crudOperation: CrudOperationSchema,
@@ -24,14 +24,14 @@ const BaseWorkoutSchema = z.object({
 
 export const CreateWorkoutSchema = BaseWorkoutSchema;
 
-export const UpdateWorkoutSchema = BaseWorkoutSchema.partial().extend({
+export const UpdateWorkoutSchema = BaseWorkoutSchema.extend({
   id: IDSchema,
   workoutExercises: z
     .array(UpdateNestedWorkoutExerciseSchema)
     .min(1, "At least one workout set is required")
     .max(50, "Maximum 50 workout sets allowed per workout")
     .optional(),
-});
+}).partial();
 
 export const WorkoutQuerySchema = z.object({
   programId: z.string().optional(),

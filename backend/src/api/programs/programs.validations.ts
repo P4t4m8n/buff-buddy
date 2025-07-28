@@ -38,12 +38,12 @@ export const CreateProgramSchema = BaseProgramSchema.refine(
   }
 );
 
-export const UpdateProgramSchema = BaseProgramSchema.partial().extend({
+export const UpdateProgramSchema = BaseProgramSchema.extend({
   programWorkouts: z
     .array(UpdateProgramWorkoutSchema)
     .min(1, "At least one exercise is required")
     .max(50, "Maximum 50 exercises allowed per program"),
-});
+}).partial();
 
 export const ProgramQuerySchema = z.object({
   name: z.string().optional(),
