@@ -2,7 +2,7 @@ import type { IUserWorkoutDTO } from "../../../shared/models/workoutStart.model"
 import { apiService, type THttpPostResponse } from "./api.service";
 
 export const workoutStartService = {
-  rootPath: "/workout-start",
+  rootPath: "/user-workouts",
 
   async save(
     workoutStart: IUserWorkoutDTO

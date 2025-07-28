@@ -12,6 +12,7 @@ export const workoutStartUtil = {
       id: appUtil.getTempId(),
       dateCompleted: new Date(),
       programId,
+      workoutId: workoutDTO.id,
       workout: {
         id: workoutDTO.id,
         name: workoutDTO.name,

@@ -15,7 +15,7 @@ import {
 } from "../../../../shared/models/program.model";
 import { IUserSetEditDTO } from "../../../../shared/models/set.model";
 
-const getRandomUserSet = (coreSetId: string): IUserSetEditDTO => {
+const getRandomUserSet = (coreSetId?: string): IUserSetEditDTO => {
   const isBodyWeight = Math.random() < 0.5;
   return {
     reps: Math.floor(Math.random() * 15) + 1,
@@ -584,6 +584,242 @@ describe("UserWorkout API", () => {
       expect(workoutRes.workoutExercises).toHaveLength(
         userWorkoutData.workoutExercises.length
       );
+    });
+    it("should fail if dateCompleted is missing", async () => {
+      const valid = {
+        programId: testProgramId,
+        ownerId: testUserId,
+        workoutId: testWorkouts[0].id,
+        workoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
+            userSets: [
+              getRandomUserSet(testWorkouts?.[0]?.workoutExercises?.[0]?.coreSet?.id),
+            ],
+          },
+        ],
+      };
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(valid);
+      expect(res.status).toBe(400);
+      expect(res.body.errors.dateCompleted).toBeDefined();
+    });
+
+    it("should fail if programId is missing", async () => {
+      const valid = {
+        dateCompleted: new Date(),
+        ownerId: testUserId,
+        workoutId: testWorkouts[0]?.id,
+        workoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
+            userSets: [
+              getRandomUserSet(testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id),
+            ],
+          },
+        ],
+      };
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(valid);
+      expect(res.status).toBe(400);
+      expect(res.body.errors.programId).toBeDefined();
+    });
+
+    it("should fail if workoutId is missing", async () => {
+      const valid = {
+        dateCompleted: new Date(),
+        programId: testProgramId,
+        ownerId: testUserId,
+        workoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
+            userSets: [
+              getRandomUserSet(testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id),
+            ],
+          },
+        ],
+      };
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(valid);
+      expect(res.status).toBe(400);
+      expect(res.body.errors.workoutId).toBeDefined();
+    });
+
+   
+
+    it("should fail if workoutExercises is missing", async () => {
+      const valid = {
+        dateCompleted: new Date(),
+        programId: testProgramId,
+        ownerId: testUserId,
+        workoutId: testWorkouts[0]?.id,
+      };
+ const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(valid);
+      expect(res.status).toBe(400);
+      expect(res.body.errors.workoutExercises).toBeDefined();
+    });
+
+    it("should fail if workoutExercises[].workoutExerciseId is missing", async () => {
+      const valid = {
+        dateCompleted: new Date(),
+        programId: testProgramId,
+        ownerId: testUserId,
+        workoutId: testWorkouts[0]?.id,
+        workoutExercises: [
+          {
+            userSets: [
+              getRandomUserSet(testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id),
+            ],
+          },
+        ],
+      };
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(valid);
+      expect(res.status).toBe(400);
+      expect(
+        res.body.errors["workoutExercises.0.workoutExerciseId"]
+      ).toBeDefined();
+    });
+
+    it("should fail if workoutExercises[].userSets is missing", async () => {
+      const valid = {
+        dateCompleted: new Date(),
+        programId: testProgramId,
+        ownerId: testUserId,
+        workoutId: testWorkouts[0]?.id,
+        workoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
+          },
+        ],
+      };
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(valid);
+      expect(res.status).toBe(400);
+      expect(res.body.errors["workoutExercises.0.userSets"]).toBeDefined();
+    });
+
+    it("should fail if userSets[].reps is missing", async () => {
+      const invalidSet = {
+        ...getRandomUserSet(testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id),
+      };
+      delete invalidSet.reps;
+      const valid = {
+        dateCompleted: new Date(),
+        programId: testProgramId,
+        ownerId: testUserId,
+        workoutId: testWorkouts[0]?.id,
+        workoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
+            userSets: [invalidSet],
+          },
+        ],
+      };
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(valid);
+      expect(res.status).toBe(400);
+      expect(
+        res.body.errors["workoutExercises.0.userSets.0.reps"]
+      ).toBeDefined();
+    });
+
+    it("should fail if userSets[].weight is negative", async () => {
+      const invalidSet = {
+        ...getRandomUserSet(testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id),
+        weight: -5,
+      };
+      const valid = {
+        dateCompleted: new Date(),
+        programId: testProgramId,
+        ownerId: testUserId,
+        workoutId: testWorkouts[0]?.id,
+        workoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
+            userSets: [invalidSet],
+          },
+        ],
+      };
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(valid);
+      expect(res.status).toBe(400);
+      expect(
+        res.body.errors["workoutExercises.0.userSets.0.weight"]
+      ).toBeDefined();
+    });
+
+    it("should fail if userSets[].isBodyWeight=true and weight>0", async () => {
+      const invalidSet = {
+        ...getRandomUserSet(testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id),
+        isBodyWeight: true,
+        weight: 10,
+      };
+      const valid = {
+        dateCompleted: new Date(),
+        programId: testProgramId,
+        ownerId: testUserId,
+        workoutId: testWorkouts[0]?.id,
+        workoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
+            userSets: [invalidSet],
+          },
+        ],
+      };
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(valid);
+      expect(res.status).toBe(400);
+      expect(
+        res.body.errors["workoutExercises.0.userSets.0.weight"]
+      ).toBeDefined();
+    });
+
+    it("should fail if userSets[].isBodyWeight=false and weight=0", async () => {
+      const invalidSet = {
+        ...getRandomUserSet(testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id),
+        isBodyWeight: false,
+        weight: 0,
+      };
+      const valid = {
+        dateCompleted: new Date(),
+        programId: testProgramId,
+        ownerId: testUserId,
+        workoutId: testWorkouts[0]?.id,
+        workoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
+            userSets: [invalidSet],
+          },
+        ],
+      };
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(valid);
+      expect(res.status).toBe(400);
+      expect(
+        res.body.errors["workoutExercises.0.userSets.0.weight"]
+      ).toBeDefined();
     });
   });
   afterAll(async () => {

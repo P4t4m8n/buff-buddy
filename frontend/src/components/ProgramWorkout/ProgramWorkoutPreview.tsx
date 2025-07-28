@@ -8,7 +8,8 @@ interface IProgramWorkoutPreviewProps {
 export default function ProgramWorkoutPreview({
   item: programWorkout,
 }: IProgramWorkoutPreviewProps) {
-  const { name, workoutExercises, id } = programWorkout.workout ?? {};
+  const { programId, workout } = programWorkout;
+  const { name, workoutExercises, id } = workout ?? {};
 
   const typesUsed = workoutExercises?.map((we) => we.exercise?.types).flat();
   const cleanedTypesUsed = [...new Set(typesUsed)];
@@ -50,7 +51,7 @@ export default function ProgramWorkoutPreview({
           linkStyle="model"
           mode="details"
           className="text-amber w-36 hover:text-black"
-          to={`/workouts/workout-start/${programWorkout.id}/${id}`}
+          to={`/workouts/workout-start/${programId}/${id}`}
         >
           Start Workout
         </LinkComponent>

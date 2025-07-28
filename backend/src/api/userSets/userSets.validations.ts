@@ -1,5 +1,4 @@
 import { z } from "zod";
-import sanitizeHtml from "sanitize-html";
 import {
   BooleanSchema,
   conditionalWeightRefinement,
@@ -28,17 +27,7 @@ const UserSetSchema = z.object({
 
   crudOperation: CrudOperationSchema,
   id: z.optional(z.string()),
-  coreSetId: z
-    .string()
-    .min(1, "CoreSet ID is required")
-    .transform((val) =>
-      sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} })
-    )
-    .transform((val) => val.trim())
-    .refine(
-      (val) => val.length >= 1,
-      "CoreSet ID is required after sanitization"
-    ),
+ 
 });
 
 //TODO:Create and nested are the same, maybe join them later?

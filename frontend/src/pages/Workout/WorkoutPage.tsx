@@ -37,7 +37,7 @@ export default function WorkoutPage() {
   // }, [programs, day]);
   const cleanPrograms = programs
     .filter((p) => p.isActive)
-    .map((p) => p.programWorkouts)
+    .map((p) => p.programWorkouts?.map((pw) => ({ ...pw, programId: p.id })))
     .flat()
     .filter((pw) => pw?.daysOfWeek.includes(day!))
     .filter((p) => !!p); //FOR TS to be quiet
@@ -66,7 +66,7 @@ export default function WorkoutPage() {
         getKey={(item) => item?.id ?? "" + day}
         ulStyle="px-mobile"
       />
-      <Outlet/>
+      <Outlet />
     </div>
   );
 }
