@@ -1,6 +1,6 @@
 import type { IWorkoutExerciseEditDTO } from "../../../shared/models/workout.model";
 import { appUtil } from "./app.util";
-import { coreSetsUtil } from "./coreSets.util";
+import { coreSetUtil } from "./coreSet.util";
 
 export const workoutExerciseUtils = {
   getEmpty: (order?: number): IWorkoutExerciseEditDTO => {
@@ -9,7 +9,7 @@ export const workoutExerciseUtils = {
       order: order ?? 0,
       notes: "",
       exerciseId: "",
-      coreSets: coreSetsUtil.getEmpty(),
+      coreSet: coreSetUtil.getEmpty(),
       crudOperation: "create",
     };
   },

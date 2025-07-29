@@ -6,7 +6,6 @@ import {
   EXERCISE_TYPES,
 } from "../../../../shared/consts/exercise.consts";
 
-import { ApiError } from "../../utils/ApiError.util";
 import { useExerciseStore } from "../../store/exercise.store";
 import { exerciseService } from "../../services/exercise.service";
 import { useFormErrors } from "../../hooks/shared/useFormErrors";
@@ -37,7 +36,7 @@ export default function ExerciseEdit({
   >(null);
   const saveExercise = useExerciseStore((state) => state.saveExercise);
 
-  const { errors, setErrors, clearErrors } = useFormErrors<IExerciseDTO>();
+  const { errors, clearErrors, handleError } = useFormErrors<IExerciseDTO>();
 
   const { setOpen, modelRef } = props;
 
@@ -65,17 +64,7 @@ export default function ExerciseEdit({
         setOpen(false);
       }
     } catch (error) {
-      if (error instanceof ApiError) {
-        setErrors((prev) => ({
-          ...prev,
-          ...error.errors,
-        }));
-      } else {
-        setErrors((prev) => ({
-          ...prev,
-          unknown: "An unknown error occurred while saving.",
-        }));
-      }
+      handleError(error);
     }
   };
 

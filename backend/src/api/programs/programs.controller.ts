@@ -67,7 +67,6 @@ export const createProgram = async (req: Request, res: Response) => {
 
     const programData = await programsService.create(validatedData, id);
 
-
     const program = programsUtils.buildDTO(programData);
 
     res.status(201).json({

@@ -41,7 +41,7 @@ export const workoutsService = {
         },
         workoutExercises: {
           create: dto.workoutExercises.map((we) => ({
-            order: we.order,
+            order: we.order!,
             notes: we.notes,
             exercise: {
               connect: {
@@ -126,7 +126,7 @@ export const workoutsService = {
             where: { id: we?.id ?? "test-we" },
             data: {
               ...dbUtil.cleanData({
-                order: we.order,
+                order: we.order!,
                 notes: we.notes,
                 isActive: we.isActive,
               }),

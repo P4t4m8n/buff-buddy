@@ -1,6 +1,7 @@
 import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
+  IWorkoutExerciseEditDTO,
 } from "../../../shared/models/workout.model";
 import { appUtil } from "./app.util";
 
@@ -18,19 +19,20 @@ export const workoutUtils = {
       crudOperation: isCopy ? "create" : "update",
       workoutExercises: (dto.workoutExercises || []).map((we) => {
         const workoutExerciseId = isCopy ? appUtil.getTempId() : we.id;
-        return {
+        const workoutExerciseEdit: IWorkoutExerciseEditDTO = {
           id: workoutExerciseId,
           order: we.order,
           notes: we.notes || "",
           exercise: we.exercise,
           crudOperation: isCopy ? "create" : "update",
           exerciseId: we?.exercise?.id,
-          coreSets: {
-            ...we.coreSets,
+          coreSet: {
+            ...we.coreSet,
             crudOperation: isCopy ? "create" : "update",
             workoutExerciseId: workoutExerciseId,
           },
         };
+        return workoutExerciseEdit;
       }),
     };
   },

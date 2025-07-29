@@ -73,6 +73,10 @@ export const CreateExerciseSchema = z.object({
         const videoId = url.split("youtu.be/")[1]?.split("?")[0];
         return `https://www.youtube.com/watch?v=${videoId}`;
       }
+      if (url.includes("youtube.com/shorts/")) {
+        const videoId = url.split("youtube.com/shorts/")[1]?.split("?")[0];
+        return `https://www.youtube.com/watch?v=${videoId}`;
+      }
       if (url.includes("youtube.com/watch")) {
         // Ensure https and www
         if (!url.startsWith("http")) {
@@ -94,7 +98,8 @@ export const CreateExerciseSchema = z.object({
       }
     }, "Must be a valid URL")
     .refine((url) => {
-      const youtubeRegex = /^https:\/\/www\.youtube\.com\/watch\?v=[\w-]+/;
+      const youtubeRegex =
+        /^https:\/\/www\.youtube\.com\/(watch\?v=|shorts\/)[\w-]{11}/;
       return youtubeRegex.test(url);
     }, "Must be a valid YouTube URL"),
 

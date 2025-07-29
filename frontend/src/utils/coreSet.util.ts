@@ -1,7 +1,7 @@
 import type { ICoreSetEditDTO } from "../../../shared/models/set.model";
-import { appUtil } from "../utils/app.util";
+import { appUtil } from "./app.util";
 
-export const coreSetsUtil = {
+export const coreSetUtil = {
   getEmpty: (): ICoreSetEditDTO => ({
     id: appUtil.getTempId("temp"),
     isBodyWeight: false,

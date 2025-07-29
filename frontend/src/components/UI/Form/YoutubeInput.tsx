@@ -33,7 +33,7 @@ export default function YoutubeInput({
         name="youtubeUrl"
       >
         {" "}
-        <LabelWithError htmlFor="youtubeUrl" error={error} labelText="" />
+        <LabelWithError htmlFor="youtubeUrl" error={error} labelText="YouTube URL" />
       </Input>
       {youtubeUrl && <YoutubePlayer youtubeUrl={youtubeUrl} />}
     </div>

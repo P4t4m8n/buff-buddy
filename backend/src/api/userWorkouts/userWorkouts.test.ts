@@ -576,7 +576,6 @@ describe("UserWorkout API", () => {
         .set("Cookie", `token=${authToken}`)
         .send(userWorkoutData);
 
-      console.log("🚀 ~ workoutRes:", res.body);
       expect(res.status).toBe(201);
 
       const workoutRes: IUserWorkoutDTO = res.body.data;

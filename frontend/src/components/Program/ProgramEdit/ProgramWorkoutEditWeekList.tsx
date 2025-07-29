@@ -20,13 +20,13 @@ export default function ProgramWorkoutEditWeekList({
   );
   const groupWorkoutsByDay = (programWorkouts: IProgramWorkoutEditDTO[]) => {
     const peByDay: TProgramWorkoutEditRecord = {
+      sunday: [],
       monday: [],
       tuesday: [],
       wednesday: [],
       thursday: [],
       friday: [],
       saturday: [],
-      sunday: [],
     };
     programWorkouts.forEach((pw) => {
       pw.daysOfWeek?.forEach((day) => {
@@ -47,9 +47,9 @@ export default function ProgramWorkoutEditWeekList({
       {DAY_OF_WEEK.map((day) => (
         <li
           key={day}
-          className="text-center text-sm  border rounded p-2 h-40 lg:h-full "
+          className="text-center text-sm flex flex-col  border rounded p-2 h-40 lg:h-full "
         >
-          <h4 className="font-bold decoration-2 underline">{toTitle(day)}</h4>
+          <h4 className="font-bold decoration-2 underline h-6">{toTitle(day)}</h4>
           <GenericList
             items={groupedWorkouts[day]}
             ItemComponent={ProgramWorkoutEditPreview}
@@ -57,7 +57,7 @@ export default function ProgramWorkoutEditWeekList({
               handleProgramWorkouts,
             }}
             getKey={(item) => item.id! + "1"}
-            ulStyle="p-1 flex lg:flex-col gap-2"
+            ulStyle=" flex lg:flex-col gap-2 h-[calc(100%-1.5rem)] "
           />
         </li>
       ))}

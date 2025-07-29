@@ -53,7 +53,7 @@ export default function ProgramEdit() {
                       lg:grid-rows-[2rem_3.5rem_9.5rem] grid-cols-3
                       lg:grid-cols-[1fr_1fr_8.5rem] lg:h-68 gap-4 justify-around`}
         >
-          <h2 className="text-2xl font-semibold col-span-full">{headerText}</h2>
+          <h2 className="text-2xl font-semibold col-span-full truncate">{headerText}</h2>
           <Input
             value={name || ""}
             type="text"

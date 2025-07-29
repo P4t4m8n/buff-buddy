@@ -1,23 +1,15 @@
 import { create } from "zustand";
 import type { IExerciseDTO } from "../../../shared/models/exercise.model";
 import { exerciseService } from "../services/exercise.service";
+import type { IExerciseStore } from "../models/store.model";
 
-interface IExerciseStore {
-  exercises: IExerciseDTO[];
-  loadExercises: () => Promise<void>;
-  saveExercise: (exerciseToSave: IExerciseDTO) => Promise<boolean>;
-  deleteExercise: (id: string) => Promise<void>;
-  isLoading: boolean; //Loading state for exercises
-  isSavingId: string | null; //loading state for the currently edited exercise
-  isDeleting: boolean; //Loading state for exercise deletion
-}
 export const useExerciseStore = create<IExerciseStore>((set, get) => ({
   exercises: [],
   isLoading: false,
   isDeleting: false,
   isSavingId: null,
+  isLoadingId: null,
 
-  //Error catch is handled in the component level
   loadExercises: async () => {
     try {
       set({ isLoading: true });
@@ -32,7 +24,6 @@ export const useExerciseStore = create<IExerciseStore>((set, get) => ({
       set({ isLoading: false });
     }
   },
-  //Error catch is handled in the component level
   saveExercise: async (exerciseToSave: IExerciseDTO) => {
     const currentId = exerciseToSave.id;
     set({ isSavingId: currentId });
@@ -61,13 +52,12 @@ export const useExerciseStore = create<IExerciseStore>((set, get) => ({
       }
     }
   },
-  //Error catch is handled in the component level
   deleteExercise: async (id: string) => {
     set({ isDeleting: true });
     try {
       await exerciseService.delete(id);
       set((state) => ({
-        exercises: state.exercises.filter((exercise) => exercise.id !== id),
+        exercises: state.exercises.filter((exercise) => exercise?.id !== id),
       }));
     } finally {
       set({ isDeleting: false });

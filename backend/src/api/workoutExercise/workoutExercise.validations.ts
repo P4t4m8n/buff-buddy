@@ -9,7 +9,7 @@ import {
 import { CreateCoreSetSchema } from "../coreSets/coreSets.validations";
 
 export const CreateWorkoutExerciseSchema = z.object({
-  order: OrderSchema,
+  order: OrderSchema.optional().nullable(), 
   notes: NotesSchema,
   exerciseId: IDSchema,
   isActive: z.coerce.boolean().default(true),
@@ -25,7 +25,7 @@ export const CreateNestedWorkoutExerciseSchema =
   CreateWorkoutExerciseSchema.superRefine(conditionalOrderRefinement);
 
 export const UpdateNestedWorkoutExerciseSchema =
-  UpdateWorkoutExerciseSchema.partial().superRefine(conditionalOrderRefinement);
+  UpdateWorkoutExerciseSchema.superRefine(conditionalOrderRefinement);
 
 export const WorkoutExerciseParamsSchema = z.object({
   id: z.string().min(1, "WorkoutExercise ID is required"),

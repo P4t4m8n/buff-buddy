@@ -26,7 +26,7 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
   const [programToEdit, setProgramToEdit] = useState<IProgramEditDTO | null>(
     null
   );
-  const { errors } = useFormErrors<IProgramEditDTO>();
+  const { errors, handleError } = useFormErrors<IProgramEditDTO>();
 
   const isLoading = useProgramStore((state) => state.isLoading);
   const getProgramById = useProgramStore((state) => state.getProgramById);
@@ -56,21 +56,21 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
   };
 
   const onSaveProgram = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const formData = new FormData(e.currentTarget);
-    const name = formData.get("name") as string;
-    const notes = formData.get("notes") as string;
-    const isActive = formData.get("isActive") === "on";
-    const programToSave = { ...programToEdit, name, notes, isActive };
-    const res = await saveProgram(programToSave);
-    if (!res) {
-      console.error("Failed to save program");
-      return;
-    }
+    try {
+      e.preventDefault();
+      e.stopPropagation();
+      const formData = new FormData(e.currentTarget);
+      const name = formData.get("name") as string;
+      const notes = formData.get("notes") as string;
+      const isActive = formData.get("isActive") === "on";
+      const programToSave = { ...programToEdit, name, notes, isActive };
+      const res = await saveProgram(programToSave);
 
-    const { id } = res;
-    navigate(`/programs/${id}`);
+      const { id } = res;
+      navigate(`/programs/${id}`);
+    } catch (error) {
+      handleError(error);
+    }
   };
 
   //TODO?? improve logic, specially change of order

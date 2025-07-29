@@ -4,13 +4,13 @@ export interface IBaseFilter {
   take?: number;
 }
 export const DAY_OF_WEEK = [
+  "sunday",
   "monday",
   "tuesday",
   "wednesday",
   "thursday",
   "friday",
   "saturday",
-  "sunday",
 ] as const;
 export type TDayOfWeek = (typeof DAY_OF_WEEK)[number];
 

@@ -6,7 +6,7 @@ import IconPlus from "../Icons/IconPlus";
 import Input from "./Input";
 import Label from "./Label";
 
-interface SelectWithSearchProps<T> {
+interface SelectWithSearchProps<T, P> {
   options: readonly T[];
   selectedOptionName?: string;
   inputName: string;
@@ -16,6 +16,7 @@ interface SelectWithSearchProps<T> {
   parentModelRef?: React.RefObject<HTMLDivElement | null>;
   SelectedComponent?: React.ReactNode;
   AddComponent?: React.ComponentType<IComponentProps<T>>;
+  addComponentProps?: P;
   SelectItemComponent: React.ComponentType<IComponentProps<T>>;
 }
 
@@ -24,20 +25,18 @@ interface IComponentProps<T> {
   parentRef?: React.RefObject<HTMLDivElement | null>;
   isPortal?: boolean;
 }
-export default function SelectWithSearch<T>({
+export default function SelectWithSearch<T, P>({
   options,
-
   handleSelect,
   filterOptions,
   parentModelRef,
   SelectedComponent,
   SelectItemComponent,
   AddComponent,
+  addComponentProps,
   error,
-}: SelectWithSearchProps<T>) {
+}: SelectWithSearchProps<T, P>) {
   const [optionsList, setOptionsList] = useState<T[]>([]);
-
-  // const fieldRef = useRef<HTMLDivElement>(null);
 
   const [open, modelRef, setOpen] = useModel<HTMLDivElement>();
   const [modelPositionClass, setModelPositionClass] = useState(
@@ -116,14 +115,18 @@ export default function SelectWithSearch<T>({
           <ul className="grid grid-rows-[repeat(auto-fill,2rem)] gap-2 h-full overflow-auto">
             {AddComponent ? (
               <li className="w-full h-full">
-                <AddComponent isPortal={true} parentRef={modelRef} />
+                <AddComponent
+                  isPortal={true}
+                  parentRef={modelRef}
+                  {...(addComponentProps as P)}
+                />
               </li>
             ) : null}
             {optionsList.map((option, index) => (
               <li key={index} className="w-full h-full">
                 <Button
                   onClick={(e) => onClick(e, option)}
-                  className="w-full h-full flex cursor-pointer"
+                  className="w-full h-full flex cursor-pointer items-center justify-between"
                 >
                   {SelectItemComponent ? (
                     <SelectItemComponent option={option} parentRef={modelRef} />

@@ -13,7 +13,7 @@ interface IProgramStore {
   isLoadingId: string | null;
   loadPrograms: () => Promise<void>;
   getProgramById: (id?: string) => Promise<IProgramDTO | null>;
-  saveProgram: (programToSave: IProgramEditDTO) => Promise<IProgramDTO | null>;
+  saveProgram: (programToSave: IProgramEditDTO) => Promise<IProgramDTO >;
   deleteProgram: (id: string) => Promise<void>;
 }
 
@@ -62,7 +62,7 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
           workout: {
             ...pw.workout,
             workoutExercises: pw.workout?.workoutExercises?.map((we) => ({
-              coreSets: we.coreSets,
+              coreSet: we.coreSet,
               id: we.id,
               notes: we.notes,
               order: we.order,

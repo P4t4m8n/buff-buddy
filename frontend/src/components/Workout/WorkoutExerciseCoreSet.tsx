@@ -8,20 +8,20 @@ import type { ICoreSetEditDTO } from "../../../../shared/models/set.model";
 import type { TErrorCoreSets } from "../../models/errors.model";
 
 interface IWorkoutExerciseCoreSetProps {
-  coreSets?: ICoreSetEditDTO;
+  coreSet?: ICoreSetEditDTO;
   handleChange: (e: ChangeEvent) => void;
   errors?: TErrorCoreSets;
 }
 export default function WorkoutExerciseCoreSet({
-  coreSets,
+  coreSet,
   handleChange,
   errors,
 }: IWorkoutExerciseCoreSetProps) {
-  if (!coreSets)
+  if (!coreSet)
     return <p className="text-center text-gray-500">No core sets available.</p>;
 
   const { id, hasWarmup, isBodyWeight, reps, weight, restTime, numberOfSets } =
-    coreSets;
+    coreSet;
 
   const inputs = [
     { name: "reps", value: reps, isError: !!errors?.reps },

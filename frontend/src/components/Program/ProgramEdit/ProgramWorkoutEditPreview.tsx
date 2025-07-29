@@ -18,10 +18,10 @@ export default function ProgramWorkoutEditPreview({
   return (
     <li
       key={programWorkout!.id!}
-      className="border text-center w-20 lg:w-full grid
-                 justify-items-center gap-1 p-1 rounded"
+      className="border text-center w-24 lg:w-full flex flex-col items-center justify-between
+                  gap-1 p-1 rounded h-full"
     >
-      <h5 className="font-medium">{name}</h5>
+      <h5 className="font-medium line-clamp-3 ">{name}</h5>
       <div>
         <GenericModel
           Model={ProgramWorkoutEdit}

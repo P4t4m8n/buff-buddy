@@ -8,7 +8,6 @@ import { userWorkoutsUtils } from "./userWorkouts.util";
 export const createUserWorkout = async (req: Request, res: Response) => {
   try {
     const ownerId = asyncLocalStorage.getStore()?.sessionUser?.id;
-    console.log("🚀 ~ createUserWorkout ~ ownerId:", ownerId);
 
     if (!ownerId) {
       throw new AppError("User not authenticated", 401);
@@ -18,7 +17,6 @@ export const createUserWorkout = async (req: Request, res: Response) => {
     invalidatedData.ownerId = ownerId;
 
     const validatedData = CreateUserWorkoutSchema.parse(invalidatedData);
-    console.log("🚀 ~ createUserWorkout ~ validatedData:", validatedData)
 
     const userWorkoutData = await userWorkoutService.create(validatedData);
     const userWorkoutDTO = userWorkoutsUtils.toDTO(userWorkoutData);
@@ -29,7 +27,6 @@ export const createUserWorkout = async (req: Request, res: Response) => {
     });
   } catch (error) {
     const err = AppError.handleResponse(error);
-    console.log("🚀 ~ createUserWorkout ~ err:", err)
     res.status(err.status || 500).json({
       message: err.message || "An unexpected error occurred",
       errors: err.errors || {},

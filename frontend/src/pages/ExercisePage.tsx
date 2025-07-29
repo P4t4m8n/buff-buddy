@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
+
 import { useExerciseStore } from "../store/exercise.store";
+
 import ExerciseEdit from "../components/Exercise/ExerciseEdit";
 import GenericList from "../components/UI/GenericList";
 import ExercisePreview from "../components/Exercise/ExercisePreview";
-import type { IExerciseDTO } from "../../../shared/models/exercise.model";
 import Loader from "../components/UI/Loader";
 import GenericModel from "../components/UI/GenericModel";
+
+import type { IExerciseDTO } from "../../../shared/models/exercise.model";
 
 export default function ExercisePage() {
   const loadExercises = useExerciseStore((state) => state.loadExercises);

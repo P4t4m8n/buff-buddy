@@ -2,10 +2,12 @@ import { z } from "zod";
 import sanitizeHtml from "sanitize-html";
 
 export const conditionalOrderRefinement = (
-  data: { order?: number; crudOperation?: string },
+  data: { order?: number | null; crudOperation?: string },
   ctx: z.RefinementCtx
 ) => {
   if (data.crudOperation !== "delete") {
+    const order = data.order! 
+
     if (data.order === undefined) {
       // For create operations, order is required. For update, it's optional.
       if (data.crudOperation !== "update") {
@@ -23,14 +25,14 @@ export const conditionalOrderRefinement = (
           path: ["order"],
         });
       } else {
-        if (data.order < 1) {
+        if (order < 1) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message: "Order must be at least 1",
             path: ["order"],
           });
         }
-        if (data.order > 100) {
+        if (order> 100) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message: "Order cannot exceed 100",
@@ -145,8 +147,7 @@ export const IDSchema = z
   )
   .transform((val) => val.trim())
   .refine((val) => val.length >= 1, "ID must be at least 1 character long")
-  .refine((val) => val.length <= 50, "ID must be less than 50 characters long")
- 
+  .refine((val) => val.length <= 50, "ID must be less than 50 characters long");
 
 export const BooleanSchema = z.coerce.boolean().default(false);
 

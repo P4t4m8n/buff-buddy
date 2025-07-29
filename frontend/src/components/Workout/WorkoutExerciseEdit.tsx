@@ -14,6 +14,8 @@ import type { IWorkoutExerciseEditDTO } from "../../../../shared/models/workout.
 import type { IModelProps } from "../UI/GenericModel";
 import type { ICoreSetEditDTO } from "../../../../shared/models/set.model";
 
+import WorkoutExerciseEditAddExercise from "./WorkoutExerciseEditAddExercise";
+
 interface WorkoutExerciseEditProps extends IModelProps<HTMLDivElement> {
   workoutExercise?: IWorkoutExerciseEditDTO;
   workoutExerciseLength?: number;
@@ -80,7 +82,7 @@ export default function WorkoutExerciseEdit({
 
   if (!workoutExerciseToEdit) return <Loader />;
 
-  const { order, notes, exercise, coreSets } = workoutExerciseToEdit;
+  const { order, notes, exercise, coreSet } = workoutExerciseToEdit;
 
   const isExercise = !!exercise?.id;
   return (
@@ -140,15 +142,15 @@ export default function WorkoutExerciseEdit({
             exercise?.id ? exercise?.name : "Select an Exercise"
           }
           SelectItemComponent={({ option }) => (
-            <span className="w-full h-full">{option?.name}</span>
+            <span className="">{option?.name}</span>
           )}
-          // AddComponent={ExerciseEditModel}
+          AddComponent={WorkoutExerciseEditAddExercise}
         />
       </div>
 
       {isExercise ? (
         <WorkoutExerciseCoreSet
-          coreSets={coreSets}
+          coreSet={coreSet}
           handleChange={handleSetChange}
           errors={coreSetsErrors}
         />

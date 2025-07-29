@@ -16,7 +16,7 @@ export const CreateProgramWorkoutSchema = BadeProgramWorkoutSchema.extend({
 });
 export const UpdateProgramWorkoutSchema = BadeProgramWorkoutSchema.extend({
   workout: UpdateWorkoutSchema,
-  id: IDSchema,
+  id: IDSchema.optional(),
 });
 
 export type CreateProgramWorkoutInput = z.infer<
