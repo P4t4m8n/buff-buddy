@@ -3,11 +3,8 @@ import type { IUserWorkoutExercisesDTO } from "../../../../shared/models/workout
 import { useModel } from "../../hooks/shared/useModel";
 import Button from "../UI/Button";
 import IconArrow from "../UI/Icons/IconArrow";
-import WorkoutStartExerciseVideo from "./WorkoutStartExerciseVideo";
-import WorkoutStartUserSetList from "./WorkoutStartUserSetList";
 
-import WorkoutStartExerciseItemNotes from "./WorkoutStartExerciseItemNotes";
-import WorkoutStartExerciseCoreSets from "./WorkoutStartExerciseCoreSets";
+import WorkoutStartExerciseItemDetails from "./WorkoutStartExerciseItemDetails";
 
 interface IWorkoutStartExerciseItemProps {
   item: IUserWorkoutExercisesDTO;
@@ -23,8 +20,7 @@ export default function WorkoutStartExerciseItem({
 }: IWorkoutStartExerciseItemProps) {
   const [isOpen, , , handleModel] = useModel();
 
-  const { id, exercise, coreSet, notes, userSets } = workoutStart;
-  const { youtubeUrl } = exercise ?? {};
+  const { exercise, coreSet, userSets } = workoutStart;
 
   const isFinished = userSets.reduce((acc, set) => {
     return acc && !!set?.isCompleted;
@@ -57,40 +53,13 @@ export default function WorkoutStartExerciseItem({
         />
       </Button>
 
-      <div
-        className={`${
-          isOpen ? " flex flex-col opacity-100 h-fit pb-4" : " opacity-0 h-auto"
-        }
-                      gap-2 justify-items-center w-full  
-                       transition-all duration-500 relative`}
-      >
-        <WorkoutStartExerciseVideo youtubeUrl={youtubeUrl} />
-        {notes ? <WorkoutStartExerciseItemNotes notes={notes} /> : null}
-        <WorkoutStartExerciseCoreSets coreSet={coreSet} />
-        <WorkoutStartUserSetList
-          userSets={userSets}
-          handleUserSetsChange={handleUserSetsChange}
-          logUserSet={logUserSet}
-        />
-
-        <div className="flex w-full gap-8">
-          <Button
-            className="text-amber  hover:text-black w-full"
-            buttonStyle="model"
-            type="button"
-          >
-            Fill All Sets
-          </Button>
-          <Button
-            className="text-amber  hover:text-black w-full"
-            buttonStyle="model"
-            type="button"
-            onClick={() => completeAllExerciseSets(id!)}
-          >
-            Complete All Sets
-          </Button>
-        </div>
-      </div>
+      <WorkoutStartExerciseItemDetails
+        workoutStart={workoutStart}
+        isOpen={isOpen}
+        handleUserSetsChange={handleUserSetsChange}
+        logUserSet={logUserSet}
+        completeAllExerciseSets={completeAllExerciseSets}
+      />
     </li>
   );
 }

@@ -16,7 +16,7 @@ export default function WorkoutStartExerciseList({
 }: IWorkoutStartExerciseListProps) {
   return (
     <GenericList
-      items={workoutExercises ?? []}
+      items={workoutExercises}
       ItemComponent={WorkoutStartExerciseItem}
       itemComponentProps={{
         handleUserSetsChange,

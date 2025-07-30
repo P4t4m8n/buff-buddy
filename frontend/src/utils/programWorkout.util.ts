@@ -2,6 +2,7 @@ import type {
   IProgramWorkoutEditDTO,
   IProgramWorkoutDTO,
 } from "../../../shared/models/program.model";
+import { appUtil } from "./app.util";
 
 export const programWorkoutUtil = {
   dtoToEditDto(
@@ -13,7 +14,7 @@ export const programWorkoutUtil = {
     }
     return {
       ...dto,
-      crudOperation: dto.id ? "update" : "create",
+      crudOperation: dto.id && !dto.id.startsWith("temp/") ? "update" : "create",
       workout: {
         ...dto.workout,
         crudOperation: isCopy ? "create" : "read",
@@ -25,6 +26,7 @@ export const programWorkoutUtil = {
     return {
       daysOfWeek: [],
       crudOperation: "create",
+      id:appUtil.getTempId(),
     };
   },
 };

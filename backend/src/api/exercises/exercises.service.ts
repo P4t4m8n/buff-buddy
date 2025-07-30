@@ -15,7 +15,7 @@ export const exerciseService = {
     const where: Prisma.ExerciseWhereInput =
       exerciseUtil.buildWhereClause(filter);
 
-    const take = filter.take ?? 10;
+    const take = filter.take ?? 100;
     const skip =
       filter.skip ??
       (filter.page && filter.page > 1 ? (filter.page - 1) * take : 0);

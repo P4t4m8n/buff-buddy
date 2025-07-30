@@ -67,8 +67,7 @@ export const calendarUtil = {
     if (!dateObj) return "sunday";
 
     const jsDay = dateObj.getDay();
-    const index = jsDay === 0 ? 6 : jsDay - 1;
-    return DAY_OF_WEEK[index] as TDayOfWeek;
+    return DAY_OF_WEEK[jsDay] as TDayOfWeek;
   },
   getNextDay: (day: TDayOfWeek, dir: number): TDayOfWeek => {
     const index = DAY_OF_WEEK.indexOf(day);

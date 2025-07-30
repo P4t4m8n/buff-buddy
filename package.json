@@ -12,7 +12,6 @@
     "studio": "npm run studio --workspace=backend",
     "test": "npm test --workspace=backend",
     "migrate": "npm run migrate --workspace=backend",
-    "gen": "npm run gen --workspace=backend",
-    "lint": "eslint ."
+    "gen": "npm run gen --workspace=backend"
   }
 }

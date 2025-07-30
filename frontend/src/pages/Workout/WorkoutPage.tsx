@@ -1,19 +1,27 @@
-import { useProgramStore } from "../../store/program.store";
-import Loader from "../../components/UI/Loader";
+import { Outlet } from "react-router";
 import { useEffect, useState } from "react";
+
+import { useProgramStore } from "../../store/program.store";
+
 import { calendarUtil } from "../../utils/calendar.util";
-import type { DaysOfWeek } from "../../../../backend/prisma/generated/prisma";
+
+import { toTitle } from "../../utils/toTitle";
+import Loader from "../../components/UI/Loader";
 import Button from "../../components/UI/Button";
 import IconArrow from "../../components/UI/Icons/IconArrow";
-import { toTitle } from "../../utils/toTitle";
-import GenericList from "../../components/UI/GenericList";
-import ProgramWorkoutPreview from "../../components/ProgramWorkout/ProgramWorkoutPreview";
-import { Outlet } from "react-router";
+
+import ProgramWorkoutList from "../../components/ProgramWorkout/ProgramWorkoutList";
+
+import type { DaysOfWeek } from "../../../../backend/prisma/generated/prisma";
+import type { IProgramWorkoutDTO } from "../../../../shared/models/program.model";
 
 export default function WorkoutPage() {
   const programs = useProgramStore((state) => state.programs);
+
   const loadPrograms = useProgramStore((state) => state.loadPrograms);
+
   const isLoading = useProgramStore((state) => state.isLoading);
+
   const [day, setDay] = useState<DaysOfWeek | null>(null);
 
   useEffect(() => {
@@ -35,7 +43,7 @@ export default function WorkoutPage() {
   //     .filter((pw) => pw?.daysOfWeek.includes(day!))
   //     .filter((p) => !!p); //FOR TS to be quiet
   // }, [programs, day]);
-  const cleanPrograms = programs
+  const cleanPrograms: IProgramWorkoutDTO[] = programs
     .filter((p) => p.isActive)
     .map((p) => p.programWorkouts?.map((pw) => ({ ...pw, programId: p.id })))
     .flat()
@@ -60,12 +68,7 @@ export default function WorkoutPage() {
           </Button>
         </div>
       </header>
-      <GenericList
-        items={cleanPrograms}
-        ItemComponent={ProgramWorkoutPreview}
-        getKey={(item) => item?.id ?? "" + day}
-        ulStyle="px-mobile"
-      />
+      <ProgramWorkoutList programWorkouts={cleanPrograms} day={day} />
       <Outlet />
     </div>
   );

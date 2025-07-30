@@ -33,3 +33,4 @@ export const createUserWorkout = async (req: Request, res: Response) => {
     });
   }
 };
+

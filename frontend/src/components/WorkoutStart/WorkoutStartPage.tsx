@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNavigate, useParams } from "react-router";
 import Button from "../../components/UI/Button";
 import GenericSaveButton from "../../components/UI/GenericSaveButton";
@@ -26,6 +25,7 @@ export default function WorkoutStartPage() {
 
   const [workoutStart, setWorkoutStart] =
     React.useState<IUserWorkoutDTO | null>(null);
+  console.log("🚀 ~ WorkoutStartPage ~ workoutStart:", workoutStart);
   const { errors } = useFormErrors<IUserWorkoutDTO>();
 
   const getById = useWorkoutStore((state) => state.getById);
@@ -53,6 +53,7 @@ export default function WorkoutStartPage() {
       e.preventDefault();
       e.stopPropagation();
       await workoutStartService.save(workoutStart!);
+      navigate(-1);
     } catch (error) {
       console.error("Error submitting workout start:", error);
     }
@@ -157,8 +158,6 @@ export default function WorkoutStartPage() {
           ...us,
           reps: we.coreSet?.reps,
           weight: we.coreSet?.weight,
-          isMuscleFailure: Math.random() > 0.5,
-          isJointPain: Math.random() > 0.5,
           isCompleted: true,
         }));
         return {
@@ -172,12 +171,16 @@ export default function WorkoutStartPage() {
       };
     });
   };
+
   if (isLoadingId) {
     return <Loader />;
   }
 
   const { workoutExercises, workout } = workoutStart ?? {};
   const { name } = workout ?? {};
+
+  const sortedWorkoutExercises =
+    workoutExercises?.sort((a, b) => a.order! - b.order!) ?? [];
 
   return (
     <form
@@ -197,13 +200,17 @@ export default function WorkoutStartPage() {
         }}
       />
       <WorkoutStartExerciseList
-        workoutExercises={workoutExercises ?? []}
+        workoutExercises={sortedWorkoutExercises}
         handleUserSetsChange={handleUserSetsChange}
         logUserSet={logUserSet}
         completeAllExerciseSets={completeAllExerciseSets}
       />
       <div className="flex justify-between h-10">
-        <Button buttonStyle="warning" onClick={() => navigate(-1)}>
+        <Button
+          buttonStyle="warning"
+          type="button"
+          onClick={() => navigate(-1)}
+        >
           Cancel
         </Button>
         <GenericSaveButton

@@ -14,7 +14,7 @@ export default function WorkoutDetailsPage() {
   const [workoutToView, setWorkoutToView] = React.useState<IWorkoutDTO | null>(
     null
   );
-  const getWorkoutById = useWorkoutStore((state) => state.getWorkoutById);
+  const getWorkoutById = useWorkoutStore((state) => state.getById);
   const isLoadingId = useWorkoutStore((state) => state.isLoadingId === id);
 
   useEffect(() => {

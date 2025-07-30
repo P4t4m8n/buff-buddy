@@ -21,6 +21,7 @@ export interface IUserWorkoutEditDTO extends IUserWorkoutBase {
   workout?: IWorkoutDTO;
   workoutId?: string;
   workoutExercises: IUserWorkoutEditExercisesDTO[];
+  lastUserWorkout?: Partial<IUserWorkoutDTO> | null;
 }
 
 export interface IUserWorkoutExercisesDTO extends IWorkoutExerciseDTO {

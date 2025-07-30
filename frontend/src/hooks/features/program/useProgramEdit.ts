@@ -75,6 +75,7 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
 
   //TODO?? improve logic, specially change of order
   const handleProgramWorkouts = (programWorkout: IProgramWorkoutEditDTO) => {
+    console.log("🚀 ~ handleProgramWorkouts ~ programWorkout:", programWorkout)
     setProgramToEdit((prev) => {
       if (!prev) return null;
       const programWorkouts = prev?.programWorkouts ?? [];

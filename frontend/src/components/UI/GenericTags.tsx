@@ -19,7 +19,7 @@ export default function GenericTags<T>({
         ItemComponent={GenericTag}
         itemComponentProps={{ getTag }}
         getKey={getKey}
-        ulStyle="flex w-full overflow-auto gap-2 py-2"
+        ulStyle="flex w-full overflow-x-auto gap-2 py-2"
       />
     </>
   );

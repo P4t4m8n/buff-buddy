@@ -1,0 +1,566 @@
+{
+  "id": "cmdq7eof7000ghdk0sv6xfehc",
+  "name": "My Weekly Program",
+  "notes": "",
+  "startDate": "2025-07-29T21:00:00.000Z",
+  "endDate": "2026-07-29T21:00:00.000Z",
+  "isActive": true,
+  "programWorkouts": [
+    {
+      "id": "cmdq7eof7000hhdk08wyzel4f",
+      "daysOfWeek": ["tuesday"],
+      "workout": {
+        "id": "cmdq6zr7b006rhd7s2q3brdup",
+        "name": "Lags and biceps",
+        "notes": null,
+        "owner": {
+          "id": "cmcgkqf590000hdswzd7aym5g",
+          "firstName": "Eran",
+          "lastName": "michaeli"
+        },
+        "workoutExercises": [
+          {
+            "id": "cmdq6zr7b0074hd7sau33bhq0",
+            "order": 4,
+            "notes": "Each hand",
+            "exercise": {
+              "id": "cmct6fqpw0007hd34chzftxdg",
+              "name": "Squat",
+              "youtubeUrl": "https://www.youtube.com/watch?v=i7J5h7BJ07g&amp;list=PLyqKj7LwU2RuAg-us4mzap6izNcc1fuRW&amp;index=5",
+              "types": ["strength"],
+              "equipment": ["dumbbell", "barbell"],
+              "muscles": ["hamstrings", "glutes"]
+            },
+            "coreSet": {
+              "id": "cmdq6zr7b0075hd7sg7wc9r4l",
+              "hasWarmup": true,
+              "restTime": 45,
+              "createdAt": "2025-07-30T16:40:46.968Z",
+              "updatedAt": "2025-07-30T16:45:45.370Z",
+              "numberOfSets": 3,
+              "reps": 10,
+              "weight": 6.5,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq765fy0000hdk0tvcob396",
+            "order": 5,
+            "notes": "Each hand add one more set to left hand",
+            "exercise": {
+              "id": "cmdojsn360005hdtorhzzdfr8",
+              "name": "Incline Dumbbell Curl",
+              "youtubeUrl": "https://www.youtube.com/watch?v=aTYlqC_JacQ&amp;list=PLyqKj7LwU2Rt1cwOsHwdXa2TiRzjA6uoB&amp;index=14",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["chest"]
+            },
+            "coreSet": {
+              "id": "cmdq765fy0001hdk01gklg7j5",
+              "hasWarmup": true,
+              "restTime": 30,
+              "createdAt": "2025-07-30T16:45:45.358Z",
+              "updatedAt": "2025-07-30T16:45:45.358Z",
+              "numberOfSets": 3,
+              "reps": 10,
+              "weight": 5.5,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq765g10004hdk0lmndg4ph",
+            "order": 6,
+            "notes": "One Dumbbell",
+            "exercise": {
+              "id": "cmcvvjoct000bhdocan4o7s4p",
+              "name": "Hip Thrust",
+              "youtubeUrl": "https://www.youtube.com/watch?v=EF7jXP17DPE&amp;list=PLyqKj7LwU2RtZnGDmtpyhDdvUHFvVyZnA",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["glutes"]
+            },
+            "coreSet": {
+              "id": "cmdq765g20005hdk0h5ig7a1l",
+              "hasWarmup": true,
+              "restTime": 45,
+              "createdAt": "2025-07-30T16:45:45.362Z",
+              "updatedAt": "2025-07-30T16:45:45.362Z",
+              "numberOfSets": 3,
+              "reps": 10,
+              "weight": 5.5,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq6zr7b006shd7siq3piqrt",
+            "order": 1,
+            "notes": "One hand",
+            "exercise": {
+              "id": "cmct6sk5f000shd340ul28yyx",
+              "name": "Stair Calves Rises",
+              "youtubeUrl": "https://www.youtube.com/watch?v=__qfDhdByMY&amp;list=PLyqKj7LwU2RtQyn5wWMJbD0rCV-cSkiK3&amp;index=5",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["calves"]
+            },
+            "coreSet": {
+              "id": "cmdq6zr7b006thd7stihnk943",
+              "hasWarmup": true,
+              "restTime": 30,
+              "createdAt": "2025-07-30T16:40:46.968Z",
+              "updatedAt": "2025-07-30T16:45:45.363Z",
+              "numberOfSets": 3,
+              "reps": 15,
+              "weight": 18,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq6zr7b006whd7sk8rfdbvs",
+            "order": 2,
+            "notes": "Each hand",
+            "exercise": {
+              "id": "cmdojnsbr0004hdtonevq8hea",
+              "name": "dumbbell deadlift",
+              "youtubeUrl": "https://www.youtube.com/watch?v=gLogcYIvgRA",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["hamstrings", "glutes", "quads", "lower_back"]
+            },
+            "coreSet": {
+              "id": "cmdq6zr7b006xhd7s5pu6lqmd",
+              "hasWarmup": true,
+              "restTime": 10,
+              "createdAt": "2025-07-30T16:40:46.968Z",
+              "updatedAt": "2025-07-30T16:45:45.366Z",
+              "numberOfSets": 1,
+              "reps": 10,
+              "weight": 10,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq6zr7b0070hd7ss3jutpf8",
+            "order": 3,
+            "notes": "Each hand",
+            "exercise": {
+              "id": "cmct5dsbf0000hd34gsw73p2a",
+              "name": "Stiff Legged Deadlift",
+              "youtubeUrl": "https://www.youtube.com/watch?v=cYKYGwcg0U8",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["glutes", "hamstrings"]
+            },
+            "coreSet": {
+              "id": "cmdq6zr7b0071hd7s7gvctm3n",
+              "hasWarmup": true,
+              "restTime": 45,
+              "createdAt": "2025-07-30T16:40:46.968Z",
+              "updatedAt": "2025-07-30T16:45:45.367Z",
+              "numberOfSets": 3,
+              "reps": 10,
+              "weight": 8,
+              "isBodyWeight": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "daysOfWeek": ["sunday", "thursday"],
+      "crudOperation": "create",
+      "id": "temp/lk8aaae029",
+      "workout": {
+        "id": "cmdq83m6p001uhdk0tj8p3isw",
+        "name": "Back and Biceps",
+        "notes": null,
+        "owner": {
+          "id": "cmcgkqf590000hdswzd7aym5g",
+          "firstName": "Eran",
+          "lastName": "michaeli"
+        },
+        "workoutExercises": [
+          {
+            "id": "cmdq83m6q002jhdk0omd42sos",
+            "order": 7,
+            "notes": null,
+            "exercise": {
+              "id": "cmdoj8s1m0003hdto6v5q0i20",
+              "name": "Dumbbell Shrug",
+              "youtubeUrl": "https://www.youtube.com/watch?v=_t3lrPI6Ns4&amp;list=PLyqKj7LwU2RvynkwL93EcfuPUaDrWNOEc&amp;index=9",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["traps"]
+            },
+            "coreSet": {
+              "id": "cmdq83m6q002khdk0uuc7z4uh",
+              "hasWarmup": false,
+              "restTime": 30,
+              "createdAt": "2025-07-30T17:11:46.706Z",
+              "updatedAt": "2025-07-30T17:11:46.706Z",
+              "numberOfSets": 3,
+              "reps": 15,
+              "weight": 10,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq83m6q002fhdk0icn6r1lo",
+            "order": 6,
+            "notes": null,
+            "exercise": {
+              "id": "cmdoix23f0001hdtoto4p7lzf",
+              "name": "Dumbbell Pullover",
+              "youtubeUrl": "https://www.youtube.com/watch?v=jQjWlIwG4sI&amp;list=PLyqKj7LwU2RsCtKw3UlE85HYgPM3-xoO1&amp;index=9",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["lats"]
+            },
+            "coreSet": {
+              "id": "cmdq83m6q002ghdk0za84f5ms",
+              "hasWarmup": true,
+              "restTime": 45,
+              "createdAt": "2025-07-30T17:11:46.706Z",
+              "updatedAt": "2025-07-30T17:11:46.706Z",
+              "numberOfSets": 3,
+              "reps": 10,
+              "weight": 10,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq83m6p002bhdk0jhoniyvd",
+            "order": 5,
+            "notes": null,
+            "exercise": {
+              "id": "cmdojsn360005hdtorhzzdfr8",
+              "name": "Incline Dumbbell Curl",
+              "youtubeUrl": "https://www.youtube.com/watch?v=aTYlqC_JacQ&amp;list=PLyqKj7LwU2Rt1cwOsHwdXa2TiRzjA6uoB&amp;index=14",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["chest"]
+            },
+            "coreSet": {
+              "id": "cmdq83m6p002chdk01jgathvu",
+              "hasWarmup": false,
+              "restTime": 30,
+              "createdAt": "2025-07-30T17:11:46.706Z",
+              "updatedAt": "2025-07-30T17:11:46.706Z",
+              "numberOfSets": 3,
+              "reps": 10,
+              "weight": 5.5,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq83m6p0027hdk0dhke0q8u",
+            "order": 4,
+            "notes": null,
+            "exercise": {
+              "id": "cmdq7vlja001shdk0ci2w29z1",
+              "name": "Dumbbell Row to Chest",
+              "youtubeUrl": "https://www.youtube.com/watch?v=UPGuwx7GQ9s&amp;list=PLyqKj7LwU2RsCtKw3UlE85HYgPM3-xoO1&amp;index=6",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["lats", "traps", "rhomboids"]
+            },
+            "coreSet": {
+              "id": "cmdq83m6p0028hdk01qd1un46",
+              "hasWarmup": false,
+              "restTime": 45,
+              "createdAt": "2025-07-30T17:11:46.706Z",
+              "updatedAt": "2025-07-30T17:11:46.706Z",
+              "numberOfSets": 3,
+              "reps": 10,
+              "weight": 8,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq83m6p0023hdk0mwxrkrqq",
+            "order": 3,
+            "notes": null,
+            "exercise": {
+              "id": "cmdojnsbr0004hdtonevq8hea",
+              "name": "dumbbell deadlift",
+              "youtubeUrl": "https://www.youtube.com/watch?v=gLogcYIvgRA",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["hamstrings", "glutes", "quads", "lower_back"]
+            },
+            "coreSet": {
+              "id": "cmdq83m6p0024hdk06nwumjxb",
+              "hasWarmup": true,
+              "restTime": 45,
+              "createdAt": "2025-07-30T17:11:46.706Z",
+              "updatedAt": "2025-07-30T17:11:46.706Z",
+              "numberOfSets": 3,
+              "reps": 10,
+              "weight": 10,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq83m6p001zhdk0v3ex2d35",
+            "order": 2,
+            "notes": null,
+            "exercise": {
+              "id": "cmdoizfu00002hdtonvja55ki",
+              "name": "Single Arm Supported Dumbbell Row",
+              "youtubeUrl": "https://www.youtube.com/watch?v=DMo3HJoawrU&amp;list=PLyqKj7LwU2RsCtKw3UlE85HYgPM3-xoO1&amp;index=23",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["lats", "traps"]
+            },
+            "coreSet": {
+              "id": "cmdq83m6p0020hdk0uuvu4gng",
+              "hasWarmup": false,
+              "restTime": 1,
+              "createdAt": "2025-07-30T17:11:46.706Z",
+              "updatedAt": "2025-07-30T17:11:46.706Z",
+              "numberOfSets": 6,
+              "reps": 10,
+              "weight": 10,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq83m6p001vhdk0bga33653",
+            "order": 1,
+            "notes": null,
+            "exercise": {
+              "id": "cmdoib0n70000hdto51iugguj",
+              "name": "Underhand Pullup",
+              "youtubeUrl": "https://www.youtube.com/watch?v=9JC1EwqezGY&amp;list=PLyqKj7LwU2RsCtKw3UlE85HYgPM3-xoO1&amp;index=32",
+              "types": ["strength"],
+              "equipment": ["pull_up_bar"],
+              "muscles": ["lats", "traps"]
+            },
+            "coreSet": {
+              "id": "cmdq83m6p001whdk0frtk20sk",
+              "hasWarmup": true,
+              "restTime": 45,
+              "createdAt": "2025-07-30T17:11:46.706Z",
+              "updatedAt": "2025-07-30T17:11:46.706Z",
+              "numberOfSets": 3,
+              "reps": 4,
+              "weight": 0,
+              "isBodyWeight": true
+            }
+          }
+        ],
+        "crudOperation": "create"
+      }
+    },
+    {
+      "daysOfWeek": ["monday", "friday"],
+      "crudOperation": "create",
+      "id": "temp/hl2dzy83z07",
+      "workout": {
+        "id": "cmdq7lv6o000zhdk0hnt0xnim",
+        "name": "Shoulders and Chest",
+        "notes": null,
+        "owner": {
+          "id": "cmcgkqf590000hdswzd7aym5g",
+          "firstName": "Eran",
+          "lastName": "michaeli"
+        },
+        "workoutExercises": [
+          {
+            "id": "cmdq84zmv002nhdk05djvcz9p",
+            "order": 3,
+            "notes": null,
+            "exercise": {
+              "id": "cmdq7xyq4001thdk0mdiwadvl",
+              "name": "Standing Dumbbell Shoulder Press",
+              "youtubeUrl": "https://www.youtube.com/watch?v=Raemd3qWgJc&amp;list=PLyqKj7LwU2RtjiVutSXk5uC2h7KVMu1Az&amp;index=10",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["front_delts", "side_delts", "rear_delts"]
+            },
+            "coreSet": {
+              "id": "cmdq84zmv002ohdk0mqpppqzx",
+              "hasWarmup": false,
+              "restTime": 45,
+              "createdAt": "2025-07-30T17:12:50.791Z",
+              "updatedAt": "2025-07-30T17:12:50.791Z",
+              "numberOfSets": 3,
+              "reps": 10,
+              "weight": 6.5,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq7lv6p0010hdk04saxq1kn",
+            "order": 1,
+            "notes": null,
+            "exercise": {
+              "id": "cmdojxizx001mhdtoz8k4urn8",
+              "name": "Incline Dumbbell Flye",
+              "youtubeUrl": "https://www.youtube.com/watch?v=8oR5hBwbIBc&amp;list=PLyqKj7LwU2RuyZwWCIiDHuFZGN11QW3Ff&amp;index=12",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["chest"]
+            },
+            "coreSet": {
+              "id": "cmdq7lv6p0011hdk0ho44zpn4",
+              "hasWarmup": true,
+              "restTime": 45,
+              "createdAt": "2025-07-30T16:57:58.561Z",
+              "updatedAt": "2025-07-30T17:12:50.793Z",
+              "numberOfSets": 3,
+              "reps": 10,
+              "weight": 5.5,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq7lv6p0014hdk0sq6hbyah",
+            "order": 2,
+            "notes": null,
+            "exercise": {
+              "id": "cmdojyv7s001nhdtokft9cpax",
+              "name": "Incline Dumbbell Press",
+              "youtubeUrl": "https://www.youtube.com/watch?v=5CECBjd7HLQ&amp;list=PLyqKj7LwU2RuyZwWCIiDHuFZGN11QW3Ff&amp;index=13",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["chest"]
+            },
+            "coreSet": {
+              "id": "cmdq7lv6p0015hdk0bf4f6fvx",
+              "hasWarmup": true,
+              "restTime": 45,
+              "createdAt": "2025-07-30T16:57:58.561Z",
+              "updatedAt": "2025-07-30T17:12:50.794Z",
+              "numberOfSets": 3,
+              "reps": 10,
+              "weight": 10,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq7lv6p0018hdk0amh0cljr",
+            "order": 4,
+            "notes": null,
+            "exercise": {
+              "id": "cmdok0uwj001ohdtotgegketl",
+              "name": "Bent Lateral Raise",
+              "youtubeUrl": "https://www.youtube.com/watch?v=34gVHrkaiz0&amp;list=PLyqKj7LwU2Rv-tzrJev2STMTIGt_JeugT",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["chest"]
+            },
+            "coreSet": {
+              "id": "cmdq7lv6p0019hdk0x3f7tt32",
+              "hasWarmup": true,
+              "restTime": 30,
+              "createdAt": "2025-07-30T16:57:58.561Z",
+              "updatedAt": "2025-07-30T17:12:50.795Z",
+              "numberOfSets": 3,
+              "reps": 10,
+              "weight": 4.5,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq7lv6p001chdk02356l3ur",
+            "order": 5,
+            "notes": "Try to reach all the way up",
+            "exercise": {
+              "id": "cmdok74ca001phdtoxvf284dc",
+              "name": "Lateral Raise",
+              "youtubeUrl": "https://www.youtube.com/watch?v=OuG1smZTsQQ&amp;list=PLyqKj7LwU2RuNVJBl0CtfZdxQ99IhKCcu&amp;index=5",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["chest"]
+            },
+            "coreSet": {
+              "id": "cmdq7lv6p001dhdk0vv9u7jnk",
+              "hasWarmup": true,
+              "restTime": 30,
+              "createdAt": "2025-07-30T16:57:58.561Z",
+              "updatedAt": "2025-07-30T17:12:50.796Z",
+              "numberOfSets": 3,
+              "reps": 10,
+              "weight": 4.5,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq7lv6p001ghdk0rdigjdpk",
+            "order": 6,
+            "notes": null,
+            "exercise": {
+              "id": "cmdok9f4r001qhdtovfq023qm",
+              "name": "Dumbbell Upright Row",
+              "youtubeUrl": "https://www.youtube.com/watch?v=Ub6QruNKfbY&amp;list=PLyqKj7LwU2RuNVJBl0CtfZdxQ99IhKCcu&amp;index=4",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["chest"]
+            },
+            "coreSet": {
+              "id": "cmdq7lv6p001hhdk0cjyqcmu0",
+              "hasWarmup": false,
+              "restTime": 30,
+              "createdAt": "2025-07-30T16:57:58.561Z",
+              "updatedAt": "2025-07-30T17:12:50.798Z",
+              "numberOfSets": 30,
+              "reps": 10,
+              "weight": 5.5,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq7lv6p001khdk0h3kptid0",
+            "order": 7,
+            "notes": null,
+            "exercise": {
+              "id": "cmdoknvt70000hdusg6q9qswn",
+              "name": "Dumbbell Skullcrusher",
+              "youtubeUrl": "https://www.youtube.com/watch?v=HurmGkvE5s0",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["chest"]
+            },
+            "coreSet": {
+              "id": "cmdq7lv6p001lhdk04q782c4i",
+              "hasWarmup": false,
+              "restTime": 30,
+              "createdAt": "2025-07-30T16:57:58.561Z",
+              "updatedAt": "2025-07-30T17:12:50.800Z",
+              "numberOfSets": 3,
+              "reps": 10,
+              "weight": 5.5,
+              "isBodyWeight": false
+            }
+          },
+          {
+            "id": "cmdq7lv6p001ohdk0w5o4thwe",
+            "order": 8,
+            "notes": null,
+            "exercise": {
+              "id": "cmdokpded0001hdusp0al3jom",
+              "name": "Deficit Pushup",
+              "youtubeUrl": "https://www.youtube.com/watch?v=gmNlqsE3Onc",
+              "types": ["strength"],
+              "equipment": ["dumbbell"],
+              "muscles": ["chest"]
+            },
+            "coreSet": {
+              "id": "cmdq7lv6p001phdk0iqx9ovo2",
+              "hasWarmup": false,
+              "restTime": 45,
+              "createdAt": "2025-07-30T16:57:58.561Z",
+              "updatedAt": "2025-07-30T17:12:50.801Z",
+              "numberOfSets": 3,
+              "reps": 5,
+              "weight": 0,
+              "isBodyWeight": true
+            }
+          }
+        ],
+        "crudOperation": "create"
+      }
+    }
+  ]
+}

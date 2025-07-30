@@ -1,6 +1,8 @@
 import type { IProgramWorkoutDTO } from "../../../../shared/models/program.model";
+import GenericModel from "../UI/GenericModel";
 import GenericTags from "../UI/GenericTags";
 import LinkComponent from "../UI/Link";
+import WorkoutEdit from "../Workout/WorkoutEdit";
 
 interface IProgramWorkoutPreviewProps {
   item: IProgramWorkoutDTO;
@@ -27,7 +29,7 @@ export default function ProgramWorkoutPreview({
         />
       </div>
 
-      <div>
+      <div className="w-full overflow-hidden">
         <h5>Exercises:</h5>
         {/* Exercises name tags */}
         <GenericTags
@@ -38,6 +40,12 @@ export default function ProgramWorkoutPreview({
       </div>
 
       <div className="gap-4  inline-flex justify-between">
+        <GenericModel
+          Model={WorkoutEdit}
+          modelProps={{ workout }}
+          mode="create"
+          buttonProps={{ buttonStyle: "model" }}
+        />
         <LinkComponent
           linkStyle="model"
           mode="details"

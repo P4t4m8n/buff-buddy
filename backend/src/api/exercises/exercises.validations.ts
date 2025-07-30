@@ -1,45 +1,16 @@
 import { z } from "zod";
 import sanitizeHtml from "sanitize-html";
+import {
+  EXERCISE_EQUIPMENT,
+  EXERCISE_MUSCLES,
+  EXERCISE_TYPES,
+} from "../../../../shared/consts/exercise.consts";
 
-export const ExerciseMuscleSchema = z.enum([
-  "abs",
-  "back",
-  "biceps",
-  "calves",
-  "chest",
-  "core",
-  "forearms",
-  "glutes",
-  "hamstrings",
-  "hip_flexors",
-  "lower_back",
-  "neck",
-  "obliques",
-  "quads",
-  "shoulders",
-  "shins",
-  "traps",
-  "triceps",
-  "upper_back",
-]);
+export const ExerciseMuscleSchema = z.enum(EXERCISE_MUSCLES);
 
-export const ExerciseEquipmentSchema = z.enum([
-  "barbell",
-  "body_weight",
-  "cable",
-  "dumbbell",
-  "kettlebell",
-  "medicine_ball",
-  "none",
-  "resistance_band",
-]);
+export const ExerciseEquipmentSchema = z.enum(EXERCISE_EQUIPMENT);
 
-export const ExerciseTypeSchema = z.enum([
-  "strength",
-  "cardio",
-  "flexibility",
-  "balance",
-]);
+export const ExerciseTypeSchema = z.enum(EXERCISE_TYPES);
 
 export const CreateExerciseSchema = z.object({
   name: z

@@ -8,7 +8,7 @@ import { IExerciseDTO } from "../../../../shared/models/exercise.model";
 import {
   IUserWorkoutDTO,
   IUserWorkoutEditDTO,
-} from "../../../../shared/models/workoutStart.model";
+} from "../../../../shared/models/userWorkout";
 import {
   IProgramDTO,
   IProgramEditDTO,

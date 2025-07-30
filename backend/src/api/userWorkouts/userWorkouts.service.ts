@@ -3,6 +3,12 @@ import { prisma } from "../../../prisma/prisma";
 import { IUserWorkout } from "./userWorkouts.model";
 import { exerciseSQL } from "../exercises/exercise.sql";
 import { coreSetsSQL } from "../coreSets/coreSets.sql";
+import { userWorkoutSql } from "./userWorkout.sql";
+
+export type GetUserWorkoutToEditReturn = Awaited<
+  ReturnType<typeof userWorkoutService.getUserWOrkoutToEdit>
+>;
+
 
 export const userWorkoutService = {
   create: async (dto: TCreateUserWorkoutInput): Promise<IUserWorkout> => {
@@ -50,33 +56,70 @@ export const userWorkoutService = {
           })),
         },
       },
+      select: userWorkoutSql.USER_EXERCISE_SELECT,
+    });
+  },
+  getUserWOrkoutToEdit: async (id: string) => {
+    return await prisma.userWorkout.findUnique({
+      where: {
+        id,
+      },
       select: {
         id: true,
         dateCompleted: true,
-        program: {
-          select: {
-            id: true,
-            name: true,
-            notes: true,
-            isActive: true,
-            startDate: true,
-            endDate: true,
-          },
-        },
-        owner: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-          },
-        },
+        ownerId: true,
+        programId: true,
         workout: {
           select: {
             id: true,
             name: true,
             notes: true,
+            userWorkouts: {
+              where: {
+                NOT: { id },
+                dateCompleted: { not: null },
+              },
+              orderBy: { dateCompleted: "desc" },
+              take: 1,
+              select: {
+                id: true,
+                dateCompleted: true,
+                ownerId: true,
+                userWorkoutExercises: {
+                  select: {
+                    id: true,
+                    workoutExercise: {
+                      select: {
+                        id: true,
+                        order: true,
+                        notes: true,
+                        exercise: {
+                          select: exerciseSQL.EXERCISE_SELECT,
+                        },
+                        coreSet: {
+                          select: coreSetsSQL.CORE_SET_SELECT,
+                        },
+                      },
+                    },
+                    userSets: {
+                      select: {
+                        id: true,
+                        reps: true,
+                        weight: true,
+                        isWarmup: true,
+                        isCompleted: true,
+                        isMuscleFailure: true,
+                        isJointPain: true,
+                        isBodyWeight: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
           },
         },
+        workoutId: true,
         userWorkoutExercises: {
           select: {
             id: true,

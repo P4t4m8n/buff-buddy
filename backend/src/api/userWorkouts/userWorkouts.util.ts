@@ -1,4 +1,4 @@
-import { IUserWorkoutDTO } from "../../../../shared/models/workoutStart.model";
+import { IUserWorkoutDTO } from "../../../../shared/models/userWorkout";
 import { coreSetsUtil } from "../coreSets/coreSets.util";
 import { IUserWorkout } from "./userWorkouts.model";
 
