@@ -1,9 +1,13 @@
-import type { IUserWorkoutExercisesDTO } from "../../../../shared/models/workoutStart.model";
+import type {
+  IUserWorkoutDTO,
+  IUserWorkoutExercisesDTO,
+} from "../../../../shared/models/userWorkout";
 import GenericList from "../UI/GenericList";
 import WorkoutStartExerciseItem from "./WorkoutStartExerciseItem";
 
 interface IWorkoutStartExerciseListProps {
   workoutExercises: IUserWorkoutExercisesDTO[];
+  lastUserWorkout?: IUserWorkoutDTO | null;
   handleUserSetsChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   logUserSet: (id?: string) => void;
   completeAllExerciseSets: (id: string) => void;

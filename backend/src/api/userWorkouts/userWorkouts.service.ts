@@ -1,14 +1,9 @@
 import { TCreateUserWorkoutInput } from "./userWorkout.validations";
 import { prisma } from "../../../prisma/prisma";
-import { IUserWorkout } from "./userWorkouts.model";
+import { IUserWorkout, IUserWorkoutEdit } from "./userWorkouts.model";
 import { exerciseSQL } from "../exercises/exercise.sql";
 import { coreSetsSQL } from "../coreSets/coreSets.sql";
 import { userWorkoutSql } from "./userWorkout.sql";
-
-export type GetUserWorkoutToEditReturn = Awaited<
-  ReturnType<typeof userWorkoutService.getUserWOrkoutToEdit>
->;
-
 
 export const userWorkoutService = {
   create: async (dto: TCreateUserWorkoutInput): Promise<IUserWorkout> => {
@@ -59,98 +54,182 @@ export const userWorkoutService = {
       select: userWorkoutSql.USER_EXERCISE_SELECT,
     });
   },
-  getUserWOrkoutToEdit: async (id: string) => {
-    return await prisma.userWorkout.findUnique({
+  getLastWorkout: async (workoutId: string): Promise<IUserWorkout | null> => {
+    return await prisma.userWorkout.findFirst({
       where: {
-        id,
-      },
-      select: {
-        id: true,
-        dateCompleted: true,
-        ownerId: true,
-        programId: true,
-        workout: {
-          select: {
-            id: true,
-            name: true,
-            notes: true,
-            userWorkouts: {
-              where: {
-                NOT: { id },
-                dateCompleted: { not: null },
-              },
-              orderBy: { dateCompleted: "desc" },
-              take: 1,
-              select: {
-                id: true,
-                dateCompleted: true,
-                ownerId: true,
-                userWorkoutExercises: {
-                  select: {
-                    id: true,
-                    workoutExercise: {
-                      select: {
-                        id: true,
-                        order: true,
-                        notes: true,
-                        exercise: {
-                          select: exerciseSQL.EXERCISE_SELECT,
-                        },
-                        coreSet: {
-                          select: coreSetsSQL.CORE_SET_SELECT,
-                        },
-                      },
-                    },
-                    userSets: {
-                      select: {
-                        id: true,
-                        reps: true,
-                        weight: true,
-                        isWarmup: true,
-                        isCompleted: true,
-                        isMuscleFailure: true,
-                        isJointPain: true,
-                        isBodyWeight: true,
-                      },
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-        workoutId: true,
-        userWorkoutExercises: {
-          select: {
-            id: true,
-            workoutExercise: {
-              select: {
-                id: true,
-                order: true,
-                notes: true,
-                exercise: {
-                  select: exerciseSQL.EXERCISE_SELECT,
-                },
-                coreSet: {
-                  select: coreSetsSQL.CORE_SET_SELECT,
-                },
-              },
-            },
-            userSets: {
-              select: {
-                id: true,
-                reps: true,
-                weight: true,
-                isWarmup: true,
-                isCompleted: true,
-                isMuscleFailure: true,
-                isJointPain: true,
-                isBodyWeight: true,
-              },
-            },
-          },
+        workoutId,
+        dateCompleted: {
+          not: null,
         },
       },
+      orderBy: {
+        dateCompleted: "desc",
+      },
+      select: userWorkoutSql.USER_EXERCISE_SELECT,
     });
   },
+
+  /* 
+  TODO?? Not sure if this is needed will start with two  api
+  calls for workout ot get the current and the least one.
+  this a little bit of overhead but better for maintain
+    */
+  // getUserWorkoutToEdit: async (
+  //   workoutId: string
+  // ): Promise<IUserWorkoutEdit | null> => {
+  //   return await prisma.userWorkout.findUnique({
+  //     where: {
+  //       id: workoutId,
+  //     },
+  //     select: {
+  //       id: true,
+  //       dateCompleted: true,
+  //       ownerId: true,
+  //       programId: true,
+  //       workout: {
+  //         select: {
+  //           id: true,
+  //           name: true,
+  //           notes: true,
+  //           userWorkouts: {
+  //             where: {
+  //               NOT: { workoutId },
+  //               dateCompleted: { not: null },
+  //             },
+  //             orderBy: { dateCompleted: "desc" },
+  //             take: 1,
+  //             select: {
+  //               id: true,
+  //               dateCompleted: true,
+  //               ownerId: true,
+  //               userWorkoutExercises: {
+  //                 select: {
+  //                   id: true,
+  //                   workoutExercise: {
+  //                     select: {
+  //                       id: true,
+  //                       order: true,
+  //                       notes: true,
+  //                       exercise: {
+  //                         select: {
+  //                           id: true,
+  //                           name: true,
+  //                           youtubeUrl: true,
+  //                           types: true,
+  //                           equipment: true,
+  //                           muscles: true,
+  //                         },
+  //                       },
+  //                       coreSet: {
+  //                         select: {
+  //                           id: true,
+  //                           hasWarmup: true,
+  //                           restTime: true,
+  //                           createdAt: true,
+  //                           updatedAt: true,
+  //                           numberOfSets: true,
+  //                           reps: {
+  //                             take: 1,
+  //                             orderBy: { createdAt: "asc" },
+  //                             select: {
+  //                               id: true,
+  //                               reps: true,
+  //                             },
+  //                           },
+  //                           weight: {
+  //                             take: 1,
+  //                             orderBy: { createdAt: "asc" },
+  //                             select: {
+  //                               id: true,
+  //                               weight: true,
+  //                               isBodyWeight: true,
+  //                             },
+  //                           },
+  //                         },
+  //                       },
+  //                     },
+  //                   },
+  //                   userSets: {
+  //                     select: {
+  //                       id: true,
+  //                       reps: true,
+  //                       weight: true,
+  //                       isWarmup: true,
+  //                       isCompleted: true,
+  //                       isMuscleFailure: true,
+  //                       isJointPain: true,
+  //                       isBodyWeight: true,
+  //                     },
+  //                   },
+  //                 },
+  //               },
+  //             },
+  //           },
+  //         },
+  //       },
+  //       workoutId: true,
+  //       userWorkoutExercises: {
+  //         select: {
+  //           id: true,
+  //           workoutExercise: {
+  //             select: {
+  //               id: true,
+  //               order: true,
+  //               notes: true,
+  //               exercise: {
+  //                 select: {
+  //                   id: true,
+  //                   name: true,
+  //                   youtubeUrl: true,
+  //                   types: true,
+  //                   equipment: true,
+  //                   muscles: true,
+  //                 },
+  //               },
+  //               coreSet: {
+  //                 select: {
+  //                   id: true,
+  //                   hasWarmup: true,
+  //                   restTime: true,
+  //                   createdAt: true,
+  //                   updatedAt: true,
+  //                   numberOfSets: true,
+  //                   reps: {
+  //                     take: 1,
+  //                     orderBy: { createdAt: "asc" },
+  //                     select: {
+  //                       id: true,
+  //                       reps: true,
+  //                     },
+  //                   },
+  //                   weight: {
+  //                     take: 1,
+  //                     orderBy: { createdAt: "asc" },
+  //                     select: {
+  //                       id: true,
+  //                       weight: true,
+  //                       isBodyWeight: true,
+  //                     },
+  //                   },
+  //                 },
+  //               },
+  //             },
+  //           },
+  //           userSets: {
+  //             select: {
+  //               id: true,
+  //               reps: true,
+  //               weight: true,
+  //               isWarmup: true,
+  //               isCompleted: true,
+  //               isMuscleFailure: true,
+  //               isJointPain: true,
+  //               isBodyWeight: true,
+  //             },
+  //           },
+  //         },
+  //       },
+  //     },
+  //   });
+  // },
 };

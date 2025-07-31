@@ -1,15 +1,25 @@
-import type { IUserWorkoutDTO } from "../../../shared/models/workoutStart.model";
+import type {
+  IUserWorkoutDTO,
+  IUserWorkoutEditDTO,
+} from "../../../shared/models/userWorkout";
 import { apiService, type THttpPostResponse } from "./api.service";
 
 export const workoutStartService = {
   rootPath: "/user-workouts",
 
   async save(
-    workoutStart: IUserWorkoutDTO
+    workoutStart: IUserWorkoutEditDTO
   ): Promise<THttpPostResponse<IUserWorkoutDTO>> {
     return await apiService.post<THttpPostResponse<IUserWorkoutDTO>>(
       `${this.rootPath}`,
       workoutStart
+    );
+  },
+  async getLastWorkout(
+    workoutId?: string
+  ): Promise<THttpPostResponse<IUserWorkoutDTO | null>> {
+    return await apiService.get<THttpPostResponse<IUserWorkoutDTO | null>>(
+      `${this.rootPath}/${workoutId}/last/`
     );
   },
 };

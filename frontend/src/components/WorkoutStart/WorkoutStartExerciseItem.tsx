@@ -1,10 +1,10 @@
 import { twMerge } from "tailwind-merge";
-import type { IUserWorkoutExercisesDTO } from "../../../../shared/models/workoutStart.model";
 import { useModel } from "../../hooks/shared/useModel";
 import Button from "../UI/Button";
 import IconArrow from "../UI/Icons/IconArrow";
 
 import WorkoutStartExerciseItemDetails from "./WorkoutStartExerciseItemDetails";
+import type { IUserWorkoutExercisesDTO } from "../../../../shared/models/userWorkout";
 
 interface IWorkoutStartExerciseItemProps {
   item: IUserWorkoutExercisesDTO;

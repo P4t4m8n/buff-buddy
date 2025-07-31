@@ -1,16 +1,28 @@
-import type { IUserSetEditDTO } from "../../../shared/models/set.model";
+import type {
+  IUserSetDTO,
+  IUserSetEditDTO,
+} from "../../../shared/models/set.model";
 import { appUtil } from "./app.util";
 
 export const userSetsUtil = {
-  getEmpty: (isBodyWeight?: boolean): IUserSetEditDTO => {
+  getEmpty: (
+    order: number,
+    lastUserSets?: IUserSetDTO,
+    isBodyWeight?: boolean
+  ): IUserSetEditDTO => {
     return {
       id: appUtil.getTempId("temp"),
       reps: null,
+      lastReps: lastUserSets?.reps ?? null,
       weight: null,
+      lastWeight: lastUserSets?.weight ?? null,
       isCompleted: false,
       isMuscleFailure: false,
+      lastIsMuscleFailure: lastUserSets?.isMuscleFailure ?? false,
       isJointPain: false,
+      lastIsJointPain: lastUserSets?.isJointPain ?? false,
       isBodyWeight,
+      order,
     };
   },
   //TODO??HArdcoded at the moment improve later maybe move to backend
@@ -31,7 +43,7 @@ export const userSetsUtil = {
       isMuscleFailure: false,
       isJointPain: false,
       isBodyWeight,
-      
+      order: 0, // Warmup set is always the first set
     };
   },
 
@@ -39,10 +51,13 @@ export const userSetsUtil = {
     numberOfSets: number = 1,
     isBodyWeight?: boolean,
     hasWarmup?: boolean,
-    weight?: number | null
+    weight?: number | null,
+    lastUserSets?: IUserSetDTO[]
   ): IUserSetEditDTO[] {
-    const sets = Array.from({ length: numberOfSets }).map(() =>
-      userSetsUtil.getEmpty(isBodyWeight)
+    const sortedLastSets =
+      lastUserSets?.sort((a, b) => (a?.order ?? 1) - (b?.order ?? 1)) ?? [];
+    const sets = Array.from({ length: numberOfSets }).map((_, idx) =>
+      userSetsUtil.getEmpty(idx + 1, sortedLastSets[idx], isBodyWeight)
     );
 
     if (hasWarmup) {

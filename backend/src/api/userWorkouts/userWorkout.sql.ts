@@ -1,3 +1,4 @@
+import { Prisma } from "../../../prisma/generated/prisma";
 import { coreSetsSQL } from "../coreSets/coreSets.sql";
 import { exerciseSQL } from "../exercises/exercise.sql";
 
@@ -54,11 +55,12 @@ const USER_EXERCISE_SELECT = {
           isMuscleFailure: true,
           isJointPain: true,
           isBodyWeight: true,
+          order: true,
         },
       },
     },
   },
-};
+} as const satisfies Prisma.UserWorkoutSelect;
 
 export const userWorkoutSql = {
   USER_EXERCISE_SELECT,

@@ -5,7 +5,7 @@ import type { IUserDTO } from "./user.model";
 import type { IWorkoutDTO, IWorkoutExerciseDTO } from "./workout.model";
 
 interface IUserWorkoutBase extends IEntity {
-  dateCompleted?: Date | null;
+  dateCompleted?: Date | null | string;
 }
 
 export interface IUserWorkoutDTO extends IUserWorkoutBase {
@@ -17,17 +17,17 @@ export interface IUserWorkoutDTO extends IUserWorkoutBase {
 
 export interface IUserWorkoutEditDTO extends IUserWorkoutBase {
   ownerId?: string;
-  programId?: string;
-  workout?: IWorkoutDTO;
-  workoutId?: string;
+  programId?: string | null;
+  workout?: IWorkoutDTO | null;
+  workoutId?: string | null;
   workoutExercises: IUserWorkoutEditExercisesDTO[];
-  lastUserWorkout?: Partial<IUserWorkoutDTO> | null;
+  lastUserWorkout?: IUserWorkoutDTO | null;
 }
 
 export interface IUserWorkoutExercisesDTO extends IWorkoutExerciseDTO {
   userSets: IUserSetDTO[];
 }
-export interface IUserWorkoutEditExercisesDTO {
+export interface IUserWorkoutEditExercisesDTO extends IWorkoutExerciseDTO {
   workoutExerciseId: string;
   userSets: IUserSetDTO[];
 }

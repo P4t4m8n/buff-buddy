@@ -220,6 +220,7 @@ model UserSet {
   weight                Float?              @default(0)
   isBodyWeight          Boolean             @default(false)
   restTime              Int                 @default(60)
+  order                 Int                 @default(1)
   isCompleted           Boolean             @default(false)
   isWarmup              Boolean             @default(false)
   isMuscleFailure       Boolean             @default(false)

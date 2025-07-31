@@ -5,8 +5,9 @@ import WorkoutStartUserSetList from "./WorkoutStartUserSetList";
 
 import Button from "../UI/Button";
 
-import type { IUserWorkoutExercisesDTO } from "../../../../shared/models/workoutStart.model";
 import { twMerge } from "tailwind-merge";
+
+import type { IUserWorkoutExercisesDTO } from "../../../../shared/models/userWorkout";
 
 interface IWorkoutStartExerciseItemDetailsProps {
   workoutStart: IUserWorkoutExercisesDTO;

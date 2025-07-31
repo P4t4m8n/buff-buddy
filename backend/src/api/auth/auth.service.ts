@@ -133,7 +133,6 @@ export const authService = {
 
 const generateToken = (userId: string, isAdmin: boolean) => {
   const secret = process.env.JWT_SECRET;
-  console.log("🚀 ~ generateToken ~ secret:", secret)
   if (!secret) {
     throw AppError.create("JWT_SECRET is not defined", 500);
   }

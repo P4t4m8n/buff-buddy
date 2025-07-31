@@ -2,8 +2,8 @@ export interface ICoreSet {
   id: string;
   hasWarmup: boolean;
   restTime: number;
-  createdAt?: Date | null;
-  updatedAt?: Date | null;
+  createdAt?: Date | null|string;
+  updatedAt?: Date | null|string;
   numberOfSets: number;
   reps: {
     id: string;

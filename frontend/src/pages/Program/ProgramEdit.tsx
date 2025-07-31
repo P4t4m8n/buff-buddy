@@ -27,7 +27,6 @@ export default function ProgramEdit() {
     navigate,
     handleInputChange,
   } = useProgramEdit(id);
-    console.log("🚀 ~ ProgramEdit ~ programToEdit:", programToEdit)
 
   if (isLoading || !programToEdit) {
     return <Loader />;

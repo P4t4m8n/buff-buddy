@@ -28,6 +28,10 @@ export default function WorkoutStartUserSets({
   const {
     id,
     reps,
+    lastReps,
+    lastWeight,
+    lastIsJointPain,
+    lastIsMuscleFailure,
     weight,
     isCompleted,
     isJointPain,

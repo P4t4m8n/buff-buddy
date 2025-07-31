@@ -4,18 +4,12 @@ import http from "http";
 import cors from "cors";
 import path from "path";
 import dotenv from "dotenv";
-import { exerciseRoutes } from "./api/exercises/exercises.routes";
-import { programsRoutes } from "./api/programs/programs.routes";
-import { authRoutes } from "./api/auth/auth.routes";
 import { setupAsyncLocalStorage } from "./middlewares/localStorage.middleware";
-import { workoutRoutes } from "./api/workouts/workouts.routes";
-import { userWorkoutsRoutes } from "./api/userWorkouts/userWorkouts.routes";
+import { setupRoutes } from "./config/routes";
 
 dotenv.config();
-
-export const app = express();
-//TODO?? for adding sockets later, remove before deployment if not implemented
-export const server = http.createServer(app);
+export const app = express(); //INFO For Jest
+export const server = http.createServer(app); //TODO for adding sockets later, remove before deployment if not implemented
 
 //Middlewares
 app.use(express.json());
@@ -36,14 +30,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 //Routes
-app.use(`/api/v${process.env.CURRENT_API_VERSION}/auth`, authRoutes);
-app.use(`/api/v${process.env.CURRENT_API_VERSION}/exercises`, exerciseRoutes);
-app.use(`/api/v${process.env.CURRENT_API_VERSION}/programs`, programsRoutes);
-app.use(`/api/v${process.env.CURRENT_API_VERSION}/workouts`, workoutRoutes);
-app.use(
-  `/api/v${process.env.CURRENT_API_VERSION}/user-workouts`,
-  userWorkoutsRoutes
-);
+const apiVersion = process.env.CURRENT_API_VERSION || "1";
+setupRoutes(app, apiVersion);
 // Catch-all route
 app.all("/{*any}", (req: Request, res: Response) => {
   res.sendFile(path.resolve("public/index.html"));

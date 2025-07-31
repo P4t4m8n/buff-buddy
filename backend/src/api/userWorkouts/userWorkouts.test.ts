@@ -27,6 +27,7 @@ const getRandomUserSet = (coreSetId?: string): IUserSetEditDTO => {
     isBodyWeight: isBodyWeight,
     crudOperation: "create",
     coreSetId: coreSetId,
+    order: Math.floor(Math.random() * 10) + 1,
   };
 };
 
@@ -57,8 +58,8 @@ describe("UserWorkout API", () => {
         name: "Push Up",
         youtubeUrl: "https://www.youtube.com/watch?v=_l3ySVKYVJ8",
         types: ["strength"],
-        equipment: ["body_weight"],
-        muscles: ["chest", "triceps", "shoulders"],
+        equipment: ["cable_machine"],
+        muscles: ["chest", "triceps", "abductors"],
       },
       {
         name: "Barbell Squat",
@@ -78,49 +79,49 @@ describe("UserWorkout API", () => {
         name: "Plank",
         youtubeUrl: "https://www.youtube.com/watch?v=pSHjTRCQxIw",
         types: ["cardio"],
-        equipment: ["body_weight"],
-        muscles: ["core", "abs", "shoulders"],
+        equipment: ["air_bike"],
+        muscles: ["triceps", "abs", "rotator_cuff"],
       },
       {
         name: "Deadlift",
         youtubeUrl: "https://www.youtube.com/watch?v=op9kVnSso6Q",
         types: ["strength"],
         equipment: ["barbell"],
-        muscles: ["back", "glutes", "hamstrings", "forearms"],
+        muscles: ["triceps", "abs", "rotator_cuff"],
       },
       {
         name: "Kettlebell Swing",
         youtubeUrl: "https://www.youtube.com/watch?v=6u6Qp7LZKwg",
         types: ["cardio", "strength"],
         equipment: ["kettlebell"],
-        muscles: ["glutes", "hamstrings", "core"],
+        muscles: ["glutes", "hamstrings", "forearms"],
       },
       {
         name: "Cable Row",
         youtubeUrl: "https://www.youtube.com/watch?v=GZbfZ033f74",
         types: ["strength"],
-        equipment: ["cable"],
-        muscles: ["back", "biceps", "forearms"],
+        equipment: ["foam_roller"],
+        muscles: ["chest", "biceps", "forearms"],
       },
       {
         name: "Medicine Ball Slam",
         youtubeUrl: "https://www.youtube.com/watch?v=F5bP6fQFGJw",
         types: ["cardio", "strength"],
         equipment: ["medicine_ball"],
-        muscles: ["core", "shoulders", "triceps"],
+        muscles: ["quads", "hamstrings", "triceps"],
       },
       {
         name: "Resistance Band Pull Apart",
         youtubeUrl: "https://www.youtube.com/watch?v=QmWf4j6lFzY",
         types: ["strength"],
-        equipment: ["resistance_band"],
-        muscles: ["upper_back", "shoulders", "traps"],
+        equipment: ["cable_column"],
+        muscles: ["glutes", "front_delts", "traps"],
       },
       {
         name: "Calf Raise",
         youtubeUrl: "https://www.youtube.com/watch?v=YMmgqO8Jo-k",
         types: ["strength"],
-        equipment: ["body_weight"],
+        equipment: ["incline_bench"],
         muscles: ["calves"],
       },
     ];
@@ -593,7 +594,9 @@ describe("UserWorkout API", () => {
           {
             workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
             userSets: [
-              getRandomUserSet(testWorkouts?.[0]?.workoutExercises?.[0]?.coreSet?.id),
+              getRandomUserSet(
+                testWorkouts?.[0]?.workoutExercises?.[0]?.coreSet?.id
+              ),
             ],
           },
         ],
@@ -615,7 +618,9 @@ describe("UserWorkout API", () => {
           {
             workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
             userSets: [
-              getRandomUserSet(testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id),
+              getRandomUserSet(
+                testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id
+              ),
             ],
           },
         ],
@@ -637,7 +642,9 @@ describe("UserWorkout API", () => {
           {
             workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
             userSets: [
-              getRandomUserSet(testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id),
+              getRandomUserSet(
+                testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id
+              ),
             ],
           },
         ],
@@ -650,8 +657,6 @@ describe("UserWorkout API", () => {
       expect(res.body.errors.workoutId).toBeDefined();
     });
 
-   
-
     it("should fail if workoutExercises is missing", async () => {
       const valid = {
         dateCompleted: new Date(),
@@ -659,7 +664,7 @@ describe("UserWorkout API", () => {
         ownerId: testUserId,
         workoutId: testWorkouts[0]?.id,
       };
- const res = await request(app)
+      const res = await request(app)
         .post("/api/v1/user-workouts")
         .set("Cookie", `token=${authToken}`)
         .send(valid);
@@ -676,7 +681,9 @@ describe("UserWorkout API", () => {
         workoutExercises: [
           {
             userSets: [
-              getRandomUserSet(testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id),
+              getRandomUserSet(
+                testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id
+              ),
             ],
           },
         ],
@@ -713,7 +720,9 @@ describe("UserWorkout API", () => {
 
     it("should fail if userSets[].reps is missing", async () => {
       const invalidSet = {
-        ...getRandomUserSet(testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id),
+        ...getRandomUserSet(
+          testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id
+        ),
       };
       delete invalidSet.reps;
       const valid = {
@@ -740,7 +749,9 @@ describe("UserWorkout API", () => {
 
     it("should fail if userSets[].weight is negative", async () => {
       const invalidSet = {
-        ...getRandomUserSet(testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id),
+        ...getRandomUserSet(
+          testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id
+        ),
         weight: -5,
       };
       const valid = {
@@ -767,7 +778,9 @@ describe("UserWorkout API", () => {
 
     it("should fail if userSets[].isBodyWeight=true and weight>0", async () => {
       const invalidSet = {
-        ...getRandomUserSet(testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id),
+        ...getRandomUserSet(
+          testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id
+        ),
         isBodyWeight: true,
         weight: 10,
       };
@@ -795,7 +808,9 @@ describe("UserWorkout API", () => {
 
     it("should fail if userSets[].isBodyWeight=false and weight=0", async () => {
       const invalidSet = {
-        ...getRandomUserSet(testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id),
+        ...getRandomUserSet(
+          testWorkouts[0]?.workoutExercises?.[0]?.coreSet?.id
+        ),
         isBodyWeight: false,
         weight: 0,
       };
@@ -819,6 +834,35 @@ describe("UserWorkout API", () => {
       expect(
         res.body.errors["workoutExercises.0.userSets.0.weight"]
       ).toBeDefined();
+    });
+  });
+
+  describe("GET /api/v1/user-workouts/:workoutId/last", () => {
+    it("should retrieve the last user workout for a given workout ID", async () => {
+      const res = await request(app)
+        .get(`/api/v1/user-workouts/${testWorkouts[0].id}/last`)
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.workoutId).toBe(testWorkouts[0].id);
+    });
+
+    it("should return 404 if no workout found for the given ID", async () => {
+      const res = await request(app)
+        .get("/api/v1/user-workouts/nonexistent/last")
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(404);
+      expect(res.body.message).toBe("No workout found for the given ID");
+    });
+
+    it("should return 400 if workoutId is not provided", async () => {
+      const res = await request(app)
+        .get("/api/v1/user-workouts//last")
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors.workoutId).toBeDefined();
     });
   });
   afterAll(async () => {

@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router";
 import Button from "../../components/UI/Button";
 import GenericSaveButton from "../../components/UI/GenericSaveButton";
-import type { IUserWorkoutDTO } from "../../../../shared/models/workoutStart.model";
 import React, { useEffect } from "react";
 import { useWorkoutStore } from "../../store/workout.store";
 import { workoutStartUtil } from "../../utils/workoutStart.util";
@@ -12,6 +11,10 @@ import { useFormErrors } from "../../hooks/shared/useFormErrors";
 import WorkoutStartExerciseList from "../../components/WorkoutStart/WorkoutStartExerciseList";
 import type { IUserSetDTO } from "../../../../shared/models/set.model";
 import { workoutStartService } from "../../services/workoutStart";
+import type {
+  IUserWorkoutDTO,
+  IUserWorkoutEditDTO,
+} from "../../../../shared/models/userWorkout";
 
 //TODO?? state function move to hook or context? deep props drilling
 //TODO?? move child component into memo to prevent render?
@@ -24,8 +27,7 @@ export default function WorkoutStartPage() {
   const navigate = useNavigate();
 
   const [workoutStart, setWorkoutStart] =
-    React.useState<IUserWorkoutDTO | null>(null);
-  console.log("🚀 ~ WorkoutStartPage ~ workoutStart:", workoutStart);
+    React.useState<IUserWorkoutEditDTO | null>(null);
   const { errors } = useFormErrors<IUserWorkoutDTO>();
 
   const getById = useWorkoutStore((state) => state.getById);
@@ -34,18 +36,32 @@ export default function WorkoutStartPage() {
     (state) => state.isLoadingId === workoutId
   );
 
+  //TODO ?? Ugly improve later
   useEffect(() => {
-    getById(workoutId).then((w) => {
-      if (!w) {
-        console.error("Workout not found");
-        return;
+    const init = async () => {
+      try {
+        const workout = await getById(workoutId);
+        let lastUserWorkout;
+        try {
+          lastUserWorkout = (
+            await workoutStartService.getLastWorkout(workoutId)
+          ).data;
+        } catch (error) {
+          lastUserWorkout = null;
+        }
+
+        const userWorkout = workoutStartUtil.workoutDTOToWorkoutStartDTO(
+          workout,
+          programId,
+          lastUserWorkout
+        );
+        setWorkoutStart(userWorkout);
+      } catch (error) {
+        console.error("Error initializing workout start:", error);
       }
-      const workout = workoutStartUtil.workoutDTOToWorkoutStartDTO(
-        w,
-        programId
-      );
-      setWorkoutStart(workout);
-    });
+    };
+
+    init();
   }, [workoutId, programId, getById]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -176,7 +192,7 @@ export default function WorkoutStartPage() {
     return <Loader />;
   }
 
-  const { workoutExercises, workout } = workoutStart ?? {};
+  const { workoutExercises, workout, lastUserWorkout } = workoutStart ?? {};
   const { name } = workout ?? {};
 
   const sortedWorkoutExercises =
@@ -185,14 +201,15 @@ export default function WorkoutStartPage() {
   return (
     <form
       onSubmit={onSubmit}
-      className="absolute inset-0 h-full grid grid-cols-1 grid-rows-[2rem_2.5rem_calc(100%-10rem)_2.5rem] gap-4 bg-main-orange p-mobile"
+      className="absolute inset-0 h-full grid grid-cols-1 grid-rows-[2rem_2.5rem_calc(100%-10rem)_2.5rem]
+       gap-4 bg-main-orange p-mobile"
     >
       <h2 className="text-center text-xl underline underline-offset-2">
         {name}
       </h2>
       <DateInput
         handleDateSelect={handleDateSelect}
-        selectedRange={{ start: workoutStart?.dateCompleted }}
+        selectedRange={{ start: workoutStart?.dateCompleted as Date }}
         className=" "
         initialMode="single"
         errorRange={{
@@ -200,6 +217,7 @@ export default function WorkoutStartPage() {
         }}
       />
       <WorkoutStartExerciseList
+        lastUserWorkout={lastUserWorkout}
         workoutExercises={sortedWorkoutExercises}
         handleUserSetsChange={handleUserSetsChange}
         logUserSet={logUserSet}
