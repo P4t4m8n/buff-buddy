@@ -32,7 +32,7 @@ describe("Programs API", () => {
     const exercise: IExerciseDTO = {
       name: `Program Test Exercise ${Date.now()}`,
       youtubeUrl: "https://www.youtube.com/watch?v=prgtest",
-      types: ["strength"],
+      type: "strength",
       equipment: ["barbell"],
       muscles: ["chest"],
     };
