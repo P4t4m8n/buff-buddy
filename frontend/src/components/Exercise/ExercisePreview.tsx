@@ -14,7 +14,7 @@ export default function ExercisePreview({
   item: exercise,
   onDelete,
 }: ExercisePreviewProps) {
-  const { muscles, id, name, equipment, type } = exercise;
+  const { muscles, id, name, equipment } = exercise;
 
   return (
     <li
@@ -26,7 +26,6 @@ export default function ExercisePreview({
       <ExerciseAttributes
         muscles={muscles}
         equipment={equipment}
-        type={type}
       />
       <div className="flex gap-3 ">
         <GenericModel

@@ -2,20 +2,17 @@ import GenericList from "../../UI/GenericList";
 import ExerciseTagCategory from "./ExerciseTagCategory";
 import type {
   TExerciseEquipment,
-  TExerciseType,
   TExerciseMuscle,
 } from "../../../../../shared/models/exercise.model";
 
 interface ExerciseInfoListProps {
   equipment?: TExerciseEquipment[];
 
-  type?: TExerciseType;
   muscles?: TExerciseMuscle[];
 }
 
 export default function ExerciseAttributes({
   equipment,
-  type,
   muscles,
 }: ExerciseInfoListProps) {
   const items = [
