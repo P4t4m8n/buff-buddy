@@ -13,7 +13,7 @@
     "migrate": "prisma migrate dev",
     "copy:front": "rm -rf public && mkdir public && cp -r ../frontend/dist/* public/",
     "build:back": "tsc",
-    "build": "npm run copy:front && npm run build:back",
+    "build": "npm run gen && npm run copy:front && npm run build:back",
     "start": "node dist/backend/src/server.js",
     "lint": "eslint . --ext .ts"
   },
