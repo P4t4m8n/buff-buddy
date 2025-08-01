@@ -13,7 +13,7 @@ export default function ProgramWorkoutPreview({
   const { programId, workout } = programWorkout;
   const { name, workoutExercises, id } = workout ?? {};
 
-  const typesUsed = workoutExercises?.map((we) => we.exercise?.types).flat();
+  const typesUsed = workoutExercises?.map((we) => we.exercise?.type);
   const cleanedTypesUsed = [...new Set(typesUsed)];
 
   return (

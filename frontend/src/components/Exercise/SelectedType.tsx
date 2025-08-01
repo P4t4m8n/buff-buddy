@@ -1,4 +1,3 @@
-import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
 
 export default function SelectedType({
   type,

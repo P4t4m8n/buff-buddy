@@ -1,4 +1,3 @@
-import React from "react";
 
 export default function IconEdit({ className }: { className?: string }) {
   return (

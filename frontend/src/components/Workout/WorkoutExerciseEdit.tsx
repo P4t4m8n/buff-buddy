@@ -1,7 +1,6 @@
 import Input from "../UI/Form/Input";
 import Label from "../UI/Form/Label";
 import TextArea from "../UI/Form/TextArea";
-import SelectWithSearch from "../UI/Form/SelectWithSearch";
 import Button from "../UI/Button";
 import Loader from "../UI/Loader";
 
@@ -15,6 +14,7 @@ import type { IModelProps } from "../UI/GenericModel";
 import type { ICoreSetEditDTO } from "../../../../shared/models/set.model";
 
 import WorkoutExerciseEditAddExercise from "./WorkoutExerciseEditAddExercise";
+import SelectWithSearchOld from "../UI/Form/SelectWithSearchOld";
 
 interface WorkoutExerciseEditProps extends IModelProps<HTMLDivElement> {
   workoutExercise?: IWorkoutExerciseEditDTO;
@@ -130,7 +130,7 @@ export default function WorkoutExerciseEdit({
           ) : null}
         </TextArea>
 
-        <SelectWithSearch
+        <SelectWithSearchOld
           options={exercises}
           selectedOptionName={exercise?.name}
           inputName="exercise"

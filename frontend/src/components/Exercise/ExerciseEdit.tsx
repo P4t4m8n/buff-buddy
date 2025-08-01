@@ -24,7 +24,6 @@ import type { IModelProps } from "../UI/GenericModel";
 import SelectMultiWithSearch from "../UI/Form/SelectMultiWithSearch";
 import SelectWithSearch from "../UI/Form/SelectWithSearch";
 import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
-import SelectedType from "./SelectedType";
 
 interface ExerciseEditProps extends IModelProps<HTMLFormElement> {
   exercise?: IExerciseDTO;
