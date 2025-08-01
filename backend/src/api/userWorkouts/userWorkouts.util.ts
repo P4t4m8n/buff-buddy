@@ -24,7 +24,7 @@ export const userWorkoutsUtils = {
         order: uw.workoutExercise.order,
         notes: uw.workoutExercise.notes ?? null,
         exercise: uw.workoutExercise.exercise,
-        coreSet: coreSetsUtil.toDTO(uw.workoutExercise.coreSet),
+        coreSet: coreSetsUtil.toDTO(uw.workoutExercise?.coreSet),
       })),
     };
   },

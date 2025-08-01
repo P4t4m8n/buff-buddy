@@ -9,18 +9,17 @@ import type {
 interface ExerciseInfoListProps {
   equipment?: TExerciseEquipment[];
 
-  types?: TExerciseType[];
+  type?: TExerciseType;
   muscles?: TExerciseMuscle[];
 }
 
 export default function ExerciseAttributes({
   equipment,
-  types,
+  type,
   muscles,
 }: ExerciseInfoListProps) {
   const items = [
     { label: "Equipment", items: equipment ?? [] },
-    { label: "Types", items: types ?? [] },
     { label: "Muscles", items: muscles ?? [] },
   ];
   return (

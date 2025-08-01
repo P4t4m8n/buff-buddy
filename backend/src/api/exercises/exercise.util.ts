@@ -8,8 +8,8 @@ export const exerciseUtil = {
     if (filter.name) {
       where.name = { contains: filter.name, mode: "insensitive" };
     }
-    if (filter.types) {
-      where.types = { hasSome: filter.types };
+    if (filter.types && filter.types.length > 0) {
+      where.type = { in: filter.types };
     }
     if (filter.equipment) {
       where.equipment = { hasSome: filter.equipment };

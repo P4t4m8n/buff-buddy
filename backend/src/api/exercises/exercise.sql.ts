@@ -9,7 +9,7 @@ export const exerciseSQL: ExerciseSQL = {
     id: true,
     name: true,
     youtubeUrl: true,
-    types: true,
+    type: true,
     equipment: true,
     muscles: true,
   },

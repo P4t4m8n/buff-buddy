@@ -85,7 +85,7 @@ export default function SelectMultiWithSearch({
       const fieldRect = fieldRef.current.getBoundingClientRect();
       const modelHeight = parentModelRef.current.clientHeight;
       const viewportHeight = window.innerHeight;
-      const gap = 4;
+      const gap = -4;
 
       const spaceBelow = viewportHeight - fieldRect.bottom;
       const spaceAbove = fieldRect.top;
@@ -146,9 +146,9 @@ export default function SelectMultiWithSearch({
       </div>
       {open ? (
         <div
-          className={`absolute z-10 backdrop-blur-2xl 
+          className={`absolute  bg-main-orange
             shadow-[0px_0px_6px_1px_rgba(0,0,0,1)]
-             border rounded p-2 w-full grid grid-rows-[2rem_calc(100%-2rem)]
+             border rounded p-2 w-full grid grid-rows-[2rem_calc(100%-2rem)] z-50
               gap-[.5rem] h-42 ${modelPositionClass}`}
         >
           <Input

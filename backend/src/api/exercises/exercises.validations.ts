@@ -5,6 +5,10 @@ import {
   EXERCISE_MUSCLES,
   EXERCISE_TYPES,
 } from "../../../../shared/consts/exercise.consts";
+import {
+  NotesSchema,
+  stringValidationAndSanitization,
+} from "../../shared/validations/shared.validations";
 
 export const ExerciseMuscleSchema = z.enum(EXERCISE_MUSCLES);
 
@@ -12,73 +16,55 @@ export const ExerciseEquipmentSchema = z.enum(EXERCISE_EQUIPMENT);
 
 export const ExerciseTypeSchema = z.enum(EXERCISE_TYPES);
 
-export const CreateExerciseSchema = z.object({
-  name: z
-    .string()
-    .min(1, "Exercise name is required")
-    .max(200, "Exercise name must be less than 200 characters") // Increased for pre sanitization
-    .transform((val) =>
-      sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} })
-    )
-    .transform((val) => val.trim())
-    .transform((val) => val.replace(/\s+/g, " ")) // Replace multiple spaces with single space
-    .refine(
-      (val) => val.length >= 1,
-      "Exercise name is required after sanitization"
-    )
-    .refine(
-      (val) => val.length <= 100,
-      "Exercise name must be less than 100 characters"
-    ),
-
-  youtubeUrl: z
-    .string()
-    .min(1, "YouTube URL is required")
-    .transform((val) =>
-      sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} })
-    ) // Strip all HTML
-    .transform((val) => val.trim()) // Remove whitespace
-    .transform((url) => {
-      // Normalize YouTube URL format
-      if (url.includes("youtu.be/")) {
-        const videoId = url.split("youtu.be/")[1]?.split("?")[0];
-        return `https://www.youtube.com/watch?v=${videoId}`;
+const YoutubeURLSchema = stringValidationAndSanitization({
+  fieldName: "Youtube url",
+  minLength: 1,
+  MaxLength: 255,
+})
+  .transform((url) => {
+    // Normalize YouTube URL format
+    if (url.includes("youtu.be/")) {
+      const videoId = url.split("youtu.be/")[1]?.split("?")[0];
+      return `https://www.youtube.com/watch?v=${videoId}`;
+    }
+    if (url.includes("youtube.com/shorts/")) {
+      const videoId = url.split("youtube.com/shorts/")[1]?.split("?")[0];
+      return `https://www.youtube.com/watch?v=${videoId}`;
+    }
+    if (url.includes("youtube.com/watch")) {
+      // Ensure https and www
+      if (!url.startsWith("http")) {
+        url = "https://" + url;
       }
-      if (url.includes("youtube.com/shorts/")) {
-        const videoId = url.split("youtube.com/shorts/")[1]?.split("?")[0];
-        return `https://www.youtube.com/watch?v=${videoId}`;
-      }
-      if (url.includes("youtube.com/watch")) {
-        // Ensure https and www
-        if (!url.startsWith("http")) {
-          url = "https://" + url;
-        }
-        if (!url.includes("www.")) {
-          url = url.replace("youtube.com", "www.youtube.com");
-        }
-        return url;
+      if (!url.includes("www.")) {
+        url = url.replace("youtube.com", "www.youtube.com");
       }
       return url;
-    })
-    .refine((url) => {
-      try {
-        new URL(url);
-        return true;
-      } catch {
-        return false;
-      }
-    }, "Must be a valid URL")
-    .refine((url) => {
-      const youtubeRegex =
-        /^https:\/\/www\.youtube\.com\/(watch\?v=|shorts\/)[\w-]{11}/;
-      return youtubeRegex.test(url);
-    }, "Must be a valid YouTube URL"),
+    }
+    return url;
+  })
+  .refine((url) => {
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  }, "Must be a valid URL")
+  .refine((url) => {
+    const youtubeRegex =
+      /^https:\/\/www\.youtube\.com\/(watch\?v=|shorts\/)[\w-]{8,20}/;
+    return youtubeRegex.test(url);
+  }, "Must be a valid YouTube URL");
 
-  types: z
-    .array(ExerciseTypeSchema)
-    .min(1, "At least one exercise type is required")
-    .max(4, "Maximum 4 exercise types allowed")
-    .transform((types) => [...new Set(types)]), // Remove duplicates
+export const CreateExerciseSchema = z.object({
+  name: stringValidationAndSanitization({
+    fieldName: "Exercise name",
+  }),
+
+  youtubeUrl: YoutubeURLSchema,
+  notes: NotesSchema,
+  type: ExerciseTypeSchema,
 
   equipment: z
     .array(ExerciseEquipmentSchema)

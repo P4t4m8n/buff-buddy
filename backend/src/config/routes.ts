@@ -28,6 +28,5 @@ export function setupRoutes(app: any, apiVersion: string = "1") {
 
   routesMap.forEach((router, path) => {
     app.use(`${baseUrl}/${path}`, router);
-    console.info(`✓ Route registered: ${baseUrl}/${path}`);
   });
 }

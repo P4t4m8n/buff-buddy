@@ -14,7 +14,6 @@ export function useFormErrors<T extends object>() {
   const handleError = useCallback((error: unknown) => {
     emitEvent({ type: "error", cmp: "error" });
     if (error instanceof ApiError) {
-      console.log("🚀 ~ useFormErrors ~ error:", error.errors);
       setErrors((prev) => ({
         ...(prev as TFormErrors<T>),
         ...error.errors,

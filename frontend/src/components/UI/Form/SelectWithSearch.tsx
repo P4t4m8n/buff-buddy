@@ -5,19 +5,16 @@ import IconArrow from "../Icons/IconArrow";
 import IconPlus from "../Icons/IconPlus";
 import Input from "./Input";
 import Label from "./Label";
+import { toTitle } from "../../../utils/toTitle";
 
 interface SelectWithSearchProps<T, P> {
   options: readonly T[];
-  selectedOptionName?: string;
-  inputName: string;
+  selectedValue: T;
   handleSelect: (option: T) => void;
-  filterOptions: (searchValue: string) => T[];
   error?: string | null;
   parentModelRef?: React.RefObject<HTMLDivElement | null>;
-  SelectedComponent?: React.ReactNode;
   AddComponent?: React.ComponentType<IComponentProps<T>>;
   addComponentProps?: P;
-  SelectItemComponent: React.ComponentType<IComponentProps<T>>;
 }
 
 interface IComponentProps<T> {
@@ -27,14 +24,12 @@ interface IComponentProps<T> {
 }
 export default function SelectWithSearch<T, P>({
   options,
+  selectedValue,
   handleSelect,
-  filterOptions,
+  error,
   parentModelRef,
-  SelectedComponent,
-  SelectItemComponent,
   AddComponent,
   addComponentProps,
-  error,
 }: SelectWithSearchProps<T, P>) {
   const [optionsList, setOptionsList] = useState<T[]>([]);
 
@@ -48,8 +43,10 @@ export default function SelectWithSearch<T, P>({
   }, [options]);
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const searchValue = e.currentTarget.value;
-    const filteredOptions = filterOptions(searchValue);
+    const searchValue = e.currentTarget.value.toLowerCase();
+    const filteredOptions = options?.filter((option) =>
+      (option as string).toLowerCase().includes(searchValue)
+    );
     setOptionsList(filteredOptions || []);
   };
 
@@ -91,7 +88,7 @@ export default function SelectWithSearch<T, P>({
         className="flex items-center justify-between w-full h-10 border rounded p-1 cursor-pointer "
         onClick={handleModel}
       >
-        <h3>{SelectedComponent ? SelectedComponent : null}</h3>
+        <h3>{selectedValue ? `${selectedValue}` : "Select Exercise Type"}</h3>
 
         <IconArrow className="w-6 h-6 group-has-[ul]:rotate-180 " />
       </Button>
@@ -128,9 +125,7 @@ export default function SelectWithSearch<T, P>({
                   onClick={(e) => onClick(e, option)}
                   className="w-full h-full flex cursor-pointer items-center justify-between"
                 >
-                  {SelectItemComponent ? (
-                    <SelectItemComponent option={option} parentRef={modelRef} />
-                  ) : null}
+                  <p>{toTitle(option)}</p>
                   <IconPlus className=" h-8 aspect-square stroke-main-black" />
                 </Button>
               </li>

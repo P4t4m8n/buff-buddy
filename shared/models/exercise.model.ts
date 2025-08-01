@@ -9,10 +9,10 @@ import {
 
 interface IExerciseBase extends IEntity {
   name?: string;
-  youtubeUrl?: string|null;
+  youtubeUrl?: string | null;
 }
 export interface IExerciseDTO extends IExerciseBase {
-  types?: TExerciseType[];
+  type?: TExerciseType | null;
   equipment?: TExerciseEquipment[];
   muscles?: TExerciseMuscle[];
 }

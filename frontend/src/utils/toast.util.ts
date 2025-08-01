@@ -35,10 +35,8 @@ const createEventEmitter = <T>(): {
     },
 
     emit(evName: string, data: T) {
-      console.log("🚀 ~ emit ~ data:", data);
       const listeners = listenersMap.get(evName);
       if (!listeners) return;
-      console.log("🚀 ~ emit ~ listeners:", listeners);
 
       listeners.forEach((listener) => listener(data));
     },

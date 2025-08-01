@@ -13,7 +13,6 @@ import { useFormErrors } from "../../hooks/shared/useFormErrors";
 import Button from "../UI/Button";
 import Input from "../UI/Form/Input";
 import YoutubeInput from "../UI/Form/YoutubeInput";
-import SelectWithSearch from "../UI/Form/SelectMultiWithSearch";
 import GenericSaveButton from "../UI/GenericSaveButton";
 import LabelWithError from "../UI/Form/LabelWithError";
 
@@ -22,6 +21,10 @@ import type {
   TExerciseInfo,
 } from "../../../../shared/models/exercise.model";
 import type { IModelProps } from "../UI/GenericModel";
+import SelectMultiWithSearch from "../UI/Form/SelectMultiWithSearch";
+import SelectWithSearch from "../UI/Form/SelectWithSearch";
+import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
+import SelectedType from "./SelectedType";
 
 interface ExerciseEditProps extends IModelProps<HTMLFormElement> {
   exercise?: IExerciseDTO;
@@ -64,7 +67,6 @@ export default function ExerciseEdit({
         setOpen(false);
       }
     } catch (error) {
-      console.log("🚀 ~ onSubmit ~ error:", error)
       handleError(error);
     }
   };
@@ -88,6 +90,13 @@ export default function ExerciseEdit({
     });
   };
 
+  const handleType = (type: ExerciseType) => {
+    setExerciseToEdit((prev) => {
+      if (!prev) return prev;
+      return { ...prev, type };
+    });
+  };
+
   const onCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -96,7 +105,7 @@ export default function ExerciseEdit({
     if (setOpen) setOpen(false);
   };
 
-  const { id, muscles, equipment, types } = exerciseToEdit || {};
+  const { id, muscles, equipment, type } = exerciseToEdit || {};
 
   const selects = [
     {
@@ -108,11 +117,6 @@ export default function ExerciseEdit({
       name: "equipment",
       options: EXERCISE_EQUIPMENT,
       selectedOptions: equipment,
-    },
-    {
-      name: "types",
-      options: EXERCISE_TYPES,
-      selectedOptions: types,
     },
   ];
 
@@ -146,8 +150,14 @@ export default function ExerciseEdit({
         youtubeUrlProps={exerciseToEdit?.youtubeUrl}
         error={errors?.youtubeUrl}
       />
+      <SelectWithSearch
+        options={EXERCISE_TYPES}
+        selectedValue={type as ExerciseType}
+        handleSelect={handleType}
+        error={errors?.type}
+      />
       {selects.map((select) => (
-        <SelectWithSearch
+        <SelectMultiWithSearch
           key={select.name}
           error={errors?.[select.name as keyof IExerciseDTO]}
           options={select.options}

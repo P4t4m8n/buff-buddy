@@ -6,7 +6,7 @@ export const conditionalOrderRefinement = (
   ctx: z.RefinementCtx
 ) => {
   if (data.crudOperation !== "delete") {
-    const order = data.order! 
+    const order = data.order!;
 
     if (data.order === undefined) {
       // For create operations, order is required. For update, it's optional.
@@ -32,7 +32,7 @@ export const conditionalOrderRefinement = (
             path: ["order"],
           });
         }
-        if (order> 100) {
+        if (order > 100) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message: "Order cannot exceed 100",
@@ -61,6 +61,32 @@ export const conditionalWeightRefinement = (
       path: ["weight"],
     });
   }
+};
+
+export const stringValidationAndSanitization = ({
+  minLength = 0,
+  MaxLength = 100,
+  fieldName,
+}: {
+  minLength?: number;
+  MaxLength?: number;
+  fieldName?: string;
+}) => {
+  return z
+    .string()
+    .transform((val) =>
+      sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} })
+    )
+    .transform((val) => val.trim())
+    .transform((val) => val.replace(/\s+/g, " "))
+    .refine(
+      (val) => val.length >= (minLength ?? 0),
+      `${fieldName} must be at least ${minLength} characters long`
+    )
+    .refine(
+      (val) => val.length <= MaxLength,
+      `${fieldName} must be less than ${MaxLength} characters`
+    );
 };
 
 export const NotesSchema = z

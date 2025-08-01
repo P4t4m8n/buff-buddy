@@ -22,7 +22,7 @@ export default function YoutubeInput({
   }, [youtubeUrlProps]);
 
   return (
-    <div className="max-w-full flex flex-col gap-2">
+    <div className="max-w-full flex flex-col gap-2 z-10">
       <Input
         type="text"
         placeholder=""

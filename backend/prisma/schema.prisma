@@ -175,13 +175,16 @@ model Exercise {
   id               String              @id @default(cuid())
   name             String              @unique
   youtubeUrl       String
-  types            ExerciseType[]
+  type             ExerciseType        @default(strength)
+  notes            String?
   equipment        ExerciseEquipment[]
   muscles          ExerciseMuscle[]
   workoutExercises WorkoutExercise[]
   createdAt        DateTime            @default(now())
   updatedAt        DateTime            @updatedAt
 }
+
+
 
 model CoreSet {
   id              String            @id @default(cuid())
@@ -191,6 +194,19 @@ model CoreSet {
   workoutExercise WorkoutExercise[]
   reps            CoreSetReps[]
   weight          CoreSetWeight[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+}
+
+model CoreCardioSet {
+  id              String            @id @default(cuid())
+  workoutExercise WorkoutExercise[]
+  warmupTime      Int?
+  avgHeartRate    Int?
+  avgSpeed        Float?
+  distance        Float?
+  calorieTarget   Int?
+  duration        Int? //in seconds
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
 }
@@ -278,8 +294,10 @@ model WorkoutExercise {
   id                   String                @id @default(cuid())
   order                Int                   @default(0)
   notes                String?
-  coreSetId            String
-  coreSet              CoreSet               @relation(fields: [coreSetId], references: [id], onDelete: Cascade)
+  coreSetId            String?
+  coreSet              CoreSet?              @relation(fields: [coreSetId], references: [id], onDelete: Cascade)
+  coreCardioSetId      String?
+  coreCardioSet        CoreCardioSet?        @relation(fields: [coreCardioSetId], references: [id], onDelete: Cascade)
   exerciseId           String
   exercise             Exercise              @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
   workoutId            String

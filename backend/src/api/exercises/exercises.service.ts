@@ -40,7 +40,7 @@ export const exerciseService = {
         youtubeUrl: dto.youtubeUrl,
         muscles: dto.muscles,
         equipment: dto.equipment,
-        types: dto.types,
+        type: dto.type,
       },
       select: exerciseSQL.EXERCISE_SELECT,
     });

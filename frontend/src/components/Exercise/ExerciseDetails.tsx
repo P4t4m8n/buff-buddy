@@ -10,7 +10,7 @@ export default function ExerciseDetails({
   exercise,
   ...props
 }: ExerciseDetailsProps) {
-  const { name, muscles, equipment, types, youtubeUrl } = exercise;
+  const { name, muscles, equipment, type, youtubeUrl } = exercise;
   const { handleModel } = props;
 
   return (
@@ -22,7 +22,7 @@ export default function ExerciseDetails({
       <YoutubePlayer youtubeUrl={youtubeUrl!} />
       <p>{muscles?.join(", ")}</p>
       <p>{equipment?.join(", ")}</p>
-      <p>{types?.join(", ")}</p>
+      <p>{type}</p>
       <Button
         className="px-2 py-1 border rounded hover:border-red-orange
                                cursor-pointer

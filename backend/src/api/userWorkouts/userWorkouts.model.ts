@@ -33,7 +33,7 @@ export interface IUserWorkout {
       order: number;
       notes?: string | null;
       exercise: IExercise;
-      coreSet: ICoreSet;
+      coreSet: ICoreSet|null;
     };
     userSets: IUserSet[];
   }[];
@@ -63,7 +63,7 @@ export interface IUserWorkoutEdit {
             id: string;
             name: string;
             youtubeUrl: string;
-            types: TExerciseType[];
+            type: TExerciseType;
             equipment: TExerciseEquipment[];
             muscles: TExerciseMuscle[];
           };
@@ -83,7 +83,7 @@ export interface IUserWorkoutEdit {
               weight: number | null;
               isBodyWeight: boolean;
             }>;
-          };
+          } | null;
         };
         userSets: Array<{
           id: string;
@@ -109,7 +109,7 @@ export interface IUserWorkoutEdit {
         id: string;
         name: string;
         youtubeUrl: string;
-        types: TExerciseType[];
+        type: TExerciseType;
         equipment: TExerciseEquipment[];
         muscles: TExerciseMuscle[];
       };
@@ -129,7 +129,7 @@ export interface IUserWorkoutEdit {
           weight: number | null;
           isBodyWeight: boolean;
         }>;
-      };
+      }|null;
     };
     userSets: Array<{
       id: string;

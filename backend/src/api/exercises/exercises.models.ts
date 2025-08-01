@@ -16,7 +16,7 @@ export interface IExercise {
   id: string;
   name: string;
   youtubeUrl: string;
-  types: ExerciseType[];
+  type: ExerciseType;
   equipment: ExerciseEquipment[];
   muscles: ExerciseMuscle[];
 }
