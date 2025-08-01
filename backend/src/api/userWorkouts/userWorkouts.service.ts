@@ -41,6 +41,7 @@ export const userWorkoutService = {
                 isWarmup: us.isWarmup,
                 isMuscleFailure: us.isMuscleFailure,
                 isJointPain: us.isJointPain,
+                order: us?.order,
                 user: {
                   connect: {
                     id: dto.ownerId,

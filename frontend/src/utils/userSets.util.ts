@@ -62,6 +62,7 @@ export const userSetsUtil = {
 
     if (hasWarmup) {
       const warmupSet = this.getWarmupSet(isBodyWeight, weight);
+      warmupSet.isWarmup = true;
       sets.unshift(warmupSet);
     }
 

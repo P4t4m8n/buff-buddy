@@ -34,4 +34,5 @@ export interface IUserSetEditDTO extends Omit<IUserSetDTO, "coreSet"> {
   programExerciseId?: string;
   crudOperation?: TCrudOperation;
   order?: number;
+  isWarmup?: boolean; // A warmup set is not saved in the db so this use is only temp for front UI
 }

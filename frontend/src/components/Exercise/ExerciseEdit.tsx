@@ -64,6 +64,7 @@ export default function ExerciseEdit({
         setOpen(false);
       }
     } catch (error) {
+      console.log("🚀 ~ onSubmit ~ error:", error)
       handleError(error);
     }
   };

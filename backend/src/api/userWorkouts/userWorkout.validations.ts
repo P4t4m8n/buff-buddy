@@ -21,7 +21,5 @@ export const CreateUserWorkoutSchema = z.object({
 
 export const UpdateUserWorkoutSchema = CreateUserWorkoutSchema.partial();
 
-export type TCreateUserWorkoutInput = z.infer<
-  typeof CreateUserWorkoutSchema
->;
+export type TCreateUserWorkoutInput = z.infer<typeof CreateUserWorkoutSchema>;
 export type TUpdateUserWorkoutInput = z.infer<typeof UpdateUserWorkoutSchema>;

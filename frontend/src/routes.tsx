@@ -49,6 +49,7 @@ export const ROUTES: RouteConfig[] = [
     path: "/programs",
     element: <ProgramPage />,
   },
+
   {
     path: "/programs/edit",
     element: <ProgramEdit />,

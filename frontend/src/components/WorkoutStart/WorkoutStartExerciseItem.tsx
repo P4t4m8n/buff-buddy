@@ -28,7 +28,7 @@ export default function WorkoutStartExerciseItem({
 
   const isFinishedStyle = isFinished ? "border-green-500" : "";
   const isOpenStyle = isOpen
-    ? "min-h-full h-full overflow-y-auto bg-main-orange z-10"
+    ? " h-fit  bg-main-orange z-10"
     : "h-20 min-h-20 overflow-hidden ";
   const liBaseStyle =
     "border rounded gap-4 px-mobile transition-all duration-300 w-full relative";

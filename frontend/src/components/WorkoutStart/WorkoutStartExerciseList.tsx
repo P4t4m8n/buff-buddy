@@ -28,7 +28,7 @@ export default function WorkoutStartExerciseList({
         completeAllExerciseSets,
       }}
       getKey={(we) => we.id!}
-      ulStyle="h-full flex flex-col overflow-y-auto  gap-2"
+      ulStyle=" flex flex-col overflow-y-auto gap-2 px-mobile"
     />
   );
 }

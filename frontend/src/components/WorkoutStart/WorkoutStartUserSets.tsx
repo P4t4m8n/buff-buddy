@@ -3,6 +3,7 @@ import type { IValidationError } from "../../models/errors.model";
 import Button from "../UI/Button";
 import Input from "../UI/Form/Input";
 import Label from "../UI/Form/Label";
+import WorkoutStartUserSetsLast from "./WorkoutStartUserSetsLast";
 
 interface INumberInput {
   name: string;
@@ -37,6 +38,7 @@ export default function WorkoutStartUserSets({
     isJointPain,
     isMuscleFailure,
     isBodyWeight,
+    isWarmup,
   } = userSet;
 
   const numberInputs = [
@@ -96,7 +98,14 @@ export default function WorkoutStartUserSets({
   };
 
   return (
-    <div className="grid grid-cols-4 grid-rows-2 gap-y-3 justify-items-center content-between not-last:border-b pb-2 items-center ">
+    <div className="grid grid-cols-4 gap-x-2 grid-rows-[repeat(3,auto)] gap-y-3 justify-items-center content-between  not-last:border-b-2 pb-2 items-center ">
+      <WorkoutStartUserSetsLast
+        isWarmup={isWarmup}
+        lastMuscleFailure={lastIsMuscleFailure}
+        lastJointPain={lastIsJointPain}
+        lastReps={lastReps}
+        lastWeight={lastWeight}
+      />
       {numberInputs.map((input) => getNumberInput(input))}
       {checkboxInputs.map((input) => (
         <Input
@@ -105,16 +114,24 @@ export default function WorkoutStartUserSets({
           id={input.name}
           type="checkbox"
           checked={!!input.value}
-          divStyle=" flex flex-col-reverse gap-1 justify-between text-center h-full "
+          divStyle=" flex flex-col-reverse gap-1 justify-between text-center h-full col-span-2"
           className=" cursor-pointer "
           onChange={handleUserSetsChange}
         >
           <Label htmlFor={input.name}>{input.label}</Label>
         </Input>
       ))}
+      <Button
+        className="text-amber hover:text-black w-full col-span-2 opacity-50 cursor-not-allowed"
+        buttonStyle="model"
+        disabled={true}
+        type="button"
+      >
+        ***Skip***
+      </Button>
 
       <Button
-        className={`text-amber hover:text-black w-fit col-span-2 justify-self-end ${
+        className={`text-amber hover:text-black col-span-2 w-full ${
           isCompleted ? "bg-main-green" : ""
         }`}
         buttonStyle="model"

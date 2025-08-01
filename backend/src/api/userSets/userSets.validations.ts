@@ -18,16 +18,15 @@ const UserSetSchema = z.object({
     .max(10000, "Weight cannot exceed 10000")
     .transform((val) => Math.round(val * 100) / 100),
 
-
   isBodyWeight: BooleanSchema,
   isCompleted: BooleanSchema,
   isJointPain: BooleanSchema,
   isMuscleFailure: BooleanSchema,
   isWarmup: BooleanSchema,
+  order: z.number().optional(),
 
   crudOperation: CrudOperationSchema,
   id: z.optional(z.string()),
- 
 });
 
 //TODO:Create and nested are the same, maybe join them later?

@@ -201,21 +201,23 @@ export default function WorkoutStartPage() {
   return (
     <form
       onSubmit={onSubmit}
-      className="absolute inset-0 h-full grid grid-cols-1 grid-rows-[2rem_2.5rem_calc(100%-10rem)_2.5rem]
-       gap-4 bg-main-orange p-mobile"
+      className="fixed inset-0 h-main overflow-hidden grid grid-cols-1 grid-rows-[5.5rem_calc(100%-10rem)_2.5rem]
+       gap-4 bg-main-orange py-mobile"
     >
-      <h2 className="text-center text-xl underline underline-offset-2">
-        {name}
-      </h2>
-      <DateInput
-        handleDateSelect={handleDateSelect}
-        selectedRange={{ start: workoutStart?.dateCompleted as Date }}
-        className=" "
-        initialMode="single"
-        errorRange={{
-          startDate: errors?.dateCompleted,
-        }}
-      />
+      <div className="px-mobile">
+        <h2 className="text-center text-xl underline underline-offset-2 pb-4">
+          {name}
+        </h2>
+        <DateInput
+          handleDateSelect={handleDateSelect}
+          selectedRange={{ start: workoutStart?.dateCompleted as Date }}
+          className=" "
+          initialMode="single"
+          errorRange={{
+            startDate: errors?.dateCompleted,
+          }}
+        />
+      </div>
       <WorkoutStartExerciseList
         lastUserWorkout={lastUserWorkout}
         workoutExercises={sortedWorkoutExercises}
@@ -223,7 +225,7 @@ export default function WorkoutStartPage() {
         logUserSet={logUserSet}
         completeAllExerciseSets={completeAllExerciseSets}
       />
-      <div className="flex justify-between h-10">
+      <div className="flex justify-between h-10 px-mobile ">
         <Button
           buttonStyle="warning"
           type="button"

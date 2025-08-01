@@ -55,7 +55,7 @@ export default function WorkoutPage() {
   }
 
   return (
-    <div className="h-main flex flex-col gap-4 relative ">
+    <div className="h-main flex flex-col gap-4 relative overflow-auto ">
       <header className="w-full h-16 border-b px-mobile pt-2 ">
         <h2 className="text-center">Workouts Page</h2>
         <div className="inline-flex items-center justify-between gap-2 w-full">

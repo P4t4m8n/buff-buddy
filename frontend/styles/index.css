@@ -1,9 +1,8 @@
 @import "tailwindcss";
 
-
 @theme {
   --color-main-orange: rgb(253, 127, 32);
-  --color-secondary-orange: rgb(253, 127, 32, 0.5);
+
   --color-red-orange: rgb(252, 46, 32);
   --color-amber: rgb(253, 183, 80);
   --color-main-black: rgb(1, 1, 0);
@@ -34,6 +33,11 @@
     align-items: center;
     justify-content: center;
   }
+}
+
+.test-color {
+  background-color: rgba(253, 127, 32, 0.5);
+  
 }
 
 .switch-label {

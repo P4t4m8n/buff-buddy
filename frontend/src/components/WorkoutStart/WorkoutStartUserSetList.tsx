@@ -18,7 +18,7 @@ export default function WorkoutStartUserSetList({
       ItemComponent={WorkoutStartUserSets}
       itemComponentProps={{ handleUserSetsChange, logUserSet }}
       getKey={(item) => item.id!}
-      ulStyle="overflow-y-auto h-full flex flex-col gap-2"
+      ulStyle=" h-full flex flex-col gap-2"
     />
   );
 }
