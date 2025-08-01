@@ -9,6 +9,6 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "prisma/**/*", "../shared/**/*"],
   "exclude": ["node_modules", "**/*.test.ts", "**/*.spec.ts", "jest.config.ts"]
 }
