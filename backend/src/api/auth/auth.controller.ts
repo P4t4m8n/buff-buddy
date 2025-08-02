@@ -158,23 +158,10 @@ export const googleCallback = async (req: Request, res: Response) => {
       googleId: userInfo.id,
       imgUrl: userInfo.picture,
     });
-    let token;
-
-    try {
-      const res = await authService.signIn(validateGoogleAuth);
-      token = res.token;
-    } catch (error) {
-      if (error instanceof AppError && error.status === 409) {
-        // User not found, attempt to sign up
-        const res = await authService.signUp(validateGoogleAuth);
-        token = res.token;
-      } else {
-        // Other errors
-        throw error;
-      }
-    }
+    const { token } = await authService.signInWithGoogle(validateGoogleAuth);
 
     const frontendUrl = process.env.FRONTEND_URL;
+    console.log("🚀 ~ googleCallback ~ frontendUrl:", frontendUrl)
     res.cookie("token", token, COOKIE).redirect(frontendUrl!);
   } catch (error) {
     const err = AppError.handleResponse(error);

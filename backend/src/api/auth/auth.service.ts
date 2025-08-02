@@ -87,6 +87,36 @@ export const authService = {
       token,
     };
   },
+  signInWithGoogle: async (dto: GoogleOAuthInput) => {
+    const { email, firstName, lastName, googleId } = dto;
+
+    const user = await prisma.user.upsert({
+      where: { email: email },
+      update: { googleId: googleId },
+      create: {
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        googleId: googleId,
+        imgUrl: dto.imgUrl,
+      },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+      },
+    });
+
+    if (!user) {
+      throw AppError.create("Google sign-in failed", 500);
+    }
+
+    const token = generateToken(user.id, false);
+    return {
+      user,
+      token,
+    };
+  },
 
   validateToken: async (token: string) => {
     if (!token) {
