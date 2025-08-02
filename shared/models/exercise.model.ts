@@ -6,6 +6,11 @@ import {
   EXERCISE_MUSCLES,
   EXERCISE_TYPES,
 } from "../consts/exercise.consts";
+import type {
+  ExerciseEquipment,
+  ExerciseType,
+  ExerciseMuscle,
+} from "../../backend/prisma/generated/prisma";
 
 interface IExerciseBase extends IEntity {
   name?: string;
@@ -19,14 +24,10 @@ export interface IExerciseDTO extends IExerciseBase {
 
 export interface IExerciseFilter extends IBaseFilter {
   name?: string;
-  typeId?: string;
-  equipmentId?: string;
-  muscleId?: string;
-  typeName?: string;
-  equipmentName?: string;
-  muscleName?: string;
+  types?: ExerciseType[];
+  equipment?: ExerciseEquipment[];
+  muscles?: ExerciseMuscle[];
 }
-
 export type TExerciseInfo = (typeof EXERCISE_INFO)[number];
 
 export type TExerciseMuscle = (typeof EXERCISE_MUSCLES)[number];

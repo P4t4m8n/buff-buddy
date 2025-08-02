@@ -15,6 +15,7 @@ interface IWorkoutStartExerciseItemDetailsProps {
   handleUserSetsChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   logUserSet: (id?: string) => void;
   completeAllExerciseSets: (id: string) => void;
+  handleModel: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 export default function WorkoutStartExerciseItemDetails({
   workoutStart,
@@ -22,6 +23,7 @@ export default function WorkoutStartExerciseItemDetails({
   handleUserSetsChange,
   logUserSet,
   completeAllExerciseSets,
+  handleModel,
 }: IWorkoutStartExerciseItemDetailsProps) {
   const { id, exercise, coreSet, notes, userSets } = workoutStart;
   const { youtubeUrl } = exercise ?? {};
@@ -64,6 +66,14 @@ export default function WorkoutStartExerciseItemDetails({
           onClick={() => completeAllExerciseSets(id!)}
         >
           Complete All Sets
+        </Button>
+        <Button
+          className="text-amber hover:text-black w-full"
+          buttonStyle="model"
+          type="button"
+          onClick={handleModel}
+        >
+          Close
         </Button>
       </div>
     </div>

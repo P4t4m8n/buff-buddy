@@ -3,7 +3,10 @@ import { Prisma } from "../../../prisma/generated/prisma";
 import { IWorkout, IWorkoutFilter } from "./workouts.models";
 
 export const workoutUtils = {
-  buildWhereClause(filter: IWorkoutFilter): Prisma.WorkoutWhereInput {
+  buildWhereClause(
+    filter: IWorkoutFilter,
+    userId: string
+  ): Prisma.WorkoutWhereInput {
     const where: Prisma.WorkoutWhereInput = {};
 
     if (filter.programName) {
@@ -45,6 +48,7 @@ export const workoutUtils = {
       };
     }
 
+    where.ownerId = userId;
     return where;
   },
   buildDTO: (workout: IWorkout): IWorkoutDTO => ({

@@ -8,14 +8,14 @@ import { WORKOUT_SELECT } from "./workout.sql";
 import { coreSetsSQL } from "../coreSets/coreSets.sql";
 
 export const workoutsService = {
-  get: async (filter: IWorkoutFilter): Promise<IWorkout[]> => {
-    const where: Prisma.WorkoutWhereInput =
-      workoutUtils.buildWhereClause(filter);
+  get: async (filter: IWorkoutFilter, userId: string): Promise<IWorkout[]> => {
+    const where: Prisma.WorkoutWhereInput = workoutUtils.buildWhereClause(
+      filter,
+      userId
+    );
 
     const take = filter.take ? parseInt(filter.take.toString()) : 20;
-    const skip =
-      filter.skip ??
-      (filter.page && filter.page > 1 ? (filter.page - 1) * take : 0);
+    const skip = filter.skip && filter.skip > 1 ? (filter.skip - 1) * take : 0;
 
     return (await prisma.workout.findMany({
       where,
@@ -24,9 +24,9 @@ export const workoutsService = {
       select: WORKOUT_SELECT,
     })) as unknown as Promise<IWorkout[]>;
   },
-  getById: async (id: string): Promise<IWorkout | null> => {
+  getById: async (id: string, userId: string): Promise<IWorkout | null> => {
     return prisma.workout.findUnique({
-      where: { id },
+      where: { id, ownerId: userId },
       select: WORKOUT_SELECT,
     }) as unknown as Promise<IWorkout>;
   },

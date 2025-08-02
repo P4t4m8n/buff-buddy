@@ -202,11 +202,11 @@ model CoreCardioSet {
   id              String            @id @default(cuid())
   workoutExercise WorkoutExercise[]
   warmupTime      Int?
+  workTime        Int? //in seconds
   avgHeartRate    Int?
   avgSpeed        Float?
   distance        Float?
   calorieTarget   Int?
-  duration        Int? //in seconds
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
 }

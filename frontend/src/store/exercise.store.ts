@@ -1,5 +1,8 @@
 import { create } from "zustand";
-import type { IExerciseDTO } from "../../../shared/models/exercise.model";
+import type {
+  IExerciseDTO,
+  IExerciseFilter,
+} from "../../../shared/models/exercise.model";
 import { exerciseService } from "../services/exercise.service";
 import type { IExerciseStore } from "../models/store.model";
 
@@ -10,7 +13,7 @@ export const useExerciseStore = create<IExerciseStore>((set, get) => ({
   isSavingId: null,
   isLoadingId: null,
 
-  loadExercises: async () => {
+  loadExercises: async (filter?: IExerciseFilter) => {
     try {
       set({ isLoading: true });
 
@@ -18,7 +21,8 @@ export const useExerciseStore = create<IExerciseStore>((set, get) => ({
         return;
       }
 
-      const _exercises = await exerciseService.get({});
+      const _exercises = await exerciseService.get(filter);
+
       set({ exercises: _exercises, isLoading: false });
     } finally {
       set({ isLoading: false });

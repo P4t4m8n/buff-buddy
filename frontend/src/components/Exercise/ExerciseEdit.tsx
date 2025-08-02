@@ -142,7 +142,7 @@ export default function ExerciseEdit({
         <LabelWithError
           htmlFor="name"
           error={errors?.name}
-          labelText="Program Name"
+          labelText="Exercise Name"
         />
       </Input>
       <YoutubeInput

@@ -11,8 +11,13 @@ import { programsUtils } from "./programs.utils";
 export const getPrograms = async (req: Request, res: Response) => {
   try {
     const filter = req.query as Record<string, string>;
+    const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
 
-    const programsData = await programsService.getAll(filter);
+    if (!userId) {
+      throw new AppError("User not authenticated", 401);
+    }
+
+    const programsData = await programsService.getAll(filter, userId);
 
     const programs = programsUtils.buildDTOArr(programsData);
 
@@ -29,8 +34,13 @@ export const getPrograms = async (req: Request, res: Response) => {
 export const getProgramById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
 
-    const programData = await programsService.getById(id);
+    if (!userId) {
+      throw new AppError("User not authenticated", 401);
+    }
+
+    const programData = await programsService.getById(id, userId);
 
     if (!programData) {
       throw new AppError("Program not found", 404);

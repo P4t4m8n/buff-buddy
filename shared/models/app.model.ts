@@ -1,6 +1,5 @@
 export interface IBaseFilter {
   skip?: number;
-  page?: number;
   take?: number;
 }
 export const DAY_OF_WEEK = [

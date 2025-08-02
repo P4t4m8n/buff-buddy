@@ -3,12 +3,10 @@ import { useEffect, useState } from "react";
 import { useExerciseStore } from "../store/exercise.store";
 
 import ExerciseEdit from "../components/Exercise/ExerciseEdit";
-import GenericList from "../components/UI/GenericList";
-import ExercisePreview from "../components/Exercise/ExercisePreview";
-import Loader from "../components/UI/Loader";
 import GenericModel from "../components/UI/GenericModel";
 
 import type { IExerciseDTO } from "../../../shared/models/exercise.model";
+import ExerciseList from "../components/Exercise/ExerciseList";
 
 export default function ExercisePage() {
   const loadExercises = useExerciseStore((state) => state.loadExercises);
@@ -36,10 +34,6 @@ export default function ExercisePage() {
     await deleteExercise(id);
   };
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
   return (
     <section className="h-main flex flex-col gap-4">
       <header className="p-mobile md:p-desktop  ">
@@ -57,13 +51,10 @@ export default function ExercisePage() {
           buttonProps={{ buttonStyle: "model" }}
         />
       </header>
-      <GenericList
-        items={filteredExercises}
-        ItemComponent={ExercisePreview}
-        itemComponentProps={{ onDelete }}
-        getKey={(item) => item.id!}
-        ulStyle="grid grid-cols-[repeat(auto-fit,minmax(18rem,1fr))] 
-        h-auto overflow-auto gap-4 p-mobile md:p-desktop"
+      <ExerciseList
+        filteredExercises={filteredExercises}
+        isLoading={isLoading}
+        onDelete={onDelete}
       />
     </section>
   );

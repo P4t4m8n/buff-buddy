@@ -59,6 +59,7 @@ export default function WorkoutStartExerciseItem({
         handleUserSetsChange={handleUserSetsChange}
         logUserSet={logUserSet}
         completeAllExerciseSets={completeAllExerciseSets}
+        handleModel={handleModel}
       />
     </li>
   );

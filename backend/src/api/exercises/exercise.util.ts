@@ -1,5 +1,5 @@
+import { IExerciseFilter } from "../../../../shared/models/exercise.model";
 import { Prisma } from "../../../prisma/generated/prisma";
-import { IExerciseFilter } from "./exercises.models";
 
 export const exerciseUtil = {
   buildWhereClause(filter: IExerciseFilter): Prisma.ExerciseWhereInput {
@@ -17,6 +17,8 @@ export const exerciseUtil = {
     if (filter.muscles) {
       where.muscles = { hasSome: filter.muscles };
     }
+
+    
 
     return where;
   },

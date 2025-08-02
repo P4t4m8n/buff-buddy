@@ -4,6 +4,7 @@ import type { ICoreSetDTO, ICoreSetEditDTO } from "./set.model";
 import type { IEntity } from "./entity.model";
 import type { TDayOfWeek, IBaseFilter, TCrudOperation } from "./app.model";
 import type { IProgramDTO } from "./program.model";
+import type { ICoreCardioSetEditDTO } from "./cardioSet.model";
 
 interface IWorkoutBase extends IEntity {
   name?: string | null;
@@ -34,9 +35,15 @@ export interface IWorkoutExerciseEditDTO extends IEntity {
   order?: number;
   notes?: string | null;
   coreSet?: ICoreSetEditDTO;
+  coreCardioSet?: ICoreCardioSetEditDTO;
   exerciseId?: string; //For backend relationship
   exercise?: IExerciseDTO; //Exists only on the front to show the exercise details
   crudOperation?: TCrudOperation;
+}
+
+export interface IWorkoutExerciseEditSet {
+  crudOperation?: TCrudOperation;
+  workoutExerciseId?: string;
 }
 
 export interface IWorkoutFilter extends IBaseFilter {
@@ -45,4 +52,3 @@ export interface IWorkoutFilter extends IBaseFilter {
   exerciseId?: string;
   isCompleted?: boolean;
 }
-

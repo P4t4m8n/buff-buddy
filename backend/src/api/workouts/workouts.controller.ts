@@ -11,9 +11,14 @@ import { workoutUtils } from "./workout.utils";
 
 export const getWorkouts = async (req: Request, res: Response) => {
   try {
+    const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
+
+    if (!userId) {
+      throw new AppError("User not authenticated", 401);
+    }
     const filter = WorkoutQuerySchema.parse(req.query);
 
-    const workoutsData = await workoutsService.get(filter);
+    const workoutsData = await workoutsService.get(filter, userId);
     const workouts = workoutUtils.buildDTOArr(workoutsData);
 
     res.status(200).json(workouts);
@@ -29,9 +34,14 @@ export const getWorkouts = async (req: Request, res: Response) => {
 
 export const getWorkoutById = async (req: Request, res: Response) => {
   try {
+    const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
+
+    if (!userId) {
+      throw new AppError("User not authenticated", 401);
+    }
     const { id } = req.params;
 
-    const workoutData = await workoutsService.getById(id);
+    const workoutData = await workoutsService.getById(id,userId);
     if (!workoutData) {
       throw new AppError("Workout not found", 404);
     }

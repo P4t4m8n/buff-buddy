@@ -8,13 +8,14 @@ import { CreateProgramInput, UpdateProgramInput } from "./programs.validations";
 
 //TODO?? move to raw SQL for performance due to junction tables and reorganize of structure data
 export const programsService = {
-  getAll: async (filter: IProgramFilter): Promise<IProgram[]> => {
-    const where: Prisma.ProgramWhereInput = buildWhereClause(filter);
+  getAll: async (
+    filter: IProgramFilter,
+    userId: string
+  ): Promise<IProgram[]> => {
+    const where: Prisma.ProgramWhereInput = buildWhereClause(filter, userId);
 
     const take = filter.take ?? 20;
-    const skip =
-      filter.skip ??
-      (filter.page && filter.page > 1 ? (filter.page - 1) * take : 0);
+    const skip = filter.skip && filter.skip > 1 ? (filter.skip - 1) * take : 0;
 
     //TODO?? I have no idea hwy the type dont work
     return (await prisma.program.findMany({
@@ -24,9 +25,9 @@ export const programsService = {
       select: PROGRAM_SELECT,
     })) as unknown as IProgram[];
   },
-  getById: async (id: string): Promise<IProgram | null> => {
+  getById: async (id: string, userId: string): Promise<IProgram | null> => {
     return (await prisma.program.findUnique({
-      where: { id },
+      where: { id, ownerId: userId },
       select: PROGRAM_SELECT,
     })) as unknown as IProgram;
   },
@@ -141,9 +142,7 @@ export const programsService = {
                             notes: we.notes,
                             exercise: { connect: { id: we.exerciseId } },
                             coreSet: {
-                              create: coreSetsSQL.getCreateCoreSets(
-                                we.coreSet
-                              ),
+                              create: coreSetsSQL.getCreateCoreSets(we.coreSet),
                             },
                           })
                         ),
@@ -178,9 +177,7 @@ export const programsService = {
                             notes: we.notes,
                             exercise: { connect: { id: we.exerciseId } },
                             coreSet: {
-                              create: coreSetsSQL.getCreateCoreSets(
-                                we.coreSet
-                              ),
+                              create: coreSetsSQL.getCreateCoreSets(we.coreSet),
                             },
                           })
                         ),
@@ -209,54 +206,17 @@ export const programsService = {
   },
 };
 
-const buildWhereClause = (filter: IProgramFilter): Prisma.ProgramWhereInput => {
+const buildWhereClause = (
+  filter: IProgramFilter,
+  userId: string
+): Prisma.ProgramWhereInput => {
   const where: Prisma.ProgramWhereInput = {};
 
   if (filter.name) {
     where.name = { contains: filter.name, mode: "insensitive" };
   }
-  if (filter.exerciseTypes) {
-    // where.programExercises = {
-    //   some: {
-    //     exercise: {
-    //       types: {
-    //         hasSome: filter.exerciseTypes.split(",") as any[],
-    //       },
-    //     },
-    //   },
-    // };
-  }
-  if (filter.exerciseEquipment) {
-    // where.programExercises = {
-    //   some: {
-    //     exercise: {
-    //       equipment: {
-    //         hasSome: filter.exerciseEquipment.split(",") as any[],
-    //       },
-    //     },
-    //   },
-    // };
-  }
-  if (filter.exerciseMuscles) {
-    // where.programExercises = {
-    //   some: {
-    //     exercise: {
-    //       muscles: {
-    //         hasSome: filter.exerciseMuscles.split(",") as any[],
-    //       },
-    //     },
-    //   },
-    // };
-  }
-  if (filter.exerciseName) {
-    // where.programExercises = {
-    //   some: {
-    //     exercise: {
-    //       name: { contains: filter.exerciseName, mode: "insensitive" },
-    //     },
-    //   },
-    // };
-  }
+
+  where.ownerId = userId;
 
   return where;
 };

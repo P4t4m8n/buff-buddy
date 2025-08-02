@@ -9,12 +9,12 @@ export default function AuthGuard({ children }: AuthProviderProps) {
   const user = useAuthStore((state) => state.user);
   const loadSessionUser = useAuthStore((state) => state.loadSessionUser);
   const isLoading = useAuthStore((state) => state.isLoading);
-
+  
   useEffect(() => {
     loadSessionUser();
   }, [loadSessionUser]);
-
-  if (isLoading) return <Loader />;
+  
+  if (isLoading ) return <Loader loaderType="screen" />;
 
   return user ? <>{children}</> : <AuthPage />;
 }

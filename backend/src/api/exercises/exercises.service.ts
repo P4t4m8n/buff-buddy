@@ -1,10 +1,12 @@
-import { IExerciseDTO } from "../../../../shared/models/exercise.model";
+import {
+  IExerciseDTO,
+  IExerciseFilter,
+} from "../../../../shared/models/exercise.model";
 import { Exercise, Prisma } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
 import { dbUtil } from "../../shared/utils/db.util";
 import { exerciseSQL } from "./exercise.sql";
 import { exerciseUtil } from "./exercise.util";
-import { IExerciseFilter } from "./exercises.models";
 import {
   CreateExerciseInput,
   UpdateExerciseInput,
@@ -16,9 +18,7 @@ export const exerciseService = {
       exerciseUtil.buildWhereClause(filter);
 
     const take = filter.take ?? 100;
-    const skip =
-      filter.skip ??
-      (filter.page && filter.page > 1 ? (filter.page - 1) * take : 0);
+    const skip = filter.skip && filter.skip > 1 ? (filter.skip - 1) * take : 0;
 
     return prisma.exercise.findMany({
       where,

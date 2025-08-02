@@ -14,7 +14,7 @@ export default function WorkoutExerciseEditList({
     <GenericList
       items={workoutExercises ?? []}
       getKey={(we) => we.id!}
-      ulStyle="flex flex-col gap-2  h-full"
+      ulStyle="flex flex-col gap-2 h-full overflow-y-auto"
       ItemComponent={WorkoutExerciseEditListItem}
       itemComponentProps={{ handleWorkoutExercises }}
     />

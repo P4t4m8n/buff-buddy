@@ -5,12 +5,6 @@ import {
   ExerciseType,
 } from "../../../prisma/generated/prisma";
 
-export interface IExerciseFilter extends IBaseFilter {
-  name?: string;
-  types?: ExerciseType[];
-  equipment?: ExerciseEquipment[];
-  muscles?: ExerciseMuscle[];
-}
 
 export interface IExercise {
   id: string;

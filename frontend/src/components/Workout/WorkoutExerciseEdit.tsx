@@ -15,6 +15,8 @@ import type { ICoreSetEditDTO } from "../../../../shared/models/set.model";
 
 import WorkoutExerciseEditAddExercise from "./WorkoutExerciseEditAddExercise";
 import SelectWithSearchOld from "../UI/Form/SelectWithSearchOld";
+import { toTitle } from "../../utils/toTitle";
+import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
 
 interface WorkoutExerciseEditProps extends IModelProps<HTMLDivElement> {
   workoutExercise?: IWorkoutExerciseEditDTO;
@@ -82,7 +84,24 @@ export default function WorkoutExerciseEdit({
 
   if (!workoutExerciseToEdit) return <Loader />;
 
-  const { order, notes, exercise, coreSet } = workoutExerciseToEdit;
+  const { order, notes, exercise, coreSet, coreCardioSet } =
+    workoutExerciseToEdit;
+  const workoutExerciseType = (type?: ExerciseType | null) => {
+    switch (type) {
+      case "cardio":
+        return null;
+      case "strength":
+        return (
+          <WorkoutExerciseCoreSet
+            coreSet={coreSet}
+            handleChange={handleSetChange}
+            errors={coreSetsErrors}
+          />
+        );
+      default:
+        return null;
+    }
+  };
 
   const isExercise = !!exercise?.id;
   return (
@@ -139,22 +158,16 @@ export default function WorkoutExerciseEdit({
           parentModelRef={modelRef}
           error={workoutExerciseErrors?.exerciseId}
           SelectedComponent={
-            exercise?.id ? exercise?.name : "Select an Exercise"
+            exercise?.id ? toTitle(exercise?.name) : "Select an Exercise"
           }
           SelectItemComponent={({ option }) => (
-            <span className="">{option?.name}</span>
+            <span className="">{toTitle(option?.name)}</span>
           )}
           AddComponent={WorkoutExerciseEditAddExercise}
         />
       </div>
 
-      {isExercise ? (
-        <WorkoutExerciseCoreSet
-          coreSet={coreSet}
-          handleChange={handleSetChange}
-          errors={coreSetsErrors}
-        />
-      ) : null}
+      {isExercise ? workoutExerciseType(exercise?.type) : null}
       <div className="col-span-full w-full flex justify-between px-4 pb-4">
         <Button buttonStyle="warning" onClick={onCancel}>
           Cancel

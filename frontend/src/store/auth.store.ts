@@ -20,7 +20,7 @@ interface IAuthStore {
 export const useAuthStore = create<IAuthStore>((set) => ({
   user: null,
   error: null,
-  isLoading: false,
+  isLoading: true,
 
   loadSessionUser: async () => {
     try {

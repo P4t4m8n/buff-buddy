@@ -1,8 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
 @import "tailwindcss";
 
 @theme {
   --color-main-orange: rgb(253, 127, 32);
-
+  --color-secondary-orange: hsl(28, 98%, 70%);
+  /* --color-secondary-orange: hsl(28, 80%, 85%); */
   --color-red-orange: rgb(252, 46, 32);
   --color-amber: rgb(253, 183, 80);
   --color-main-black: rgb(1, 1, 0);
@@ -14,7 +17,7 @@
     rgba(252, 46, 32, 0.85)
   );
 
-  --height-main: calc(100vh - 4rem);
+  --height-main: calc(100svh - 4rem);
 
   --width-small: calc(20rem);
   --width-small-with-padding: 18rem;
@@ -22,7 +25,7 @@
   --width-input: 2.5rem;
 
   --min-width-small: var(--width-small);
-  --font-display: "Gloria Hallelujah", cursive;
+  --font-display: "Oswald", "sans-serif";
 
   --padding-mobile: 0.5rem;
   --padding-desktop: 1rem;
@@ -37,7 +40,6 @@
 
 .test-color {
   background-color: rgba(253, 127, 32, 0.5);
-  
 }
 
 .switch-label {
@@ -124,5 +126,43 @@ input[type="number"] {
   /* Safari and Chrome */
   &::-webkit-scrollbar {
     display: block;
+  }
+}
+
+.box {
+  -webkit-box-reflect: below 1px linear-gradient(transparent, #000);
+  animation: animatesurface 1.5s ease-in-out infinite;
+}
+@keyframes animatesurface {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-200px);
+  }
+}
+.cube {
+  color: rgba(3, 233, 244, 1);
+
+  box-shadow: 0 0 5px rgba(252, 46, 32, 1), 0 0 25px rgba(252, 46, 32, 1),
+    0 0 50px rgba(252, 46, 32, 1), 0 0 150px rgba(252, 46, 32, 1);
+  transform-origin: bottom right;
+  animation: animate 1.5s ease-in-out infinite;
+}
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  60%,
+  70%,
+  80%,
+  100% {
+    transform: rotate(90deg);
+  }
+  65% {
+    transform: rotate(85deg);
+  }
+  75% {
+    transform: rotate(87.5deg);
   }
 }

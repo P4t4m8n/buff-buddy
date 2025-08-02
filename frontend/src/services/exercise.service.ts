@@ -8,7 +8,7 @@ import { apiService, type THttpPostResponse } from "./api.service";
 export const exerciseService = {
   rootPath: "/exercises",
 
-  async get(filter: IExerciseFilter): Promise<Array<IExerciseDTO>> {
+  async get(filter?: IExerciseFilter): Promise<Array<IExerciseDTO>> {
     return await apiService.get<Array<IExerciseDTO>>(
       `${this.rootPath}`,
       filter
@@ -47,3 +47,17 @@ export const exerciseService = {
   },
 };
 
+const buildQueryParams = (filter: IExerciseFilter): string => {
+  const queryParams = new URLSearchParams();
+  if (filter.name) queryParams.append("name", filter.name);
+  if (filter.types && filter.types.length > 0)
+    queryParams.append("types", filter.types.join(","));
+  if (filter.equipment && filter.equipment.length > 0)
+    queryParams.append("equipment", filter.equipment.join(","));
+  if (filter.muscles && filter.muscles.length > 0)
+    queryParams.append("muscles", filter.muscles.join(","));
+  if (filter.skip) queryParams.append("skip", filter.skip.toString());
+  if (filter.take) queryParams.append("take", filter.take.toString());
+
+  return queryParams.toString();
+};

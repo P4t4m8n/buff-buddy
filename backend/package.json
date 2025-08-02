@@ -10,6 +10,7 @@
     "test": "jest --silent=false --detectOpenHandles",
     "dev": "nodemon --exec ts-node src/server.ts",
     "gen": "prisma generate",
+    "studio": "npx prisma studio",
     "migrate": "prisma migrate dev",
     "copy:front": "rm -rf public && mkdir -p public && cp -r ../frontend/dist/* public/",
     "copy:prisma": "cp -r ./prisma/generated ./dist/backend/prisma/",
