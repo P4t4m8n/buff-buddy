@@ -14,18 +14,18 @@ const BaseWorkoutSchema = z.object({
   programId: z.string().nullish().optional(),
   ownerId: z.string().nullish().optional(),
   notes: NotesSchema,
-  name: NameSchema,
+  name: NameSchema.default("").optional(),
   crudOperation: CrudOperationSchema,
   workoutExercises: z
     .array(CreateNestedWorkoutExerciseSchema)
     .min(1, "At least one workout set is required")
     .max(50, "Maximum 50 workout sets allowed per workout"),
+    id: IDSchema.optional(),
 });
 
 export const CreateWorkoutSchema = BaseWorkoutSchema;
 
 export const UpdateWorkoutSchema = BaseWorkoutSchema.extend({
-  id: IDSchema,
   workoutExercises: z
     .array(UpdateNestedWorkoutExerciseSchema)
     .min(1, "At least one workout set is required")
@@ -42,6 +42,6 @@ export const WorkoutQuerySchema = z.object({
   page: z.coerce.number().min(1).optional(),
 });
 
-export type CreateWorkoutInput = z.infer<typeof CreateWorkoutSchema>;
-export type UpdateWorkoutInput = z.infer<typeof UpdateWorkoutSchema>;
-export type WorkoutQuery = z.infer<typeof WorkoutQuerySchema>;
+export type TCreateWorkoutInput = z.infer<typeof CreateWorkoutSchema>;
+export type TUpdateWorkoutInput = z.infer<typeof UpdateWorkoutSchema>;
+export type TWorkoutQuery = z.infer<typeof WorkoutQuerySchema>;

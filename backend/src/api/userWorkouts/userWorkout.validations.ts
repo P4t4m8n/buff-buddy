@@ -3,11 +3,13 @@ import {
   DateSchema,
   IDSchema,
 } from "../../shared/validations/shared.validations";
-import { CreateUserSetSchema } from "../userSets/userSets.validations";
+import { CreateUserStrengthSetSchema } from "../userSets/userStrengthSets/userStrengthSets.validations";
+import { CreateUserCardioSetSchema } from "../userSets/userCardioSets/userCardioSets.validations";
 
 const CreateUserWorkoutExercises = z.object({
   workoutExerciseId: IDSchema,
-  userSets: z.array(CreateUserSetSchema),
+  userStrengthSets: z.array(CreateUserStrengthSetSchema).optional(),
+  userCardioSets: z.array(CreateUserCardioSetSchema).optional(),
 });
 
 export const CreateUserWorkoutSchema = z.object({

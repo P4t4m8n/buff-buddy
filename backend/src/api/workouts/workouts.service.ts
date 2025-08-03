@@ -1,11 +1,15 @@
 import { Prisma, Workout } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
 import { IWorkout, IWorkoutFilter } from "./workouts.models";
-import { CreateWorkoutInput, UpdateWorkoutInput } from "./workouts.validations";
+import {
+  TCreateWorkoutInput,
+  TUpdateWorkoutInput,
+} from "./workouts.validations";
 import { dbUtil } from "../../shared/utils/db.util";
 import { workoutUtils } from "./workout.utils";
-import { WORKOUT_SELECT } from "./workout.sql";
-import { coreSetsSQL } from "../coreSets/coreSets.sql";
+import { workoutSQL } from "./workout.sql";
+import { coreStrengthSetsSQL } from "../coreSets/coreStrengthSets/coreStrengthSets.sql";
+import { coreCardioSetsSQL } from "../coreSets/coreCardioSets/coreCardioSets.sql";
 
 export const workoutsService = {
   get: async (filter: IWorkoutFilter, userId: string): Promise<IWorkout[]> => {
@@ -21,43 +25,23 @@ export const workoutsService = {
       where,
       skip,
       take,
-      select: WORKOUT_SELECT,
+      select: workoutSQL.WORKOUT_SELECT,
     })) as unknown as Promise<IWorkout[]>;
   },
   getById: async (id: string, userId: string): Promise<IWorkout | null> => {
     return prisma.workout.findUnique({
       where: { id, ownerId: userId },
-      select: WORKOUT_SELECT,
+      select: workoutSQL.WORKOUT_SELECT,
     }) as unknown as Promise<IWorkout>;
   },
-  create: async (dto: CreateWorkoutInput): Promise<IWorkout> => {
+  create: async (dto: TCreateWorkoutInput): Promise<IWorkout> => {
     return prisma.workout.create({
-      data: {
-        name: dto.name,
-        owner: {
-          connect: {
-            id: dto.ownerId!,
-          },
-        },
-        workoutExercises: {
-          create: dto.workoutExercises.map((we) => ({
-            order: we.order!,
-            notes: we.notes,
-            exercise: {
-              connect: {
-                id: we.exerciseId,
-              },
-            },
-            coreSet: {
-              create: coreSetsSQL.getCreateCoreSets(we.coreSet),
-            },
-          })),
-        },
-      },
-      select: WORKOUT_SELECT,
+      data: workoutSQL.getWorkoutCreate(dto, dto?.ownerId),
+      select: workoutSQL.WORKOUT_SELECT,
     }) as unknown as Promise<IWorkout>;
   },
-  update: async (id: string, dto: UpdateWorkoutInput): Promise<IWorkout> => {
+  //TODO ?? Really need to refactor this
+  update: async (id: string, dto: TUpdateWorkoutInput): Promise<IWorkout> => {
     const { workoutExercises, ...workoutData } = dto;
 
     const exercisesToCreate =
@@ -88,15 +72,7 @@ export const workoutsService = {
       if (exercisesToCreate.length > 0) {
         for (const we of exercisesToCreate) {
           await tx.workoutExercise.create({
-            data: {
-              order: we.order || 1,
-              notes: we.notes,
-              workout: { connect: { id } },
-              exercise: { connect: { id: we.exerciseId! } },
-              coreSet: {
-                create: coreSetsSQL.getCreateCoreSets(we.coreSet),
-              },
-            },
+            data: workoutSQL.getWorkoutExerciseCreate(we),
           });
         }
       }
@@ -104,22 +80,43 @@ export const workoutsService = {
       // 4. Update existing exercises
       if (exercisesToUpdate.length > 0) {
         for (const we of exercisesToUpdate) {
-          const coreSet: {
+          const coreStrengthSet: {
             update?: {
               where: { id: string };
-              data: Prisma.CoreSetUpdateInput;
+              data: Prisma.CoreStrengthSetUpdateInput;
             };
-            create?: Prisma.CoreSetCreateInput;
+            create?: Prisma.CoreStrengthSetCreateInput;
           } = {};
-          if (we?.coreSet?.id) {
-            coreSet.update = {
+          if (we?.coreStrengthSet?.id) {
+            coreStrengthSet.update = {
               where: {
-                id: we.coreSet?.id,
+                id: we.coreStrengthSet?.id,
               },
-              data: coreSetsSQL.getUpdateCoreSets(we.coreSet),
+              data: coreStrengthSetsSQL.getUpdateCoreSets(we.coreStrengthSet),
             };
-          } else if (!we?.coreSet?.id) {
-            coreSet.create = coreSetsSQL.getCreateCoreSets(we.coreSet);
+          } else if (!we?.coreStrengthSet?.id) {
+            coreStrengthSet.create = coreStrengthSetsSQL.getCreateCoreSets(
+              we.coreStrengthSet
+            );
+          }
+          const coreCardioSet: {
+            update?: {
+              where: { id: string };
+              data: Prisma.CoreCardioSetUpdateInput;
+            };
+            create?: Prisma.CoreCardioSetCreateInput;
+          } = {};
+          if (we?.coreCardioSet?.id) {
+            coreCardioSet.update = {
+              where: {
+                id: we.coreCardioSet?.id,
+              },
+              data: coreCardioSetsSQL.getUpdateCoreSets(we.coreStrengthSet),
+            };
+          } else if (!we?.coreCardioSet?.id) {
+            coreCardioSet.create = coreCardioSetsSQL.getCreateCoreSets(
+              we.coreCardioSet
+            );
           }
 
           await tx.workoutExercise.update({
@@ -130,7 +127,8 @@ export const workoutsService = {
                 notes: we.notes,
                 isActive: we.isActive,
               }),
-              coreSet,
+              coreStrengthSet,
+              coreCardioSet,
             },
           });
         }
@@ -138,7 +136,7 @@ export const workoutsService = {
 
       return tx.workout.findUniqueOrThrow({
         where: { id },
-        select: WORKOUT_SELECT,
+        select: workoutSQL.WORKOUT_SELECT,
       });
     }) as unknown as Promise<IWorkout>;
   },
@@ -148,73 +146,3 @@ export const workoutsService = {
     });
   },
 };
-
-//  data: {
-//       ...workoutData,
-//       workoutExercises: {
-//         upsert: dto.workoutExercises?.map((we) => ({
-//           where: { id: we.id ?? "test-we" },
-//           update: {
-//             ...dbUtil.cleanData({
-//               order: we.order,
-//               notes: we.notes,
-//               isActive: we.isActive,
-//               exerciseId: we.exerciseId,
-//             }),
-//             coreSet: {
-//               upsert: (we.coreSet ?? []).map((cs) => ({
-//                 where: { id: cs?.id },
-//                 update: {
-//                   // Clean coreSet data
-//                   ...dbUtil.cleanData({
-//                     reps: cs.reps,
-//                     weight: cs.weight,
-//                     restTime: cs.restTime,
-//                     order: cs.order,
-//                     isWarmup: cs.isWarmup,
-//                     isBodyWeight: cs.isBodyWeight,
-//                     repsInReserve: cs.repsInReserve,
-//                   }),
-//                 },
-//                 create: {
-//                   reps: cs.reps,
-//                   weight: cs.weight,
-//                   restTime: cs.restTime,
-//                   order: cs.order,
-//                   isBodyWeight: cs.isBodyWeight,
-//                   isWarmup: cs.isWarmup,
-//                   repsInReserve: cs.repsInReserve,
-//                 },
-//               })),
-//               deleteMany: (we?.coreSet ?? [])
-//                 .filter((cs) => cs.crudOperation === "delete")
-//                 .map((cs) => ({ id: cs.id })),
-//             },
-//           },
-//           create: {
-//             order: we.order ?? 1,
-//             notes: we.notes,
-//             isActive: we.isActive,
-//             exercise: {
-//               connect: {
-//                 id: we.exerciseId,
-//               },
-//             },
-//             coreSet: {
-//               create: we.coreSet?.map((cs) => ({
-//                 reps: cs.reps,
-//                 weight: cs.weight,
-//                 restTime: cs.restTime,
-//                 isBodyWeight: cs.isBodyWeight,
-//                 order: cs.order,
-//                 isWarmup: cs.isWarmup,
-//                 repsInReserve: cs.repsInReserve,
-//               })),
-//             },
-//           },
-//         })),
-//         deleteMany: (dto.workoutExercises ?? [])
-//           .filter((we) => we.crudOperation === "delete")
-//           .map((we) => ({ id: we.id })),
-//       },
-//     },

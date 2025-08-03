@@ -24,30 +24,55 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  */
 export type Exercise = $Result.DefaultSelection<Prisma.$ExercisePayload>
 /**
- * Model CoreSet
- * 
- */
-export type CoreSet = $Result.DefaultSelection<Prisma.$CoreSetPayload>
-/**
  * Model CoreCardioSet
  * 
  */
 export type CoreCardioSet = $Result.DefaultSelection<Prisma.$CoreCardioSetPayload>
 /**
- * Model CoreSetReps
+ * Model CoreCardioSetCalorieTarget
  * 
  */
-export type CoreSetReps = $Result.DefaultSelection<Prisma.$CoreSetRepsPayload>
+export type CoreCardioSetCalorieTarget = $Result.DefaultSelection<Prisma.$CoreCardioSetCalorieTargetPayload>
 /**
- * Model CoreSetWeight
+ * Model CoreCardioSetDistance
  * 
  */
-export type CoreSetWeight = $Result.DefaultSelection<Prisma.$CoreSetWeightPayload>
+export type CoreCardioSetDistance = $Result.DefaultSelection<Prisma.$CoreCardioSetDistancePayload>
 /**
- * Model UserSet
+ * Model CoreCardioSetAvgSpeed
  * 
  */
-export type UserSet = $Result.DefaultSelection<Prisma.$UserSetPayload>
+export type CoreCardioSetAvgSpeed = $Result.DefaultSelection<Prisma.$CoreCardioSetAvgSpeedPayload>
+/**
+ * Model CoreCardioSetWorkoutTime
+ * 
+ */
+export type CoreCardioSetWorkoutTime = $Result.DefaultSelection<Prisma.$CoreCardioSetWorkoutTimePayload>
+/**
+ * Model UserCardioSet
+ * 
+ */
+export type UserCardioSet = $Result.DefaultSelection<Prisma.$UserCardioSetPayload>
+/**
+ * Model CoreStrengthSet
+ * 
+ */
+export type CoreStrengthSet = $Result.DefaultSelection<Prisma.$CoreStrengthSetPayload>
+/**
+ * Model CoreStrengthSetReps
+ * 
+ */
+export type CoreStrengthSetReps = $Result.DefaultSelection<Prisma.$CoreStrengthSetRepsPayload>
+/**
+ * Model CoreStrengthSetWeight
+ * 
+ */
+export type CoreStrengthSetWeight = $Result.DefaultSelection<Prisma.$CoreStrengthSetWeightPayload>
+/**
+ * Model UserStrengthSet
+ * 
+ */
+export type UserStrengthSet = $Result.DefaultSelection<Prisma.$UserStrengthSetPayload>
 /**
  * Model Program
  * 
@@ -83,20 +108,7 @@ export type UserWorkout = $Result.DefaultSelection<Prisma.$UserWorkoutPayload>
  * Enums
  */
 export namespace $Enums {
-  export const MuscleGroup: {
-  CHEST: 'CHEST',
-  SHOULDERS: 'SHOULDERS',
-  BACK: 'BACK',
-  ARMS: 'ARMS',
-  CORE: 'CORE',
-  LEGS: 'LEGS',
-  STABILIZERS: 'STABILIZERS'
-};
-
-export type MuscleGroup = (typeof MuscleGroup)[keyof typeof MuscleGroup]
-
-
-export const ExerciseMuscle: {
+  export const ExerciseMuscle: {
   chest: 'chest',
   front_delts: 'front_delts',
   side_delts: 'side_delts',
@@ -202,22 +214,18 @@ export type ExerciseType = (typeof ExerciseType)[keyof typeof ExerciseType]
 
 
 export const DaysOfWeek: {
+  sunday: 'sunday',
   monday: 'monday',
   tuesday: 'tuesday',
   wednesday: 'wednesday',
   thursday: 'thursday',
   friday: 'friday',
-  saturday: 'saturday',
-  sunday: 'sunday'
+  saturday: 'saturday'
 };
 
 export type DaysOfWeek = (typeof DaysOfWeek)[keyof typeof DaysOfWeek]
 
 }
-
-export type MuscleGroup = $Enums.MuscleGroup
-
-export const MuscleGroup: typeof $Enums.MuscleGroup
 
 export type ExerciseMuscle = $Enums.ExerciseMuscle
 
@@ -381,16 +389,6 @@ export class PrismaClient<
   get exercise(): Prisma.ExerciseDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.coreSet`: Exposes CRUD operations for the **CoreSet** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more CoreSets
-    * const coreSets = await prisma.coreSet.findMany()
-    * ```
-    */
-  get coreSet(): Prisma.CoreSetDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.coreCardioSet`: Exposes CRUD operations for the **CoreCardioSet** model.
     * Example usage:
     * ```ts
@@ -401,34 +399,94 @@ export class PrismaClient<
   get coreCardioSet(): Prisma.CoreCardioSetDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.coreSetReps`: Exposes CRUD operations for the **CoreSetReps** model.
+   * `prisma.coreCardioSetCalorieTarget`: Exposes CRUD operations for the **CoreCardioSetCalorieTarget** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more CoreSetReps
-    * const coreSetReps = await prisma.coreSetReps.findMany()
+    * // Fetch zero or more CoreCardioSetCalorieTargets
+    * const coreCardioSetCalorieTargets = await prisma.coreCardioSetCalorieTarget.findMany()
     * ```
     */
-  get coreSetReps(): Prisma.CoreSetRepsDelegate<ExtArgs, ClientOptions>;
+  get coreCardioSetCalorieTarget(): Prisma.CoreCardioSetCalorieTargetDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.coreSetWeight`: Exposes CRUD operations for the **CoreSetWeight** model.
+   * `prisma.coreCardioSetDistance`: Exposes CRUD operations for the **CoreCardioSetDistance** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more CoreSetWeights
-    * const coreSetWeights = await prisma.coreSetWeight.findMany()
+    * // Fetch zero or more CoreCardioSetDistances
+    * const coreCardioSetDistances = await prisma.coreCardioSetDistance.findMany()
     * ```
     */
-  get coreSetWeight(): Prisma.CoreSetWeightDelegate<ExtArgs, ClientOptions>;
+  get coreCardioSetDistance(): Prisma.CoreCardioSetDistanceDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.userSet`: Exposes CRUD operations for the **UserSet** model.
+   * `prisma.coreCardioSetAvgSpeed`: Exposes CRUD operations for the **CoreCardioSetAvgSpeed** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more UserSets
-    * const userSets = await prisma.userSet.findMany()
+    * // Fetch zero or more CoreCardioSetAvgSpeeds
+    * const coreCardioSetAvgSpeeds = await prisma.coreCardioSetAvgSpeed.findMany()
     * ```
     */
-  get userSet(): Prisma.UserSetDelegate<ExtArgs, ClientOptions>;
+  get coreCardioSetAvgSpeed(): Prisma.CoreCardioSetAvgSpeedDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.coreCardioSetWorkoutTime`: Exposes CRUD operations for the **CoreCardioSetWorkoutTime** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CoreCardioSetWorkoutTimes
+    * const coreCardioSetWorkoutTimes = await prisma.coreCardioSetWorkoutTime.findMany()
+    * ```
+    */
+  get coreCardioSetWorkoutTime(): Prisma.CoreCardioSetWorkoutTimeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userCardioSet`: Exposes CRUD operations for the **UserCardioSet** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserCardioSets
+    * const userCardioSets = await prisma.userCardioSet.findMany()
+    * ```
+    */
+  get userCardioSet(): Prisma.UserCardioSetDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.coreStrengthSet`: Exposes CRUD operations for the **CoreStrengthSet** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CoreStrengthSets
+    * const coreStrengthSets = await prisma.coreStrengthSet.findMany()
+    * ```
+    */
+  get coreStrengthSet(): Prisma.CoreStrengthSetDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.coreStrengthSetReps`: Exposes CRUD operations for the **CoreStrengthSetReps** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CoreStrengthSetReps
+    * const coreStrengthSetReps = await prisma.coreStrengthSetReps.findMany()
+    * ```
+    */
+  get coreStrengthSetReps(): Prisma.CoreStrengthSetRepsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.coreStrengthSetWeight`: Exposes CRUD operations for the **CoreStrengthSetWeight** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CoreStrengthSetWeights
+    * const coreStrengthSetWeights = await prisma.coreStrengthSetWeight.findMany()
+    * ```
+    */
+  get coreStrengthSetWeight(): Prisma.CoreStrengthSetWeightDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userStrengthSet`: Exposes CRUD operations for the **UserStrengthSet** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserStrengthSets
+    * const userStrengthSets = await prisma.userStrengthSet.findMany()
+    * ```
+    */
+  get userStrengthSet(): Prisma.UserStrengthSetDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.program`: Exposes CRUD operations for the **Program** model.
@@ -931,11 +989,16 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     Exercise: 'Exercise',
-    CoreSet: 'CoreSet',
     CoreCardioSet: 'CoreCardioSet',
-    CoreSetReps: 'CoreSetReps',
-    CoreSetWeight: 'CoreSetWeight',
-    UserSet: 'UserSet',
+    CoreCardioSetCalorieTarget: 'CoreCardioSetCalorieTarget',
+    CoreCardioSetDistance: 'CoreCardioSetDistance',
+    CoreCardioSetAvgSpeed: 'CoreCardioSetAvgSpeed',
+    CoreCardioSetWorkoutTime: 'CoreCardioSetWorkoutTime',
+    UserCardioSet: 'UserCardioSet',
+    CoreStrengthSet: 'CoreStrengthSet',
+    CoreStrengthSetReps: 'CoreStrengthSetReps',
+    CoreStrengthSetWeight: 'CoreStrengthSetWeight',
+    UserStrengthSet: 'UserStrengthSet',
     Program: 'Program',
     ProgramWorkout: 'ProgramWorkout',
     Workout: 'Workout',
@@ -960,7 +1023,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "exercise" | "coreSet" | "coreCardioSet" | "coreSetReps" | "coreSetWeight" | "userSet" | "program" | "programWorkout" | "workout" | "workoutExercise" | "userWorkoutExercise" | "userWorkout"
+      modelProps: "user" | "exercise" | "coreCardioSet" | "coreCardioSetCalorieTarget" | "coreCardioSetDistance" | "coreCardioSetAvgSpeed" | "coreCardioSetWorkoutTime" | "userCardioSet" | "coreStrengthSet" | "coreStrengthSetReps" | "coreStrengthSetWeight" | "userStrengthSet" | "program" | "programWorkout" | "workout" | "workoutExercise" | "userWorkoutExercise" | "userWorkout"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1112,80 +1175,6 @@ export namespace Prisma {
           }
         }
       }
-      CoreSet: {
-        payload: Prisma.$CoreSetPayload<ExtArgs>
-        fields: Prisma.CoreSetFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.CoreSetFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.CoreSetFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetPayload>
-          }
-          findFirst: {
-            args: Prisma.CoreSetFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.CoreSetFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetPayload>
-          }
-          findMany: {
-            args: Prisma.CoreSetFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetPayload>[]
-          }
-          create: {
-            args: Prisma.CoreSetCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetPayload>
-          }
-          createMany: {
-            args: Prisma.CoreSetCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.CoreSetCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetPayload>[]
-          }
-          delete: {
-            args: Prisma.CoreSetDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetPayload>
-          }
-          update: {
-            args: Prisma.CoreSetUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetPayload>
-          }
-          deleteMany: {
-            args: Prisma.CoreSetDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.CoreSetUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.CoreSetUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetPayload>[]
-          }
-          upsert: {
-            args: Prisma.CoreSetUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetPayload>
-          }
-          aggregate: {
-            args: Prisma.CoreSetAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateCoreSet>
-          }
-          groupBy: {
-            args: Prisma.CoreSetGroupByArgs<ExtArgs>
-            result: $Utils.Optional<CoreSetGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.CoreSetCountArgs<ExtArgs>
-            result: $Utils.Optional<CoreSetCountAggregateOutputType> | number
-          }
-        }
-      }
       CoreCardioSet: {
         payload: Prisma.$CoreCardioSetPayload<ExtArgs>
         fields: Prisma.CoreCardioSetFieldRefs
@@ -1260,225 +1249,669 @@ export namespace Prisma {
           }
         }
       }
-      CoreSetReps: {
-        payload: Prisma.$CoreSetRepsPayload<ExtArgs>
-        fields: Prisma.CoreSetRepsFieldRefs
+      CoreCardioSetCalorieTarget: {
+        payload: Prisma.$CoreCardioSetCalorieTargetPayload<ExtArgs>
+        fields: Prisma.CoreCardioSetCalorieTargetFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.CoreSetRepsFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetRepsPayload> | null
+            args: Prisma.CoreCardioSetCalorieTargetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetCalorieTargetPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.CoreSetRepsFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetRepsPayload>
+            args: Prisma.CoreCardioSetCalorieTargetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetCalorieTargetPayload>
           }
           findFirst: {
-            args: Prisma.CoreSetRepsFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetRepsPayload> | null
+            args: Prisma.CoreCardioSetCalorieTargetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetCalorieTargetPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.CoreSetRepsFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetRepsPayload>
+            args: Prisma.CoreCardioSetCalorieTargetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetCalorieTargetPayload>
           }
           findMany: {
-            args: Prisma.CoreSetRepsFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetRepsPayload>[]
+            args: Prisma.CoreCardioSetCalorieTargetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetCalorieTargetPayload>[]
           }
           create: {
-            args: Prisma.CoreSetRepsCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetRepsPayload>
+            args: Prisma.CoreCardioSetCalorieTargetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetCalorieTargetPayload>
           }
           createMany: {
-            args: Prisma.CoreSetRepsCreateManyArgs<ExtArgs>
+            args: Prisma.CoreCardioSetCalorieTargetCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.CoreSetRepsCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetRepsPayload>[]
+            args: Prisma.CoreCardioSetCalorieTargetCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetCalorieTargetPayload>[]
           }
           delete: {
-            args: Prisma.CoreSetRepsDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetRepsPayload>
+            args: Prisma.CoreCardioSetCalorieTargetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetCalorieTargetPayload>
           }
           update: {
-            args: Prisma.CoreSetRepsUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetRepsPayload>
+            args: Prisma.CoreCardioSetCalorieTargetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetCalorieTargetPayload>
           }
           deleteMany: {
-            args: Prisma.CoreSetRepsDeleteManyArgs<ExtArgs>
+            args: Prisma.CoreCardioSetCalorieTargetDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.CoreSetRepsUpdateManyArgs<ExtArgs>
+            args: Prisma.CoreCardioSetCalorieTargetUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.CoreSetRepsUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetRepsPayload>[]
+            args: Prisma.CoreCardioSetCalorieTargetUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetCalorieTargetPayload>[]
           }
           upsert: {
-            args: Prisma.CoreSetRepsUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetRepsPayload>
+            args: Prisma.CoreCardioSetCalorieTargetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetCalorieTargetPayload>
           }
           aggregate: {
-            args: Prisma.CoreSetRepsAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateCoreSetReps>
+            args: Prisma.CoreCardioSetCalorieTargetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCoreCardioSetCalorieTarget>
           }
           groupBy: {
-            args: Prisma.CoreSetRepsGroupByArgs<ExtArgs>
-            result: $Utils.Optional<CoreSetRepsGroupByOutputType>[]
+            args: Prisma.CoreCardioSetCalorieTargetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CoreCardioSetCalorieTargetGroupByOutputType>[]
           }
           count: {
-            args: Prisma.CoreSetRepsCountArgs<ExtArgs>
-            result: $Utils.Optional<CoreSetRepsCountAggregateOutputType> | number
+            args: Prisma.CoreCardioSetCalorieTargetCountArgs<ExtArgs>
+            result: $Utils.Optional<CoreCardioSetCalorieTargetCountAggregateOutputType> | number
           }
         }
       }
-      CoreSetWeight: {
-        payload: Prisma.$CoreSetWeightPayload<ExtArgs>
-        fields: Prisma.CoreSetWeightFieldRefs
+      CoreCardioSetDistance: {
+        payload: Prisma.$CoreCardioSetDistancePayload<ExtArgs>
+        fields: Prisma.CoreCardioSetDistanceFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.CoreSetWeightFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetWeightPayload> | null
+            args: Prisma.CoreCardioSetDistanceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetDistancePayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.CoreSetWeightFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetWeightPayload>
+            args: Prisma.CoreCardioSetDistanceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetDistancePayload>
           }
           findFirst: {
-            args: Prisma.CoreSetWeightFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetWeightPayload> | null
+            args: Prisma.CoreCardioSetDistanceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetDistancePayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.CoreSetWeightFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetWeightPayload>
+            args: Prisma.CoreCardioSetDistanceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetDistancePayload>
           }
           findMany: {
-            args: Prisma.CoreSetWeightFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetWeightPayload>[]
+            args: Prisma.CoreCardioSetDistanceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetDistancePayload>[]
           }
           create: {
-            args: Prisma.CoreSetWeightCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetWeightPayload>
+            args: Prisma.CoreCardioSetDistanceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetDistancePayload>
           }
           createMany: {
-            args: Prisma.CoreSetWeightCreateManyArgs<ExtArgs>
+            args: Prisma.CoreCardioSetDistanceCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.CoreSetWeightCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetWeightPayload>[]
+            args: Prisma.CoreCardioSetDistanceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetDistancePayload>[]
           }
           delete: {
-            args: Prisma.CoreSetWeightDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetWeightPayload>
+            args: Prisma.CoreCardioSetDistanceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetDistancePayload>
           }
           update: {
-            args: Prisma.CoreSetWeightUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetWeightPayload>
+            args: Prisma.CoreCardioSetDistanceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetDistancePayload>
           }
           deleteMany: {
-            args: Prisma.CoreSetWeightDeleteManyArgs<ExtArgs>
+            args: Prisma.CoreCardioSetDistanceDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.CoreSetWeightUpdateManyArgs<ExtArgs>
+            args: Prisma.CoreCardioSetDistanceUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.CoreSetWeightUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetWeightPayload>[]
+            args: Prisma.CoreCardioSetDistanceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetDistancePayload>[]
           }
           upsert: {
-            args: Prisma.CoreSetWeightUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoreSetWeightPayload>
+            args: Prisma.CoreCardioSetDistanceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetDistancePayload>
           }
           aggregate: {
-            args: Prisma.CoreSetWeightAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateCoreSetWeight>
+            args: Prisma.CoreCardioSetDistanceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCoreCardioSetDistance>
           }
           groupBy: {
-            args: Prisma.CoreSetWeightGroupByArgs<ExtArgs>
-            result: $Utils.Optional<CoreSetWeightGroupByOutputType>[]
+            args: Prisma.CoreCardioSetDistanceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CoreCardioSetDistanceGroupByOutputType>[]
           }
           count: {
-            args: Prisma.CoreSetWeightCountArgs<ExtArgs>
-            result: $Utils.Optional<CoreSetWeightCountAggregateOutputType> | number
+            args: Prisma.CoreCardioSetDistanceCountArgs<ExtArgs>
+            result: $Utils.Optional<CoreCardioSetDistanceCountAggregateOutputType> | number
           }
         }
       }
-      UserSet: {
-        payload: Prisma.$UserSetPayload<ExtArgs>
-        fields: Prisma.UserSetFieldRefs
+      CoreCardioSetAvgSpeed: {
+        payload: Prisma.$CoreCardioSetAvgSpeedPayload<ExtArgs>
+        fields: Prisma.CoreCardioSetAvgSpeedFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.UserSetFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserSetPayload> | null
+            args: Prisma.CoreCardioSetAvgSpeedFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetAvgSpeedPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.UserSetFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserSetPayload>
+            args: Prisma.CoreCardioSetAvgSpeedFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetAvgSpeedPayload>
           }
           findFirst: {
-            args: Prisma.UserSetFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserSetPayload> | null
+            args: Prisma.CoreCardioSetAvgSpeedFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetAvgSpeedPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.UserSetFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserSetPayload>
+            args: Prisma.CoreCardioSetAvgSpeedFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetAvgSpeedPayload>
           }
           findMany: {
-            args: Prisma.UserSetFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserSetPayload>[]
+            args: Prisma.CoreCardioSetAvgSpeedFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetAvgSpeedPayload>[]
           }
           create: {
-            args: Prisma.UserSetCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserSetPayload>
+            args: Prisma.CoreCardioSetAvgSpeedCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetAvgSpeedPayload>
           }
           createMany: {
-            args: Prisma.UserSetCreateManyArgs<ExtArgs>
+            args: Prisma.CoreCardioSetAvgSpeedCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.UserSetCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserSetPayload>[]
+            args: Prisma.CoreCardioSetAvgSpeedCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetAvgSpeedPayload>[]
           }
           delete: {
-            args: Prisma.UserSetDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserSetPayload>
+            args: Prisma.CoreCardioSetAvgSpeedDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetAvgSpeedPayload>
           }
           update: {
-            args: Prisma.UserSetUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserSetPayload>
+            args: Prisma.CoreCardioSetAvgSpeedUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetAvgSpeedPayload>
           }
           deleteMany: {
-            args: Prisma.UserSetDeleteManyArgs<ExtArgs>
+            args: Prisma.CoreCardioSetAvgSpeedDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.UserSetUpdateManyArgs<ExtArgs>
+            args: Prisma.CoreCardioSetAvgSpeedUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.UserSetUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserSetPayload>[]
+            args: Prisma.CoreCardioSetAvgSpeedUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetAvgSpeedPayload>[]
           }
           upsert: {
-            args: Prisma.UserSetUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserSetPayload>
+            args: Prisma.CoreCardioSetAvgSpeedUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetAvgSpeedPayload>
           }
           aggregate: {
-            args: Prisma.UserSetAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateUserSet>
+            args: Prisma.CoreCardioSetAvgSpeedAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCoreCardioSetAvgSpeed>
           }
           groupBy: {
-            args: Prisma.UserSetGroupByArgs<ExtArgs>
-            result: $Utils.Optional<UserSetGroupByOutputType>[]
+            args: Prisma.CoreCardioSetAvgSpeedGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CoreCardioSetAvgSpeedGroupByOutputType>[]
           }
           count: {
-            args: Prisma.UserSetCountArgs<ExtArgs>
-            result: $Utils.Optional<UserSetCountAggregateOutputType> | number
+            args: Prisma.CoreCardioSetAvgSpeedCountArgs<ExtArgs>
+            result: $Utils.Optional<CoreCardioSetAvgSpeedCountAggregateOutputType> | number
+          }
+        }
+      }
+      CoreCardioSetWorkoutTime: {
+        payload: Prisma.$CoreCardioSetWorkoutTimePayload<ExtArgs>
+        fields: Prisma.CoreCardioSetWorkoutTimeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CoreCardioSetWorkoutTimeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetWorkoutTimePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CoreCardioSetWorkoutTimeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetWorkoutTimePayload>
+          }
+          findFirst: {
+            args: Prisma.CoreCardioSetWorkoutTimeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetWorkoutTimePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CoreCardioSetWorkoutTimeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetWorkoutTimePayload>
+          }
+          findMany: {
+            args: Prisma.CoreCardioSetWorkoutTimeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetWorkoutTimePayload>[]
+          }
+          create: {
+            args: Prisma.CoreCardioSetWorkoutTimeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetWorkoutTimePayload>
+          }
+          createMany: {
+            args: Prisma.CoreCardioSetWorkoutTimeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CoreCardioSetWorkoutTimeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetWorkoutTimePayload>[]
+          }
+          delete: {
+            args: Prisma.CoreCardioSetWorkoutTimeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetWorkoutTimePayload>
+          }
+          update: {
+            args: Prisma.CoreCardioSetWorkoutTimeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetWorkoutTimePayload>
+          }
+          deleteMany: {
+            args: Prisma.CoreCardioSetWorkoutTimeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CoreCardioSetWorkoutTimeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CoreCardioSetWorkoutTimeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetWorkoutTimePayload>[]
+          }
+          upsert: {
+            args: Prisma.CoreCardioSetWorkoutTimeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreCardioSetWorkoutTimePayload>
+          }
+          aggregate: {
+            args: Prisma.CoreCardioSetWorkoutTimeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCoreCardioSetWorkoutTime>
+          }
+          groupBy: {
+            args: Prisma.CoreCardioSetWorkoutTimeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CoreCardioSetWorkoutTimeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CoreCardioSetWorkoutTimeCountArgs<ExtArgs>
+            result: $Utils.Optional<CoreCardioSetWorkoutTimeCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserCardioSet: {
+        payload: Prisma.$UserCardioSetPayload<ExtArgs>
+        fields: Prisma.UserCardioSetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserCardioSetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCardioSetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserCardioSetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCardioSetPayload>
+          }
+          findFirst: {
+            args: Prisma.UserCardioSetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCardioSetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserCardioSetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCardioSetPayload>
+          }
+          findMany: {
+            args: Prisma.UserCardioSetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCardioSetPayload>[]
+          }
+          create: {
+            args: Prisma.UserCardioSetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCardioSetPayload>
+          }
+          createMany: {
+            args: Prisma.UserCardioSetCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserCardioSetCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCardioSetPayload>[]
+          }
+          delete: {
+            args: Prisma.UserCardioSetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCardioSetPayload>
+          }
+          update: {
+            args: Prisma.UserCardioSetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCardioSetPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserCardioSetDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserCardioSetUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserCardioSetUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCardioSetPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserCardioSetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserCardioSetPayload>
+          }
+          aggregate: {
+            args: Prisma.UserCardioSetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserCardioSet>
+          }
+          groupBy: {
+            args: Prisma.UserCardioSetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserCardioSetGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserCardioSetCountArgs<ExtArgs>
+            result: $Utils.Optional<UserCardioSetCountAggregateOutputType> | number
+          }
+        }
+      }
+      CoreStrengthSet: {
+        payload: Prisma.$CoreStrengthSetPayload<ExtArgs>
+        fields: Prisma.CoreStrengthSetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CoreStrengthSetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CoreStrengthSetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetPayload>
+          }
+          findFirst: {
+            args: Prisma.CoreStrengthSetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CoreStrengthSetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetPayload>
+          }
+          findMany: {
+            args: Prisma.CoreStrengthSetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetPayload>[]
+          }
+          create: {
+            args: Prisma.CoreStrengthSetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetPayload>
+          }
+          createMany: {
+            args: Prisma.CoreStrengthSetCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CoreStrengthSetCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetPayload>[]
+          }
+          delete: {
+            args: Prisma.CoreStrengthSetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetPayload>
+          }
+          update: {
+            args: Prisma.CoreStrengthSetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetPayload>
+          }
+          deleteMany: {
+            args: Prisma.CoreStrengthSetDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CoreStrengthSetUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CoreStrengthSetUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetPayload>[]
+          }
+          upsert: {
+            args: Prisma.CoreStrengthSetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetPayload>
+          }
+          aggregate: {
+            args: Prisma.CoreStrengthSetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCoreStrengthSet>
+          }
+          groupBy: {
+            args: Prisma.CoreStrengthSetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CoreStrengthSetGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CoreStrengthSetCountArgs<ExtArgs>
+            result: $Utils.Optional<CoreStrengthSetCountAggregateOutputType> | number
+          }
+        }
+      }
+      CoreStrengthSetReps: {
+        payload: Prisma.$CoreStrengthSetRepsPayload<ExtArgs>
+        fields: Prisma.CoreStrengthSetRepsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CoreStrengthSetRepsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetRepsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CoreStrengthSetRepsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetRepsPayload>
+          }
+          findFirst: {
+            args: Prisma.CoreStrengthSetRepsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetRepsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CoreStrengthSetRepsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetRepsPayload>
+          }
+          findMany: {
+            args: Prisma.CoreStrengthSetRepsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetRepsPayload>[]
+          }
+          create: {
+            args: Prisma.CoreStrengthSetRepsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetRepsPayload>
+          }
+          createMany: {
+            args: Prisma.CoreStrengthSetRepsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CoreStrengthSetRepsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetRepsPayload>[]
+          }
+          delete: {
+            args: Prisma.CoreStrengthSetRepsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetRepsPayload>
+          }
+          update: {
+            args: Prisma.CoreStrengthSetRepsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetRepsPayload>
+          }
+          deleteMany: {
+            args: Prisma.CoreStrengthSetRepsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CoreStrengthSetRepsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CoreStrengthSetRepsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetRepsPayload>[]
+          }
+          upsert: {
+            args: Prisma.CoreStrengthSetRepsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetRepsPayload>
+          }
+          aggregate: {
+            args: Prisma.CoreStrengthSetRepsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCoreStrengthSetReps>
+          }
+          groupBy: {
+            args: Prisma.CoreStrengthSetRepsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CoreStrengthSetRepsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CoreStrengthSetRepsCountArgs<ExtArgs>
+            result: $Utils.Optional<CoreStrengthSetRepsCountAggregateOutputType> | number
+          }
+        }
+      }
+      CoreStrengthSetWeight: {
+        payload: Prisma.$CoreStrengthSetWeightPayload<ExtArgs>
+        fields: Prisma.CoreStrengthSetWeightFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CoreStrengthSetWeightFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetWeightPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CoreStrengthSetWeightFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetWeightPayload>
+          }
+          findFirst: {
+            args: Prisma.CoreStrengthSetWeightFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetWeightPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CoreStrengthSetWeightFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetWeightPayload>
+          }
+          findMany: {
+            args: Prisma.CoreStrengthSetWeightFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetWeightPayload>[]
+          }
+          create: {
+            args: Prisma.CoreStrengthSetWeightCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetWeightPayload>
+          }
+          createMany: {
+            args: Prisma.CoreStrengthSetWeightCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CoreStrengthSetWeightCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetWeightPayload>[]
+          }
+          delete: {
+            args: Prisma.CoreStrengthSetWeightDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetWeightPayload>
+          }
+          update: {
+            args: Prisma.CoreStrengthSetWeightUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetWeightPayload>
+          }
+          deleteMany: {
+            args: Prisma.CoreStrengthSetWeightDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CoreStrengthSetWeightUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CoreStrengthSetWeightUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetWeightPayload>[]
+          }
+          upsert: {
+            args: Prisma.CoreStrengthSetWeightUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoreStrengthSetWeightPayload>
+          }
+          aggregate: {
+            args: Prisma.CoreStrengthSetWeightAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCoreStrengthSetWeight>
+          }
+          groupBy: {
+            args: Prisma.CoreStrengthSetWeightGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CoreStrengthSetWeightGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CoreStrengthSetWeightCountArgs<ExtArgs>
+            result: $Utils.Optional<CoreStrengthSetWeightCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserStrengthSet: {
+        payload: Prisma.$UserStrengthSetPayload<ExtArgs>
+        fields: Prisma.UserStrengthSetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserStrengthSetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStrengthSetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserStrengthSetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStrengthSetPayload>
+          }
+          findFirst: {
+            args: Prisma.UserStrengthSetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStrengthSetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserStrengthSetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStrengthSetPayload>
+          }
+          findMany: {
+            args: Prisma.UserStrengthSetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStrengthSetPayload>[]
+          }
+          create: {
+            args: Prisma.UserStrengthSetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStrengthSetPayload>
+          }
+          createMany: {
+            args: Prisma.UserStrengthSetCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserStrengthSetCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStrengthSetPayload>[]
+          }
+          delete: {
+            args: Prisma.UserStrengthSetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStrengthSetPayload>
+          }
+          update: {
+            args: Prisma.UserStrengthSetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStrengthSetPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserStrengthSetDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserStrengthSetUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserStrengthSetUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStrengthSetPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserStrengthSetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStrengthSetPayload>
+          }
+          aggregate: {
+            args: Prisma.UserStrengthSetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserStrengthSet>
+          }
+          groupBy: {
+            args: Prisma.UserStrengthSetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserStrengthSetGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserStrengthSetCountArgs<ExtArgs>
+            result: $Utils.Optional<UserStrengthSetCountAggregateOutputType> | number
           }
         }
       }
@@ -2020,11 +2453,16 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     exercise?: ExerciseOmit
-    coreSet?: CoreSetOmit
     coreCardioSet?: CoreCardioSetOmit
-    coreSetReps?: CoreSetRepsOmit
-    coreSetWeight?: CoreSetWeightOmit
-    userSet?: UserSetOmit
+    coreCardioSetCalorieTarget?: CoreCardioSetCalorieTargetOmit
+    coreCardioSetDistance?: CoreCardioSetDistanceOmit
+    coreCardioSetAvgSpeed?: CoreCardioSetAvgSpeedOmit
+    coreCardioSetWorkoutTime?: CoreCardioSetWorkoutTimeOmit
+    userCardioSet?: UserCardioSetOmit
+    coreStrengthSet?: CoreStrengthSetOmit
+    coreStrengthSetReps?: CoreStrengthSetRepsOmit
+    coreStrengthSetWeight?: CoreStrengthSetWeightOmit
+    userStrengthSet?: UserStrengthSetOmit
     program?: ProgramOmit
     programWorkout?: ProgramWorkoutOmit
     workout?: WorkoutOmit
@@ -2131,14 +2569,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     programs: number
-    userSets: number
     workouts: number
     userWorkout: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     programs?: boolean | UserCountOutputTypeCountProgramsArgs
-    userSets?: boolean | UserCountOutputTypeCountUserSetsArgs
     workouts?: boolean | UserCountOutputTypeCountWorkoutsArgs
     userWorkout?: boolean | UserCountOutputTypeCountUserWorkoutArgs
   }
@@ -2159,13 +2595,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountProgramsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProgramWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountUserSetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserSetWhereInput
   }
 
   /**
@@ -2215,64 +2644,23 @@ export namespace Prisma {
 
 
   /**
-   * Count Type CoreSetCountOutputType
-   */
-
-  export type CoreSetCountOutputType = {
-    workoutExercise: number
-    reps: number
-    weight: number
-  }
-
-  export type CoreSetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    workoutExercise?: boolean | CoreSetCountOutputTypeCountWorkoutExerciseArgs
-    reps?: boolean | CoreSetCountOutputTypeCountRepsArgs
-    weight?: boolean | CoreSetCountOutputTypeCountWeightArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * CoreSetCountOutputType without action
-   */
-  export type CoreSetCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreSetCountOutputType
-     */
-    select?: CoreSetCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * CoreSetCountOutputType without action
-   */
-  export type CoreSetCountOutputTypeCountWorkoutExerciseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: WorkoutExerciseWhereInput
-  }
-
-  /**
-   * CoreSetCountOutputType without action
-   */
-  export type CoreSetCountOutputTypeCountRepsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CoreSetRepsWhereInput
-  }
-
-  /**
-   * CoreSetCountOutputType without action
-   */
-  export type CoreSetCountOutputTypeCountWeightArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CoreSetWeightWhereInput
-  }
-
-
-  /**
    * Count Type CoreCardioSetCountOutputType
    */
 
   export type CoreCardioSetCountOutputType = {
     workoutExercise: number
+    workTime: number
+    avgSpeed: number
+    distance: number
+    calorieTarget: number
   }
 
   export type CoreCardioSetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workoutExercise?: boolean | CoreCardioSetCountOutputTypeCountWorkoutExerciseArgs
+    workTime?: boolean | CoreCardioSetCountOutputTypeCountWorkTimeArgs
+    avgSpeed?: boolean | CoreCardioSetCountOutputTypeCountAvgSpeedArgs
+    distance?: boolean | CoreCardioSetCountOutputTypeCountDistanceArgs
+    calorieTarget?: boolean | CoreCardioSetCountOutputTypeCountCalorieTargetArgs
   }
 
   // Custom InputTypes
@@ -2291,6 +2679,83 @@ export namespace Prisma {
    */
   export type CoreCardioSetCountOutputTypeCountWorkoutExerciseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WorkoutExerciseWhereInput
+  }
+
+  /**
+   * CoreCardioSetCountOutputType without action
+   */
+  export type CoreCardioSetCountOutputTypeCountWorkTimeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CoreCardioSetWorkoutTimeWhereInput
+  }
+
+  /**
+   * CoreCardioSetCountOutputType without action
+   */
+  export type CoreCardioSetCountOutputTypeCountAvgSpeedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CoreCardioSetAvgSpeedWhereInput
+  }
+
+  /**
+   * CoreCardioSetCountOutputType without action
+   */
+  export type CoreCardioSetCountOutputTypeCountDistanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CoreCardioSetDistanceWhereInput
+  }
+
+  /**
+   * CoreCardioSetCountOutputType without action
+   */
+  export type CoreCardioSetCountOutputTypeCountCalorieTargetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CoreCardioSetCalorieTargetWhereInput
+  }
+
+
+  /**
+   * Count Type CoreStrengthSetCountOutputType
+   */
+
+  export type CoreStrengthSetCountOutputType = {
+    workoutExercise: number
+    reps: number
+    weight: number
+  }
+
+  export type CoreStrengthSetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    workoutExercise?: boolean | CoreStrengthSetCountOutputTypeCountWorkoutExerciseArgs
+    reps?: boolean | CoreStrengthSetCountOutputTypeCountRepsArgs
+    weight?: boolean | CoreStrengthSetCountOutputTypeCountWeightArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CoreStrengthSetCountOutputType without action
+   */
+  export type CoreStrengthSetCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetCountOutputType
+     */
+    select?: CoreStrengthSetCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CoreStrengthSetCountOutputType without action
+   */
+  export type CoreStrengthSetCountOutputTypeCountWorkoutExerciseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WorkoutExerciseWhereInput
+  }
+
+  /**
+   * CoreStrengthSetCountOutputType without action
+   */
+  export type CoreStrengthSetCountOutputTypeCountRepsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CoreStrengthSetRepsWhereInput
+  }
+
+  /**
+   * CoreStrengthSetCountOutputType without action
+   */
+  export type CoreStrengthSetCountOutputTypeCountWeightArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CoreStrengthSetWeightWhereInput
   }
 
 
@@ -2419,11 +2884,13 @@ export namespace Prisma {
    */
 
   export type UserWorkoutExerciseCountOutputType = {
-    userSets: number
+    userStrengthSet: number
+    userCardioSet: number
   }
 
   export type UserWorkoutExerciseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    userSets?: boolean | UserWorkoutExerciseCountOutputTypeCountUserSetsArgs
+    userStrengthSet?: boolean | UserWorkoutExerciseCountOutputTypeCountUserStrengthSetArgs
+    userCardioSet?: boolean | UserWorkoutExerciseCountOutputTypeCountUserCardioSetArgs
   }
 
   // Custom InputTypes
@@ -2440,8 +2907,15 @@ export namespace Prisma {
   /**
    * UserWorkoutExerciseCountOutputType without action
    */
-  export type UserWorkoutExerciseCountOutputTypeCountUserSetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserSetWhereInput
+  export type UserWorkoutExerciseCountOutputTypeCountUserStrengthSetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserStrengthSetWhereInput
+  }
+
+  /**
+   * UserWorkoutExerciseCountOutputType without action
+   */
+  export type UserWorkoutExerciseCountOutputTypeCountUserCardioSetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserCardioSetWhereInput
   }
 
 
@@ -2685,7 +3159,6 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     programs?: boolean | User$programsArgs<ExtArgs>
-    userSets?: boolean | User$userSetsArgs<ExtArgs>
     workouts?: boolean | User$workoutsArgs<ExtArgs>
     userWorkout?: boolean | User$userWorkoutArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2733,7 +3206,6 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "googleId" | "firstName" | "lastName" | "imgUrl" | "isAdmin" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     programs?: boolean | User$programsArgs<ExtArgs>
-    userSets?: boolean | User$userSetsArgs<ExtArgs>
     workouts?: boolean | User$workoutsArgs<ExtArgs>
     userWorkout?: boolean | User$userWorkoutArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2745,7 +3217,6 @@ export namespace Prisma {
     name: "User"
     objects: {
       programs: Prisma.$ProgramPayload<ExtArgs>[]
-      userSets: Prisma.$UserSetPayload<ExtArgs>[]
       workouts: Prisma.$WorkoutPayload<ExtArgs>[]
       userWorkout: Prisma.$UserWorkoutPayload<ExtArgs>[]
     }
@@ -3155,7 +3626,6 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     programs<T extends User$programsArgs<ExtArgs> = {}>(args?: Subset<T, User$programsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProgramPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    userSets<T extends User$userSetsArgs<ExtArgs> = {}>(args?: Subset<T, User$userSetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     workouts<T extends User$workoutsArgs<ExtArgs> = {}>(args?: Subset<T, User$workoutsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     userWorkout<T extends User$userWorkoutArgs<ExtArgs> = {}>(args?: Subset<T, User$userWorkoutArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserWorkoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -3606,30 +4076,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ProgramScalarFieldEnum | ProgramScalarFieldEnum[]
-  }
-
-  /**
-   * User.userSets
-   */
-  export type User$userSetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UserSet
-     */
-    select?: UserSetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UserSet
-     */
-    omit?: UserSetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserSetInclude<ExtArgs> | null
-    where?: UserSetWhereInput
-    orderBy?: UserSetOrderByWithRelationInput | UserSetOrderByWithRelationInput[]
-    cursor?: UserSetWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UserSetScalarFieldEnum | UserSetScalarFieldEnum[]
   }
 
   /**
@@ -4814,1183 +5260,6 @@ export namespace Prisma {
 
 
   /**
-   * Model CoreSet
-   */
-
-  export type AggregateCoreSet = {
-    _count: CoreSetCountAggregateOutputType | null
-    _avg: CoreSetAvgAggregateOutputType | null
-    _sum: CoreSetSumAggregateOutputType | null
-    _min: CoreSetMinAggregateOutputType | null
-    _max: CoreSetMaxAggregateOutputType | null
-  }
-
-  export type CoreSetAvgAggregateOutputType = {
-    restTime: number | null
-    numberOfSets: number | null
-  }
-
-  export type CoreSetSumAggregateOutputType = {
-    restTime: number | null
-    numberOfSets: number | null
-  }
-
-  export type CoreSetMinAggregateOutputType = {
-    id: string | null
-    restTime: number | null
-    numberOfSets: number | null
-    hasWarmup: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type CoreSetMaxAggregateOutputType = {
-    id: string | null
-    restTime: number | null
-    numberOfSets: number | null
-    hasWarmup: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type CoreSetCountAggregateOutputType = {
-    id: number
-    restTime: number
-    numberOfSets: number
-    hasWarmup: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type CoreSetAvgAggregateInputType = {
-    restTime?: true
-    numberOfSets?: true
-  }
-
-  export type CoreSetSumAggregateInputType = {
-    restTime?: true
-    numberOfSets?: true
-  }
-
-  export type CoreSetMinAggregateInputType = {
-    id?: true
-    restTime?: true
-    numberOfSets?: true
-    hasWarmup?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type CoreSetMaxAggregateInputType = {
-    id?: true
-    restTime?: true
-    numberOfSets?: true
-    hasWarmup?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type CoreSetCountAggregateInputType = {
-    id?: true
-    restTime?: true
-    numberOfSets?: true
-    hasWarmup?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type CoreSetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which CoreSet to aggregate.
-     */
-    where?: CoreSetWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of CoreSets to fetch.
-     */
-    orderBy?: CoreSetOrderByWithRelationInput | CoreSetOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: CoreSetWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` CoreSets from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` CoreSets.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned CoreSets
-    **/
-    _count?: true | CoreSetCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: CoreSetAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: CoreSetSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: CoreSetMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: CoreSetMaxAggregateInputType
-  }
-
-  export type GetCoreSetAggregateType<T extends CoreSetAggregateArgs> = {
-        [P in keyof T & keyof AggregateCoreSet]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateCoreSet[P]>
-      : GetScalarType<T[P], AggregateCoreSet[P]>
-  }
-
-
-
-
-  export type CoreSetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CoreSetWhereInput
-    orderBy?: CoreSetOrderByWithAggregationInput | CoreSetOrderByWithAggregationInput[]
-    by: CoreSetScalarFieldEnum[] | CoreSetScalarFieldEnum
-    having?: CoreSetScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: CoreSetCountAggregateInputType | true
-    _avg?: CoreSetAvgAggregateInputType
-    _sum?: CoreSetSumAggregateInputType
-    _min?: CoreSetMinAggregateInputType
-    _max?: CoreSetMaxAggregateInputType
-  }
-
-  export type CoreSetGroupByOutputType = {
-    id: string
-    restTime: number
-    numberOfSets: number
-    hasWarmup: boolean
-    createdAt: Date
-    updatedAt: Date
-    _count: CoreSetCountAggregateOutputType | null
-    _avg: CoreSetAvgAggregateOutputType | null
-    _sum: CoreSetSumAggregateOutputType | null
-    _min: CoreSetMinAggregateOutputType | null
-    _max: CoreSetMaxAggregateOutputType | null
-  }
-
-  type GetCoreSetGroupByPayload<T extends CoreSetGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<CoreSetGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof CoreSetGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], CoreSetGroupByOutputType[P]>
-            : GetScalarType<T[P], CoreSetGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type CoreSetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    restTime?: boolean
-    numberOfSets?: boolean
-    hasWarmup?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    workoutExercise?: boolean | CoreSet$workoutExerciseArgs<ExtArgs>
-    reps?: boolean | CoreSet$repsArgs<ExtArgs>
-    weight?: boolean | CoreSet$weightArgs<ExtArgs>
-    _count?: boolean | CoreSetCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["coreSet"]>
-
-  export type CoreSetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    restTime?: boolean
-    numberOfSets?: boolean
-    hasWarmup?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["coreSet"]>
-
-  export type CoreSetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    restTime?: boolean
-    numberOfSets?: boolean
-    hasWarmup?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["coreSet"]>
-
-  export type CoreSetSelectScalar = {
-    id?: boolean
-    restTime?: boolean
-    numberOfSets?: boolean
-    hasWarmup?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type CoreSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "restTime" | "numberOfSets" | "hasWarmup" | "createdAt" | "updatedAt", ExtArgs["result"]["coreSet"]>
-  export type CoreSetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    workoutExercise?: boolean | CoreSet$workoutExerciseArgs<ExtArgs>
-    reps?: boolean | CoreSet$repsArgs<ExtArgs>
-    weight?: boolean | CoreSet$weightArgs<ExtArgs>
-    _count?: boolean | CoreSetCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type CoreSetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type CoreSetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $CoreSetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "CoreSet"
-    objects: {
-      workoutExercise: Prisma.$WorkoutExercisePayload<ExtArgs>[]
-      reps: Prisma.$CoreSetRepsPayload<ExtArgs>[]
-      weight: Prisma.$CoreSetWeightPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      restTime: number
-      numberOfSets: number
-      hasWarmup: boolean
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["coreSet"]>
-    composites: {}
-  }
-
-  type CoreSetGetPayload<S extends boolean | null | undefined | CoreSetDefaultArgs> = $Result.GetResult<Prisma.$CoreSetPayload, S>
-
-  type CoreSetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<CoreSetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: CoreSetCountAggregateInputType | true
-    }
-
-  export interface CoreSetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CoreSet'], meta: { name: 'CoreSet' } }
-    /**
-     * Find zero or one CoreSet that matches the filter.
-     * @param {CoreSetFindUniqueArgs} args - Arguments to find a CoreSet
-     * @example
-     * // Get one CoreSet
-     * const coreSet = await prisma.coreSet.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends CoreSetFindUniqueArgs>(args: SelectSubset<T, CoreSetFindUniqueArgs<ExtArgs>>): Prisma__CoreSetClient<$Result.GetResult<Prisma.$CoreSetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one CoreSet that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {CoreSetFindUniqueOrThrowArgs} args - Arguments to find a CoreSet
-     * @example
-     * // Get one CoreSet
-     * const coreSet = await prisma.coreSet.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends CoreSetFindUniqueOrThrowArgs>(args: SelectSubset<T, CoreSetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CoreSetClient<$Result.GetResult<Prisma.$CoreSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first CoreSet that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetFindFirstArgs} args - Arguments to find a CoreSet
-     * @example
-     * // Get one CoreSet
-     * const coreSet = await prisma.coreSet.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends CoreSetFindFirstArgs>(args?: SelectSubset<T, CoreSetFindFirstArgs<ExtArgs>>): Prisma__CoreSetClient<$Result.GetResult<Prisma.$CoreSetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first CoreSet that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetFindFirstOrThrowArgs} args - Arguments to find a CoreSet
-     * @example
-     * // Get one CoreSet
-     * const coreSet = await prisma.coreSet.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends CoreSetFindFirstOrThrowArgs>(args?: SelectSubset<T, CoreSetFindFirstOrThrowArgs<ExtArgs>>): Prisma__CoreSetClient<$Result.GetResult<Prisma.$CoreSetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more CoreSets that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all CoreSets
-     * const coreSets = await prisma.coreSet.findMany()
-     * 
-     * // Get first 10 CoreSets
-     * const coreSets = await prisma.coreSet.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const coreSetWithIdOnly = await prisma.coreSet.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends CoreSetFindManyArgs>(args?: SelectSubset<T, CoreSetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a CoreSet.
-     * @param {CoreSetCreateArgs} args - Arguments to create a CoreSet.
-     * @example
-     * // Create one CoreSet
-     * const CoreSet = await prisma.coreSet.create({
-     *   data: {
-     *     // ... data to create a CoreSet
-     *   }
-     * })
-     * 
-     */
-    create<T extends CoreSetCreateArgs>(args: SelectSubset<T, CoreSetCreateArgs<ExtArgs>>): Prisma__CoreSetClient<$Result.GetResult<Prisma.$CoreSetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many CoreSets.
-     * @param {CoreSetCreateManyArgs} args - Arguments to create many CoreSets.
-     * @example
-     * // Create many CoreSets
-     * const coreSet = await prisma.coreSet.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends CoreSetCreateManyArgs>(args?: SelectSubset<T, CoreSetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many CoreSets and returns the data saved in the database.
-     * @param {CoreSetCreateManyAndReturnArgs} args - Arguments to create many CoreSets.
-     * @example
-     * // Create many CoreSets
-     * const coreSet = await prisma.coreSet.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many CoreSets and only return the `id`
-     * const coreSetWithIdOnly = await prisma.coreSet.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends CoreSetCreateManyAndReturnArgs>(args?: SelectSubset<T, CoreSetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreSetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a CoreSet.
-     * @param {CoreSetDeleteArgs} args - Arguments to delete one CoreSet.
-     * @example
-     * // Delete one CoreSet
-     * const CoreSet = await prisma.coreSet.delete({
-     *   where: {
-     *     // ... filter to delete one CoreSet
-     *   }
-     * })
-     * 
-     */
-    delete<T extends CoreSetDeleteArgs>(args: SelectSubset<T, CoreSetDeleteArgs<ExtArgs>>): Prisma__CoreSetClient<$Result.GetResult<Prisma.$CoreSetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one CoreSet.
-     * @param {CoreSetUpdateArgs} args - Arguments to update one CoreSet.
-     * @example
-     * // Update one CoreSet
-     * const coreSet = await prisma.coreSet.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends CoreSetUpdateArgs>(args: SelectSubset<T, CoreSetUpdateArgs<ExtArgs>>): Prisma__CoreSetClient<$Result.GetResult<Prisma.$CoreSetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more CoreSets.
-     * @param {CoreSetDeleteManyArgs} args - Arguments to filter CoreSets to delete.
-     * @example
-     * // Delete a few CoreSets
-     * const { count } = await prisma.coreSet.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends CoreSetDeleteManyArgs>(args?: SelectSubset<T, CoreSetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more CoreSets.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many CoreSets
-     * const coreSet = await prisma.coreSet.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends CoreSetUpdateManyArgs>(args: SelectSubset<T, CoreSetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more CoreSets and returns the data updated in the database.
-     * @param {CoreSetUpdateManyAndReturnArgs} args - Arguments to update many CoreSets.
-     * @example
-     * // Update many CoreSets
-     * const coreSet = await prisma.coreSet.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more CoreSets and only return the `id`
-     * const coreSetWithIdOnly = await prisma.coreSet.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends CoreSetUpdateManyAndReturnArgs>(args: SelectSubset<T, CoreSetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreSetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one CoreSet.
-     * @param {CoreSetUpsertArgs} args - Arguments to update or create a CoreSet.
-     * @example
-     * // Update or create a CoreSet
-     * const coreSet = await prisma.coreSet.upsert({
-     *   create: {
-     *     // ... data to create a CoreSet
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the CoreSet we want to update
-     *   }
-     * })
-     */
-    upsert<T extends CoreSetUpsertArgs>(args: SelectSubset<T, CoreSetUpsertArgs<ExtArgs>>): Prisma__CoreSetClient<$Result.GetResult<Prisma.$CoreSetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of CoreSets.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetCountArgs} args - Arguments to filter CoreSets to count.
-     * @example
-     * // Count the number of CoreSets
-     * const count = await prisma.coreSet.count({
-     *   where: {
-     *     // ... the filter for the CoreSets we want to count
-     *   }
-     * })
-    **/
-    count<T extends CoreSetCountArgs>(
-      args?: Subset<T, CoreSetCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], CoreSetCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a CoreSet.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends CoreSetAggregateArgs>(args: Subset<T, CoreSetAggregateArgs>): Prisma.PrismaPromise<GetCoreSetAggregateType<T>>
-
-    /**
-     * Group by CoreSet.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends CoreSetGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: CoreSetGroupByArgs['orderBy'] }
-        : { orderBy?: CoreSetGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, CoreSetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCoreSetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the CoreSet model
-   */
-  readonly fields: CoreSetFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for CoreSet.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__CoreSetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    workoutExercise<T extends CoreSet$workoutExerciseArgs<ExtArgs> = {}>(args?: Subset<T, CoreSet$workoutExerciseArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkoutExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    reps<T extends CoreSet$repsArgs<ExtArgs> = {}>(args?: Subset<T, CoreSet$repsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreSetRepsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    weight<T extends CoreSet$weightArgs<ExtArgs> = {}>(args?: Subset<T, CoreSet$weightArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreSetWeightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the CoreSet model
-   */
-  interface CoreSetFieldRefs {
-    readonly id: FieldRef<"CoreSet", 'String'>
-    readonly restTime: FieldRef<"CoreSet", 'Int'>
-    readonly numberOfSets: FieldRef<"CoreSet", 'Int'>
-    readonly hasWarmup: FieldRef<"CoreSet", 'Boolean'>
-    readonly createdAt: FieldRef<"CoreSet", 'DateTime'>
-    readonly updatedAt: FieldRef<"CoreSet", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * CoreSet findUnique
-   */
-  export type CoreSetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreSet
-     */
-    select?: CoreSetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CoreSet
-     */
-    omit?: CoreSetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreSetInclude<ExtArgs> | null
-    /**
-     * Filter, which CoreSet to fetch.
-     */
-    where: CoreSetWhereUniqueInput
-  }
-
-  /**
-   * CoreSet findUniqueOrThrow
-   */
-  export type CoreSetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreSet
-     */
-    select?: CoreSetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CoreSet
-     */
-    omit?: CoreSetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreSetInclude<ExtArgs> | null
-    /**
-     * Filter, which CoreSet to fetch.
-     */
-    where: CoreSetWhereUniqueInput
-  }
-
-  /**
-   * CoreSet findFirst
-   */
-  export type CoreSetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreSet
-     */
-    select?: CoreSetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CoreSet
-     */
-    omit?: CoreSetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreSetInclude<ExtArgs> | null
-    /**
-     * Filter, which CoreSet to fetch.
-     */
-    where?: CoreSetWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of CoreSets to fetch.
-     */
-    orderBy?: CoreSetOrderByWithRelationInput | CoreSetOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for CoreSets.
-     */
-    cursor?: CoreSetWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` CoreSets from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` CoreSets.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of CoreSets.
-     */
-    distinct?: CoreSetScalarFieldEnum | CoreSetScalarFieldEnum[]
-  }
-
-  /**
-   * CoreSet findFirstOrThrow
-   */
-  export type CoreSetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreSet
-     */
-    select?: CoreSetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CoreSet
-     */
-    omit?: CoreSetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreSetInclude<ExtArgs> | null
-    /**
-     * Filter, which CoreSet to fetch.
-     */
-    where?: CoreSetWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of CoreSets to fetch.
-     */
-    orderBy?: CoreSetOrderByWithRelationInput | CoreSetOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for CoreSets.
-     */
-    cursor?: CoreSetWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` CoreSets from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` CoreSets.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of CoreSets.
-     */
-    distinct?: CoreSetScalarFieldEnum | CoreSetScalarFieldEnum[]
-  }
-
-  /**
-   * CoreSet findMany
-   */
-  export type CoreSetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreSet
-     */
-    select?: CoreSetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CoreSet
-     */
-    omit?: CoreSetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreSetInclude<ExtArgs> | null
-    /**
-     * Filter, which CoreSets to fetch.
-     */
-    where?: CoreSetWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of CoreSets to fetch.
-     */
-    orderBy?: CoreSetOrderByWithRelationInput | CoreSetOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing CoreSets.
-     */
-    cursor?: CoreSetWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` CoreSets from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` CoreSets.
-     */
-    skip?: number
-    distinct?: CoreSetScalarFieldEnum | CoreSetScalarFieldEnum[]
-  }
-
-  /**
-   * CoreSet create
-   */
-  export type CoreSetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreSet
-     */
-    select?: CoreSetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CoreSet
-     */
-    omit?: CoreSetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreSetInclude<ExtArgs> | null
-    /**
-     * The data needed to create a CoreSet.
-     */
-    data: XOR<CoreSetCreateInput, CoreSetUncheckedCreateInput>
-  }
-
-  /**
-   * CoreSet createMany
-   */
-  export type CoreSetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many CoreSets.
-     */
-    data: CoreSetCreateManyInput | CoreSetCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * CoreSet createManyAndReturn
-   */
-  export type CoreSetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreSet
-     */
-    select?: CoreSetSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the CoreSet
-     */
-    omit?: CoreSetOmit<ExtArgs> | null
-    /**
-     * The data used to create many CoreSets.
-     */
-    data: CoreSetCreateManyInput | CoreSetCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * CoreSet update
-   */
-  export type CoreSetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreSet
-     */
-    select?: CoreSetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CoreSet
-     */
-    omit?: CoreSetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreSetInclude<ExtArgs> | null
-    /**
-     * The data needed to update a CoreSet.
-     */
-    data: XOR<CoreSetUpdateInput, CoreSetUncheckedUpdateInput>
-    /**
-     * Choose, which CoreSet to update.
-     */
-    where: CoreSetWhereUniqueInput
-  }
-
-  /**
-   * CoreSet updateMany
-   */
-  export type CoreSetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update CoreSets.
-     */
-    data: XOR<CoreSetUpdateManyMutationInput, CoreSetUncheckedUpdateManyInput>
-    /**
-     * Filter which CoreSets to update
-     */
-    where?: CoreSetWhereInput
-    /**
-     * Limit how many CoreSets to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * CoreSet updateManyAndReturn
-   */
-  export type CoreSetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreSet
-     */
-    select?: CoreSetSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the CoreSet
-     */
-    omit?: CoreSetOmit<ExtArgs> | null
-    /**
-     * The data used to update CoreSets.
-     */
-    data: XOR<CoreSetUpdateManyMutationInput, CoreSetUncheckedUpdateManyInput>
-    /**
-     * Filter which CoreSets to update
-     */
-    where?: CoreSetWhereInput
-    /**
-     * Limit how many CoreSets to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * CoreSet upsert
-   */
-  export type CoreSetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreSet
-     */
-    select?: CoreSetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CoreSet
-     */
-    omit?: CoreSetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreSetInclude<ExtArgs> | null
-    /**
-     * The filter to search for the CoreSet to update in case it exists.
-     */
-    where: CoreSetWhereUniqueInput
-    /**
-     * In case the CoreSet found by the `where` argument doesn't exist, create a new CoreSet with this data.
-     */
-    create: XOR<CoreSetCreateInput, CoreSetUncheckedCreateInput>
-    /**
-     * In case the CoreSet was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<CoreSetUpdateInput, CoreSetUncheckedUpdateInput>
-  }
-
-  /**
-   * CoreSet delete
-   */
-  export type CoreSetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreSet
-     */
-    select?: CoreSetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CoreSet
-     */
-    omit?: CoreSetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreSetInclude<ExtArgs> | null
-    /**
-     * Filter which CoreSet to delete.
-     */
-    where: CoreSetWhereUniqueInput
-  }
-
-  /**
-   * CoreSet deleteMany
-   */
-  export type CoreSetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which CoreSets to delete
-     */
-    where?: CoreSetWhereInput
-    /**
-     * Limit how many CoreSets to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * CoreSet.workoutExercise
-   */
-  export type CoreSet$workoutExerciseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkoutExercise
-     */
-    select?: WorkoutExerciseSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkoutExercise
-     */
-    omit?: WorkoutExerciseOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkoutExerciseInclude<ExtArgs> | null
-    where?: WorkoutExerciseWhereInput
-    orderBy?: WorkoutExerciseOrderByWithRelationInput | WorkoutExerciseOrderByWithRelationInput[]
-    cursor?: WorkoutExerciseWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: WorkoutExerciseScalarFieldEnum | WorkoutExerciseScalarFieldEnum[]
-  }
-
-  /**
-   * CoreSet.reps
-   */
-  export type CoreSet$repsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreSetReps
-     */
-    select?: CoreSetRepsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CoreSetReps
-     */
-    omit?: CoreSetRepsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreSetRepsInclude<ExtArgs> | null
-    where?: CoreSetRepsWhereInput
-    orderBy?: CoreSetRepsOrderByWithRelationInput | CoreSetRepsOrderByWithRelationInput[]
-    cursor?: CoreSetRepsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CoreSetRepsScalarFieldEnum | CoreSetRepsScalarFieldEnum[]
-  }
-
-  /**
-   * CoreSet.weight
-   */
-  export type CoreSet$weightArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreSetWeight
-     */
-    select?: CoreSetWeightSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CoreSetWeight
-     */
-    omit?: CoreSetWeightOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreSetWeightInclude<ExtArgs> | null
-    where?: CoreSetWeightWhereInput
-    orderBy?: CoreSetWeightOrderByWithRelationInput | CoreSetWeightOrderByWithRelationInput[]
-    cursor?: CoreSetWeightWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CoreSetWeightScalarFieldEnum | CoreSetWeightScalarFieldEnum[]
-  }
-
-  /**
-   * CoreSet without action
-   */
-  export type CoreSetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreSet
-     */
-    select?: CoreSetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CoreSet
-     */
-    omit?: CoreSetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreSetInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model CoreCardioSet
    */
 
@@ -6005,29 +5274,17 @@ export namespace Prisma {
   export type CoreCardioSetAvgAggregateOutputType = {
     warmupTime: number | null
     avgHeartRate: number | null
-    avgSpeed: number | null
-    distance: number | null
-    calorieTarget: number | null
-    duration: number | null
   }
 
   export type CoreCardioSetSumAggregateOutputType = {
     warmupTime: number | null
     avgHeartRate: number | null
-    avgSpeed: number | null
-    distance: number | null
-    calorieTarget: number | null
-    duration: number | null
   }
 
   export type CoreCardioSetMinAggregateOutputType = {
     id: string | null
     warmupTime: number | null
     avgHeartRate: number | null
-    avgSpeed: number | null
-    distance: number | null
-    calorieTarget: number | null
-    duration: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6036,10 +5293,6 @@ export namespace Prisma {
     id: string | null
     warmupTime: number | null
     avgHeartRate: number | null
-    avgSpeed: number | null
-    distance: number | null
-    calorieTarget: number | null
-    duration: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6048,10 +5301,6 @@ export namespace Prisma {
     id: number
     warmupTime: number
     avgHeartRate: number
-    avgSpeed: number
-    distance: number
-    calorieTarget: number
-    duration: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -6061,29 +5310,17 @@ export namespace Prisma {
   export type CoreCardioSetAvgAggregateInputType = {
     warmupTime?: true
     avgHeartRate?: true
-    avgSpeed?: true
-    distance?: true
-    calorieTarget?: true
-    duration?: true
   }
 
   export type CoreCardioSetSumAggregateInputType = {
     warmupTime?: true
     avgHeartRate?: true
-    avgSpeed?: true
-    distance?: true
-    calorieTarget?: true
-    duration?: true
   }
 
   export type CoreCardioSetMinAggregateInputType = {
     id?: true
     warmupTime?: true
     avgHeartRate?: true
-    avgSpeed?: true
-    distance?: true
-    calorieTarget?: true
-    duration?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6092,10 +5329,6 @@ export namespace Prisma {
     id?: true
     warmupTime?: true
     avgHeartRate?: true
-    avgSpeed?: true
-    distance?: true
-    calorieTarget?: true
-    duration?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6104,10 +5337,6 @@ export namespace Prisma {
     id?: true
     warmupTime?: true
     avgHeartRate?: true
-    avgSpeed?: true
-    distance?: true
-    calorieTarget?: true
-    duration?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -6203,10 +5432,6 @@ export namespace Prisma {
     id: string
     warmupTime: number | null
     avgHeartRate: number | null
-    avgSpeed: number | null
-    distance: number | null
-    calorieTarget: number | null
-    duration: number | null
     createdAt: Date
     updatedAt: Date
     _count: CoreCardioSetCountAggregateOutputType | null
@@ -6234,13 +5459,13 @@ export namespace Prisma {
     id?: boolean
     warmupTime?: boolean
     avgHeartRate?: boolean
-    avgSpeed?: boolean
-    distance?: boolean
-    calorieTarget?: boolean
-    duration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     workoutExercise?: boolean | CoreCardioSet$workoutExerciseArgs<ExtArgs>
+    workTime?: boolean | CoreCardioSet$workTimeArgs<ExtArgs>
+    avgSpeed?: boolean | CoreCardioSet$avgSpeedArgs<ExtArgs>
+    distance?: boolean | CoreCardioSet$distanceArgs<ExtArgs>
+    calorieTarget?: boolean | CoreCardioSet$calorieTargetArgs<ExtArgs>
     _count?: boolean | CoreCardioSetCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["coreCardioSet"]>
 
@@ -6248,10 +5473,6 @@ export namespace Prisma {
     id?: boolean
     warmupTime?: boolean
     avgHeartRate?: boolean
-    avgSpeed?: boolean
-    distance?: boolean
-    calorieTarget?: boolean
-    duration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["coreCardioSet"]>
@@ -6260,10 +5481,6 @@ export namespace Prisma {
     id?: boolean
     warmupTime?: boolean
     avgHeartRate?: boolean
-    avgSpeed?: boolean
-    distance?: boolean
-    calorieTarget?: boolean
-    duration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["coreCardioSet"]>
@@ -6272,17 +5489,17 @@ export namespace Prisma {
     id?: boolean
     warmupTime?: boolean
     avgHeartRate?: boolean
-    avgSpeed?: boolean
-    distance?: boolean
-    calorieTarget?: boolean
-    duration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CoreCardioSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "warmupTime" | "avgHeartRate" | "avgSpeed" | "distance" | "calorieTarget" | "duration" | "createdAt" | "updatedAt", ExtArgs["result"]["coreCardioSet"]>
+  export type CoreCardioSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "warmupTime" | "avgHeartRate" | "createdAt" | "updatedAt", ExtArgs["result"]["coreCardioSet"]>
   export type CoreCardioSetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workoutExercise?: boolean | CoreCardioSet$workoutExerciseArgs<ExtArgs>
+    workTime?: boolean | CoreCardioSet$workTimeArgs<ExtArgs>
+    avgSpeed?: boolean | CoreCardioSet$avgSpeedArgs<ExtArgs>
+    distance?: boolean | CoreCardioSet$distanceArgs<ExtArgs>
+    calorieTarget?: boolean | CoreCardioSet$calorieTargetArgs<ExtArgs>
     _count?: boolean | CoreCardioSetCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CoreCardioSetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -6292,15 +5509,15 @@ export namespace Prisma {
     name: "CoreCardioSet"
     objects: {
       workoutExercise: Prisma.$WorkoutExercisePayload<ExtArgs>[]
+      workTime: Prisma.$CoreCardioSetWorkoutTimePayload<ExtArgs>[]
+      avgSpeed: Prisma.$CoreCardioSetAvgSpeedPayload<ExtArgs>[]
+      distance: Prisma.$CoreCardioSetDistancePayload<ExtArgs>[]
+      calorieTarget: Prisma.$CoreCardioSetCalorieTargetPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       warmupTime: number | null
       avgHeartRate: number | null
-      avgSpeed: number | null
-      distance: number | null
-      calorieTarget: number | null
-      duration: number | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["coreCardioSet"]>
@@ -6698,6 +5915,10 @@ export namespace Prisma {
   export interface Prisma__CoreCardioSetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workoutExercise<T extends CoreCardioSet$workoutExerciseArgs<ExtArgs> = {}>(args?: Subset<T, CoreCardioSet$workoutExerciseArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkoutExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    workTime<T extends CoreCardioSet$workTimeArgs<ExtArgs> = {}>(args?: Subset<T, CoreCardioSet$workTimeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetWorkoutTimePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    avgSpeed<T extends CoreCardioSet$avgSpeedArgs<ExtArgs> = {}>(args?: Subset<T, CoreCardioSet$avgSpeedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetAvgSpeedPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    distance<T extends CoreCardioSet$distanceArgs<ExtArgs> = {}>(args?: Subset<T, CoreCardioSet$distanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetDistancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    calorieTarget<T extends CoreCardioSet$calorieTargetArgs<ExtArgs> = {}>(args?: Subset<T, CoreCardioSet$calorieTargetArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetCalorieTargetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6730,10 +5951,6 @@ export namespace Prisma {
     readonly id: FieldRef<"CoreCardioSet", 'String'>
     readonly warmupTime: FieldRef<"CoreCardioSet", 'Int'>
     readonly avgHeartRate: FieldRef<"CoreCardioSet", 'Int'>
-    readonly avgSpeed: FieldRef<"CoreCardioSet", 'Float'>
-    readonly distance: FieldRef<"CoreCardioSet", 'Float'>
-    readonly calorieTarget: FieldRef<"CoreCardioSet", 'Int'>
-    readonly duration: FieldRef<"CoreCardioSet", 'Int'>
     readonly createdAt: FieldRef<"CoreCardioSet", 'DateTime'>
     readonly updatedAt: FieldRef<"CoreCardioSet", 'DateTime'>
   }
@@ -7148,6 +6365,102 @@ export namespace Prisma {
   }
 
   /**
+   * CoreCardioSet.workTime
+   */
+  export type CoreCardioSet$workTimeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetWorkoutTime
+     */
+    select?: CoreCardioSetWorkoutTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetWorkoutTime
+     */
+    omit?: CoreCardioSetWorkoutTimeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetWorkoutTimeInclude<ExtArgs> | null
+    where?: CoreCardioSetWorkoutTimeWhereInput
+    orderBy?: CoreCardioSetWorkoutTimeOrderByWithRelationInput | CoreCardioSetWorkoutTimeOrderByWithRelationInput[]
+    cursor?: CoreCardioSetWorkoutTimeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CoreCardioSetWorkoutTimeScalarFieldEnum | CoreCardioSetWorkoutTimeScalarFieldEnum[]
+  }
+
+  /**
+   * CoreCardioSet.avgSpeed
+   */
+  export type CoreCardioSet$avgSpeedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetAvgSpeed
+     */
+    select?: CoreCardioSetAvgSpeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetAvgSpeed
+     */
+    omit?: CoreCardioSetAvgSpeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetAvgSpeedInclude<ExtArgs> | null
+    where?: CoreCardioSetAvgSpeedWhereInput
+    orderBy?: CoreCardioSetAvgSpeedOrderByWithRelationInput | CoreCardioSetAvgSpeedOrderByWithRelationInput[]
+    cursor?: CoreCardioSetAvgSpeedWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CoreCardioSetAvgSpeedScalarFieldEnum | CoreCardioSetAvgSpeedScalarFieldEnum[]
+  }
+
+  /**
+   * CoreCardioSet.distance
+   */
+  export type CoreCardioSet$distanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetDistance
+     */
+    select?: CoreCardioSetDistanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetDistance
+     */
+    omit?: CoreCardioSetDistanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetDistanceInclude<ExtArgs> | null
+    where?: CoreCardioSetDistanceWhereInput
+    orderBy?: CoreCardioSetDistanceOrderByWithRelationInput | CoreCardioSetDistanceOrderByWithRelationInput[]
+    cursor?: CoreCardioSetDistanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CoreCardioSetDistanceScalarFieldEnum | CoreCardioSetDistanceScalarFieldEnum[]
+  }
+
+  /**
+   * CoreCardioSet.calorieTarget
+   */
+  export type CoreCardioSet$calorieTargetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetCalorieTarget
+     */
+    select?: CoreCardioSetCalorieTargetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetCalorieTarget
+     */
+    omit?: CoreCardioSetCalorieTargetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetCalorieTargetInclude<ExtArgs> | null
+    where?: CoreCardioSetCalorieTargetWhereInput
+    orderBy?: CoreCardioSetCalorieTargetOrderByWithRelationInput | CoreCardioSetCalorieTargetOrderByWithRelationInput[]
+    cursor?: CoreCardioSetCalorieTargetWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CoreCardioSetCalorieTargetScalarFieldEnum | CoreCardioSetCalorieTargetScalarFieldEnum[]
+  }
+
+  /**
    * CoreCardioSet without action
    */
   export type CoreCardioSetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7167,384 +6480,384 @@ export namespace Prisma {
 
 
   /**
-   * Model CoreSetReps
+   * Model CoreCardioSetCalorieTarget
    */
 
-  export type AggregateCoreSetReps = {
-    _count: CoreSetRepsCountAggregateOutputType | null
-    _avg: CoreSetRepsAvgAggregateOutputType | null
-    _sum: CoreSetRepsSumAggregateOutputType | null
-    _min: CoreSetRepsMinAggregateOutputType | null
-    _max: CoreSetRepsMaxAggregateOutputType | null
+  export type AggregateCoreCardioSetCalorieTarget = {
+    _count: CoreCardioSetCalorieTargetCountAggregateOutputType | null
+    _avg: CoreCardioSetCalorieTargetAvgAggregateOutputType | null
+    _sum: CoreCardioSetCalorieTargetSumAggregateOutputType | null
+    _min: CoreCardioSetCalorieTargetMinAggregateOutputType | null
+    _max: CoreCardioSetCalorieTargetMaxAggregateOutputType | null
   }
 
-  export type CoreSetRepsAvgAggregateOutputType = {
-    reps: number | null
+  export type CoreCardioSetCalorieTargetAvgAggregateOutputType = {
+    calorieTarget: number | null
   }
 
-  export type CoreSetRepsSumAggregateOutputType = {
-    reps: number | null
+  export type CoreCardioSetCalorieTargetSumAggregateOutputType = {
+    calorieTarget: number | null
   }
 
-  export type CoreSetRepsMinAggregateOutputType = {
+  export type CoreCardioSetCalorieTargetMinAggregateOutputType = {
     id: string | null
-    coreSetId: string | null
-    reps: number | null
+    coreCardioSetId: string | null
+    calorieTarget: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
-  export type CoreSetRepsMaxAggregateOutputType = {
+  export type CoreCardioSetCalorieTargetMaxAggregateOutputType = {
     id: string | null
-    coreSetId: string | null
-    reps: number | null
+    coreCardioSetId: string | null
+    calorieTarget: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
-  export type CoreSetRepsCountAggregateOutputType = {
+  export type CoreCardioSetCalorieTargetCountAggregateOutputType = {
     id: number
-    coreSetId: number
-    reps: number
+    coreCardioSetId: number
+    calorieTarget: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
 
-  export type CoreSetRepsAvgAggregateInputType = {
-    reps?: true
+  export type CoreCardioSetCalorieTargetAvgAggregateInputType = {
+    calorieTarget?: true
   }
 
-  export type CoreSetRepsSumAggregateInputType = {
-    reps?: true
+  export type CoreCardioSetCalorieTargetSumAggregateInputType = {
+    calorieTarget?: true
   }
 
-  export type CoreSetRepsMinAggregateInputType = {
+  export type CoreCardioSetCalorieTargetMinAggregateInputType = {
     id?: true
-    coreSetId?: true
-    reps?: true
+    coreCardioSetId?: true
+    calorieTarget?: true
     createdAt?: true
     updatedAt?: true
   }
 
-  export type CoreSetRepsMaxAggregateInputType = {
+  export type CoreCardioSetCalorieTargetMaxAggregateInputType = {
     id?: true
-    coreSetId?: true
-    reps?: true
+    coreCardioSetId?: true
+    calorieTarget?: true
     createdAt?: true
     updatedAt?: true
   }
 
-  export type CoreSetRepsCountAggregateInputType = {
+  export type CoreCardioSetCalorieTargetCountAggregateInputType = {
     id?: true
-    coreSetId?: true
-    reps?: true
+    coreCardioSetId?: true
+    calorieTarget?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
   }
 
-  export type CoreSetRepsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetCalorieTargetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which CoreSetReps to aggregate.
+     * Filter which CoreCardioSetCalorieTarget to aggregate.
      */
-    where?: CoreSetRepsWhereInput
+    where?: CoreCardioSetCalorieTargetWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of CoreSetReps to fetch.
+     * Determine the order of CoreCardioSetCalorieTargets to fetch.
      */
-    orderBy?: CoreSetRepsOrderByWithRelationInput | CoreSetRepsOrderByWithRelationInput[]
+    orderBy?: CoreCardioSetCalorieTargetOrderByWithRelationInput | CoreCardioSetCalorieTargetOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: CoreSetRepsWhereUniqueInput
+    cursor?: CoreCardioSetCalorieTargetWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` CoreSetReps from the position of the cursor.
+     * Take `±n` CoreCardioSetCalorieTargets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` CoreSetReps.
+     * Skip the first `n` CoreCardioSetCalorieTargets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned CoreSetReps
+     * Count returned CoreCardioSetCalorieTargets
     **/
-    _count?: true | CoreSetRepsCountAggregateInputType
+    _count?: true | CoreCardioSetCalorieTargetCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: CoreSetRepsAvgAggregateInputType
+    _avg?: CoreCardioSetCalorieTargetAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: CoreSetRepsSumAggregateInputType
+    _sum?: CoreCardioSetCalorieTargetSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: CoreSetRepsMinAggregateInputType
+    _min?: CoreCardioSetCalorieTargetMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: CoreSetRepsMaxAggregateInputType
+    _max?: CoreCardioSetCalorieTargetMaxAggregateInputType
   }
 
-  export type GetCoreSetRepsAggregateType<T extends CoreSetRepsAggregateArgs> = {
-        [P in keyof T & keyof AggregateCoreSetReps]: P extends '_count' | 'count'
+  export type GetCoreCardioSetCalorieTargetAggregateType<T extends CoreCardioSetCalorieTargetAggregateArgs> = {
+        [P in keyof T & keyof AggregateCoreCardioSetCalorieTarget]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateCoreSetReps[P]>
-      : GetScalarType<T[P], AggregateCoreSetReps[P]>
+        : GetScalarType<T[P], AggregateCoreCardioSetCalorieTarget[P]>
+      : GetScalarType<T[P], AggregateCoreCardioSetCalorieTarget[P]>
   }
 
 
 
 
-  export type CoreSetRepsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CoreSetRepsWhereInput
-    orderBy?: CoreSetRepsOrderByWithAggregationInput | CoreSetRepsOrderByWithAggregationInput[]
-    by: CoreSetRepsScalarFieldEnum[] | CoreSetRepsScalarFieldEnum
-    having?: CoreSetRepsScalarWhereWithAggregatesInput
+  export type CoreCardioSetCalorieTargetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CoreCardioSetCalorieTargetWhereInput
+    orderBy?: CoreCardioSetCalorieTargetOrderByWithAggregationInput | CoreCardioSetCalorieTargetOrderByWithAggregationInput[]
+    by: CoreCardioSetCalorieTargetScalarFieldEnum[] | CoreCardioSetCalorieTargetScalarFieldEnum
+    having?: CoreCardioSetCalorieTargetScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: CoreSetRepsCountAggregateInputType | true
-    _avg?: CoreSetRepsAvgAggregateInputType
-    _sum?: CoreSetRepsSumAggregateInputType
-    _min?: CoreSetRepsMinAggregateInputType
-    _max?: CoreSetRepsMaxAggregateInputType
+    _count?: CoreCardioSetCalorieTargetCountAggregateInputType | true
+    _avg?: CoreCardioSetCalorieTargetAvgAggregateInputType
+    _sum?: CoreCardioSetCalorieTargetSumAggregateInputType
+    _min?: CoreCardioSetCalorieTargetMinAggregateInputType
+    _max?: CoreCardioSetCalorieTargetMaxAggregateInputType
   }
 
-  export type CoreSetRepsGroupByOutputType = {
+  export type CoreCardioSetCalorieTargetGroupByOutputType = {
     id: string
-    coreSetId: string
-    reps: number
+    coreCardioSetId: string
+    calorieTarget: number | null
     createdAt: Date
     updatedAt: Date
-    _count: CoreSetRepsCountAggregateOutputType | null
-    _avg: CoreSetRepsAvgAggregateOutputType | null
-    _sum: CoreSetRepsSumAggregateOutputType | null
-    _min: CoreSetRepsMinAggregateOutputType | null
-    _max: CoreSetRepsMaxAggregateOutputType | null
+    _count: CoreCardioSetCalorieTargetCountAggregateOutputType | null
+    _avg: CoreCardioSetCalorieTargetAvgAggregateOutputType | null
+    _sum: CoreCardioSetCalorieTargetSumAggregateOutputType | null
+    _min: CoreCardioSetCalorieTargetMinAggregateOutputType | null
+    _max: CoreCardioSetCalorieTargetMaxAggregateOutputType | null
   }
 
-  type GetCoreSetRepsGroupByPayload<T extends CoreSetRepsGroupByArgs> = Prisma.PrismaPromise<
+  type GetCoreCardioSetCalorieTargetGroupByPayload<T extends CoreCardioSetCalorieTargetGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<CoreSetRepsGroupByOutputType, T['by']> &
+      PickEnumerable<CoreCardioSetCalorieTargetGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof CoreSetRepsGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof CoreCardioSetCalorieTargetGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], CoreSetRepsGroupByOutputType[P]>
-            : GetScalarType<T[P], CoreSetRepsGroupByOutputType[P]>
+              : GetScalarType<T[P], CoreCardioSetCalorieTargetGroupByOutputType[P]>
+            : GetScalarType<T[P], CoreCardioSetCalorieTargetGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type CoreSetRepsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type CoreCardioSetCalorieTargetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    coreSetId?: boolean
-    reps?: boolean
+    coreCardioSetId?: boolean
+    calorieTarget?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    coreSet?: boolean | CoreSetDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["coreSetReps"]>
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreCardioSetCalorieTarget"]>
 
-  export type CoreSetRepsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type CoreCardioSetCalorieTargetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    coreSetId?: boolean
-    reps?: boolean
+    coreCardioSetId?: boolean
+    calorieTarget?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    coreSet?: boolean | CoreSetDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["coreSetReps"]>
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreCardioSetCalorieTarget"]>
 
-  export type CoreSetRepsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type CoreCardioSetCalorieTargetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    coreSetId?: boolean
-    reps?: boolean
+    coreCardioSetId?: boolean
+    calorieTarget?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    coreSet?: boolean | CoreSetDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["coreSetReps"]>
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreCardioSetCalorieTarget"]>
 
-  export type CoreSetRepsSelectScalar = {
+  export type CoreCardioSetCalorieTargetSelectScalar = {
     id?: boolean
-    coreSetId?: boolean
-    reps?: boolean
+    coreCardioSetId?: boolean
+    calorieTarget?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CoreSetRepsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "coreSetId" | "reps" | "createdAt" | "updatedAt", ExtArgs["result"]["coreSetReps"]>
-  export type CoreSetRepsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    coreSet?: boolean | CoreSetDefaultArgs<ExtArgs>
+  export type CoreCardioSetCalorieTargetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "coreCardioSetId" | "calorieTarget" | "createdAt" | "updatedAt", ExtArgs["result"]["coreCardioSetCalorieTarget"]>
+  export type CoreCardioSetCalorieTargetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
   }
-  export type CoreSetRepsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    coreSet?: boolean | CoreSetDefaultArgs<ExtArgs>
+  export type CoreCardioSetCalorieTargetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
   }
-  export type CoreSetRepsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    coreSet?: boolean | CoreSetDefaultArgs<ExtArgs>
+  export type CoreCardioSetCalorieTargetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
   }
 
-  export type $CoreSetRepsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "CoreSetReps"
+  export type $CoreCardioSetCalorieTargetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CoreCardioSetCalorieTarget"
     objects: {
-      coreSet: Prisma.$CoreSetPayload<ExtArgs>
+      coreCardioSet: Prisma.$CoreCardioSetPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      coreSetId: string
-      reps: number
+      coreCardioSetId: string
+      calorieTarget: number | null
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["coreSetReps"]>
+    }, ExtArgs["result"]["coreCardioSetCalorieTarget"]>
     composites: {}
   }
 
-  type CoreSetRepsGetPayload<S extends boolean | null | undefined | CoreSetRepsDefaultArgs> = $Result.GetResult<Prisma.$CoreSetRepsPayload, S>
+  type CoreCardioSetCalorieTargetGetPayload<S extends boolean | null | undefined | CoreCardioSetCalorieTargetDefaultArgs> = $Result.GetResult<Prisma.$CoreCardioSetCalorieTargetPayload, S>
 
-  type CoreSetRepsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<CoreSetRepsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: CoreSetRepsCountAggregateInputType | true
+  type CoreCardioSetCalorieTargetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CoreCardioSetCalorieTargetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CoreCardioSetCalorieTargetCountAggregateInputType | true
     }
 
-  export interface CoreSetRepsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CoreSetReps'], meta: { name: 'CoreSetReps' } }
+  export interface CoreCardioSetCalorieTargetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CoreCardioSetCalorieTarget'], meta: { name: 'CoreCardioSetCalorieTarget' } }
     /**
-     * Find zero or one CoreSetReps that matches the filter.
-     * @param {CoreSetRepsFindUniqueArgs} args - Arguments to find a CoreSetReps
+     * Find zero or one CoreCardioSetCalorieTarget that matches the filter.
+     * @param {CoreCardioSetCalorieTargetFindUniqueArgs} args - Arguments to find a CoreCardioSetCalorieTarget
      * @example
-     * // Get one CoreSetReps
-     * const coreSetReps = await prisma.coreSetReps.findUnique({
+     * // Get one CoreCardioSetCalorieTarget
+     * const coreCardioSetCalorieTarget = await prisma.coreCardioSetCalorieTarget.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends CoreSetRepsFindUniqueArgs>(args: SelectSubset<T, CoreSetRepsFindUniqueArgs<ExtArgs>>): Prisma__CoreSetRepsClient<$Result.GetResult<Prisma.$CoreSetRepsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends CoreCardioSetCalorieTargetFindUniqueArgs>(args: SelectSubset<T, CoreCardioSetCalorieTargetFindUniqueArgs<ExtArgs>>): Prisma__CoreCardioSetCalorieTargetClient<$Result.GetResult<Prisma.$CoreCardioSetCalorieTargetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one CoreSetReps that matches the filter or throw an error with `error.code='P2025'`
+     * Find one CoreCardioSetCalorieTarget that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {CoreSetRepsFindUniqueOrThrowArgs} args - Arguments to find a CoreSetReps
+     * @param {CoreCardioSetCalorieTargetFindUniqueOrThrowArgs} args - Arguments to find a CoreCardioSetCalorieTarget
      * @example
-     * // Get one CoreSetReps
-     * const coreSetReps = await prisma.coreSetReps.findUniqueOrThrow({
+     * // Get one CoreCardioSetCalorieTarget
+     * const coreCardioSetCalorieTarget = await prisma.coreCardioSetCalorieTarget.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends CoreSetRepsFindUniqueOrThrowArgs>(args: SelectSubset<T, CoreSetRepsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CoreSetRepsClient<$Result.GetResult<Prisma.$CoreSetRepsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends CoreCardioSetCalorieTargetFindUniqueOrThrowArgs>(args: SelectSubset<T, CoreCardioSetCalorieTargetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CoreCardioSetCalorieTargetClient<$Result.GetResult<Prisma.$CoreCardioSetCalorieTargetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first CoreSetReps that matches the filter.
+     * Find the first CoreCardioSetCalorieTarget that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetRepsFindFirstArgs} args - Arguments to find a CoreSetReps
+     * @param {CoreCardioSetCalorieTargetFindFirstArgs} args - Arguments to find a CoreCardioSetCalorieTarget
      * @example
-     * // Get one CoreSetReps
-     * const coreSetReps = await prisma.coreSetReps.findFirst({
+     * // Get one CoreCardioSetCalorieTarget
+     * const coreCardioSetCalorieTarget = await prisma.coreCardioSetCalorieTarget.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends CoreSetRepsFindFirstArgs>(args?: SelectSubset<T, CoreSetRepsFindFirstArgs<ExtArgs>>): Prisma__CoreSetRepsClient<$Result.GetResult<Prisma.$CoreSetRepsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends CoreCardioSetCalorieTargetFindFirstArgs>(args?: SelectSubset<T, CoreCardioSetCalorieTargetFindFirstArgs<ExtArgs>>): Prisma__CoreCardioSetCalorieTargetClient<$Result.GetResult<Prisma.$CoreCardioSetCalorieTargetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first CoreSetReps that matches the filter or
+     * Find the first CoreCardioSetCalorieTarget that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetRepsFindFirstOrThrowArgs} args - Arguments to find a CoreSetReps
+     * @param {CoreCardioSetCalorieTargetFindFirstOrThrowArgs} args - Arguments to find a CoreCardioSetCalorieTarget
      * @example
-     * // Get one CoreSetReps
-     * const coreSetReps = await prisma.coreSetReps.findFirstOrThrow({
+     * // Get one CoreCardioSetCalorieTarget
+     * const coreCardioSetCalorieTarget = await prisma.coreCardioSetCalorieTarget.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends CoreSetRepsFindFirstOrThrowArgs>(args?: SelectSubset<T, CoreSetRepsFindFirstOrThrowArgs<ExtArgs>>): Prisma__CoreSetRepsClient<$Result.GetResult<Prisma.$CoreSetRepsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends CoreCardioSetCalorieTargetFindFirstOrThrowArgs>(args?: SelectSubset<T, CoreCardioSetCalorieTargetFindFirstOrThrowArgs<ExtArgs>>): Prisma__CoreCardioSetCalorieTargetClient<$Result.GetResult<Prisma.$CoreCardioSetCalorieTargetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more CoreSetReps that matches the filter.
+     * Find zero or more CoreCardioSetCalorieTargets that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetRepsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {CoreCardioSetCalorieTargetFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all CoreSetReps
-     * const coreSetReps = await prisma.coreSetReps.findMany()
+     * // Get all CoreCardioSetCalorieTargets
+     * const coreCardioSetCalorieTargets = await prisma.coreCardioSetCalorieTarget.findMany()
      * 
-     * // Get first 10 CoreSetReps
-     * const coreSetReps = await prisma.coreSetReps.findMany({ take: 10 })
+     * // Get first 10 CoreCardioSetCalorieTargets
+     * const coreCardioSetCalorieTargets = await prisma.coreCardioSetCalorieTarget.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const coreSetRepsWithIdOnly = await prisma.coreSetReps.findMany({ select: { id: true } })
+     * const coreCardioSetCalorieTargetWithIdOnly = await prisma.coreCardioSetCalorieTarget.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends CoreSetRepsFindManyArgs>(args?: SelectSubset<T, CoreSetRepsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreSetRepsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends CoreCardioSetCalorieTargetFindManyArgs>(args?: SelectSubset<T, CoreCardioSetCalorieTargetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetCalorieTargetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a CoreSetReps.
-     * @param {CoreSetRepsCreateArgs} args - Arguments to create a CoreSetReps.
+     * Create a CoreCardioSetCalorieTarget.
+     * @param {CoreCardioSetCalorieTargetCreateArgs} args - Arguments to create a CoreCardioSetCalorieTarget.
      * @example
-     * // Create one CoreSetReps
-     * const CoreSetReps = await prisma.coreSetReps.create({
+     * // Create one CoreCardioSetCalorieTarget
+     * const CoreCardioSetCalorieTarget = await prisma.coreCardioSetCalorieTarget.create({
      *   data: {
-     *     // ... data to create a CoreSetReps
+     *     // ... data to create a CoreCardioSetCalorieTarget
      *   }
      * })
      * 
      */
-    create<T extends CoreSetRepsCreateArgs>(args: SelectSubset<T, CoreSetRepsCreateArgs<ExtArgs>>): Prisma__CoreSetRepsClient<$Result.GetResult<Prisma.$CoreSetRepsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends CoreCardioSetCalorieTargetCreateArgs>(args: SelectSubset<T, CoreCardioSetCalorieTargetCreateArgs<ExtArgs>>): Prisma__CoreCardioSetCalorieTargetClient<$Result.GetResult<Prisma.$CoreCardioSetCalorieTargetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many CoreSetReps.
-     * @param {CoreSetRepsCreateManyArgs} args - Arguments to create many CoreSetReps.
+     * Create many CoreCardioSetCalorieTargets.
+     * @param {CoreCardioSetCalorieTargetCreateManyArgs} args - Arguments to create many CoreCardioSetCalorieTargets.
      * @example
-     * // Create many CoreSetReps
-     * const coreSetReps = await prisma.coreSetReps.createMany({
+     * // Create many CoreCardioSetCalorieTargets
+     * const coreCardioSetCalorieTarget = await prisma.coreCardioSetCalorieTarget.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends CoreSetRepsCreateManyArgs>(args?: SelectSubset<T, CoreSetRepsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends CoreCardioSetCalorieTargetCreateManyArgs>(args?: SelectSubset<T, CoreCardioSetCalorieTargetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many CoreSetReps and returns the data saved in the database.
-     * @param {CoreSetRepsCreateManyAndReturnArgs} args - Arguments to create many CoreSetReps.
+     * Create many CoreCardioSetCalorieTargets and returns the data saved in the database.
+     * @param {CoreCardioSetCalorieTargetCreateManyAndReturnArgs} args - Arguments to create many CoreCardioSetCalorieTargets.
      * @example
-     * // Create many CoreSetReps
-     * const coreSetReps = await prisma.coreSetReps.createManyAndReturn({
+     * // Create many CoreCardioSetCalorieTargets
+     * const coreCardioSetCalorieTarget = await prisma.coreCardioSetCalorieTarget.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many CoreSetReps and only return the `id`
-     * const coreSetRepsWithIdOnly = await prisma.coreSetReps.createManyAndReturn({
+     * // Create many CoreCardioSetCalorieTargets and only return the `id`
+     * const coreCardioSetCalorieTargetWithIdOnly = await prisma.coreCardioSetCalorieTarget.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -7554,28 +6867,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends CoreSetRepsCreateManyAndReturnArgs>(args?: SelectSubset<T, CoreSetRepsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreSetRepsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends CoreCardioSetCalorieTargetCreateManyAndReturnArgs>(args?: SelectSubset<T, CoreCardioSetCalorieTargetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetCalorieTargetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a CoreSetReps.
-     * @param {CoreSetRepsDeleteArgs} args - Arguments to delete one CoreSetReps.
+     * Delete a CoreCardioSetCalorieTarget.
+     * @param {CoreCardioSetCalorieTargetDeleteArgs} args - Arguments to delete one CoreCardioSetCalorieTarget.
      * @example
-     * // Delete one CoreSetReps
-     * const CoreSetReps = await prisma.coreSetReps.delete({
+     * // Delete one CoreCardioSetCalorieTarget
+     * const CoreCardioSetCalorieTarget = await prisma.coreCardioSetCalorieTarget.delete({
      *   where: {
-     *     // ... filter to delete one CoreSetReps
+     *     // ... filter to delete one CoreCardioSetCalorieTarget
      *   }
      * })
      * 
      */
-    delete<T extends CoreSetRepsDeleteArgs>(args: SelectSubset<T, CoreSetRepsDeleteArgs<ExtArgs>>): Prisma__CoreSetRepsClient<$Result.GetResult<Prisma.$CoreSetRepsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends CoreCardioSetCalorieTargetDeleteArgs>(args: SelectSubset<T, CoreCardioSetCalorieTargetDeleteArgs<ExtArgs>>): Prisma__CoreCardioSetCalorieTargetClient<$Result.GetResult<Prisma.$CoreCardioSetCalorieTargetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one CoreSetReps.
-     * @param {CoreSetRepsUpdateArgs} args - Arguments to update one CoreSetReps.
+     * Update one CoreCardioSetCalorieTarget.
+     * @param {CoreCardioSetCalorieTargetUpdateArgs} args - Arguments to update one CoreCardioSetCalorieTarget.
      * @example
-     * // Update one CoreSetReps
-     * const coreSetReps = await prisma.coreSetReps.update({
+     * // Update one CoreCardioSetCalorieTarget
+     * const coreCardioSetCalorieTarget = await prisma.coreCardioSetCalorieTarget.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7585,30 +6898,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends CoreSetRepsUpdateArgs>(args: SelectSubset<T, CoreSetRepsUpdateArgs<ExtArgs>>): Prisma__CoreSetRepsClient<$Result.GetResult<Prisma.$CoreSetRepsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends CoreCardioSetCalorieTargetUpdateArgs>(args: SelectSubset<T, CoreCardioSetCalorieTargetUpdateArgs<ExtArgs>>): Prisma__CoreCardioSetCalorieTargetClient<$Result.GetResult<Prisma.$CoreCardioSetCalorieTargetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more CoreSetReps.
-     * @param {CoreSetRepsDeleteManyArgs} args - Arguments to filter CoreSetReps to delete.
+     * Delete zero or more CoreCardioSetCalorieTargets.
+     * @param {CoreCardioSetCalorieTargetDeleteManyArgs} args - Arguments to filter CoreCardioSetCalorieTargets to delete.
      * @example
-     * // Delete a few CoreSetReps
-     * const { count } = await prisma.coreSetReps.deleteMany({
+     * // Delete a few CoreCardioSetCalorieTargets
+     * const { count } = await prisma.coreCardioSetCalorieTarget.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends CoreSetRepsDeleteManyArgs>(args?: SelectSubset<T, CoreSetRepsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends CoreCardioSetCalorieTargetDeleteManyArgs>(args?: SelectSubset<T, CoreCardioSetCalorieTargetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more CoreSetReps.
+     * Update zero or more CoreCardioSetCalorieTargets.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetRepsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {CoreCardioSetCalorieTargetUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many CoreSetReps
-     * const coreSetReps = await prisma.coreSetReps.updateMany({
+     * // Update many CoreCardioSetCalorieTargets
+     * const coreCardioSetCalorieTarget = await prisma.coreCardioSetCalorieTarget.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7618,14 +6931,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends CoreSetRepsUpdateManyArgs>(args: SelectSubset<T, CoreSetRepsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends CoreCardioSetCalorieTargetUpdateManyArgs>(args: SelectSubset<T, CoreCardioSetCalorieTargetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more CoreSetReps and returns the data updated in the database.
-     * @param {CoreSetRepsUpdateManyAndReturnArgs} args - Arguments to update many CoreSetReps.
+     * Update zero or more CoreCardioSetCalorieTargets and returns the data updated in the database.
+     * @param {CoreCardioSetCalorieTargetUpdateManyAndReturnArgs} args - Arguments to update many CoreCardioSetCalorieTargets.
      * @example
-     * // Update many CoreSetReps
-     * const coreSetReps = await prisma.coreSetReps.updateManyAndReturn({
+     * // Update many CoreCardioSetCalorieTargets
+     * const coreCardioSetCalorieTarget = await prisma.coreCardioSetCalorieTarget.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7634,8 +6947,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more CoreSetReps and only return the `id`
-     * const coreSetRepsWithIdOnly = await prisma.coreSetReps.updateManyAndReturn({
+     * // Update zero or more CoreCardioSetCalorieTargets and only return the `id`
+     * const coreCardioSetCalorieTargetWithIdOnly = await prisma.coreCardioSetCalorieTarget.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -7648,56 +6961,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends CoreSetRepsUpdateManyAndReturnArgs>(args: SelectSubset<T, CoreSetRepsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreSetRepsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends CoreCardioSetCalorieTargetUpdateManyAndReturnArgs>(args: SelectSubset<T, CoreCardioSetCalorieTargetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetCalorieTargetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one CoreSetReps.
-     * @param {CoreSetRepsUpsertArgs} args - Arguments to update or create a CoreSetReps.
+     * Create or update one CoreCardioSetCalorieTarget.
+     * @param {CoreCardioSetCalorieTargetUpsertArgs} args - Arguments to update or create a CoreCardioSetCalorieTarget.
      * @example
-     * // Update or create a CoreSetReps
-     * const coreSetReps = await prisma.coreSetReps.upsert({
+     * // Update or create a CoreCardioSetCalorieTarget
+     * const coreCardioSetCalorieTarget = await prisma.coreCardioSetCalorieTarget.upsert({
      *   create: {
-     *     // ... data to create a CoreSetReps
+     *     // ... data to create a CoreCardioSetCalorieTarget
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the CoreSetReps we want to update
+     *     // ... the filter for the CoreCardioSetCalorieTarget we want to update
      *   }
      * })
      */
-    upsert<T extends CoreSetRepsUpsertArgs>(args: SelectSubset<T, CoreSetRepsUpsertArgs<ExtArgs>>): Prisma__CoreSetRepsClient<$Result.GetResult<Prisma.$CoreSetRepsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends CoreCardioSetCalorieTargetUpsertArgs>(args: SelectSubset<T, CoreCardioSetCalorieTargetUpsertArgs<ExtArgs>>): Prisma__CoreCardioSetCalorieTargetClient<$Result.GetResult<Prisma.$CoreCardioSetCalorieTargetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of CoreSetReps.
+     * Count the number of CoreCardioSetCalorieTargets.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetRepsCountArgs} args - Arguments to filter CoreSetReps to count.
+     * @param {CoreCardioSetCalorieTargetCountArgs} args - Arguments to filter CoreCardioSetCalorieTargets to count.
      * @example
-     * // Count the number of CoreSetReps
-     * const count = await prisma.coreSetReps.count({
+     * // Count the number of CoreCardioSetCalorieTargets
+     * const count = await prisma.coreCardioSetCalorieTarget.count({
      *   where: {
-     *     // ... the filter for the CoreSetReps we want to count
+     *     // ... the filter for the CoreCardioSetCalorieTargets we want to count
      *   }
      * })
     **/
-    count<T extends CoreSetRepsCountArgs>(
-      args?: Subset<T, CoreSetRepsCountArgs>,
+    count<T extends CoreCardioSetCalorieTargetCountArgs>(
+      args?: Subset<T, CoreCardioSetCalorieTargetCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], CoreSetRepsCountAggregateOutputType>
+          : GetScalarType<T['select'], CoreCardioSetCalorieTargetCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a CoreSetReps.
+     * Allows you to perform aggregations operations on a CoreCardioSetCalorieTarget.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetRepsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {CoreCardioSetCalorieTargetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -7717,13 +7030,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends CoreSetRepsAggregateArgs>(args: Subset<T, CoreSetRepsAggregateArgs>): Prisma.PrismaPromise<GetCoreSetRepsAggregateType<T>>
+    aggregate<T extends CoreCardioSetCalorieTargetAggregateArgs>(args: Subset<T, CoreCardioSetCalorieTargetAggregateArgs>): Prisma.PrismaPromise<GetCoreCardioSetCalorieTargetAggregateType<T>>
 
     /**
-     * Group by CoreSetReps.
+     * Group by CoreCardioSetCalorieTarget.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetRepsGroupByArgs} args - Group by arguments.
+     * @param {CoreCardioSetCalorieTargetGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -7738,14 +7051,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends CoreSetRepsGroupByArgs,
+      T extends CoreCardioSetCalorieTargetGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: CoreSetRepsGroupByArgs['orderBy'] }
-        : { orderBy?: CoreSetRepsGroupByArgs['orderBy'] },
+        ? { orderBy: CoreCardioSetCalorieTargetGroupByArgs['orderBy'] }
+        : { orderBy?: CoreCardioSetCalorieTargetGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -7794,22 +7107,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, CoreSetRepsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCoreSetRepsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, CoreCardioSetCalorieTargetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCoreCardioSetCalorieTargetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the CoreSetReps model
+   * Fields of the CoreCardioSetCalorieTarget model
    */
-  readonly fields: CoreSetRepsFieldRefs;
+  readonly fields: CoreCardioSetCalorieTargetFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for CoreSetReps.
+   * The delegate class that acts as a "Promise-like" for CoreCardioSetCalorieTarget.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__CoreSetRepsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__CoreCardioSetCalorieTargetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    coreSet<T extends CoreSetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CoreSetDefaultArgs<ExtArgs>>): Prisma__CoreSetClient<$Result.GetResult<Prisma.$CoreSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    coreCardioSet<T extends CoreCardioSetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CoreCardioSetDefaultArgs<ExtArgs>>): Prisma__CoreCardioSetClient<$Result.GetResult<Prisma.$CoreCardioSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7836,819 +7149,807 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the CoreSetReps model
+   * Fields of the CoreCardioSetCalorieTarget model
    */
-  interface CoreSetRepsFieldRefs {
-    readonly id: FieldRef<"CoreSetReps", 'String'>
-    readonly coreSetId: FieldRef<"CoreSetReps", 'String'>
-    readonly reps: FieldRef<"CoreSetReps", 'Int'>
-    readonly createdAt: FieldRef<"CoreSetReps", 'DateTime'>
-    readonly updatedAt: FieldRef<"CoreSetReps", 'DateTime'>
+  interface CoreCardioSetCalorieTargetFieldRefs {
+    readonly id: FieldRef<"CoreCardioSetCalorieTarget", 'String'>
+    readonly coreCardioSetId: FieldRef<"CoreCardioSetCalorieTarget", 'String'>
+    readonly calorieTarget: FieldRef<"CoreCardioSetCalorieTarget", 'Int'>
+    readonly createdAt: FieldRef<"CoreCardioSetCalorieTarget", 'DateTime'>
+    readonly updatedAt: FieldRef<"CoreCardioSetCalorieTarget", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * CoreSetReps findUnique
+   * CoreCardioSetCalorieTarget findUnique
    */
-  export type CoreSetRepsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetCalorieTargetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetReps
+     * Select specific fields to fetch from the CoreCardioSetCalorieTarget
      */
-    select?: CoreSetRepsSelect<ExtArgs> | null
+    select?: CoreCardioSetCalorieTargetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetReps
+     * Omit specific fields from the CoreCardioSetCalorieTarget
      */
-    omit?: CoreSetRepsOmit<ExtArgs> | null
+    omit?: CoreCardioSetCalorieTargetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetRepsInclude<ExtArgs> | null
+    include?: CoreCardioSetCalorieTargetInclude<ExtArgs> | null
     /**
-     * Filter, which CoreSetReps to fetch.
+     * Filter, which CoreCardioSetCalorieTarget to fetch.
      */
-    where: CoreSetRepsWhereUniqueInput
+    where: CoreCardioSetCalorieTargetWhereUniqueInput
   }
 
   /**
-   * CoreSetReps findUniqueOrThrow
+   * CoreCardioSetCalorieTarget findUniqueOrThrow
    */
-  export type CoreSetRepsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetCalorieTargetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetReps
+     * Select specific fields to fetch from the CoreCardioSetCalorieTarget
      */
-    select?: CoreSetRepsSelect<ExtArgs> | null
+    select?: CoreCardioSetCalorieTargetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetReps
+     * Omit specific fields from the CoreCardioSetCalorieTarget
      */
-    omit?: CoreSetRepsOmit<ExtArgs> | null
+    omit?: CoreCardioSetCalorieTargetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetRepsInclude<ExtArgs> | null
+    include?: CoreCardioSetCalorieTargetInclude<ExtArgs> | null
     /**
-     * Filter, which CoreSetReps to fetch.
+     * Filter, which CoreCardioSetCalorieTarget to fetch.
      */
-    where: CoreSetRepsWhereUniqueInput
+    where: CoreCardioSetCalorieTargetWhereUniqueInput
   }
 
   /**
-   * CoreSetReps findFirst
+   * CoreCardioSetCalorieTarget findFirst
    */
-  export type CoreSetRepsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetCalorieTargetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetReps
+     * Select specific fields to fetch from the CoreCardioSetCalorieTarget
      */
-    select?: CoreSetRepsSelect<ExtArgs> | null
+    select?: CoreCardioSetCalorieTargetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetReps
+     * Omit specific fields from the CoreCardioSetCalorieTarget
      */
-    omit?: CoreSetRepsOmit<ExtArgs> | null
+    omit?: CoreCardioSetCalorieTargetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetRepsInclude<ExtArgs> | null
+    include?: CoreCardioSetCalorieTargetInclude<ExtArgs> | null
     /**
-     * Filter, which CoreSetReps to fetch.
+     * Filter, which CoreCardioSetCalorieTarget to fetch.
      */
-    where?: CoreSetRepsWhereInput
+    where?: CoreCardioSetCalorieTargetWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of CoreSetReps to fetch.
+     * Determine the order of CoreCardioSetCalorieTargets to fetch.
      */
-    orderBy?: CoreSetRepsOrderByWithRelationInput | CoreSetRepsOrderByWithRelationInput[]
+    orderBy?: CoreCardioSetCalorieTargetOrderByWithRelationInput | CoreCardioSetCalorieTargetOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for CoreSetReps.
+     * Sets the position for searching for CoreCardioSetCalorieTargets.
      */
-    cursor?: CoreSetRepsWhereUniqueInput
+    cursor?: CoreCardioSetCalorieTargetWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` CoreSetReps from the position of the cursor.
+     * Take `±n` CoreCardioSetCalorieTargets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` CoreSetReps.
+     * Skip the first `n` CoreCardioSetCalorieTargets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of CoreSetReps.
+     * Filter by unique combinations of CoreCardioSetCalorieTargets.
      */
-    distinct?: CoreSetRepsScalarFieldEnum | CoreSetRepsScalarFieldEnum[]
+    distinct?: CoreCardioSetCalorieTargetScalarFieldEnum | CoreCardioSetCalorieTargetScalarFieldEnum[]
   }
 
   /**
-   * CoreSetReps findFirstOrThrow
+   * CoreCardioSetCalorieTarget findFirstOrThrow
    */
-  export type CoreSetRepsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetCalorieTargetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetReps
+     * Select specific fields to fetch from the CoreCardioSetCalorieTarget
      */
-    select?: CoreSetRepsSelect<ExtArgs> | null
+    select?: CoreCardioSetCalorieTargetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetReps
+     * Omit specific fields from the CoreCardioSetCalorieTarget
      */
-    omit?: CoreSetRepsOmit<ExtArgs> | null
+    omit?: CoreCardioSetCalorieTargetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetRepsInclude<ExtArgs> | null
+    include?: CoreCardioSetCalorieTargetInclude<ExtArgs> | null
     /**
-     * Filter, which CoreSetReps to fetch.
+     * Filter, which CoreCardioSetCalorieTarget to fetch.
      */
-    where?: CoreSetRepsWhereInput
+    where?: CoreCardioSetCalorieTargetWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of CoreSetReps to fetch.
+     * Determine the order of CoreCardioSetCalorieTargets to fetch.
      */
-    orderBy?: CoreSetRepsOrderByWithRelationInput | CoreSetRepsOrderByWithRelationInput[]
+    orderBy?: CoreCardioSetCalorieTargetOrderByWithRelationInput | CoreCardioSetCalorieTargetOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for CoreSetReps.
+     * Sets the position for searching for CoreCardioSetCalorieTargets.
      */
-    cursor?: CoreSetRepsWhereUniqueInput
+    cursor?: CoreCardioSetCalorieTargetWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` CoreSetReps from the position of the cursor.
+     * Take `±n` CoreCardioSetCalorieTargets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` CoreSetReps.
+     * Skip the first `n` CoreCardioSetCalorieTargets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of CoreSetReps.
+     * Filter by unique combinations of CoreCardioSetCalorieTargets.
      */
-    distinct?: CoreSetRepsScalarFieldEnum | CoreSetRepsScalarFieldEnum[]
+    distinct?: CoreCardioSetCalorieTargetScalarFieldEnum | CoreCardioSetCalorieTargetScalarFieldEnum[]
   }
 
   /**
-   * CoreSetReps findMany
+   * CoreCardioSetCalorieTarget findMany
    */
-  export type CoreSetRepsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetCalorieTargetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetReps
+     * Select specific fields to fetch from the CoreCardioSetCalorieTarget
      */
-    select?: CoreSetRepsSelect<ExtArgs> | null
+    select?: CoreCardioSetCalorieTargetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetReps
+     * Omit specific fields from the CoreCardioSetCalorieTarget
      */
-    omit?: CoreSetRepsOmit<ExtArgs> | null
+    omit?: CoreCardioSetCalorieTargetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetRepsInclude<ExtArgs> | null
+    include?: CoreCardioSetCalorieTargetInclude<ExtArgs> | null
     /**
-     * Filter, which CoreSetReps to fetch.
+     * Filter, which CoreCardioSetCalorieTargets to fetch.
      */
-    where?: CoreSetRepsWhereInput
+    where?: CoreCardioSetCalorieTargetWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of CoreSetReps to fetch.
+     * Determine the order of CoreCardioSetCalorieTargets to fetch.
      */
-    orderBy?: CoreSetRepsOrderByWithRelationInput | CoreSetRepsOrderByWithRelationInput[]
+    orderBy?: CoreCardioSetCalorieTargetOrderByWithRelationInput | CoreCardioSetCalorieTargetOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing CoreSetReps.
+     * Sets the position for listing CoreCardioSetCalorieTargets.
      */
-    cursor?: CoreSetRepsWhereUniqueInput
+    cursor?: CoreCardioSetCalorieTargetWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` CoreSetReps from the position of the cursor.
+     * Take `±n` CoreCardioSetCalorieTargets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` CoreSetReps.
+     * Skip the first `n` CoreCardioSetCalorieTargets.
      */
     skip?: number
-    distinct?: CoreSetRepsScalarFieldEnum | CoreSetRepsScalarFieldEnum[]
+    distinct?: CoreCardioSetCalorieTargetScalarFieldEnum | CoreCardioSetCalorieTargetScalarFieldEnum[]
   }
 
   /**
-   * CoreSetReps create
+   * CoreCardioSetCalorieTarget create
    */
-  export type CoreSetRepsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetCalorieTargetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetReps
+     * Select specific fields to fetch from the CoreCardioSetCalorieTarget
      */
-    select?: CoreSetRepsSelect<ExtArgs> | null
+    select?: CoreCardioSetCalorieTargetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetReps
+     * Omit specific fields from the CoreCardioSetCalorieTarget
      */
-    omit?: CoreSetRepsOmit<ExtArgs> | null
+    omit?: CoreCardioSetCalorieTargetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetRepsInclude<ExtArgs> | null
+    include?: CoreCardioSetCalorieTargetInclude<ExtArgs> | null
     /**
-     * The data needed to create a CoreSetReps.
+     * The data needed to create a CoreCardioSetCalorieTarget.
      */
-    data: XOR<CoreSetRepsCreateInput, CoreSetRepsUncheckedCreateInput>
+    data: XOR<CoreCardioSetCalorieTargetCreateInput, CoreCardioSetCalorieTargetUncheckedCreateInput>
   }
 
   /**
-   * CoreSetReps createMany
+   * CoreCardioSetCalorieTarget createMany
    */
-  export type CoreSetRepsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetCalorieTargetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many CoreSetReps.
+     * The data used to create many CoreCardioSetCalorieTargets.
      */
-    data: CoreSetRepsCreateManyInput | CoreSetRepsCreateManyInput[]
+    data: CoreCardioSetCalorieTargetCreateManyInput | CoreCardioSetCalorieTargetCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * CoreSetReps createManyAndReturn
+   * CoreCardioSetCalorieTarget createManyAndReturn
    */
-  export type CoreSetRepsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetCalorieTargetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetReps
+     * Select specific fields to fetch from the CoreCardioSetCalorieTarget
      */
-    select?: CoreSetRepsSelectCreateManyAndReturn<ExtArgs> | null
+    select?: CoreCardioSetCalorieTargetSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetReps
+     * Omit specific fields from the CoreCardioSetCalorieTarget
      */
-    omit?: CoreSetRepsOmit<ExtArgs> | null
+    omit?: CoreCardioSetCalorieTargetOmit<ExtArgs> | null
     /**
-     * The data used to create many CoreSetReps.
+     * The data used to create many CoreCardioSetCalorieTargets.
      */
-    data: CoreSetRepsCreateManyInput | CoreSetRepsCreateManyInput[]
+    data: CoreCardioSetCalorieTargetCreateManyInput | CoreCardioSetCalorieTargetCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetRepsIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: CoreCardioSetCalorieTargetIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * CoreSetReps update
+   * CoreCardioSetCalorieTarget update
    */
-  export type CoreSetRepsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetCalorieTargetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetReps
+     * Select specific fields to fetch from the CoreCardioSetCalorieTarget
      */
-    select?: CoreSetRepsSelect<ExtArgs> | null
+    select?: CoreCardioSetCalorieTargetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetReps
+     * Omit specific fields from the CoreCardioSetCalorieTarget
      */
-    omit?: CoreSetRepsOmit<ExtArgs> | null
+    omit?: CoreCardioSetCalorieTargetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetRepsInclude<ExtArgs> | null
+    include?: CoreCardioSetCalorieTargetInclude<ExtArgs> | null
     /**
-     * The data needed to update a CoreSetReps.
+     * The data needed to update a CoreCardioSetCalorieTarget.
      */
-    data: XOR<CoreSetRepsUpdateInput, CoreSetRepsUncheckedUpdateInput>
+    data: XOR<CoreCardioSetCalorieTargetUpdateInput, CoreCardioSetCalorieTargetUncheckedUpdateInput>
     /**
-     * Choose, which CoreSetReps to update.
+     * Choose, which CoreCardioSetCalorieTarget to update.
      */
-    where: CoreSetRepsWhereUniqueInput
+    where: CoreCardioSetCalorieTargetWhereUniqueInput
   }
 
   /**
-   * CoreSetReps updateMany
+   * CoreCardioSetCalorieTarget updateMany
    */
-  export type CoreSetRepsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetCalorieTargetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update CoreSetReps.
+     * The data used to update CoreCardioSetCalorieTargets.
      */
-    data: XOR<CoreSetRepsUpdateManyMutationInput, CoreSetRepsUncheckedUpdateManyInput>
+    data: XOR<CoreCardioSetCalorieTargetUpdateManyMutationInput, CoreCardioSetCalorieTargetUncheckedUpdateManyInput>
     /**
-     * Filter which CoreSetReps to update
+     * Filter which CoreCardioSetCalorieTargets to update
      */
-    where?: CoreSetRepsWhereInput
+    where?: CoreCardioSetCalorieTargetWhereInput
     /**
-     * Limit how many CoreSetReps to update.
+     * Limit how many CoreCardioSetCalorieTargets to update.
      */
     limit?: number
   }
 
   /**
-   * CoreSetReps updateManyAndReturn
+   * CoreCardioSetCalorieTarget updateManyAndReturn
    */
-  export type CoreSetRepsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetCalorieTargetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetReps
+     * Select specific fields to fetch from the CoreCardioSetCalorieTarget
      */
-    select?: CoreSetRepsSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: CoreCardioSetCalorieTargetSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetReps
+     * Omit specific fields from the CoreCardioSetCalorieTarget
      */
-    omit?: CoreSetRepsOmit<ExtArgs> | null
+    omit?: CoreCardioSetCalorieTargetOmit<ExtArgs> | null
     /**
-     * The data used to update CoreSetReps.
+     * The data used to update CoreCardioSetCalorieTargets.
      */
-    data: XOR<CoreSetRepsUpdateManyMutationInput, CoreSetRepsUncheckedUpdateManyInput>
+    data: XOR<CoreCardioSetCalorieTargetUpdateManyMutationInput, CoreCardioSetCalorieTargetUncheckedUpdateManyInput>
     /**
-     * Filter which CoreSetReps to update
+     * Filter which CoreCardioSetCalorieTargets to update
      */
-    where?: CoreSetRepsWhereInput
+    where?: CoreCardioSetCalorieTargetWhereInput
     /**
-     * Limit how many CoreSetReps to update.
+     * Limit how many CoreCardioSetCalorieTargets to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetRepsIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: CoreCardioSetCalorieTargetIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * CoreSetReps upsert
+   * CoreCardioSetCalorieTarget upsert
    */
-  export type CoreSetRepsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetCalorieTargetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetReps
+     * Select specific fields to fetch from the CoreCardioSetCalorieTarget
      */
-    select?: CoreSetRepsSelect<ExtArgs> | null
+    select?: CoreCardioSetCalorieTargetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetReps
+     * Omit specific fields from the CoreCardioSetCalorieTarget
      */
-    omit?: CoreSetRepsOmit<ExtArgs> | null
+    omit?: CoreCardioSetCalorieTargetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetRepsInclude<ExtArgs> | null
+    include?: CoreCardioSetCalorieTargetInclude<ExtArgs> | null
     /**
-     * The filter to search for the CoreSetReps to update in case it exists.
+     * The filter to search for the CoreCardioSetCalorieTarget to update in case it exists.
      */
-    where: CoreSetRepsWhereUniqueInput
+    where: CoreCardioSetCalorieTargetWhereUniqueInput
     /**
-     * In case the CoreSetReps found by the `where` argument doesn't exist, create a new CoreSetReps with this data.
+     * In case the CoreCardioSetCalorieTarget found by the `where` argument doesn't exist, create a new CoreCardioSetCalorieTarget with this data.
      */
-    create: XOR<CoreSetRepsCreateInput, CoreSetRepsUncheckedCreateInput>
+    create: XOR<CoreCardioSetCalorieTargetCreateInput, CoreCardioSetCalorieTargetUncheckedCreateInput>
     /**
-     * In case the CoreSetReps was found with the provided `where` argument, update it with this data.
+     * In case the CoreCardioSetCalorieTarget was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<CoreSetRepsUpdateInput, CoreSetRepsUncheckedUpdateInput>
+    update: XOR<CoreCardioSetCalorieTargetUpdateInput, CoreCardioSetCalorieTargetUncheckedUpdateInput>
   }
 
   /**
-   * CoreSetReps delete
+   * CoreCardioSetCalorieTarget delete
    */
-  export type CoreSetRepsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetCalorieTargetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetReps
+     * Select specific fields to fetch from the CoreCardioSetCalorieTarget
      */
-    select?: CoreSetRepsSelect<ExtArgs> | null
+    select?: CoreCardioSetCalorieTargetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetReps
+     * Omit specific fields from the CoreCardioSetCalorieTarget
      */
-    omit?: CoreSetRepsOmit<ExtArgs> | null
+    omit?: CoreCardioSetCalorieTargetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetRepsInclude<ExtArgs> | null
+    include?: CoreCardioSetCalorieTargetInclude<ExtArgs> | null
     /**
-     * Filter which CoreSetReps to delete.
+     * Filter which CoreCardioSetCalorieTarget to delete.
      */
-    where: CoreSetRepsWhereUniqueInput
+    where: CoreCardioSetCalorieTargetWhereUniqueInput
   }
 
   /**
-   * CoreSetReps deleteMany
+   * CoreCardioSetCalorieTarget deleteMany
    */
-  export type CoreSetRepsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetCalorieTargetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which CoreSetReps to delete
+     * Filter which CoreCardioSetCalorieTargets to delete
      */
-    where?: CoreSetRepsWhereInput
+    where?: CoreCardioSetCalorieTargetWhereInput
     /**
-     * Limit how many CoreSetReps to delete.
+     * Limit how many CoreCardioSetCalorieTargets to delete.
      */
     limit?: number
   }
 
   /**
-   * CoreSetReps without action
+   * CoreCardioSetCalorieTarget without action
    */
-  export type CoreSetRepsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetCalorieTargetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetReps
+     * Select specific fields to fetch from the CoreCardioSetCalorieTarget
      */
-    select?: CoreSetRepsSelect<ExtArgs> | null
+    select?: CoreCardioSetCalorieTargetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetReps
+     * Omit specific fields from the CoreCardioSetCalorieTarget
      */
-    omit?: CoreSetRepsOmit<ExtArgs> | null
+    omit?: CoreCardioSetCalorieTargetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetRepsInclude<ExtArgs> | null
+    include?: CoreCardioSetCalorieTargetInclude<ExtArgs> | null
   }
 
 
   /**
-   * Model CoreSetWeight
+   * Model CoreCardioSetDistance
    */
 
-  export type AggregateCoreSetWeight = {
-    _count: CoreSetWeightCountAggregateOutputType | null
-    _avg: CoreSetWeightAvgAggregateOutputType | null
-    _sum: CoreSetWeightSumAggregateOutputType | null
-    _min: CoreSetWeightMinAggregateOutputType | null
-    _max: CoreSetWeightMaxAggregateOutputType | null
+  export type AggregateCoreCardioSetDistance = {
+    _count: CoreCardioSetDistanceCountAggregateOutputType | null
+    _avg: CoreCardioSetDistanceAvgAggregateOutputType | null
+    _sum: CoreCardioSetDistanceSumAggregateOutputType | null
+    _min: CoreCardioSetDistanceMinAggregateOutputType | null
+    _max: CoreCardioSetDistanceMaxAggregateOutputType | null
   }
 
-  export type CoreSetWeightAvgAggregateOutputType = {
-    weight: number | null
+  export type CoreCardioSetDistanceAvgAggregateOutputType = {
+    distance: number | null
   }
 
-  export type CoreSetWeightSumAggregateOutputType = {
-    weight: number | null
+  export type CoreCardioSetDistanceSumAggregateOutputType = {
+    distance: number | null
   }
 
-  export type CoreSetWeightMinAggregateOutputType = {
+  export type CoreCardioSetDistanceMinAggregateOutputType = {
     id: string | null
-    coreSetId: string | null
-    isBodyWeight: boolean | null
-    weight: number | null
+    coreCardioSetId: string | null
+    distance: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
-  export type CoreSetWeightMaxAggregateOutputType = {
+  export type CoreCardioSetDistanceMaxAggregateOutputType = {
     id: string | null
-    coreSetId: string | null
-    isBodyWeight: boolean | null
-    weight: number | null
+    coreCardioSetId: string | null
+    distance: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
-  export type CoreSetWeightCountAggregateOutputType = {
+  export type CoreCardioSetDistanceCountAggregateOutputType = {
     id: number
-    coreSetId: number
-    isBodyWeight: number
-    weight: number
+    coreCardioSetId: number
+    distance: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
 
-  export type CoreSetWeightAvgAggregateInputType = {
-    weight?: true
+  export type CoreCardioSetDistanceAvgAggregateInputType = {
+    distance?: true
   }
 
-  export type CoreSetWeightSumAggregateInputType = {
-    weight?: true
+  export type CoreCardioSetDistanceSumAggregateInputType = {
+    distance?: true
   }
 
-  export type CoreSetWeightMinAggregateInputType = {
+  export type CoreCardioSetDistanceMinAggregateInputType = {
     id?: true
-    coreSetId?: true
-    isBodyWeight?: true
-    weight?: true
+    coreCardioSetId?: true
+    distance?: true
     createdAt?: true
     updatedAt?: true
   }
 
-  export type CoreSetWeightMaxAggregateInputType = {
+  export type CoreCardioSetDistanceMaxAggregateInputType = {
     id?: true
-    coreSetId?: true
-    isBodyWeight?: true
-    weight?: true
+    coreCardioSetId?: true
+    distance?: true
     createdAt?: true
     updatedAt?: true
   }
 
-  export type CoreSetWeightCountAggregateInputType = {
+  export type CoreCardioSetDistanceCountAggregateInputType = {
     id?: true
-    coreSetId?: true
-    isBodyWeight?: true
-    weight?: true
+    coreCardioSetId?: true
+    distance?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
   }
 
-  export type CoreSetWeightAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetDistanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which CoreSetWeight to aggregate.
+     * Filter which CoreCardioSetDistance to aggregate.
      */
-    where?: CoreSetWeightWhereInput
+    where?: CoreCardioSetDistanceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of CoreSetWeights to fetch.
+     * Determine the order of CoreCardioSetDistances to fetch.
      */
-    orderBy?: CoreSetWeightOrderByWithRelationInput | CoreSetWeightOrderByWithRelationInput[]
+    orderBy?: CoreCardioSetDistanceOrderByWithRelationInput | CoreCardioSetDistanceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: CoreSetWeightWhereUniqueInput
+    cursor?: CoreCardioSetDistanceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` CoreSetWeights from the position of the cursor.
+     * Take `±n` CoreCardioSetDistances from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` CoreSetWeights.
+     * Skip the first `n` CoreCardioSetDistances.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned CoreSetWeights
+     * Count returned CoreCardioSetDistances
     **/
-    _count?: true | CoreSetWeightCountAggregateInputType
+    _count?: true | CoreCardioSetDistanceCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: CoreSetWeightAvgAggregateInputType
+    _avg?: CoreCardioSetDistanceAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: CoreSetWeightSumAggregateInputType
+    _sum?: CoreCardioSetDistanceSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: CoreSetWeightMinAggregateInputType
+    _min?: CoreCardioSetDistanceMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: CoreSetWeightMaxAggregateInputType
+    _max?: CoreCardioSetDistanceMaxAggregateInputType
   }
 
-  export type GetCoreSetWeightAggregateType<T extends CoreSetWeightAggregateArgs> = {
-        [P in keyof T & keyof AggregateCoreSetWeight]: P extends '_count' | 'count'
+  export type GetCoreCardioSetDistanceAggregateType<T extends CoreCardioSetDistanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateCoreCardioSetDistance]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateCoreSetWeight[P]>
-      : GetScalarType<T[P], AggregateCoreSetWeight[P]>
+        : GetScalarType<T[P], AggregateCoreCardioSetDistance[P]>
+      : GetScalarType<T[P], AggregateCoreCardioSetDistance[P]>
   }
 
 
 
 
-  export type CoreSetWeightGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CoreSetWeightWhereInput
-    orderBy?: CoreSetWeightOrderByWithAggregationInput | CoreSetWeightOrderByWithAggregationInput[]
-    by: CoreSetWeightScalarFieldEnum[] | CoreSetWeightScalarFieldEnum
-    having?: CoreSetWeightScalarWhereWithAggregatesInput
+  export type CoreCardioSetDistanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CoreCardioSetDistanceWhereInput
+    orderBy?: CoreCardioSetDistanceOrderByWithAggregationInput | CoreCardioSetDistanceOrderByWithAggregationInput[]
+    by: CoreCardioSetDistanceScalarFieldEnum[] | CoreCardioSetDistanceScalarFieldEnum
+    having?: CoreCardioSetDistanceScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: CoreSetWeightCountAggregateInputType | true
-    _avg?: CoreSetWeightAvgAggregateInputType
-    _sum?: CoreSetWeightSumAggregateInputType
-    _min?: CoreSetWeightMinAggregateInputType
-    _max?: CoreSetWeightMaxAggregateInputType
+    _count?: CoreCardioSetDistanceCountAggregateInputType | true
+    _avg?: CoreCardioSetDistanceAvgAggregateInputType
+    _sum?: CoreCardioSetDistanceSumAggregateInputType
+    _min?: CoreCardioSetDistanceMinAggregateInputType
+    _max?: CoreCardioSetDistanceMaxAggregateInputType
   }
 
-  export type CoreSetWeightGroupByOutputType = {
+  export type CoreCardioSetDistanceGroupByOutputType = {
     id: string
-    coreSetId: string
-    isBodyWeight: boolean
-    weight: number | null
+    coreCardioSetId: string
+    distance: number | null
     createdAt: Date
     updatedAt: Date
-    _count: CoreSetWeightCountAggregateOutputType | null
-    _avg: CoreSetWeightAvgAggregateOutputType | null
-    _sum: CoreSetWeightSumAggregateOutputType | null
-    _min: CoreSetWeightMinAggregateOutputType | null
-    _max: CoreSetWeightMaxAggregateOutputType | null
+    _count: CoreCardioSetDistanceCountAggregateOutputType | null
+    _avg: CoreCardioSetDistanceAvgAggregateOutputType | null
+    _sum: CoreCardioSetDistanceSumAggregateOutputType | null
+    _min: CoreCardioSetDistanceMinAggregateOutputType | null
+    _max: CoreCardioSetDistanceMaxAggregateOutputType | null
   }
 
-  type GetCoreSetWeightGroupByPayload<T extends CoreSetWeightGroupByArgs> = Prisma.PrismaPromise<
+  type GetCoreCardioSetDistanceGroupByPayload<T extends CoreCardioSetDistanceGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<CoreSetWeightGroupByOutputType, T['by']> &
+      PickEnumerable<CoreCardioSetDistanceGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof CoreSetWeightGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof CoreCardioSetDistanceGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], CoreSetWeightGroupByOutputType[P]>
-            : GetScalarType<T[P], CoreSetWeightGroupByOutputType[P]>
+              : GetScalarType<T[P], CoreCardioSetDistanceGroupByOutputType[P]>
+            : GetScalarType<T[P], CoreCardioSetDistanceGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type CoreSetWeightSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type CoreCardioSetDistanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    coreSetId?: boolean
-    isBodyWeight?: boolean
-    weight?: boolean
+    coreCardioSetId?: boolean
+    distance?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    coreSet?: boolean | CoreSetDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["coreSetWeight"]>
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreCardioSetDistance"]>
 
-  export type CoreSetWeightSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type CoreCardioSetDistanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    coreSetId?: boolean
-    isBodyWeight?: boolean
-    weight?: boolean
+    coreCardioSetId?: boolean
+    distance?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    coreSet?: boolean | CoreSetDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["coreSetWeight"]>
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreCardioSetDistance"]>
 
-  export type CoreSetWeightSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type CoreCardioSetDistanceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    coreSetId?: boolean
-    isBodyWeight?: boolean
-    weight?: boolean
+    coreCardioSetId?: boolean
+    distance?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    coreSet?: boolean | CoreSetDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["coreSetWeight"]>
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreCardioSetDistance"]>
 
-  export type CoreSetWeightSelectScalar = {
+  export type CoreCardioSetDistanceSelectScalar = {
     id?: boolean
-    coreSetId?: boolean
-    isBodyWeight?: boolean
-    weight?: boolean
+    coreCardioSetId?: boolean
+    distance?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CoreSetWeightOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "coreSetId" | "isBodyWeight" | "weight" | "createdAt" | "updatedAt", ExtArgs["result"]["coreSetWeight"]>
-  export type CoreSetWeightInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    coreSet?: boolean | CoreSetDefaultArgs<ExtArgs>
+  export type CoreCardioSetDistanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "coreCardioSetId" | "distance" | "createdAt" | "updatedAt", ExtArgs["result"]["coreCardioSetDistance"]>
+  export type CoreCardioSetDistanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
   }
-  export type CoreSetWeightIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    coreSet?: boolean | CoreSetDefaultArgs<ExtArgs>
+  export type CoreCardioSetDistanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
   }
-  export type CoreSetWeightIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    coreSet?: boolean | CoreSetDefaultArgs<ExtArgs>
+  export type CoreCardioSetDistanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
   }
 
-  export type $CoreSetWeightPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "CoreSetWeight"
+  export type $CoreCardioSetDistancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CoreCardioSetDistance"
     objects: {
-      coreSet: Prisma.$CoreSetPayload<ExtArgs>
+      coreCardioSet: Prisma.$CoreCardioSetPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      coreSetId: string
-      isBodyWeight: boolean
-      weight: number | null
+      coreCardioSetId: string
+      distance: number | null
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["coreSetWeight"]>
+    }, ExtArgs["result"]["coreCardioSetDistance"]>
     composites: {}
   }
 
-  type CoreSetWeightGetPayload<S extends boolean | null | undefined | CoreSetWeightDefaultArgs> = $Result.GetResult<Prisma.$CoreSetWeightPayload, S>
+  type CoreCardioSetDistanceGetPayload<S extends boolean | null | undefined | CoreCardioSetDistanceDefaultArgs> = $Result.GetResult<Prisma.$CoreCardioSetDistancePayload, S>
 
-  type CoreSetWeightCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<CoreSetWeightFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: CoreSetWeightCountAggregateInputType | true
+  type CoreCardioSetDistanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CoreCardioSetDistanceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CoreCardioSetDistanceCountAggregateInputType | true
     }
 
-  export interface CoreSetWeightDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CoreSetWeight'], meta: { name: 'CoreSetWeight' } }
+  export interface CoreCardioSetDistanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CoreCardioSetDistance'], meta: { name: 'CoreCardioSetDistance' } }
     /**
-     * Find zero or one CoreSetWeight that matches the filter.
-     * @param {CoreSetWeightFindUniqueArgs} args - Arguments to find a CoreSetWeight
+     * Find zero or one CoreCardioSetDistance that matches the filter.
+     * @param {CoreCardioSetDistanceFindUniqueArgs} args - Arguments to find a CoreCardioSetDistance
      * @example
-     * // Get one CoreSetWeight
-     * const coreSetWeight = await prisma.coreSetWeight.findUnique({
+     * // Get one CoreCardioSetDistance
+     * const coreCardioSetDistance = await prisma.coreCardioSetDistance.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends CoreSetWeightFindUniqueArgs>(args: SelectSubset<T, CoreSetWeightFindUniqueArgs<ExtArgs>>): Prisma__CoreSetWeightClient<$Result.GetResult<Prisma.$CoreSetWeightPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends CoreCardioSetDistanceFindUniqueArgs>(args: SelectSubset<T, CoreCardioSetDistanceFindUniqueArgs<ExtArgs>>): Prisma__CoreCardioSetDistanceClient<$Result.GetResult<Prisma.$CoreCardioSetDistancePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one CoreSetWeight that matches the filter or throw an error with `error.code='P2025'`
+     * Find one CoreCardioSetDistance that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {CoreSetWeightFindUniqueOrThrowArgs} args - Arguments to find a CoreSetWeight
+     * @param {CoreCardioSetDistanceFindUniqueOrThrowArgs} args - Arguments to find a CoreCardioSetDistance
      * @example
-     * // Get one CoreSetWeight
-     * const coreSetWeight = await prisma.coreSetWeight.findUniqueOrThrow({
+     * // Get one CoreCardioSetDistance
+     * const coreCardioSetDistance = await prisma.coreCardioSetDistance.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends CoreSetWeightFindUniqueOrThrowArgs>(args: SelectSubset<T, CoreSetWeightFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CoreSetWeightClient<$Result.GetResult<Prisma.$CoreSetWeightPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends CoreCardioSetDistanceFindUniqueOrThrowArgs>(args: SelectSubset<T, CoreCardioSetDistanceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CoreCardioSetDistanceClient<$Result.GetResult<Prisma.$CoreCardioSetDistancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first CoreSetWeight that matches the filter.
+     * Find the first CoreCardioSetDistance that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetWeightFindFirstArgs} args - Arguments to find a CoreSetWeight
+     * @param {CoreCardioSetDistanceFindFirstArgs} args - Arguments to find a CoreCardioSetDistance
      * @example
-     * // Get one CoreSetWeight
-     * const coreSetWeight = await prisma.coreSetWeight.findFirst({
+     * // Get one CoreCardioSetDistance
+     * const coreCardioSetDistance = await prisma.coreCardioSetDistance.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends CoreSetWeightFindFirstArgs>(args?: SelectSubset<T, CoreSetWeightFindFirstArgs<ExtArgs>>): Prisma__CoreSetWeightClient<$Result.GetResult<Prisma.$CoreSetWeightPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends CoreCardioSetDistanceFindFirstArgs>(args?: SelectSubset<T, CoreCardioSetDistanceFindFirstArgs<ExtArgs>>): Prisma__CoreCardioSetDistanceClient<$Result.GetResult<Prisma.$CoreCardioSetDistancePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first CoreSetWeight that matches the filter or
+     * Find the first CoreCardioSetDistance that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetWeightFindFirstOrThrowArgs} args - Arguments to find a CoreSetWeight
+     * @param {CoreCardioSetDistanceFindFirstOrThrowArgs} args - Arguments to find a CoreCardioSetDistance
      * @example
-     * // Get one CoreSetWeight
-     * const coreSetWeight = await prisma.coreSetWeight.findFirstOrThrow({
+     * // Get one CoreCardioSetDistance
+     * const coreCardioSetDistance = await prisma.coreCardioSetDistance.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends CoreSetWeightFindFirstOrThrowArgs>(args?: SelectSubset<T, CoreSetWeightFindFirstOrThrowArgs<ExtArgs>>): Prisma__CoreSetWeightClient<$Result.GetResult<Prisma.$CoreSetWeightPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends CoreCardioSetDistanceFindFirstOrThrowArgs>(args?: SelectSubset<T, CoreCardioSetDistanceFindFirstOrThrowArgs<ExtArgs>>): Prisma__CoreCardioSetDistanceClient<$Result.GetResult<Prisma.$CoreCardioSetDistancePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more CoreSetWeights that matches the filter.
+     * Find zero or more CoreCardioSetDistances that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetWeightFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {CoreCardioSetDistanceFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all CoreSetWeights
-     * const coreSetWeights = await prisma.coreSetWeight.findMany()
+     * // Get all CoreCardioSetDistances
+     * const coreCardioSetDistances = await prisma.coreCardioSetDistance.findMany()
      * 
-     * // Get first 10 CoreSetWeights
-     * const coreSetWeights = await prisma.coreSetWeight.findMany({ take: 10 })
+     * // Get first 10 CoreCardioSetDistances
+     * const coreCardioSetDistances = await prisma.coreCardioSetDistance.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const coreSetWeightWithIdOnly = await prisma.coreSetWeight.findMany({ select: { id: true } })
+     * const coreCardioSetDistanceWithIdOnly = await prisma.coreCardioSetDistance.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends CoreSetWeightFindManyArgs>(args?: SelectSubset<T, CoreSetWeightFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreSetWeightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends CoreCardioSetDistanceFindManyArgs>(args?: SelectSubset<T, CoreCardioSetDistanceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetDistancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a CoreSetWeight.
-     * @param {CoreSetWeightCreateArgs} args - Arguments to create a CoreSetWeight.
+     * Create a CoreCardioSetDistance.
+     * @param {CoreCardioSetDistanceCreateArgs} args - Arguments to create a CoreCardioSetDistance.
      * @example
-     * // Create one CoreSetWeight
-     * const CoreSetWeight = await prisma.coreSetWeight.create({
+     * // Create one CoreCardioSetDistance
+     * const CoreCardioSetDistance = await prisma.coreCardioSetDistance.create({
      *   data: {
-     *     // ... data to create a CoreSetWeight
+     *     // ... data to create a CoreCardioSetDistance
      *   }
      * })
      * 
      */
-    create<T extends CoreSetWeightCreateArgs>(args: SelectSubset<T, CoreSetWeightCreateArgs<ExtArgs>>): Prisma__CoreSetWeightClient<$Result.GetResult<Prisma.$CoreSetWeightPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends CoreCardioSetDistanceCreateArgs>(args: SelectSubset<T, CoreCardioSetDistanceCreateArgs<ExtArgs>>): Prisma__CoreCardioSetDistanceClient<$Result.GetResult<Prisma.$CoreCardioSetDistancePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many CoreSetWeights.
-     * @param {CoreSetWeightCreateManyArgs} args - Arguments to create many CoreSetWeights.
+     * Create many CoreCardioSetDistances.
+     * @param {CoreCardioSetDistanceCreateManyArgs} args - Arguments to create many CoreCardioSetDistances.
      * @example
-     * // Create many CoreSetWeights
-     * const coreSetWeight = await prisma.coreSetWeight.createMany({
+     * // Create many CoreCardioSetDistances
+     * const coreCardioSetDistance = await prisma.coreCardioSetDistance.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends CoreSetWeightCreateManyArgs>(args?: SelectSubset<T, CoreSetWeightCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends CoreCardioSetDistanceCreateManyArgs>(args?: SelectSubset<T, CoreCardioSetDistanceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many CoreSetWeights and returns the data saved in the database.
-     * @param {CoreSetWeightCreateManyAndReturnArgs} args - Arguments to create many CoreSetWeights.
+     * Create many CoreCardioSetDistances and returns the data saved in the database.
+     * @param {CoreCardioSetDistanceCreateManyAndReturnArgs} args - Arguments to create many CoreCardioSetDistances.
      * @example
-     * // Create many CoreSetWeights
-     * const coreSetWeight = await prisma.coreSetWeight.createManyAndReturn({
+     * // Create many CoreCardioSetDistances
+     * const coreCardioSetDistance = await prisma.coreCardioSetDistance.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many CoreSetWeights and only return the `id`
-     * const coreSetWeightWithIdOnly = await prisma.coreSetWeight.createManyAndReturn({
+     * // Create many CoreCardioSetDistances and only return the `id`
+     * const coreCardioSetDistanceWithIdOnly = await prisma.coreCardioSetDistance.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -8658,28 +7959,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends CoreSetWeightCreateManyAndReturnArgs>(args?: SelectSubset<T, CoreSetWeightCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreSetWeightPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends CoreCardioSetDistanceCreateManyAndReturnArgs>(args?: SelectSubset<T, CoreCardioSetDistanceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetDistancePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a CoreSetWeight.
-     * @param {CoreSetWeightDeleteArgs} args - Arguments to delete one CoreSetWeight.
+     * Delete a CoreCardioSetDistance.
+     * @param {CoreCardioSetDistanceDeleteArgs} args - Arguments to delete one CoreCardioSetDistance.
      * @example
-     * // Delete one CoreSetWeight
-     * const CoreSetWeight = await prisma.coreSetWeight.delete({
+     * // Delete one CoreCardioSetDistance
+     * const CoreCardioSetDistance = await prisma.coreCardioSetDistance.delete({
      *   where: {
-     *     // ... filter to delete one CoreSetWeight
+     *     // ... filter to delete one CoreCardioSetDistance
      *   }
      * })
      * 
      */
-    delete<T extends CoreSetWeightDeleteArgs>(args: SelectSubset<T, CoreSetWeightDeleteArgs<ExtArgs>>): Prisma__CoreSetWeightClient<$Result.GetResult<Prisma.$CoreSetWeightPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends CoreCardioSetDistanceDeleteArgs>(args: SelectSubset<T, CoreCardioSetDistanceDeleteArgs<ExtArgs>>): Prisma__CoreCardioSetDistanceClient<$Result.GetResult<Prisma.$CoreCardioSetDistancePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one CoreSetWeight.
-     * @param {CoreSetWeightUpdateArgs} args - Arguments to update one CoreSetWeight.
+     * Update one CoreCardioSetDistance.
+     * @param {CoreCardioSetDistanceUpdateArgs} args - Arguments to update one CoreCardioSetDistance.
      * @example
-     * // Update one CoreSetWeight
-     * const coreSetWeight = await prisma.coreSetWeight.update({
+     * // Update one CoreCardioSetDistance
+     * const coreCardioSetDistance = await prisma.coreCardioSetDistance.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -8689,30 +7990,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends CoreSetWeightUpdateArgs>(args: SelectSubset<T, CoreSetWeightUpdateArgs<ExtArgs>>): Prisma__CoreSetWeightClient<$Result.GetResult<Prisma.$CoreSetWeightPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends CoreCardioSetDistanceUpdateArgs>(args: SelectSubset<T, CoreCardioSetDistanceUpdateArgs<ExtArgs>>): Prisma__CoreCardioSetDistanceClient<$Result.GetResult<Prisma.$CoreCardioSetDistancePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more CoreSetWeights.
-     * @param {CoreSetWeightDeleteManyArgs} args - Arguments to filter CoreSetWeights to delete.
+     * Delete zero or more CoreCardioSetDistances.
+     * @param {CoreCardioSetDistanceDeleteManyArgs} args - Arguments to filter CoreCardioSetDistances to delete.
      * @example
-     * // Delete a few CoreSetWeights
-     * const { count } = await prisma.coreSetWeight.deleteMany({
+     * // Delete a few CoreCardioSetDistances
+     * const { count } = await prisma.coreCardioSetDistance.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends CoreSetWeightDeleteManyArgs>(args?: SelectSubset<T, CoreSetWeightDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends CoreCardioSetDistanceDeleteManyArgs>(args?: SelectSubset<T, CoreCardioSetDistanceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more CoreSetWeights.
+     * Update zero or more CoreCardioSetDistances.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetWeightUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {CoreCardioSetDistanceUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many CoreSetWeights
-     * const coreSetWeight = await prisma.coreSetWeight.updateMany({
+     * // Update many CoreCardioSetDistances
+     * const coreCardioSetDistance = await prisma.coreCardioSetDistance.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -8722,14 +8023,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends CoreSetWeightUpdateManyArgs>(args: SelectSubset<T, CoreSetWeightUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends CoreCardioSetDistanceUpdateManyArgs>(args: SelectSubset<T, CoreCardioSetDistanceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more CoreSetWeights and returns the data updated in the database.
-     * @param {CoreSetWeightUpdateManyAndReturnArgs} args - Arguments to update many CoreSetWeights.
+     * Update zero or more CoreCardioSetDistances and returns the data updated in the database.
+     * @param {CoreCardioSetDistanceUpdateManyAndReturnArgs} args - Arguments to update many CoreCardioSetDistances.
      * @example
-     * // Update many CoreSetWeights
-     * const coreSetWeight = await prisma.coreSetWeight.updateManyAndReturn({
+     * // Update many CoreCardioSetDistances
+     * const coreCardioSetDistance = await prisma.coreCardioSetDistance.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -8738,8 +8039,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more CoreSetWeights and only return the `id`
-     * const coreSetWeightWithIdOnly = await prisma.coreSetWeight.updateManyAndReturn({
+     * // Update zero or more CoreCardioSetDistances and only return the `id`
+     * const coreCardioSetDistanceWithIdOnly = await prisma.coreCardioSetDistance.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -8752,56 +8053,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends CoreSetWeightUpdateManyAndReturnArgs>(args: SelectSubset<T, CoreSetWeightUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreSetWeightPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends CoreCardioSetDistanceUpdateManyAndReturnArgs>(args: SelectSubset<T, CoreCardioSetDistanceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetDistancePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one CoreSetWeight.
-     * @param {CoreSetWeightUpsertArgs} args - Arguments to update or create a CoreSetWeight.
+     * Create or update one CoreCardioSetDistance.
+     * @param {CoreCardioSetDistanceUpsertArgs} args - Arguments to update or create a CoreCardioSetDistance.
      * @example
-     * // Update or create a CoreSetWeight
-     * const coreSetWeight = await prisma.coreSetWeight.upsert({
+     * // Update or create a CoreCardioSetDistance
+     * const coreCardioSetDistance = await prisma.coreCardioSetDistance.upsert({
      *   create: {
-     *     // ... data to create a CoreSetWeight
+     *     // ... data to create a CoreCardioSetDistance
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the CoreSetWeight we want to update
+     *     // ... the filter for the CoreCardioSetDistance we want to update
      *   }
      * })
      */
-    upsert<T extends CoreSetWeightUpsertArgs>(args: SelectSubset<T, CoreSetWeightUpsertArgs<ExtArgs>>): Prisma__CoreSetWeightClient<$Result.GetResult<Prisma.$CoreSetWeightPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends CoreCardioSetDistanceUpsertArgs>(args: SelectSubset<T, CoreCardioSetDistanceUpsertArgs<ExtArgs>>): Prisma__CoreCardioSetDistanceClient<$Result.GetResult<Prisma.$CoreCardioSetDistancePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of CoreSetWeights.
+     * Count the number of CoreCardioSetDistances.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetWeightCountArgs} args - Arguments to filter CoreSetWeights to count.
+     * @param {CoreCardioSetDistanceCountArgs} args - Arguments to filter CoreCardioSetDistances to count.
      * @example
-     * // Count the number of CoreSetWeights
-     * const count = await prisma.coreSetWeight.count({
+     * // Count the number of CoreCardioSetDistances
+     * const count = await prisma.coreCardioSetDistance.count({
      *   where: {
-     *     // ... the filter for the CoreSetWeights we want to count
+     *     // ... the filter for the CoreCardioSetDistances we want to count
      *   }
      * })
     **/
-    count<T extends CoreSetWeightCountArgs>(
-      args?: Subset<T, CoreSetWeightCountArgs>,
+    count<T extends CoreCardioSetDistanceCountArgs>(
+      args?: Subset<T, CoreCardioSetDistanceCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], CoreSetWeightCountAggregateOutputType>
+          : GetScalarType<T['select'], CoreCardioSetDistanceCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a CoreSetWeight.
+     * Allows you to perform aggregations operations on a CoreCardioSetDistance.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetWeightAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {CoreCardioSetDistanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -8821,13 +8122,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends CoreSetWeightAggregateArgs>(args: Subset<T, CoreSetWeightAggregateArgs>): Prisma.PrismaPromise<GetCoreSetWeightAggregateType<T>>
+    aggregate<T extends CoreCardioSetDistanceAggregateArgs>(args: Subset<T, CoreCardioSetDistanceAggregateArgs>): Prisma.PrismaPromise<GetCoreCardioSetDistanceAggregateType<T>>
 
     /**
-     * Group by CoreSetWeight.
+     * Group by CoreCardioSetDistance.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoreSetWeightGroupByArgs} args - Group by arguments.
+     * @param {CoreCardioSetDistanceGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -8842,14 +8143,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends CoreSetWeightGroupByArgs,
+      T extends CoreCardioSetDistanceGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: CoreSetWeightGroupByArgs['orderBy'] }
-        : { orderBy?: CoreSetWeightGroupByArgs['orderBy'] },
+        ? { orderBy: CoreCardioSetDistanceGroupByArgs['orderBy'] }
+        : { orderBy?: CoreCardioSetDistanceGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -8898,22 +8199,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, CoreSetWeightGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCoreSetWeightGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, CoreCardioSetDistanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCoreCardioSetDistanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the CoreSetWeight model
+   * Fields of the CoreCardioSetDistance model
    */
-  readonly fields: CoreSetWeightFieldRefs;
+  readonly fields: CoreCardioSetDistanceFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for CoreSetWeight.
+   * The delegate class that acts as a "Promise-like" for CoreCardioSetDistance.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__CoreSetWeightClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__CoreCardioSetDistanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    coreSet<T extends CoreSetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CoreSetDefaultArgs<ExtArgs>>): Prisma__CoreSetClient<$Result.GetResult<Prisma.$CoreSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    coreCardioSet<T extends CoreCardioSetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CoreCardioSetDefaultArgs<ExtArgs>>): Prisma__CoreCardioSetClient<$Result.GetResult<Prisma.$CoreCardioSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8940,935 +8241,3111 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the CoreSetWeight model
+   * Fields of the CoreCardioSetDistance model
    */
-  interface CoreSetWeightFieldRefs {
-    readonly id: FieldRef<"CoreSetWeight", 'String'>
-    readonly coreSetId: FieldRef<"CoreSetWeight", 'String'>
-    readonly isBodyWeight: FieldRef<"CoreSetWeight", 'Boolean'>
-    readonly weight: FieldRef<"CoreSetWeight", 'Float'>
-    readonly createdAt: FieldRef<"CoreSetWeight", 'DateTime'>
-    readonly updatedAt: FieldRef<"CoreSetWeight", 'DateTime'>
+  interface CoreCardioSetDistanceFieldRefs {
+    readonly id: FieldRef<"CoreCardioSetDistance", 'String'>
+    readonly coreCardioSetId: FieldRef<"CoreCardioSetDistance", 'String'>
+    readonly distance: FieldRef<"CoreCardioSetDistance", 'Float'>
+    readonly createdAt: FieldRef<"CoreCardioSetDistance", 'DateTime'>
+    readonly updatedAt: FieldRef<"CoreCardioSetDistance", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * CoreSetWeight findUnique
+   * CoreCardioSetDistance findUnique
    */
-  export type CoreSetWeightFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetDistanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetWeight
+     * Select specific fields to fetch from the CoreCardioSetDistance
      */
-    select?: CoreSetWeightSelect<ExtArgs> | null
+    select?: CoreCardioSetDistanceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetWeight
+     * Omit specific fields from the CoreCardioSetDistance
      */
-    omit?: CoreSetWeightOmit<ExtArgs> | null
+    omit?: CoreCardioSetDistanceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetWeightInclude<ExtArgs> | null
+    include?: CoreCardioSetDistanceInclude<ExtArgs> | null
     /**
-     * Filter, which CoreSetWeight to fetch.
+     * Filter, which CoreCardioSetDistance to fetch.
      */
-    where: CoreSetWeightWhereUniqueInput
+    where: CoreCardioSetDistanceWhereUniqueInput
   }
 
   /**
-   * CoreSetWeight findUniqueOrThrow
+   * CoreCardioSetDistance findUniqueOrThrow
    */
-  export type CoreSetWeightFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetDistanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetWeight
+     * Select specific fields to fetch from the CoreCardioSetDistance
      */
-    select?: CoreSetWeightSelect<ExtArgs> | null
+    select?: CoreCardioSetDistanceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetWeight
+     * Omit specific fields from the CoreCardioSetDistance
      */
-    omit?: CoreSetWeightOmit<ExtArgs> | null
+    omit?: CoreCardioSetDistanceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetWeightInclude<ExtArgs> | null
+    include?: CoreCardioSetDistanceInclude<ExtArgs> | null
     /**
-     * Filter, which CoreSetWeight to fetch.
+     * Filter, which CoreCardioSetDistance to fetch.
      */
-    where: CoreSetWeightWhereUniqueInput
+    where: CoreCardioSetDistanceWhereUniqueInput
   }
 
   /**
-   * CoreSetWeight findFirst
+   * CoreCardioSetDistance findFirst
    */
-  export type CoreSetWeightFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetDistanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetWeight
+     * Select specific fields to fetch from the CoreCardioSetDistance
      */
-    select?: CoreSetWeightSelect<ExtArgs> | null
+    select?: CoreCardioSetDistanceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetWeight
+     * Omit specific fields from the CoreCardioSetDistance
      */
-    omit?: CoreSetWeightOmit<ExtArgs> | null
+    omit?: CoreCardioSetDistanceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetWeightInclude<ExtArgs> | null
+    include?: CoreCardioSetDistanceInclude<ExtArgs> | null
     /**
-     * Filter, which CoreSetWeight to fetch.
+     * Filter, which CoreCardioSetDistance to fetch.
      */
-    where?: CoreSetWeightWhereInput
+    where?: CoreCardioSetDistanceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of CoreSetWeights to fetch.
+     * Determine the order of CoreCardioSetDistances to fetch.
      */
-    orderBy?: CoreSetWeightOrderByWithRelationInput | CoreSetWeightOrderByWithRelationInput[]
+    orderBy?: CoreCardioSetDistanceOrderByWithRelationInput | CoreCardioSetDistanceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for CoreSetWeights.
+     * Sets the position for searching for CoreCardioSetDistances.
      */
-    cursor?: CoreSetWeightWhereUniqueInput
+    cursor?: CoreCardioSetDistanceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` CoreSetWeights from the position of the cursor.
+     * Take `±n` CoreCardioSetDistances from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` CoreSetWeights.
+     * Skip the first `n` CoreCardioSetDistances.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of CoreSetWeights.
+     * Filter by unique combinations of CoreCardioSetDistances.
      */
-    distinct?: CoreSetWeightScalarFieldEnum | CoreSetWeightScalarFieldEnum[]
+    distinct?: CoreCardioSetDistanceScalarFieldEnum | CoreCardioSetDistanceScalarFieldEnum[]
   }
 
   /**
-   * CoreSetWeight findFirstOrThrow
+   * CoreCardioSetDistance findFirstOrThrow
    */
-  export type CoreSetWeightFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetDistanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetWeight
+     * Select specific fields to fetch from the CoreCardioSetDistance
      */
-    select?: CoreSetWeightSelect<ExtArgs> | null
+    select?: CoreCardioSetDistanceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetWeight
+     * Omit specific fields from the CoreCardioSetDistance
      */
-    omit?: CoreSetWeightOmit<ExtArgs> | null
+    omit?: CoreCardioSetDistanceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetWeightInclude<ExtArgs> | null
+    include?: CoreCardioSetDistanceInclude<ExtArgs> | null
     /**
-     * Filter, which CoreSetWeight to fetch.
+     * Filter, which CoreCardioSetDistance to fetch.
      */
-    where?: CoreSetWeightWhereInput
+    where?: CoreCardioSetDistanceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of CoreSetWeights to fetch.
+     * Determine the order of CoreCardioSetDistances to fetch.
      */
-    orderBy?: CoreSetWeightOrderByWithRelationInput | CoreSetWeightOrderByWithRelationInput[]
+    orderBy?: CoreCardioSetDistanceOrderByWithRelationInput | CoreCardioSetDistanceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for CoreSetWeights.
+     * Sets the position for searching for CoreCardioSetDistances.
      */
-    cursor?: CoreSetWeightWhereUniqueInput
+    cursor?: CoreCardioSetDistanceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` CoreSetWeights from the position of the cursor.
+     * Take `±n` CoreCardioSetDistances from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` CoreSetWeights.
+     * Skip the first `n` CoreCardioSetDistances.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of CoreSetWeights.
+     * Filter by unique combinations of CoreCardioSetDistances.
      */
-    distinct?: CoreSetWeightScalarFieldEnum | CoreSetWeightScalarFieldEnum[]
+    distinct?: CoreCardioSetDistanceScalarFieldEnum | CoreCardioSetDistanceScalarFieldEnum[]
   }
 
   /**
-   * CoreSetWeight findMany
+   * CoreCardioSetDistance findMany
    */
-  export type CoreSetWeightFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetDistanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetWeight
+     * Select specific fields to fetch from the CoreCardioSetDistance
      */
-    select?: CoreSetWeightSelect<ExtArgs> | null
+    select?: CoreCardioSetDistanceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetWeight
+     * Omit specific fields from the CoreCardioSetDistance
      */
-    omit?: CoreSetWeightOmit<ExtArgs> | null
+    omit?: CoreCardioSetDistanceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetWeightInclude<ExtArgs> | null
+    include?: CoreCardioSetDistanceInclude<ExtArgs> | null
     /**
-     * Filter, which CoreSetWeights to fetch.
+     * Filter, which CoreCardioSetDistances to fetch.
      */
-    where?: CoreSetWeightWhereInput
+    where?: CoreCardioSetDistanceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of CoreSetWeights to fetch.
+     * Determine the order of CoreCardioSetDistances to fetch.
      */
-    orderBy?: CoreSetWeightOrderByWithRelationInput | CoreSetWeightOrderByWithRelationInput[]
+    orderBy?: CoreCardioSetDistanceOrderByWithRelationInput | CoreCardioSetDistanceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing CoreSetWeights.
+     * Sets the position for listing CoreCardioSetDistances.
      */
-    cursor?: CoreSetWeightWhereUniqueInput
+    cursor?: CoreCardioSetDistanceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` CoreSetWeights from the position of the cursor.
+     * Take `±n` CoreCardioSetDistances from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` CoreSetWeights.
+     * Skip the first `n` CoreCardioSetDistances.
      */
     skip?: number
-    distinct?: CoreSetWeightScalarFieldEnum | CoreSetWeightScalarFieldEnum[]
+    distinct?: CoreCardioSetDistanceScalarFieldEnum | CoreCardioSetDistanceScalarFieldEnum[]
   }
 
   /**
-   * CoreSetWeight create
+   * CoreCardioSetDistance create
    */
-  export type CoreSetWeightCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetDistanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetWeight
+     * Select specific fields to fetch from the CoreCardioSetDistance
      */
-    select?: CoreSetWeightSelect<ExtArgs> | null
+    select?: CoreCardioSetDistanceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetWeight
+     * Omit specific fields from the CoreCardioSetDistance
      */
-    omit?: CoreSetWeightOmit<ExtArgs> | null
+    omit?: CoreCardioSetDistanceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetWeightInclude<ExtArgs> | null
+    include?: CoreCardioSetDistanceInclude<ExtArgs> | null
     /**
-     * The data needed to create a CoreSetWeight.
+     * The data needed to create a CoreCardioSetDistance.
      */
-    data: XOR<CoreSetWeightCreateInput, CoreSetWeightUncheckedCreateInput>
+    data: XOR<CoreCardioSetDistanceCreateInput, CoreCardioSetDistanceUncheckedCreateInput>
   }
 
   /**
-   * CoreSetWeight createMany
+   * CoreCardioSetDistance createMany
    */
-  export type CoreSetWeightCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetDistanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many CoreSetWeights.
+     * The data used to create many CoreCardioSetDistances.
      */
-    data: CoreSetWeightCreateManyInput | CoreSetWeightCreateManyInput[]
+    data: CoreCardioSetDistanceCreateManyInput | CoreCardioSetDistanceCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * CoreSetWeight createManyAndReturn
+   * CoreCardioSetDistance createManyAndReturn
    */
-  export type CoreSetWeightCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetDistanceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetWeight
+     * Select specific fields to fetch from the CoreCardioSetDistance
      */
-    select?: CoreSetWeightSelectCreateManyAndReturn<ExtArgs> | null
+    select?: CoreCardioSetDistanceSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetWeight
+     * Omit specific fields from the CoreCardioSetDistance
      */
-    omit?: CoreSetWeightOmit<ExtArgs> | null
+    omit?: CoreCardioSetDistanceOmit<ExtArgs> | null
     /**
-     * The data used to create many CoreSetWeights.
+     * The data used to create many CoreCardioSetDistances.
      */
-    data: CoreSetWeightCreateManyInput | CoreSetWeightCreateManyInput[]
+    data: CoreCardioSetDistanceCreateManyInput | CoreCardioSetDistanceCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetWeightIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: CoreCardioSetDistanceIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * CoreSetWeight update
+   * CoreCardioSetDistance update
    */
-  export type CoreSetWeightUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetDistanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetWeight
+     * Select specific fields to fetch from the CoreCardioSetDistance
      */
-    select?: CoreSetWeightSelect<ExtArgs> | null
+    select?: CoreCardioSetDistanceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetWeight
+     * Omit specific fields from the CoreCardioSetDistance
      */
-    omit?: CoreSetWeightOmit<ExtArgs> | null
+    omit?: CoreCardioSetDistanceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetWeightInclude<ExtArgs> | null
+    include?: CoreCardioSetDistanceInclude<ExtArgs> | null
     /**
-     * The data needed to update a CoreSetWeight.
+     * The data needed to update a CoreCardioSetDistance.
      */
-    data: XOR<CoreSetWeightUpdateInput, CoreSetWeightUncheckedUpdateInput>
+    data: XOR<CoreCardioSetDistanceUpdateInput, CoreCardioSetDistanceUncheckedUpdateInput>
     /**
-     * Choose, which CoreSetWeight to update.
+     * Choose, which CoreCardioSetDistance to update.
      */
-    where: CoreSetWeightWhereUniqueInput
+    where: CoreCardioSetDistanceWhereUniqueInput
   }
 
   /**
-   * CoreSetWeight updateMany
+   * CoreCardioSetDistance updateMany
    */
-  export type CoreSetWeightUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetDistanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update CoreSetWeights.
+     * The data used to update CoreCardioSetDistances.
      */
-    data: XOR<CoreSetWeightUpdateManyMutationInput, CoreSetWeightUncheckedUpdateManyInput>
+    data: XOR<CoreCardioSetDistanceUpdateManyMutationInput, CoreCardioSetDistanceUncheckedUpdateManyInput>
     /**
-     * Filter which CoreSetWeights to update
+     * Filter which CoreCardioSetDistances to update
      */
-    where?: CoreSetWeightWhereInput
+    where?: CoreCardioSetDistanceWhereInput
     /**
-     * Limit how many CoreSetWeights to update.
+     * Limit how many CoreCardioSetDistances to update.
      */
     limit?: number
   }
 
   /**
-   * CoreSetWeight updateManyAndReturn
+   * CoreCardioSetDistance updateManyAndReturn
    */
-  export type CoreSetWeightUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetDistanceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetWeight
+     * Select specific fields to fetch from the CoreCardioSetDistance
      */
-    select?: CoreSetWeightSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: CoreCardioSetDistanceSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetWeight
+     * Omit specific fields from the CoreCardioSetDistance
      */
-    omit?: CoreSetWeightOmit<ExtArgs> | null
+    omit?: CoreCardioSetDistanceOmit<ExtArgs> | null
     /**
-     * The data used to update CoreSetWeights.
+     * The data used to update CoreCardioSetDistances.
      */
-    data: XOR<CoreSetWeightUpdateManyMutationInput, CoreSetWeightUncheckedUpdateManyInput>
+    data: XOR<CoreCardioSetDistanceUpdateManyMutationInput, CoreCardioSetDistanceUncheckedUpdateManyInput>
     /**
-     * Filter which CoreSetWeights to update
+     * Filter which CoreCardioSetDistances to update
      */
-    where?: CoreSetWeightWhereInput
+    where?: CoreCardioSetDistanceWhereInput
     /**
-     * Limit how many CoreSetWeights to update.
+     * Limit how many CoreCardioSetDistances to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetWeightIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: CoreCardioSetDistanceIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * CoreSetWeight upsert
+   * CoreCardioSetDistance upsert
    */
-  export type CoreSetWeightUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetDistanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetWeight
+     * Select specific fields to fetch from the CoreCardioSetDistance
      */
-    select?: CoreSetWeightSelect<ExtArgs> | null
+    select?: CoreCardioSetDistanceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetWeight
+     * Omit specific fields from the CoreCardioSetDistance
      */
-    omit?: CoreSetWeightOmit<ExtArgs> | null
+    omit?: CoreCardioSetDistanceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetWeightInclude<ExtArgs> | null
+    include?: CoreCardioSetDistanceInclude<ExtArgs> | null
     /**
-     * The filter to search for the CoreSetWeight to update in case it exists.
+     * The filter to search for the CoreCardioSetDistance to update in case it exists.
      */
-    where: CoreSetWeightWhereUniqueInput
+    where: CoreCardioSetDistanceWhereUniqueInput
     /**
-     * In case the CoreSetWeight found by the `where` argument doesn't exist, create a new CoreSetWeight with this data.
+     * In case the CoreCardioSetDistance found by the `where` argument doesn't exist, create a new CoreCardioSetDistance with this data.
      */
-    create: XOR<CoreSetWeightCreateInput, CoreSetWeightUncheckedCreateInput>
+    create: XOR<CoreCardioSetDistanceCreateInput, CoreCardioSetDistanceUncheckedCreateInput>
     /**
-     * In case the CoreSetWeight was found with the provided `where` argument, update it with this data.
+     * In case the CoreCardioSetDistance was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<CoreSetWeightUpdateInput, CoreSetWeightUncheckedUpdateInput>
+    update: XOR<CoreCardioSetDistanceUpdateInput, CoreCardioSetDistanceUncheckedUpdateInput>
   }
 
   /**
-   * CoreSetWeight delete
+   * CoreCardioSetDistance delete
    */
-  export type CoreSetWeightDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetDistanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetWeight
+     * Select specific fields to fetch from the CoreCardioSetDistance
      */
-    select?: CoreSetWeightSelect<ExtArgs> | null
+    select?: CoreCardioSetDistanceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetWeight
+     * Omit specific fields from the CoreCardioSetDistance
      */
-    omit?: CoreSetWeightOmit<ExtArgs> | null
+    omit?: CoreCardioSetDistanceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetWeightInclude<ExtArgs> | null
+    include?: CoreCardioSetDistanceInclude<ExtArgs> | null
     /**
-     * Filter which CoreSetWeight to delete.
+     * Filter which CoreCardioSetDistance to delete.
      */
-    where: CoreSetWeightWhereUniqueInput
+    where: CoreCardioSetDistanceWhereUniqueInput
   }
 
   /**
-   * CoreSetWeight deleteMany
+   * CoreCardioSetDistance deleteMany
    */
-  export type CoreSetWeightDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetDistanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which CoreSetWeights to delete
+     * Filter which CoreCardioSetDistances to delete
      */
-    where?: CoreSetWeightWhereInput
+    where?: CoreCardioSetDistanceWhereInput
     /**
-     * Limit how many CoreSetWeights to delete.
+     * Limit how many CoreCardioSetDistances to delete.
      */
     limit?: number
   }
 
   /**
-   * CoreSetWeight without action
+   * CoreCardioSetDistance without action
    */
-  export type CoreSetWeightDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CoreCardioSetDistanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSetWeight
+     * Select specific fields to fetch from the CoreCardioSetDistance
      */
-    select?: CoreSetWeightSelect<ExtArgs> | null
+    select?: CoreCardioSetDistanceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSetWeight
+     * Omit specific fields from the CoreCardioSetDistance
      */
-    omit?: CoreSetWeightOmit<ExtArgs> | null
+    omit?: CoreCardioSetDistanceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetWeightInclude<ExtArgs> | null
+    include?: CoreCardioSetDistanceInclude<ExtArgs> | null
   }
 
 
   /**
-   * Model UserSet
+   * Model CoreCardioSetAvgSpeed
    */
 
-  export type AggregateUserSet = {
-    _count: UserSetCountAggregateOutputType | null
-    _avg: UserSetAvgAggregateOutputType | null
-    _sum: UserSetSumAggregateOutputType | null
-    _min: UserSetMinAggregateOutputType | null
-    _max: UserSetMaxAggregateOutputType | null
+  export type AggregateCoreCardioSetAvgSpeed = {
+    _count: CoreCardioSetAvgSpeedCountAggregateOutputType | null
+    _avg: CoreCardioSetAvgSpeedAvgAggregateOutputType | null
+    _sum: CoreCardioSetAvgSpeedSumAggregateOutputType | null
+    _min: CoreCardioSetAvgSpeedMinAggregateOutputType | null
+    _max: CoreCardioSetAvgSpeedMaxAggregateOutputType | null
   }
 
-  export type UserSetAvgAggregateOutputType = {
-    reps: number | null
-    weight: number | null
-    restTime: number | null
-    order: number | null
+  export type CoreCardioSetAvgSpeedAvgAggregateOutputType = {
+    avgSpeed: number | null
   }
 
-  export type UserSetSumAggregateOutputType = {
-    reps: number | null
-    weight: number | null
-    restTime: number | null
-    order: number | null
+  export type CoreCardioSetAvgSpeedSumAggregateOutputType = {
+    avgSpeed: number | null
   }
 
-  export type UserSetMinAggregateOutputType = {
+  export type CoreCardioSetAvgSpeedMinAggregateOutputType = {
     id: string | null
-    reps: number | null
-    weight: number | null
-    isBodyWeight: boolean | null
-    restTime: number | null
-    order: number | null
-    isCompleted: boolean | null
-    isWarmup: boolean | null
-    isMuscleFailure: boolean | null
-    isJointPain: boolean | null
-    userId: string | null
-    userWorkoutExerciseId: string | null
+    coreCardioSetId: string | null
+    avgSpeed: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
-  export type UserSetMaxAggregateOutputType = {
+  export type CoreCardioSetAvgSpeedMaxAggregateOutputType = {
     id: string | null
-    reps: number | null
-    weight: number | null
-    isBodyWeight: boolean | null
-    restTime: number | null
-    order: number | null
-    isCompleted: boolean | null
-    isWarmup: boolean | null
-    isMuscleFailure: boolean | null
-    isJointPain: boolean | null
-    userId: string | null
-    userWorkoutExerciseId: string | null
+    coreCardioSetId: string | null
+    avgSpeed: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
-  export type UserSetCountAggregateOutputType = {
+  export type CoreCardioSetAvgSpeedCountAggregateOutputType = {
     id: number
-    reps: number
-    weight: number
-    isBodyWeight: number
-    restTime: number
+    coreCardioSetId: number
+    avgSpeed: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CoreCardioSetAvgSpeedAvgAggregateInputType = {
+    avgSpeed?: true
+  }
+
+  export type CoreCardioSetAvgSpeedSumAggregateInputType = {
+    avgSpeed?: true
+  }
+
+  export type CoreCardioSetAvgSpeedMinAggregateInputType = {
+    id?: true
+    coreCardioSetId?: true
+    avgSpeed?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CoreCardioSetAvgSpeedMaxAggregateInputType = {
+    id?: true
+    coreCardioSetId?: true
+    avgSpeed?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CoreCardioSetAvgSpeedCountAggregateInputType = {
+    id?: true
+    coreCardioSetId?: true
+    avgSpeed?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CoreCardioSetAvgSpeedAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CoreCardioSetAvgSpeed to aggregate.
+     */
+    where?: CoreCardioSetAvgSpeedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreCardioSetAvgSpeeds to fetch.
+     */
+    orderBy?: CoreCardioSetAvgSpeedOrderByWithRelationInput | CoreCardioSetAvgSpeedOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CoreCardioSetAvgSpeedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreCardioSetAvgSpeeds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreCardioSetAvgSpeeds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CoreCardioSetAvgSpeeds
+    **/
+    _count?: true | CoreCardioSetAvgSpeedCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CoreCardioSetAvgSpeedAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CoreCardioSetAvgSpeedSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CoreCardioSetAvgSpeedMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CoreCardioSetAvgSpeedMaxAggregateInputType
+  }
+
+  export type GetCoreCardioSetAvgSpeedAggregateType<T extends CoreCardioSetAvgSpeedAggregateArgs> = {
+        [P in keyof T & keyof AggregateCoreCardioSetAvgSpeed]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCoreCardioSetAvgSpeed[P]>
+      : GetScalarType<T[P], AggregateCoreCardioSetAvgSpeed[P]>
+  }
+
+
+
+
+  export type CoreCardioSetAvgSpeedGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CoreCardioSetAvgSpeedWhereInput
+    orderBy?: CoreCardioSetAvgSpeedOrderByWithAggregationInput | CoreCardioSetAvgSpeedOrderByWithAggregationInput[]
+    by: CoreCardioSetAvgSpeedScalarFieldEnum[] | CoreCardioSetAvgSpeedScalarFieldEnum
+    having?: CoreCardioSetAvgSpeedScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CoreCardioSetAvgSpeedCountAggregateInputType | true
+    _avg?: CoreCardioSetAvgSpeedAvgAggregateInputType
+    _sum?: CoreCardioSetAvgSpeedSumAggregateInputType
+    _min?: CoreCardioSetAvgSpeedMinAggregateInputType
+    _max?: CoreCardioSetAvgSpeedMaxAggregateInputType
+  }
+
+  export type CoreCardioSetAvgSpeedGroupByOutputType = {
+    id: string
+    coreCardioSetId: string
+    avgSpeed: number | null
+    createdAt: Date
+    updatedAt: Date
+    _count: CoreCardioSetAvgSpeedCountAggregateOutputType | null
+    _avg: CoreCardioSetAvgSpeedAvgAggregateOutputType | null
+    _sum: CoreCardioSetAvgSpeedSumAggregateOutputType | null
+    _min: CoreCardioSetAvgSpeedMinAggregateOutputType | null
+    _max: CoreCardioSetAvgSpeedMaxAggregateOutputType | null
+  }
+
+  type GetCoreCardioSetAvgSpeedGroupByPayload<T extends CoreCardioSetAvgSpeedGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CoreCardioSetAvgSpeedGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CoreCardioSetAvgSpeedGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CoreCardioSetAvgSpeedGroupByOutputType[P]>
+            : GetScalarType<T[P], CoreCardioSetAvgSpeedGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CoreCardioSetAvgSpeedSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    coreCardioSetId?: boolean
+    avgSpeed?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreCardioSetAvgSpeed"]>
+
+  export type CoreCardioSetAvgSpeedSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    coreCardioSetId?: boolean
+    avgSpeed?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreCardioSetAvgSpeed"]>
+
+  export type CoreCardioSetAvgSpeedSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    coreCardioSetId?: boolean
+    avgSpeed?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreCardioSetAvgSpeed"]>
+
+  export type CoreCardioSetAvgSpeedSelectScalar = {
+    id?: boolean
+    coreCardioSetId?: boolean
+    avgSpeed?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CoreCardioSetAvgSpeedOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "coreCardioSetId" | "avgSpeed" | "createdAt" | "updatedAt", ExtArgs["result"]["coreCardioSetAvgSpeed"]>
+  export type CoreCardioSetAvgSpeedInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }
+  export type CoreCardioSetAvgSpeedIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }
+  export type CoreCardioSetAvgSpeedIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }
+
+  export type $CoreCardioSetAvgSpeedPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CoreCardioSetAvgSpeed"
+    objects: {
+      coreCardioSet: Prisma.$CoreCardioSetPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      coreCardioSetId: string
+      avgSpeed: number | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["coreCardioSetAvgSpeed"]>
+    composites: {}
+  }
+
+  type CoreCardioSetAvgSpeedGetPayload<S extends boolean | null | undefined | CoreCardioSetAvgSpeedDefaultArgs> = $Result.GetResult<Prisma.$CoreCardioSetAvgSpeedPayload, S>
+
+  type CoreCardioSetAvgSpeedCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CoreCardioSetAvgSpeedFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CoreCardioSetAvgSpeedCountAggregateInputType | true
+    }
+
+  export interface CoreCardioSetAvgSpeedDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CoreCardioSetAvgSpeed'], meta: { name: 'CoreCardioSetAvgSpeed' } }
+    /**
+     * Find zero or one CoreCardioSetAvgSpeed that matches the filter.
+     * @param {CoreCardioSetAvgSpeedFindUniqueArgs} args - Arguments to find a CoreCardioSetAvgSpeed
+     * @example
+     * // Get one CoreCardioSetAvgSpeed
+     * const coreCardioSetAvgSpeed = await prisma.coreCardioSetAvgSpeed.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CoreCardioSetAvgSpeedFindUniqueArgs>(args: SelectSubset<T, CoreCardioSetAvgSpeedFindUniqueArgs<ExtArgs>>): Prisma__CoreCardioSetAvgSpeedClient<$Result.GetResult<Prisma.$CoreCardioSetAvgSpeedPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CoreCardioSetAvgSpeed that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CoreCardioSetAvgSpeedFindUniqueOrThrowArgs} args - Arguments to find a CoreCardioSetAvgSpeed
+     * @example
+     * // Get one CoreCardioSetAvgSpeed
+     * const coreCardioSetAvgSpeed = await prisma.coreCardioSetAvgSpeed.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CoreCardioSetAvgSpeedFindUniqueOrThrowArgs>(args: SelectSubset<T, CoreCardioSetAvgSpeedFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CoreCardioSetAvgSpeedClient<$Result.GetResult<Prisma.$CoreCardioSetAvgSpeedPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CoreCardioSetAvgSpeed that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreCardioSetAvgSpeedFindFirstArgs} args - Arguments to find a CoreCardioSetAvgSpeed
+     * @example
+     * // Get one CoreCardioSetAvgSpeed
+     * const coreCardioSetAvgSpeed = await prisma.coreCardioSetAvgSpeed.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CoreCardioSetAvgSpeedFindFirstArgs>(args?: SelectSubset<T, CoreCardioSetAvgSpeedFindFirstArgs<ExtArgs>>): Prisma__CoreCardioSetAvgSpeedClient<$Result.GetResult<Prisma.$CoreCardioSetAvgSpeedPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CoreCardioSetAvgSpeed that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreCardioSetAvgSpeedFindFirstOrThrowArgs} args - Arguments to find a CoreCardioSetAvgSpeed
+     * @example
+     * // Get one CoreCardioSetAvgSpeed
+     * const coreCardioSetAvgSpeed = await prisma.coreCardioSetAvgSpeed.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CoreCardioSetAvgSpeedFindFirstOrThrowArgs>(args?: SelectSubset<T, CoreCardioSetAvgSpeedFindFirstOrThrowArgs<ExtArgs>>): Prisma__CoreCardioSetAvgSpeedClient<$Result.GetResult<Prisma.$CoreCardioSetAvgSpeedPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CoreCardioSetAvgSpeeds that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreCardioSetAvgSpeedFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CoreCardioSetAvgSpeeds
+     * const coreCardioSetAvgSpeeds = await prisma.coreCardioSetAvgSpeed.findMany()
+     * 
+     * // Get first 10 CoreCardioSetAvgSpeeds
+     * const coreCardioSetAvgSpeeds = await prisma.coreCardioSetAvgSpeed.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const coreCardioSetAvgSpeedWithIdOnly = await prisma.coreCardioSetAvgSpeed.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CoreCardioSetAvgSpeedFindManyArgs>(args?: SelectSubset<T, CoreCardioSetAvgSpeedFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetAvgSpeedPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CoreCardioSetAvgSpeed.
+     * @param {CoreCardioSetAvgSpeedCreateArgs} args - Arguments to create a CoreCardioSetAvgSpeed.
+     * @example
+     * // Create one CoreCardioSetAvgSpeed
+     * const CoreCardioSetAvgSpeed = await prisma.coreCardioSetAvgSpeed.create({
+     *   data: {
+     *     // ... data to create a CoreCardioSetAvgSpeed
+     *   }
+     * })
+     * 
+     */
+    create<T extends CoreCardioSetAvgSpeedCreateArgs>(args: SelectSubset<T, CoreCardioSetAvgSpeedCreateArgs<ExtArgs>>): Prisma__CoreCardioSetAvgSpeedClient<$Result.GetResult<Prisma.$CoreCardioSetAvgSpeedPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CoreCardioSetAvgSpeeds.
+     * @param {CoreCardioSetAvgSpeedCreateManyArgs} args - Arguments to create many CoreCardioSetAvgSpeeds.
+     * @example
+     * // Create many CoreCardioSetAvgSpeeds
+     * const coreCardioSetAvgSpeed = await prisma.coreCardioSetAvgSpeed.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CoreCardioSetAvgSpeedCreateManyArgs>(args?: SelectSubset<T, CoreCardioSetAvgSpeedCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CoreCardioSetAvgSpeeds and returns the data saved in the database.
+     * @param {CoreCardioSetAvgSpeedCreateManyAndReturnArgs} args - Arguments to create many CoreCardioSetAvgSpeeds.
+     * @example
+     * // Create many CoreCardioSetAvgSpeeds
+     * const coreCardioSetAvgSpeed = await prisma.coreCardioSetAvgSpeed.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CoreCardioSetAvgSpeeds and only return the `id`
+     * const coreCardioSetAvgSpeedWithIdOnly = await prisma.coreCardioSetAvgSpeed.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CoreCardioSetAvgSpeedCreateManyAndReturnArgs>(args?: SelectSubset<T, CoreCardioSetAvgSpeedCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetAvgSpeedPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CoreCardioSetAvgSpeed.
+     * @param {CoreCardioSetAvgSpeedDeleteArgs} args - Arguments to delete one CoreCardioSetAvgSpeed.
+     * @example
+     * // Delete one CoreCardioSetAvgSpeed
+     * const CoreCardioSetAvgSpeed = await prisma.coreCardioSetAvgSpeed.delete({
+     *   where: {
+     *     // ... filter to delete one CoreCardioSetAvgSpeed
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CoreCardioSetAvgSpeedDeleteArgs>(args: SelectSubset<T, CoreCardioSetAvgSpeedDeleteArgs<ExtArgs>>): Prisma__CoreCardioSetAvgSpeedClient<$Result.GetResult<Prisma.$CoreCardioSetAvgSpeedPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CoreCardioSetAvgSpeed.
+     * @param {CoreCardioSetAvgSpeedUpdateArgs} args - Arguments to update one CoreCardioSetAvgSpeed.
+     * @example
+     * // Update one CoreCardioSetAvgSpeed
+     * const coreCardioSetAvgSpeed = await prisma.coreCardioSetAvgSpeed.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CoreCardioSetAvgSpeedUpdateArgs>(args: SelectSubset<T, CoreCardioSetAvgSpeedUpdateArgs<ExtArgs>>): Prisma__CoreCardioSetAvgSpeedClient<$Result.GetResult<Prisma.$CoreCardioSetAvgSpeedPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CoreCardioSetAvgSpeeds.
+     * @param {CoreCardioSetAvgSpeedDeleteManyArgs} args - Arguments to filter CoreCardioSetAvgSpeeds to delete.
+     * @example
+     * // Delete a few CoreCardioSetAvgSpeeds
+     * const { count } = await prisma.coreCardioSetAvgSpeed.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CoreCardioSetAvgSpeedDeleteManyArgs>(args?: SelectSubset<T, CoreCardioSetAvgSpeedDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CoreCardioSetAvgSpeeds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreCardioSetAvgSpeedUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CoreCardioSetAvgSpeeds
+     * const coreCardioSetAvgSpeed = await prisma.coreCardioSetAvgSpeed.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CoreCardioSetAvgSpeedUpdateManyArgs>(args: SelectSubset<T, CoreCardioSetAvgSpeedUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CoreCardioSetAvgSpeeds and returns the data updated in the database.
+     * @param {CoreCardioSetAvgSpeedUpdateManyAndReturnArgs} args - Arguments to update many CoreCardioSetAvgSpeeds.
+     * @example
+     * // Update many CoreCardioSetAvgSpeeds
+     * const coreCardioSetAvgSpeed = await prisma.coreCardioSetAvgSpeed.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CoreCardioSetAvgSpeeds and only return the `id`
+     * const coreCardioSetAvgSpeedWithIdOnly = await prisma.coreCardioSetAvgSpeed.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CoreCardioSetAvgSpeedUpdateManyAndReturnArgs>(args: SelectSubset<T, CoreCardioSetAvgSpeedUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetAvgSpeedPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CoreCardioSetAvgSpeed.
+     * @param {CoreCardioSetAvgSpeedUpsertArgs} args - Arguments to update or create a CoreCardioSetAvgSpeed.
+     * @example
+     * // Update or create a CoreCardioSetAvgSpeed
+     * const coreCardioSetAvgSpeed = await prisma.coreCardioSetAvgSpeed.upsert({
+     *   create: {
+     *     // ... data to create a CoreCardioSetAvgSpeed
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CoreCardioSetAvgSpeed we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CoreCardioSetAvgSpeedUpsertArgs>(args: SelectSubset<T, CoreCardioSetAvgSpeedUpsertArgs<ExtArgs>>): Prisma__CoreCardioSetAvgSpeedClient<$Result.GetResult<Prisma.$CoreCardioSetAvgSpeedPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CoreCardioSetAvgSpeeds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreCardioSetAvgSpeedCountArgs} args - Arguments to filter CoreCardioSetAvgSpeeds to count.
+     * @example
+     * // Count the number of CoreCardioSetAvgSpeeds
+     * const count = await prisma.coreCardioSetAvgSpeed.count({
+     *   where: {
+     *     // ... the filter for the CoreCardioSetAvgSpeeds we want to count
+     *   }
+     * })
+    **/
+    count<T extends CoreCardioSetAvgSpeedCountArgs>(
+      args?: Subset<T, CoreCardioSetAvgSpeedCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CoreCardioSetAvgSpeedCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CoreCardioSetAvgSpeed.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreCardioSetAvgSpeedAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CoreCardioSetAvgSpeedAggregateArgs>(args: Subset<T, CoreCardioSetAvgSpeedAggregateArgs>): Prisma.PrismaPromise<GetCoreCardioSetAvgSpeedAggregateType<T>>
+
+    /**
+     * Group by CoreCardioSetAvgSpeed.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreCardioSetAvgSpeedGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CoreCardioSetAvgSpeedGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CoreCardioSetAvgSpeedGroupByArgs['orderBy'] }
+        : { orderBy?: CoreCardioSetAvgSpeedGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CoreCardioSetAvgSpeedGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCoreCardioSetAvgSpeedGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CoreCardioSetAvgSpeed model
+   */
+  readonly fields: CoreCardioSetAvgSpeedFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CoreCardioSetAvgSpeed.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CoreCardioSetAvgSpeedClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    coreCardioSet<T extends CoreCardioSetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CoreCardioSetDefaultArgs<ExtArgs>>): Prisma__CoreCardioSetClient<$Result.GetResult<Prisma.$CoreCardioSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CoreCardioSetAvgSpeed model
+   */
+  interface CoreCardioSetAvgSpeedFieldRefs {
+    readonly id: FieldRef<"CoreCardioSetAvgSpeed", 'String'>
+    readonly coreCardioSetId: FieldRef<"CoreCardioSetAvgSpeed", 'String'>
+    readonly avgSpeed: FieldRef<"CoreCardioSetAvgSpeed", 'Float'>
+    readonly createdAt: FieldRef<"CoreCardioSetAvgSpeed", 'DateTime'>
+    readonly updatedAt: FieldRef<"CoreCardioSetAvgSpeed", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CoreCardioSetAvgSpeed findUnique
+   */
+  export type CoreCardioSetAvgSpeedFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetAvgSpeed
+     */
+    select?: CoreCardioSetAvgSpeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetAvgSpeed
+     */
+    omit?: CoreCardioSetAvgSpeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetAvgSpeedInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreCardioSetAvgSpeed to fetch.
+     */
+    where: CoreCardioSetAvgSpeedWhereUniqueInput
+  }
+
+  /**
+   * CoreCardioSetAvgSpeed findUniqueOrThrow
+   */
+  export type CoreCardioSetAvgSpeedFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetAvgSpeed
+     */
+    select?: CoreCardioSetAvgSpeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetAvgSpeed
+     */
+    omit?: CoreCardioSetAvgSpeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetAvgSpeedInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreCardioSetAvgSpeed to fetch.
+     */
+    where: CoreCardioSetAvgSpeedWhereUniqueInput
+  }
+
+  /**
+   * CoreCardioSetAvgSpeed findFirst
+   */
+  export type CoreCardioSetAvgSpeedFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetAvgSpeed
+     */
+    select?: CoreCardioSetAvgSpeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetAvgSpeed
+     */
+    omit?: CoreCardioSetAvgSpeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetAvgSpeedInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreCardioSetAvgSpeed to fetch.
+     */
+    where?: CoreCardioSetAvgSpeedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreCardioSetAvgSpeeds to fetch.
+     */
+    orderBy?: CoreCardioSetAvgSpeedOrderByWithRelationInput | CoreCardioSetAvgSpeedOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CoreCardioSetAvgSpeeds.
+     */
+    cursor?: CoreCardioSetAvgSpeedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreCardioSetAvgSpeeds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreCardioSetAvgSpeeds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CoreCardioSetAvgSpeeds.
+     */
+    distinct?: CoreCardioSetAvgSpeedScalarFieldEnum | CoreCardioSetAvgSpeedScalarFieldEnum[]
+  }
+
+  /**
+   * CoreCardioSetAvgSpeed findFirstOrThrow
+   */
+  export type CoreCardioSetAvgSpeedFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetAvgSpeed
+     */
+    select?: CoreCardioSetAvgSpeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetAvgSpeed
+     */
+    omit?: CoreCardioSetAvgSpeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetAvgSpeedInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreCardioSetAvgSpeed to fetch.
+     */
+    where?: CoreCardioSetAvgSpeedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreCardioSetAvgSpeeds to fetch.
+     */
+    orderBy?: CoreCardioSetAvgSpeedOrderByWithRelationInput | CoreCardioSetAvgSpeedOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CoreCardioSetAvgSpeeds.
+     */
+    cursor?: CoreCardioSetAvgSpeedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreCardioSetAvgSpeeds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreCardioSetAvgSpeeds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CoreCardioSetAvgSpeeds.
+     */
+    distinct?: CoreCardioSetAvgSpeedScalarFieldEnum | CoreCardioSetAvgSpeedScalarFieldEnum[]
+  }
+
+  /**
+   * CoreCardioSetAvgSpeed findMany
+   */
+  export type CoreCardioSetAvgSpeedFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetAvgSpeed
+     */
+    select?: CoreCardioSetAvgSpeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetAvgSpeed
+     */
+    omit?: CoreCardioSetAvgSpeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetAvgSpeedInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreCardioSetAvgSpeeds to fetch.
+     */
+    where?: CoreCardioSetAvgSpeedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreCardioSetAvgSpeeds to fetch.
+     */
+    orderBy?: CoreCardioSetAvgSpeedOrderByWithRelationInput | CoreCardioSetAvgSpeedOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CoreCardioSetAvgSpeeds.
+     */
+    cursor?: CoreCardioSetAvgSpeedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreCardioSetAvgSpeeds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreCardioSetAvgSpeeds.
+     */
+    skip?: number
+    distinct?: CoreCardioSetAvgSpeedScalarFieldEnum | CoreCardioSetAvgSpeedScalarFieldEnum[]
+  }
+
+  /**
+   * CoreCardioSetAvgSpeed create
+   */
+  export type CoreCardioSetAvgSpeedCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetAvgSpeed
+     */
+    select?: CoreCardioSetAvgSpeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetAvgSpeed
+     */
+    omit?: CoreCardioSetAvgSpeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetAvgSpeedInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CoreCardioSetAvgSpeed.
+     */
+    data: XOR<CoreCardioSetAvgSpeedCreateInput, CoreCardioSetAvgSpeedUncheckedCreateInput>
+  }
+
+  /**
+   * CoreCardioSetAvgSpeed createMany
+   */
+  export type CoreCardioSetAvgSpeedCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CoreCardioSetAvgSpeeds.
+     */
+    data: CoreCardioSetAvgSpeedCreateManyInput | CoreCardioSetAvgSpeedCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CoreCardioSetAvgSpeed createManyAndReturn
+   */
+  export type CoreCardioSetAvgSpeedCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetAvgSpeed
+     */
+    select?: CoreCardioSetAvgSpeedSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetAvgSpeed
+     */
+    omit?: CoreCardioSetAvgSpeedOmit<ExtArgs> | null
+    /**
+     * The data used to create many CoreCardioSetAvgSpeeds.
+     */
+    data: CoreCardioSetAvgSpeedCreateManyInput | CoreCardioSetAvgSpeedCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetAvgSpeedIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CoreCardioSetAvgSpeed update
+   */
+  export type CoreCardioSetAvgSpeedUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetAvgSpeed
+     */
+    select?: CoreCardioSetAvgSpeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetAvgSpeed
+     */
+    omit?: CoreCardioSetAvgSpeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetAvgSpeedInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CoreCardioSetAvgSpeed.
+     */
+    data: XOR<CoreCardioSetAvgSpeedUpdateInput, CoreCardioSetAvgSpeedUncheckedUpdateInput>
+    /**
+     * Choose, which CoreCardioSetAvgSpeed to update.
+     */
+    where: CoreCardioSetAvgSpeedWhereUniqueInput
+  }
+
+  /**
+   * CoreCardioSetAvgSpeed updateMany
+   */
+  export type CoreCardioSetAvgSpeedUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CoreCardioSetAvgSpeeds.
+     */
+    data: XOR<CoreCardioSetAvgSpeedUpdateManyMutationInput, CoreCardioSetAvgSpeedUncheckedUpdateManyInput>
+    /**
+     * Filter which CoreCardioSetAvgSpeeds to update
+     */
+    where?: CoreCardioSetAvgSpeedWhereInput
+    /**
+     * Limit how many CoreCardioSetAvgSpeeds to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CoreCardioSetAvgSpeed updateManyAndReturn
+   */
+  export type CoreCardioSetAvgSpeedUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetAvgSpeed
+     */
+    select?: CoreCardioSetAvgSpeedSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetAvgSpeed
+     */
+    omit?: CoreCardioSetAvgSpeedOmit<ExtArgs> | null
+    /**
+     * The data used to update CoreCardioSetAvgSpeeds.
+     */
+    data: XOR<CoreCardioSetAvgSpeedUpdateManyMutationInput, CoreCardioSetAvgSpeedUncheckedUpdateManyInput>
+    /**
+     * Filter which CoreCardioSetAvgSpeeds to update
+     */
+    where?: CoreCardioSetAvgSpeedWhereInput
+    /**
+     * Limit how many CoreCardioSetAvgSpeeds to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetAvgSpeedIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CoreCardioSetAvgSpeed upsert
+   */
+  export type CoreCardioSetAvgSpeedUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetAvgSpeed
+     */
+    select?: CoreCardioSetAvgSpeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetAvgSpeed
+     */
+    omit?: CoreCardioSetAvgSpeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetAvgSpeedInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CoreCardioSetAvgSpeed to update in case it exists.
+     */
+    where: CoreCardioSetAvgSpeedWhereUniqueInput
+    /**
+     * In case the CoreCardioSetAvgSpeed found by the `where` argument doesn't exist, create a new CoreCardioSetAvgSpeed with this data.
+     */
+    create: XOR<CoreCardioSetAvgSpeedCreateInput, CoreCardioSetAvgSpeedUncheckedCreateInput>
+    /**
+     * In case the CoreCardioSetAvgSpeed was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CoreCardioSetAvgSpeedUpdateInput, CoreCardioSetAvgSpeedUncheckedUpdateInput>
+  }
+
+  /**
+   * CoreCardioSetAvgSpeed delete
+   */
+  export type CoreCardioSetAvgSpeedDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetAvgSpeed
+     */
+    select?: CoreCardioSetAvgSpeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetAvgSpeed
+     */
+    omit?: CoreCardioSetAvgSpeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetAvgSpeedInclude<ExtArgs> | null
+    /**
+     * Filter which CoreCardioSetAvgSpeed to delete.
+     */
+    where: CoreCardioSetAvgSpeedWhereUniqueInput
+  }
+
+  /**
+   * CoreCardioSetAvgSpeed deleteMany
+   */
+  export type CoreCardioSetAvgSpeedDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CoreCardioSetAvgSpeeds to delete
+     */
+    where?: CoreCardioSetAvgSpeedWhereInput
+    /**
+     * Limit how many CoreCardioSetAvgSpeeds to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CoreCardioSetAvgSpeed without action
+   */
+  export type CoreCardioSetAvgSpeedDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetAvgSpeed
+     */
+    select?: CoreCardioSetAvgSpeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetAvgSpeed
+     */
+    omit?: CoreCardioSetAvgSpeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetAvgSpeedInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CoreCardioSetWorkoutTime
+   */
+
+  export type AggregateCoreCardioSetWorkoutTime = {
+    _count: CoreCardioSetWorkoutTimeCountAggregateOutputType | null
+    _avg: CoreCardioSetWorkoutTimeAvgAggregateOutputType | null
+    _sum: CoreCardioSetWorkoutTimeSumAggregateOutputType | null
+    _min: CoreCardioSetWorkoutTimeMinAggregateOutputType | null
+    _max: CoreCardioSetWorkoutTimeMaxAggregateOutputType | null
+  }
+
+  export type CoreCardioSetWorkoutTimeAvgAggregateOutputType = {
+    workTime: number | null
+  }
+
+  export type CoreCardioSetWorkoutTimeSumAggregateOutputType = {
+    workTime: number | null
+  }
+
+  export type CoreCardioSetWorkoutTimeMinAggregateOutputType = {
+    id: string | null
+    coreCardioSetId: string | null
+    workTime: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CoreCardioSetWorkoutTimeMaxAggregateOutputType = {
+    id: string | null
+    coreCardioSetId: string | null
+    workTime: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CoreCardioSetWorkoutTimeCountAggregateOutputType = {
+    id: number
+    coreCardioSetId: number
+    workTime: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CoreCardioSetWorkoutTimeAvgAggregateInputType = {
+    workTime?: true
+  }
+
+  export type CoreCardioSetWorkoutTimeSumAggregateInputType = {
+    workTime?: true
+  }
+
+  export type CoreCardioSetWorkoutTimeMinAggregateInputType = {
+    id?: true
+    coreCardioSetId?: true
+    workTime?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CoreCardioSetWorkoutTimeMaxAggregateInputType = {
+    id?: true
+    coreCardioSetId?: true
+    workTime?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CoreCardioSetWorkoutTimeCountAggregateInputType = {
+    id?: true
+    coreCardioSetId?: true
+    workTime?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CoreCardioSetWorkoutTimeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CoreCardioSetWorkoutTime to aggregate.
+     */
+    where?: CoreCardioSetWorkoutTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreCardioSetWorkoutTimes to fetch.
+     */
+    orderBy?: CoreCardioSetWorkoutTimeOrderByWithRelationInput | CoreCardioSetWorkoutTimeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CoreCardioSetWorkoutTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreCardioSetWorkoutTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreCardioSetWorkoutTimes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CoreCardioSetWorkoutTimes
+    **/
+    _count?: true | CoreCardioSetWorkoutTimeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CoreCardioSetWorkoutTimeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CoreCardioSetWorkoutTimeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CoreCardioSetWorkoutTimeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CoreCardioSetWorkoutTimeMaxAggregateInputType
+  }
+
+  export type GetCoreCardioSetWorkoutTimeAggregateType<T extends CoreCardioSetWorkoutTimeAggregateArgs> = {
+        [P in keyof T & keyof AggregateCoreCardioSetWorkoutTime]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCoreCardioSetWorkoutTime[P]>
+      : GetScalarType<T[P], AggregateCoreCardioSetWorkoutTime[P]>
+  }
+
+
+
+
+  export type CoreCardioSetWorkoutTimeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CoreCardioSetWorkoutTimeWhereInput
+    orderBy?: CoreCardioSetWorkoutTimeOrderByWithAggregationInput | CoreCardioSetWorkoutTimeOrderByWithAggregationInput[]
+    by: CoreCardioSetWorkoutTimeScalarFieldEnum[] | CoreCardioSetWorkoutTimeScalarFieldEnum
+    having?: CoreCardioSetWorkoutTimeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CoreCardioSetWorkoutTimeCountAggregateInputType | true
+    _avg?: CoreCardioSetWorkoutTimeAvgAggregateInputType
+    _sum?: CoreCardioSetWorkoutTimeSumAggregateInputType
+    _min?: CoreCardioSetWorkoutTimeMinAggregateInputType
+    _max?: CoreCardioSetWorkoutTimeMaxAggregateInputType
+  }
+
+  export type CoreCardioSetWorkoutTimeGroupByOutputType = {
+    id: string
+    coreCardioSetId: string
+    workTime: number | null
+    createdAt: Date
+    updatedAt: Date
+    _count: CoreCardioSetWorkoutTimeCountAggregateOutputType | null
+    _avg: CoreCardioSetWorkoutTimeAvgAggregateOutputType | null
+    _sum: CoreCardioSetWorkoutTimeSumAggregateOutputType | null
+    _min: CoreCardioSetWorkoutTimeMinAggregateOutputType | null
+    _max: CoreCardioSetWorkoutTimeMaxAggregateOutputType | null
+  }
+
+  type GetCoreCardioSetWorkoutTimeGroupByPayload<T extends CoreCardioSetWorkoutTimeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CoreCardioSetWorkoutTimeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CoreCardioSetWorkoutTimeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CoreCardioSetWorkoutTimeGroupByOutputType[P]>
+            : GetScalarType<T[P], CoreCardioSetWorkoutTimeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CoreCardioSetWorkoutTimeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    coreCardioSetId?: boolean
+    workTime?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreCardioSetWorkoutTime"]>
+
+  export type CoreCardioSetWorkoutTimeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    coreCardioSetId?: boolean
+    workTime?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreCardioSetWorkoutTime"]>
+
+  export type CoreCardioSetWorkoutTimeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    coreCardioSetId?: boolean
+    workTime?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreCardioSetWorkoutTime"]>
+
+  export type CoreCardioSetWorkoutTimeSelectScalar = {
+    id?: boolean
+    coreCardioSetId?: boolean
+    workTime?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CoreCardioSetWorkoutTimeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "coreCardioSetId" | "workTime" | "createdAt" | "updatedAt", ExtArgs["result"]["coreCardioSetWorkoutTime"]>
+  export type CoreCardioSetWorkoutTimeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }
+  export type CoreCardioSetWorkoutTimeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }
+  export type CoreCardioSetWorkoutTimeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreCardioSet?: boolean | CoreCardioSetDefaultArgs<ExtArgs>
+  }
+
+  export type $CoreCardioSetWorkoutTimePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CoreCardioSetWorkoutTime"
+    objects: {
+      coreCardioSet: Prisma.$CoreCardioSetPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      coreCardioSetId: string
+      workTime: number | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["coreCardioSetWorkoutTime"]>
+    composites: {}
+  }
+
+  type CoreCardioSetWorkoutTimeGetPayload<S extends boolean | null | undefined | CoreCardioSetWorkoutTimeDefaultArgs> = $Result.GetResult<Prisma.$CoreCardioSetWorkoutTimePayload, S>
+
+  type CoreCardioSetWorkoutTimeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CoreCardioSetWorkoutTimeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CoreCardioSetWorkoutTimeCountAggregateInputType | true
+    }
+
+  export interface CoreCardioSetWorkoutTimeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CoreCardioSetWorkoutTime'], meta: { name: 'CoreCardioSetWorkoutTime' } }
+    /**
+     * Find zero or one CoreCardioSetWorkoutTime that matches the filter.
+     * @param {CoreCardioSetWorkoutTimeFindUniqueArgs} args - Arguments to find a CoreCardioSetWorkoutTime
+     * @example
+     * // Get one CoreCardioSetWorkoutTime
+     * const coreCardioSetWorkoutTime = await prisma.coreCardioSetWorkoutTime.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CoreCardioSetWorkoutTimeFindUniqueArgs>(args: SelectSubset<T, CoreCardioSetWorkoutTimeFindUniqueArgs<ExtArgs>>): Prisma__CoreCardioSetWorkoutTimeClient<$Result.GetResult<Prisma.$CoreCardioSetWorkoutTimePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CoreCardioSetWorkoutTime that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CoreCardioSetWorkoutTimeFindUniqueOrThrowArgs} args - Arguments to find a CoreCardioSetWorkoutTime
+     * @example
+     * // Get one CoreCardioSetWorkoutTime
+     * const coreCardioSetWorkoutTime = await prisma.coreCardioSetWorkoutTime.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CoreCardioSetWorkoutTimeFindUniqueOrThrowArgs>(args: SelectSubset<T, CoreCardioSetWorkoutTimeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CoreCardioSetWorkoutTimeClient<$Result.GetResult<Prisma.$CoreCardioSetWorkoutTimePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CoreCardioSetWorkoutTime that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreCardioSetWorkoutTimeFindFirstArgs} args - Arguments to find a CoreCardioSetWorkoutTime
+     * @example
+     * // Get one CoreCardioSetWorkoutTime
+     * const coreCardioSetWorkoutTime = await prisma.coreCardioSetWorkoutTime.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CoreCardioSetWorkoutTimeFindFirstArgs>(args?: SelectSubset<T, CoreCardioSetWorkoutTimeFindFirstArgs<ExtArgs>>): Prisma__CoreCardioSetWorkoutTimeClient<$Result.GetResult<Prisma.$CoreCardioSetWorkoutTimePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CoreCardioSetWorkoutTime that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreCardioSetWorkoutTimeFindFirstOrThrowArgs} args - Arguments to find a CoreCardioSetWorkoutTime
+     * @example
+     * // Get one CoreCardioSetWorkoutTime
+     * const coreCardioSetWorkoutTime = await prisma.coreCardioSetWorkoutTime.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CoreCardioSetWorkoutTimeFindFirstOrThrowArgs>(args?: SelectSubset<T, CoreCardioSetWorkoutTimeFindFirstOrThrowArgs<ExtArgs>>): Prisma__CoreCardioSetWorkoutTimeClient<$Result.GetResult<Prisma.$CoreCardioSetWorkoutTimePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CoreCardioSetWorkoutTimes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreCardioSetWorkoutTimeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CoreCardioSetWorkoutTimes
+     * const coreCardioSetWorkoutTimes = await prisma.coreCardioSetWorkoutTime.findMany()
+     * 
+     * // Get first 10 CoreCardioSetWorkoutTimes
+     * const coreCardioSetWorkoutTimes = await prisma.coreCardioSetWorkoutTime.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const coreCardioSetWorkoutTimeWithIdOnly = await prisma.coreCardioSetWorkoutTime.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CoreCardioSetWorkoutTimeFindManyArgs>(args?: SelectSubset<T, CoreCardioSetWorkoutTimeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetWorkoutTimePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CoreCardioSetWorkoutTime.
+     * @param {CoreCardioSetWorkoutTimeCreateArgs} args - Arguments to create a CoreCardioSetWorkoutTime.
+     * @example
+     * // Create one CoreCardioSetWorkoutTime
+     * const CoreCardioSetWorkoutTime = await prisma.coreCardioSetWorkoutTime.create({
+     *   data: {
+     *     // ... data to create a CoreCardioSetWorkoutTime
+     *   }
+     * })
+     * 
+     */
+    create<T extends CoreCardioSetWorkoutTimeCreateArgs>(args: SelectSubset<T, CoreCardioSetWorkoutTimeCreateArgs<ExtArgs>>): Prisma__CoreCardioSetWorkoutTimeClient<$Result.GetResult<Prisma.$CoreCardioSetWorkoutTimePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CoreCardioSetWorkoutTimes.
+     * @param {CoreCardioSetWorkoutTimeCreateManyArgs} args - Arguments to create many CoreCardioSetWorkoutTimes.
+     * @example
+     * // Create many CoreCardioSetWorkoutTimes
+     * const coreCardioSetWorkoutTime = await prisma.coreCardioSetWorkoutTime.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CoreCardioSetWorkoutTimeCreateManyArgs>(args?: SelectSubset<T, CoreCardioSetWorkoutTimeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CoreCardioSetWorkoutTimes and returns the data saved in the database.
+     * @param {CoreCardioSetWorkoutTimeCreateManyAndReturnArgs} args - Arguments to create many CoreCardioSetWorkoutTimes.
+     * @example
+     * // Create many CoreCardioSetWorkoutTimes
+     * const coreCardioSetWorkoutTime = await prisma.coreCardioSetWorkoutTime.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CoreCardioSetWorkoutTimes and only return the `id`
+     * const coreCardioSetWorkoutTimeWithIdOnly = await prisma.coreCardioSetWorkoutTime.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CoreCardioSetWorkoutTimeCreateManyAndReturnArgs>(args?: SelectSubset<T, CoreCardioSetWorkoutTimeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetWorkoutTimePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CoreCardioSetWorkoutTime.
+     * @param {CoreCardioSetWorkoutTimeDeleteArgs} args - Arguments to delete one CoreCardioSetWorkoutTime.
+     * @example
+     * // Delete one CoreCardioSetWorkoutTime
+     * const CoreCardioSetWorkoutTime = await prisma.coreCardioSetWorkoutTime.delete({
+     *   where: {
+     *     // ... filter to delete one CoreCardioSetWorkoutTime
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CoreCardioSetWorkoutTimeDeleteArgs>(args: SelectSubset<T, CoreCardioSetWorkoutTimeDeleteArgs<ExtArgs>>): Prisma__CoreCardioSetWorkoutTimeClient<$Result.GetResult<Prisma.$CoreCardioSetWorkoutTimePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CoreCardioSetWorkoutTime.
+     * @param {CoreCardioSetWorkoutTimeUpdateArgs} args - Arguments to update one CoreCardioSetWorkoutTime.
+     * @example
+     * // Update one CoreCardioSetWorkoutTime
+     * const coreCardioSetWorkoutTime = await prisma.coreCardioSetWorkoutTime.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CoreCardioSetWorkoutTimeUpdateArgs>(args: SelectSubset<T, CoreCardioSetWorkoutTimeUpdateArgs<ExtArgs>>): Prisma__CoreCardioSetWorkoutTimeClient<$Result.GetResult<Prisma.$CoreCardioSetWorkoutTimePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CoreCardioSetWorkoutTimes.
+     * @param {CoreCardioSetWorkoutTimeDeleteManyArgs} args - Arguments to filter CoreCardioSetWorkoutTimes to delete.
+     * @example
+     * // Delete a few CoreCardioSetWorkoutTimes
+     * const { count } = await prisma.coreCardioSetWorkoutTime.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CoreCardioSetWorkoutTimeDeleteManyArgs>(args?: SelectSubset<T, CoreCardioSetWorkoutTimeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CoreCardioSetWorkoutTimes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreCardioSetWorkoutTimeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CoreCardioSetWorkoutTimes
+     * const coreCardioSetWorkoutTime = await prisma.coreCardioSetWorkoutTime.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CoreCardioSetWorkoutTimeUpdateManyArgs>(args: SelectSubset<T, CoreCardioSetWorkoutTimeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CoreCardioSetWorkoutTimes and returns the data updated in the database.
+     * @param {CoreCardioSetWorkoutTimeUpdateManyAndReturnArgs} args - Arguments to update many CoreCardioSetWorkoutTimes.
+     * @example
+     * // Update many CoreCardioSetWorkoutTimes
+     * const coreCardioSetWorkoutTime = await prisma.coreCardioSetWorkoutTime.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CoreCardioSetWorkoutTimes and only return the `id`
+     * const coreCardioSetWorkoutTimeWithIdOnly = await prisma.coreCardioSetWorkoutTime.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CoreCardioSetWorkoutTimeUpdateManyAndReturnArgs>(args: SelectSubset<T, CoreCardioSetWorkoutTimeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetWorkoutTimePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CoreCardioSetWorkoutTime.
+     * @param {CoreCardioSetWorkoutTimeUpsertArgs} args - Arguments to update or create a CoreCardioSetWorkoutTime.
+     * @example
+     * // Update or create a CoreCardioSetWorkoutTime
+     * const coreCardioSetWorkoutTime = await prisma.coreCardioSetWorkoutTime.upsert({
+     *   create: {
+     *     // ... data to create a CoreCardioSetWorkoutTime
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CoreCardioSetWorkoutTime we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CoreCardioSetWorkoutTimeUpsertArgs>(args: SelectSubset<T, CoreCardioSetWorkoutTimeUpsertArgs<ExtArgs>>): Prisma__CoreCardioSetWorkoutTimeClient<$Result.GetResult<Prisma.$CoreCardioSetWorkoutTimePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CoreCardioSetWorkoutTimes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreCardioSetWorkoutTimeCountArgs} args - Arguments to filter CoreCardioSetWorkoutTimes to count.
+     * @example
+     * // Count the number of CoreCardioSetWorkoutTimes
+     * const count = await prisma.coreCardioSetWorkoutTime.count({
+     *   where: {
+     *     // ... the filter for the CoreCardioSetWorkoutTimes we want to count
+     *   }
+     * })
+    **/
+    count<T extends CoreCardioSetWorkoutTimeCountArgs>(
+      args?: Subset<T, CoreCardioSetWorkoutTimeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CoreCardioSetWorkoutTimeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CoreCardioSetWorkoutTime.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreCardioSetWorkoutTimeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CoreCardioSetWorkoutTimeAggregateArgs>(args: Subset<T, CoreCardioSetWorkoutTimeAggregateArgs>): Prisma.PrismaPromise<GetCoreCardioSetWorkoutTimeAggregateType<T>>
+
+    /**
+     * Group by CoreCardioSetWorkoutTime.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreCardioSetWorkoutTimeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CoreCardioSetWorkoutTimeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CoreCardioSetWorkoutTimeGroupByArgs['orderBy'] }
+        : { orderBy?: CoreCardioSetWorkoutTimeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CoreCardioSetWorkoutTimeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCoreCardioSetWorkoutTimeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CoreCardioSetWorkoutTime model
+   */
+  readonly fields: CoreCardioSetWorkoutTimeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CoreCardioSetWorkoutTime.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CoreCardioSetWorkoutTimeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    coreCardioSet<T extends CoreCardioSetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CoreCardioSetDefaultArgs<ExtArgs>>): Prisma__CoreCardioSetClient<$Result.GetResult<Prisma.$CoreCardioSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CoreCardioSetWorkoutTime model
+   */
+  interface CoreCardioSetWorkoutTimeFieldRefs {
+    readonly id: FieldRef<"CoreCardioSetWorkoutTime", 'String'>
+    readonly coreCardioSetId: FieldRef<"CoreCardioSetWorkoutTime", 'String'>
+    readonly workTime: FieldRef<"CoreCardioSetWorkoutTime", 'Int'>
+    readonly createdAt: FieldRef<"CoreCardioSetWorkoutTime", 'DateTime'>
+    readonly updatedAt: FieldRef<"CoreCardioSetWorkoutTime", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CoreCardioSetWorkoutTime findUnique
+   */
+  export type CoreCardioSetWorkoutTimeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetWorkoutTime
+     */
+    select?: CoreCardioSetWorkoutTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetWorkoutTime
+     */
+    omit?: CoreCardioSetWorkoutTimeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetWorkoutTimeInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreCardioSetWorkoutTime to fetch.
+     */
+    where: CoreCardioSetWorkoutTimeWhereUniqueInput
+  }
+
+  /**
+   * CoreCardioSetWorkoutTime findUniqueOrThrow
+   */
+  export type CoreCardioSetWorkoutTimeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetWorkoutTime
+     */
+    select?: CoreCardioSetWorkoutTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetWorkoutTime
+     */
+    omit?: CoreCardioSetWorkoutTimeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetWorkoutTimeInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreCardioSetWorkoutTime to fetch.
+     */
+    where: CoreCardioSetWorkoutTimeWhereUniqueInput
+  }
+
+  /**
+   * CoreCardioSetWorkoutTime findFirst
+   */
+  export type CoreCardioSetWorkoutTimeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetWorkoutTime
+     */
+    select?: CoreCardioSetWorkoutTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetWorkoutTime
+     */
+    omit?: CoreCardioSetWorkoutTimeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetWorkoutTimeInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreCardioSetWorkoutTime to fetch.
+     */
+    where?: CoreCardioSetWorkoutTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreCardioSetWorkoutTimes to fetch.
+     */
+    orderBy?: CoreCardioSetWorkoutTimeOrderByWithRelationInput | CoreCardioSetWorkoutTimeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CoreCardioSetWorkoutTimes.
+     */
+    cursor?: CoreCardioSetWorkoutTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreCardioSetWorkoutTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreCardioSetWorkoutTimes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CoreCardioSetWorkoutTimes.
+     */
+    distinct?: CoreCardioSetWorkoutTimeScalarFieldEnum | CoreCardioSetWorkoutTimeScalarFieldEnum[]
+  }
+
+  /**
+   * CoreCardioSetWorkoutTime findFirstOrThrow
+   */
+  export type CoreCardioSetWorkoutTimeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetWorkoutTime
+     */
+    select?: CoreCardioSetWorkoutTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetWorkoutTime
+     */
+    omit?: CoreCardioSetWorkoutTimeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetWorkoutTimeInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreCardioSetWorkoutTime to fetch.
+     */
+    where?: CoreCardioSetWorkoutTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreCardioSetWorkoutTimes to fetch.
+     */
+    orderBy?: CoreCardioSetWorkoutTimeOrderByWithRelationInput | CoreCardioSetWorkoutTimeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CoreCardioSetWorkoutTimes.
+     */
+    cursor?: CoreCardioSetWorkoutTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreCardioSetWorkoutTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreCardioSetWorkoutTimes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CoreCardioSetWorkoutTimes.
+     */
+    distinct?: CoreCardioSetWorkoutTimeScalarFieldEnum | CoreCardioSetWorkoutTimeScalarFieldEnum[]
+  }
+
+  /**
+   * CoreCardioSetWorkoutTime findMany
+   */
+  export type CoreCardioSetWorkoutTimeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetWorkoutTime
+     */
+    select?: CoreCardioSetWorkoutTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetWorkoutTime
+     */
+    omit?: CoreCardioSetWorkoutTimeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetWorkoutTimeInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreCardioSetWorkoutTimes to fetch.
+     */
+    where?: CoreCardioSetWorkoutTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreCardioSetWorkoutTimes to fetch.
+     */
+    orderBy?: CoreCardioSetWorkoutTimeOrderByWithRelationInput | CoreCardioSetWorkoutTimeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CoreCardioSetWorkoutTimes.
+     */
+    cursor?: CoreCardioSetWorkoutTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreCardioSetWorkoutTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreCardioSetWorkoutTimes.
+     */
+    skip?: number
+    distinct?: CoreCardioSetWorkoutTimeScalarFieldEnum | CoreCardioSetWorkoutTimeScalarFieldEnum[]
+  }
+
+  /**
+   * CoreCardioSetWorkoutTime create
+   */
+  export type CoreCardioSetWorkoutTimeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetWorkoutTime
+     */
+    select?: CoreCardioSetWorkoutTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetWorkoutTime
+     */
+    omit?: CoreCardioSetWorkoutTimeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetWorkoutTimeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CoreCardioSetWorkoutTime.
+     */
+    data: XOR<CoreCardioSetWorkoutTimeCreateInput, CoreCardioSetWorkoutTimeUncheckedCreateInput>
+  }
+
+  /**
+   * CoreCardioSetWorkoutTime createMany
+   */
+  export type CoreCardioSetWorkoutTimeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CoreCardioSetWorkoutTimes.
+     */
+    data: CoreCardioSetWorkoutTimeCreateManyInput | CoreCardioSetWorkoutTimeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CoreCardioSetWorkoutTime createManyAndReturn
+   */
+  export type CoreCardioSetWorkoutTimeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetWorkoutTime
+     */
+    select?: CoreCardioSetWorkoutTimeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetWorkoutTime
+     */
+    omit?: CoreCardioSetWorkoutTimeOmit<ExtArgs> | null
+    /**
+     * The data used to create many CoreCardioSetWorkoutTimes.
+     */
+    data: CoreCardioSetWorkoutTimeCreateManyInput | CoreCardioSetWorkoutTimeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetWorkoutTimeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CoreCardioSetWorkoutTime update
+   */
+  export type CoreCardioSetWorkoutTimeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetWorkoutTime
+     */
+    select?: CoreCardioSetWorkoutTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetWorkoutTime
+     */
+    omit?: CoreCardioSetWorkoutTimeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetWorkoutTimeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CoreCardioSetWorkoutTime.
+     */
+    data: XOR<CoreCardioSetWorkoutTimeUpdateInput, CoreCardioSetWorkoutTimeUncheckedUpdateInput>
+    /**
+     * Choose, which CoreCardioSetWorkoutTime to update.
+     */
+    where: CoreCardioSetWorkoutTimeWhereUniqueInput
+  }
+
+  /**
+   * CoreCardioSetWorkoutTime updateMany
+   */
+  export type CoreCardioSetWorkoutTimeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CoreCardioSetWorkoutTimes.
+     */
+    data: XOR<CoreCardioSetWorkoutTimeUpdateManyMutationInput, CoreCardioSetWorkoutTimeUncheckedUpdateManyInput>
+    /**
+     * Filter which CoreCardioSetWorkoutTimes to update
+     */
+    where?: CoreCardioSetWorkoutTimeWhereInput
+    /**
+     * Limit how many CoreCardioSetWorkoutTimes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CoreCardioSetWorkoutTime updateManyAndReturn
+   */
+  export type CoreCardioSetWorkoutTimeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetWorkoutTime
+     */
+    select?: CoreCardioSetWorkoutTimeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetWorkoutTime
+     */
+    omit?: CoreCardioSetWorkoutTimeOmit<ExtArgs> | null
+    /**
+     * The data used to update CoreCardioSetWorkoutTimes.
+     */
+    data: XOR<CoreCardioSetWorkoutTimeUpdateManyMutationInput, CoreCardioSetWorkoutTimeUncheckedUpdateManyInput>
+    /**
+     * Filter which CoreCardioSetWorkoutTimes to update
+     */
+    where?: CoreCardioSetWorkoutTimeWhereInput
+    /**
+     * Limit how many CoreCardioSetWorkoutTimes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetWorkoutTimeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CoreCardioSetWorkoutTime upsert
+   */
+  export type CoreCardioSetWorkoutTimeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetWorkoutTime
+     */
+    select?: CoreCardioSetWorkoutTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetWorkoutTime
+     */
+    omit?: CoreCardioSetWorkoutTimeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetWorkoutTimeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CoreCardioSetWorkoutTime to update in case it exists.
+     */
+    where: CoreCardioSetWorkoutTimeWhereUniqueInput
+    /**
+     * In case the CoreCardioSetWorkoutTime found by the `where` argument doesn't exist, create a new CoreCardioSetWorkoutTime with this data.
+     */
+    create: XOR<CoreCardioSetWorkoutTimeCreateInput, CoreCardioSetWorkoutTimeUncheckedCreateInput>
+    /**
+     * In case the CoreCardioSetWorkoutTime was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CoreCardioSetWorkoutTimeUpdateInput, CoreCardioSetWorkoutTimeUncheckedUpdateInput>
+  }
+
+  /**
+   * CoreCardioSetWorkoutTime delete
+   */
+  export type CoreCardioSetWorkoutTimeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetWorkoutTime
+     */
+    select?: CoreCardioSetWorkoutTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetWorkoutTime
+     */
+    omit?: CoreCardioSetWorkoutTimeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetWorkoutTimeInclude<ExtArgs> | null
+    /**
+     * Filter which CoreCardioSetWorkoutTime to delete.
+     */
+    where: CoreCardioSetWorkoutTimeWhereUniqueInput
+  }
+
+  /**
+   * CoreCardioSetWorkoutTime deleteMany
+   */
+  export type CoreCardioSetWorkoutTimeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CoreCardioSetWorkoutTimes to delete
+     */
+    where?: CoreCardioSetWorkoutTimeWhereInput
+    /**
+     * Limit how many CoreCardioSetWorkoutTimes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CoreCardioSetWorkoutTime without action
+   */
+  export type CoreCardioSetWorkoutTimeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreCardioSetWorkoutTime
+     */
+    select?: CoreCardioSetWorkoutTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreCardioSetWorkoutTime
+     */
+    omit?: CoreCardioSetWorkoutTimeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreCardioSetWorkoutTimeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserCardioSet
+   */
+
+  export type AggregateUserCardioSet = {
+    _count: UserCardioSetCountAggregateOutputType | null
+    _avg: UserCardioSetAvgAggregateOutputType | null
+    _sum: UserCardioSetSumAggregateOutputType | null
+    _min: UserCardioSetMinAggregateOutputType | null
+    _max: UserCardioSetMaxAggregateOutputType | null
+  }
+
+  export type UserCardioSetAvgAggregateOutputType = {
+    warmupTime: number | null
+    workTime: number | null
+    avgHeartRate: number | null
+    avgSpeed: number | null
+    distance: number | null
+    order: number | null
+    calorieTarget: number | null
+  }
+
+  export type UserCardioSetSumAggregateOutputType = {
+    warmupTime: number | null
+    workTime: number | null
+    avgHeartRate: number | null
+    avgSpeed: number | null
+    distance: number | null
+    order: number | null
+    calorieTarget: number | null
+  }
+
+  export type UserCardioSetMinAggregateOutputType = {
+    id: string | null
+    warmupTime: number | null
+    workTime: number | null
+    avgHeartRate: number | null
+    avgSpeed: number | null
+    distance: number | null
+    order: number | null
+    isCompleted: boolean | null
+    calorieTarget: number | null
+    userWorkoutExerciseId: string | null
+    skippedReason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserCardioSetMaxAggregateOutputType = {
+    id: string | null
+    warmupTime: number | null
+    workTime: number | null
+    avgHeartRate: number | null
+    avgSpeed: number | null
+    distance: number | null
+    order: number | null
+    isCompleted: boolean | null
+    calorieTarget: number | null
+    userWorkoutExerciseId: string | null
+    skippedReason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserCardioSetCountAggregateOutputType = {
+    id: number
+    warmupTime: number
+    workTime: number
+    avgHeartRate: number
+    avgSpeed: number
+    distance: number
     order: number
     isCompleted: number
-    isWarmup: number
-    isMuscleFailure: number
-    isJointPain: number
-    userId: number
+    calorieTarget: number
     userWorkoutExerciseId: number
+    skippedReason: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
 
-  export type UserSetAvgAggregateInputType = {
-    reps?: true
-    weight?: true
-    restTime?: true
+  export type UserCardioSetAvgAggregateInputType = {
+    warmupTime?: true
+    workTime?: true
+    avgHeartRate?: true
+    avgSpeed?: true
+    distance?: true
     order?: true
+    calorieTarget?: true
   }
 
-  export type UserSetSumAggregateInputType = {
-    reps?: true
-    weight?: true
-    restTime?: true
+  export type UserCardioSetSumAggregateInputType = {
+    warmupTime?: true
+    workTime?: true
+    avgHeartRate?: true
+    avgSpeed?: true
+    distance?: true
     order?: true
+    calorieTarget?: true
   }
 
-  export type UserSetMinAggregateInputType = {
+  export type UserCardioSetMinAggregateInputType = {
     id?: true
-    reps?: true
-    weight?: true
-    isBodyWeight?: true
-    restTime?: true
+    warmupTime?: true
+    workTime?: true
+    avgHeartRate?: true
+    avgSpeed?: true
+    distance?: true
     order?: true
     isCompleted?: true
-    isWarmup?: true
-    isMuscleFailure?: true
-    isJointPain?: true
-    userId?: true
+    calorieTarget?: true
     userWorkoutExerciseId?: true
+    skippedReason?: true
     createdAt?: true
     updatedAt?: true
   }
 
-  export type UserSetMaxAggregateInputType = {
+  export type UserCardioSetMaxAggregateInputType = {
     id?: true
-    reps?: true
-    weight?: true
-    isBodyWeight?: true
-    restTime?: true
+    warmupTime?: true
+    workTime?: true
+    avgHeartRate?: true
+    avgSpeed?: true
+    distance?: true
     order?: true
     isCompleted?: true
-    isWarmup?: true
-    isMuscleFailure?: true
-    isJointPain?: true
-    userId?: true
+    calorieTarget?: true
     userWorkoutExerciseId?: true
+    skippedReason?: true
     createdAt?: true
     updatedAt?: true
   }
 
-  export type UserSetCountAggregateInputType = {
+  export type UserCardioSetCountAggregateInputType = {
     id?: true
-    reps?: true
-    weight?: true
-    isBodyWeight?: true
-    restTime?: true
+    warmupTime?: true
+    workTime?: true
+    avgHeartRate?: true
+    avgSpeed?: true
+    distance?: true
     order?: true
     isCompleted?: true
-    isWarmup?: true
-    isMuscleFailure?: true
-    isJointPain?: true
-    userId?: true
+    calorieTarget?: true
     userWorkoutExerciseId?: true
+    skippedReason?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
   }
 
-  export type UserSetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCardioSetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which UserSet to aggregate.
+     * Filter which UserCardioSet to aggregate.
      */
-    where?: UserSetWhereInput
+    where?: UserCardioSetWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UserSets to fetch.
+     * Determine the order of UserCardioSets to fetch.
      */
-    orderBy?: UserSetOrderByWithRelationInput | UserSetOrderByWithRelationInput[]
+    orderBy?: UserCardioSetOrderByWithRelationInput | UserCardioSetOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: UserSetWhereUniqueInput
+    cursor?: UserCardioSetWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UserSets from the position of the cursor.
+     * Take `±n` UserCardioSets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UserSets.
+     * Skip the first `n` UserCardioSets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned UserSets
+     * Count returned UserCardioSets
     **/
-    _count?: true | UserSetCountAggregateInputType
+    _count?: true | UserCardioSetCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: UserSetAvgAggregateInputType
+    _avg?: UserCardioSetAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: UserSetSumAggregateInputType
+    _sum?: UserCardioSetSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: UserSetMinAggregateInputType
+    _min?: UserCardioSetMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: UserSetMaxAggregateInputType
+    _max?: UserCardioSetMaxAggregateInputType
   }
 
-  export type GetUserSetAggregateType<T extends UserSetAggregateArgs> = {
-        [P in keyof T & keyof AggregateUserSet]: P extends '_count' | 'count'
+  export type GetUserCardioSetAggregateType<T extends UserCardioSetAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserCardioSet]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateUserSet[P]>
-      : GetScalarType<T[P], AggregateUserSet[P]>
+        : GetScalarType<T[P], AggregateUserCardioSet[P]>
+      : GetScalarType<T[P], AggregateUserCardioSet[P]>
   }
 
 
 
 
-  export type UserSetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserSetWhereInput
-    orderBy?: UserSetOrderByWithAggregationInput | UserSetOrderByWithAggregationInput[]
-    by: UserSetScalarFieldEnum[] | UserSetScalarFieldEnum
-    having?: UserSetScalarWhereWithAggregatesInput
+  export type UserCardioSetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserCardioSetWhereInput
+    orderBy?: UserCardioSetOrderByWithAggregationInput | UserCardioSetOrderByWithAggregationInput[]
+    by: UserCardioSetScalarFieldEnum[] | UserCardioSetScalarFieldEnum
+    having?: UserCardioSetScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: UserSetCountAggregateInputType | true
-    _avg?: UserSetAvgAggregateInputType
-    _sum?: UserSetSumAggregateInputType
-    _min?: UserSetMinAggregateInputType
-    _max?: UserSetMaxAggregateInputType
+    _count?: UserCardioSetCountAggregateInputType | true
+    _avg?: UserCardioSetAvgAggregateInputType
+    _sum?: UserCardioSetSumAggregateInputType
+    _min?: UserCardioSetMinAggregateInputType
+    _max?: UserCardioSetMaxAggregateInputType
   }
 
-  export type UserSetGroupByOutputType = {
+  export type UserCardioSetGroupByOutputType = {
     id: string
-    reps: number
-    weight: number | null
-    isBodyWeight: boolean
-    restTime: number
+    warmupTime: number | null
+    workTime: number | null
+    avgHeartRate: number | null
+    avgSpeed: number | null
+    distance: number | null
     order: number
     isCompleted: boolean
-    isWarmup: boolean
-    isMuscleFailure: boolean
-    isJointPain: boolean
-    userId: string
+    calorieTarget: number | null
     userWorkoutExerciseId: string
+    skippedReason: string | null
     createdAt: Date
     updatedAt: Date
-    _count: UserSetCountAggregateOutputType | null
-    _avg: UserSetAvgAggregateOutputType | null
-    _sum: UserSetSumAggregateOutputType | null
-    _min: UserSetMinAggregateOutputType | null
-    _max: UserSetMaxAggregateOutputType | null
+    _count: UserCardioSetCountAggregateOutputType | null
+    _avg: UserCardioSetAvgAggregateOutputType | null
+    _sum: UserCardioSetSumAggregateOutputType | null
+    _min: UserCardioSetMinAggregateOutputType | null
+    _max: UserCardioSetMaxAggregateOutputType | null
   }
 
-  type GetUserSetGroupByPayload<T extends UserSetGroupByArgs> = Prisma.PrismaPromise<
+  type GetUserCardioSetGroupByPayload<T extends UserCardioSetGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<UserSetGroupByOutputType, T['by']> &
+      PickEnumerable<UserCardioSetGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof UserSetGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof UserCardioSetGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], UserSetGroupByOutputType[P]>
-            : GetScalarType<T[P], UserSetGroupByOutputType[P]>
+              : GetScalarType<T[P], UserCardioSetGroupByOutputType[P]>
+            : GetScalarType<T[P], UserCardioSetGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type UserSetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserCardioSetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    reps?: boolean
-    weight?: boolean
-    isBodyWeight?: boolean
-    restTime?: boolean
+    warmupTime?: boolean
+    workTime?: boolean
+    avgHeartRate?: boolean
+    avgSpeed?: boolean
+    distance?: boolean
     order?: boolean
     isCompleted?: boolean
-    isWarmup?: boolean
-    isMuscleFailure?: boolean
-    isJointPain?: boolean
-    userId?: boolean
+    calorieTarget?: boolean
     userWorkoutExerciseId?: boolean
+    skippedReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     userWorkoutExercise?: boolean | UserWorkoutExerciseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["userSet"]>
+  }, ExtArgs["result"]["userCardioSet"]>
 
-  export type UserSetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserCardioSetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    reps?: boolean
-    weight?: boolean
-    isBodyWeight?: boolean
-    restTime?: boolean
+    warmupTime?: boolean
+    workTime?: boolean
+    avgHeartRate?: boolean
+    avgSpeed?: boolean
+    distance?: boolean
     order?: boolean
     isCompleted?: boolean
-    isWarmup?: boolean
-    isMuscleFailure?: boolean
-    isJointPain?: boolean
-    userId?: boolean
+    calorieTarget?: boolean
     userWorkoutExerciseId?: boolean
+    skippedReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     userWorkoutExercise?: boolean | UserWorkoutExerciseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["userSet"]>
+  }, ExtArgs["result"]["userCardioSet"]>
 
-  export type UserSetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserCardioSetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    reps?: boolean
-    weight?: boolean
-    isBodyWeight?: boolean
-    restTime?: boolean
+    warmupTime?: boolean
+    workTime?: boolean
+    avgHeartRate?: boolean
+    avgSpeed?: boolean
+    distance?: boolean
     order?: boolean
     isCompleted?: boolean
-    isWarmup?: boolean
-    isMuscleFailure?: boolean
-    isJointPain?: boolean
-    userId?: boolean
+    calorieTarget?: boolean
     userWorkoutExerciseId?: boolean
+    skippedReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     userWorkoutExercise?: boolean | UserWorkoutExerciseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["userSet"]>
+  }, ExtArgs["result"]["userCardioSet"]>
 
-  export type UserSetSelectScalar = {
+  export type UserCardioSetSelectScalar = {
     id?: boolean
-    reps?: boolean
-    weight?: boolean
-    isBodyWeight?: boolean
-    restTime?: boolean
+    warmupTime?: boolean
+    workTime?: boolean
+    avgHeartRate?: boolean
+    avgSpeed?: boolean
+    distance?: boolean
     order?: boolean
     isCompleted?: boolean
-    isWarmup?: boolean
-    isMuscleFailure?: boolean
-    isJointPain?: boolean
-    userId?: boolean
+    calorieTarget?: boolean
     userWorkoutExerciseId?: boolean
+    skippedReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "reps" | "weight" | "isBodyWeight" | "restTime" | "order" | "isCompleted" | "isWarmup" | "isMuscleFailure" | "isJointPain" | "userId" | "userWorkoutExerciseId" | "createdAt" | "updatedAt", ExtArgs["result"]["userSet"]>
-  export type UserSetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+  export type UserCardioSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "warmupTime" | "workTime" | "avgHeartRate" | "avgSpeed" | "distance" | "order" | "isCompleted" | "calorieTarget" | "userWorkoutExerciseId" | "skippedReason" | "createdAt" | "updatedAt", ExtArgs["result"]["userCardioSet"]>
+  export type UserCardioSetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     userWorkoutExercise?: boolean | UserWorkoutExerciseDefaultArgs<ExtArgs>
   }
-  export type UserSetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+  export type UserCardioSetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     userWorkoutExercise?: boolean | UserWorkoutExerciseDefaultArgs<ExtArgs>
   }
-  export type UserSetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+  export type UserCardioSetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     userWorkoutExercise?: boolean | UserWorkoutExerciseDefaultArgs<ExtArgs>
   }
 
-  export type $UserSetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "UserSet"
+  export type $UserCardioSetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserCardioSet"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       userWorkoutExercise: Prisma.$UserWorkoutExercisePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      reps: number
-      weight: number | null
-      isBodyWeight: boolean
-      restTime: number
+      warmupTime: number | null
+      workTime: number | null
+      avgHeartRate: number | null
+      avgSpeed: number | null
+      distance: number | null
       order: number
       isCompleted: boolean
-      isWarmup: boolean
-      isMuscleFailure: boolean
-      isJointPain: boolean
-      userId: string
+      calorieTarget: number | null
       userWorkoutExerciseId: string
+      skippedReason: string | null
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["userSet"]>
+    }, ExtArgs["result"]["userCardioSet"]>
     composites: {}
   }
 
-  type UserSetGetPayload<S extends boolean | null | undefined | UserSetDefaultArgs> = $Result.GetResult<Prisma.$UserSetPayload, S>
+  type UserCardioSetGetPayload<S extends boolean | null | undefined | UserCardioSetDefaultArgs> = $Result.GetResult<Prisma.$UserCardioSetPayload, S>
 
-  type UserSetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserSetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: UserSetCountAggregateInputType | true
+  type UserCardioSetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserCardioSetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserCardioSetCountAggregateInputType | true
     }
 
-  export interface UserSetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserSet'], meta: { name: 'UserSet' } }
+  export interface UserCardioSetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserCardioSet'], meta: { name: 'UserCardioSet' } }
     /**
-     * Find zero or one UserSet that matches the filter.
-     * @param {UserSetFindUniqueArgs} args - Arguments to find a UserSet
+     * Find zero or one UserCardioSet that matches the filter.
+     * @param {UserCardioSetFindUniqueArgs} args - Arguments to find a UserCardioSet
      * @example
-     * // Get one UserSet
-     * const userSet = await prisma.userSet.findUnique({
+     * // Get one UserCardioSet
+     * const userCardioSet = await prisma.userCardioSet.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends UserSetFindUniqueArgs>(args: SelectSubset<T, UserSetFindUniqueArgs<ExtArgs>>): Prisma__UserSetClient<$Result.GetResult<Prisma.$UserSetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends UserCardioSetFindUniqueArgs>(args: SelectSubset<T, UserCardioSetFindUniqueArgs<ExtArgs>>): Prisma__UserCardioSetClient<$Result.GetResult<Prisma.$UserCardioSetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one UserSet that matches the filter or throw an error with `error.code='P2025'`
+     * Find one UserCardioSet that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {UserSetFindUniqueOrThrowArgs} args - Arguments to find a UserSet
+     * @param {UserCardioSetFindUniqueOrThrowArgs} args - Arguments to find a UserCardioSet
      * @example
-     * // Get one UserSet
-     * const userSet = await prisma.userSet.findUniqueOrThrow({
+     * // Get one UserCardioSet
+     * const userCardioSet = await prisma.userCardioSet.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends UserSetFindUniqueOrThrowArgs>(args: SelectSubset<T, UserSetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserSetClient<$Result.GetResult<Prisma.$UserSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends UserCardioSetFindUniqueOrThrowArgs>(args: SelectSubset<T, UserCardioSetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserCardioSetClient<$Result.GetResult<Prisma.$UserCardioSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first UserSet that matches the filter.
+     * Find the first UserCardioSet that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserSetFindFirstArgs} args - Arguments to find a UserSet
+     * @param {UserCardioSetFindFirstArgs} args - Arguments to find a UserCardioSet
      * @example
-     * // Get one UserSet
-     * const userSet = await prisma.userSet.findFirst({
+     * // Get one UserCardioSet
+     * const userCardioSet = await prisma.userCardioSet.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends UserSetFindFirstArgs>(args?: SelectSubset<T, UserSetFindFirstArgs<ExtArgs>>): Prisma__UserSetClient<$Result.GetResult<Prisma.$UserSetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends UserCardioSetFindFirstArgs>(args?: SelectSubset<T, UserCardioSetFindFirstArgs<ExtArgs>>): Prisma__UserCardioSetClient<$Result.GetResult<Prisma.$UserCardioSetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first UserSet that matches the filter or
+     * Find the first UserCardioSet that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserSetFindFirstOrThrowArgs} args - Arguments to find a UserSet
+     * @param {UserCardioSetFindFirstOrThrowArgs} args - Arguments to find a UserCardioSet
      * @example
-     * // Get one UserSet
-     * const userSet = await prisma.userSet.findFirstOrThrow({
+     * // Get one UserCardioSet
+     * const userCardioSet = await prisma.userCardioSet.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends UserSetFindFirstOrThrowArgs>(args?: SelectSubset<T, UserSetFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserSetClient<$Result.GetResult<Prisma.$UserSetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends UserCardioSetFindFirstOrThrowArgs>(args?: SelectSubset<T, UserCardioSetFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserCardioSetClient<$Result.GetResult<Prisma.$UserCardioSetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more UserSets that matches the filter.
+     * Find zero or more UserCardioSets that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserSetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {UserCardioSetFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all UserSets
-     * const userSets = await prisma.userSet.findMany()
+     * // Get all UserCardioSets
+     * const userCardioSets = await prisma.userCardioSet.findMany()
      * 
-     * // Get first 10 UserSets
-     * const userSets = await prisma.userSet.findMany({ take: 10 })
+     * // Get first 10 UserCardioSets
+     * const userCardioSets = await prisma.userCardioSet.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const userSetWithIdOnly = await prisma.userSet.findMany({ select: { id: true } })
+     * const userCardioSetWithIdOnly = await prisma.userCardioSet.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends UserSetFindManyArgs>(args?: SelectSubset<T, UserSetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends UserCardioSetFindManyArgs>(args?: SelectSubset<T, UserCardioSetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserCardioSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a UserSet.
-     * @param {UserSetCreateArgs} args - Arguments to create a UserSet.
+     * Create a UserCardioSet.
+     * @param {UserCardioSetCreateArgs} args - Arguments to create a UserCardioSet.
      * @example
-     * // Create one UserSet
-     * const UserSet = await prisma.userSet.create({
+     * // Create one UserCardioSet
+     * const UserCardioSet = await prisma.userCardioSet.create({
      *   data: {
-     *     // ... data to create a UserSet
+     *     // ... data to create a UserCardioSet
      *   }
      * })
      * 
      */
-    create<T extends UserSetCreateArgs>(args: SelectSubset<T, UserSetCreateArgs<ExtArgs>>): Prisma__UserSetClient<$Result.GetResult<Prisma.$UserSetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends UserCardioSetCreateArgs>(args: SelectSubset<T, UserCardioSetCreateArgs<ExtArgs>>): Prisma__UserCardioSetClient<$Result.GetResult<Prisma.$UserCardioSetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many UserSets.
-     * @param {UserSetCreateManyArgs} args - Arguments to create many UserSets.
+     * Create many UserCardioSets.
+     * @param {UserCardioSetCreateManyArgs} args - Arguments to create many UserCardioSets.
      * @example
-     * // Create many UserSets
-     * const userSet = await prisma.userSet.createMany({
+     * // Create many UserCardioSets
+     * const userCardioSet = await prisma.userCardioSet.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends UserSetCreateManyArgs>(args?: SelectSubset<T, UserSetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends UserCardioSetCreateManyArgs>(args?: SelectSubset<T, UserCardioSetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many UserSets and returns the data saved in the database.
-     * @param {UserSetCreateManyAndReturnArgs} args - Arguments to create many UserSets.
+     * Create many UserCardioSets and returns the data saved in the database.
+     * @param {UserCardioSetCreateManyAndReturnArgs} args - Arguments to create many UserCardioSets.
      * @example
-     * // Create many UserSets
-     * const userSet = await prisma.userSet.createManyAndReturn({
+     * // Create many UserCardioSets
+     * const userCardioSet = await prisma.userCardioSet.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many UserSets and only return the `id`
-     * const userSetWithIdOnly = await prisma.userSet.createManyAndReturn({
+     * // Create many UserCardioSets and only return the `id`
+     * const userCardioSetWithIdOnly = await prisma.userCardioSet.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -9878,28 +11355,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends UserSetCreateManyAndReturnArgs>(args?: SelectSubset<T, UserSetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserSetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends UserCardioSetCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCardioSetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserCardioSetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a UserSet.
-     * @param {UserSetDeleteArgs} args - Arguments to delete one UserSet.
+     * Delete a UserCardioSet.
+     * @param {UserCardioSetDeleteArgs} args - Arguments to delete one UserCardioSet.
      * @example
-     * // Delete one UserSet
-     * const UserSet = await prisma.userSet.delete({
+     * // Delete one UserCardioSet
+     * const UserCardioSet = await prisma.userCardioSet.delete({
      *   where: {
-     *     // ... filter to delete one UserSet
+     *     // ... filter to delete one UserCardioSet
      *   }
      * })
      * 
      */
-    delete<T extends UserSetDeleteArgs>(args: SelectSubset<T, UserSetDeleteArgs<ExtArgs>>): Prisma__UserSetClient<$Result.GetResult<Prisma.$UserSetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends UserCardioSetDeleteArgs>(args: SelectSubset<T, UserCardioSetDeleteArgs<ExtArgs>>): Prisma__UserCardioSetClient<$Result.GetResult<Prisma.$UserCardioSetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one UserSet.
-     * @param {UserSetUpdateArgs} args - Arguments to update one UserSet.
+     * Update one UserCardioSet.
+     * @param {UserCardioSetUpdateArgs} args - Arguments to update one UserCardioSet.
      * @example
-     * // Update one UserSet
-     * const userSet = await prisma.userSet.update({
+     * // Update one UserCardioSet
+     * const userCardioSet = await prisma.userCardioSet.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -9909,30 +11386,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends UserSetUpdateArgs>(args: SelectSubset<T, UserSetUpdateArgs<ExtArgs>>): Prisma__UserSetClient<$Result.GetResult<Prisma.$UserSetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends UserCardioSetUpdateArgs>(args: SelectSubset<T, UserCardioSetUpdateArgs<ExtArgs>>): Prisma__UserCardioSetClient<$Result.GetResult<Prisma.$UserCardioSetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more UserSets.
-     * @param {UserSetDeleteManyArgs} args - Arguments to filter UserSets to delete.
+     * Delete zero or more UserCardioSets.
+     * @param {UserCardioSetDeleteManyArgs} args - Arguments to filter UserCardioSets to delete.
      * @example
-     * // Delete a few UserSets
-     * const { count } = await prisma.userSet.deleteMany({
+     * // Delete a few UserCardioSets
+     * const { count } = await prisma.userCardioSet.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends UserSetDeleteManyArgs>(args?: SelectSubset<T, UserSetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends UserCardioSetDeleteManyArgs>(args?: SelectSubset<T, UserCardioSetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more UserSets.
+     * Update zero or more UserCardioSets.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserSetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {UserCardioSetUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many UserSets
-     * const userSet = await prisma.userSet.updateMany({
+     * // Update many UserCardioSets
+     * const userCardioSet = await prisma.userCardioSet.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -9942,14 +11419,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends UserSetUpdateManyArgs>(args: SelectSubset<T, UserSetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends UserCardioSetUpdateManyArgs>(args: SelectSubset<T, UserCardioSetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more UserSets and returns the data updated in the database.
-     * @param {UserSetUpdateManyAndReturnArgs} args - Arguments to update many UserSets.
+     * Update zero or more UserCardioSets and returns the data updated in the database.
+     * @param {UserCardioSetUpdateManyAndReturnArgs} args - Arguments to update many UserCardioSets.
      * @example
-     * // Update many UserSets
-     * const userSet = await prisma.userSet.updateManyAndReturn({
+     * // Update many UserCardioSets
+     * const userCardioSet = await prisma.userCardioSet.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -9958,8 +11435,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more UserSets and only return the `id`
-     * const userSetWithIdOnly = await prisma.userSet.updateManyAndReturn({
+     * // Update zero or more UserCardioSets and only return the `id`
+     * const userCardioSetWithIdOnly = await prisma.userCardioSet.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -9972,56 +11449,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends UserSetUpdateManyAndReturnArgs>(args: SelectSubset<T, UserSetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserSetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends UserCardioSetUpdateManyAndReturnArgs>(args: SelectSubset<T, UserCardioSetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserCardioSetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one UserSet.
-     * @param {UserSetUpsertArgs} args - Arguments to update or create a UserSet.
+     * Create or update one UserCardioSet.
+     * @param {UserCardioSetUpsertArgs} args - Arguments to update or create a UserCardioSet.
      * @example
-     * // Update or create a UserSet
-     * const userSet = await prisma.userSet.upsert({
+     * // Update or create a UserCardioSet
+     * const userCardioSet = await prisma.userCardioSet.upsert({
      *   create: {
-     *     // ... data to create a UserSet
+     *     // ... data to create a UserCardioSet
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the UserSet we want to update
+     *     // ... the filter for the UserCardioSet we want to update
      *   }
      * })
      */
-    upsert<T extends UserSetUpsertArgs>(args: SelectSubset<T, UserSetUpsertArgs<ExtArgs>>): Prisma__UserSetClient<$Result.GetResult<Prisma.$UserSetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends UserCardioSetUpsertArgs>(args: SelectSubset<T, UserCardioSetUpsertArgs<ExtArgs>>): Prisma__UserCardioSetClient<$Result.GetResult<Prisma.$UserCardioSetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of UserSets.
+     * Count the number of UserCardioSets.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserSetCountArgs} args - Arguments to filter UserSets to count.
+     * @param {UserCardioSetCountArgs} args - Arguments to filter UserCardioSets to count.
      * @example
-     * // Count the number of UserSets
-     * const count = await prisma.userSet.count({
+     * // Count the number of UserCardioSets
+     * const count = await prisma.userCardioSet.count({
      *   where: {
-     *     // ... the filter for the UserSets we want to count
+     *     // ... the filter for the UserCardioSets we want to count
      *   }
      * })
     **/
-    count<T extends UserSetCountArgs>(
-      args?: Subset<T, UserSetCountArgs>,
+    count<T extends UserCardioSetCountArgs>(
+      args?: Subset<T, UserCardioSetCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], UserSetCountAggregateOutputType>
+          : GetScalarType<T['select'], UserCardioSetCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a UserSet.
+     * Allows you to perform aggregations operations on a UserCardioSet.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserSetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {UserCardioSetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -10041,13 +11518,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends UserSetAggregateArgs>(args: Subset<T, UserSetAggregateArgs>): Prisma.PrismaPromise<GetUserSetAggregateType<T>>
+    aggregate<T extends UserCardioSetAggregateArgs>(args: Subset<T, UserCardioSetAggregateArgs>): Prisma.PrismaPromise<GetUserCardioSetAggregateType<T>>
 
     /**
-     * Group by UserSet.
+     * Group by UserCardioSet.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserSetGroupByArgs} args - Group by arguments.
+     * @param {UserCardioSetGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -10062,14 +11539,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends UserSetGroupByArgs,
+      T extends UserCardioSetGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: UserSetGroupByArgs['orderBy'] }
-        : { orderBy?: UserSetGroupByArgs['orderBy'] },
+        ? { orderBy: UserCardioSetGroupByArgs['orderBy'] }
+        : { orderBy?: UserCardioSetGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -10118,22 +11595,21 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, UserSetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserSetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, UserCardioSetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserCardioSetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the UserSet model
+   * Fields of the UserCardioSet model
    */
-  readonly fields: UserSetFieldRefs;
+  readonly fields: UserCardioSetFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for UserSet.
+   * The delegate class that acts as a "Promise-like" for UserCardioSet.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__UserSetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__UserCardioSetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     userWorkoutExercise<T extends UserWorkoutExerciseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserWorkoutExerciseDefaultArgs<ExtArgs>>): Prisma__UserWorkoutExerciseClient<$Result.GetResult<Prisma.$UserWorkoutExercisePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -10161,434 +11637,5028 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the UserSet model
+   * Fields of the UserCardioSet model
    */
-  interface UserSetFieldRefs {
-    readonly id: FieldRef<"UserSet", 'String'>
-    readonly reps: FieldRef<"UserSet", 'Int'>
-    readonly weight: FieldRef<"UserSet", 'Float'>
-    readonly isBodyWeight: FieldRef<"UserSet", 'Boolean'>
-    readonly restTime: FieldRef<"UserSet", 'Int'>
-    readonly order: FieldRef<"UserSet", 'Int'>
-    readonly isCompleted: FieldRef<"UserSet", 'Boolean'>
-    readonly isWarmup: FieldRef<"UserSet", 'Boolean'>
-    readonly isMuscleFailure: FieldRef<"UserSet", 'Boolean'>
-    readonly isJointPain: FieldRef<"UserSet", 'Boolean'>
-    readonly userId: FieldRef<"UserSet", 'String'>
-    readonly userWorkoutExerciseId: FieldRef<"UserSet", 'String'>
-    readonly createdAt: FieldRef<"UserSet", 'DateTime'>
-    readonly updatedAt: FieldRef<"UserSet", 'DateTime'>
+  interface UserCardioSetFieldRefs {
+    readonly id: FieldRef<"UserCardioSet", 'String'>
+    readonly warmupTime: FieldRef<"UserCardioSet", 'Int'>
+    readonly workTime: FieldRef<"UserCardioSet", 'Int'>
+    readonly avgHeartRate: FieldRef<"UserCardioSet", 'Int'>
+    readonly avgSpeed: FieldRef<"UserCardioSet", 'Float'>
+    readonly distance: FieldRef<"UserCardioSet", 'Float'>
+    readonly order: FieldRef<"UserCardioSet", 'Int'>
+    readonly isCompleted: FieldRef<"UserCardioSet", 'Boolean'>
+    readonly calorieTarget: FieldRef<"UserCardioSet", 'Int'>
+    readonly userWorkoutExerciseId: FieldRef<"UserCardioSet", 'String'>
+    readonly skippedReason: FieldRef<"UserCardioSet", 'String'>
+    readonly createdAt: FieldRef<"UserCardioSet", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserCardioSet", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * UserSet findUnique
+   * UserCardioSet findUnique
    */
-  export type UserSetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCardioSetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserSet
+     * Select specific fields to fetch from the UserCardioSet
      */
-    select?: UserSetSelect<ExtArgs> | null
+    select?: UserCardioSetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserSet
+     * Omit specific fields from the UserCardioSet
      */
-    omit?: UserSetOmit<ExtArgs> | null
+    omit?: UserCardioSetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserSetInclude<ExtArgs> | null
+    include?: UserCardioSetInclude<ExtArgs> | null
     /**
-     * Filter, which UserSet to fetch.
+     * Filter, which UserCardioSet to fetch.
      */
-    where: UserSetWhereUniqueInput
+    where: UserCardioSetWhereUniqueInput
   }
 
   /**
-   * UserSet findUniqueOrThrow
+   * UserCardioSet findUniqueOrThrow
    */
-  export type UserSetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCardioSetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserSet
+     * Select specific fields to fetch from the UserCardioSet
      */
-    select?: UserSetSelect<ExtArgs> | null
+    select?: UserCardioSetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserSet
+     * Omit specific fields from the UserCardioSet
      */
-    omit?: UserSetOmit<ExtArgs> | null
+    omit?: UserCardioSetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserSetInclude<ExtArgs> | null
+    include?: UserCardioSetInclude<ExtArgs> | null
     /**
-     * Filter, which UserSet to fetch.
+     * Filter, which UserCardioSet to fetch.
      */
-    where: UserSetWhereUniqueInput
+    where: UserCardioSetWhereUniqueInput
   }
 
   /**
-   * UserSet findFirst
+   * UserCardioSet findFirst
    */
-  export type UserSetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCardioSetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserSet
+     * Select specific fields to fetch from the UserCardioSet
      */
-    select?: UserSetSelect<ExtArgs> | null
+    select?: UserCardioSetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserSet
+     * Omit specific fields from the UserCardioSet
      */
-    omit?: UserSetOmit<ExtArgs> | null
+    omit?: UserCardioSetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserSetInclude<ExtArgs> | null
+    include?: UserCardioSetInclude<ExtArgs> | null
     /**
-     * Filter, which UserSet to fetch.
+     * Filter, which UserCardioSet to fetch.
      */
-    where?: UserSetWhereInput
+    where?: UserCardioSetWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UserSets to fetch.
+     * Determine the order of UserCardioSets to fetch.
      */
-    orderBy?: UserSetOrderByWithRelationInput | UserSetOrderByWithRelationInput[]
+    orderBy?: UserCardioSetOrderByWithRelationInput | UserCardioSetOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for UserSets.
+     * Sets the position for searching for UserCardioSets.
      */
-    cursor?: UserSetWhereUniqueInput
+    cursor?: UserCardioSetWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UserSets from the position of the cursor.
+     * Take `±n` UserCardioSets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UserSets.
+     * Skip the first `n` UserCardioSets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of UserSets.
+     * Filter by unique combinations of UserCardioSets.
      */
-    distinct?: UserSetScalarFieldEnum | UserSetScalarFieldEnum[]
+    distinct?: UserCardioSetScalarFieldEnum | UserCardioSetScalarFieldEnum[]
   }
 
   /**
-   * UserSet findFirstOrThrow
+   * UserCardioSet findFirstOrThrow
    */
-  export type UserSetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCardioSetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserSet
+     * Select specific fields to fetch from the UserCardioSet
      */
-    select?: UserSetSelect<ExtArgs> | null
+    select?: UserCardioSetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserSet
+     * Omit specific fields from the UserCardioSet
      */
-    omit?: UserSetOmit<ExtArgs> | null
+    omit?: UserCardioSetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserSetInclude<ExtArgs> | null
+    include?: UserCardioSetInclude<ExtArgs> | null
     /**
-     * Filter, which UserSet to fetch.
+     * Filter, which UserCardioSet to fetch.
      */
-    where?: UserSetWhereInput
+    where?: UserCardioSetWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UserSets to fetch.
+     * Determine the order of UserCardioSets to fetch.
      */
-    orderBy?: UserSetOrderByWithRelationInput | UserSetOrderByWithRelationInput[]
+    orderBy?: UserCardioSetOrderByWithRelationInput | UserCardioSetOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for UserSets.
+     * Sets the position for searching for UserCardioSets.
      */
-    cursor?: UserSetWhereUniqueInput
+    cursor?: UserCardioSetWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UserSets from the position of the cursor.
+     * Take `±n` UserCardioSets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UserSets.
+     * Skip the first `n` UserCardioSets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of UserSets.
+     * Filter by unique combinations of UserCardioSets.
      */
-    distinct?: UserSetScalarFieldEnum | UserSetScalarFieldEnum[]
+    distinct?: UserCardioSetScalarFieldEnum | UserCardioSetScalarFieldEnum[]
   }
 
   /**
-   * UserSet findMany
+   * UserCardioSet findMany
    */
-  export type UserSetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCardioSetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserSet
+     * Select specific fields to fetch from the UserCardioSet
      */
-    select?: UserSetSelect<ExtArgs> | null
+    select?: UserCardioSetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserSet
+     * Omit specific fields from the UserCardioSet
      */
-    omit?: UserSetOmit<ExtArgs> | null
+    omit?: UserCardioSetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserSetInclude<ExtArgs> | null
+    include?: UserCardioSetInclude<ExtArgs> | null
     /**
-     * Filter, which UserSets to fetch.
+     * Filter, which UserCardioSets to fetch.
      */
-    where?: UserSetWhereInput
+    where?: UserCardioSetWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UserSets to fetch.
+     * Determine the order of UserCardioSets to fetch.
      */
-    orderBy?: UserSetOrderByWithRelationInput | UserSetOrderByWithRelationInput[]
+    orderBy?: UserCardioSetOrderByWithRelationInput | UserCardioSetOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing UserSets.
+     * Sets the position for listing UserCardioSets.
      */
-    cursor?: UserSetWhereUniqueInput
+    cursor?: UserCardioSetWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UserSets from the position of the cursor.
+     * Take `±n` UserCardioSets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UserSets.
+     * Skip the first `n` UserCardioSets.
      */
     skip?: number
-    distinct?: UserSetScalarFieldEnum | UserSetScalarFieldEnum[]
+    distinct?: UserCardioSetScalarFieldEnum | UserCardioSetScalarFieldEnum[]
   }
 
   /**
-   * UserSet create
+   * UserCardioSet create
    */
-  export type UserSetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCardioSetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserSet
+     * Select specific fields to fetch from the UserCardioSet
      */
-    select?: UserSetSelect<ExtArgs> | null
+    select?: UserCardioSetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserSet
+     * Omit specific fields from the UserCardioSet
      */
-    omit?: UserSetOmit<ExtArgs> | null
+    omit?: UserCardioSetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserSetInclude<ExtArgs> | null
+    include?: UserCardioSetInclude<ExtArgs> | null
     /**
-     * The data needed to create a UserSet.
+     * The data needed to create a UserCardioSet.
      */
-    data: XOR<UserSetCreateInput, UserSetUncheckedCreateInput>
+    data: XOR<UserCardioSetCreateInput, UserCardioSetUncheckedCreateInput>
   }
 
   /**
-   * UserSet createMany
+   * UserCardioSet createMany
    */
-  export type UserSetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCardioSetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many UserSets.
+     * The data used to create many UserCardioSets.
      */
-    data: UserSetCreateManyInput | UserSetCreateManyInput[]
+    data: UserCardioSetCreateManyInput | UserCardioSetCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * UserSet createManyAndReturn
+   * UserCardioSet createManyAndReturn
    */
-  export type UserSetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCardioSetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserSet
+     * Select specific fields to fetch from the UserCardioSet
      */
-    select?: UserSetSelectCreateManyAndReturn<ExtArgs> | null
+    select?: UserCardioSetSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the UserSet
+     * Omit specific fields from the UserCardioSet
      */
-    omit?: UserSetOmit<ExtArgs> | null
+    omit?: UserCardioSetOmit<ExtArgs> | null
     /**
-     * The data used to create many UserSets.
+     * The data used to create many UserCardioSets.
      */
-    data: UserSetCreateManyInput | UserSetCreateManyInput[]
+    data: UserCardioSetCreateManyInput | UserCardioSetCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserSetIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: UserCardioSetIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * UserSet update
+   * UserCardioSet update
    */
-  export type UserSetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCardioSetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserSet
+     * Select specific fields to fetch from the UserCardioSet
      */
-    select?: UserSetSelect<ExtArgs> | null
+    select?: UserCardioSetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserSet
+     * Omit specific fields from the UserCardioSet
      */
-    omit?: UserSetOmit<ExtArgs> | null
+    omit?: UserCardioSetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserSetInclude<ExtArgs> | null
+    include?: UserCardioSetInclude<ExtArgs> | null
     /**
-     * The data needed to update a UserSet.
+     * The data needed to update a UserCardioSet.
      */
-    data: XOR<UserSetUpdateInput, UserSetUncheckedUpdateInput>
+    data: XOR<UserCardioSetUpdateInput, UserCardioSetUncheckedUpdateInput>
     /**
-     * Choose, which UserSet to update.
+     * Choose, which UserCardioSet to update.
      */
-    where: UserSetWhereUniqueInput
+    where: UserCardioSetWhereUniqueInput
   }
 
   /**
-   * UserSet updateMany
+   * UserCardioSet updateMany
    */
-  export type UserSetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCardioSetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update UserSets.
+     * The data used to update UserCardioSets.
      */
-    data: XOR<UserSetUpdateManyMutationInput, UserSetUncheckedUpdateManyInput>
+    data: XOR<UserCardioSetUpdateManyMutationInput, UserCardioSetUncheckedUpdateManyInput>
     /**
-     * Filter which UserSets to update
+     * Filter which UserCardioSets to update
      */
-    where?: UserSetWhereInput
+    where?: UserCardioSetWhereInput
     /**
-     * Limit how many UserSets to update.
+     * Limit how many UserCardioSets to update.
      */
     limit?: number
   }
 
   /**
-   * UserSet updateManyAndReturn
+   * UserCardioSet updateManyAndReturn
    */
-  export type UserSetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCardioSetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserSet
+     * Select specific fields to fetch from the UserCardioSet
      */
-    select?: UserSetSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: UserCardioSetSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the UserSet
+     * Omit specific fields from the UserCardioSet
      */
-    omit?: UserSetOmit<ExtArgs> | null
+    omit?: UserCardioSetOmit<ExtArgs> | null
     /**
-     * The data used to update UserSets.
+     * The data used to update UserCardioSets.
      */
-    data: XOR<UserSetUpdateManyMutationInput, UserSetUncheckedUpdateManyInput>
+    data: XOR<UserCardioSetUpdateManyMutationInput, UserCardioSetUncheckedUpdateManyInput>
     /**
-     * Filter which UserSets to update
+     * Filter which UserCardioSets to update
      */
-    where?: UserSetWhereInput
+    where?: UserCardioSetWhereInput
     /**
-     * Limit how many UserSets to update.
+     * Limit how many UserCardioSets to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserSetIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: UserCardioSetIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * UserSet upsert
+   * UserCardioSet upsert
    */
-  export type UserSetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCardioSetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserSet
+     * Select specific fields to fetch from the UserCardioSet
      */
-    select?: UserSetSelect<ExtArgs> | null
+    select?: UserCardioSetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserSet
+     * Omit specific fields from the UserCardioSet
      */
-    omit?: UserSetOmit<ExtArgs> | null
+    omit?: UserCardioSetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserSetInclude<ExtArgs> | null
+    include?: UserCardioSetInclude<ExtArgs> | null
     /**
-     * The filter to search for the UserSet to update in case it exists.
+     * The filter to search for the UserCardioSet to update in case it exists.
      */
-    where: UserSetWhereUniqueInput
+    where: UserCardioSetWhereUniqueInput
     /**
-     * In case the UserSet found by the `where` argument doesn't exist, create a new UserSet with this data.
+     * In case the UserCardioSet found by the `where` argument doesn't exist, create a new UserCardioSet with this data.
      */
-    create: XOR<UserSetCreateInput, UserSetUncheckedCreateInput>
+    create: XOR<UserCardioSetCreateInput, UserCardioSetUncheckedCreateInput>
     /**
-     * In case the UserSet was found with the provided `where` argument, update it with this data.
+     * In case the UserCardioSet was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<UserSetUpdateInput, UserSetUncheckedUpdateInput>
+    update: XOR<UserCardioSetUpdateInput, UserCardioSetUncheckedUpdateInput>
   }
 
   /**
-   * UserSet delete
+   * UserCardioSet delete
    */
-  export type UserSetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCardioSetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserSet
+     * Select specific fields to fetch from the UserCardioSet
      */
-    select?: UserSetSelect<ExtArgs> | null
+    select?: UserCardioSetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserSet
+     * Omit specific fields from the UserCardioSet
      */
-    omit?: UserSetOmit<ExtArgs> | null
+    omit?: UserCardioSetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserSetInclude<ExtArgs> | null
+    include?: UserCardioSetInclude<ExtArgs> | null
     /**
-     * Filter which UserSet to delete.
+     * Filter which UserCardioSet to delete.
      */
-    where: UserSetWhereUniqueInput
+    where: UserCardioSetWhereUniqueInput
   }
 
   /**
-   * UserSet deleteMany
+   * UserCardioSet deleteMany
    */
-  export type UserSetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCardioSetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which UserSets to delete
+     * Filter which UserCardioSets to delete
      */
-    where?: UserSetWhereInput
+    where?: UserCardioSetWhereInput
     /**
-     * Limit how many UserSets to delete.
+     * Limit how many UserCardioSets to delete.
      */
     limit?: number
   }
 
   /**
-   * UserSet without action
+   * UserCardioSet without action
    */
-  export type UserSetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCardioSetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserSet
+     * Select specific fields to fetch from the UserCardioSet
      */
-    select?: UserSetSelect<ExtArgs> | null
+    select?: UserCardioSetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserSet
+     * Omit specific fields from the UserCardioSet
      */
-    omit?: UserSetOmit<ExtArgs> | null
+    omit?: UserCardioSetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserSetInclude<ExtArgs> | null
+    include?: UserCardioSetInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CoreStrengthSet
+   */
+
+  export type AggregateCoreStrengthSet = {
+    _count: CoreStrengthSetCountAggregateOutputType | null
+    _avg: CoreStrengthSetAvgAggregateOutputType | null
+    _sum: CoreStrengthSetSumAggregateOutputType | null
+    _min: CoreStrengthSetMinAggregateOutputType | null
+    _max: CoreStrengthSetMaxAggregateOutputType | null
+  }
+
+  export type CoreStrengthSetAvgAggregateOutputType = {
+    restTime: number | null
+    numberOfSets: number | null
+  }
+
+  export type CoreStrengthSetSumAggregateOutputType = {
+    restTime: number | null
+    numberOfSets: number | null
+  }
+
+  export type CoreStrengthSetMinAggregateOutputType = {
+    id: string | null
+    restTime: number | null
+    numberOfSets: number | null
+    hasWarmup: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CoreStrengthSetMaxAggregateOutputType = {
+    id: string | null
+    restTime: number | null
+    numberOfSets: number | null
+    hasWarmup: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CoreStrengthSetCountAggregateOutputType = {
+    id: number
+    restTime: number
+    numberOfSets: number
+    hasWarmup: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CoreStrengthSetAvgAggregateInputType = {
+    restTime?: true
+    numberOfSets?: true
+  }
+
+  export type CoreStrengthSetSumAggregateInputType = {
+    restTime?: true
+    numberOfSets?: true
+  }
+
+  export type CoreStrengthSetMinAggregateInputType = {
+    id?: true
+    restTime?: true
+    numberOfSets?: true
+    hasWarmup?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CoreStrengthSetMaxAggregateInputType = {
+    id?: true
+    restTime?: true
+    numberOfSets?: true
+    hasWarmup?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CoreStrengthSetCountAggregateInputType = {
+    id?: true
+    restTime?: true
+    numberOfSets?: true
+    hasWarmup?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CoreStrengthSetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CoreStrengthSet to aggregate.
+     */
+    where?: CoreStrengthSetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreStrengthSets to fetch.
+     */
+    orderBy?: CoreStrengthSetOrderByWithRelationInput | CoreStrengthSetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CoreStrengthSetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreStrengthSets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreStrengthSets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CoreStrengthSets
+    **/
+    _count?: true | CoreStrengthSetCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CoreStrengthSetAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CoreStrengthSetSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CoreStrengthSetMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CoreStrengthSetMaxAggregateInputType
+  }
+
+  export type GetCoreStrengthSetAggregateType<T extends CoreStrengthSetAggregateArgs> = {
+        [P in keyof T & keyof AggregateCoreStrengthSet]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCoreStrengthSet[P]>
+      : GetScalarType<T[P], AggregateCoreStrengthSet[P]>
+  }
+
+
+
+
+  export type CoreStrengthSetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CoreStrengthSetWhereInput
+    orderBy?: CoreStrengthSetOrderByWithAggregationInput | CoreStrengthSetOrderByWithAggregationInput[]
+    by: CoreStrengthSetScalarFieldEnum[] | CoreStrengthSetScalarFieldEnum
+    having?: CoreStrengthSetScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CoreStrengthSetCountAggregateInputType | true
+    _avg?: CoreStrengthSetAvgAggregateInputType
+    _sum?: CoreStrengthSetSumAggregateInputType
+    _min?: CoreStrengthSetMinAggregateInputType
+    _max?: CoreStrengthSetMaxAggregateInputType
+  }
+
+  export type CoreStrengthSetGroupByOutputType = {
+    id: string
+    restTime: number
+    numberOfSets: number
+    hasWarmup: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: CoreStrengthSetCountAggregateOutputType | null
+    _avg: CoreStrengthSetAvgAggregateOutputType | null
+    _sum: CoreStrengthSetSumAggregateOutputType | null
+    _min: CoreStrengthSetMinAggregateOutputType | null
+    _max: CoreStrengthSetMaxAggregateOutputType | null
+  }
+
+  type GetCoreStrengthSetGroupByPayload<T extends CoreStrengthSetGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CoreStrengthSetGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CoreStrengthSetGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CoreStrengthSetGroupByOutputType[P]>
+            : GetScalarType<T[P], CoreStrengthSetGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CoreStrengthSetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    restTime?: boolean
+    numberOfSets?: boolean
+    hasWarmup?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    workoutExercise?: boolean | CoreStrengthSet$workoutExerciseArgs<ExtArgs>
+    reps?: boolean | CoreStrengthSet$repsArgs<ExtArgs>
+    weight?: boolean | CoreStrengthSet$weightArgs<ExtArgs>
+    _count?: boolean | CoreStrengthSetCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreStrengthSet"]>
+
+  export type CoreStrengthSetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    restTime?: boolean
+    numberOfSets?: boolean
+    hasWarmup?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["coreStrengthSet"]>
+
+  export type CoreStrengthSetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    restTime?: boolean
+    numberOfSets?: boolean
+    hasWarmup?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["coreStrengthSet"]>
+
+  export type CoreStrengthSetSelectScalar = {
+    id?: boolean
+    restTime?: boolean
+    numberOfSets?: boolean
+    hasWarmup?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CoreStrengthSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "restTime" | "numberOfSets" | "hasWarmup" | "createdAt" | "updatedAt", ExtArgs["result"]["coreStrengthSet"]>
+  export type CoreStrengthSetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    workoutExercise?: boolean | CoreStrengthSet$workoutExerciseArgs<ExtArgs>
+    reps?: boolean | CoreStrengthSet$repsArgs<ExtArgs>
+    weight?: boolean | CoreStrengthSet$weightArgs<ExtArgs>
+    _count?: boolean | CoreStrengthSetCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CoreStrengthSetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CoreStrengthSetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $CoreStrengthSetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CoreStrengthSet"
+    objects: {
+      workoutExercise: Prisma.$WorkoutExercisePayload<ExtArgs>[]
+      reps: Prisma.$CoreStrengthSetRepsPayload<ExtArgs>[]
+      weight: Prisma.$CoreStrengthSetWeightPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      restTime: number
+      numberOfSets: number
+      hasWarmup: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["coreStrengthSet"]>
+    composites: {}
+  }
+
+  type CoreStrengthSetGetPayload<S extends boolean | null | undefined | CoreStrengthSetDefaultArgs> = $Result.GetResult<Prisma.$CoreStrengthSetPayload, S>
+
+  type CoreStrengthSetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CoreStrengthSetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CoreStrengthSetCountAggregateInputType | true
+    }
+
+  export interface CoreStrengthSetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CoreStrengthSet'], meta: { name: 'CoreStrengthSet' } }
+    /**
+     * Find zero or one CoreStrengthSet that matches the filter.
+     * @param {CoreStrengthSetFindUniqueArgs} args - Arguments to find a CoreStrengthSet
+     * @example
+     * // Get one CoreStrengthSet
+     * const coreStrengthSet = await prisma.coreStrengthSet.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CoreStrengthSetFindUniqueArgs>(args: SelectSubset<T, CoreStrengthSetFindUniqueArgs<ExtArgs>>): Prisma__CoreStrengthSetClient<$Result.GetResult<Prisma.$CoreStrengthSetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CoreStrengthSet that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CoreStrengthSetFindUniqueOrThrowArgs} args - Arguments to find a CoreStrengthSet
+     * @example
+     * // Get one CoreStrengthSet
+     * const coreStrengthSet = await prisma.coreStrengthSet.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CoreStrengthSetFindUniqueOrThrowArgs>(args: SelectSubset<T, CoreStrengthSetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CoreStrengthSetClient<$Result.GetResult<Prisma.$CoreStrengthSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CoreStrengthSet that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetFindFirstArgs} args - Arguments to find a CoreStrengthSet
+     * @example
+     * // Get one CoreStrengthSet
+     * const coreStrengthSet = await prisma.coreStrengthSet.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CoreStrengthSetFindFirstArgs>(args?: SelectSubset<T, CoreStrengthSetFindFirstArgs<ExtArgs>>): Prisma__CoreStrengthSetClient<$Result.GetResult<Prisma.$CoreStrengthSetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CoreStrengthSet that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetFindFirstOrThrowArgs} args - Arguments to find a CoreStrengthSet
+     * @example
+     * // Get one CoreStrengthSet
+     * const coreStrengthSet = await prisma.coreStrengthSet.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CoreStrengthSetFindFirstOrThrowArgs>(args?: SelectSubset<T, CoreStrengthSetFindFirstOrThrowArgs<ExtArgs>>): Prisma__CoreStrengthSetClient<$Result.GetResult<Prisma.$CoreStrengthSetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CoreStrengthSets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CoreStrengthSets
+     * const coreStrengthSets = await prisma.coreStrengthSet.findMany()
+     * 
+     * // Get first 10 CoreStrengthSets
+     * const coreStrengthSets = await prisma.coreStrengthSet.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const coreStrengthSetWithIdOnly = await prisma.coreStrengthSet.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CoreStrengthSetFindManyArgs>(args?: SelectSubset<T, CoreStrengthSetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreStrengthSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CoreStrengthSet.
+     * @param {CoreStrengthSetCreateArgs} args - Arguments to create a CoreStrengthSet.
+     * @example
+     * // Create one CoreStrengthSet
+     * const CoreStrengthSet = await prisma.coreStrengthSet.create({
+     *   data: {
+     *     // ... data to create a CoreStrengthSet
+     *   }
+     * })
+     * 
+     */
+    create<T extends CoreStrengthSetCreateArgs>(args: SelectSubset<T, CoreStrengthSetCreateArgs<ExtArgs>>): Prisma__CoreStrengthSetClient<$Result.GetResult<Prisma.$CoreStrengthSetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CoreStrengthSets.
+     * @param {CoreStrengthSetCreateManyArgs} args - Arguments to create many CoreStrengthSets.
+     * @example
+     * // Create many CoreStrengthSets
+     * const coreStrengthSet = await prisma.coreStrengthSet.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CoreStrengthSetCreateManyArgs>(args?: SelectSubset<T, CoreStrengthSetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CoreStrengthSets and returns the data saved in the database.
+     * @param {CoreStrengthSetCreateManyAndReturnArgs} args - Arguments to create many CoreStrengthSets.
+     * @example
+     * // Create many CoreStrengthSets
+     * const coreStrengthSet = await prisma.coreStrengthSet.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CoreStrengthSets and only return the `id`
+     * const coreStrengthSetWithIdOnly = await prisma.coreStrengthSet.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CoreStrengthSetCreateManyAndReturnArgs>(args?: SelectSubset<T, CoreStrengthSetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreStrengthSetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CoreStrengthSet.
+     * @param {CoreStrengthSetDeleteArgs} args - Arguments to delete one CoreStrengthSet.
+     * @example
+     * // Delete one CoreStrengthSet
+     * const CoreStrengthSet = await prisma.coreStrengthSet.delete({
+     *   where: {
+     *     // ... filter to delete one CoreStrengthSet
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CoreStrengthSetDeleteArgs>(args: SelectSubset<T, CoreStrengthSetDeleteArgs<ExtArgs>>): Prisma__CoreStrengthSetClient<$Result.GetResult<Prisma.$CoreStrengthSetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CoreStrengthSet.
+     * @param {CoreStrengthSetUpdateArgs} args - Arguments to update one CoreStrengthSet.
+     * @example
+     * // Update one CoreStrengthSet
+     * const coreStrengthSet = await prisma.coreStrengthSet.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CoreStrengthSetUpdateArgs>(args: SelectSubset<T, CoreStrengthSetUpdateArgs<ExtArgs>>): Prisma__CoreStrengthSetClient<$Result.GetResult<Prisma.$CoreStrengthSetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CoreStrengthSets.
+     * @param {CoreStrengthSetDeleteManyArgs} args - Arguments to filter CoreStrengthSets to delete.
+     * @example
+     * // Delete a few CoreStrengthSets
+     * const { count } = await prisma.coreStrengthSet.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CoreStrengthSetDeleteManyArgs>(args?: SelectSubset<T, CoreStrengthSetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CoreStrengthSets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CoreStrengthSets
+     * const coreStrengthSet = await prisma.coreStrengthSet.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CoreStrengthSetUpdateManyArgs>(args: SelectSubset<T, CoreStrengthSetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CoreStrengthSets and returns the data updated in the database.
+     * @param {CoreStrengthSetUpdateManyAndReturnArgs} args - Arguments to update many CoreStrengthSets.
+     * @example
+     * // Update many CoreStrengthSets
+     * const coreStrengthSet = await prisma.coreStrengthSet.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CoreStrengthSets and only return the `id`
+     * const coreStrengthSetWithIdOnly = await prisma.coreStrengthSet.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CoreStrengthSetUpdateManyAndReturnArgs>(args: SelectSubset<T, CoreStrengthSetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreStrengthSetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CoreStrengthSet.
+     * @param {CoreStrengthSetUpsertArgs} args - Arguments to update or create a CoreStrengthSet.
+     * @example
+     * // Update or create a CoreStrengthSet
+     * const coreStrengthSet = await prisma.coreStrengthSet.upsert({
+     *   create: {
+     *     // ... data to create a CoreStrengthSet
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CoreStrengthSet we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CoreStrengthSetUpsertArgs>(args: SelectSubset<T, CoreStrengthSetUpsertArgs<ExtArgs>>): Prisma__CoreStrengthSetClient<$Result.GetResult<Prisma.$CoreStrengthSetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CoreStrengthSets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetCountArgs} args - Arguments to filter CoreStrengthSets to count.
+     * @example
+     * // Count the number of CoreStrengthSets
+     * const count = await prisma.coreStrengthSet.count({
+     *   where: {
+     *     // ... the filter for the CoreStrengthSets we want to count
+     *   }
+     * })
+    **/
+    count<T extends CoreStrengthSetCountArgs>(
+      args?: Subset<T, CoreStrengthSetCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CoreStrengthSetCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CoreStrengthSet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CoreStrengthSetAggregateArgs>(args: Subset<T, CoreStrengthSetAggregateArgs>): Prisma.PrismaPromise<GetCoreStrengthSetAggregateType<T>>
+
+    /**
+     * Group by CoreStrengthSet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CoreStrengthSetGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CoreStrengthSetGroupByArgs['orderBy'] }
+        : { orderBy?: CoreStrengthSetGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CoreStrengthSetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCoreStrengthSetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CoreStrengthSet model
+   */
+  readonly fields: CoreStrengthSetFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CoreStrengthSet.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CoreStrengthSetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    workoutExercise<T extends CoreStrengthSet$workoutExerciseArgs<ExtArgs> = {}>(args?: Subset<T, CoreStrengthSet$workoutExerciseArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkoutExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reps<T extends CoreStrengthSet$repsArgs<ExtArgs> = {}>(args?: Subset<T, CoreStrengthSet$repsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreStrengthSetRepsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    weight<T extends CoreStrengthSet$weightArgs<ExtArgs> = {}>(args?: Subset<T, CoreStrengthSet$weightArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreStrengthSetWeightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CoreStrengthSet model
+   */
+  interface CoreStrengthSetFieldRefs {
+    readonly id: FieldRef<"CoreStrengthSet", 'String'>
+    readonly restTime: FieldRef<"CoreStrengthSet", 'Int'>
+    readonly numberOfSets: FieldRef<"CoreStrengthSet", 'Int'>
+    readonly hasWarmup: FieldRef<"CoreStrengthSet", 'Boolean'>
+    readonly createdAt: FieldRef<"CoreStrengthSet", 'DateTime'>
+    readonly updatedAt: FieldRef<"CoreStrengthSet", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CoreStrengthSet findUnique
+   */
+  export type CoreStrengthSetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSet
+     */
+    select?: CoreStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSet
+     */
+    omit?: CoreStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreStrengthSet to fetch.
+     */
+    where: CoreStrengthSetWhereUniqueInput
+  }
+
+  /**
+   * CoreStrengthSet findUniqueOrThrow
+   */
+  export type CoreStrengthSetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSet
+     */
+    select?: CoreStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSet
+     */
+    omit?: CoreStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreStrengthSet to fetch.
+     */
+    where: CoreStrengthSetWhereUniqueInput
+  }
+
+  /**
+   * CoreStrengthSet findFirst
+   */
+  export type CoreStrengthSetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSet
+     */
+    select?: CoreStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSet
+     */
+    omit?: CoreStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreStrengthSet to fetch.
+     */
+    where?: CoreStrengthSetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreStrengthSets to fetch.
+     */
+    orderBy?: CoreStrengthSetOrderByWithRelationInput | CoreStrengthSetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CoreStrengthSets.
+     */
+    cursor?: CoreStrengthSetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreStrengthSets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreStrengthSets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CoreStrengthSets.
+     */
+    distinct?: CoreStrengthSetScalarFieldEnum | CoreStrengthSetScalarFieldEnum[]
+  }
+
+  /**
+   * CoreStrengthSet findFirstOrThrow
+   */
+  export type CoreStrengthSetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSet
+     */
+    select?: CoreStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSet
+     */
+    omit?: CoreStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreStrengthSet to fetch.
+     */
+    where?: CoreStrengthSetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreStrengthSets to fetch.
+     */
+    orderBy?: CoreStrengthSetOrderByWithRelationInput | CoreStrengthSetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CoreStrengthSets.
+     */
+    cursor?: CoreStrengthSetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreStrengthSets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreStrengthSets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CoreStrengthSets.
+     */
+    distinct?: CoreStrengthSetScalarFieldEnum | CoreStrengthSetScalarFieldEnum[]
+  }
+
+  /**
+   * CoreStrengthSet findMany
+   */
+  export type CoreStrengthSetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSet
+     */
+    select?: CoreStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSet
+     */
+    omit?: CoreStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreStrengthSets to fetch.
+     */
+    where?: CoreStrengthSetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreStrengthSets to fetch.
+     */
+    orderBy?: CoreStrengthSetOrderByWithRelationInput | CoreStrengthSetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CoreStrengthSets.
+     */
+    cursor?: CoreStrengthSetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreStrengthSets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreStrengthSets.
+     */
+    skip?: number
+    distinct?: CoreStrengthSetScalarFieldEnum | CoreStrengthSetScalarFieldEnum[]
+  }
+
+  /**
+   * CoreStrengthSet create
+   */
+  export type CoreStrengthSetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSet
+     */
+    select?: CoreStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSet
+     */
+    omit?: CoreStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CoreStrengthSet.
+     */
+    data: XOR<CoreStrengthSetCreateInput, CoreStrengthSetUncheckedCreateInput>
+  }
+
+  /**
+   * CoreStrengthSet createMany
+   */
+  export type CoreStrengthSetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CoreStrengthSets.
+     */
+    data: CoreStrengthSetCreateManyInput | CoreStrengthSetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CoreStrengthSet createManyAndReturn
+   */
+  export type CoreStrengthSetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSet
+     */
+    select?: CoreStrengthSetSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSet
+     */
+    omit?: CoreStrengthSetOmit<ExtArgs> | null
+    /**
+     * The data used to create many CoreStrengthSets.
+     */
+    data: CoreStrengthSetCreateManyInput | CoreStrengthSetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CoreStrengthSet update
+   */
+  export type CoreStrengthSetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSet
+     */
+    select?: CoreStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSet
+     */
+    omit?: CoreStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CoreStrengthSet.
+     */
+    data: XOR<CoreStrengthSetUpdateInput, CoreStrengthSetUncheckedUpdateInput>
+    /**
+     * Choose, which CoreStrengthSet to update.
+     */
+    where: CoreStrengthSetWhereUniqueInput
+  }
+
+  /**
+   * CoreStrengthSet updateMany
+   */
+  export type CoreStrengthSetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CoreStrengthSets.
+     */
+    data: XOR<CoreStrengthSetUpdateManyMutationInput, CoreStrengthSetUncheckedUpdateManyInput>
+    /**
+     * Filter which CoreStrengthSets to update
+     */
+    where?: CoreStrengthSetWhereInput
+    /**
+     * Limit how many CoreStrengthSets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CoreStrengthSet updateManyAndReturn
+   */
+  export type CoreStrengthSetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSet
+     */
+    select?: CoreStrengthSetSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSet
+     */
+    omit?: CoreStrengthSetOmit<ExtArgs> | null
+    /**
+     * The data used to update CoreStrengthSets.
+     */
+    data: XOR<CoreStrengthSetUpdateManyMutationInput, CoreStrengthSetUncheckedUpdateManyInput>
+    /**
+     * Filter which CoreStrengthSets to update
+     */
+    where?: CoreStrengthSetWhereInput
+    /**
+     * Limit how many CoreStrengthSets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CoreStrengthSet upsert
+   */
+  export type CoreStrengthSetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSet
+     */
+    select?: CoreStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSet
+     */
+    omit?: CoreStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CoreStrengthSet to update in case it exists.
+     */
+    where: CoreStrengthSetWhereUniqueInput
+    /**
+     * In case the CoreStrengthSet found by the `where` argument doesn't exist, create a new CoreStrengthSet with this data.
+     */
+    create: XOR<CoreStrengthSetCreateInput, CoreStrengthSetUncheckedCreateInput>
+    /**
+     * In case the CoreStrengthSet was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CoreStrengthSetUpdateInput, CoreStrengthSetUncheckedUpdateInput>
+  }
+
+  /**
+   * CoreStrengthSet delete
+   */
+  export type CoreStrengthSetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSet
+     */
+    select?: CoreStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSet
+     */
+    omit?: CoreStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetInclude<ExtArgs> | null
+    /**
+     * Filter which CoreStrengthSet to delete.
+     */
+    where: CoreStrengthSetWhereUniqueInput
+  }
+
+  /**
+   * CoreStrengthSet deleteMany
+   */
+  export type CoreStrengthSetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CoreStrengthSets to delete
+     */
+    where?: CoreStrengthSetWhereInput
+    /**
+     * Limit how many CoreStrengthSets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CoreStrengthSet.workoutExercise
+   */
+  export type CoreStrengthSet$workoutExerciseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkoutExercise
+     */
+    select?: WorkoutExerciseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkoutExercise
+     */
+    omit?: WorkoutExerciseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkoutExerciseInclude<ExtArgs> | null
+    where?: WorkoutExerciseWhereInput
+    orderBy?: WorkoutExerciseOrderByWithRelationInput | WorkoutExerciseOrderByWithRelationInput[]
+    cursor?: WorkoutExerciseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WorkoutExerciseScalarFieldEnum | WorkoutExerciseScalarFieldEnum[]
+  }
+
+  /**
+   * CoreStrengthSet.reps
+   */
+  export type CoreStrengthSet$repsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetReps
+     */
+    select?: CoreStrengthSetRepsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetReps
+     */
+    omit?: CoreStrengthSetRepsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetRepsInclude<ExtArgs> | null
+    where?: CoreStrengthSetRepsWhereInput
+    orderBy?: CoreStrengthSetRepsOrderByWithRelationInput | CoreStrengthSetRepsOrderByWithRelationInput[]
+    cursor?: CoreStrengthSetRepsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CoreStrengthSetRepsScalarFieldEnum | CoreStrengthSetRepsScalarFieldEnum[]
+  }
+
+  /**
+   * CoreStrengthSet.weight
+   */
+  export type CoreStrengthSet$weightArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetWeight
+     */
+    select?: CoreStrengthSetWeightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetWeight
+     */
+    omit?: CoreStrengthSetWeightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetWeightInclude<ExtArgs> | null
+    where?: CoreStrengthSetWeightWhereInput
+    orderBy?: CoreStrengthSetWeightOrderByWithRelationInput | CoreStrengthSetWeightOrderByWithRelationInput[]
+    cursor?: CoreStrengthSetWeightWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CoreStrengthSetWeightScalarFieldEnum | CoreStrengthSetWeightScalarFieldEnum[]
+  }
+
+  /**
+   * CoreStrengthSet without action
+   */
+  export type CoreStrengthSetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSet
+     */
+    select?: CoreStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSet
+     */
+    omit?: CoreStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CoreStrengthSetReps
+   */
+
+  export type AggregateCoreStrengthSetReps = {
+    _count: CoreStrengthSetRepsCountAggregateOutputType | null
+    _avg: CoreStrengthSetRepsAvgAggregateOutputType | null
+    _sum: CoreStrengthSetRepsSumAggregateOutputType | null
+    _min: CoreStrengthSetRepsMinAggregateOutputType | null
+    _max: CoreStrengthSetRepsMaxAggregateOutputType | null
+  }
+
+  export type CoreStrengthSetRepsAvgAggregateOutputType = {
+    reps: number | null
+  }
+
+  export type CoreStrengthSetRepsSumAggregateOutputType = {
+    reps: number | null
+  }
+
+  export type CoreStrengthSetRepsMinAggregateOutputType = {
+    id: string | null
+    coreStrengthSetId: string | null
+    reps: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CoreStrengthSetRepsMaxAggregateOutputType = {
+    id: string | null
+    coreStrengthSetId: string | null
+    reps: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CoreStrengthSetRepsCountAggregateOutputType = {
+    id: number
+    coreStrengthSetId: number
+    reps: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CoreStrengthSetRepsAvgAggregateInputType = {
+    reps?: true
+  }
+
+  export type CoreStrengthSetRepsSumAggregateInputType = {
+    reps?: true
+  }
+
+  export type CoreStrengthSetRepsMinAggregateInputType = {
+    id?: true
+    coreStrengthSetId?: true
+    reps?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CoreStrengthSetRepsMaxAggregateInputType = {
+    id?: true
+    coreStrengthSetId?: true
+    reps?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CoreStrengthSetRepsCountAggregateInputType = {
+    id?: true
+    coreStrengthSetId?: true
+    reps?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CoreStrengthSetRepsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CoreStrengthSetReps to aggregate.
+     */
+    where?: CoreStrengthSetRepsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreStrengthSetReps to fetch.
+     */
+    orderBy?: CoreStrengthSetRepsOrderByWithRelationInput | CoreStrengthSetRepsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CoreStrengthSetRepsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreStrengthSetReps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreStrengthSetReps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CoreStrengthSetReps
+    **/
+    _count?: true | CoreStrengthSetRepsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CoreStrengthSetRepsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CoreStrengthSetRepsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CoreStrengthSetRepsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CoreStrengthSetRepsMaxAggregateInputType
+  }
+
+  export type GetCoreStrengthSetRepsAggregateType<T extends CoreStrengthSetRepsAggregateArgs> = {
+        [P in keyof T & keyof AggregateCoreStrengthSetReps]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCoreStrengthSetReps[P]>
+      : GetScalarType<T[P], AggregateCoreStrengthSetReps[P]>
+  }
+
+
+
+
+  export type CoreStrengthSetRepsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CoreStrengthSetRepsWhereInput
+    orderBy?: CoreStrengthSetRepsOrderByWithAggregationInput | CoreStrengthSetRepsOrderByWithAggregationInput[]
+    by: CoreStrengthSetRepsScalarFieldEnum[] | CoreStrengthSetRepsScalarFieldEnum
+    having?: CoreStrengthSetRepsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CoreStrengthSetRepsCountAggregateInputType | true
+    _avg?: CoreStrengthSetRepsAvgAggregateInputType
+    _sum?: CoreStrengthSetRepsSumAggregateInputType
+    _min?: CoreStrengthSetRepsMinAggregateInputType
+    _max?: CoreStrengthSetRepsMaxAggregateInputType
+  }
+
+  export type CoreStrengthSetRepsGroupByOutputType = {
+    id: string
+    coreStrengthSetId: string
+    reps: number
+    createdAt: Date
+    updatedAt: Date
+    _count: CoreStrengthSetRepsCountAggregateOutputType | null
+    _avg: CoreStrengthSetRepsAvgAggregateOutputType | null
+    _sum: CoreStrengthSetRepsSumAggregateOutputType | null
+    _min: CoreStrengthSetRepsMinAggregateOutputType | null
+    _max: CoreStrengthSetRepsMaxAggregateOutputType | null
+  }
+
+  type GetCoreStrengthSetRepsGroupByPayload<T extends CoreStrengthSetRepsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CoreStrengthSetRepsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CoreStrengthSetRepsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CoreStrengthSetRepsGroupByOutputType[P]>
+            : GetScalarType<T[P], CoreStrengthSetRepsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CoreStrengthSetRepsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    coreStrengthSetId?: boolean
+    reps?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    coreStrengthSet?: boolean | CoreStrengthSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreStrengthSetReps"]>
+
+  export type CoreStrengthSetRepsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    coreStrengthSetId?: boolean
+    reps?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    coreStrengthSet?: boolean | CoreStrengthSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreStrengthSetReps"]>
+
+  export type CoreStrengthSetRepsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    coreStrengthSetId?: boolean
+    reps?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    coreStrengthSet?: boolean | CoreStrengthSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreStrengthSetReps"]>
+
+  export type CoreStrengthSetRepsSelectScalar = {
+    id?: boolean
+    coreStrengthSetId?: boolean
+    reps?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CoreStrengthSetRepsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "coreStrengthSetId" | "reps" | "createdAt" | "updatedAt", ExtArgs["result"]["coreStrengthSetReps"]>
+  export type CoreStrengthSetRepsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreStrengthSet?: boolean | CoreStrengthSetDefaultArgs<ExtArgs>
+  }
+  export type CoreStrengthSetRepsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreStrengthSet?: boolean | CoreStrengthSetDefaultArgs<ExtArgs>
+  }
+  export type CoreStrengthSetRepsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreStrengthSet?: boolean | CoreStrengthSetDefaultArgs<ExtArgs>
+  }
+
+  export type $CoreStrengthSetRepsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CoreStrengthSetReps"
+    objects: {
+      coreStrengthSet: Prisma.$CoreStrengthSetPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      coreStrengthSetId: string
+      reps: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["coreStrengthSetReps"]>
+    composites: {}
+  }
+
+  type CoreStrengthSetRepsGetPayload<S extends boolean | null | undefined | CoreStrengthSetRepsDefaultArgs> = $Result.GetResult<Prisma.$CoreStrengthSetRepsPayload, S>
+
+  type CoreStrengthSetRepsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CoreStrengthSetRepsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CoreStrengthSetRepsCountAggregateInputType | true
+    }
+
+  export interface CoreStrengthSetRepsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CoreStrengthSetReps'], meta: { name: 'CoreStrengthSetReps' } }
+    /**
+     * Find zero or one CoreStrengthSetReps that matches the filter.
+     * @param {CoreStrengthSetRepsFindUniqueArgs} args - Arguments to find a CoreStrengthSetReps
+     * @example
+     * // Get one CoreStrengthSetReps
+     * const coreStrengthSetReps = await prisma.coreStrengthSetReps.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CoreStrengthSetRepsFindUniqueArgs>(args: SelectSubset<T, CoreStrengthSetRepsFindUniqueArgs<ExtArgs>>): Prisma__CoreStrengthSetRepsClient<$Result.GetResult<Prisma.$CoreStrengthSetRepsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CoreStrengthSetReps that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CoreStrengthSetRepsFindUniqueOrThrowArgs} args - Arguments to find a CoreStrengthSetReps
+     * @example
+     * // Get one CoreStrengthSetReps
+     * const coreStrengthSetReps = await prisma.coreStrengthSetReps.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CoreStrengthSetRepsFindUniqueOrThrowArgs>(args: SelectSubset<T, CoreStrengthSetRepsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CoreStrengthSetRepsClient<$Result.GetResult<Prisma.$CoreStrengthSetRepsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CoreStrengthSetReps that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetRepsFindFirstArgs} args - Arguments to find a CoreStrengthSetReps
+     * @example
+     * // Get one CoreStrengthSetReps
+     * const coreStrengthSetReps = await prisma.coreStrengthSetReps.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CoreStrengthSetRepsFindFirstArgs>(args?: SelectSubset<T, CoreStrengthSetRepsFindFirstArgs<ExtArgs>>): Prisma__CoreStrengthSetRepsClient<$Result.GetResult<Prisma.$CoreStrengthSetRepsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CoreStrengthSetReps that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetRepsFindFirstOrThrowArgs} args - Arguments to find a CoreStrengthSetReps
+     * @example
+     * // Get one CoreStrengthSetReps
+     * const coreStrengthSetReps = await prisma.coreStrengthSetReps.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CoreStrengthSetRepsFindFirstOrThrowArgs>(args?: SelectSubset<T, CoreStrengthSetRepsFindFirstOrThrowArgs<ExtArgs>>): Prisma__CoreStrengthSetRepsClient<$Result.GetResult<Prisma.$CoreStrengthSetRepsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CoreStrengthSetReps that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetRepsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CoreStrengthSetReps
+     * const coreStrengthSetReps = await prisma.coreStrengthSetReps.findMany()
+     * 
+     * // Get first 10 CoreStrengthSetReps
+     * const coreStrengthSetReps = await prisma.coreStrengthSetReps.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const coreStrengthSetRepsWithIdOnly = await prisma.coreStrengthSetReps.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CoreStrengthSetRepsFindManyArgs>(args?: SelectSubset<T, CoreStrengthSetRepsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreStrengthSetRepsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CoreStrengthSetReps.
+     * @param {CoreStrengthSetRepsCreateArgs} args - Arguments to create a CoreStrengthSetReps.
+     * @example
+     * // Create one CoreStrengthSetReps
+     * const CoreStrengthSetReps = await prisma.coreStrengthSetReps.create({
+     *   data: {
+     *     // ... data to create a CoreStrengthSetReps
+     *   }
+     * })
+     * 
+     */
+    create<T extends CoreStrengthSetRepsCreateArgs>(args: SelectSubset<T, CoreStrengthSetRepsCreateArgs<ExtArgs>>): Prisma__CoreStrengthSetRepsClient<$Result.GetResult<Prisma.$CoreStrengthSetRepsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CoreStrengthSetReps.
+     * @param {CoreStrengthSetRepsCreateManyArgs} args - Arguments to create many CoreStrengthSetReps.
+     * @example
+     * // Create many CoreStrengthSetReps
+     * const coreStrengthSetReps = await prisma.coreStrengthSetReps.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CoreStrengthSetRepsCreateManyArgs>(args?: SelectSubset<T, CoreStrengthSetRepsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CoreStrengthSetReps and returns the data saved in the database.
+     * @param {CoreStrengthSetRepsCreateManyAndReturnArgs} args - Arguments to create many CoreStrengthSetReps.
+     * @example
+     * // Create many CoreStrengthSetReps
+     * const coreStrengthSetReps = await prisma.coreStrengthSetReps.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CoreStrengthSetReps and only return the `id`
+     * const coreStrengthSetRepsWithIdOnly = await prisma.coreStrengthSetReps.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CoreStrengthSetRepsCreateManyAndReturnArgs>(args?: SelectSubset<T, CoreStrengthSetRepsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreStrengthSetRepsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CoreStrengthSetReps.
+     * @param {CoreStrengthSetRepsDeleteArgs} args - Arguments to delete one CoreStrengthSetReps.
+     * @example
+     * // Delete one CoreStrengthSetReps
+     * const CoreStrengthSetReps = await prisma.coreStrengthSetReps.delete({
+     *   where: {
+     *     // ... filter to delete one CoreStrengthSetReps
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CoreStrengthSetRepsDeleteArgs>(args: SelectSubset<T, CoreStrengthSetRepsDeleteArgs<ExtArgs>>): Prisma__CoreStrengthSetRepsClient<$Result.GetResult<Prisma.$CoreStrengthSetRepsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CoreStrengthSetReps.
+     * @param {CoreStrengthSetRepsUpdateArgs} args - Arguments to update one CoreStrengthSetReps.
+     * @example
+     * // Update one CoreStrengthSetReps
+     * const coreStrengthSetReps = await prisma.coreStrengthSetReps.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CoreStrengthSetRepsUpdateArgs>(args: SelectSubset<T, CoreStrengthSetRepsUpdateArgs<ExtArgs>>): Prisma__CoreStrengthSetRepsClient<$Result.GetResult<Prisma.$CoreStrengthSetRepsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CoreStrengthSetReps.
+     * @param {CoreStrengthSetRepsDeleteManyArgs} args - Arguments to filter CoreStrengthSetReps to delete.
+     * @example
+     * // Delete a few CoreStrengthSetReps
+     * const { count } = await prisma.coreStrengthSetReps.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CoreStrengthSetRepsDeleteManyArgs>(args?: SelectSubset<T, CoreStrengthSetRepsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CoreStrengthSetReps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetRepsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CoreStrengthSetReps
+     * const coreStrengthSetReps = await prisma.coreStrengthSetReps.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CoreStrengthSetRepsUpdateManyArgs>(args: SelectSubset<T, CoreStrengthSetRepsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CoreStrengthSetReps and returns the data updated in the database.
+     * @param {CoreStrengthSetRepsUpdateManyAndReturnArgs} args - Arguments to update many CoreStrengthSetReps.
+     * @example
+     * // Update many CoreStrengthSetReps
+     * const coreStrengthSetReps = await prisma.coreStrengthSetReps.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CoreStrengthSetReps and only return the `id`
+     * const coreStrengthSetRepsWithIdOnly = await prisma.coreStrengthSetReps.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CoreStrengthSetRepsUpdateManyAndReturnArgs>(args: SelectSubset<T, CoreStrengthSetRepsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreStrengthSetRepsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CoreStrengthSetReps.
+     * @param {CoreStrengthSetRepsUpsertArgs} args - Arguments to update or create a CoreStrengthSetReps.
+     * @example
+     * // Update or create a CoreStrengthSetReps
+     * const coreStrengthSetReps = await prisma.coreStrengthSetReps.upsert({
+     *   create: {
+     *     // ... data to create a CoreStrengthSetReps
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CoreStrengthSetReps we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CoreStrengthSetRepsUpsertArgs>(args: SelectSubset<T, CoreStrengthSetRepsUpsertArgs<ExtArgs>>): Prisma__CoreStrengthSetRepsClient<$Result.GetResult<Prisma.$CoreStrengthSetRepsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CoreStrengthSetReps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetRepsCountArgs} args - Arguments to filter CoreStrengthSetReps to count.
+     * @example
+     * // Count the number of CoreStrengthSetReps
+     * const count = await prisma.coreStrengthSetReps.count({
+     *   where: {
+     *     // ... the filter for the CoreStrengthSetReps we want to count
+     *   }
+     * })
+    **/
+    count<T extends CoreStrengthSetRepsCountArgs>(
+      args?: Subset<T, CoreStrengthSetRepsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CoreStrengthSetRepsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CoreStrengthSetReps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetRepsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CoreStrengthSetRepsAggregateArgs>(args: Subset<T, CoreStrengthSetRepsAggregateArgs>): Prisma.PrismaPromise<GetCoreStrengthSetRepsAggregateType<T>>
+
+    /**
+     * Group by CoreStrengthSetReps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetRepsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CoreStrengthSetRepsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CoreStrengthSetRepsGroupByArgs['orderBy'] }
+        : { orderBy?: CoreStrengthSetRepsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CoreStrengthSetRepsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCoreStrengthSetRepsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CoreStrengthSetReps model
+   */
+  readonly fields: CoreStrengthSetRepsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CoreStrengthSetReps.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CoreStrengthSetRepsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    coreStrengthSet<T extends CoreStrengthSetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CoreStrengthSetDefaultArgs<ExtArgs>>): Prisma__CoreStrengthSetClient<$Result.GetResult<Prisma.$CoreStrengthSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CoreStrengthSetReps model
+   */
+  interface CoreStrengthSetRepsFieldRefs {
+    readonly id: FieldRef<"CoreStrengthSetReps", 'String'>
+    readonly coreStrengthSetId: FieldRef<"CoreStrengthSetReps", 'String'>
+    readonly reps: FieldRef<"CoreStrengthSetReps", 'Int'>
+    readonly createdAt: FieldRef<"CoreStrengthSetReps", 'DateTime'>
+    readonly updatedAt: FieldRef<"CoreStrengthSetReps", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CoreStrengthSetReps findUnique
+   */
+  export type CoreStrengthSetRepsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetReps
+     */
+    select?: CoreStrengthSetRepsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetReps
+     */
+    omit?: CoreStrengthSetRepsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetRepsInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreStrengthSetReps to fetch.
+     */
+    where: CoreStrengthSetRepsWhereUniqueInput
+  }
+
+  /**
+   * CoreStrengthSetReps findUniqueOrThrow
+   */
+  export type CoreStrengthSetRepsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetReps
+     */
+    select?: CoreStrengthSetRepsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetReps
+     */
+    omit?: CoreStrengthSetRepsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetRepsInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreStrengthSetReps to fetch.
+     */
+    where: CoreStrengthSetRepsWhereUniqueInput
+  }
+
+  /**
+   * CoreStrengthSetReps findFirst
+   */
+  export type CoreStrengthSetRepsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetReps
+     */
+    select?: CoreStrengthSetRepsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetReps
+     */
+    omit?: CoreStrengthSetRepsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetRepsInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreStrengthSetReps to fetch.
+     */
+    where?: CoreStrengthSetRepsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreStrengthSetReps to fetch.
+     */
+    orderBy?: CoreStrengthSetRepsOrderByWithRelationInput | CoreStrengthSetRepsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CoreStrengthSetReps.
+     */
+    cursor?: CoreStrengthSetRepsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreStrengthSetReps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreStrengthSetReps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CoreStrengthSetReps.
+     */
+    distinct?: CoreStrengthSetRepsScalarFieldEnum | CoreStrengthSetRepsScalarFieldEnum[]
+  }
+
+  /**
+   * CoreStrengthSetReps findFirstOrThrow
+   */
+  export type CoreStrengthSetRepsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetReps
+     */
+    select?: CoreStrengthSetRepsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetReps
+     */
+    omit?: CoreStrengthSetRepsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetRepsInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreStrengthSetReps to fetch.
+     */
+    where?: CoreStrengthSetRepsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreStrengthSetReps to fetch.
+     */
+    orderBy?: CoreStrengthSetRepsOrderByWithRelationInput | CoreStrengthSetRepsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CoreStrengthSetReps.
+     */
+    cursor?: CoreStrengthSetRepsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreStrengthSetReps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreStrengthSetReps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CoreStrengthSetReps.
+     */
+    distinct?: CoreStrengthSetRepsScalarFieldEnum | CoreStrengthSetRepsScalarFieldEnum[]
+  }
+
+  /**
+   * CoreStrengthSetReps findMany
+   */
+  export type CoreStrengthSetRepsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetReps
+     */
+    select?: CoreStrengthSetRepsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetReps
+     */
+    omit?: CoreStrengthSetRepsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetRepsInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreStrengthSetReps to fetch.
+     */
+    where?: CoreStrengthSetRepsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreStrengthSetReps to fetch.
+     */
+    orderBy?: CoreStrengthSetRepsOrderByWithRelationInput | CoreStrengthSetRepsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CoreStrengthSetReps.
+     */
+    cursor?: CoreStrengthSetRepsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreStrengthSetReps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreStrengthSetReps.
+     */
+    skip?: number
+    distinct?: CoreStrengthSetRepsScalarFieldEnum | CoreStrengthSetRepsScalarFieldEnum[]
+  }
+
+  /**
+   * CoreStrengthSetReps create
+   */
+  export type CoreStrengthSetRepsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetReps
+     */
+    select?: CoreStrengthSetRepsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetReps
+     */
+    omit?: CoreStrengthSetRepsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetRepsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CoreStrengthSetReps.
+     */
+    data: XOR<CoreStrengthSetRepsCreateInput, CoreStrengthSetRepsUncheckedCreateInput>
+  }
+
+  /**
+   * CoreStrengthSetReps createMany
+   */
+  export type CoreStrengthSetRepsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CoreStrengthSetReps.
+     */
+    data: CoreStrengthSetRepsCreateManyInput | CoreStrengthSetRepsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CoreStrengthSetReps createManyAndReturn
+   */
+  export type CoreStrengthSetRepsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetReps
+     */
+    select?: CoreStrengthSetRepsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetReps
+     */
+    omit?: CoreStrengthSetRepsOmit<ExtArgs> | null
+    /**
+     * The data used to create many CoreStrengthSetReps.
+     */
+    data: CoreStrengthSetRepsCreateManyInput | CoreStrengthSetRepsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetRepsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CoreStrengthSetReps update
+   */
+  export type CoreStrengthSetRepsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetReps
+     */
+    select?: CoreStrengthSetRepsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetReps
+     */
+    omit?: CoreStrengthSetRepsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetRepsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CoreStrengthSetReps.
+     */
+    data: XOR<CoreStrengthSetRepsUpdateInput, CoreStrengthSetRepsUncheckedUpdateInput>
+    /**
+     * Choose, which CoreStrengthSetReps to update.
+     */
+    where: CoreStrengthSetRepsWhereUniqueInput
+  }
+
+  /**
+   * CoreStrengthSetReps updateMany
+   */
+  export type CoreStrengthSetRepsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CoreStrengthSetReps.
+     */
+    data: XOR<CoreStrengthSetRepsUpdateManyMutationInput, CoreStrengthSetRepsUncheckedUpdateManyInput>
+    /**
+     * Filter which CoreStrengthSetReps to update
+     */
+    where?: CoreStrengthSetRepsWhereInput
+    /**
+     * Limit how many CoreStrengthSetReps to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CoreStrengthSetReps updateManyAndReturn
+   */
+  export type CoreStrengthSetRepsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetReps
+     */
+    select?: CoreStrengthSetRepsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetReps
+     */
+    omit?: CoreStrengthSetRepsOmit<ExtArgs> | null
+    /**
+     * The data used to update CoreStrengthSetReps.
+     */
+    data: XOR<CoreStrengthSetRepsUpdateManyMutationInput, CoreStrengthSetRepsUncheckedUpdateManyInput>
+    /**
+     * Filter which CoreStrengthSetReps to update
+     */
+    where?: CoreStrengthSetRepsWhereInput
+    /**
+     * Limit how many CoreStrengthSetReps to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetRepsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CoreStrengthSetReps upsert
+   */
+  export type CoreStrengthSetRepsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetReps
+     */
+    select?: CoreStrengthSetRepsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetReps
+     */
+    omit?: CoreStrengthSetRepsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetRepsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CoreStrengthSetReps to update in case it exists.
+     */
+    where: CoreStrengthSetRepsWhereUniqueInput
+    /**
+     * In case the CoreStrengthSetReps found by the `where` argument doesn't exist, create a new CoreStrengthSetReps with this data.
+     */
+    create: XOR<CoreStrengthSetRepsCreateInput, CoreStrengthSetRepsUncheckedCreateInput>
+    /**
+     * In case the CoreStrengthSetReps was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CoreStrengthSetRepsUpdateInput, CoreStrengthSetRepsUncheckedUpdateInput>
+  }
+
+  /**
+   * CoreStrengthSetReps delete
+   */
+  export type CoreStrengthSetRepsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetReps
+     */
+    select?: CoreStrengthSetRepsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetReps
+     */
+    omit?: CoreStrengthSetRepsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetRepsInclude<ExtArgs> | null
+    /**
+     * Filter which CoreStrengthSetReps to delete.
+     */
+    where: CoreStrengthSetRepsWhereUniqueInput
+  }
+
+  /**
+   * CoreStrengthSetReps deleteMany
+   */
+  export type CoreStrengthSetRepsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CoreStrengthSetReps to delete
+     */
+    where?: CoreStrengthSetRepsWhereInput
+    /**
+     * Limit how many CoreStrengthSetReps to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CoreStrengthSetReps without action
+   */
+  export type CoreStrengthSetRepsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetReps
+     */
+    select?: CoreStrengthSetRepsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetReps
+     */
+    omit?: CoreStrengthSetRepsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetRepsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CoreStrengthSetWeight
+   */
+
+  export type AggregateCoreStrengthSetWeight = {
+    _count: CoreStrengthSetWeightCountAggregateOutputType | null
+    _avg: CoreStrengthSetWeightAvgAggregateOutputType | null
+    _sum: CoreStrengthSetWeightSumAggregateOutputType | null
+    _min: CoreStrengthSetWeightMinAggregateOutputType | null
+    _max: CoreStrengthSetWeightMaxAggregateOutputType | null
+  }
+
+  export type CoreStrengthSetWeightAvgAggregateOutputType = {
+    weight: number | null
+  }
+
+  export type CoreStrengthSetWeightSumAggregateOutputType = {
+    weight: number | null
+  }
+
+  export type CoreStrengthSetWeightMinAggregateOutputType = {
+    id: string | null
+    coreStrengthSetId: string | null
+    isBodyWeight: boolean | null
+    weight: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CoreStrengthSetWeightMaxAggregateOutputType = {
+    id: string | null
+    coreStrengthSetId: string | null
+    isBodyWeight: boolean | null
+    weight: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CoreStrengthSetWeightCountAggregateOutputType = {
+    id: number
+    coreStrengthSetId: number
+    isBodyWeight: number
+    weight: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CoreStrengthSetWeightAvgAggregateInputType = {
+    weight?: true
+  }
+
+  export type CoreStrengthSetWeightSumAggregateInputType = {
+    weight?: true
+  }
+
+  export type CoreStrengthSetWeightMinAggregateInputType = {
+    id?: true
+    coreStrengthSetId?: true
+    isBodyWeight?: true
+    weight?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CoreStrengthSetWeightMaxAggregateInputType = {
+    id?: true
+    coreStrengthSetId?: true
+    isBodyWeight?: true
+    weight?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CoreStrengthSetWeightCountAggregateInputType = {
+    id?: true
+    coreStrengthSetId?: true
+    isBodyWeight?: true
+    weight?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CoreStrengthSetWeightAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CoreStrengthSetWeight to aggregate.
+     */
+    where?: CoreStrengthSetWeightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreStrengthSetWeights to fetch.
+     */
+    orderBy?: CoreStrengthSetWeightOrderByWithRelationInput | CoreStrengthSetWeightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CoreStrengthSetWeightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreStrengthSetWeights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreStrengthSetWeights.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CoreStrengthSetWeights
+    **/
+    _count?: true | CoreStrengthSetWeightCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CoreStrengthSetWeightAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CoreStrengthSetWeightSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CoreStrengthSetWeightMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CoreStrengthSetWeightMaxAggregateInputType
+  }
+
+  export type GetCoreStrengthSetWeightAggregateType<T extends CoreStrengthSetWeightAggregateArgs> = {
+        [P in keyof T & keyof AggregateCoreStrengthSetWeight]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCoreStrengthSetWeight[P]>
+      : GetScalarType<T[P], AggregateCoreStrengthSetWeight[P]>
+  }
+
+
+
+
+  export type CoreStrengthSetWeightGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CoreStrengthSetWeightWhereInput
+    orderBy?: CoreStrengthSetWeightOrderByWithAggregationInput | CoreStrengthSetWeightOrderByWithAggregationInput[]
+    by: CoreStrengthSetWeightScalarFieldEnum[] | CoreStrengthSetWeightScalarFieldEnum
+    having?: CoreStrengthSetWeightScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CoreStrengthSetWeightCountAggregateInputType | true
+    _avg?: CoreStrengthSetWeightAvgAggregateInputType
+    _sum?: CoreStrengthSetWeightSumAggregateInputType
+    _min?: CoreStrengthSetWeightMinAggregateInputType
+    _max?: CoreStrengthSetWeightMaxAggregateInputType
+  }
+
+  export type CoreStrengthSetWeightGroupByOutputType = {
+    id: string
+    coreStrengthSetId: string
+    isBodyWeight: boolean
+    weight: number | null
+    createdAt: Date
+    updatedAt: Date
+    _count: CoreStrengthSetWeightCountAggregateOutputType | null
+    _avg: CoreStrengthSetWeightAvgAggregateOutputType | null
+    _sum: CoreStrengthSetWeightSumAggregateOutputType | null
+    _min: CoreStrengthSetWeightMinAggregateOutputType | null
+    _max: CoreStrengthSetWeightMaxAggregateOutputType | null
+  }
+
+  type GetCoreStrengthSetWeightGroupByPayload<T extends CoreStrengthSetWeightGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CoreStrengthSetWeightGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CoreStrengthSetWeightGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CoreStrengthSetWeightGroupByOutputType[P]>
+            : GetScalarType<T[P], CoreStrengthSetWeightGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CoreStrengthSetWeightSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    coreStrengthSetId?: boolean
+    isBodyWeight?: boolean
+    weight?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    coreStrengthSet?: boolean | CoreStrengthSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreStrengthSetWeight"]>
+
+  export type CoreStrengthSetWeightSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    coreStrengthSetId?: boolean
+    isBodyWeight?: boolean
+    weight?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    coreStrengthSet?: boolean | CoreStrengthSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreStrengthSetWeight"]>
+
+  export type CoreStrengthSetWeightSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    coreStrengthSetId?: boolean
+    isBodyWeight?: boolean
+    weight?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    coreStrengthSet?: boolean | CoreStrengthSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coreStrengthSetWeight"]>
+
+  export type CoreStrengthSetWeightSelectScalar = {
+    id?: boolean
+    coreStrengthSetId?: boolean
+    isBodyWeight?: boolean
+    weight?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CoreStrengthSetWeightOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "coreStrengthSetId" | "isBodyWeight" | "weight" | "createdAt" | "updatedAt", ExtArgs["result"]["coreStrengthSetWeight"]>
+  export type CoreStrengthSetWeightInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreStrengthSet?: boolean | CoreStrengthSetDefaultArgs<ExtArgs>
+  }
+  export type CoreStrengthSetWeightIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreStrengthSet?: boolean | CoreStrengthSetDefaultArgs<ExtArgs>
+  }
+  export type CoreStrengthSetWeightIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coreStrengthSet?: boolean | CoreStrengthSetDefaultArgs<ExtArgs>
+  }
+
+  export type $CoreStrengthSetWeightPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CoreStrengthSetWeight"
+    objects: {
+      coreStrengthSet: Prisma.$CoreStrengthSetPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      coreStrengthSetId: string
+      isBodyWeight: boolean
+      weight: number | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["coreStrengthSetWeight"]>
+    composites: {}
+  }
+
+  type CoreStrengthSetWeightGetPayload<S extends boolean | null | undefined | CoreStrengthSetWeightDefaultArgs> = $Result.GetResult<Prisma.$CoreStrengthSetWeightPayload, S>
+
+  type CoreStrengthSetWeightCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CoreStrengthSetWeightFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CoreStrengthSetWeightCountAggregateInputType | true
+    }
+
+  export interface CoreStrengthSetWeightDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CoreStrengthSetWeight'], meta: { name: 'CoreStrengthSetWeight' } }
+    /**
+     * Find zero or one CoreStrengthSetWeight that matches the filter.
+     * @param {CoreStrengthSetWeightFindUniqueArgs} args - Arguments to find a CoreStrengthSetWeight
+     * @example
+     * // Get one CoreStrengthSetWeight
+     * const coreStrengthSetWeight = await prisma.coreStrengthSetWeight.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CoreStrengthSetWeightFindUniqueArgs>(args: SelectSubset<T, CoreStrengthSetWeightFindUniqueArgs<ExtArgs>>): Prisma__CoreStrengthSetWeightClient<$Result.GetResult<Prisma.$CoreStrengthSetWeightPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CoreStrengthSetWeight that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CoreStrengthSetWeightFindUniqueOrThrowArgs} args - Arguments to find a CoreStrengthSetWeight
+     * @example
+     * // Get one CoreStrengthSetWeight
+     * const coreStrengthSetWeight = await prisma.coreStrengthSetWeight.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CoreStrengthSetWeightFindUniqueOrThrowArgs>(args: SelectSubset<T, CoreStrengthSetWeightFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CoreStrengthSetWeightClient<$Result.GetResult<Prisma.$CoreStrengthSetWeightPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CoreStrengthSetWeight that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetWeightFindFirstArgs} args - Arguments to find a CoreStrengthSetWeight
+     * @example
+     * // Get one CoreStrengthSetWeight
+     * const coreStrengthSetWeight = await prisma.coreStrengthSetWeight.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CoreStrengthSetWeightFindFirstArgs>(args?: SelectSubset<T, CoreStrengthSetWeightFindFirstArgs<ExtArgs>>): Prisma__CoreStrengthSetWeightClient<$Result.GetResult<Prisma.$CoreStrengthSetWeightPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CoreStrengthSetWeight that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetWeightFindFirstOrThrowArgs} args - Arguments to find a CoreStrengthSetWeight
+     * @example
+     * // Get one CoreStrengthSetWeight
+     * const coreStrengthSetWeight = await prisma.coreStrengthSetWeight.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CoreStrengthSetWeightFindFirstOrThrowArgs>(args?: SelectSubset<T, CoreStrengthSetWeightFindFirstOrThrowArgs<ExtArgs>>): Prisma__CoreStrengthSetWeightClient<$Result.GetResult<Prisma.$CoreStrengthSetWeightPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CoreStrengthSetWeights that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetWeightFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CoreStrengthSetWeights
+     * const coreStrengthSetWeights = await prisma.coreStrengthSetWeight.findMany()
+     * 
+     * // Get first 10 CoreStrengthSetWeights
+     * const coreStrengthSetWeights = await prisma.coreStrengthSetWeight.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const coreStrengthSetWeightWithIdOnly = await prisma.coreStrengthSetWeight.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CoreStrengthSetWeightFindManyArgs>(args?: SelectSubset<T, CoreStrengthSetWeightFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreStrengthSetWeightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CoreStrengthSetWeight.
+     * @param {CoreStrengthSetWeightCreateArgs} args - Arguments to create a CoreStrengthSetWeight.
+     * @example
+     * // Create one CoreStrengthSetWeight
+     * const CoreStrengthSetWeight = await prisma.coreStrengthSetWeight.create({
+     *   data: {
+     *     // ... data to create a CoreStrengthSetWeight
+     *   }
+     * })
+     * 
+     */
+    create<T extends CoreStrengthSetWeightCreateArgs>(args: SelectSubset<T, CoreStrengthSetWeightCreateArgs<ExtArgs>>): Prisma__CoreStrengthSetWeightClient<$Result.GetResult<Prisma.$CoreStrengthSetWeightPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CoreStrengthSetWeights.
+     * @param {CoreStrengthSetWeightCreateManyArgs} args - Arguments to create many CoreStrengthSetWeights.
+     * @example
+     * // Create many CoreStrengthSetWeights
+     * const coreStrengthSetWeight = await prisma.coreStrengthSetWeight.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CoreStrengthSetWeightCreateManyArgs>(args?: SelectSubset<T, CoreStrengthSetWeightCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CoreStrengthSetWeights and returns the data saved in the database.
+     * @param {CoreStrengthSetWeightCreateManyAndReturnArgs} args - Arguments to create many CoreStrengthSetWeights.
+     * @example
+     * // Create many CoreStrengthSetWeights
+     * const coreStrengthSetWeight = await prisma.coreStrengthSetWeight.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CoreStrengthSetWeights and only return the `id`
+     * const coreStrengthSetWeightWithIdOnly = await prisma.coreStrengthSetWeight.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CoreStrengthSetWeightCreateManyAndReturnArgs>(args?: SelectSubset<T, CoreStrengthSetWeightCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreStrengthSetWeightPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CoreStrengthSetWeight.
+     * @param {CoreStrengthSetWeightDeleteArgs} args - Arguments to delete one CoreStrengthSetWeight.
+     * @example
+     * // Delete one CoreStrengthSetWeight
+     * const CoreStrengthSetWeight = await prisma.coreStrengthSetWeight.delete({
+     *   where: {
+     *     // ... filter to delete one CoreStrengthSetWeight
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CoreStrengthSetWeightDeleteArgs>(args: SelectSubset<T, CoreStrengthSetWeightDeleteArgs<ExtArgs>>): Prisma__CoreStrengthSetWeightClient<$Result.GetResult<Prisma.$CoreStrengthSetWeightPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CoreStrengthSetWeight.
+     * @param {CoreStrengthSetWeightUpdateArgs} args - Arguments to update one CoreStrengthSetWeight.
+     * @example
+     * // Update one CoreStrengthSetWeight
+     * const coreStrengthSetWeight = await prisma.coreStrengthSetWeight.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CoreStrengthSetWeightUpdateArgs>(args: SelectSubset<T, CoreStrengthSetWeightUpdateArgs<ExtArgs>>): Prisma__CoreStrengthSetWeightClient<$Result.GetResult<Prisma.$CoreStrengthSetWeightPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CoreStrengthSetWeights.
+     * @param {CoreStrengthSetWeightDeleteManyArgs} args - Arguments to filter CoreStrengthSetWeights to delete.
+     * @example
+     * // Delete a few CoreStrengthSetWeights
+     * const { count } = await prisma.coreStrengthSetWeight.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CoreStrengthSetWeightDeleteManyArgs>(args?: SelectSubset<T, CoreStrengthSetWeightDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CoreStrengthSetWeights.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetWeightUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CoreStrengthSetWeights
+     * const coreStrengthSetWeight = await prisma.coreStrengthSetWeight.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CoreStrengthSetWeightUpdateManyArgs>(args: SelectSubset<T, CoreStrengthSetWeightUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CoreStrengthSetWeights and returns the data updated in the database.
+     * @param {CoreStrengthSetWeightUpdateManyAndReturnArgs} args - Arguments to update many CoreStrengthSetWeights.
+     * @example
+     * // Update many CoreStrengthSetWeights
+     * const coreStrengthSetWeight = await prisma.coreStrengthSetWeight.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CoreStrengthSetWeights and only return the `id`
+     * const coreStrengthSetWeightWithIdOnly = await prisma.coreStrengthSetWeight.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CoreStrengthSetWeightUpdateManyAndReturnArgs>(args: SelectSubset<T, CoreStrengthSetWeightUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreStrengthSetWeightPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CoreStrengthSetWeight.
+     * @param {CoreStrengthSetWeightUpsertArgs} args - Arguments to update or create a CoreStrengthSetWeight.
+     * @example
+     * // Update or create a CoreStrengthSetWeight
+     * const coreStrengthSetWeight = await prisma.coreStrengthSetWeight.upsert({
+     *   create: {
+     *     // ... data to create a CoreStrengthSetWeight
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CoreStrengthSetWeight we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CoreStrengthSetWeightUpsertArgs>(args: SelectSubset<T, CoreStrengthSetWeightUpsertArgs<ExtArgs>>): Prisma__CoreStrengthSetWeightClient<$Result.GetResult<Prisma.$CoreStrengthSetWeightPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CoreStrengthSetWeights.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetWeightCountArgs} args - Arguments to filter CoreStrengthSetWeights to count.
+     * @example
+     * // Count the number of CoreStrengthSetWeights
+     * const count = await prisma.coreStrengthSetWeight.count({
+     *   where: {
+     *     // ... the filter for the CoreStrengthSetWeights we want to count
+     *   }
+     * })
+    **/
+    count<T extends CoreStrengthSetWeightCountArgs>(
+      args?: Subset<T, CoreStrengthSetWeightCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CoreStrengthSetWeightCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CoreStrengthSetWeight.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetWeightAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CoreStrengthSetWeightAggregateArgs>(args: Subset<T, CoreStrengthSetWeightAggregateArgs>): Prisma.PrismaPromise<GetCoreStrengthSetWeightAggregateType<T>>
+
+    /**
+     * Group by CoreStrengthSetWeight.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoreStrengthSetWeightGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CoreStrengthSetWeightGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CoreStrengthSetWeightGroupByArgs['orderBy'] }
+        : { orderBy?: CoreStrengthSetWeightGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CoreStrengthSetWeightGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCoreStrengthSetWeightGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CoreStrengthSetWeight model
+   */
+  readonly fields: CoreStrengthSetWeightFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CoreStrengthSetWeight.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CoreStrengthSetWeightClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    coreStrengthSet<T extends CoreStrengthSetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CoreStrengthSetDefaultArgs<ExtArgs>>): Prisma__CoreStrengthSetClient<$Result.GetResult<Prisma.$CoreStrengthSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CoreStrengthSetWeight model
+   */
+  interface CoreStrengthSetWeightFieldRefs {
+    readonly id: FieldRef<"CoreStrengthSetWeight", 'String'>
+    readonly coreStrengthSetId: FieldRef<"CoreStrengthSetWeight", 'String'>
+    readonly isBodyWeight: FieldRef<"CoreStrengthSetWeight", 'Boolean'>
+    readonly weight: FieldRef<"CoreStrengthSetWeight", 'Float'>
+    readonly createdAt: FieldRef<"CoreStrengthSetWeight", 'DateTime'>
+    readonly updatedAt: FieldRef<"CoreStrengthSetWeight", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CoreStrengthSetWeight findUnique
+   */
+  export type CoreStrengthSetWeightFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetWeight
+     */
+    select?: CoreStrengthSetWeightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetWeight
+     */
+    omit?: CoreStrengthSetWeightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetWeightInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreStrengthSetWeight to fetch.
+     */
+    where: CoreStrengthSetWeightWhereUniqueInput
+  }
+
+  /**
+   * CoreStrengthSetWeight findUniqueOrThrow
+   */
+  export type CoreStrengthSetWeightFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetWeight
+     */
+    select?: CoreStrengthSetWeightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetWeight
+     */
+    omit?: CoreStrengthSetWeightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetWeightInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreStrengthSetWeight to fetch.
+     */
+    where: CoreStrengthSetWeightWhereUniqueInput
+  }
+
+  /**
+   * CoreStrengthSetWeight findFirst
+   */
+  export type CoreStrengthSetWeightFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetWeight
+     */
+    select?: CoreStrengthSetWeightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetWeight
+     */
+    omit?: CoreStrengthSetWeightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetWeightInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreStrengthSetWeight to fetch.
+     */
+    where?: CoreStrengthSetWeightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreStrengthSetWeights to fetch.
+     */
+    orderBy?: CoreStrengthSetWeightOrderByWithRelationInput | CoreStrengthSetWeightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CoreStrengthSetWeights.
+     */
+    cursor?: CoreStrengthSetWeightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreStrengthSetWeights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreStrengthSetWeights.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CoreStrengthSetWeights.
+     */
+    distinct?: CoreStrengthSetWeightScalarFieldEnum | CoreStrengthSetWeightScalarFieldEnum[]
+  }
+
+  /**
+   * CoreStrengthSetWeight findFirstOrThrow
+   */
+  export type CoreStrengthSetWeightFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetWeight
+     */
+    select?: CoreStrengthSetWeightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetWeight
+     */
+    omit?: CoreStrengthSetWeightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetWeightInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreStrengthSetWeight to fetch.
+     */
+    where?: CoreStrengthSetWeightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreStrengthSetWeights to fetch.
+     */
+    orderBy?: CoreStrengthSetWeightOrderByWithRelationInput | CoreStrengthSetWeightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CoreStrengthSetWeights.
+     */
+    cursor?: CoreStrengthSetWeightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreStrengthSetWeights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreStrengthSetWeights.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CoreStrengthSetWeights.
+     */
+    distinct?: CoreStrengthSetWeightScalarFieldEnum | CoreStrengthSetWeightScalarFieldEnum[]
+  }
+
+  /**
+   * CoreStrengthSetWeight findMany
+   */
+  export type CoreStrengthSetWeightFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetWeight
+     */
+    select?: CoreStrengthSetWeightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetWeight
+     */
+    omit?: CoreStrengthSetWeightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetWeightInclude<ExtArgs> | null
+    /**
+     * Filter, which CoreStrengthSetWeights to fetch.
+     */
+    where?: CoreStrengthSetWeightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoreStrengthSetWeights to fetch.
+     */
+    orderBy?: CoreStrengthSetWeightOrderByWithRelationInput | CoreStrengthSetWeightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CoreStrengthSetWeights.
+     */
+    cursor?: CoreStrengthSetWeightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoreStrengthSetWeights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoreStrengthSetWeights.
+     */
+    skip?: number
+    distinct?: CoreStrengthSetWeightScalarFieldEnum | CoreStrengthSetWeightScalarFieldEnum[]
+  }
+
+  /**
+   * CoreStrengthSetWeight create
+   */
+  export type CoreStrengthSetWeightCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetWeight
+     */
+    select?: CoreStrengthSetWeightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetWeight
+     */
+    omit?: CoreStrengthSetWeightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetWeightInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CoreStrengthSetWeight.
+     */
+    data: XOR<CoreStrengthSetWeightCreateInput, CoreStrengthSetWeightUncheckedCreateInput>
+  }
+
+  /**
+   * CoreStrengthSetWeight createMany
+   */
+  export type CoreStrengthSetWeightCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CoreStrengthSetWeights.
+     */
+    data: CoreStrengthSetWeightCreateManyInput | CoreStrengthSetWeightCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CoreStrengthSetWeight createManyAndReturn
+   */
+  export type CoreStrengthSetWeightCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetWeight
+     */
+    select?: CoreStrengthSetWeightSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetWeight
+     */
+    omit?: CoreStrengthSetWeightOmit<ExtArgs> | null
+    /**
+     * The data used to create many CoreStrengthSetWeights.
+     */
+    data: CoreStrengthSetWeightCreateManyInput | CoreStrengthSetWeightCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetWeightIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CoreStrengthSetWeight update
+   */
+  export type CoreStrengthSetWeightUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetWeight
+     */
+    select?: CoreStrengthSetWeightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetWeight
+     */
+    omit?: CoreStrengthSetWeightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetWeightInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CoreStrengthSetWeight.
+     */
+    data: XOR<CoreStrengthSetWeightUpdateInput, CoreStrengthSetWeightUncheckedUpdateInput>
+    /**
+     * Choose, which CoreStrengthSetWeight to update.
+     */
+    where: CoreStrengthSetWeightWhereUniqueInput
+  }
+
+  /**
+   * CoreStrengthSetWeight updateMany
+   */
+  export type CoreStrengthSetWeightUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CoreStrengthSetWeights.
+     */
+    data: XOR<CoreStrengthSetWeightUpdateManyMutationInput, CoreStrengthSetWeightUncheckedUpdateManyInput>
+    /**
+     * Filter which CoreStrengthSetWeights to update
+     */
+    where?: CoreStrengthSetWeightWhereInput
+    /**
+     * Limit how many CoreStrengthSetWeights to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CoreStrengthSetWeight updateManyAndReturn
+   */
+  export type CoreStrengthSetWeightUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetWeight
+     */
+    select?: CoreStrengthSetWeightSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetWeight
+     */
+    omit?: CoreStrengthSetWeightOmit<ExtArgs> | null
+    /**
+     * The data used to update CoreStrengthSetWeights.
+     */
+    data: XOR<CoreStrengthSetWeightUpdateManyMutationInput, CoreStrengthSetWeightUncheckedUpdateManyInput>
+    /**
+     * Filter which CoreStrengthSetWeights to update
+     */
+    where?: CoreStrengthSetWeightWhereInput
+    /**
+     * Limit how many CoreStrengthSetWeights to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetWeightIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CoreStrengthSetWeight upsert
+   */
+  export type CoreStrengthSetWeightUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetWeight
+     */
+    select?: CoreStrengthSetWeightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetWeight
+     */
+    omit?: CoreStrengthSetWeightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetWeightInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CoreStrengthSetWeight to update in case it exists.
+     */
+    where: CoreStrengthSetWeightWhereUniqueInput
+    /**
+     * In case the CoreStrengthSetWeight found by the `where` argument doesn't exist, create a new CoreStrengthSetWeight with this data.
+     */
+    create: XOR<CoreStrengthSetWeightCreateInput, CoreStrengthSetWeightUncheckedCreateInput>
+    /**
+     * In case the CoreStrengthSetWeight was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CoreStrengthSetWeightUpdateInput, CoreStrengthSetWeightUncheckedUpdateInput>
+  }
+
+  /**
+   * CoreStrengthSetWeight delete
+   */
+  export type CoreStrengthSetWeightDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetWeight
+     */
+    select?: CoreStrengthSetWeightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetWeight
+     */
+    omit?: CoreStrengthSetWeightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetWeightInclude<ExtArgs> | null
+    /**
+     * Filter which CoreStrengthSetWeight to delete.
+     */
+    where: CoreStrengthSetWeightWhereUniqueInput
+  }
+
+  /**
+   * CoreStrengthSetWeight deleteMany
+   */
+  export type CoreStrengthSetWeightDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CoreStrengthSetWeights to delete
+     */
+    where?: CoreStrengthSetWeightWhereInput
+    /**
+     * Limit how many CoreStrengthSetWeights to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CoreStrengthSetWeight without action
+   */
+  export type CoreStrengthSetWeightDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoreStrengthSetWeight
+     */
+    select?: CoreStrengthSetWeightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoreStrengthSetWeight
+     */
+    omit?: CoreStrengthSetWeightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoreStrengthSetWeightInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserStrengthSet
+   */
+
+  export type AggregateUserStrengthSet = {
+    _count: UserStrengthSetCountAggregateOutputType | null
+    _avg: UserStrengthSetAvgAggregateOutputType | null
+    _sum: UserStrengthSetSumAggregateOutputType | null
+    _min: UserStrengthSetMinAggregateOutputType | null
+    _max: UserStrengthSetMaxAggregateOutputType | null
+  }
+
+  export type UserStrengthSetAvgAggregateOutputType = {
+    reps: number | null
+    weight: number | null
+    restTime: number | null
+    order: number | null
+  }
+
+  export type UserStrengthSetSumAggregateOutputType = {
+    reps: number | null
+    weight: number | null
+    restTime: number | null
+    order: number | null
+  }
+
+  export type UserStrengthSetMinAggregateOutputType = {
+    id: string | null
+    reps: number | null
+    weight: number | null
+    isBodyWeight: boolean | null
+    restTime: number | null
+    order: number | null
+    isCompleted: boolean | null
+    isWarmup: boolean | null
+    isMuscleFailure: boolean | null
+    isJointPain: boolean | null
+    skippedReason: string | null
+    userWorkoutExerciseId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserStrengthSetMaxAggregateOutputType = {
+    id: string | null
+    reps: number | null
+    weight: number | null
+    isBodyWeight: boolean | null
+    restTime: number | null
+    order: number | null
+    isCompleted: boolean | null
+    isWarmup: boolean | null
+    isMuscleFailure: boolean | null
+    isJointPain: boolean | null
+    skippedReason: string | null
+    userWorkoutExerciseId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserStrengthSetCountAggregateOutputType = {
+    id: number
+    reps: number
+    weight: number
+    isBodyWeight: number
+    restTime: number
+    order: number
+    isCompleted: number
+    isWarmup: number
+    isMuscleFailure: number
+    isJointPain: number
+    skippedReason: number
+    userWorkoutExerciseId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserStrengthSetAvgAggregateInputType = {
+    reps?: true
+    weight?: true
+    restTime?: true
+    order?: true
+  }
+
+  export type UserStrengthSetSumAggregateInputType = {
+    reps?: true
+    weight?: true
+    restTime?: true
+    order?: true
+  }
+
+  export type UserStrengthSetMinAggregateInputType = {
+    id?: true
+    reps?: true
+    weight?: true
+    isBodyWeight?: true
+    restTime?: true
+    order?: true
+    isCompleted?: true
+    isWarmup?: true
+    isMuscleFailure?: true
+    isJointPain?: true
+    skippedReason?: true
+    userWorkoutExerciseId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserStrengthSetMaxAggregateInputType = {
+    id?: true
+    reps?: true
+    weight?: true
+    isBodyWeight?: true
+    restTime?: true
+    order?: true
+    isCompleted?: true
+    isWarmup?: true
+    isMuscleFailure?: true
+    isJointPain?: true
+    skippedReason?: true
+    userWorkoutExerciseId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserStrengthSetCountAggregateInputType = {
+    id?: true
+    reps?: true
+    weight?: true
+    isBodyWeight?: true
+    restTime?: true
+    order?: true
+    isCompleted?: true
+    isWarmup?: true
+    isMuscleFailure?: true
+    isJointPain?: true
+    skippedReason?: true
+    userWorkoutExerciseId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserStrengthSetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserStrengthSet to aggregate.
+     */
+    where?: UserStrengthSetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserStrengthSets to fetch.
+     */
+    orderBy?: UserStrengthSetOrderByWithRelationInput | UserStrengthSetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserStrengthSetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserStrengthSets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserStrengthSets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserStrengthSets
+    **/
+    _count?: true | UserStrengthSetCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserStrengthSetAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserStrengthSetSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserStrengthSetMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserStrengthSetMaxAggregateInputType
+  }
+
+  export type GetUserStrengthSetAggregateType<T extends UserStrengthSetAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserStrengthSet]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserStrengthSet[P]>
+      : GetScalarType<T[P], AggregateUserStrengthSet[P]>
+  }
+
+
+
+
+  export type UserStrengthSetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserStrengthSetWhereInput
+    orderBy?: UserStrengthSetOrderByWithAggregationInput | UserStrengthSetOrderByWithAggregationInput[]
+    by: UserStrengthSetScalarFieldEnum[] | UserStrengthSetScalarFieldEnum
+    having?: UserStrengthSetScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserStrengthSetCountAggregateInputType | true
+    _avg?: UserStrengthSetAvgAggregateInputType
+    _sum?: UserStrengthSetSumAggregateInputType
+    _min?: UserStrengthSetMinAggregateInputType
+    _max?: UserStrengthSetMaxAggregateInputType
+  }
+
+  export type UserStrengthSetGroupByOutputType = {
+    id: string
+    reps: number
+    weight: number | null
+    isBodyWeight: boolean
+    restTime: number
+    order: number
+    isCompleted: boolean
+    isWarmup: boolean
+    isMuscleFailure: boolean
+    isJointPain: boolean
+    skippedReason: string | null
+    userWorkoutExerciseId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: UserStrengthSetCountAggregateOutputType | null
+    _avg: UserStrengthSetAvgAggregateOutputType | null
+    _sum: UserStrengthSetSumAggregateOutputType | null
+    _min: UserStrengthSetMinAggregateOutputType | null
+    _max: UserStrengthSetMaxAggregateOutputType | null
+  }
+
+  type GetUserStrengthSetGroupByPayload<T extends UserStrengthSetGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserStrengthSetGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserStrengthSetGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserStrengthSetGroupByOutputType[P]>
+            : GetScalarType<T[P], UserStrengthSetGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserStrengthSetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    reps?: boolean
+    weight?: boolean
+    isBodyWeight?: boolean
+    restTime?: boolean
+    order?: boolean
+    isCompleted?: boolean
+    isWarmup?: boolean
+    isMuscleFailure?: boolean
+    isJointPain?: boolean
+    skippedReason?: boolean
+    userWorkoutExerciseId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userWorkoutExercise?: boolean | UserWorkoutExerciseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userStrengthSet"]>
+
+  export type UserStrengthSetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    reps?: boolean
+    weight?: boolean
+    isBodyWeight?: boolean
+    restTime?: boolean
+    order?: boolean
+    isCompleted?: boolean
+    isWarmup?: boolean
+    isMuscleFailure?: boolean
+    isJointPain?: boolean
+    skippedReason?: boolean
+    userWorkoutExerciseId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userWorkoutExercise?: boolean | UserWorkoutExerciseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userStrengthSet"]>
+
+  export type UserStrengthSetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    reps?: boolean
+    weight?: boolean
+    isBodyWeight?: boolean
+    restTime?: boolean
+    order?: boolean
+    isCompleted?: boolean
+    isWarmup?: boolean
+    isMuscleFailure?: boolean
+    isJointPain?: boolean
+    skippedReason?: boolean
+    userWorkoutExerciseId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userWorkoutExercise?: boolean | UserWorkoutExerciseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userStrengthSet"]>
+
+  export type UserStrengthSetSelectScalar = {
+    id?: boolean
+    reps?: boolean
+    weight?: boolean
+    isBodyWeight?: boolean
+    restTime?: boolean
+    order?: boolean
+    isCompleted?: boolean
+    isWarmup?: boolean
+    isMuscleFailure?: boolean
+    isJointPain?: boolean
+    skippedReason?: boolean
+    userWorkoutExerciseId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserStrengthSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "reps" | "weight" | "isBodyWeight" | "restTime" | "order" | "isCompleted" | "isWarmup" | "isMuscleFailure" | "isJointPain" | "skippedReason" | "userWorkoutExerciseId" | "createdAt" | "updatedAt", ExtArgs["result"]["userStrengthSet"]>
+  export type UserStrengthSetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userWorkoutExercise?: boolean | UserWorkoutExerciseDefaultArgs<ExtArgs>
+  }
+  export type UserStrengthSetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userWorkoutExercise?: boolean | UserWorkoutExerciseDefaultArgs<ExtArgs>
+  }
+  export type UserStrengthSetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userWorkoutExercise?: boolean | UserWorkoutExerciseDefaultArgs<ExtArgs>
+  }
+
+  export type $UserStrengthSetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserStrengthSet"
+    objects: {
+      userWorkoutExercise: Prisma.$UserWorkoutExercisePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      reps: number
+      weight: number | null
+      isBodyWeight: boolean
+      restTime: number
+      order: number
+      isCompleted: boolean
+      isWarmup: boolean
+      isMuscleFailure: boolean
+      isJointPain: boolean
+      skippedReason: string | null
+      userWorkoutExerciseId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userStrengthSet"]>
+    composites: {}
+  }
+
+  type UserStrengthSetGetPayload<S extends boolean | null | undefined | UserStrengthSetDefaultArgs> = $Result.GetResult<Prisma.$UserStrengthSetPayload, S>
+
+  type UserStrengthSetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserStrengthSetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserStrengthSetCountAggregateInputType | true
+    }
+
+  export interface UserStrengthSetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserStrengthSet'], meta: { name: 'UserStrengthSet' } }
+    /**
+     * Find zero or one UserStrengthSet that matches the filter.
+     * @param {UserStrengthSetFindUniqueArgs} args - Arguments to find a UserStrengthSet
+     * @example
+     * // Get one UserStrengthSet
+     * const userStrengthSet = await prisma.userStrengthSet.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserStrengthSetFindUniqueArgs>(args: SelectSubset<T, UserStrengthSetFindUniqueArgs<ExtArgs>>): Prisma__UserStrengthSetClient<$Result.GetResult<Prisma.$UserStrengthSetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserStrengthSet that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserStrengthSetFindUniqueOrThrowArgs} args - Arguments to find a UserStrengthSet
+     * @example
+     * // Get one UserStrengthSet
+     * const userStrengthSet = await prisma.userStrengthSet.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserStrengthSetFindUniqueOrThrowArgs>(args: SelectSubset<T, UserStrengthSetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserStrengthSetClient<$Result.GetResult<Prisma.$UserStrengthSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserStrengthSet that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStrengthSetFindFirstArgs} args - Arguments to find a UserStrengthSet
+     * @example
+     * // Get one UserStrengthSet
+     * const userStrengthSet = await prisma.userStrengthSet.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserStrengthSetFindFirstArgs>(args?: SelectSubset<T, UserStrengthSetFindFirstArgs<ExtArgs>>): Prisma__UserStrengthSetClient<$Result.GetResult<Prisma.$UserStrengthSetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserStrengthSet that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStrengthSetFindFirstOrThrowArgs} args - Arguments to find a UserStrengthSet
+     * @example
+     * // Get one UserStrengthSet
+     * const userStrengthSet = await prisma.userStrengthSet.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserStrengthSetFindFirstOrThrowArgs>(args?: SelectSubset<T, UserStrengthSetFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserStrengthSetClient<$Result.GetResult<Prisma.$UserStrengthSetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserStrengthSets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStrengthSetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserStrengthSets
+     * const userStrengthSets = await prisma.userStrengthSet.findMany()
+     * 
+     * // Get first 10 UserStrengthSets
+     * const userStrengthSets = await prisma.userStrengthSet.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userStrengthSetWithIdOnly = await prisma.userStrengthSet.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserStrengthSetFindManyArgs>(args?: SelectSubset<T, UserStrengthSetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStrengthSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserStrengthSet.
+     * @param {UserStrengthSetCreateArgs} args - Arguments to create a UserStrengthSet.
+     * @example
+     * // Create one UserStrengthSet
+     * const UserStrengthSet = await prisma.userStrengthSet.create({
+     *   data: {
+     *     // ... data to create a UserStrengthSet
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserStrengthSetCreateArgs>(args: SelectSubset<T, UserStrengthSetCreateArgs<ExtArgs>>): Prisma__UserStrengthSetClient<$Result.GetResult<Prisma.$UserStrengthSetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserStrengthSets.
+     * @param {UserStrengthSetCreateManyArgs} args - Arguments to create many UserStrengthSets.
+     * @example
+     * // Create many UserStrengthSets
+     * const userStrengthSet = await prisma.userStrengthSet.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserStrengthSetCreateManyArgs>(args?: SelectSubset<T, UserStrengthSetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserStrengthSets and returns the data saved in the database.
+     * @param {UserStrengthSetCreateManyAndReturnArgs} args - Arguments to create many UserStrengthSets.
+     * @example
+     * // Create many UserStrengthSets
+     * const userStrengthSet = await prisma.userStrengthSet.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserStrengthSets and only return the `id`
+     * const userStrengthSetWithIdOnly = await prisma.userStrengthSet.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserStrengthSetCreateManyAndReturnArgs>(args?: SelectSubset<T, UserStrengthSetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStrengthSetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserStrengthSet.
+     * @param {UserStrengthSetDeleteArgs} args - Arguments to delete one UserStrengthSet.
+     * @example
+     * // Delete one UserStrengthSet
+     * const UserStrengthSet = await prisma.userStrengthSet.delete({
+     *   where: {
+     *     // ... filter to delete one UserStrengthSet
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserStrengthSetDeleteArgs>(args: SelectSubset<T, UserStrengthSetDeleteArgs<ExtArgs>>): Prisma__UserStrengthSetClient<$Result.GetResult<Prisma.$UserStrengthSetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserStrengthSet.
+     * @param {UserStrengthSetUpdateArgs} args - Arguments to update one UserStrengthSet.
+     * @example
+     * // Update one UserStrengthSet
+     * const userStrengthSet = await prisma.userStrengthSet.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserStrengthSetUpdateArgs>(args: SelectSubset<T, UserStrengthSetUpdateArgs<ExtArgs>>): Prisma__UserStrengthSetClient<$Result.GetResult<Prisma.$UserStrengthSetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserStrengthSets.
+     * @param {UserStrengthSetDeleteManyArgs} args - Arguments to filter UserStrengthSets to delete.
+     * @example
+     * // Delete a few UserStrengthSets
+     * const { count } = await prisma.userStrengthSet.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserStrengthSetDeleteManyArgs>(args?: SelectSubset<T, UserStrengthSetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserStrengthSets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStrengthSetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserStrengthSets
+     * const userStrengthSet = await prisma.userStrengthSet.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserStrengthSetUpdateManyArgs>(args: SelectSubset<T, UserStrengthSetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserStrengthSets and returns the data updated in the database.
+     * @param {UserStrengthSetUpdateManyAndReturnArgs} args - Arguments to update many UserStrengthSets.
+     * @example
+     * // Update many UserStrengthSets
+     * const userStrengthSet = await prisma.userStrengthSet.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserStrengthSets and only return the `id`
+     * const userStrengthSetWithIdOnly = await prisma.userStrengthSet.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserStrengthSetUpdateManyAndReturnArgs>(args: SelectSubset<T, UserStrengthSetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStrengthSetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserStrengthSet.
+     * @param {UserStrengthSetUpsertArgs} args - Arguments to update or create a UserStrengthSet.
+     * @example
+     * // Update or create a UserStrengthSet
+     * const userStrengthSet = await prisma.userStrengthSet.upsert({
+     *   create: {
+     *     // ... data to create a UserStrengthSet
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserStrengthSet we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserStrengthSetUpsertArgs>(args: SelectSubset<T, UserStrengthSetUpsertArgs<ExtArgs>>): Prisma__UserStrengthSetClient<$Result.GetResult<Prisma.$UserStrengthSetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserStrengthSets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStrengthSetCountArgs} args - Arguments to filter UserStrengthSets to count.
+     * @example
+     * // Count the number of UserStrengthSets
+     * const count = await prisma.userStrengthSet.count({
+     *   where: {
+     *     // ... the filter for the UserStrengthSets we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserStrengthSetCountArgs>(
+      args?: Subset<T, UserStrengthSetCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserStrengthSetCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserStrengthSet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStrengthSetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserStrengthSetAggregateArgs>(args: Subset<T, UserStrengthSetAggregateArgs>): Prisma.PrismaPromise<GetUserStrengthSetAggregateType<T>>
+
+    /**
+     * Group by UserStrengthSet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStrengthSetGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserStrengthSetGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserStrengthSetGroupByArgs['orderBy'] }
+        : { orderBy?: UserStrengthSetGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserStrengthSetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserStrengthSetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserStrengthSet model
+   */
+  readonly fields: UserStrengthSetFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserStrengthSet.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserStrengthSetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    userWorkoutExercise<T extends UserWorkoutExerciseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserWorkoutExerciseDefaultArgs<ExtArgs>>): Prisma__UserWorkoutExerciseClient<$Result.GetResult<Prisma.$UserWorkoutExercisePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserStrengthSet model
+   */
+  interface UserStrengthSetFieldRefs {
+    readonly id: FieldRef<"UserStrengthSet", 'String'>
+    readonly reps: FieldRef<"UserStrengthSet", 'Int'>
+    readonly weight: FieldRef<"UserStrengthSet", 'Float'>
+    readonly isBodyWeight: FieldRef<"UserStrengthSet", 'Boolean'>
+    readonly restTime: FieldRef<"UserStrengthSet", 'Int'>
+    readonly order: FieldRef<"UserStrengthSet", 'Int'>
+    readonly isCompleted: FieldRef<"UserStrengthSet", 'Boolean'>
+    readonly isWarmup: FieldRef<"UserStrengthSet", 'Boolean'>
+    readonly isMuscleFailure: FieldRef<"UserStrengthSet", 'Boolean'>
+    readonly isJointPain: FieldRef<"UserStrengthSet", 'Boolean'>
+    readonly skippedReason: FieldRef<"UserStrengthSet", 'String'>
+    readonly userWorkoutExerciseId: FieldRef<"UserStrengthSet", 'String'>
+    readonly createdAt: FieldRef<"UserStrengthSet", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserStrengthSet", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserStrengthSet findUnique
+   */
+  export type UserStrengthSetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStrengthSet
+     */
+    select?: UserStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStrengthSet
+     */
+    omit?: UserStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStrengthSetInclude<ExtArgs> | null
+    /**
+     * Filter, which UserStrengthSet to fetch.
+     */
+    where: UserStrengthSetWhereUniqueInput
+  }
+
+  /**
+   * UserStrengthSet findUniqueOrThrow
+   */
+  export type UserStrengthSetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStrengthSet
+     */
+    select?: UserStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStrengthSet
+     */
+    omit?: UserStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStrengthSetInclude<ExtArgs> | null
+    /**
+     * Filter, which UserStrengthSet to fetch.
+     */
+    where: UserStrengthSetWhereUniqueInput
+  }
+
+  /**
+   * UserStrengthSet findFirst
+   */
+  export type UserStrengthSetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStrengthSet
+     */
+    select?: UserStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStrengthSet
+     */
+    omit?: UserStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStrengthSetInclude<ExtArgs> | null
+    /**
+     * Filter, which UserStrengthSet to fetch.
+     */
+    where?: UserStrengthSetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserStrengthSets to fetch.
+     */
+    orderBy?: UserStrengthSetOrderByWithRelationInput | UserStrengthSetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserStrengthSets.
+     */
+    cursor?: UserStrengthSetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserStrengthSets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserStrengthSets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserStrengthSets.
+     */
+    distinct?: UserStrengthSetScalarFieldEnum | UserStrengthSetScalarFieldEnum[]
+  }
+
+  /**
+   * UserStrengthSet findFirstOrThrow
+   */
+  export type UserStrengthSetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStrengthSet
+     */
+    select?: UserStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStrengthSet
+     */
+    omit?: UserStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStrengthSetInclude<ExtArgs> | null
+    /**
+     * Filter, which UserStrengthSet to fetch.
+     */
+    where?: UserStrengthSetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserStrengthSets to fetch.
+     */
+    orderBy?: UserStrengthSetOrderByWithRelationInput | UserStrengthSetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserStrengthSets.
+     */
+    cursor?: UserStrengthSetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserStrengthSets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserStrengthSets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserStrengthSets.
+     */
+    distinct?: UserStrengthSetScalarFieldEnum | UserStrengthSetScalarFieldEnum[]
+  }
+
+  /**
+   * UserStrengthSet findMany
+   */
+  export type UserStrengthSetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStrengthSet
+     */
+    select?: UserStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStrengthSet
+     */
+    omit?: UserStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStrengthSetInclude<ExtArgs> | null
+    /**
+     * Filter, which UserStrengthSets to fetch.
+     */
+    where?: UserStrengthSetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserStrengthSets to fetch.
+     */
+    orderBy?: UserStrengthSetOrderByWithRelationInput | UserStrengthSetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserStrengthSets.
+     */
+    cursor?: UserStrengthSetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserStrengthSets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserStrengthSets.
+     */
+    skip?: number
+    distinct?: UserStrengthSetScalarFieldEnum | UserStrengthSetScalarFieldEnum[]
+  }
+
+  /**
+   * UserStrengthSet create
+   */
+  export type UserStrengthSetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStrengthSet
+     */
+    select?: UserStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStrengthSet
+     */
+    omit?: UserStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStrengthSetInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserStrengthSet.
+     */
+    data: XOR<UserStrengthSetCreateInput, UserStrengthSetUncheckedCreateInput>
+  }
+
+  /**
+   * UserStrengthSet createMany
+   */
+  export type UserStrengthSetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserStrengthSets.
+     */
+    data: UserStrengthSetCreateManyInput | UserStrengthSetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserStrengthSet createManyAndReturn
+   */
+  export type UserStrengthSetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStrengthSet
+     */
+    select?: UserStrengthSetSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStrengthSet
+     */
+    omit?: UserStrengthSetOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserStrengthSets.
+     */
+    data: UserStrengthSetCreateManyInput | UserStrengthSetCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStrengthSetIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserStrengthSet update
+   */
+  export type UserStrengthSetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStrengthSet
+     */
+    select?: UserStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStrengthSet
+     */
+    omit?: UserStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStrengthSetInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserStrengthSet.
+     */
+    data: XOR<UserStrengthSetUpdateInput, UserStrengthSetUncheckedUpdateInput>
+    /**
+     * Choose, which UserStrengthSet to update.
+     */
+    where: UserStrengthSetWhereUniqueInput
+  }
+
+  /**
+   * UserStrengthSet updateMany
+   */
+  export type UserStrengthSetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserStrengthSets.
+     */
+    data: XOR<UserStrengthSetUpdateManyMutationInput, UserStrengthSetUncheckedUpdateManyInput>
+    /**
+     * Filter which UserStrengthSets to update
+     */
+    where?: UserStrengthSetWhereInput
+    /**
+     * Limit how many UserStrengthSets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserStrengthSet updateManyAndReturn
+   */
+  export type UserStrengthSetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStrengthSet
+     */
+    select?: UserStrengthSetSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStrengthSet
+     */
+    omit?: UserStrengthSetOmit<ExtArgs> | null
+    /**
+     * The data used to update UserStrengthSets.
+     */
+    data: XOR<UserStrengthSetUpdateManyMutationInput, UserStrengthSetUncheckedUpdateManyInput>
+    /**
+     * Filter which UserStrengthSets to update
+     */
+    where?: UserStrengthSetWhereInput
+    /**
+     * Limit how many UserStrengthSets to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStrengthSetIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserStrengthSet upsert
+   */
+  export type UserStrengthSetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStrengthSet
+     */
+    select?: UserStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStrengthSet
+     */
+    omit?: UserStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStrengthSetInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserStrengthSet to update in case it exists.
+     */
+    where: UserStrengthSetWhereUniqueInput
+    /**
+     * In case the UserStrengthSet found by the `where` argument doesn't exist, create a new UserStrengthSet with this data.
+     */
+    create: XOR<UserStrengthSetCreateInput, UserStrengthSetUncheckedCreateInput>
+    /**
+     * In case the UserStrengthSet was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserStrengthSetUpdateInput, UserStrengthSetUncheckedUpdateInput>
+  }
+
+  /**
+   * UserStrengthSet delete
+   */
+  export type UserStrengthSetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStrengthSet
+     */
+    select?: UserStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStrengthSet
+     */
+    omit?: UserStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStrengthSetInclude<ExtArgs> | null
+    /**
+     * Filter which UserStrengthSet to delete.
+     */
+    where: UserStrengthSetWhereUniqueInput
+  }
+
+  /**
+   * UserStrengthSet deleteMany
+   */
+  export type UserStrengthSetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserStrengthSets to delete
+     */
+    where?: UserStrengthSetWhereInput
+    /**
+     * Limit how many UserStrengthSets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserStrengthSet without action
+   */
+  export type UserStrengthSetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStrengthSet
+     */
+    select?: UserStrengthSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStrengthSet
+     */
+    omit?: UserStrengthSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStrengthSetInclude<ExtArgs> | null
   }
 
 
@@ -14035,7 +20105,7 @@ export namespace Prisma {
     id: string | null
     order: number | null
     notes: string | null
-    coreSetId: string | null
+    coreStrengthSetId: string | null
     coreCardioSetId: string | null
     exerciseId: string | null
     workoutId: string | null
@@ -14047,7 +20117,7 @@ export namespace Prisma {
     id: string | null
     order: number | null
     notes: string | null
-    coreSetId: string | null
+    coreStrengthSetId: string | null
     coreCardioSetId: string | null
     exerciseId: string | null
     workoutId: string | null
@@ -14059,7 +20129,7 @@ export namespace Prisma {
     id: number
     order: number
     notes: number
-    coreSetId: number
+    coreStrengthSetId: number
     coreCardioSetId: number
     exerciseId: number
     workoutId: number
@@ -14081,7 +20151,7 @@ export namespace Prisma {
     id?: true
     order?: true
     notes?: true
-    coreSetId?: true
+    coreStrengthSetId?: true
     coreCardioSetId?: true
     exerciseId?: true
     workoutId?: true
@@ -14093,7 +20163,7 @@ export namespace Prisma {
     id?: true
     order?: true
     notes?: true
-    coreSetId?: true
+    coreStrengthSetId?: true
     coreCardioSetId?: true
     exerciseId?: true
     workoutId?: true
@@ -14105,7 +20175,7 @@ export namespace Prisma {
     id?: true
     order?: true
     notes?: true
-    coreSetId?: true
+    coreStrengthSetId?: true
     coreCardioSetId?: true
     exerciseId?: true
     workoutId?: true
@@ -14204,7 +20274,7 @@ export namespace Prisma {
     id: string
     order: number
     notes: string | null
-    coreSetId: string | null
+    coreStrengthSetId: string | null
     coreCardioSetId: string | null
     exerciseId: string
     workoutId: string
@@ -14235,13 +20305,13 @@ export namespace Prisma {
     id?: boolean
     order?: boolean
     notes?: boolean
-    coreSetId?: boolean
+    coreStrengthSetId?: boolean
     coreCardioSetId?: boolean
     exerciseId?: boolean
     workoutId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    coreSet?: boolean | WorkoutExercise$coreSetArgs<ExtArgs>
+    coreStrengthSet?: boolean | WorkoutExercise$coreStrengthSetArgs<ExtArgs>
     coreCardioSet?: boolean | WorkoutExercise$coreCardioSetArgs<ExtArgs>
     exercise?: boolean | ExerciseDefaultArgs<ExtArgs>
     workout?: boolean | WorkoutDefaultArgs<ExtArgs>
@@ -14253,13 +20323,13 @@ export namespace Prisma {
     id?: boolean
     order?: boolean
     notes?: boolean
-    coreSetId?: boolean
+    coreStrengthSetId?: boolean
     coreCardioSetId?: boolean
     exerciseId?: boolean
     workoutId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    coreSet?: boolean | WorkoutExercise$coreSetArgs<ExtArgs>
+    coreStrengthSet?: boolean | WorkoutExercise$coreStrengthSetArgs<ExtArgs>
     coreCardioSet?: boolean | WorkoutExercise$coreCardioSetArgs<ExtArgs>
     exercise?: boolean | ExerciseDefaultArgs<ExtArgs>
     workout?: boolean | WorkoutDefaultArgs<ExtArgs>
@@ -14269,13 +20339,13 @@ export namespace Prisma {
     id?: boolean
     order?: boolean
     notes?: boolean
-    coreSetId?: boolean
+    coreStrengthSetId?: boolean
     coreCardioSetId?: boolean
     exerciseId?: boolean
     workoutId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    coreSet?: boolean | WorkoutExercise$coreSetArgs<ExtArgs>
+    coreStrengthSet?: boolean | WorkoutExercise$coreStrengthSetArgs<ExtArgs>
     coreCardioSet?: boolean | WorkoutExercise$coreCardioSetArgs<ExtArgs>
     exercise?: boolean | ExerciseDefaultArgs<ExtArgs>
     workout?: boolean | WorkoutDefaultArgs<ExtArgs>
@@ -14285,7 +20355,7 @@ export namespace Prisma {
     id?: boolean
     order?: boolean
     notes?: boolean
-    coreSetId?: boolean
+    coreStrengthSetId?: boolean
     coreCardioSetId?: boolean
     exerciseId?: boolean
     workoutId?: boolean
@@ -14293,9 +20363,9 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type WorkoutExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order" | "notes" | "coreSetId" | "coreCardioSetId" | "exerciseId" | "workoutId" | "createdAt" | "updatedAt", ExtArgs["result"]["workoutExercise"]>
+  export type WorkoutExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order" | "notes" | "coreStrengthSetId" | "coreCardioSetId" | "exerciseId" | "workoutId" | "createdAt" | "updatedAt", ExtArgs["result"]["workoutExercise"]>
   export type WorkoutExerciseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    coreSet?: boolean | WorkoutExercise$coreSetArgs<ExtArgs>
+    coreStrengthSet?: boolean | WorkoutExercise$coreStrengthSetArgs<ExtArgs>
     coreCardioSet?: boolean | WorkoutExercise$coreCardioSetArgs<ExtArgs>
     exercise?: boolean | ExerciseDefaultArgs<ExtArgs>
     workout?: boolean | WorkoutDefaultArgs<ExtArgs>
@@ -14303,13 +20373,13 @@ export namespace Prisma {
     _count?: boolean | WorkoutExerciseCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type WorkoutExerciseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    coreSet?: boolean | WorkoutExercise$coreSetArgs<ExtArgs>
+    coreStrengthSet?: boolean | WorkoutExercise$coreStrengthSetArgs<ExtArgs>
     coreCardioSet?: boolean | WorkoutExercise$coreCardioSetArgs<ExtArgs>
     exercise?: boolean | ExerciseDefaultArgs<ExtArgs>
     workout?: boolean | WorkoutDefaultArgs<ExtArgs>
   }
   export type WorkoutExerciseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    coreSet?: boolean | WorkoutExercise$coreSetArgs<ExtArgs>
+    coreStrengthSet?: boolean | WorkoutExercise$coreStrengthSetArgs<ExtArgs>
     coreCardioSet?: boolean | WorkoutExercise$coreCardioSetArgs<ExtArgs>
     exercise?: boolean | ExerciseDefaultArgs<ExtArgs>
     workout?: boolean | WorkoutDefaultArgs<ExtArgs>
@@ -14318,7 +20388,7 @@ export namespace Prisma {
   export type $WorkoutExercisePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "WorkoutExercise"
     objects: {
-      coreSet: Prisma.$CoreSetPayload<ExtArgs> | null
+      coreStrengthSet: Prisma.$CoreStrengthSetPayload<ExtArgs> | null
       coreCardioSet: Prisma.$CoreCardioSetPayload<ExtArgs> | null
       exercise: Prisma.$ExercisePayload<ExtArgs>
       workout: Prisma.$WorkoutPayload<ExtArgs>
@@ -14328,7 +20398,7 @@ export namespace Prisma {
       id: string
       order: number
       notes: string | null
-      coreSetId: string | null
+      coreStrengthSetId: string | null
       coreCardioSetId: string | null
       exerciseId: string
       workoutId: string
@@ -14728,7 +20798,7 @@ export namespace Prisma {
    */
   export interface Prisma__WorkoutExerciseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    coreSet<T extends WorkoutExercise$coreSetArgs<ExtArgs> = {}>(args?: Subset<T, WorkoutExercise$coreSetArgs<ExtArgs>>): Prisma__CoreSetClient<$Result.GetResult<Prisma.$CoreSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    coreStrengthSet<T extends WorkoutExercise$coreStrengthSetArgs<ExtArgs> = {}>(args?: Subset<T, WorkoutExercise$coreStrengthSetArgs<ExtArgs>>): Prisma__CoreStrengthSetClient<$Result.GetResult<Prisma.$CoreStrengthSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     coreCardioSet<T extends WorkoutExercise$coreCardioSetArgs<ExtArgs> = {}>(args?: Subset<T, WorkoutExercise$coreCardioSetArgs<ExtArgs>>): Prisma__CoreCardioSetClient<$Result.GetResult<Prisma.$CoreCardioSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     exercise<T extends ExerciseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ExerciseDefaultArgs<ExtArgs>>): Prisma__ExerciseClient<$Result.GetResult<Prisma.$ExercisePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     workout<T extends WorkoutDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkoutDefaultArgs<ExtArgs>>): Prisma__WorkoutClient<$Result.GetResult<Prisma.$WorkoutPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -14765,7 +20835,7 @@ export namespace Prisma {
     readonly id: FieldRef<"WorkoutExercise", 'String'>
     readonly order: FieldRef<"WorkoutExercise", 'Int'>
     readonly notes: FieldRef<"WorkoutExercise", 'String'>
-    readonly coreSetId: FieldRef<"WorkoutExercise", 'String'>
+    readonly coreStrengthSetId: FieldRef<"WorkoutExercise", 'String'>
     readonly coreCardioSetId: FieldRef<"WorkoutExercise", 'String'>
     readonly exerciseId: FieldRef<"WorkoutExercise", 'String'>
     readonly workoutId: FieldRef<"WorkoutExercise", 'String'>
@@ -15167,22 +21237,22 @@ export namespace Prisma {
   }
 
   /**
-   * WorkoutExercise.coreSet
+   * WorkoutExercise.coreStrengthSet
    */
-  export type WorkoutExercise$coreSetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type WorkoutExercise$coreStrengthSetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CoreSet
+     * Select specific fields to fetch from the CoreStrengthSet
      */
-    select?: CoreSetSelect<ExtArgs> | null
+    select?: CoreStrengthSetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CoreSet
+     * Omit specific fields from the CoreStrengthSet
      */
-    omit?: CoreSetOmit<ExtArgs> | null
+    omit?: CoreStrengthSetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoreSetInclude<ExtArgs> | null
-    where?: CoreSetWhereInput
+    include?: CoreStrengthSetInclude<ExtArgs> | null
+    where?: CoreStrengthSetWhereInput
   }
 
   /**
@@ -15397,7 +21467,8 @@ export namespace Prisma {
     userWorkoutId?: boolean
     workoutExercise?: boolean | WorkoutExerciseDefaultArgs<ExtArgs>
     userWorkout?: boolean | UserWorkoutDefaultArgs<ExtArgs>
-    userSets?: boolean | UserWorkoutExercise$userSetsArgs<ExtArgs>
+    userStrengthSet?: boolean | UserWorkoutExercise$userStrengthSetArgs<ExtArgs>
+    userCardioSet?: boolean | UserWorkoutExercise$userCardioSetArgs<ExtArgs>
     _count?: boolean | UserWorkoutExerciseCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userWorkoutExercise"]>
 
@@ -15427,7 +21498,8 @@ export namespace Prisma {
   export type UserWorkoutExerciseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workoutExercise?: boolean | WorkoutExerciseDefaultArgs<ExtArgs>
     userWorkout?: boolean | UserWorkoutDefaultArgs<ExtArgs>
-    userSets?: boolean | UserWorkoutExercise$userSetsArgs<ExtArgs>
+    userStrengthSet?: boolean | UserWorkoutExercise$userStrengthSetArgs<ExtArgs>
+    userCardioSet?: boolean | UserWorkoutExercise$userCardioSetArgs<ExtArgs>
     _count?: boolean | UserWorkoutExerciseCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserWorkoutExerciseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15444,7 +21516,8 @@ export namespace Prisma {
     objects: {
       workoutExercise: Prisma.$WorkoutExercisePayload<ExtArgs>
       userWorkout: Prisma.$UserWorkoutPayload<ExtArgs>
-      userSets: Prisma.$UserSetPayload<ExtArgs>[]
+      userStrengthSet: Prisma.$UserStrengthSetPayload<ExtArgs>[]
+      userCardioSet: Prisma.$UserCardioSetPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -15846,7 +21919,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workoutExercise<T extends WorkoutExerciseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkoutExerciseDefaultArgs<ExtArgs>>): Prisma__WorkoutExerciseClient<$Result.GetResult<Prisma.$WorkoutExercisePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     userWorkout<T extends UserWorkoutDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserWorkoutDefaultArgs<ExtArgs>>): Prisma__UserWorkoutClient<$Result.GetResult<Prisma.$UserWorkoutPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    userSets<T extends UserWorkoutExercise$userSetsArgs<ExtArgs> = {}>(args?: Subset<T, UserWorkoutExercise$userSetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userStrengthSet<T extends UserWorkoutExercise$userStrengthSetArgs<ExtArgs> = {}>(args?: Subset<T, UserWorkoutExercise$userStrengthSetArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStrengthSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userCardioSet<T extends UserWorkoutExercise$userCardioSetArgs<ExtArgs> = {}>(args?: Subset<T, UserWorkoutExercise$userCardioSetArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserCardioSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16275,27 +22349,51 @@ export namespace Prisma {
   }
 
   /**
-   * UserWorkoutExercise.userSets
+   * UserWorkoutExercise.userStrengthSet
    */
-  export type UserWorkoutExercise$userSetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserWorkoutExercise$userStrengthSetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserSet
+     * Select specific fields to fetch from the UserStrengthSet
      */
-    select?: UserSetSelect<ExtArgs> | null
+    select?: UserStrengthSetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserSet
+     * Omit specific fields from the UserStrengthSet
      */
-    omit?: UserSetOmit<ExtArgs> | null
+    omit?: UserStrengthSetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserSetInclude<ExtArgs> | null
-    where?: UserSetWhereInput
-    orderBy?: UserSetOrderByWithRelationInput | UserSetOrderByWithRelationInput[]
-    cursor?: UserSetWhereUniqueInput
+    include?: UserStrengthSetInclude<ExtArgs> | null
+    where?: UserStrengthSetWhereInput
+    orderBy?: UserStrengthSetOrderByWithRelationInput | UserStrengthSetOrderByWithRelationInput[]
+    cursor?: UserStrengthSetWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: UserSetScalarFieldEnum | UserSetScalarFieldEnum[]
+    distinct?: UserStrengthSetScalarFieldEnum | UserStrengthSetScalarFieldEnum[]
+  }
+
+  /**
+   * UserWorkoutExercise.userCardioSet
+   */
+  export type UserWorkoutExercise$userCardioSetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCardioSet
+     */
+    select?: UserCardioSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserCardioSet
+     */
+    omit?: UserCardioSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserCardioSetInclude<ExtArgs> | null
+    where?: UserCardioSetWhereInput
+    orderBy?: UserCardioSetOrderByWithRelationInput | UserCardioSetOrderByWithRelationInput[]
+    cursor?: UserCardioSetWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserCardioSetScalarFieldEnum | UserCardioSetScalarFieldEnum[]
   }
 
   /**
@@ -17517,7 +23615,81 @@ export namespace Prisma {
   export type ExerciseScalarFieldEnum = (typeof ExerciseScalarFieldEnum)[keyof typeof ExerciseScalarFieldEnum]
 
 
-  export const CoreSetScalarFieldEnum: {
+  export const CoreCardioSetScalarFieldEnum: {
+    id: 'id',
+    warmupTime: 'warmupTime',
+    avgHeartRate: 'avgHeartRate',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CoreCardioSetScalarFieldEnum = (typeof CoreCardioSetScalarFieldEnum)[keyof typeof CoreCardioSetScalarFieldEnum]
+
+
+  export const CoreCardioSetCalorieTargetScalarFieldEnum: {
+    id: 'id',
+    coreCardioSetId: 'coreCardioSetId',
+    calorieTarget: 'calorieTarget',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CoreCardioSetCalorieTargetScalarFieldEnum = (typeof CoreCardioSetCalorieTargetScalarFieldEnum)[keyof typeof CoreCardioSetCalorieTargetScalarFieldEnum]
+
+
+  export const CoreCardioSetDistanceScalarFieldEnum: {
+    id: 'id',
+    coreCardioSetId: 'coreCardioSetId',
+    distance: 'distance',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CoreCardioSetDistanceScalarFieldEnum = (typeof CoreCardioSetDistanceScalarFieldEnum)[keyof typeof CoreCardioSetDistanceScalarFieldEnum]
+
+
+  export const CoreCardioSetAvgSpeedScalarFieldEnum: {
+    id: 'id',
+    coreCardioSetId: 'coreCardioSetId',
+    avgSpeed: 'avgSpeed',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CoreCardioSetAvgSpeedScalarFieldEnum = (typeof CoreCardioSetAvgSpeedScalarFieldEnum)[keyof typeof CoreCardioSetAvgSpeedScalarFieldEnum]
+
+
+  export const CoreCardioSetWorkoutTimeScalarFieldEnum: {
+    id: 'id',
+    coreCardioSetId: 'coreCardioSetId',
+    workTime: 'workTime',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CoreCardioSetWorkoutTimeScalarFieldEnum = (typeof CoreCardioSetWorkoutTimeScalarFieldEnum)[keyof typeof CoreCardioSetWorkoutTimeScalarFieldEnum]
+
+
+  export const UserCardioSetScalarFieldEnum: {
+    id: 'id',
+    warmupTime: 'warmupTime',
+    workTime: 'workTime',
+    avgHeartRate: 'avgHeartRate',
+    avgSpeed: 'avgSpeed',
+    distance: 'distance',
+    order: 'order',
+    isCompleted: 'isCompleted',
+    calorieTarget: 'calorieTarget',
+    userWorkoutExerciseId: 'userWorkoutExerciseId',
+    skippedReason: 'skippedReason',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserCardioSetScalarFieldEnum = (typeof UserCardioSetScalarFieldEnum)[keyof typeof UserCardioSetScalarFieldEnum]
+
+
+  export const CoreStrengthSetScalarFieldEnum: {
     id: 'id',
     restTime: 'restTime',
     numberOfSets: 'numberOfSets',
@@ -17526,48 +23698,33 @@ export namespace Prisma {
     updatedAt: 'updatedAt'
   };
 
-  export type CoreSetScalarFieldEnum = (typeof CoreSetScalarFieldEnum)[keyof typeof CoreSetScalarFieldEnum]
+  export type CoreStrengthSetScalarFieldEnum = (typeof CoreStrengthSetScalarFieldEnum)[keyof typeof CoreStrengthSetScalarFieldEnum]
 
 
-  export const CoreCardioSetScalarFieldEnum: {
+  export const CoreStrengthSetRepsScalarFieldEnum: {
     id: 'id',
-    warmupTime: 'warmupTime',
-    avgHeartRate: 'avgHeartRate',
-    avgSpeed: 'avgSpeed',
-    distance: 'distance',
-    calorieTarget: 'calorieTarget',
-    duration: 'duration',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type CoreCardioSetScalarFieldEnum = (typeof CoreCardioSetScalarFieldEnum)[keyof typeof CoreCardioSetScalarFieldEnum]
-
-
-  export const CoreSetRepsScalarFieldEnum: {
-    id: 'id',
-    coreSetId: 'coreSetId',
+    coreStrengthSetId: 'coreStrengthSetId',
     reps: 'reps',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
-  export type CoreSetRepsScalarFieldEnum = (typeof CoreSetRepsScalarFieldEnum)[keyof typeof CoreSetRepsScalarFieldEnum]
+  export type CoreStrengthSetRepsScalarFieldEnum = (typeof CoreStrengthSetRepsScalarFieldEnum)[keyof typeof CoreStrengthSetRepsScalarFieldEnum]
 
 
-  export const CoreSetWeightScalarFieldEnum: {
+  export const CoreStrengthSetWeightScalarFieldEnum: {
     id: 'id',
-    coreSetId: 'coreSetId',
+    coreStrengthSetId: 'coreStrengthSetId',
     isBodyWeight: 'isBodyWeight',
     weight: 'weight',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
-  export type CoreSetWeightScalarFieldEnum = (typeof CoreSetWeightScalarFieldEnum)[keyof typeof CoreSetWeightScalarFieldEnum]
+  export type CoreStrengthSetWeightScalarFieldEnum = (typeof CoreStrengthSetWeightScalarFieldEnum)[keyof typeof CoreStrengthSetWeightScalarFieldEnum]
 
 
-  export const UserSetScalarFieldEnum: {
+  export const UserStrengthSetScalarFieldEnum: {
     id: 'id',
     reps: 'reps',
     weight: 'weight',
@@ -17578,13 +23735,13 @@ export namespace Prisma {
     isWarmup: 'isWarmup',
     isMuscleFailure: 'isMuscleFailure',
     isJointPain: 'isJointPain',
-    userId: 'userId',
+    skippedReason: 'skippedReason',
     userWorkoutExerciseId: 'userWorkoutExerciseId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
-  export type UserSetScalarFieldEnum = (typeof UserSetScalarFieldEnum)[keyof typeof UserSetScalarFieldEnum]
+  export type UserStrengthSetScalarFieldEnum = (typeof UserStrengthSetScalarFieldEnum)[keyof typeof UserStrengthSetScalarFieldEnum]
 
 
   export const ProgramScalarFieldEnum: {
@@ -17630,7 +23787,7 @@ export namespace Prisma {
     id: 'id',
     order: 'order',
     notes: 'notes',
-    coreSetId: 'coreSetId',
+    coreStrengthSetId: 'coreStrengthSetId',
     coreCardioSetId: 'coreCardioSetId',
     exerciseId: 'exerciseId',
     workoutId: 'workoutId',
@@ -17828,7 +23985,6 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     programs?: ProgramListRelationFilter
-    userSets?: UserSetListRelationFilter
     workouts?: WorkoutListRelationFilter
     userWorkout?: UserWorkoutListRelationFilter
   }
@@ -17845,7 +24001,6 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     programs?: ProgramOrderByRelationAggregateInput
-    userSets?: UserSetOrderByRelationAggregateInput
     workouts?: WorkoutOrderByRelationAggregateInput
     userWorkout?: UserWorkoutOrderByRelationAggregateInput
   }
@@ -17865,7 +24020,6 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     programs?: ProgramListRelationFilter
-    userSets?: UserSetListRelationFilter
     workouts?: WorkoutListRelationFilter
     userWorkout?: UserWorkoutListRelationFilter
   }, "id" | "email" | "googleId">
@@ -17977,74 +24131,6 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Exercise"> | Date | string
   }
 
-  export type CoreSetWhereInput = {
-    AND?: CoreSetWhereInput | CoreSetWhereInput[]
-    OR?: CoreSetWhereInput[]
-    NOT?: CoreSetWhereInput | CoreSetWhereInput[]
-    id?: StringFilter<"CoreSet"> | string
-    restTime?: IntFilter<"CoreSet"> | number
-    numberOfSets?: IntFilter<"CoreSet"> | number
-    hasWarmup?: BoolFilter<"CoreSet"> | boolean
-    createdAt?: DateTimeFilter<"CoreSet"> | Date | string
-    updatedAt?: DateTimeFilter<"CoreSet"> | Date | string
-    workoutExercise?: WorkoutExerciseListRelationFilter
-    reps?: CoreSetRepsListRelationFilter
-    weight?: CoreSetWeightListRelationFilter
-  }
-
-  export type CoreSetOrderByWithRelationInput = {
-    id?: SortOrder
-    restTime?: SortOrder
-    numberOfSets?: SortOrder
-    hasWarmup?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    workoutExercise?: WorkoutExerciseOrderByRelationAggregateInput
-    reps?: CoreSetRepsOrderByRelationAggregateInput
-    weight?: CoreSetWeightOrderByRelationAggregateInput
-  }
-
-  export type CoreSetWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: CoreSetWhereInput | CoreSetWhereInput[]
-    OR?: CoreSetWhereInput[]
-    NOT?: CoreSetWhereInput | CoreSetWhereInput[]
-    restTime?: IntFilter<"CoreSet"> | number
-    numberOfSets?: IntFilter<"CoreSet"> | number
-    hasWarmup?: BoolFilter<"CoreSet"> | boolean
-    createdAt?: DateTimeFilter<"CoreSet"> | Date | string
-    updatedAt?: DateTimeFilter<"CoreSet"> | Date | string
-    workoutExercise?: WorkoutExerciseListRelationFilter
-    reps?: CoreSetRepsListRelationFilter
-    weight?: CoreSetWeightListRelationFilter
-  }, "id">
-
-  export type CoreSetOrderByWithAggregationInput = {
-    id?: SortOrder
-    restTime?: SortOrder
-    numberOfSets?: SortOrder
-    hasWarmup?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: CoreSetCountOrderByAggregateInput
-    _avg?: CoreSetAvgOrderByAggregateInput
-    _max?: CoreSetMaxOrderByAggregateInput
-    _min?: CoreSetMinOrderByAggregateInput
-    _sum?: CoreSetSumOrderByAggregateInput
-  }
-
-  export type CoreSetScalarWhereWithAggregatesInput = {
-    AND?: CoreSetScalarWhereWithAggregatesInput | CoreSetScalarWhereWithAggregatesInput[]
-    OR?: CoreSetScalarWhereWithAggregatesInput[]
-    NOT?: CoreSetScalarWhereWithAggregatesInput | CoreSetScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"CoreSet"> | string
-    restTime?: IntWithAggregatesFilter<"CoreSet"> | number
-    numberOfSets?: IntWithAggregatesFilter<"CoreSet"> | number
-    hasWarmup?: BoolWithAggregatesFilter<"CoreSet"> | boolean
-    createdAt?: DateTimeWithAggregatesFilter<"CoreSet"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"CoreSet"> | Date | string
-  }
-
   export type CoreCardioSetWhereInput = {
     AND?: CoreCardioSetWhereInput | CoreCardioSetWhereInput[]
     OR?: CoreCardioSetWhereInput[]
@@ -18052,26 +24138,26 @@ export namespace Prisma {
     id?: StringFilter<"CoreCardioSet"> | string
     warmupTime?: IntNullableFilter<"CoreCardioSet"> | number | null
     avgHeartRate?: IntNullableFilter<"CoreCardioSet"> | number | null
-    avgSpeed?: FloatNullableFilter<"CoreCardioSet"> | number | null
-    distance?: FloatNullableFilter<"CoreCardioSet"> | number | null
-    calorieTarget?: IntNullableFilter<"CoreCardioSet"> | number | null
-    duration?: IntNullableFilter<"CoreCardioSet"> | number | null
     createdAt?: DateTimeFilter<"CoreCardioSet"> | Date | string
     updatedAt?: DateTimeFilter<"CoreCardioSet"> | Date | string
     workoutExercise?: WorkoutExerciseListRelationFilter
+    workTime?: CoreCardioSetWorkoutTimeListRelationFilter
+    avgSpeed?: CoreCardioSetAvgSpeedListRelationFilter
+    distance?: CoreCardioSetDistanceListRelationFilter
+    calorieTarget?: CoreCardioSetCalorieTargetListRelationFilter
   }
 
   export type CoreCardioSetOrderByWithRelationInput = {
     id?: SortOrder
     warmupTime?: SortOrderInput | SortOrder
     avgHeartRate?: SortOrderInput | SortOrder
-    avgSpeed?: SortOrderInput | SortOrder
-    distance?: SortOrderInput | SortOrder
-    calorieTarget?: SortOrderInput | SortOrder
-    duration?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     workoutExercise?: WorkoutExerciseOrderByRelationAggregateInput
+    workTime?: CoreCardioSetWorkoutTimeOrderByRelationAggregateInput
+    avgSpeed?: CoreCardioSetAvgSpeedOrderByRelationAggregateInput
+    distance?: CoreCardioSetDistanceOrderByRelationAggregateInput
+    calorieTarget?: CoreCardioSetCalorieTargetOrderByRelationAggregateInput
   }
 
   export type CoreCardioSetWhereUniqueInput = Prisma.AtLeast<{
@@ -18081,23 +24167,19 @@ export namespace Prisma {
     NOT?: CoreCardioSetWhereInput | CoreCardioSetWhereInput[]
     warmupTime?: IntNullableFilter<"CoreCardioSet"> | number | null
     avgHeartRate?: IntNullableFilter<"CoreCardioSet"> | number | null
-    avgSpeed?: FloatNullableFilter<"CoreCardioSet"> | number | null
-    distance?: FloatNullableFilter<"CoreCardioSet"> | number | null
-    calorieTarget?: IntNullableFilter<"CoreCardioSet"> | number | null
-    duration?: IntNullableFilter<"CoreCardioSet"> | number | null
     createdAt?: DateTimeFilter<"CoreCardioSet"> | Date | string
     updatedAt?: DateTimeFilter<"CoreCardioSet"> | Date | string
     workoutExercise?: WorkoutExerciseListRelationFilter
+    workTime?: CoreCardioSetWorkoutTimeListRelationFilter
+    avgSpeed?: CoreCardioSetAvgSpeedListRelationFilter
+    distance?: CoreCardioSetDistanceListRelationFilter
+    calorieTarget?: CoreCardioSetCalorieTargetListRelationFilter
   }, "id">
 
   export type CoreCardioSetOrderByWithAggregationInput = {
     id?: SortOrder
     warmupTime?: SortOrderInput | SortOrder
     avgHeartRate?: SortOrderInput | SortOrder
-    avgSpeed?: SortOrderInput | SortOrder
-    distance?: SortOrderInput | SortOrder
-    calorieTarget?: SortOrderInput | SortOrder
-    duration?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CoreCardioSetCountOrderByAggregateInput
@@ -18114,197 +24196,544 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"CoreCardioSet"> | string
     warmupTime?: IntNullableWithAggregatesFilter<"CoreCardioSet"> | number | null
     avgHeartRate?: IntNullableWithAggregatesFilter<"CoreCardioSet"> | number | null
-    avgSpeed?: FloatNullableWithAggregatesFilter<"CoreCardioSet"> | number | null
-    distance?: FloatNullableWithAggregatesFilter<"CoreCardioSet"> | number | null
-    calorieTarget?: IntNullableWithAggregatesFilter<"CoreCardioSet"> | number | null
-    duration?: IntNullableWithAggregatesFilter<"CoreCardioSet"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"CoreCardioSet"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"CoreCardioSet"> | Date | string
   }
 
-  export type CoreSetRepsWhereInput = {
-    AND?: CoreSetRepsWhereInput | CoreSetRepsWhereInput[]
-    OR?: CoreSetRepsWhereInput[]
-    NOT?: CoreSetRepsWhereInput | CoreSetRepsWhereInput[]
-    id?: StringFilter<"CoreSetReps"> | string
-    coreSetId?: StringFilter<"CoreSetReps"> | string
-    reps?: IntFilter<"CoreSetReps"> | number
-    createdAt?: DateTimeFilter<"CoreSetReps"> | Date | string
-    updatedAt?: DateTimeFilter<"CoreSetReps"> | Date | string
-    coreSet?: XOR<CoreSetScalarRelationFilter, CoreSetWhereInput>
+  export type CoreCardioSetCalorieTargetWhereInput = {
+    AND?: CoreCardioSetCalorieTargetWhereInput | CoreCardioSetCalorieTargetWhereInput[]
+    OR?: CoreCardioSetCalorieTargetWhereInput[]
+    NOT?: CoreCardioSetCalorieTargetWhereInput | CoreCardioSetCalorieTargetWhereInput[]
+    id?: StringFilter<"CoreCardioSetCalorieTarget"> | string
+    coreCardioSetId?: StringFilter<"CoreCardioSetCalorieTarget"> | string
+    calorieTarget?: IntNullableFilter<"CoreCardioSetCalorieTarget"> | number | null
+    createdAt?: DateTimeFilter<"CoreCardioSetCalorieTarget"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreCardioSetCalorieTarget"> | Date | string
+    coreCardioSet?: XOR<CoreCardioSetScalarRelationFilter, CoreCardioSetWhereInput>
   }
 
-  export type CoreSetRepsOrderByWithRelationInput = {
+  export type CoreCardioSetCalorieTargetOrderByWithRelationInput = {
     id?: SortOrder
-    coreSetId?: SortOrder
-    reps?: SortOrder
+    coreCardioSetId?: SortOrder
+    calorieTarget?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    coreSet?: CoreSetOrderByWithRelationInput
+    coreCardioSet?: CoreCardioSetOrderByWithRelationInput
   }
 
-  export type CoreSetRepsWhereUniqueInput = Prisma.AtLeast<{
+  export type CoreCardioSetCalorieTargetWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: CoreSetRepsWhereInput | CoreSetRepsWhereInput[]
-    OR?: CoreSetRepsWhereInput[]
-    NOT?: CoreSetRepsWhereInput | CoreSetRepsWhereInput[]
-    coreSetId?: StringFilter<"CoreSetReps"> | string
-    reps?: IntFilter<"CoreSetReps"> | number
-    createdAt?: DateTimeFilter<"CoreSetReps"> | Date | string
-    updatedAt?: DateTimeFilter<"CoreSetReps"> | Date | string
-    coreSet?: XOR<CoreSetScalarRelationFilter, CoreSetWhereInput>
+    AND?: CoreCardioSetCalorieTargetWhereInput | CoreCardioSetCalorieTargetWhereInput[]
+    OR?: CoreCardioSetCalorieTargetWhereInput[]
+    NOT?: CoreCardioSetCalorieTargetWhereInput | CoreCardioSetCalorieTargetWhereInput[]
+    coreCardioSetId?: StringFilter<"CoreCardioSetCalorieTarget"> | string
+    calorieTarget?: IntNullableFilter<"CoreCardioSetCalorieTarget"> | number | null
+    createdAt?: DateTimeFilter<"CoreCardioSetCalorieTarget"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreCardioSetCalorieTarget"> | Date | string
+    coreCardioSet?: XOR<CoreCardioSetScalarRelationFilter, CoreCardioSetWhereInput>
   }, "id">
 
-  export type CoreSetRepsOrderByWithAggregationInput = {
+  export type CoreCardioSetCalorieTargetOrderByWithAggregationInput = {
     id?: SortOrder
-    coreSetId?: SortOrder
-    reps?: SortOrder
+    coreCardioSetId?: SortOrder
+    calorieTarget?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: CoreSetRepsCountOrderByAggregateInput
-    _avg?: CoreSetRepsAvgOrderByAggregateInput
-    _max?: CoreSetRepsMaxOrderByAggregateInput
-    _min?: CoreSetRepsMinOrderByAggregateInput
-    _sum?: CoreSetRepsSumOrderByAggregateInput
+    _count?: CoreCardioSetCalorieTargetCountOrderByAggregateInput
+    _avg?: CoreCardioSetCalorieTargetAvgOrderByAggregateInput
+    _max?: CoreCardioSetCalorieTargetMaxOrderByAggregateInput
+    _min?: CoreCardioSetCalorieTargetMinOrderByAggregateInput
+    _sum?: CoreCardioSetCalorieTargetSumOrderByAggregateInput
   }
 
-  export type CoreSetRepsScalarWhereWithAggregatesInput = {
-    AND?: CoreSetRepsScalarWhereWithAggregatesInput | CoreSetRepsScalarWhereWithAggregatesInput[]
-    OR?: CoreSetRepsScalarWhereWithAggregatesInput[]
-    NOT?: CoreSetRepsScalarWhereWithAggregatesInput | CoreSetRepsScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"CoreSetReps"> | string
-    coreSetId?: StringWithAggregatesFilter<"CoreSetReps"> | string
-    reps?: IntWithAggregatesFilter<"CoreSetReps"> | number
-    createdAt?: DateTimeWithAggregatesFilter<"CoreSetReps"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"CoreSetReps"> | Date | string
+  export type CoreCardioSetCalorieTargetScalarWhereWithAggregatesInput = {
+    AND?: CoreCardioSetCalorieTargetScalarWhereWithAggregatesInput | CoreCardioSetCalorieTargetScalarWhereWithAggregatesInput[]
+    OR?: CoreCardioSetCalorieTargetScalarWhereWithAggregatesInput[]
+    NOT?: CoreCardioSetCalorieTargetScalarWhereWithAggregatesInput | CoreCardioSetCalorieTargetScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CoreCardioSetCalorieTarget"> | string
+    coreCardioSetId?: StringWithAggregatesFilter<"CoreCardioSetCalorieTarget"> | string
+    calorieTarget?: IntNullableWithAggregatesFilter<"CoreCardioSetCalorieTarget"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"CoreCardioSetCalorieTarget"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CoreCardioSetCalorieTarget"> | Date | string
   }
 
-  export type CoreSetWeightWhereInput = {
-    AND?: CoreSetWeightWhereInput | CoreSetWeightWhereInput[]
-    OR?: CoreSetWeightWhereInput[]
-    NOT?: CoreSetWeightWhereInput | CoreSetWeightWhereInput[]
-    id?: StringFilter<"CoreSetWeight"> | string
-    coreSetId?: StringFilter<"CoreSetWeight"> | string
-    isBodyWeight?: BoolFilter<"CoreSetWeight"> | boolean
-    weight?: FloatNullableFilter<"CoreSetWeight"> | number | null
-    createdAt?: DateTimeFilter<"CoreSetWeight"> | Date | string
-    updatedAt?: DateTimeFilter<"CoreSetWeight"> | Date | string
-    coreSet?: XOR<CoreSetScalarRelationFilter, CoreSetWhereInput>
+  export type CoreCardioSetDistanceWhereInput = {
+    AND?: CoreCardioSetDistanceWhereInput | CoreCardioSetDistanceWhereInput[]
+    OR?: CoreCardioSetDistanceWhereInput[]
+    NOT?: CoreCardioSetDistanceWhereInput | CoreCardioSetDistanceWhereInput[]
+    id?: StringFilter<"CoreCardioSetDistance"> | string
+    coreCardioSetId?: StringFilter<"CoreCardioSetDistance"> | string
+    distance?: FloatNullableFilter<"CoreCardioSetDistance"> | number | null
+    createdAt?: DateTimeFilter<"CoreCardioSetDistance"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreCardioSetDistance"> | Date | string
+    coreCardioSet?: XOR<CoreCardioSetScalarRelationFilter, CoreCardioSetWhereInput>
   }
 
-  export type CoreSetWeightOrderByWithRelationInput = {
+  export type CoreCardioSetDistanceOrderByWithRelationInput = {
     id?: SortOrder
-    coreSetId?: SortOrder
-    isBodyWeight?: SortOrder
-    weight?: SortOrderInput | SortOrder
+    coreCardioSetId?: SortOrder
+    distance?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    coreSet?: CoreSetOrderByWithRelationInput
+    coreCardioSet?: CoreCardioSetOrderByWithRelationInput
   }
 
-  export type CoreSetWeightWhereUniqueInput = Prisma.AtLeast<{
+  export type CoreCardioSetDistanceWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: CoreSetWeightWhereInput | CoreSetWeightWhereInput[]
-    OR?: CoreSetWeightWhereInput[]
-    NOT?: CoreSetWeightWhereInput | CoreSetWeightWhereInput[]
-    coreSetId?: StringFilter<"CoreSetWeight"> | string
-    isBodyWeight?: BoolFilter<"CoreSetWeight"> | boolean
-    weight?: FloatNullableFilter<"CoreSetWeight"> | number | null
-    createdAt?: DateTimeFilter<"CoreSetWeight"> | Date | string
-    updatedAt?: DateTimeFilter<"CoreSetWeight"> | Date | string
-    coreSet?: XOR<CoreSetScalarRelationFilter, CoreSetWhereInput>
+    AND?: CoreCardioSetDistanceWhereInput | CoreCardioSetDistanceWhereInput[]
+    OR?: CoreCardioSetDistanceWhereInput[]
+    NOT?: CoreCardioSetDistanceWhereInput | CoreCardioSetDistanceWhereInput[]
+    coreCardioSetId?: StringFilter<"CoreCardioSetDistance"> | string
+    distance?: FloatNullableFilter<"CoreCardioSetDistance"> | number | null
+    createdAt?: DateTimeFilter<"CoreCardioSetDistance"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreCardioSetDistance"> | Date | string
+    coreCardioSet?: XOR<CoreCardioSetScalarRelationFilter, CoreCardioSetWhereInput>
   }, "id">
 
-  export type CoreSetWeightOrderByWithAggregationInput = {
+  export type CoreCardioSetDistanceOrderByWithAggregationInput = {
     id?: SortOrder
-    coreSetId?: SortOrder
-    isBodyWeight?: SortOrder
-    weight?: SortOrderInput | SortOrder
+    coreCardioSetId?: SortOrder
+    distance?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: CoreSetWeightCountOrderByAggregateInput
-    _avg?: CoreSetWeightAvgOrderByAggregateInput
-    _max?: CoreSetWeightMaxOrderByAggregateInput
-    _min?: CoreSetWeightMinOrderByAggregateInput
-    _sum?: CoreSetWeightSumOrderByAggregateInput
+    _count?: CoreCardioSetDistanceCountOrderByAggregateInput
+    _avg?: CoreCardioSetDistanceAvgOrderByAggregateInput
+    _max?: CoreCardioSetDistanceMaxOrderByAggregateInput
+    _min?: CoreCardioSetDistanceMinOrderByAggregateInput
+    _sum?: CoreCardioSetDistanceSumOrderByAggregateInput
   }
 
-  export type CoreSetWeightScalarWhereWithAggregatesInput = {
-    AND?: CoreSetWeightScalarWhereWithAggregatesInput | CoreSetWeightScalarWhereWithAggregatesInput[]
-    OR?: CoreSetWeightScalarWhereWithAggregatesInput[]
-    NOT?: CoreSetWeightScalarWhereWithAggregatesInput | CoreSetWeightScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"CoreSetWeight"> | string
-    coreSetId?: StringWithAggregatesFilter<"CoreSetWeight"> | string
-    isBodyWeight?: BoolWithAggregatesFilter<"CoreSetWeight"> | boolean
-    weight?: FloatNullableWithAggregatesFilter<"CoreSetWeight"> | number | null
-    createdAt?: DateTimeWithAggregatesFilter<"CoreSetWeight"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"CoreSetWeight"> | Date | string
+  export type CoreCardioSetDistanceScalarWhereWithAggregatesInput = {
+    AND?: CoreCardioSetDistanceScalarWhereWithAggregatesInput | CoreCardioSetDistanceScalarWhereWithAggregatesInput[]
+    OR?: CoreCardioSetDistanceScalarWhereWithAggregatesInput[]
+    NOT?: CoreCardioSetDistanceScalarWhereWithAggregatesInput | CoreCardioSetDistanceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CoreCardioSetDistance"> | string
+    coreCardioSetId?: StringWithAggregatesFilter<"CoreCardioSetDistance"> | string
+    distance?: FloatNullableWithAggregatesFilter<"CoreCardioSetDistance"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"CoreCardioSetDistance"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CoreCardioSetDistance"> | Date | string
   }
 
-  export type UserSetWhereInput = {
-    AND?: UserSetWhereInput | UserSetWhereInput[]
-    OR?: UserSetWhereInput[]
-    NOT?: UserSetWhereInput | UserSetWhereInput[]
-    id?: StringFilter<"UserSet"> | string
-    reps?: IntFilter<"UserSet"> | number
-    weight?: FloatNullableFilter<"UserSet"> | number | null
-    isBodyWeight?: BoolFilter<"UserSet"> | boolean
-    restTime?: IntFilter<"UserSet"> | number
-    order?: IntFilter<"UserSet"> | number
-    isCompleted?: BoolFilter<"UserSet"> | boolean
-    isWarmup?: BoolFilter<"UserSet"> | boolean
-    isMuscleFailure?: BoolFilter<"UserSet"> | boolean
-    isJointPain?: BoolFilter<"UserSet"> | boolean
-    userId?: StringFilter<"UserSet"> | string
-    userWorkoutExerciseId?: StringFilter<"UserSet"> | string
-    createdAt?: DateTimeFilter<"UserSet"> | Date | string
-    updatedAt?: DateTimeFilter<"UserSet"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  export type CoreCardioSetAvgSpeedWhereInput = {
+    AND?: CoreCardioSetAvgSpeedWhereInput | CoreCardioSetAvgSpeedWhereInput[]
+    OR?: CoreCardioSetAvgSpeedWhereInput[]
+    NOT?: CoreCardioSetAvgSpeedWhereInput | CoreCardioSetAvgSpeedWhereInput[]
+    id?: StringFilter<"CoreCardioSetAvgSpeed"> | string
+    coreCardioSetId?: StringFilter<"CoreCardioSetAvgSpeed"> | string
+    avgSpeed?: FloatNullableFilter<"CoreCardioSetAvgSpeed"> | number | null
+    createdAt?: DateTimeFilter<"CoreCardioSetAvgSpeed"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreCardioSetAvgSpeed"> | Date | string
+    coreCardioSet?: XOR<CoreCardioSetScalarRelationFilter, CoreCardioSetWhereInput>
+  }
+
+  export type CoreCardioSetAvgSpeedOrderByWithRelationInput = {
+    id?: SortOrder
+    coreCardioSetId?: SortOrder
+    avgSpeed?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    coreCardioSet?: CoreCardioSetOrderByWithRelationInput
+  }
+
+  export type CoreCardioSetAvgSpeedWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CoreCardioSetAvgSpeedWhereInput | CoreCardioSetAvgSpeedWhereInput[]
+    OR?: CoreCardioSetAvgSpeedWhereInput[]
+    NOT?: CoreCardioSetAvgSpeedWhereInput | CoreCardioSetAvgSpeedWhereInput[]
+    coreCardioSetId?: StringFilter<"CoreCardioSetAvgSpeed"> | string
+    avgSpeed?: FloatNullableFilter<"CoreCardioSetAvgSpeed"> | number | null
+    createdAt?: DateTimeFilter<"CoreCardioSetAvgSpeed"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreCardioSetAvgSpeed"> | Date | string
+    coreCardioSet?: XOR<CoreCardioSetScalarRelationFilter, CoreCardioSetWhereInput>
+  }, "id">
+
+  export type CoreCardioSetAvgSpeedOrderByWithAggregationInput = {
+    id?: SortOrder
+    coreCardioSetId?: SortOrder
+    avgSpeed?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CoreCardioSetAvgSpeedCountOrderByAggregateInput
+    _avg?: CoreCardioSetAvgSpeedAvgOrderByAggregateInput
+    _max?: CoreCardioSetAvgSpeedMaxOrderByAggregateInput
+    _min?: CoreCardioSetAvgSpeedMinOrderByAggregateInput
+    _sum?: CoreCardioSetAvgSpeedSumOrderByAggregateInput
+  }
+
+  export type CoreCardioSetAvgSpeedScalarWhereWithAggregatesInput = {
+    AND?: CoreCardioSetAvgSpeedScalarWhereWithAggregatesInput | CoreCardioSetAvgSpeedScalarWhereWithAggregatesInput[]
+    OR?: CoreCardioSetAvgSpeedScalarWhereWithAggregatesInput[]
+    NOT?: CoreCardioSetAvgSpeedScalarWhereWithAggregatesInput | CoreCardioSetAvgSpeedScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CoreCardioSetAvgSpeed"> | string
+    coreCardioSetId?: StringWithAggregatesFilter<"CoreCardioSetAvgSpeed"> | string
+    avgSpeed?: FloatNullableWithAggregatesFilter<"CoreCardioSetAvgSpeed"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"CoreCardioSetAvgSpeed"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CoreCardioSetAvgSpeed"> | Date | string
+  }
+
+  export type CoreCardioSetWorkoutTimeWhereInput = {
+    AND?: CoreCardioSetWorkoutTimeWhereInput | CoreCardioSetWorkoutTimeWhereInput[]
+    OR?: CoreCardioSetWorkoutTimeWhereInput[]
+    NOT?: CoreCardioSetWorkoutTimeWhereInput | CoreCardioSetWorkoutTimeWhereInput[]
+    id?: StringFilter<"CoreCardioSetWorkoutTime"> | string
+    coreCardioSetId?: StringFilter<"CoreCardioSetWorkoutTime"> | string
+    workTime?: IntNullableFilter<"CoreCardioSetWorkoutTime"> | number | null
+    createdAt?: DateTimeFilter<"CoreCardioSetWorkoutTime"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreCardioSetWorkoutTime"> | Date | string
+    coreCardioSet?: XOR<CoreCardioSetScalarRelationFilter, CoreCardioSetWhereInput>
+  }
+
+  export type CoreCardioSetWorkoutTimeOrderByWithRelationInput = {
+    id?: SortOrder
+    coreCardioSetId?: SortOrder
+    workTime?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    coreCardioSet?: CoreCardioSetOrderByWithRelationInput
+  }
+
+  export type CoreCardioSetWorkoutTimeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CoreCardioSetWorkoutTimeWhereInput | CoreCardioSetWorkoutTimeWhereInput[]
+    OR?: CoreCardioSetWorkoutTimeWhereInput[]
+    NOT?: CoreCardioSetWorkoutTimeWhereInput | CoreCardioSetWorkoutTimeWhereInput[]
+    coreCardioSetId?: StringFilter<"CoreCardioSetWorkoutTime"> | string
+    workTime?: IntNullableFilter<"CoreCardioSetWorkoutTime"> | number | null
+    createdAt?: DateTimeFilter<"CoreCardioSetWorkoutTime"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreCardioSetWorkoutTime"> | Date | string
+    coreCardioSet?: XOR<CoreCardioSetScalarRelationFilter, CoreCardioSetWhereInput>
+  }, "id">
+
+  export type CoreCardioSetWorkoutTimeOrderByWithAggregationInput = {
+    id?: SortOrder
+    coreCardioSetId?: SortOrder
+    workTime?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CoreCardioSetWorkoutTimeCountOrderByAggregateInput
+    _avg?: CoreCardioSetWorkoutTimeAvgOrderByAggregateInput
+    _max?: CoreCardioSetWorkoutTimeMaxOrderByAggregateInput
+    _min?: CoreCardioSetWorkoutTimeMinOrderByAggregateInput
+    _sum?: CoreCardioSetWorkoutTimeSumOrderByAggregateInput
+  }
+
+  export type CoreCardioSetWorkoutTimeScalarWhereWithAggregatesInput = {
+    AND?: CoreCardioSetWorkoutTimeScalarWhereWithAggregatesInput | CoreCardioSetWorkoutTimeScalarWhereWithAggregatesInput[]
+    OR?: CoreCardioSetWorkoutTimeScalarWhereWithAggregatesInput[]
+    NOT?: CoreCardioSetWorkoutTimeScalarWhereWithAggregatesInput | CoreCardioSetWorkoutTimeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CoreCardioSetWorkoutTime"> | string
+    coreCardioSetId?: StringWithAggregatesFilter<"CoreCardioSetWorkoutTime"> | string
+    workTime?: IntNullableWithAggregatesFilter<"CoreCardioSetWorkoutTime"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"CoreCardioSetWorkoutTime"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CoreCardioSetWorkoutTime"> | Date | string
+  }
+
+  export type UserCardioSetWhereInput = {
+    AND?: UserCardioSetWhereInput | UserCardioSetWhereInput[]
+    OR?: UserCardioSetWhereInput[]
+    NOT?: UserCardioSetWhereInput | UserCardioSetWhereInput[]
+    id?: StringFilter<"UserCardioSet"> | string
+    warmupTime?: IntNullableFilter<"UserCardioSet"> | number | null
+    workTime?: IntNullableFilter<"UserCardioSet"> | number | null
+    avgHeartRate?: IntNullableFilter<"UserCardioSet"> | number | null
+    avgSpeed?: FloatNullableFilter<"UserCardioSet"> | number | null
+    distance?: FloatNullableFilter<"UserCardioSet"> | number | null
+    order?: IntFilter<"UserCardioSet"> | number
+    isCompleted?: BoolFilter<"UserCardioSet"> | boolean
+    calorieTarget?: IntNullableFilter<"UserCardioSet"> | number | null
+    userWorkoutExerciseId?: StringFilter<"UserCardioSet"> | string
+    skippedReason?: StringNullableFilter<"UserCardioSet"> | string | null
+    createdAt?: DateTimeFilter<"UserCardioSet"> | Date | string
+    updatedAt?: DateTimeFilter<"UserCardioSet"> | Date | string
     userWorkoutExercise?: XOR<UserWorkoutExerciseScalarRelationFilter, UserWorkoutExerciseWhereInput>
   }
 
-  export type UserSetOrderByWithRelationInput = {
+  export type UserCardioSetOrderByWithRelationInput = {
     id?: SortOrder
-    reps?: SortOrder
-    weight?: SortOrderInput | SortOrder
-    isBodyWeight?: SortOrder
-    restTime?: SortOrder
+    warmupTime?: SortOrderInput | SortOrder
+    workTime?: SortOrderInput | SortOrder
+    avgHeartRate?: SortOrderInput | SortOrder
+    avgSpeed?: SortOrderInput | SortOrder
+    distance?: SortOrderInput | SortOrder
     order?: SortOrder
     isCompleted?: SortOrder
-    isWarmup?: SortOrder
-    isMuscleFailure?: SortOrder
-    isJointPain?: SortOrder
-    userId?: SortOrder
+    calorieTarget?: SortOrderInput | SortOrder
     userWorkoutExerciseId?: SortOrder
+    skippedReason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     userWorkoutExercise?: UserWorkoutExerciseOrderByWithRelationInput
   }
 
-  export type UserSetWhereUniqueInput = Prisma.AtLeast<{
+  export type UserCardioSetWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: UserSetWhereInput | UserSetWhereInput[]
-    OR?: UserSetWhereInput[]
-    NOT?: UserSetWhereInput | UserSetWhereInput[]
-    reps?: IntFilter<"UserSet"> | number
-    weight?: FloatNullableFilter<"UserSet"> | number | null
-    isBodyWeight?: BoolFilter<"UserSet"> | boolean
-    restTime?: IntFilter<"UserSet"> | number
-    order?: IntFilter<"UserSet"> | number
-    isCompleted?: BoolFilter<"UserSet"> | boolean
-    isWarmup?: BoolFilter<"UserSet"> | boolean
-    isMuscleFailure?: BoolFilter<"UserSet"> | boolean
-    isJointPain?: BoolFilter<"UserSet"> | boolean
-    userId?: StringFilter<"UserSet"> | string
-    userWorkoutExerciseId?: StringFilter<"UserSet"> | string
-    createdAt?: DateTimeFilter<"UserSet"> | Date | string
-    updatedAt?: DateTimeFilter<"UserSet"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    AND?: UserCardioSetWhereInput | UserCardioSetWhereInput[]
+    OR?: UserCardioSetWhereInput[]
+    NOT?: UserCardioSetWhereInput | UserCardioSetWhereInput[]
+    warmupTime?: IntNullableFilter<"UserCardioSet"> | number | null
+    workTime?: IntNullableFilter<"UserCardioSet"> | number | null
+    avgHeartRate?: IntNullableFilter<"UserCardioSet"> | number | null
+    avgSpeed?: FloatNullableFilter<"UserCardioSet"> | number | null
+    distance?: FloatNullableFilter<"UserCardioSet"> | number | null
+    order?: IntFilter<"UserCardioSet"> | number
+    isCompleted?: BoolFilter<"UserCardioSet"> | boolean
+    calorieTarget?: IntNullableFilter<"UserCardioSet"> | number | null
+    userWorkoutExerciseId?: StringFilter<"UserCardioSet"> | string
+    skippedReason?: StringNullableFilter<"UserCardioSet"> | string | null
+    createdAt?: DateTimeFilter<"UserCardioSet"> | Date | string
+    updatedAt?: DateTimeFilter<"UserCardioSet"> | Date | string
     userWorkoutExercise?: XOR<UserWorkoutExerciseScalarRelationFilter, UserWorkoutExerciseWhereInput>
   }, "id">
 
-  export type UserSetOrderByWithAggregationInput = {
+  export type UserCardioSetOrderByWithAggregationInput = {
+    id?: SortOrder
+    warmupTime?: SortOrderInput | SortOrder
+    workTime?: SortOrderInput | SortOrder
+    avgHeartRate?: SortOrderInput | SortOrder
+    avgSpeed?: SortOrderInput | SortOrder
+    distance?: SortOrderInput | SortOrder
+    order?: SortOrder
+    isCompleted?: SortOrder
+    calorieTarget?: SortOrderInput | SortOrder
+    userWorkoutExerciseId?: SortOrder
+    skippedReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserCardioSetCountOrderByAggregateInput
+    _avg?: UserCardioSetAvgOrderByAggregateInput
+    _max?: UserCardioSetMaxOrderByAggregateInput
+    _min?: UserCardioSetMinOrderByAggregateInput
+    _sum?: UserCardioSetSumOrderByAggregateInput
+  }
+
+  export type UserCardioSetScalarWhereWithAggregatesInput = {
+    AND?: UserCardioSetScalarWhereWithAggregatesInput | UserCardioSetScalarWhereWithAggregatesInput[]
+    OR?: UserCardioSetScalarWhereWithAggregatesInput[]
+    NOT?: UserCardioSetScalarWhereWithAggregatesInput | UserCardioSetScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserCardioSet"> | string
+    warmupTime?: IntNullableWithAggregatesFilter<"UserCardioSet"> | number | null
+    workTime?: IntNullableWithAggregatesFilter<"UserCardioSet"> | number | null
+    avgHeartRate?: IntNullableWithAggregatesFilter<"UserCardioSet"> | number | null
+    avgSpeed?: FloatNullableWithAggregatesFilter<"UserCardioSet"> | number | null
+    distance?: FloatNullableWithAggregatesFilter<"UserCardioSet"> | number | null
+    order?: IntWithAggregatesFilter<"UserCardioSet"> | number
+    isCompleted?: BoolWithAggregatesFilter<"UserCardioSet"> | boolean
+    calorieTarget?: IntNullableWithAggregatesFilter<"UserCardioSet"> | number | null
+    userWorkoutExerciseId?: StringWithAggregatesFilter<"UserCardioSet"> | string
+    skippedReason?: StringNullableWithAggregatesFilter<"UserCardioSet"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"UserCardioSet"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserCardioSet"> | Date | string
+  }
+
+  export type CoreStrengthSetWhereInput = {
+    AND?: CoreStrengthSetWhereInput | CoreStrengthSetWhereInput[]
+    OR?: CoreStrengthSetWhereInput[]
+    NOT?: CoreStrengthSetWhereInput | CoreStrengthSetWhereInput[]
+    id?: StringFilter<"CoreStrengthSet"> | string
+    restTime?: IntFilter<"CoreStrengthSet"> | number
+    numberOfSets?: IntFilter<"CoreStrengthSet"> | number
+    hasWarmup?: BoolFilter<"CoreStrengthSet"> | boolean
+    createdAt?: DateTimeFilter<"CoreStrengthSet"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreStrengthSet"> | Date | string
+    workoutExercise?: WorkoutExerciseListRelationFilter
+    reps?: CoreStrengthSetRepsListRelationFilter
+    weight?: CoreStrengthSetWeightListRelationFilter
+  }
+
+  export type CoreStrengthSetOrderByWithRelationInput = {
+    id?: SortOrder
+    restTime?: SortOrder
+    numberOfSets?: SortOrder
+    hasWarmup?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    workoutExercise?: WorkoutExerciseOrderByRelationAggregateInput
+    reps?: CoreStrengthSetRepsOrderByRelationAggregateInput
+    weight?: CoreStrengthSetWeightOrderByRelationAggregateInput
+  }
+
+  export type CoreStrengthSetWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CoreStrengthSetWhereInput | CoreStrengthSetWhereInput[]
+    OR?: CoreStrengthSetWhereInput[]
+    NOT?: CoreStrengthSetWhereInput | CoreStrengthSetWhereInput[]
+    restTime?: IntFilter<"CoreStrengthSet"> | number
+    numberOfSets?: IntFilter<"CoreStrengthSet"> | number
+    hasWarmup?: BoolFilter<"CoreStrengthSet"> | boolean
+    createdAt?: DateTimeFilter<"CoreStrengthSet"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreStrengthSet"> | Date | string
+    workoutExercise?: WorkoutExerciseListRelationFilter
+    reps?: CoreStrengthSetRepsListRelationFilter
+    weight?: CoreStrengthSetWeightListRelationFilter
+  }, "id">
+
+  export type CoreStrengthSetOrderByWithAggregationInput = {
+    id?: SortOrder
+    restTime?: SortOrder
+    numberOfSets?: SortOrder
+    hasWarmup?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CoreStrengthSetCountOrderByAggregateInput
+    _avg?: CoreStrengthSetAvgOrderByAggregateInput
+    _max?: CoreStrengthSetMaxOrderByAggregateInput
+    _min?: CoreStrengthSetMinOrderByAggregateInput
+    _sum?: CoreStrengthSetSumOrderByAggregateInput
+  }
+
+  export type CoreStrengthSetScalarWhereWithAggregatesInput = {
+    AND?: CoreStrengthSetScalarWhereWithAggregatesInput | CoreStrengthSetScalarWhereWithAggregatesInput[]
+    OR?: CoreStrengthSetScalarWhereWithAggregatesInput[]
+    NOT?: CoreStrengthSetScalarWhereWithAggregatesInput | CoreStrengthSetScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CoreStrengthSet"> | string
+    restTime?: IntWithAggregatesFilter<"CoreStrengthSet"> | number
+    numberOfSets?: IntWithAggregatesFilter<"CoreStrengthSet"> | number
+    hasWarmup?: BoolWithAggregatesFilter<"CoreStrengthSet"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"CoreStrengthSet"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CoreStrengthSet"> | Date | string
+  }
+
+  export type CoreStrengthSetRepsWhereInput = {
+    AND?: CoreStrengthSetRepsWhereInput | CoreStrengthSetRepsWhereInput[]
+    OR?: CoreStrengthSetRepsWhereInput[]
+    NOT?: CoreStrengthSetRepsWhereInput | CoreStrengthSetRepsWhereInput[]
+    id?: StringFilter<"CoreStrengthSetReps"> | string
+    coreStrengthSetId?: StringFilter<"CoreStrengthSetReps"> | string
+    reps?: IntFilter<"CoreStrengthSetReps"> | number
+    createdAt?: DateTimeFilter<"CoreStrengthSetReps"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreStrengthSetReps"> | Date | string
+    coreStrengthSet?: XOR<CoreStrengthSetScalarRelationFilter, CoreStrengthSetWhereInput>
+  }
+
+  export type CoreStrengthSetRepsOrderByWithRelationInput = {
+    id?: SortOrder
+    coreStrengthSetId?: SortOrder
+    reps?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    coreStrengthSet?: CoreStrengthSetOrderByWithRelationInput
+  }
+
+  export type CoreStrengthSetRepsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CoreStrengthSetRepsWhereInput | CoreStrengthSetRepsWhereInput[]
+    OR?: CoreStrengthSetRepsWhereInput[]
+    NOT?: CoreStrengthSetRepsWhereInput | CoreStrengthSetRepsWhereInput[]
+    coreStrengthSetId?: StringFilter<"CoreStrengthSetReps"> | string
+    reps?: IntFilter<"CoreStrengthSetReps"> | number
+    createdAt?: DateTimeFilter<"CoreStrengthSetReps"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreStrengthSetReps"> | Date | string
+    coreStrengthSet?: XOR<CoreStrengthSetScalarRelationFilter, CoreStrengthSetWhereInput>
+  }, "id">
+
+  export type CoreStrengthSetRepsOrderByWithAggregationInput = {
+    id?: SortOrder
+    coreStrengthSetId?: SortOrder
+    reps?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CoreStrengthSetRepsCountOrderByAggregateInput
+    _avg?: CoreStrengthSetRepsAvgOrderByAggregateInput
+    _max?: CoreStrengthSetRepsMaxOrderByAggregateInput
+    _min?: CoreStrengthSetRepsMinOrderByAggregateInput
+    _sum?: CoreStrengthSetRepsSumOrderByAggregateInput
+  }
+
+  export type CoreStrengthSetRepsScalarWhereWithAggregatesInput = {
+    AND?: CoreStrengthSetRepsScalarWhereWithAggregatesInput | CoreStrengthSetRepsScalarWhereWithAggregatesInput[]
+    OR?: CoreStrengthSetRepsScalarWhereWithAggregatesInput[]
+    NOT?: CoreStrengthSetRepsScalarWhereWithAggregatesInput | CoreStrengthSetRepsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CoreStrengthSetReps"> | string
+    coreStrengthSetId?: StringWithAggregatesFilter<"CoreStrengthSetReps"> | string
+    reps?: IntWithAggregatesFilter<"CoreStrengthSetReps"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"CoreStrengthSetReps"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CoreStrengthSetReps"> | Date | string
+  }
+
+  export type CoreStrengthSetWeightWhereInput = {
+    AND?: CoreStrengthSetWeightWhereInput | CoreStrengthSetWeightWhereInput[]
+    OR?: CoreStrengthSetWeightWhereInput[]
+    NOT?: CoreStrengthSetWeightWhereInput | CoreStrengthSetWeightWhereInput[]
+    id?: StringFilter<"CoreStrengthSetWeight"> | string
+    coreStrengthSetId?: StringFilter<"CoreStrengthSetWeight"> | string
+    isBodyWeight?: BoolFilter<"CoreStrengthSetWeight"> | boolean
+    weight?: FloatNullableFilter<"CoreStrengthSetWeight"> | number | null
+    createdAt?: DateTimeFilter<"CoreStrengthSetWeight"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreStrengthSetWeight"> | Date | string
+    coreStrengthSet?: XOR<CoreStrengthSetScalarRelationFilter, CoreStrengthSetWhereInput>
+  }
+
+  export type CoreStrengthSetWeightOrderByWithRelationInput = {
+    id?: SortOrder
+    coreStrengthSetId?: SortOrder
+    isBodyWeight?: SortOrder
+    weight?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    coreStrengthSet?: CoreStrengthSetOrderByWithRelationInput
+  }
+
+  export type CoreStrengthSetWeightWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CoreStrengthSetWeightWhereInput | CoreStrengthSetWeightWhereInput[]
+    OR?: CoreStrengthSetWeightWhereInput[]
+    NOT?: CoreStrengthSetWeightWhereInput | CoreStrengthSetWeightWhereInput[]
+    coreStrengthSetId?: StringFilter<"CoreStrengthSetWeight"> | string
+    isBodyWeight?: BoolFilter<"CoreStrengthSetWeight"> | boolean
+    weight?: FloatNullableFilter<"CoreStrengthSetWeight"> | number | null
+    createdAt?: DateTimeFilter<"CoreStrengthSetWeight"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreStrengthSetWeight"> | Date | string
+    coreStrengthSet?: XOR<CoreStrengthSetScalarRelationFilter, CoreStrengthSetWhereInput>
+  }, "id">
+
+  export type CoreStrengthSetWeightOrderByWithAggregationInput = {
+    id?: SortOrder
+    coreStrengthSetId?: SortOrder
+    isBodyWeight?: SortOrder
+    weight?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CoreStrengthSetWeightCountOrderByAggregateInput
+    _avg?: CoreStrengthSetWeightAvgOrderByAggregateInput
+    _max?: CoreStrengthSetWeightMaxOrderByAggregateInput
+    _min?: CoreStrengthSetWeightMinOrderByAggregateInput
+    _sum?: CoreStrengthSetWeightSumOrderByAggregateInput
+  }
+
+  export type CoreStrengthSetWeightScalarWhereWithAggregatesInput = {
+    AND?: CoreStrengthSetWeightScalarWhereWithAggregatesInput | CoreStrengthSetWeightScalarWhereWithAggregatesInput[]
+    OR?: CoreStrengthSetWeightScalarWhereWithAggregatesInput[]
+    NOT?: CoreStrengthSetWeightScalarWhereWithAggregatesInput | CoreStrengthSetWeightScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CoreStrengthSetWeight"> | string
+    coreStrengthSetId?: StringWithAggregatesFilter<"CoreStrengthSetWeight"> | string
+    isBodyWeight?: BoolWithAggregatesFilter<"CoreStrengthSetWeight"> | boolean
+    weight?: FloatNullableWithAggregatesFilter<"CoreStrengthSetWeight"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"CoreStrengthSetWeight"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CoreStrengthSetWeight"> | Date | string
+  }
+
+  export type UserStrengthSetWhereInput = {
+    AND?: UserStrengthSetWhereInput | UserStrengthSetWhereInput[]
+    OR?: UserStrengthSetWhereInput[]
+    NOT?: UserStrengthSetWhereInput | UserStrengthSetWhereInput[]
+    id?: StringFilter<"UserStrengthSet"> | string
+    reps?: IntFilter<"UserStrengthSet"> | number
+    weight?: FloatNullableFilter<"UserStrengthSet"> | number | null
+    isBodyWeight?: BoolFilter<"UserStrengthSet"> | boolean
+    restTime?: IntFilter<"UserStrengthSet"> | number
+    order?: IntFilter<"UserStrengthSet"> | number
+    isCompleted?: BoolFilter<"UserStrengthSet"> | boolean
+    isWarmup?: BoolFilter<"UserStrengthSet"> | boolean
+    isMuscleFailure?: BoolFilter<"UserStrengthSet"> | boolean
+    isJointPain?: BoolFilter<"UserStrengthSet"> | boolean
+    skippedReason?: StringNullableFilter<"UserStrengthSet"> | string | null
+    userWorkoutExerciseId?: StringFilter<"UserStrengthSet"> | string
+    createdAt?: DateTimeFilter<"UserStrengthSet"> | Date | string
+    updatedAt?: DateTimeFilter<"UserStrengthSet"> | Date | string
+    userWorkoutExercise?: XOR<UserWorkoutExerciseScalarRelationFilter, UserWorkoutExerciseWhereInput>
+  }
+
+  export type UserStrengthSetOrderByWithRelationInput = {
     id?: SortOrder
     reps?: SortOrder
     weight?: SortOrderInput | SortOrder
@@ -18315,35 +24744,74 @@ export namespace Prisma {
     isWarmup?: SortOrder
     isMuscleFailure?: SortOrder
     isJointPain?: SortOrder
-    userId?: SortOrder
+    skippedReason?: SortOrderInput | SortOrder
     userWorkoutExerciseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: UserSetCountOrderByAggregateInput
-    _avg?: UserSetAvgOrderByAggregateInput
-    _max?: UserSetMaxOrderByAggregateInput
-    _min?: UserSetMinOrderByAggregateInput
-    _sum?: UserSetSumOrderByAggregateInput
+    userWorkoutExercise?: UserWorkoutExerciseOrderByWithRelationInput
   }
 
-  export type UserSetScalarWhereWithAggregatesInput = {
-    AND?: UserSetScalarWhereWithAggregatesInput | UserSetScalarWhereWithAggregatesInput[]
-    OR?: UserSetScalarWhereWithAggregatesInput[]
-    NOT?: UserSetScalarWhereWithAggregatesInput | UserSetScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"UserSet"> | string
-    reps?: IntWithAggregatesFilter<"UserSet"> | number
-    weight?: FloatNullableWithAggregatesFilter<"UserSet"> | number | null
-    isBodyWeight?: BoolWithAggregatesFilter<"UserSet"> | boolean
-    restTime?: IntWithAggregatesFilter<"UserSet"> | number
-    order?: IntWithAggregatesFilter<"UserSet"> | number
-    isCompleted?: BoolWithAggregatesFilter<"UserSet"> | boolean
-    isWarmup?: BoolWithAggregatesFilter<"UserSet"> | boolean
-    isMuscleFailure?: BoolWithAggregatesFilter<"UserSet"> | boolean
-    isJointPain?: BoolWithAggregatesFilter<"UserSet"> | boolean
-    userId?: StringWithAggregatesFilter<"UserSet"> | string
-    userWorkoutExerciseId?: StringWithAggregatesFilter<"UserSet"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"UserSet"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"UserSet"> | Date | string
+  export type UserStrengthSetWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: UserStrengthSetWhereInput | UserStrengthSetWhereInput[]
+    OR?: UserStrengthSetWhereInput[]
+    NOT?: UserStrengthSetWhereInput | UserStrengthSetWhereInput[]
+    reps?: IntFilter<"UserStrengthSet"> | number
+    weight?: FloatNullableFilter<"UserStrengthSet"> | number | null
+    isBodyWeight?: BoolFilter<"UserStrengthSet"> | boolean
+    restTime?: IntFilter<"UserStrengthSet"> | number
+    order?: IntFilter<"UserStrengthSet"> | number
+    isCompleted?: BoolFilter<"UserStrengthSet"> | boolean
+    isWarmup?: BoolFilter<"UserStrengthSet"> | boolean
+    isMuscleFailure?: BoolFilter<"UserStrengthSet"> | boolean
+    isJointPain?: BoolFilter<"UserStrengthSet"> | boolean
+    skippedReason?: StringNullableFilter<"UserStrengthSet"> | string | null
+    userWorkoutExerciseId?: StringFilter<"UserStrengthSet"> | string
+    createdAt?: DateTimeFilter<"UserStrengthSet"> | Date | string
+    updatedAt?: DateTimeFilter<"UserStrengthSet"> | Date | string
+    userWorkoutExercise?: XOR<UserWorkoutExerciseScalarRelationFilter, UserWorkoutExerciseWhereInput>
+  }, "id">
+
+  export type UserStrengthSetOrderByWithAggregationInput = {
+    id?: SortOrder
+    reps?: SortOrder
+    weight?: SortOrderInput | SortOrder
+    isBodyWeight?: SortOrder
+    restTime?: SortOrder
+    order?: SortOrder
+    isCompleted?: SortOrder
+    isWarmup?: SortOrder
+    isMuscleFailure?: SortOrder
+    isJointPain?: SortOrder
+    skippedReason?: SortOrderInput | SortOrder
+    userWorkoutExerciseId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserStrengthSetCountOrderByAggregateInput
+    _avg?: UserStrengthSetAvgOrderByAggregateInput
+    _max?: UserStrengthSetMaxOrderByAggregateInput
+    _min?: UserStrengthSetMinOrderByAggregateInput
+    _sum?: UserStrengthSetSumOrderByAggregateInput
+  }
+
+  export type UserStrengthSetScalarWhereWithAggregatesInput = {
+    AND?: UserStrengthSetScalarWhereWithAggregatesInput | UserStrengthSetScalarWhereWithAggregatesInput[]
+    OR?: UserStrengthSetScalarWhereWithAggregatesInput[]
+    NOT?: UserStrengthSetScalarWhereWithAggregatesInput | UserStrengthSetScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserStrengthSet"> | string
+    reps?: IntWithAggregatesFilter<"UserStrengthSet"> | number
+    weight?: FloatNullableWithAggregatesFilter<"UserStrengthSet"> | number | null
+    isBodyWeight?: BoolWithAggregatesFilter<"UserStrengthSet"> | boolean
+    restTime?: IntWithAggregatesFilter<"UserStrengthSet"> | number
+    order?: IntWithAggregatesFilter<"UserStrengthSet"> | number
+    isCompleted?: BoolWithAggregatesFilter<"UserStrengthSet"> | boolean
+    isWarmup?: BoolWithAggregatesFilter<"UserStrengthSet"> | boolean
+    isMuscleFailure?: BoolWithAggregatesFilter<"UserStrengthSet"> | boolean
+    isJointPain?: BoolWithAggregatesFilter<"UserStrengthSet"> | boolean
+    skippedReason?: StringNullableWithAggregatesFilter<"UserStrengthSet"> | string | null
+    userWorkoutExerciseId?: StringWithAggregatesFilter<"UserStrengthSet"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"UserStrengthSet"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserStrengthSet"> | Date | string
   }
 
   export type ProgramWhereInput = {
@@ -18567,13 +25035,13 @@ export namespace Prisma {
     id?: StringFilter<"WorkoutExercise"> | string
     order?: IntFilter<"WorkoutExercise"> | number
     notes?: StringNullableFilter<"WorkoutExercise"> | string | null
-    coreSetId?: StringNullableFilter<"WorkoutExercise"> | string | null
+    coreStrengthSetId?: StringNullableFilter<"WorkoutExercise"> | string | null
     coreCardioSetId?: StringNullableFilter<"WorkoutExercise"> | string | null
     exerciseId?: StringFilter<"WorkoutExercise"> | string
     workoutId?: StringFilter<"WorkoutExercise"> | string
     createdAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
     updatedAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
-    coreSet?: XOR<CoreSetNullableScalarRelationFilter, CoreSetWhereInput> | null
+    coreStrengthSet?: XOR<CoreStrengthSetNullableScalarRelationFilter, CoreStrengthSetWhereInput> | null
     coreCardioSet?: XOR<CoreCardioSetNullableScalarRelationFilter, CoreCardioSetWhereInput> | null
     exercise?: XOR<ExerciseScalarRelationFilter, ExerciseWhereInput>
     workout?: XOR<WorkoutScalarRelationFilter, WorkoutWhereInput>
@@ -18584,13 +25052,13 @@ export namespace Prisma {
     id?: SortOrder
     order?: SortOrder
     notes?: SortOrderInput | SortOrder
-    coreSetId?: SortOrderInput | SortOrder
+    coreStrengthSetId?: SortOrderInput | SortOrder
     coreCardioSetId?: SortOrderInput | SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    coreSet?: CoreSetOrderByWithRelationInput
+    coreStrengthSet?: CoreStrengthSetOrderByWithRelationInput
     coreCardioSet?: CoreCardioSetOrderByWithRelationInput
     exercise?: ExerciseOrderByWithRelationInput
     workout?: WorkoutOrderByWithRelationInput
@@ -18604,13 +25072,13 @@ export namespace Prisma {
     NOT?: WorkoutExerciseWhereInput | WorkoutExerciseWhereInput[]
     order?: IntFilter<"WorkoutExercise"> | number
     notes?: StringNullableFilter<"WorkoutExercise"> | string | null
-    coreSetId?: StringNullableFilter<"WorkoutExercise"> | string | null
+    coreStrengthSetId?: StringNullableFilter<"WorkoutExercise"> | string | null
     coreCardioSetId?: StringNullableFilter<"WorkoutExercise"> | string | null
     exerciseId?: StringFilter<"WorkoutExercise"> | string
     workoutId?: StringFilter<"WorkoutExercise"> | string
     createdAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
     updatedAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
-    coreSet?: XOR<CoreSetNullableScalarRelationFilter, CoreSetWhereInput> | null
+    coreStrengthSet?: XOR<CoreStrengthSetNullableScalarRelationFilter, CoreStrengthSetWhereInput> | null
     coreCardioSet?: XOR<CoreCardioSetNullableScalarRelationFilter, CoreCardioSetWhereInput> | null
     exercise?: XOR<ExerciseScalarRelationFilter, ExerciseWhereInput>
     workout?: XOR<WorkoutScalarRelationFilter, WorkoutWhereInput>
@@ -18621,7 +25089,7 @@ export namespace Prisma {
     id?: SortOrder
     order?: SortOrder
     notes?: SortOrderInput | SortOrder
-    coreSetId?: SortOrderInput | SortOrder
+    coreStrengthSetId?: SortOrderInput | SortOrder
     coreCardioSetId?: SortOrderInput | SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
@@ -18641,7 +25109,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"WorkoutExercise"> | string
     order?: IntWithAggregatesFilter<"WorkoutExercise"> | number
     notes?: StringNullableWithAggregatesFilter<"WorkoutExercise"> | string | null
-    coreSetId?: StringNullableWithAggregatesFilter<"WorkoutExercise"> | string | null
+    coreStrengthSetId?: StringNullableWithAggregatesFilter<"WorkoutExercise"> | string | null
     coreCardioSetId?: StringNullableWithAggregatesFilter<"WorkoutExercise"> | string | null
     exerciseId?: StringWithAggregatesFilter<"WorkoutExercise"> | string
     workoutId?: StringWithAggregatesFilter<"WorkoutExercise"> | string
@@ -18658,7 +25126,8 @@ export namespace Prisma {
     userWorkoutId?: StringFilter<"UserWorkoutExercise"> | string
     workoutExercise?: XOR<WorkoutExerciseScalarRelationFilter, WorkoutExerciseWhereInput>
     userWorkout?: XOR<UserWorkoutScalarRelationFilter, UserWorkoutWhereInput>
-    userSets?: UserSetListRelationFilter
+    userStrengthSet?: UserStrengthSetListRelationFilter
+    userCardioSet?: UserCardioSetListRelationFilter
   }
 
   export type UserWorkoutExerciseOrderByWithRelationInput = {
@@ -18667,7 +25136,8 @@ export namespace Prisma {
     userWorkoutId?: SortOrder
     workoutExercise?: WorkoutExerciseOrderByWithRelationInput
     userWorkout?: UserWorkoutOrderByWithRelationInput
-    userSets?: UserSetOrderByRelationAggregateInput
+    userStrengthSet?: UserStrengthSetOrderByRelationAggregateInput
+    userCardioSet?: UserCardioSetOrderByRelationAggregateInput
   }
 
   export type UserWorkoutExerciseWhereUniqueInput = Prisma.AtLeast<{
@@ -18679,7 +25149,8 @@ export namespace Prisma {
     userWorkoutId?: StringFilter<"UserWorkoutExercise"> | string
     workoutExercise?: XOR<WorkoutExerciseScalarRelationFilter, WorkoutExerciseWhereInput>
     userWorkout?: XOR<UserWorkoutScalarRelationFilter, UserWorkoutWhereInput>
-    userSets?: UserSetListRelationFilter
+    userStrengthSet?: UserStrengthSetListRelationFilter
+    userCardioSet?: UserCardioSetListRelationFilter
   }, "id">
 
   export type UserWorkoutExerciseOrderByWithAggregationInput = {
@@ -18781,7 +25252,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     programs?: ProgramCreateNestedManyWithoutOwnerInput
-    userSets?: UserSetCreateNestedManyWithoutUserInput
     workouts?: WorkoutCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
   }
@@ -18798,7 +25268,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     programs?: ProgramUncheckedCreateNestedManyWithoutOwnerInput
-    userSets?: UserSetUncheckedCreateNestedManyWithoutUserInput
     workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
   }
@@ -18815,7 +25284,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     programs?: ProgramUpdateManyWithoutOwnerNestedInput
-    userSets?: UserSetUpdateManyWithoutUserNestedInput
     workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
   }
@@ -18832,7 +25300,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     programs?: ProgramUncheckedUpdateManyWithoutOwnerNestedInput
-    userSets?: UserSetUncheckedUpdateManyWithoutUserNestedInput
     workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
   }
@@ -18964,141 +25431,62 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CoreSetCreateInput = {
-    id?: string
-    restTime?: number
-    numberOfSets?: number
-    hasWarmup?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    workoutExercise?: WorkoutExerciseCreateNestedManyWithoutCoreSetInput
-    reps?: CoreSetRepsCreateNestedManyWithoutCoreSetInput
-    weight?: CoreSetWeightCreateNestedManyWithoutCoreSetInput
-  }
-
-  export type CoreSetUncheckedCreateInput = {
-    id?: string
-    restTime?: number
-    numberOfSets?: number
-    hasWarmup?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    workoutExercise?: WorkoutExerciseUncheckedCreateNestedManyWithoutCoreSetInput
-    reps?: CoreSetRepsUncheckedCreateNestedManyWithoutCoreSetInput
-    weight?: CoreSetWeightUncheckedCreateNestedManyWithoutCoreSetInput
-  }
-
-  export type CoreSetUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    restTime?: IntFieldUpdateOperationsInput | number
-    numberOfSets?: IntFieldUpdateOperationsInput | number
-    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workoutExercise?: WorkoutExerciseUpdateManyWithoutCoreSetNestedInput
-    reps?: CoreSetRepsUpdateManyWithoutCoreSetNestedInput
-    weight?: CoreSetWeightUpdateManyWithoutCoreSetNestedInput
-  }
-
-  export type CoreSetUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    restTime?: IntFieldUpdateOperationsInput | number
-    numberOfSets?: IntFieldUpdateOperationsInput | number
-    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workoutExercise?: WorkoutExerciseUncheckedUpdateManyWithoutCoreSetNestedInput
-    reps?: CoreSetRepsUncheckedUpdateManyWithoutCoreSetNestedInput
-    weight?: CoreSetWeightUncheckedUpdateManyWithoutCoreSetNestedInput
-  }
-
-  export type CoreSetCreateManyInput = {
-    id?: string
-    restTime?: number
-    numberOfSets?: number
-    hasWarmup?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type CoreSetUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    restTime?: IntFieldUpdateOperationsInput | number
-    numberOfSets?: IntFieldUpdateOperationsInput | number
-    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CoreSetUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    restTime?: IntFieldUpdateOperationsInput | number
-    numberOfSets?: IntFieldUpdateOperationsInput | number
-    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type CoreCardioSetCreateInput = {
     id?: string
     warmupTime?: number | null
     avgHeartRate?: number | null
-    avgSpeed?: number | null
-    distance?: number | null
-    calorieTarget?: number | null
-    duration?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workoutExercise?: WorkoutExerciseCreateNestedManyWithoutCoreCardioSetInput
+    workTime?: CoreCardioSetWorkoutTimeCreateNestedManyWithoutCoreCardioSetInput
+    avgSpeed?: CoreCardioSetAvgSpeedCreateNestedManyWithoutCoreCardioSetInput
+    distance?: CoreCardioSetDistanceCreateNestedManyWithoutCoreCardioSetInput
+    calorieTarget?: CoreCardioSetCalorieTargetCreateNestedManyWithoutCoreCardioSetInput
   }
 
   export type CoreCardioSetUncheckedCreateInput = {
     id?: string
     warmupTime?: number | null
     avgHeartRate?: number | null
-    avgSpeed?: number | null
-    distance?: number | null
-    calorieTarget?: number | null
-    duration?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workoutExercise?: WorkoutExerciseUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    workTime?: CoreCardioSetWorkoutTimeUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    avgSpeed?: CoreCardioSetAvgSpeedUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    distance?: CoreCardioSetDistanceUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    calorieTarget?: CoreCardioSetCalorieTargetUncheckedCreateNestedManyWithoutCoreCardioSetInput
   }
 
   export type CoreCardioSetUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
-    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
-    distance?: NullableFloatFieldUpdateOperationsInput | number | null
-    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
-    duration?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workoutExercise?: WorkoutExerciseUpdateManyWithoutCoreCardioSetNestedInput
+    workTime?: CoreCardioSetWorkoutTimeUpdateManyWithoutCoreCardioSetNestedInput
+    avgSpeed?: CoreCardioSetAvgSpeedUpdateManyWithoutCoreCardioSetNestedInput
+    distance?: CoreCardioSetDistanceUpdateManyWithoutCoreCardioSetNestedInput
+    calorieTarget?: CoreCardioSetCalorieTargetUpdateManyWithoutCoreCardioSetNestedInput
   }
 
   export type CoreCardioSetUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
-    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
-    distance?: NullableFloatFieldUpdateOperationsInput | number | null
-    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
-    duration?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workoutExercise?: WorkoutExerciseUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    workTime?: CoreCardioSetWorkoutTimeUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    avgSpeed?: CoreCardioSetAvgSpeedUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    distance?: CoreCardioSetDistanceUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    calorieTarget?: CoreCardioSetCalorieTargetUncheckedUpdateManyWithoutCoreCardioSetNestedInput
   }
 
   export type CoreCardioSetCreateManyInput = {
     id?: string
     warmupTime?: number | null
     avgHeartRate?: number | null
-    avgSpeed?: number | null
-    distance?: number | null
-    calorieTarget?: number | null
-    duration?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -19107,10 +25495,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
-    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
-    distance?: NullableFloatFieldUpdateOperationsInput | number | null
-    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
-    duration?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19119,115 +25503,517 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetCalorieTargetCreateInput = {
+    id?: string
+    calorieTarget?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    coreCardioSet: CoreCardioSetCreateNestedOneWithoutCalorieTargetInput
+  }
+
+  export type CoreCardioSetCalorieTargetUncheckedCreateInput = {
+    id?: string
+    coreCardioSetId: string
+    calorieTarget?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetCalorieTargetUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    coreCardioSet?: CoreCardioSetUpdateOneRequiredWithoutCalorieTargetNestedInput
+  }
+
+  export type CoreCardioSetCalorieTargetUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coreCardioSetId?: StringFieldUpdateOperationsInput | string
+    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetCalorieTargetCreateManyInput = {
+    id?: string
+    coreCardioSetId: string
+    calorieTarget?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetCalorieTargetUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetCalorieTargetUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coreCardioSetId?: StringFieldUpdateOperationsInput | string
+    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetDistanceCreateInput = {
+    id?: string
+    distance?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    coreCardioSet: CoreCardioSetCreateNestedOneWithoutDistanceInput
+  }
+
+  export type CoreCardioSetDistanceUncheckedCreateInput = {
+    id?: string
+    coreCardioSetId: string
+    distance?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetDistanceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    distance?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    coreCardioSet?: CoreCardioSetUpdateOneRequiredWithoutDistanceNestedInput
+  }
+
+  export type CoreCardioSetDistanceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coreCardioSetId?: StringFieldUpdateOperationsInput | string
+    distance?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetDistanceCreateManyInput = {
+    id?: string
+    coreCardioSetId: string
+    distance?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetDistanceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    distance?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetDistanceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coreCardioSetId?: StringFieldUpdateOperationsInput | string
+    distance?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetAvgSpeedCreateInput = {
+    id?: string
+    avgSpeed?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    coreCardioSet: CoreCardioSetCreateNestedOneWithoutAvgSpeedInput
+  }
+
+  export type CoreCardioSetAvgSpeedUncheckedCreateInput = {
+    id?: string
+    coreCardioSetId: string
+    avgSpeed?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetAvgSpeedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    coreCardioSet?: CoreCardioSetUpdateOneRequiredWithoutAvgSpeedNestedInput
+  }
+
+  export type CoreCardioSetAvgSpeedUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coreCardioSetId?: StringFieldUpdateOperationsInput | string
+    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetAvgSpeedCreateManyInput = {
+    id?: string
+    coreCardioSetId: string
+    avgSpeed?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetAvgSpeedUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetAvgSpeedUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coreCardioSetId?: StringFieldUpdateOperationsInput | string
+    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetWorkoutTimeCreateInput = {
+    id?: string
+    workTime?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    coreCardioSet: CoreCardioSetCreateNestedOneWithoutWorkTimeInput
+  }
+
+  export type CoreCardioSetWorkoutTimeUncheckedCreateInput = {
+    id?: string
+    coreCardioSetId: string
+    workTime?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetWorkoutTimeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workTime?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    coreCardioSet?: CoreCardioSetUpdateOneRequiredWithoutWorkTimeNestedInput
+  }
+
+  export type CoreCardioSetWorkoutTimeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coreCardioSetId?: StringFieldUpdateOperationsInput | string
+    workTime?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetWorkoutTimeCreateManyInput = {
+    id?: string
+    coreCardioSetId: string
+    workTime?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetWorkoutTimeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workTime?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetWorkoutTimeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coreCardioSetId?: StringFieldUpdateOperationsInput | string
+    workTime?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCardioSetCreateInput = {
+    id?: string
+    warmupTime?: number | null
+    workTime?: number | null
+    avgHeartRate?: number | null
+    avgSpeed?: number | null
+    distance?: number | null
+    order?: number
+    isCompleted?: boolean
+    calorieTarget?: number | null
+    skippedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userWorkoutExercise: UserWorkoutExerciseCreateNestedOneWithoutUserCardioSetInput
+  }
+
+  export type UserCardioSetUncheckedCreateInput = {
+    id?: string
+    warmupTime?: number | null
+    workTime?: number | null
+    avgHeartRate?: number | null
+    avgSpeed?: number | null
+    distance?: number | null
+    order?: number
+    isCompleted?: boolean
+    calorieTarget?: number | null
+    userWorkoutExerciseId: string
+    skippedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCardioSetUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
+    workTime?: NullableIntFieldUpdateOperationsInput | number | null
+    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
     avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
     distance?: NullableFloatFieldUpdateOperationsInput | number | null
+    order?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
     calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
-    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userWorkoutExercise?: UserWorkoutExerciseUpdateOneRequiredWithoutUserCardioSetNestedInput
   }
 
-  export type CoreSetRepsCreateInput = {
-    id?: string
-    reps?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    coreSet: CoreSetCreateNestedOneWithoutRepsInput
-  }
-
-  export type CoreSetRepsUncheckedCreateInput = {
-    id?: string
-    coreSetId: string
-    reps?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type CoreSetRepsUpdateInput = {
+  export type UserCardioSetUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    reps?: IntFieldUpdateOperationsInput | number
+    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
+    workTime?: NullableIntFieldUpdateOperationsInput | number | null
+    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
+    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
+    distance?: NullableFloatFieldUpdateOperationsInput | number | null
+    order?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    userWorkoutExerciseId?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreSet?: CoreSetUpdateOneRequiredWithoutRepsNestedInput
   }
 
-  export type CoreSetRepsUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    coreSetId?: StringFieldUpdateOperationsInput | string
-    reps?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CoreSetRepsCreateManyInput = {
+  export type UserCardioSetCreateManyInput = {
     id?: string
-    coreSetId: string
-    reps?: number
+    warmupTime?: number | null
+    workTime?: number | null
+    avgHeartRate?: number | null
+    avgSpeed?: number | null
+    distance?: number | null
+    order?: number
+    isCompleted?: boolean
+    calorieTarget?: number | null
+    userWorkoutExerciseId: string
+    skippedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type CoreSetRepsUpdateManyMutationInput = {
+  export type UserCardioSetUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
+    workTime?: NullableIntFieldUpdateOperationsInput | number | null
+    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
+    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
+    distance?: NullableFloatFieldUpdateOperationsInput | number | null
+    order?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCardioSetUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
+    workTime?: NullableIntFieldUpdateOperationsInput | number | null
+    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
+    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
+    distance?: NullableFloatFieldUpdateOperationsInput | number | null
+    order?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    userWorkoutExerciseId?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreStrengthSetCreateInput = {
+    id?: string
+    restTime?: number
+    numberOfSets?: number
+    hasWarmup?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workoutExercise?: WorkoutExerciseCreateNestedManyWithoutCoreStrengthSetInput
+    reps?: CoreStrengthSetRepsCreateNestedManyWithoutCoreStrengthSetInput
+    weight?: CoreStrengthSetWeightCreateNestedManyWithoutCoreStrengthSetInput
+  }
+
+  export type CoreStrengthSetUncheckedCreateInput = {
+    id?: string
+    restTime?: number
+    numberOfSets?: number
+    hasWarmup?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workoutExercise?: WorkoutExerciseUncheckedCreateNestedManyWithoutCoreStrengthSetInput
+    reps?: CoreStrengthSetRepsUncheckedCreateNestedManyWithoutCoreStrengthSetInput
+    weight?: CoreStrengthSetWeightUncheckedCreateNestedManyWithoutCoreStrengthSetInput
+  }
+
+  export type CoreStrengthSetUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    restTime?: IntFieldUpdateOperationsInput | number
+    numberOfSets?: IntFieldUpdateOperationsInput | number
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workoutExercise?: WorkoutExerciseUpdateManyWithoutCoreStrengthSetNestedInput
+    reps?: CoreStrengthSetRepsUpdateManyWithoutCoreStrengthSetNestedInput
+    weight?: CoreStrengthSetWeightUpdateManyWithoutCoreStrengthSetNestedInput
+  }
+
+  export type CoreStrengthSetUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    restTime?: IntFieldUpdateOperationsInput | number
+    numberOfSets?: IntFieldUpdateOperationsInput | number
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workoutExercise?: WorkoutExerciseUncheckedUpdateManyWithoutCoreStrengthSetNestedInput
+    reps?: CoreStrengthSetRepsUncheckedUpdateManyWithoutCoreStrengthSetNestedInput
+    weight?: CoreStrengthSetWeightUncheckedUpdateManyWithoutCoreStrengthSetNestedInput
+  }
+
+  export type CoreStrengthSetCreateManyInput = {
+    id?: string
+    restTime?: number
+    numberOfSets?: number
+    hasWarmup?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreStrengthSetUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    restTime?: IntFieldUpdateOperationsInput | number
+    numberOfSets?: IntFieldUpdateOperationsInput | number
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreStrengthSetUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    restTime?: IntFieldUpdateOperationsInput | number
+    numberOfSets?: IntFieldUpdateOperationsInput | number
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreStrengthSetRepsCreateInput = {
+    id?: string
+    reps?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    coreStrengthSet: CoreStrengthSetCreateNestedOneWithoutRepsInput
+  }
+
+  export type CoreStrengthSetRepsUncheckedCreateInput = {
+    id?: string
+    coreStrengthSetId: string
+    reps?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreStrengthSetRepsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reps?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    coreStrengthSet?: CoreStrengthSetUpdateOneRequiredWithoutRepsNestedInput
+  }
+
+  export type CoreStrengthSetRepsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coreStrengthSetId?: StringFieldUpdateOperationsInput | string
+    reps?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreStrengthSetRepsCreateManyInput = {
+    id?: string
+    coreStrengthSetId: string
+    reps?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreStrengthSetRepsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     reps?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CoreSetRepsUncheckedUpdateManyInput = {
+  export type CoreStrengthSetRepsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    coreSetId?: StringFieldUpdateOperationsInput | string
+    coreStrengthSetId?: StringFieldUpdateOperationsInput | string
     reps?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CoreSetWeightCreateInput = {
+  export type CoreStrengthSetWeightCreateInput = {
     id?: string
     isBodyWeight?: boolean
     weight?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    coreSet: CoreSetCreateNestedOneWithoutWeightInput
+    coreStrengthSet: CoreStrengthSetCreateNestedOneWithoutWeightInput
   }
 
-  export type CoreSetWeightUncheckedCreateInput = {
+  export type CoreStrengthSetWeightUncheckedCreateInput = {
     id?: string
-    coreSetId: string
+    coreStrengthSetId: string
     isBodyWeight?: boolean
     weight?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type CoreSetWeightUpdateInput = {
+  export type CoreStrengthSetWeightUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreSet?: CoreSetUpdateOneRequiredWithoutWeightNestedInput
+    coreStrengthSet?: CoreStrengthSetUpdateOneRequiredWithoutWeightNestedInput
   }
 
-  export type CoreSetWeightUncheckedUpdateInput = {
+  export type CoreStrengthSetWeightUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    coreSetId?: StringFieldUpdateOperationsInput | string
+    coreStrengthSetId?: StringFieldUpdateOperationsInput | string
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CoreSetWeightCreateManyInput = {
+  export type CoreStrengthSetWeightCreateManyInput = {
     id?: string
-    coreSetId: string
+    coreStrengthSetId: string
     isBodyWeight?: boolean
     weight?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type CoreSetWeightUpdateManyMutationInput = {
+  export type CoreStrengthSetWeightUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -19235,16 +26021,16 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CoreSetWeightUncheckedUpdateManyInput = {
+  export type CoreStrengthSetWeightUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    coreSetId?: StringFieldUpdateOperationsInput | string
+    coreStrengthSetId?: StringFieldUpdateOperationsInput | string
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserSetCreateInput = {
+  export type UserStrengthSetCreateInput = {
     id?: string
     reps?: number
     weight?: number | null
@@ -19255,13 +26041,13 @@ export namespace Prisma {
     isWarmup?: boolean
     isMuscleFailure?: boolean
     isJointPain?: boolean
+    skippedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutUserSetsInput
-    userWorkoutExercise: UserWorkoutExerciseCreateNestedOneWithoutUserSetsInput
+    userWorkoutExercise: UserWorkoutExerciseCreateNestedOneWithoutUserStrengthSetInput
   }
 
-  export type UserSetUncheckedCreateInput = {
+  export type UserStrengthSetUncheckedCreateInput = {
     id?: string
     reps?: number
     weight?: number | null
@@ -19272,13 +26058,13 @@ export namespace Prisma {
     isWarmup?: boolean
     isMuscleFailure?: boolean
     isJointPain?: boolean
-    userId: string
+    skippedReason?: string | null
     userWorkoutExerciseId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type UserSetUpdateInput = {
+  export type UserStrengthSetUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     reps?: IntFieldUpdateOperationsInput | number
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -19289,13 +26075,13 @@ export namespace Prisma {
     isWarmup?: BoolFieldUpdateOperationsInput | boolean
     isMuscleFailure?: BoolFieldUpdateOperationsInput | boolean
     isJointPain?: BoolFieldUpdateOperationsInput | boolean
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutUserSetsNestedInput
-    userWorkoutExercise?: UserWorkoutExerciseUpdateOneRequiredWithoutUserSetsNestedInput
+    userWorkoutExercise?: UserWorkoutExerciseUpdateOneRequiredWithoutUserStrengthSetNestedInput
   }
 
-  export type UserSetUncheckedUpdateInput = {
+  export type UserStrengthSetUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     reps?: IntFieldUpdateOperationsInput | number
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -19306,13 +26092,13 @@ export namespace Prisma {
     isWarmup?: BoolFieldUpdateOperationsInput | boolean
     isMuscleFailure?: BoolFieldUpdateOperationsInput | boolean
     isJointPain?: BoolFieldUpdateOperationsInput | boolean
-    userId?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     userWorkoutExerciseId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserSetCreateManyInput = {
+  export type UserStrengthSetCreateManyInput = {
     id?: string
     reps?: number
     weight?: number | null
@@ -19323,13 +26109,13 @@ export namespace Prisma {
     isWarmup?: boolean
     isMuscleFailure?: boolean
     isJointPain?: boolean
-    userId: string
+    skippedReason?: string | null
     userWorkoutExerciseId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type UserSetUpdateManyMutationInput = {
+  export type UserStrengthSetUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     reps?: IntFieldUpdateOperationsInput | number
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -19340,11 +26126,12 @@ export namespace Prisma {
     isWarmup?: BoolFieldUpdateOperationsInput | boolean
     isMuscleFailure?: BoolFieldUpdateOperationsInput | boolean
     isJointPain?: BoolFieldUpdateOperationsInput | boolean
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserSetUncheckedUpdateManyInput = {
+  export type UserStrengthSetUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     reps?: IntFieldUpdateOperationsInput | number
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -19355,7 +26142,7 @@ export namespace Prisma {
     isWarmup?: BoolFieldUpdateOperationsInput | boolean
     isMuscleFailure?: BoolFieldUpdateOperationsInput | boolean
     isJointPain?: BoolFieldUpdateOperationsInput | boolean
-    userId?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     userWorkoutExerciseId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19593,7 +26380,7 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    coreSet?: CoreSetCreateNestedOneWithoutWorkoutExerciseInput
+    coreStrengthSet?: CoreStrengthSetCreateNestedOneWithoutWorkoutExerciseInput
     coreCardioSet?: CoreCardioSetCreateNestedOneWithoutWorkoutExerciseInput
     exercise: ExerciseCreateNestedOneWithoutWorkoutExercisesInput
     workout: WorkoutCreateNestedOneWithoutWorkoutExercisesInput
@@ -19604,7 +26391,7 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
-    coreSetId?: string | null
+    coreStrengthSetId?: string | null
     coreCardioSetId?: string | null
     exerciseId: string
     workoutId: string
@@ -19619,7 +26406,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreSet?: CoreSetUpdateOneWithoutWorkoutExerciseNestedInput
+    coreStrengthSet?: CoreStrengthSetUpdateOneWithoutWorkoutExerciseNestedInput
     coreCardioSet?: CoreCardioSetUpdateOneWithoutWorkoutExerciseNestedInput
     exercise?: ExerciseUpdateOneRequiredWithoutWorkoutExercisesNestedInput
     workout?: WorkoutUpdateOneRequiredWithoutWorkoutExercisesNestedInput
@@ -19630,7 +26417,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    coreSetId?: NullableStringFieldUpdateOperationsInput | string | null
+    coreStrengthSetId?: NullableStringFieldUpdateOperationsInput | string | null
     coreCardioSetId?: NullableStringFieldUpdateOperationsInput | string | null
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
@@ -19643,7 +26430,7 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
-    coreSetId?: string | null
+    coreStrengthSetId?: string | null
     coreCardioSetId?: string | null
     exerciseId: string
     workoutId: string
@@ -19663,7 +26450,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    coreSetId?: NullableStringFieldUpdateOperationsInput | string | null
+    coreStrengthSetId?: NullableStringFieldUpdateOperationsInput | string | null
     coreCardioSetId?: NullableStringFieldUpdateOperationsInput | string | null
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
@@ -19675,28 +26462,32 @@ export namespace Prisma {
     id?: string
     workoutExercise: WorkoutExerciseCreateNestedOneWithoutUserWorkoutExercisesInput
     userWorkout: UserWorkoutCreateNestedOneWithoutUserWorkoutExercisesInput
-    userSets?: UserSetCreateNestedManyWithoutUserWorkoutExerciseInput
+    userStrengthSet?: UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput
+    userCardioSet?: UserCardioSetCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
   export type UserWorkoutExerciseUncheckedCreateInput = {
     id?: string
     workoutExerciseId: string
     userWorkoutId: string
-    userSets?: UserSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
+    userStrengthSet?: UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
+    userCardioSet?: UserCardioSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
   export type UserWorkoutExerciseUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     workoutExercise?: WorkoutExerciseUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
     userWorkout?: UserWorkoutUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
-    userSets?: UserSetUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userStrengthSet?: UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userCardioSet?: UserCardioSetUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
   export type UserWorkoutExerciseUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     workoutExerciseId?: StringFieldUpdateOperationsInput | string
     userWorkoutId?: StringFieldUpdateOperationsInput | string
-    userSets?: UserSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userStrengthSet?: UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userCardioSet?: UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
   export type UserWorkoutExerciseCreateManyInput = {
@@ -19831,12 +26622,6 @@ export namespace Prisma {
     none?: ProgramWhereInput
   }
 
-  export type UserSetListRelationFilter = {
-    every?: UserSetWhereInput
-    some?: UserSetWhereInput
-    none?: UserSetWhereInput
-  }
-
   export type WorkoutListRelationFilter = {
     every?: WorkoutWhereInput
     some?: WorkoutWhereInput
@@ -19855,10 +26640,6 @@ export namespace Prisma {
   }
 
   export type ProgramOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type UserSetOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -20042,90 +26823,6 @@ export namespace Prisma {
     _max?: NestedEnumExerciseTypeFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type CoreSetRepsListRelationFilter = {
-    every?: CoreSetRepsWhereInput
-    some?: CoreSetRepsWhereInput
-    none?: CoreSetRepsWhereInput
-  }
-
-  export type CoreSetWeightListRelationFilter = {
-    every?: CoreSetWeightWhereInput
-    some?: CoreSetWeightWhereInput
-    none?: CoreSetWeightWhereInput
-  }
-
-  export type CoreSetRepsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type CoreSetWeightOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type CoreSetCountOrderByAggregateInput = {
-    id?: SortOrder
-    restTime?: SortOrder
-    numberOfSets?: SortOrder
-    hasWarmup?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type CoreSetAvgOrderByAggregateInput = {
-    restTime?: SortOrder
-    numberOfSets?: SortOrder
-  }
-
-  export type CoreSetMaxOrderByAggregateInput = {
-    id?: SortOrder
-    restTime?: SortOrder
-    numberOfSets?: SortOrder
-    hasWarmup?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type CoreSetMinOrderByAggregateInput = {
-    id?: SortOrder
-    restTime?: SortOrder
-    numberOfSets?: SortOrder
-    hasWarmup?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type CoreSetSumOrderByAggregateInput = {
-    restTime?: SortOrder
-    numberOfSets?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -20137,25 +26834,50 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type FloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  export type CoreCardioSetWorkoutTimeListRelationFilter = {
+    every?: CoreCardioSetWorkoutTimeWhereInput
+    some?: CoreCardioSetWorkoutTimeWhereInput
+    none?: CoreCardioSetWorkoutTimeWhereInput
+  }
+
+  export type CoreCardioSetAvgSpeedListRelationFilter = {
+    every?: CoreCardioSetAvgSpeedWhereInput
+    some?: CoreCardioSetAvgSpeedWhereInput
+    none?: CoreCardioSetAvgSpeedWhereInput
+  }
+
+  export type CoreCardioSetDistanceListRelationFilter = {
+    every?: CoreCardioSetDistanceWhereInput
+    some?: CoreCardioSetDistanceWhereInput
+    none?: CoreCardioSetDistanceWhereInput
+  }
+
+  export type CoreCardioSetCalorieTargetListRelationFilter = {
+    every?: CoreCardioSetCalorieTargetWhereInput
+    some?: CoreCardioSetCalorieTargetWhereInput
+    none?: CoreCardioSetCalorieTargetWhereInput
+  }
+
+  export type CoreCardioSetWorkoutTimeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CoreCardioSetAvgSpeedOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CoreCardioSetDistanceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CoreCardioSetCalorieTargetOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type CoreCardioSetCountOrderByAggregateInput = {
     id?: SortOrder
     warmupTime?: SortOrder
     avgHeartRate?: SortOrder
-    avgSpeed?: SortOrder
-    distance?: SortOrder
-    calorieTarget?: SortOrder
-    duration?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20163,20 +26885,12 @@ export namespace Prisma {
   export type CoreCardioSetAvgOrderByAggregateInput = {
     warmupTime?: SortOrder
     avgHeartRate?: SortOrder
-    avgSpeed?: SortOrder
-    distance?: SortOrder
-    calorieTarget?: SortOrder
-    duration?: SortOrder
   }
 
   export type CoreCardioSetMaxOrderByAggregateInput = {
     id?: SortOrder
     warmupTime?: SortOrder
     avgHeartRate?: SortOrder
-    avgSpeed?: SortOrder
-    distance?: SortOrder
-    calorieTarget?: SortOrder
-    duration?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20185,10 +26899,6 @@ export namespace Prisma {
     id?: SortOrder
     warmupTime?: SortOrder
     avgHeartRate?: SortOrder
-    avgSpeed?: SortOrder
-    distance?: SortOrder
-    calorieTarget?: SortOrder
-    duration?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20196,10 +26906,6 @@ export namespace Prisma {
   export type CoreCardioSetSumOrderByAggregateInput = {
     warmupTime?: SortOrder
     avgHeartRate?: SortOrder
-    avgSpeed?: SortOrder
-    distance?: SortOrder
-    calorieTarget?: SortOrder
-    duration?: SortOrder
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -20218,6 +26924,86 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type CoreCardioSetScalarRelationFilter = {
+    is?: CoreCardioSetWhereInput
+    isNot?: CoreCardioSetWhereInput
+  }
+
+  export type CoreCardioSetCalorieTargetCountOrderByAggregateInput = {
+    id?: SortOrder
+    coreCardioSetId?: SortOrder
+    calorieTarget?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CoreCardioSetCalorieTargetAvgOrderByAggregateInput = {
+    calorieTarget?: SortOrder
+  }
+
+  export type CoreCardioSetCalorieTargetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    coreCardioSetId?: SortOrder
+    calorieTarget?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CoreCardioSetCalorieTargetMinOrderByAggregateInput = {
+    id?: SortOrder
+    coreCardioSetId?: SortOrder
+    calorieTarget?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CoreCardioSetCalorieTargetSumOrderByAggregateInput = {
+    calorieTarget?: SortOrder
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type CoreCardioSetDistanceCountOrderByAggregateInput = {
+    id?: SortOrder
+    coreCardioSetId?: SortOrder
+    distance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CoreCardioSetDistanceAvgOrderByAggregateInput = {
+    distance?: SortOrder
+  }
+
+  export type CoreCardioSetDistanceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    coreCardioSetId?: SortOrder
+    distance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CoreCardioSetDistanceMinOrderByAggregateInput = {
+    id?: SortOrder
+    coreCardioSetId?: SortOrder
+    distance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CoreCardioSetDistanceSumOrderByAggregateInput = {
+    distance?: SortOrder
+  }
+
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -20234,81 +27020,79 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
-  export type CoreSetScalarRelationFilter = {
-    is?: CoreSetWhereInput
-    isNot?: CoreSetWhereInput
-  }
-
-  export type CoreSetRepsCountOrderByAggregateInput = {
+  export type CoreCardioSetAvgSpeedCountOrderByAggregateInput = {
     id?: SortOrder
-    coreSetId?: SortOrder
-    reps?: SortOrder
+    coreCardioSetId?: SortOrder
+    avgSpeed?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type CoreSetRepsAvgOrderByAggregateInput = {
-    reps?: SortOrder
+  export type CoreCardioSetAvgSpeedAvgOrderByAggregateInput = {
+    avgSpeed?: SortOrder
   }
 
-  export type CoreSetRepsMaxOrderByAggregateInput = {
+  export type CoreCardioSetAvgSpeedMaxOrderByAggregateInput = {
     id?: SortOrder
-    coreSetId?: SortOrder
-    reps?: SortOrder
+    coreCardioSetId?: SortOrder
+    avgSpeed?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type CoreSetRepsMinOrderByAggregateInput = {
+  export type CoreCardioSetAvgSpeedMinOrderByAggregateInput = {
     id?: SortOrder
-    coreSetId?: SortOrder
-    reps?: SortOrder
+    coreCardioSetId?: SortOrder
+    avgSpeed?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type CoreSetRepsSumOrderByAggregateInput = {
-    reps?: SortOrder
+  export type CoreCardioSetAvgSpeedSumOrderByAggregateInput = {
+    avgSpeed?: SortOrder
   }
 
-  export type CoreSetWeightCountOrderByAggregateInput = {
+  export type CoreCardioSetWorkoutTimeCountOrderByAggregateInput = {
     id?: SortOrder
-    coreSetId?: SortOrder
-    isBodyWeight?: SortOrder
-    weight?: SortOrder
+    coreCardioSetId?: SortOrder
+    workTime?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type CoreSetWeightAvgOrderByAggregateInput = {
-    weight?: SortOrder
+  export type CoreCardioSetWorkoutTimeAvgOrderByAggregateInput = {
+    workTime?: SortOrder
   }
 
-  export type CoreSetWeightMaxOrderByAggregateInput = {
+  export type CoreCardioSetWorkoutTimeMaxOrderByAggregateInput = {
     id?: SortOrder
-    coreSetId?: SortOrder
-    isBodyWeight?: SortOrder
-    weight?: SortOrder
+    coreCardioSetId?: SortOrder
+    workTime?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type CoreSetWeightMinOrderByAggregateInput = {
+  export type CoreCardioSetWorkoutTimeMinOrderByAggregateInput = {
     id?: SortOrder
-    coreSetId?: SortOrder
-    isBodyWeight?: SortOrder
-    weight?: SortOrder
+    coreCardioSetId?: SortOrder
+    workTime?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type CoreSetWeightSumOrderByAggregateInput = {
-    weight?: SortOrder
+  export type CoreCardioSetWorkoutTimeSumOrderByAggregateInput = {
+    workTime?: SortOrder
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type UserWorkoutExerciseScalarRelationFilter = {
@@ -20316,7 +27100,220 @@ export namespace Prisma {
     isNot?: UserWorkoutExerciseWhereInput
   }
 
-  export type UserSetCountOrderByAggregateInput = {
+  export type UserCardioSetCountOrderByAggregateInput = {
+    id?: SortOrder
+    warmupTime?: SortOrder
+    workTime?: SortOrder
+    avgHeartRate?: SortOrder
+    avgSpeed?: SortOrder
+    distance?: SortOrder
+    order?: SortOrder
+    isCompleted?: SortOrder
+    calorieTarget?: SortOrder
+    userWorkoutExerciseId?: SortOrder
+    skippedReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserCardioSetAvgOrderByAggregateInput = {
+    warmupTime?: SortOrder
+    workTime?: SortOrder
+    avgHeartRate?: SortOrder
+    avgSpeed?: SortOrder
+    distance?: SortOrder
+    order?: SortOrder
+    calorieTarget?: SortOrder
+  }
+
+  export type UserCardioSetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    warmupTime?: SortOrder
+    workTime?: SortOrder
+    avgHeartRate?: SortOrder
+    avgSpeed?: SortOrder
+    distance?: SortOrder
+    order?: SortOrder
+    isCompleted?: SortOrder
+    calorieTarget?: SortOrder
+    userWorkoutExerciseId?: SortOrder
+    skippedReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserCardioSetMinOrderByAggregateInput = {
+    id?: SortOrder
+    warmupTime?: SortOrder
+    workTime?: SortOrder
+    avgHeartRate?: SortOrder
+    avgSpeed?: SortOrder
+    distance?: SortOrder
+    order?: SortOrder
+    isCompleted?: SortOrder
+    calorieTarget?: SortOrder
+    userWorkoutExerciseId?: SortOrder
+    skippedReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserCardioSetSumOrderByAggregateInput = {
+    warmupTime?: SortOrder
+    workTime?: SortOrder
+    avgHeartRate?: SortOrder
+    avgSpeed?: SortOrder
+    distance?: SortOrder
+    order?: SortOrder
+    calorieTarget?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type CoreStrengthSetRepsListRelationFilter = {
+    every?: CoreStrengthSetRepsWhereInput
+    some?: CoreStrengthSetRepsWhereInput
+    none?: CoreStrengthSetRepsWhereInput
+  }
+
+  export type CoreStrengthSetWeightListRelationFilter = {
+    every?: CoreStrengthSetWeightWhereInput
+    some?: CoreStrengthSetWeightWhereInput
+    none?: CoreStrengthSetWeightWhereInput
+  }
+
+  export type CoreStrengthSetRepsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CoreStrengthSetWeightOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CoreStrengthSetCountOrderByAggregateInput = {
+    id?: SortOrder
+    restTime?: SortOrder
+    numberOfSets?: SortOrder
+    hasWarmup?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CoreStrengthSetAvgOrderByAggregateInput = {
+    restTime?: SortOrder
+    numberOfSets?: SortOrder
+  }
+
+  export type CoreStrengthSetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    restTime?: SortOrder
+    numberOfSets?: SortOrder
+    hasWarmup?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CoreStrengthSetMinOrderByAggregateInput = {
+    id?: SortOrder
+    restTime?: SortOrder
+    numberOfSets?: SortOrder
+    hasWarmup?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CoreStrengthSetSumOrderByAggregateInput = {
+    restTime?: SortOrder
+    numberOfSets?: SortOrder
+  }
+
+  export type CoreStrengthSetScalarRelationFilter = {
+    is?: CoreStrengthSetWhereInput
+    isNot?: CoreStrengthSetWhereInput
+  }
+
+  export type CoreStrengthSetRepsCountOrderByAggregateInput = {
+    id?: SortOrder
+    coreStrengthSetId?: SortOrder
+    reps?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CoreStrengthSetRepsAvgOrderByAggregateInput = {
+    reps?: SortOrder
+  }
+
+  export type CoreStrengthSetRepsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    coreStrengthSetId?: SortOrder
+    reps?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CoreStrengthSetRepsMinOrderByAggregateInput = {
+    id?: SortOrder
+    coreStrengthSetId?: SortOrder
+    reps?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CoreStrengthSetRepsSumOrderByAggregateInput = {
+    reps?: SortOrder
+  }
+
+  export type CoreStrengthSetWeightCountOrderByAggregateInput = {
+    id?: SortOrder
+    coreStrengthSetId?: SortOrder
+    isBodyWeight?: SortOrder
+    weight?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CoreStrengthSetWeightAvgOrderByAggregateInput = {
+    weight?: SortOrder
+  }
+
+  export type CoreStrengthSetWeightMaxOrderByAggregateInput = {
+    id?: SortOrder
+    coreStrengthSetId?: SortOrder
+    isBodyWeight?: SortOrder
+    weight?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CoreStrengthSetWeightMinOrderByAggregateInput = {
+    id?: SortOrder
+    coreStrengthSetId?: SortOrder
+    isBodyWeight?: SortOrder
+    weight?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CoreStrengthSetWeightSumOrderByAggregateInput = {
+    weight?: SortOrder
+  }
+
+  export type UserStrengthSetCountOrderByAggregateInput = {
     id?: SortOrder
     reps?: SortOrder
     weight?: SortOrder
@@ -20327,20 +27324,20 @@ export namespace Prisma {
     isWarmup?: SortOrder
     isMuscleFailure?: SortOrder
     isJointPain?: SortOrder
-    userId?: SortOrder
+    skippedReason?: SortOrder
     userWorkoutExerciseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type UserSetAvgOrderByAggregateInput = {
+  export type UserStrengthSetAvgOrderByAggregateInput = {
     reps?: SortOrder
     weight?: SortOrder
     restTime?: SortOrder
     order?: SortOrder
   }
 
-  export type UserSetMaxOrderByAggregateInput = {
+  export type UserStrengthSetMaxOrderByAggregateInput = {
     id?: SortOrder
     reps?: SortOrder
     weight?: SortOrder
@@ -20351,13 +27348,13 @@ export namespace Prisma {
     isWarmup?: SortOrder
     isMuscleFailure?: SortOrder
     isJointPain?: SortOrder
-    userId?: SortOrder
+    skippedReason?: SortOrder
     userWorkoutExerciseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type UserSetMinOrderByAggregateInput = {
+  export type UserStrengthSetMinOrderByAggregateInput = {
     id?: SortOrder
     reps?: SortOrder
     weight?: SortOrder
@@ -20368,13 +27365,13 @@ export namespace Prisma {
     isWarmup?: SortOrder
     isMuscleFailure?: SortOrder
     isJointPain?: SortOrder
-    userId?: SortOrder
+    skippedReason?: SortOrder
     userWorkoutExerciseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type UserSetSumOrderByAggregateInput = {
+  export type UserStrengthSetSumOrderByAggregateInput = {
     reps?: SortOrder
     weight?: SortOrder
     restTime?: SortOrder
@@ -20385,6 +27382,11 @@ export namespace Prisma {
     every?: ProgramWorkoutWhereInput
     some?: ProgramWorkoutWhereInput
     none?: ProgramWorkoutWhereInput
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type ProgramWorkoutOrderByRelationAggregateInput = {
@@ -20507,9 +27509,9 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type CoreSetNullableScalarRelationFilter = {
-    is?: CoreSetWhereInput | null
-    isNot?: CoreSetWhereInput | null
+  export type CoreStrengthSetNullableScalarRelationFilter = {
+    is?: CoreStrengthSetWhereInput | null
+    isNot?: CoreStrengthSetWhereInput | null
   }
 
   export type CoreCardioSetNullableScalarRelationFilter = {
@@ -20536,7 +27538,7 @@ export namespace Prisma {
     id?: SortOrder
     order?: SortOrder
     notes?: SortOrder
-    coreSetId?: SortOrder
+    coreStrengthSetId?: SortOrder
     coreCardioSetId?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
@@ -20552,7 +27554,7 @@ export namespace Prisma {
     id?: SortOrder
     order?: SortOrder
     notes?: SortOrder
-    coreSetId?: SortOrder
+    coreStrengthSetId?: SortOrder
     coreCardioSetId?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
@@ -20564,7 +27566,7 @@ export namespace Prisma {
     id?: SortOrder
     order?: SortOrder
     notes?: SortOrder
-    coreSetId?: SortOrder
+    coreStrengthSetId?: SortOrder
     coreCardioSetId?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
@@ -20584,6 +27586,26 @@ export namespace Prisma {
   export type UserWorkoutScalarRelationFilter = {
     is?: UserWorkoutWhereInput
     isNot?: UserWorkoutWhereInput
+  }
+
+  export type UserStrengthSetListRelationFilter = {
+    every?: UserStrengthSetWhereInput
+    some?: UserStrengthSetWhereInput
+    none?: UserStrengthSetWhereInput
+  }
+
+  export type UserCardioSetListRelationFilter = {
+    every?: UserCardioSetWhereInput
+    some?: UserCardioSetWhereInput
+    none?: UserCardioSetWhereInput
+  }
+
+  export type UserStrengthSetOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserCardioSetOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserWorkoutExerciseCountOrderByAggregateInput = {
@@ -20673,13 +27695,6 @@ export namespace Prisma {
     connect?: ProgramWhereUniqueInput | ProgramWhereUniqueInput[]
   }
 
-  export type UserSetCreateNestedManyWithoutUserInput = {
-    create?: XOR<UserSetCreateWithoutUserInput, UserSetUncheckedCreateWithoutUserInput> | UserSetCreateWithoutUserInput[] | UserSetUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserSetCreateOrConnectWithoutUserInput | UserSetCreateOrConnectWithoutUserInput[]
-    createMany?: UserSetCreateManyUserInputEnvelope
-    connect?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-  }
-
   export type WorkoutCreateNestedManyWithoutOwnerInput = {
     create?: XOR<WorkoutCreateWithoutOwnerInput, WorkoutUncheckedCreateWithoutOwnerInput> | WorkoutCreateWithoutOwnerInput[] | WorkoutUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: WorkoutCreateOrConnectWithoutOwnerInput | WorkoutCreateOrConnectWithoutOwnerInput[]
@@ -20699,13 +27714,6 @@ export namespace Prisma {
     connectOrCreate?: ProgramCreateOrConnectWithoutOwnerInput | ProgramCreateOrConnectWithoutOwnerInput[]
     createMany?: ProgramCreateManyOwnerInputEnvelope
     connect?: ProgramWhereUniqueInput | ProgramWhereUniqueInput[]
-  }
-
-  export type UserSetUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<UserSetCreateWithoutUserInput, UserSetUncheckedCreateWithoutUserInput> | UserSetCreateWithoutUserInput[] | UserSetUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserSetCreateOrConnectWithoutUserInput | UserSetCreateOrConnectWithoutUserInput[]
-    createMany?: UserSetCreateManyUserInputEnvelope
-    connect?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
   }
 
   export type WorkoutUncheckedCreateNestedManyWithoutOwnerInput = {
@@ -20752,20 +27760,6 @@ export namespace Prisma {
     deleteMany?: ProgramScalarWhereInput | ProgramScalarWhereInput[]
   }
 
-  export type UserSetUpdateManyWithoutUserNestedInput = {
-    create?: XOR<UserSetCreateWithoutUserInput, UserSetUncheckedCreateWithoutUserInput> | UserSetCreateWithoutUserInput[] | UserSetUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserSetCreateOrConnectWithoutUserInput | UserSetCreateOrConnectWithoutUserInput[]
-    upsert?: UserSetUpsertWithWhereUniqueWithoutUserInput | UserSetUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: UserSetCreateManyUserInputEnvelope
-    set?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-    disconnect?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-    delete?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-    connect?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-    update?: UserSetUpdateWithWhereUniqueWithoutUserInput | UserSetUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: UserSetUpdateManyWithWhereWithoutUserInput | UserSetUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: UserSetScalarWhereInput | UserSetScalarWhereInput[]
-  }
-
   export type WorkoutUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<WorkoutCreateWithoutOwnerInput, WorkoutUncheckedCreateWithoutOwnerInput> | WorkoutCreateWithoutOwnerInput[] | WorkoutUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: WorkoutCreateOrConnectWithoutOwnerInput | WorkoutCreateOrConnectWithoutOwnerInput[]
@@ -20806,20 +27800,6 @@ export namespace Prisma {
     update?: ProgramUpdateWithWhereUniqueWithoutOwnerInput | ProgramUpdateWithWhereUniqueWithoutOwnerInput[]
     updateMany?: ProgramUpdateManyWithWhereWithoutOwnerInput | ProgramUpdateManyWithWhereWithoutOwnerInput[]
     deleteMany?: ProgramScalarWhereInput | ProgramScalarWhereInput[]
-  }
-
-  export type UserSetUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<UserSetCreateWithoutUserInput, UserSetUncheckedCreateWithoutUserInput> | UserSetCreateWithoutUserInput[] | UserSetUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserSetCreateOrConnectWithoutUserInput | UserSetCreateOrConnectWithoutUserInput[]
-    upsert?: UserSetUpsertWithWhereUniqueWithoutUserInput | UserSetUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: UserSetCreateManyUserInputEnvelope
-    set?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-    disconnect?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-    delete?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-    connect?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-    update?: UserSetUpdateWithWhereUniqueWithoutUserInput | UserSetUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: UserSetUpdateManyWithWhereWithoutUserInput | UserSetUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: UserSetScalarWhereInput | UserSetScalarWhereInput[]
   }
 
   export type WorkoutUncheckedUpdateManyWithoutOwnerNestedInput = {
@@ -20914,145 +27894,39 @@ export namespace Prisma {
     deleteMany?: WorkoutExerciseScalarWhereInput | WorkoutExerciseScalarWhereInput[]
   }
 
-  export type WorkoutExerciseCreateNestedManyWithoutCoreSetInput = {
-    create?: XOR<WorkoutExerciseCreateWithoutCoreSetInput, WorkoutExerciseUncheckedCreateWithoutCoreSetInput> | WorkoutExerciseCreateWithoutCoreSetInput[] | WorkoutExerciseUncheckedCreateWithoutCoreSetInput[]
-    connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutCoreSetInput | WorkoutExerciseCreateOrConnectWithoutCoreSetInput[]
-    createMany?: WorkoutExerciseCreateManyCoreSetInputEnvelope
-    connect?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
-  }
-
-  export type CoreSetRepsCreateNestedManyWithoutCoreSetInput = {
-    create?: XOR<CoreSetRepsCreateWithoutCoreSetInput, CoreSetRepsUncheckedCreateWithoutCoreSetInput> | CoreSetRepsCreateWithoutCoreSetInput[] | CoreSetRepsUncheckedCreateWithoutCoreSetInput[]
-    connectOrCreate?: CoreSetRepsCreateOrConnectWithoutCoreSetInput | CoreSetRepsCreateOrConnectWithoutCoreSetInput[]
-    createMany?: CoreSetRepsCreateManyCoreSetInputEnvelope
-    connect?: CoreSetRepsWhereUniqueInput | CoreSetRepsWhereUniqueInput[]
-  }
-
-  export type CoreSetWeightCreateNestedManyWithoutCoreSetInput = {
-    create?: XOR<CoreSetWeightCreateWithoutCoreSetInput, CoreSetWeightUncheckedCreateWithoutCoreSetInput> | CoreSetWeightCreateWithoutCoreSetInput[] | CoreSetWeightUncheckedCreateWithoutCoreSetInput[]
-    connectOrCreate?: CoreSetWeightCreateOrConnectWithoutCoreSetInput | CoreSetWeightCreateOrConnectWithoutCoreSetInput[]
-    createMany?: CoreSetWeightCreateManyCoreSetInputEnvelope
-    connect?: CoreSetWeightWhereUniqueInput | CoreSetWeightWhereUniqueInput[]
-  }
-
-  export type WorkoutExerciseUncheckedCreateNestedManyWithoutCoreSetInput = {
-    create?: XOR<WorkoutExerciseCreateWithoutCoreSetInput, WorkoutExerciseUncheckedCreateWithoutCoreSetInput> | WorkoutExerciseCreateWithoutCoreSetInput[] | WorkoutExerciseUncheckedCreateWithoutCoreSetInput[]
-    connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutCoreSetInput | WorkoutExerciseCreateOrConnectWithoutCoreSetInput[]
-    createMany?: WorkoutExerciseCreateManyCoreSetInputEnvelope
-    connect?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
-  }
-
-  export type CoreSetRepsUncheckedCreateNestedManyWithoutCoreSetInput = {
-    create?: XOR<CoreSetRepsCreateWithoutCoreSetInput, CoreSetRepsUncheckedCreateWithoutCoreSetInput> | CoreSetRepsCreateWithoutCoreSetInput[] | CoreSetRepsUncheckedCreateWithoutCoreSetInput[]
-    connectOrCreate?: CoreSetRepsCreateOrConnectWithoutCoreSetInput | CoreSetRepsCreateOrConnectWithoutCoreSetInput[]
-    createMany?: CoreSetRepsCreateManyCoreSetInputEnvelope
-    connect?: CoreSetRepsWhereUniqueInput | CoreSetRepsWhereUniqueInput[]
-  }
-
-  export type CoreSetWeightUncheckedCreateNestedManyWithoutCoreSetInput = {
-    create?: XOR<CoreSetWeightCreateWithoutCoreSetInput, CoreSetWeightUncheckedCreateWithoutCoreSetInput> | CoreSetWeightCreateWithoutCoreSetInput[] | CoreSetWeightUncheckedCreateWithoutCoreSetInput[]
-    connectOrCreate?: CoreSetWeightCreateOrConnectWithoutCoreSetInput | CoreSetWeightCreateOrConnectWithoutCoreSetInput[]
-    createMany?: CoreSetWeightCreateManyCoreSetInputEnvelope
-    connect?: CoreSetWeightWhereUniqueInput | CoreSetWeightWhereUniqueInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type WorkoutExerciseUpdateManyWithoutCoreSetNestedInput = {
-    create?: XOR<WorkoutExerciseCreateWithoutCoreSetInput, WorkoutExerciseUncheckedCreateWithoutCoreSetInput> | WorkoutExerciseCreateWithoutCoreSetInput[] | WorkoutExerciseUncheckedCreateWithoutCoreSetInput[]
-    connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutCoreSetInput | WorkoutExerciseCreateOrConnectWithoutCoreSetInput[]
-    upsert?: WorkoutExerciseUpsertWithWhereUniqueWithoutCoreSetInput | WorkoutExerciseUpsertWithWhereUniqueWithoutCoreSetInput[]
-    createMany?: WorkoutExerciseCreateManyCoreSetInputEnvelope
-    set?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
-    disconnect?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
-    delete?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
-    connect?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
-    update?: WorkoutExerciseUpdateWithWhereUniqueWithoutCoreSetInput | WorkoutExerciseUpdateWithWhereUniqueWithoutCoreSetInput[]
-    updateMany?: WorkoutExerciseUpdateManyWithWhereWithoutCoreSetInput | WorkoutExerciseUpdateManyWithWhereWithoutCoreSetInput[]
-    deleteMany?: WorkoutExerciseScalarWhereInput | WorkoutExerciseScalarWhereInput[]
-  }
-
-  export type CoreSetRepsUpdateManyWithoutCoreSetNestedInput = {
-    create?: XOR<CoreSetRepsCreateWithoutCoreSetInput, CoreSetRepsUncheckedCreateWithoutCoreSetInput> | CoreSetRepsCreateWithoutCoreSetInput[] | CoreSetRepsUncheckedCreateWithoutCoreSetInput[]
-    connectOrCreate?: CoreSetRepsCreateOrConnectWithoutCoreSetInput | CoreSetRepsCreateOrConnectWithoutCoreSetInput[]
-    upsert?: CoreSetRepsUpsertWithWhereUniqueWithoutCoreSetInput | CoreSetRepsUpsertWithWhereUniqueWithoutCoreSetInput[]
-    createMany?: CoreSetRepsCreateManyCoreSetInputEnvelope
-    set?: CoreSetRepsWhereUniqueInput | CoreSetRepsWhereUniqueInput[]
-    disconnect?: CoreSetRepsWhereUniqueInput | CoreSetRepsWhereUniqueInput[]
-    delete?: CoreSetRepsWhereUniqueInput | CoreSetRepsWhereUniqueInput[]
-    connect?: CoreSetRepsWhereUniqueInput | CoreSetRepsWhereUniqueInput[]
-    update?: CoreSetRepsUpdateWithWhereUniqueWithoutCoreSetInput | CoreSetRepsUpdateWithWhereUniqueWithoutCoreSetInput[]
-    updateMany?: CoreSetRepsUpdateManyWithWhereWithoutCoreSetInput | CoreSetRepsUpdateManyWithWhereWithoutCoreSetInput[]
-    deleteMany?: CoreSetRepsScalarWhereInput | CoreSetRepsScalarWhereInput[]
-  }
-
-  export type CoreSetWeightUpdateManyWithoutCoreSetNestedInput = {
-    create?: XOR<CoreSetWeightCreateWithoutCoreSetInput, CoreSetWeightUncheckedCreateWithoutCoreSetInput> | CoreSetWeightCreateWithoutCoreSetInput[] | CoreSetWeightUncheckedCreateWithoutCoreSetInput[]
-    connectOrCreate?: CoreSetWeightCreateOrConnectWithoutCoreSetInput | CoreSetWeightCreateOrConnectWithoutCoreSetInput[]
-    upsert?: CoreSetWeightUpsertWithWhereUniqueWithoutCoreSetInput | CoreSetWeightUpsertWithWhereUniqueWithoutCoreSetInput[]
-    createMany?: CoreSetWeightCreateManyCoreSetInputEnvelope
-    set?: CoreSetWeightWhereUniqueInput | CoreSetWeightWhereUniqueInput[]
-    disconnect?: CoreSetWeightWhereUniqueInput | CoreSetWeightWhereUniqueInput[]
-    delete?: CoreSetWeightWhereUniqueInput | CoreSetWeightWhereUniqueInput[]
-    connect?: CoreSetWeightWhereUniqueInput | CoreSetWeightWhereUniqueInput[]
-    update?: CoreSetWeightUpdateWithWhereUniqueWithoutCoreSetInput | CoreSetWeightUpdateWithWhereUniqueWithoutCoreSetInput[]
-    updateMany?: CoreSetWeightUpdateManyWithWhereWithoutCoreSetInput | CoreSetWeightUpdateManyWithWhereWithoutCoreSetInput[]
-    deleteMany?: CoreSetWeightScalarWhereInput | CoreSetWeightScalarWhereInput[]
-  }
-
-  export type WorkoutExerciseUncheckedUpdateManyWithoutCoreSetNestedInput = {
-    create?: XOR<WorkoutExerciseCreateWithoutCoreSetInput, WorkoutExerciseUncheckedCreateWithoutCoreSetInput> | WorkoutExerciseCreateWithoutCoreSetInput[] | WorkoutExerciseUncheckedCreateWithoutCoreSetInput[]
-    connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutCoreSetInput | WorkoutExerciseCreateOrConnectWithoutCoreSetInput[]
-    upsert?: WorkoutExerciseUpsertWithWhereUniqueWithoutCoreSetInput | WorkoutExerciseUpsertWithWhereUniqueWithoutCoreSetInput[]
-    createMany?: WorkoutExerciseCreateManyCoreSetInputEnvelope
-    set?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
-    disconnect?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
-    delete?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
-    connect?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
-    update?: WorkoutExerciseUpdateWithWhereUniqueWithoutCoreSetInput | WorkoutExerciseUpdateWithWhereUniqueWithoutCoreSetInput[]
-    updateMany?: WorkoutExerciseUpdateManyWithWhereWithoutCoreSetInput | WorkoutExerciseUpdateManyWithWhereWithoutCoreSetInput[]
-    deleteMany?: WorkoutExerciseScalarWhereInput | WorkoutExerciseScalarWhereInput[]
-  }
-
-  export type CoreSetRepsUncheckedUpdateManyWithoutCoreSetNestedInput = {
-    create?: XOR<CoreSetRepsCreateWithoutCoreSetInput, CoreSetRepsUncheckedCreateWithoutCoreSetInput> | CoreSetRepsCreateWithoutCoreSetInput[] | CoreSetRepsUncheckedCreateWithoutCoreSetInput[]
-    connectOrCreate?: CoreSetRepsCreateOrConnectWithoutCoreSetInput | CoreSetRepsCreateOrConnectWithoutCoreSetInput[]
-    upsert?: CoreSetRepsUpsertWithWhereUniqueWithoutCoreSetInput | CoreSetRepsUpsertWithWhereUniqueWithoutCoreSetInput[]
-    createMany?: CoreSetRepsCreateManyCoreSetInputEnvelope
-    set?: CoreSetRepsWhereUniqueInput | CoreSetRepsWhereUniqueInput[]
-    disconnect?: CoreSetRepsWhereUniqueInput | CoreSetRepsWhereUniqueInput[]
-    delete?: CoreSetRepsWhereUniqueInput | CoreSetRepsWhereUniqueInput[]
-    connect?: CoreSetRepsWhereUniqueInput | CoreSetRepsWhereUniqueInput[]
-    update?: CoreSetRepsUpdateWithWhereUniqueWithoutCoreSetInput | CoreSetRepsUpdateWithWhereUniqueWithoutCoreSetInput[]
-    updateMany?: CoreSetRepsUpdateManyWithWhereWithoutCoreSetInput | CoreSetRepsUpdateManyWithWhereWithoutCoreSetInput[]
-    deleteMany?: CoreSetRepsScalarWhereInput | CoreSetRepsScalarWhereInput[]
-  }
-
-  export type CoreSetWeightUncheckedUpdateManyWithoutCoreSetNestedInput = {
-    create?: XOR<CoreSetWeightCreateWithoutCoreSetInput, CoreSetWeightUncheckedCreateWithoutCoreSetInput> | CoreSetWeightCreateWithoutCoreSetInput[] | CoreSetWeightUncheckedCreateWithoutCoreSetInput[]
-    connectOrCreate?: CoreSetWeightCreateOrConnectWithoutCoreSetInput | CoreSetWeightCreateOrConnectWithoutCoreSetInput[]
-    upsert?: CoreSetWeightUpsertWithWhereUniqueWithoutCoreSetInput | CoreSetWeightUpsertWithWhereUniqueWithoutCoreSetInput[]
-    createMany?: CoreSetWeightCreateManyCoreSetInputEnvelope
-    set?: CoreSetWeightWhereUniqueInput | CoreSetWeightWhereUniqueInput[]
-    disconnect?: CoreSetWeightWhereUniqueInput | CoreSetWeightWhereUniqueInput[]
-    delete?: CoreSetWeightWhereUniqueInput | CoreSetWeightWhereUniqueInput[]
-    connect?: CoreSetWeightWhereUniqueInput | CoreSetWeightWhereUniqueInput[]
-    update?: CoreSetWeightUpdateWithWhereUniqueWithoutCoreSetInput | CoreSetWeightUpdateWithWhereUniqueWithoutCoreSetInput[]
-    updateMany?: CoreSetWeightUpdateManyWithWhereWithoutCoreSetInput | CoreSetWeightUpdateManyWithWhereWithoutCoreSetInput[]
-    deleteMany?: CoreSetWeightScalarWhereInput | CoreSetWeightScalarWhereInput[]
-  }
-
   export type WorkoutExerciseCreateNestedManyWithoutCoreCardioSetInput = {
     create?: XOR<WorkoutExerciseCreateWithoutCoreCardioSetInput, WorkoutExerciseUncheckedCreateWithoutCoreCardioSetInput> | WorkoutExerciseCreateWithoutCoreCardioSetInput[] | WorkoutExerciseUncheckedCreateWithoutCoreCardioSetInput[]
     connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutCoreCardioSetInput | WorkoutExerciseCreateOrConnectWithoutCoreCardioSetInput[]
     createMany?: WorkoutExerciseCreateManyCoreCardioSetInputEnvelope
     connect?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
+  }
+
+  export type CoreCardioSetWorkoutTimeCreateNestedManyWithoutCoreCardioSetInput = {
+    create?: XOR<CoreCardioSetWorkoutTimeCreateWithoutCoreCardioSetInput, CoreCardioSetWorkoutTimeUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetWorkoutTimeCreateWithoutCoreCardioSetInput[] | CoreCardioSetWorkoutTimeUncheckedCreateWithoutCoreCardioSetInput[]
+    connectOrCreate?: CoreCardioSetWorkoutTimeCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetWorkoutTimeCreateOrConnectWithoutCoreCardioSetInput[]
+    createMany?: CoreCardioSetWorkoutTimeCreateManyCoreCardioSetInputEnvelope
+    connect?: CoreCardioSetWorkoutTimeWhereUniqueInput | CoreCardioSetWorkoutTimeWhereUniqueInput[]
+  }
+
+  export type CoreCardioSetAvgSpeedCreateNestedManyWithoutCoreCardioSetInput = {
+    create?: XOR<CoreCardioSetAvgSpeedCreateWithoutCoreCardioSetInput, CoreCardioSetAvgSpeedUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetAvgSpeedCreateWithoutCoreCardioSetInput[] | CoreCardioSetAvgSpeedUncheckedCreateWithoutCoreCardioSetInput[]
+    connectOrCreate?: CoreCardioSetAvgSpeedCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetAvgSpeedCreateOrConnectWithoutCoreCardioSetInput[]
+    createMany?: CoreCardioSetAvgSpeedCreateManyCoreCardioSetInputEnvelope
+    connect?: CoreCardioSetAvgSpeedWhereUniqueInput | CoreCardioSetAvgSpeedWhereUniqueInput[]
+  }
+
+  export type CoreCardioSetDistanceCreateNestedManyWithoutCoreCardioSetInput = {
+    create?: XOR<CoreCardioSetDistanceCreateWithoutCoreCardioSetInput, CoreCardioSetDistanceUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetDistanceCreateWithoutCoreCardioSetInput[] | CoreCardioSetDistanceUncheckedCreateWithoutCoreCardioSetInput[]
+    connectOrCreate?: CoreCardioSetDistanceCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetDistanceCreateOrConnectWithoutCoreCardioSetInput[]
+    createMany?: CoreCardioSetDistanceCreateManyCoreCardioSetInputEnvelope
+    connect?: CoreCardioSetDistanceWhereUniqueInput | CoreCardioSetDistanceWhereUniqueInput[]
+  }
+
+  export type CoreCardioSetCalorieTargetCreateNestedManyWithoutCoreCardioSetInput = {
+    create?: XOR<CoreCardioSetCalorieTargetCreateWithoutCoreCardioSetInput, CoreCardioSetCalorieTargetUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetCalorieTargetCreateWithoutCoreCardioSetInput[] | CoreCardioSetCalorieTargetUncheckedCreateWithoutCoreCardioSetInput[]
+    connectOrCreate?: CoreCardioSetCalorieTargetCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetCalorieTargetCreateOrConnectWithoutCoreCardioSetInput[]
+    createMany?: CoreCardioSetCalorieTargetCreateManyCoreCardioSetInputEnvelope
+    connect?: CoreCardioSetCalorieTargetWhereUniqueInput | CoreCardioSetCalorieTargetWhereUniqueInput[]
   }
 
   export type WorkoutExerciseUncheckedCreateNestedManyWithoutCoreCardioSetInput = {
@@ -21062,15 +27936,35 @@ export namespace Prisma {
     connect?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type CoreCardioSetWorkoutTimeUncheckedCreateNestedManyWithoutCoreCardioSetInput = {
+    create?: XOR<CoreCardioSetWorkoutTimeCreateWithoutCoreCardioSetInput, CoreCardioSetWorkoutTimeUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetWorkoutTimeCreateWithoutCoreCardioSetInput[] | CoreCardioSetWorkoutTimeUncheckedCreateWithoutCoreCardioSetInput[]
+    connectOrCreate?: CoreCardioSetWorkoutTimeCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetWorkoutTimeCreateOrConnectWithoutCoreCardioSetInput[]
+    createMany?: CoreCardioSetWorkoutTimeCreateManyCoreCardioSetInputEnvelope
+    connect?: CoreCardioSetWorkoutTimeWhereUniqueInput | CoreCardioSetWorkoutTimeWhereUniqueInput[]
   }
 
-  export type NullableFloatFieldUpdateOperationsInput = {
+  export type CoreCardioSetAvgSpeedUncheckedCreateNestedManyWithoutCoreCardioSetInput = {
+    create?: XOR<CoreCardioSetAvgSpeedCreateWithoutCoreCardioSetInput, CoreCardioSetAvgSpeedUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetAvgSpeedCreateWithoutCoreCardioSetInput[] | CoreCardioSetAvgSpeedUncheckedCreateWithoutCoreCardioSetInput[]
+    connectOrCreate?: CoreCardioSetAvgSpeedCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetAvgSpeedCreateOrConnectWithoutCoreCardioSetInput[]
+    createMany?: CoreCardioSetAvgSpeedCreateManyCoreCardioSetInputEnvelope
+    connect?: CoreCardioSetAvgSpeedWhereUniqueInput | CoreCardioSetAvgSpeedWhereUniqueInput[]
+  }
+
+  export type CoreCardioSetDistanceUncheckedCreateNestedManyWithoutCoreCardioSetInput = {
+    create?: XOR<CoreCardioSetDistanceCreateWithoutCoreCardioSetInput, CoreCardioSetDistanceUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetDistanceCreateWithoutCoreCardioSetInput[] | CoreCardioSetDistanceUncheckedCreateWithoutCoreCardioSetInput[]
+    connectOrCreate?: CoreCardioSetDistanceCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetDistanceCreateOrConnectWithoutCoreCardioSetInput[]
+    createMany?: CoreCardioSetDistanceCreateManyCoreCardioSetInputEnvelope
+    connect?: CoreCardioSetDistanceWhereUniqueInput | CoreCardioSetDistanceWhereUniqueInput[]
+  }
+
+  export type CoreCardioSetCalorieTargetUncheckedCreateNestedManyWithoutCoreCardioSetInput = {
+    create?: XOR<CoreCardioSetCalorieTargetCreateWithoutCoreCardioSetInput, CoreCardioSetCalorieTargetUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetCalorieTargetCreateWithoutCoreCardioSetInput[] | CoreCardioSetCalorieTargetUncheckedCreateWithoutCoreCardioSetInput[]
+    connectOrCreate?: CoreCardioSetCalorieTargetCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetCalorieTargetCreateOrConnectWithoutCoreCardioSetInput[]
+    createMany?: CoreCardioSetCalorieTargetCreateManyCoreCardioSetInputEnvelope
+    connect?: CoreCardioSetCalorieTargetWhereUniqueInput | CoreCardioSetCalorieTargetWhereUniqueInput[]
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
     decrement?: number
@@ -21092,6 +27986,62 @@ export namespace Prisma {
     deleteMany?: WorkoutExerciseScalarWhereInput | WorkoutExerciseScalarWhereInput[]
   }
 
+  export type CoreCardioSetWorkoutTimeUpdateManyWithoutCoreCardioSetNestedInput = {
+    create?: XOR<CoreCardioSetWorkoutTimeCreateWithoutCoreCardioSetInput, CoreCardioSetWorkoutTimeUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetWorkoutTimeCreateWithoutCoreCardioSetInput[] | CoreCardioSetWorkoutTimeUncheckedCreateWithoutCoreCardioSetInput[]
+    connectOrCreate?: CoreCardioSetWorkoutTimeCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetWorkoutTimeCreateOrConnectWithoutCoreCardioSetInput[]
+    upsert?: CoreCardioSetWorkoutTimeUpsertWithWhereUniqueWithoutCoreCardioSetInput | CoreCardioSetWorkoutTimeUpsertWithWhereUniqueWithoutCoreCardioSetInput[]
+    createMany?: CoreCardioSetWorkoutTimeCreateManyCoreCardioSetInputEnvelope
+    set?: CoreCardioSetWorkoutTimeWhereUniqueInput | CoreCardioSetWorkoutTimeWhereUniqueInput[]
+    disconnect?: CoreCardioSetWorkoutTimeWhereUniqueInput | CoreCardioSetWorkoutTimeWhereUniqueInput[]
+    delete?: CoreCardioSetWorkoutTimeWhereUniqueInput | CoreCardioSetWorkoutTimeWhereUniqueInput[]
+    connect?: CoreCardioSetWorkoutTimeWhereUniqueInput | CoreCardioSetWorkoutTimeWhereUniqueInput[]
+    update?: CoreCardioSetWorkoutTimeUpdateWithWhereUniqueWithoutCoreCardioSetInput | CoreCardioSetWorkoutTimeUpdateWithWhereUniqueWithoutCoreCardioSetInput[]
+    updateMany?: CoreCardioSetWorkoutTimeUpdateManyWithWhereWithoutCoreCardioSetInput | CoreCardioSetWorkoutTimeUpdateManyWithWhereWithoutCoreCardioSetInput[]
+    deleteMany?: CoreCardioSetWorkoutTimeScalarWhereInput | CoreCardioSetWorkoutTimeScalarWhereInput[]
+  }
+
+  export type CoreCardioSetAvgSpeedUpdateManyWithoutCoreCardioSetNestedInput = {
+    create?: XOR<CoreCardioSetAvgSpeedCreateWithoutCoreCardioSetInput, CoreCardioSetAvgSpeedUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetAvgSpeedCreateWithoutCoreCardioSetInput[] | CoreCardioSetAvgSpeedUncheckedCreateWithoutCoreCardioSetInput[]
+    connectOrCreate?: CoreCardioSetAvgSpeedCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetAvgSpeedCreateOrConnectWithoutCoreCardioSetInput[]
+    upsert?: CoreCardioSetAvgSpeedUpsertWithWhereUniqueWithoutCoreCardioSetInput | CoreCardioSetAvgSpeedUpsertWithWhereUniqueWithoutCoreCardioSetInput[]
+    createMany?: CoreCardioSetAvgSpeedCreateManyCoreCardioSetInputEnvelope
+    set?: CoreCardioSetAvgSpeedWhereUniqueInput | CoreCardioSetAvgSpeedWhereUniqueInput[]
+    disconnect?: CoreCardioSetAvgSpeedWhereUniqueInput | CoreCardioSetAvgSpeedWhereUniqueInput[]
+    delete?: CoreCardioSetAvgSpeedWhereUniqueInput | CoreCardioSetAvgSpeedWhereUniqueInput[]
+    connect?: CoreCardioSetAvgSpeedWhereUniqueInput | CoreCardioSetAvgSpeedWhereUniqueInput[]
+    update?: CoreCardioSetAvgSpeedUpdateWithWhereUniqueWithoutCoreCardioSetInput | CoreCardioSetAvgSpeedUpdateWithWhereUniqueWithoutCoreCardioSetInput[]
+    updateMany?: CoreCardioSetAvgSpeedUpdateManyWithWhereWithoutCoreCardioSetInput | CoreCardioSetAvgSpeedUpdateManyWithWhereWithoutCoreCardioSetInput[]
+    deleteMany?: CoreCardioSetAvgSpeedScalarWhereInput | CoreCardioSetAvgSpeedScalarWhereInput[]
+  }
+
+  export type CoreCardioSetDistanceUpdateManyWithoutCoreCardioSetNestedInput = {
+    create?: XOR<CoreCardioSetDistanceCreateWithoutCoreCardioSetInput, CoreCardioSetDistanceUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetDistanceCreateWithoutCoreCardioSetInput[] | CoreCardioSetDistanceUncheckedCreateWithoutCoreCardioSetInput[]
+    connectOrCreate?: CoreCardioSetDistanceCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetDistanceCreateOrConnectWithoutCoreCardioSetInput[]
+    upsert?: CoreCardioSetDistanceUpsertWithWhereUniqueWithoutCoreCardioSetInput | CoreCardioSetDistanceUpsertWithWhereUniqueWithoutCoreCardioSetInput[]
+    createMany?: CoreCardioSetDistanceCreateManyCoreCardioSetInputEnvelope
+    set?: CoreCardioSetDistanceWhereUniqueInput | CoreCardioSetDistanceWhereUniqueInput[]
+    disconnect?: CoreCardioSetDistanceWhereUniqueInput | CoreCardioSetDistanceWhereUniqueInput[]
+    delete?: CoreCardioSetDistanceWhereUniqueInput | CoreCardioSetDistanceWhereUniqueInput[]
+    connect?: CoreCardioSetDistanceWhereUniqueInput | CoreCardioSetDistanceWhereUniqueInput[]
+    update?: CoreCardioSetDistanceUpdateWithWhereUniqueWithoutCoreCardioSetInput | CoreCardioSetDistanceUpdateWithWhereUniqueWithoutCoreCardioSetInput[]
+    updateMany?: CoreCardioSetDistanceUpdateManyWithWhereWithoutCoreCardioSetInput | CoreCardioSetDistanceUpdateManyWithWhereWithoutCoreCardioSetInput[]
+    deleteMany?: CoreCardioSetDistanceScalarWhereInput | CoreCardioSetDistanceScalarWhereInput[]
+  }
+
+  export type CoreCardioSetCalorieTargetUpdateManyWithoutCoreCardioSetNestedInput = {
+    create?: XOR<CoreCardioSetCalorieTargetCreateWithoutCoreCardioSetInput, CoreCardioSetCalorieTargetUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetCalorieTargetCreateWithoutCoreCardioSetInput[] | CoreCardioSetCalorieTargetUncheckedCreateWithoutCoreCardioSetInput[]
+    connectOrCreate?: CoreCardioSetCalorieTargetCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetCalorieTargetCreateOrConnectWithoutCoreCardioSetInput[]
+    upsert?: CoreCardioSetCalorieTargetUpsertWithWhereUniqueWithoutCoreCardioSetInput | CoreCardioSetCalorieTargetUpsertWithWhereUniqueWithoutCoreCardioSetInput[]
+    createMany?: CoreCardioSetCalorieTargetCreateManyCoreCardioSetInputEnvelope
+    set?: CoreCardioSetCalorieTargetWhereUniqueInput | CoreCardioSetCalorieTargetWhereUniqueInput[]
+    disconnect?: CoreCardioSetCalorieTargetWhereUniqueInput | CoreCardioSetCalorieTargetWhereUniqueInput[]
+    delete?: CoreCardioSetCalorieTargetWhereUniqueInput | CoreCardioSetCalorieTargetWhereUniqueInput[]
+    connect?: CoreCardioSetCalorieTargetWhereUniqueInput | CoreCardioSetCalorieTargetWhereUniqueInput[]
+    update?: CoreCardioSetCalorieTargetUpdateWithWhereUniqueWithoutCoreCardioSetInput | CoreCardioSetCalorieTargetUpdateWithWhereUniqueWithoutCoreCardioSetInput[]
+    updateMany?: CoreCardioSetCalorieTargetUpdateManyWithWhereWithoutCoreCardioSetInput | CoreCardioSetCalorieTargetUpdateManyWithWhereWithoutCoreCardioSetInput[]
+    deleteMany?: CoreCardioSetCalorieTargetScalarWhereInput | CoreCardioSetCalorieTargetScalarWhereInput[]
+  }
+
   export type WorkoutExerciseUncheckedUpdateManyWithoutCoreCardioSetNestedInput = {
     create?: XOR<WorkoutExerciseCreateWithoutCoreCardioSetInput, WorkoutExerciseUncheckedCreateWithoutCoreCardioSetInput> | WorkoutExerciseCreateWithoutCoreCardioSetInput[] | WorkoutExerciseUncheckedCreateWithoutCoreCardioSetInput[]
     connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutCoreCardioSetInput | WorkoutExerciseCreateOrConnectWithoutCoreCardioSetInput[]
@@ -21106,60 +28056,314 @@ export namespace Prisma {
     deleteMany?: WorkoutExerciseScalarWhereInput | WorkoutExerciseScalarWhereInput[]
   }
 
-  export type CoreSetCreateNestedOneWithoutRepsInput = {
-    create?: XOR<CoreSetCreateWithoutRepsInput, CoreSetUncheckedCreateWithoutRepsInput>
-    connectOrCreate?: CoreSetCreateOrConnectWithoutRepsInput
-    connect?: CoreSetWhereUniqueInput
+  export type CoreCardioSetWorkoutTimeUncheckedUpdateManyWithoutCoreCardioSetNestedInput = {
+    create?: XOR<CoreCardioSetWorkoutTimeCreateWithoutCoreCardioSetInput, CoreCardioSetWorkoutTimeUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetWorkoutTimeCreateWithoutCoreCardioSetInput[] | CoreCardioSetWorkoutTimeUncheckedCreateWithoutCoreCardioSetInput[]
+    connectOrCreate?: CoreCardioSetWorkoutTimeCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetWorkoutTimeCreateOrConnectWithoutCoreCardioSetInput[]
+    upsert?: CoreCardioSetWorkoutTimeUpsertWithWhereUniqueWithoutCoreCardioSetInput | CoreCardioSetWorkoutTimeUpsertWithWhereUniqueWithoutCoreCardioSetInput[]
+    createMany?: CoreCardioSetWorkoutTimeCreateManyCoreCardioSetInputEnvelope
+    set?: CoreCardioSetWorkoutTimeWhereUniqueInput | CoreCardioSetWorkoutTimeWhereUniqueInput[]
+    disconnect?: CoreCardioSetWorkoutTimeWhereUniqueInput | CoreCardioSetWorkoutTimeWhereUniqueInput[]
+    delete?: CoreCardioSetWorkoutTimeWhereUniqueInput | CoreCardioSetWorkoutTimeWhereUniqueInput[]
+    connect?: CoreCardioSetWorkoutTimeWhereUniqueInput | CoreCardioSetWorkoutTimeWhereUniqueInput[]
+    update?: CoreCardioSetWorkoutTimeUpdateWithWhereUniqueWithoutCoreCardioSetInput | CoreCardioSetWorkoutTimeUpdateWithWhereUniqueWithoutCoreCardioSetInput[]
+    updateMany?: CoreCardioSetWorkoutTimeUpdateManyWithWhereWithoutCoreCardioSetInput | CoreCardioSetWorkoutTimeUpdateManyWithWhereWithoutCoreCardioSetInput[]
+    deleteMany?: CoreCardioSetWorkoutTimeScalarWhereInput | CoreCardioSetWorkoutTimeScalarWhereInput[]
   }
 
-  export type CoreSetUpdateOneRequiredWithoutRepsNestedInput = {
-    create?: XOR<CoreSetCreateWithoutRepsInput, CoreSetUncheckedCreateWithoutRepsInput>
-    connectOrCreate?: CoreSetCreateOrConnectWithoutRepsInput
-    upsert?: CoreSetUpsertWithoutRepsInput
-    connect?: CoreSetWhereUniqueInput
-    update?: XOR<XOR<CoreSetUpdateToOneWithWhereWithoutRepsInput, CoreSetUpdateWithoutRepsInput>, CoreSetUncheckedUpdateWithoutRepsInput>
+  export type CoreCardioSetAvgSpeedUncheckedUpdateManyWithoutCoreCardioSetNestedInput = {
+    create?: XOR<CoreCardioSetAvgSpeedCreateWithoutCoreCardioSetInput, CoreCardioSetAvgSpeedUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetAvgSpeedCreateWithoutCoreCardioSetInput[] | CoreCardioSetAvgSpeedUncheckedCreateWithoutCoreCardioSetInput[]
+    connectOrCreate?: CoreCardioSetAvgSpeedCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetAvgSpeedCreateOrConnectWithoutCoreCardioSetInput[]
+    upsert?: CoreCardioSetAvgSpeedUpsertWithWhereUniqueWithoutCoreCardioSetInput | CoreCardioSetAvgSpeedUpsertWithWhereUniqueWithoutCoreCardioSetInput[]
+    createMany?: CoreCardioSetAvgSpeedCreateManyCoreCardioSetInputEnvelope
+    set?: CoreCardioSetAvgSpeedWhereUniqueInput | CoreCardioSetAvgSpeedWhereUniqueInput[]
+    disconnect?: CoreCardioSetAvgSpeedWhereUniqueInput | CoreCardioSetAvgSpeedWhereUniqueInput[]
+    delete?: CoreCardioSetAvgSpeedWhereUniqueInput | CoreCardioSetAvgSpeedWhereUniqueInput[]
+    connect?: CoreCardioSetAvgSpeedWhereUniqueInput | CoreCardioSetAvgSpeedWhereUniqueInput[]
+    update?: CoreCardioSetAvgSpeedUpdateWithWhereUniqueWithoutCoreCardioSetInput | CoreCardioSetAvgSpeedUpdateWithWhereUniqueWithoutCoreCardioSetInput[]
+    updateMany?: CoreCardioSetAvgSpeedUpdateManyWithWhereWithoutCoreCardioSetInput | CoreCardioSetAvgSpeedUpdateManyWithWhereWithoutCoreCardioSetInput[]
+    deleteMany?: CoreCardioSetAvgSpeedScalarWhereInput | CoreCardioSetAvgSpeedScalarWhereInput[]
   }
 
-  export type CoreSetCreateNestedOneWithoutWeightInput = {
-    create?: XOR<CoreSetCreateWithoutWeightInput, CoreSetUncheckedCreateWithoutWeightInput>
-    connectOrCreate?: CoreSetCreateOrConnectWithoutWeightInput
-    connect?: CoreSetWhereUniqueInput
+  export type CoreCardioSetDistanceUncheckedUpdateManyWithoutCoreCardioSetNestedInput = {
+    create?: XOR<CoreCardioSetDistanceCreateWithoutCoreCardioSetInput, CoreCardioSetDistanceUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetDistanceCreateWithoutCoreCardioSetInput[] | CoreCardioSetDistanceUncheckedCreateWithoutCoreCardioSetInput[]
+    connectOrCreate?: CoreCardioSetDistanceCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetDistanceCreateOrConnectWithoutCoreCardioSetInput[]
+    upsert?: CoreCardioSetDistanceUpsertWithWhereUniqueWithoutCoreCardioSetInput | CoreCardioSetDistanceUpsertWithWhereUniqueWithoutCoreCardioSetInput[]
+    createMany?: CoreCardioSetDistanceCreateManyCoreCardioSetInputEnvelope
+    set?: CoreCardioSetDistanceWhereUniqueInput | CoreCardioSetDistanceWhereUniqueInput[]
+    disconnect?: CoreCardioSetDistanceWhereUniqueInput | CoreCardioSetDistanceWhereUniqueInput[]
+    delete?: CoreCardioSetDistanceWhereUniqueInput | CoreCardioSetDistanceWhereUniqueInput[]
+    connect?: CoreCardioSetDistanceWhereUniqueInput | CoreCardioSetDistanceWhereUniqueInput[]
+    update?: CoreCardioSetDistanceUpdateWithWhereUniqueWithoutCoreCardioSetInput | CoreCardioSetDistanceUpdateWithWhereUniqueWithoutCoreCardioSetInput[]
+    updateMany?: CoreCardioSetDistanceUpdateManyWithWhereWithoutCoreCardioSetInput | CoreCardioSetDistanceUpdateManyWithWhereWithoutCoreCardioSetInput[]
+    deleteMany?: CoreCardioSetDistanceScalarWhereInput | CoreCardioSetDistanceScalarWhereInput[]
   }
 
-  export type CoreSetUpdateOneRequiredWithoutWeightNestedInput = {
-    create?: XOR<CoreSetCreateWithoutWeightInput, CoreSetUncheckedCreateWithoutWeightInput>
-    connectOrCreate?: CoreSetCreateOrConnectWithoutWeightInput
-    upsert?: CoreSetUpsertWithoutWeightInput
-    connect?: CoreSetWhereUniqueInput
-    update?: XOR<XOR<CoreSetUpdateToOneWithWhereWithoutWeightInput, CoreSetUpdateWithoutWeightInput>, CoreSetUncheckedUpdateWithoutWeightInput>
+  export type CoreCardioSetCalorieTargetUncheckedUpdateManyWithoutCoreCardioSetNestedInput = {
+    create?: XOR<CoreCardioSetCalorieTargetCreateWithoutCoreCardioSetInput, CoreCardioSetCalorieTargetUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetCalorieTargetCreateWithoutCoreCardioSetInput[] | CoreCardioSetCalorieTargetUncheckedCreateWithoutCoreCardioSetInput[]
+    connectOrCreate?: CoreCardioSetCalorieTargetCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetCalorieTargetCreateOrConnectWithoutCoreCardioSetInput[]
+    upsert?: CoreCardioSetCalorieTargetUpsertWithWhereUniqueWithoutCoreCardioSetInput | CoreCardioSetCalorieTargetUpsertWithWhereUniqueWithoutCoreCardioSetInput[]
+    createMany?: CoreCardioSetCalorieTargetCreateManyCoreCardioSetInputEnvelope
+    set?: CoreCardioSetCalorieTargetWhereUniqueInput | CoreCardioSetCalorieTargetWhereUniqueInput[]
+    disconnect?: CoreCardioSetCalorieTargetWhereUniqueInput | CoreCardioSetCalorieTargetWhereUniqueInput[]
+    delete?: CoreCardioSetCalorieTargetWhereUniqueInput | CoreCardioSetCalorieTargetWhereUniqueInput[]
+    connect?: CoreCardioSetCalorieTargetWhereUniqueInput | CoreCardioSetCalorieTargetWhereUniqueInput[]
+    update?: CoreCardioSetCalorieTargetUpdateWithWhereUniqueWithoutCoreCardioSetInput | CoreCardioSetCalorieTargetUpdateWithWhereUniqueWithoutCoreCardioSetInput[]
+    updateMany?: CoreCardioSetCalorieTargetUpdateManyWithWhereWithoutCoreCardioSetInput | CoreCardioSetCalorieTargetUpdateManyWithWhereWithoutCoreCardioSetInput[]
+    deleteMany?: CoreCardioSetCalorieTargetScalarWhereInput | CoreCardioSetCalorieTargetScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutUserSetsInput = {
-    create?: XOR<UserCreateWithoutUserSetsInput, UserUncheckedCreateWithoutUserSetsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutUserSetsInput
-    connect?: UserWhereUniqueInput
+  export type CoreCardioSetCreateNestedOneWithoutCalorieTargetInput = {
+    create?: XOR<CoreCardioSetCreateWithoutCalorieTargetInput, CoreCardioSetUncheckedCreateWithoutCalorieTargetInput>
+    connectOrCreate?: CoreCardioSetCreateOrConnectWithoutCalorieTargetInput
+    connect?: CoreCardioSetWhereUniqueInput
   }
 
-  export type UserWorkoutExerciseCreateNestedOneWithoutUserSetsInput = {
-    create?: XOR<UserWorkoutExerciseCreateWithoutUserSetsInput, UserWorkoutExerciseUncheckedCreateWithoutUserSetsInput>
-    connectOrCreate?: UserWorkoutExerciseCreateOrConnectWithoutUserSetsInput
+  export type CoreCardioSetUpdateOneRequiredWithoutCalorieTargetNestedInput = {
+    create?: XOR<CoreCardioSetCreateWithoutCalorieTargetInput, CoreCardioSetUncheckedCreateWithoutCalorieTargetInput>
+    connectOrCreate?: CoreCardioSetCreateOrConnectWithoutCalorieTargetInput
+    upsert?: CoreCardioSetUpsertWithoutCalorieTargetInput
+    connect?: CoreCardioSetWhereUniqueInput
+    update?: XOR<XOR<CoreCardioSetUpdateToOneWithWhereWithoutCalorieTargetInput, CoreCardioSetUpdateWithoutCalorieTargetInput>, CoreCardioSetUncheckedUpdateWithoutCalorieTargetInput>
+  }
+
+  export type CoreCardioSetCreateNestedOneWithoutDistanceInput = {
+    create?: XOR<CoreCardioSetCreateWithoutDistanceInput, CoreCardioSetUncheckedCreateWithoutDistanceInput>
+    connectOrCreate?: CoreCardioSetCreateOrConnectWithoutDistanceInput
+    connect?: CoreCardioSetWhereUniqueInput
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type CoreCardioSetUpdateOneRequiredWithoutDistanceNestedInput = {
+    create?: XOR<CoreCardioSetCreateWithoutDistanceInput, CoreCardioSetUncheckedCreateWithoutDistanceInput>
+    connectOrCreate?: CoreCardioSetCreateOrConnectWithoutDistanceInput
+    upsert?: CoreCardioSetUpsertWithoutDistanceInput
+    connect?: CoreCardioSetWhereUniqueInput
+    update?: XOR<XOR<CoreCardioSetUpdateToOneWithWhereWithoutDistanceInput, CoreCardioSetUpdateWithoutDistanceInput>, CoreCardioSetUncheckedUpdateWithoutDistanceInput>
+  }
+
+  export type CoreCardioSetCreateNestedOneWithoutAvgSpeedInput = {
+    create?: XOR<CoreCardioSetCreateWithoutAvgSpeedInput, CoreCardioSetUncheckedCreateWithoutAvgSpeedInput>
+    connectOrCreate?: CoreCardioSetCreateOrConnectWithoutAvgSpeedInput
+    connect?: CoreCardioSetWhereUniqueInput
+  }
+
+  export type CoreCardioSetUpdateOneRequiredWithoutAvgSpeedNestedInput = {
+    create?: XOR<CoreCardioSetCreateWithoutAvgSpeedInput, CoreCardioSetUncheckedCreateWithoutAvgSpeedInput>
+    connectOrCreate?: CoreCardioSetCreateOrConnectWithoutAvgSpeedInput
+    upsert?: CoreCardioSetUpsertWithoutAvgSpeedInput
+    connect?: CoreCardioSetWhereUniqueInput
+    update?: XOR<XOR<CoreCardioSetUpdateToOneWithWhereWithoutAvgSpeedInput, CoreCardioSetUpdateWithoutAvgSpeedInput>, CoreCardioSetUncheckedUpdateWithoutAvgSpeedInput>
+  }
+
+  export type CoreCardioSetCreateNestedOneWithoutWorkTimeInput = {
+    create?: XOR<CoreCardioSetCreateWithoutWorkTimeInput, CoreCardioSetUncheckedCreateWithoutWorkTimeInput>
+    connectOrCreate?: CoreCardioSetCreateOrConnectWithoutWorkTimeInput
+    connect?: CoreCardioSetWhereUniqueInput
+  }
+
+  export type CoreCardioSetUpdateOneRequiredWithoutWorkTimeNestedInput = {
+    create?: XOR<CoreCardioSetCreateWithoutWorkTimeInput, CoreCardioSetUncheckedCreateWithoutWorkTimeInput>
+    connectOrCreate?: CoreCardioSetCreateOrConnectWithoutWorkTimeInput
+    upsert?: CoreCardioSetUpsertWithoutWorkTimeInput
+    connect?: CoreCardioSetWhereUniqueInput
+    update?: XOR<XOR<CoreCardioSetUpdateToOneWithWhereWithoutWorkTimeInput, CoreCardioSetUpdateWithoutWorkTimeInput>, CoreCardioSetUncheckedUpdateWithoutWorkTimeInput>
+  }
+
+  export type UserWorkoutExerciseCreateNestedOneWithoutUserCardioSetInput = {
+    create?: XOR<UserWorkoutExerciseCreateWithoutUserCardioSetInput, UserWorkoutExerciseUncheckedCreateWithoutUserCardioSetInput>
+    connectOrCreate?: UserWorkoutExerciseCreateOrConnectWithoutUserCardioSetInput
     connect?: UserWorkoutExerciseWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutUserSetsNestedInput = {
-    create?: XOR<UserCreateWithoutUserSetsInput, UserUncheckedCreateWithoutUserSetsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutUserSetsInput
-    upsert?: UserUpsertWithoutUserSetsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserSetsInput, UserUpdateWithoutUserSetsInput>, UserUncheckedUpdateWithoutUserSetsInput>
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
-  export type UserWorkoutExerciseUpdateOneRequiredWithoutUserSetsNestedInput = {
-    create?: XOR<UserWorkoutExerciseCreateWithoutUserSetsInput, UserWorkoutExerciseUncheckedCreateWithoutUserSetsInput>
-    connectOrCreate?: UserWorkoutExerciseCreateOrConnectWithoutUserSetsInput
-    upsert?: UserWorkoutExerciseUpsertWithoutUserSetsInput
+  export type UserWorkoutExerciseUpdateOneRequiredWithoutUserCardioSetNestedInput = {
+    create?: XOR<UserWorkoutExerciseCreateWithoutUserCardioSetInput, UserWorkoutExerciseUncheckedCreateWithoutUserCardioSetInput>
+    connectOrCreate?: UserWorkoutExerciseCreateOrConnectWithoutUserCardioSetInput
+    upsert?: UserWorkoutExerciseUpsertWithoutUserCardioSetInput
     connect?: UserWorkoutExerciseWhereUniqueInput
-    update?: XOR<XOR<UserWorkoutExerciseUpdateToOneWithWhereWithoutUserSetsInput, UserWorkoutExerciseUpdateWithoutUserSetsInput>, UserWorkoutExerciseUncheckedUpdateWithoutUserSetsInput>
+    update?: XOR<XOR<UserWorkoutExerciseUpdateToOneWithWhereWithoutUserCardioSetInput, UserWorkoutExerciseUpdateWithoutUserCardioSetInput>, UserWorkoutExerciseUncheckedUpdateWithoutUserCardioSetInput>
+  }
+
+  export type WorkoutExerciseCreateNestedManyWithoutCoreStrengthSetInput = {
+    create?: XOR<WorkoutExerciseCreateWithoutCoreStrengthSetInput, WorkoutExerciseUncheckedCreateWithoutCoreStrengthSetInput> | WorkoutExerciseCreateWithoutCoreStrengthSetInput[] | WorkoutExerciseUncheckedCreateWithoutCoreStrengthSetInput[]
+    connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutCoreStrengthSetInput | WorkoutExerciseCreateOrConnectWithoutCoreStrengthSetInput[]
+    createMany?: WorkoutExerciseCreateManyCoreStrengthSetInputEnvelope
+    connect?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
+  }
+
+  export type CoreStrengthSetRepsCreateNestedManyWithoutCoreStrengthSetInput = {
+    create?: XOR<CoreStrengthSetRepsCreateWithoutCoreStrengthSetInput, CoreStrengthSetRepsUncheckedCreateWithoutCoreStrengthSetInput> | CoreStrengthSetRepsCreateWithoutCoreStrengthSetInput[] | CoreStrengthSetRepsUncheckedCreateWithoutCoreStrengthSetInput[]
+    connectOrCreate?: CoreStrengthSetRepsCreateOrConnectWithoutCoreStrengthSetInput | CoreStrengthSetRepsCreateOrConnectWithoutCoreStrengthSetInput[]
+    createMany?: CoreStrengthSetRepsCreateManyCoreStrengthSetInputEnvelope
+    connect?: CoreStrengthSetRepsWhereUniqueInput | CoreStrengthSetRepsWhereUniqueInput[]
+  }
+
+  export type CoreStrengthSetWeightCreateNestedManyWithoutCoreStrengthSetInput = {
+    create?: XOR<CoreStrengthSetWeightCreateWithoutCoreStrengthSetInput, CoreStrengthSetWeightUncheckedCreateWithoutCoreStrengthSetInput> | CoreStrengthSetWeightCreateWithoutCoreStrengthSetInput[] | CoreStrengthSetWeightUncheckedCreateWithoutCoreStrengthSetInput[]
+    connectOrCreate?: CoreStrengthSetWeightCreateOrConnectWithoutCoreStrengthSetInput | CoreStrengthSetWeightCreateOrConnectWithoutCoreStrengthSetInput[]
+    createMany?: CoreStrengthSetWeightCreateManyCoreStrengthSetInputEnvelope
+    connect?: CoreStrengthSetWeightWhereUniqueInput | CoreStrengthSetWeightWhereUniqueInput[]
+  }
+
+  export type WorkoutExerciseUncheckedCreateNestedManyWithoutCoreStrengthSetInput = {
+    create?: XOR<WorkoutExerciseCreateWithoutCoreStrengthSetInput, WorkoutExerciseUncheckedCreateWithoutCoreStrengthSetInput> | WorkoutExerciseCreateWithoutCoreStrengthSetInput[] | WorkoutExerciseUncheckedCreateWithoutCoreStrengthSetInput[]
+    connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutCoreStrengthSetInput | WorkoutExerciseCreateOrConnectWithoutCoreStrengthSetInput[]
+    createMany?: WorkoutExerciseCreateManyCoreStrengthSetInputEnvelope
+    connect?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
+  }
+
+  export type CoreStrengthSetRepsUncheckedCreateNestedManyWithoutCoreStrengthSetInput = {
+    create?: XOR<CoreStrengthSetRepsCreateWithoutCoreStrengthSetInput, CoreStrengthSetRepsUncheckedCreateWithoutCoreStrengthSetInput> | CoreStrengthSetRepsCreateWithoutCoreStrengthSetInput[] | CoreStrengthSetRepsUncheckedCreateWithoutCoreStrengthSetInput[]
+    connectOrCreate?: CoreStrengthSetRepsCreateOrConnectWithoutCoreStrengthSetInput | CoreStrengthSetRepsCreateOrConnectWithoutCoreStrengthSetInput[]
+    createMany?: CoreStrengthSetRepsCreateManyCoreStrengthSetInputEnvelope
+    connect?: CoreStrengthSetRepsWhereUniqueInput | CoreStrengthSetRepsWhereUniqueInput[]
+  }
+
+  export type CoreStrengthSetWeightUncheckedCreateNestedManyWithoutCoreStrengthSetInput = {
+    create?: XOR<CoreStrengthSetWeightCreateWithoutCoreStrengthSetInput, CoreStrengthSetWeightUncheckedCreateWithoutCoreStrengthSetInput> | CoreStrengthSetWeightCreateWithoutCoreStrengthSetInput[] | CoreStrengthSetWeightUncheckedCreateWithoutCoreStrengthSetInput[]
+    connectOrCreate?: CoreStrengthSetWeightCreateOrConnectWithoutCoreStrengthSetInput | CoreStrengthSetWeightCreateOrConnectWithoutCoreStrengthSetInput[]
+    createMany?: CoreStrengthSetWeightCreateManyCoreStrengthSetInputEnvelope
+    connect?: CoreStrengthSetWeightWhereUniqueInput | CoreStrengthSetWeightWhereUniqueInput[]
+  }
+
+  export type WorkoutExerciseUpdateManyWithoutCoreStrengthSetNestedInput = {
+    create?: XOR<WorkoutExerciseCreateWithoutCoreStrengthSetInput, WorkoutExerciseUncheckedCreateWithoutCoreStrengthSetInput> | WorkoutExerciseCreateWithoutCoreStrengthSetInput[] | WorkoutExerciseUncheckedCreateWithoutCoreStrengthSetInput[]
+    connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutCoreStrengthSetInput | WorkoutExerciseCreateOrConnectWithoutCoreStrengthSetInput[]
+    upsert?: WorkoutExerciseUpsertWithWhereUniqueWithoutCoreStrengthSetInput | WorkoutExerciseUpsertWithWhereUniqueWithoutCoreStrengthSetInput[]
+    createMany?: WorkoutExerciseCreateManyCoreStrengthSetInputEnvelope
+    set?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
+    disconnect?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
+    delete?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
+    connect?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
+    update?: WorkoutExerciseUpdateWithWhereUniqueWithoutCoreStrengthSetInput | WorkoutExerciseUpdateWithWhereUniqueWithoutCoreStrengthSetInput[]
+    updateMany?: WorkoutExerciseUpdateManyWithWhereWithoutCoreStrengthSetInput | WorkoutExerciseUpdateManyWithWhereWithoutCoreStrengthSetInput[]
+    deleteMany?: WorkoutExerciseScalarWhereInput | WorkoutExerciseScalarWhereInput[]
+  }
+
+  export type CoreStrengthSetRepsUpdateManyWithoutCoreStrengthSetNestedInput = {
+    create?: XOR<CoreStrengthSetRepsCreateWithoutCoreStrengthSetInput, CoreStrengthSetRepsUncheckedCreateWithoutCoreStrengthSetInput> | CoreStrengthSetRepsCreateWithoutCoreStrengthSetInput[] | CoreStrengthSetRepsUncheckedCreateWithoutCoreStrengthSetInput[]
+    connectOrCreate?: CoreStrengthSetRepsCreateOrConnectWithoutCoreStrengthSetInput | CoreStrengthSetRepsCreateOrConnectWithoutCoreStrengthSetInput[]
+    upsert?: CoreStrengthSetRepsUpsertWithWhereUniqueWithoutCoreStrengthSetInput | CoreStrengthSetRepsUpsertWithWhereUniqueWithoutCoreStrengthSetInput[]
+    createMany?: CoreStrengthSetRepsCreateManyCoreStrengthSetInputEnvelope
+    set?: CoreStrengthSetRepsWhereUniqueInput | CoreStrengthSetRepsWhereUniqueInput[]
+    disconnect?: CoreStrengthSetRepsWhereUniqueInput | CoreStrengthSetRepsWhereUniqueInput[]
+    delete?: CoreStrengthSetRepsWhereUniqueInput | CoreStrengthSetRepsWhereUniqueInput[]
+    connect?: CoreStrengthSetRepsWhereUniqueInput | CoreStrengthSetRepsWhereUniqueInput[]
+    update?: CoreStrengthSetRepsUpdateWithWhereUniqueWithoutCoreStrengthSetInput | CoreStrengthSetRepsUpdateWithWhereUniqueWithoutCoreStrengthSetInput[]
+    updateMany?: CoreStrengthSetRepsUpdateManyWithWhereWithoutCoreStrengthSetInput | CoreStrengthSetRepsUpdateManyWithWhereWithoutCoreStrengthSetInput[]
+    deleteMany?: CoreStrengthSetRepsScalarWhereInput | CoreStrengthSetRepsScalarWhereInput[]
+  }
+
+  export type CoreStrengthSetWeightUpdateManyWithoutCoreStrengthSetNestedInput = {
+    create?: XOR<CoreStrengthSetWeightCreateWithoutCoreStrengthSetInput, CoreStrengthSetWeightUncheckedCreateWithoutCoreStrengthSetInput> | CoreStrengthSetWeightCreateWithoutCoreStrengthSetInput[] | CoreStrengthSetWeightUncheckedCreateWithoutCoreStrengthSetInput[]
+    connectOrCreate?: CoreStrengthSetWeightCreateOrConnectWithoutCoreStrengthSetInput | CoreStrengthSetWeightCreateOrConnectWithoutCoreStrengthSetInput[]
+    upsert?: CoreStrengthSetWeightUpsertWithWhereUniqueWithoutCoreStrengthSetInput | CoreStrengthSetWeightUpsertWithWhereUniqueWithoutCoreStrengthSetInput[]
+    createMany?: CoreStrengthSetWeightCreateManyCoreStrengthSetInputEnvelope
+    set?: CoreStrengthSetWeightWhereUniqueInput | CoreStrengthSetWeightWhereUniqueInput[]
+    disconnect?: CoreStrengthSetWeightWhereUniqueInput | CoreStrengthSetWeightWhereUniqueInput[]
+    delete?: CoreStrengthSetWeightWhereUniqueInput | CoreStrengthSetWeightWhereUniqueInput[]
+    connect?: CoreStrengthSetWeightWhereUniqueInput | CoreStrengthSetWeightWhereUniqueInput[]
+    update?: CoreStrengthSetWeightUpdateWithWhereUniqueWithoutCoreStrengthSetInput | CoreStrengthSetWeightUpdateWithWhereUniqueWithoutCoreStrengthSetInput[]
+    updateMany?: CoreStrengthSetWeightUpdateManyWithWhereWithoutCoreStrengthSetInput | CoreStrengthSetWeightUpdateManyWithWhereWithoutCoreStrengthSetInput[]
+    deleteMany?: CoreStrengthSetWeightScalarWhereInput | CoreStrengthSetWeightScalarWhereInput[]
+  }
+
+  export type WorkoutExerciseUncheckedUpdateManyWithoutCoreStrengthSetNestedInput = {
+    create?: XOR<WorkoutExerciseCreateWithoutCoreStrengthSetInput, WorkoutExerciseUncheckedCreateWithoutCoreStrengthSetInput> | WorkoutExerciseCreateWithoutCoreStrengthSetInput[] | WorkoutExerciseUncheckedCreateWithoutCoreStrengthSetInput[]
+    connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutCoreStrengthSetInput | WorkoutExerciseCreateOrConnectWithoutCoreStrengthSetInput[]
+    upsert?: WorkoutExerciseUpsertWithWhereUniqueWithoutCoreStrengthSetInput | WorkoutExerciseUpsertWithWhereUniqueWithoutCoreStrengthSetInput[]
+    createMany?: WorkoutExerciseCreateManyCoreStrengthSetInputEnvelope
+    set?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
+    disconnect?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
+    delete?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
+    connect?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
+    update?: WorkoutExerciseUpdateWithWhereUniqueWithoutCoreStrengthSetInput | WorkoutExerciseUpdateWithWhereUniqueWithoutCoreStrengthSetInput[]
+    updateMany?: WorkoutExerciseUpdateManyWithWhereWithoutCoreStrengthSetInput | WorkoutExerciseUpdateManyWithWhereWithoutCoreStrengthSetInput[]
+    deleteMany?: WorkoutExerciseScalarWhereInput | WorkoutExerciseScalarWhereInput[]
+  }
+
+  export type CoreStrengthSetRepsUncheckedUpdateManyWithoutCoreStrengthSetNestedInput = {
+    create?: XOR<CoreStrengthSetRepsCreateWithoutCoreStrengthSetInput, CoreStrengthSetRepsUncheckedCreateWithoutCoreStrengthSetInput> | CoreStrengthSetRepsCreateWithoutCoreStrengthSetInput[] | CoreStrengthSetRepsUncheckedCreateWithoutCoreStrengthSetInput[]
+    connectOrCreate?: CoreStrengthSetRepsCreateOrConnectWithoutCoreStrengthSetInput | CoreStrengthSetRepsCreateOrConnectWithoutCoreStrengthSetInput[]
+    upsert?: CoreStrengthSetRepsUpsertWithWhereUniqueWithoutCoreStrengthSetInput | CoreStrengthSetRepsUpsertWithWhereUniqueWithoutCoreStrengthSetInput[]
+    createMany?: CoreStrengthSetRepsCreateManyCoreStrengthSetInputEnvelope
+    set?: CoreStrengthSetRepsWhereUniqueInput | CoreStrengthSetRepsWhereUniqueInput[]
+    disconnect?: CoreStrengthSetRepsWhereUniqueInput | CoreStrengthSetRepsWhereUniqueInput[]
+    delete?: CoreStrengthSetRepsWhereUniqueInput | CoreStrengthSetRepsWhereUniqueInput[]
+    connect?: CoreStrengthSetRepsWhereUniqueInput | CoreStrengthSetRepsWhereUniqueInput[]
+    update?: CoreStrengthSetRepsUpdateWithWhereUniqueWithoutCoreStrengthSetInput | CoreStrengthSetRepsUpdateWithWhereUniqueWithoutCoreStrengthSetInput[]
+    updateMany?: CoreStrengthSetRepsUpdateManyWithWhereWithoutCoreStrengthSetInput | CoreStrengthSetRepsUpdateManyWithWhereWithoutCoreStrengthSetInput[]
+    deleteMany?: CoreStrengthSetRepsScalarWhereInput | CoreStrengthSetRepsScalarWhereInput[]
+  }
+
+  export type CoreStrengthSetWeightUncheckedUpdateManyWithoutCoreStrengthSetNestedInput = {
+    create?: XOR<CoreStrengthSetWeightCreateWithoutCoreStrengthSetInput, CoreStrengthSetWeightUncheckedCreateWithoutCoreStrengthSetInput> | CoreStrengthSetWeightCreateWithoutCoreStrengthSetInput[] | CoreStrengthSetWeightUncheckedCreateWithoutCoreStrengthSetInput[]
+    connectOrCreate?: CoreStrengthSetWeightCreateOrConnectWithoutCoreStrengthSetInput | CoreStrengthSetWeightCreateOrConnectWithoutCoreStrengthSetInput[]
+    upsert?: CoreStrengthSetWeightUpsertWithWhereUniqueWithoutCoreStrengthSetInput | CoreStrengthSetWeightUpsertWithWhereUniqueWithoutCoreStrengthSetInput[]
+    createMany?: CoreStrengthSetWeightCreateManyCoreStrengthSetInputEnvelope
+    set?: CoreStrengthSetWeightWhereUniqueInput | CoreStrengthSetWeightWhereUniqueInput[]
+    disconnect?: CoreStrengthSetWeightWhereUniqueInput | CoreStrengthSetWeightWhereUniqueInput[]
+    delete?: CoreStrengthSetWeightWhereUniqueInput | CoreStrengthSetWeightWhereUniqueInput[]
+    connect?: CoreStrengthSetWeightWhereUniqueInput | CoreStrengthSetWeightWhereUniqueInput[]
+    update?: CoreStrengthSetWeightUpdateWithWhereUniqueWithoutCoreStrengthSetInput | CoreStrengthSetWeightUpdateWithWhereUniqueWithoutCoreStrengthSetInput[]
+    updateMany?: CoreStrengthSetWeightUpdateManyWithWhereWithoutCoreStrengthSetInput | CoreStrengthSetWeightUpdateManyWithWhereWithoutCoreStrengthSetInput[]
+    deleteMany?: CoreStrengthSetWeightScalarWhereInput | CoreStrengthSetWeightScalarWhereInput[]
+  }
+
+  export type CoreStrengthSetCreateNestedOneWithoutRepsInput = {
+    create?: XOR<CoreStrengthSetCreateWithoutRepsInput, CoreStrengthSetUncheckedCreateWithoutRepsInput>
+    connectOrCreate?: CoreStrengthSetCreateOrConnectWithoutRepsInput
+    connect?: CoreStrengthSetWhereUniqueInput
+  }
+
+  export type CoreStrengthSetUpdateOneRequiredWithoutRepsNestedInput = {
+    create?: XOR<CoreStrengthSetCreateWithoutRepsInput, CoreStrengthSetUncheckedCreateWithoutRepsInput>
+    connectOrCreate?: CoreStrengthSetCreateOrConnectWithoutRepsInput
+    upsert?: CoreStrengthSetUpsertWithoutRepsInput
+    connect?: CoreStrengthSetWhereUniqueInput
+    update?: XOR<XOR<CoreStrengthSetUpdateToOneWithWhereWithoutRepsInput, CoreStrengthSetUpdateWithoutRepsInput>, CoreStrengthSetUncheckedUpdateWithoutRepsInput>
+  }
+
+  export type CoreStrengthSetCreateNestedOneWithoutWeightInput = {
+    create?: XOR<CoreStrengthSetCreateWithoutWeightInput, CoreStrengthSetUncheckedCreateWithoutWeightInput>
+    connectOrCreate?: CoreStrengthSetCreateOrConnectWithoutWeightInput
+    connect?: CoreStrengthSetWhereUniqueInput
+  }
+
+  export type CoreStrengthSetUpdateOneRequiredWithoutWeightNestedInput = {
+    create?: XOR<CoreStrengthSetCreateWithoutWeightInput, CoreStrengthSetUncheckedCreateWithoutWeightInput>
+    connectOrCreate?: CoreStrengthSetCreateOrConnectWithoutWeightInput
+    upsert?: CoreStrengthSetUpsertWithoutWeightInput
+    connect?: CoreStrengthSetWhereUniqueInput
+    update?: XOR<XOR<CoreStrengthSetUpdateToOneWithWhereWithoutWeightInput, CoreStrengthSetUpdateWithoutWeightInput>, CoreStrengthSetUncheckedUpdateWithoutWeightInput>
+  }
+
+  export type UserWorkoutExerciseCreateNestedOneWithoutUserStrengthSetInput = {
+    create?: XOR<UserWorkoutExerciseCreateWithoutUserStrengthSetInput, UserWorkoutExerciseUncheckedCreateWithoutUserStrengthSetInput>
+    connectOrCreate?: UserWorkoutExerciseCreateOrConnectWithoutUserStrengthSetInput
+    connect?: UserWorkoutExerciseWhereUniqueInput
+  }
+
+  export type UserWorkoutExerciseUpdateOneRequiredWithoutUserStrengthSetNestedInput = {
+    create?: XOR<UserWorkoutExerciseCreateWithoutUserStrengthSetInput, UserWorkoutExerciseUncheckedCreateWithoutUserStrengthSetInput>
+    connectOrCreate?: UserWorkoutExerciseCreateOrConnectWithoutUserStrengthSetInput
+    upsert?: UserWorkoutExerciseUpsertWithoutUserStrengthSetInput
+    connect?: UserWorkoutExerciseWhereUniqueInput
+    update?: XOR<XOR<UserWorkoutExerciseUpdateToOneWithWhereWithoutUserStrengthSetInput, UserWorkoutExerciseUpdateWithoutUserStrengthSetInput>, UserWorkoutExerciseUncheckedUpdateWithoutUserStrengthSetInput>
   }
 
   export type ProgramWorkoutCreateNestedManyWithoutProgramInput = {
@@ -21439,10 +28643,10 @@ export namespace Prisma {
     deleteMany?: UserWorkoutScalarWhereInput | UserWorkoutScalarWhereInput[]
   }
 
-  export type CoreSetCreateNestedOneWithoutWorkoutExerciseInput = {
-    create?: XOR<CoreSetCreateWithoutWorkoutExerciseInput, CoreSetUncheckedCreateWithoutWorkoutExerciseInput>
-    connectOrCreate?: CoreSetCreateOrConnectWithoutWorkoutExerciseInput
-    connect?: CoreSetWhereUniqueInput
+  export type CoreStrengthSetCreateNestedOneWithoutWorkoutExerciseInput = {
+    create?: XOR<CoreStrengthSetCreateWithoutWorkoutExerciseInput, CoreStrengthSetUncheckedCreateWithoutWorkoutExerciseInput>
+    connectOrCreate?: CoreStrengthSetCreateOrConnectWithoutWorkoutExerciseInput
+    connect?: CoreStrengthSetWhereUniqueInput
   }
 
   export type CoreCardioSetCreateNestedOneWithoutWorkoutExerciseInput = {
@@ -21477,14 +28681,14 @@ export namespace Prisma {
     connect?: UserWorkoutExerciseWhereUniqueInput | UserWorkoutExerciseWhereUniqueInput[]
   }
 
-  export type CoreSetUpdateOneWithoutWorkoutExerciseNestedInput = {
-    create?: XOR<CoreSetCreateWithoutWorkoutExerciseInput, CoreSetUncheckedCreateWithoutWorkoutExerciseInput>
-    connectOrCreate?: CoreSetCreateOrConnectWithoutWorkoutExerciseInput
-    upsert?: CoreSetUpsertWithoutWorkoutExerciseInput
-    disconnect?: CoreSetWhereInput | boolean
-    delete?: CoreSetWhereInput | boolean
-    connect?: CoreSetWhereUniqueInput
-    update?: XOR<XOR<CoreSetUpdateToOneWithWhereWithoutWorkoutExerciseInput, CoreSetUpdateWithoutWorkoutExerciseInput>, CoreSetUncheckedUpdateWithoutWorkoutExerciseInput>
+  export type CoreStrengthSetUpdateOneWithoutWorkoutExerciseNestedInput = {
+    create?: XOR<CoreStrengthSetCreateWithoutWorkoutExerciseInput, CoreStrengthSetUncheckedCreateWithoutWorkoutExerciseInput>
+    connectOrCreate?: CoreStrengthSetCreateOrConnectWithoutWorkoutExerciseInput
+    upsert?: CoreStrengthSetUpsertWithoutWorkoutExerciseInput
+    disconnect?: CoreStrengthSetWhereInput | boolean
+    delete?: CoreStrengthSetWhereInput | boolean
+    connect?: CoreStrengthSetWhereUniqueInput
+    update?: XOR<XOR<CoreStrengthSetUpdateToOneWithWhereWithoutWorkoutExerciseInput, CoreStrengthSetUpdateWithoutWorkoutExerciseInput>, CoreStrengthSetUncheckedUpdateWithoutWorkoutExerciseInput>
   }
 
   export type CoreCardioSetUpdateOneWithoutWorkoutExerciseNestedInput = {
@@ -21553,18 +28757,32 @@ export namespace Prisma {
     connect?: UserWorkoutWhereUniqueInput
   }
 
-  export type UserSetCreateNestedManyWithoutUserWorkoutExerciseInput = {
-    create?: XOR<UserSetCreateWithoutUserWorkoutExerciseInput, UserSetUncheckedCreateWithoutUserWorkoutExerciseInput> | UserSetCreateWithoutUserWorkoutExerciseInput[] | UserSetUncheckedCreateWithoutUserWorkoutExerciseInput[]
-    connectOrCreate?: UserSetCreateOrConnectWithoutUserWorkoutExerciseInput | UserSetCreateOrConnectWithoutUserWorkoutExerciseInput[]
-    createMany?: UserSetCreateManyUserWorkoutExerciseInputEnvelope
-    connect?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
+  export type UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput = {
+    create?: XOR<UserStrengthSetCreateWithoutUserWorkoutExerciseInput, UserStrengthSetUncheckedCreateWithoutUserWorkoutExerciseInput> | UserStrengthSetCreateWithoutUserWorkoutExerciseInput[] | UserStrengthSetUncheckedCreateWithoutUserWorkoutExerciseInput[]
+    connectOrCreate?: UserStrengthSetCreateOrConnectWithoutUserWorkoutExerciseInput | UserStrengthSetCreateOrConnectWithoutUserWorkoutExerciseInput[]
+    createMany?: UserStrengthSetCreateManyUserWorkoutExerciseInputEnvelope
+    connect?: UserStrengthSetWhereUniqueInput | UserStrengthSetWhereUniqueInput[]
   }
 
-  export type UserSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput = {
-    create?: XOR<UserSetCreateWithoutUserWorkoutExerciseInput, UserSetUncheckedCreateWithoutUserWorkoutExerciseInput> | UserSetCreateWithoutUserWorkoutExerciseInput[] | UserSetUncheckedCreateWithoutUserWorkoutExerciseInput[]
-    connectOrCreate?: UserSetCreateOrConnectWithoutUserWorkoutExerciseInput | UserSetCreateOrConnectWithoutUserWorkoutExerciseInput[]
-    createMany?: UserSetCreateManyUserWorkoutExerciseInputEnvelope
-    connect?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
+  export type UserCardioSetCreateNestedManyWithoutUserWorkoutExerciseInput = {
+    create?: XOR<UserCardioSetCreateWithoutUserWorkoutExerciseInput, UserCardioSetUncheckedCreateWithoutUserWorkoutExerciseInput> | UserCardioSetCreateWithoutUserWorkoutExerciseInput[] | UserCardioSetUncheckedCreateWithoutUserWorkoutExerciseInput[]
+    connectOrCreate?: UserCardioSetCreateOrConnectWithoutUserWorkoutExerciseInput | UserCardioSetCreateOrConnectWithoutUserWorkoutExerciseInput[]
+    createMany?: UserCardioSetCreateManyUserWorkoutExerciseInputEnvelope
+    connect?: UserCardioSetWhereUniqueInput | UserCardioSetWhereUniqueInput[]
+  }
+
+  export type UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput = {
+    create?: XOR<UserStrengthSetCreateWithoutUserWorkoutExerciseInput, UserStrengthSetUncheckedCreateWithoutUserWorkoutExerciseInput> | UserStrengthSetCreateWithoutUserWorkoutExerciseInput[] | UserStrengthSetUncheckedCreateWithoutUserWorkoutExerciseInput[]
+    connectOrCreate?: UserStrengthSetCreateOrConnectWithoutUserWorkoutExerciseInput | UserStrengthSetCreateOrConnectWithoutUserWorkoutExerciseInput[]
+    createMany?: UserStrengthSetCreateManyUserWorkoutExerciseInputEnvelope
+    connect?: UserStrengthSetWhereUniqueInput | UserStrengthSetWhereUniqueInput[]
+  }
+
+  export type UserCardioSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput = {
+    create?: XOR<UserCardioSetCreateWithoutUserWorkoutExerciseInput, UserCardioSetUncheckedCreateWithoutUserWorkoutExerciseInput> | UserCardioSetCreateWithoutUserWorkoutExerciseInput[] | UserCardioSetUncheckedCreateWithoutUserWorkoutExerciseInput[]
+    connectOrCreate?: UserCardioSetCreateOrConnectWithoutUserWorkoutExerciseInput | UserCardioSetCreateOrConnectWithoutUserWorkoutExerciseInput[]
+    createMany?: UserCardioSetCreateManyUserWorkoutExerciseInputEnvelope
+    connect?: UserCardioSetWhereUniqueInput | UserCardioSetWhereUniqueInput[]
   }
 
   export type WorkoutExerciseUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput = {
@@ -21583,32 +28801,60 @@ export namespace Prisma {
     update?: XOR<XOR<UserWorkoutUpdateToOneWithWhereWithoutUserWorkoutExercisesInput, UserWorkoutUpdateWithoutUserWorkoutExercisesInput>, UserWorkoutUncheckedUpdateWithoutUserWorkoutExercisesInput>
   }
 
-  export type UserSetUpdateManyWithoutUserWorkoutExerciseNestedInput = {
-    create?: XOR<UserSetCreateWithoutUserWorkoutExerciseInput, UserSetUncheckedCreateWithoutUserWorkoutExerciseInput> | UserSetCreateWithoutUserWorkoutExerciseInput[] | UserSetUncheckedCreateWithoutUserWorkoutExerciseInput[]
-    connectOrCreate?: UserSetCreateOrConnectWithoutUserWorkoutExerciseInput | UserSetCreateOrConnectWithoutUserWorkoutExerciseInput[]
-    upsert?: UserSetUpsertWithWhereUniqueWithoutUserWorkoutExerciseInput | UserSetUpsertWithWhereUniqueWithoutUserWorkoutExerciseInput[]
-    createMany?: UserSetCreateManyUserWorkoutExerciseInputEnvelope
-    set?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-    disconnect?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-    delete?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-    connect?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-    update?: UserSetUpdateWithWhereUniqueWithoutUserWorkoutExerciseInput | UserSetUpdateWithWhereUniqueWithoutUserWorkoutExerciseInput[]
-    updateMany?: UserSetUpdateManyWithWhereWithoutUserWorkoutExerciseInput | UserSetUpdateManyWithWhereWithoutUserWorkoutExerciseInput[]
-    deleteMany?: UserSetScalarWhereInput | UserSetScalarWhereInput[]
+  export type UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput = {
+    create?: XOR<UserStrengthSetCreateWithoutUserWorkoutExerciseInput, UserStrengthSetUncheckedCreateWithoutUserWorkoutExerciseInput> | UserStrengthSetCreateWithoutUserWorkoutExerciseInput[] | UserStrengthSetUncheckedCreateWithoutUserWorkoutExerciseInput[]
+    connectOrCreate?: UserStrengthSetCreateOrConnectWithoutUserWorkoutExerciseInput | UserStrengthSetCreateOrConnectWithoutUserWorkoutExerciseInput[]
+    upsert?: UserStrengthSetUpsertWithWhereUniqueWithoutUserWorkoutExerciseInput | UserStrengthSetUpsertWithWhereUniqueWithoutUserWorkoutExerciseInput[]
+    createMany?: UserStrengthSetCreateManyUserWorkoutExerciseInputEnvelope
+    set?: UserStrengthSetWhereUniqueInput | UserStrengthSetWhereUniqueInput[]
+    disconnect?: UserStrengthSetWhereUniqueInput | UserStrengthSetWhereUniqueInput[]
+    delete?: UserStrengthSetWhereUniqueInput | UserStrengthSetWhereUniqueInput[]
+    connect?: UserStrengthSetWhereUniqueInput | UserStrengthSetWhereUniqueInput[]
+    update?: UserStrengthSetUpdateWithWhereUniqueWithoutUserWorkoutExerciseInput | UserStrengthSetUpdateWithWhereUniqueWithoutUserWorkoutExerciseInput[]
+    updateMany?: UserStrengthSetUpdateManyWithWhereWithoutUserWorkoutExerciseInput | UserStrengthSetUpdateManyWithWhereWithoutUserWorkoutExerciseInput[]
+    deleteMany?: UserStrengthSetScalarWhereInput | UserStrengthSetScalarWhereInput[]
   }
 
-  export type UserSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput = {
-    create?: XOR<UserSetCreateWithoutUserWorkoutExerciseInput, UserSetUncheckedCreateWithoutUserWorkoutExerciseInput> | UserSetCreateWithoutUserWorkoutExerciseInput[] | UserSetUncheckedCreateWithoutUserWorkoutExerciseInput[]
-    connectOrCreate?: UserSetCreateOrConnectWithoutUserWorkoutExerciseInput | UserSetCreateOrConnectWithoutUserWorkoutExerciseInput[]
-    upsert?: UserSetUpsertWithWhereUniqueWithoutUserWorkoutExerciseInput | UserSetUpsertWithWhereUniqueWithoutUserWorkoutExerciseInput[]
-    createMany?: UserSetCreateManyUserWorkoutExerciseInputEnvelope
-    set?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-    disconnect?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-    delete?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-    connect?: UserSetWhereUniqueInput | UserSetWhereUniqueInput[]
-    update?: UserSetUpdateWithWhereUniqueWithoutUserWorkoutExerciseInput | UserSetUpdateWithWhereUniqueWithoutUserWorkoutExerciseInput[]
-    updateMany?: UserSetUpdateManyWithWhereWithoutUserWorkoutExerciseInput | UserSetUpdateManyWithWhereWithoutUserWorkoutExerciseInput[]
-    deleteMany?: UserSetScalarWhereInput | UserSetScalarWhereInput[]
+  export type UserCardioSetUpdateManyWithoutUserWorkoutExerciseNestedInput = {
+    create?: XOR<UserCardioSetCreateWithoutUserWorkoutExerciseInput, UserCardioSetUncheckedCreateWithoutUserWorkoutExerciseInput> | UserCardioSetCreateWithoutUserWorkoutExerciseInput[] | UserCardioSetUncheckedCreateWithoutUserWorkoutExerciseInput[]
+    connectOrCreate?: UserCardioSetCreateOrConnectWithoutUserWorkoutExerciseInput | UserCardioSetCreateOrConnectWithoutUserWorkoutExerciseInput[]
+    upsert?: UserCardioSetUpsertWithWhereUniqueWithoutUserWorkoutExerciseInput | UserCardioSetUpsertWithWhereUniqueWithoutUserWorkoutExerciseInput[]
+    createMany?: UserCardioSetCreateManyUserWorkoutExerciseInputEnvelope
+    set?: UserCardioSetWhereUniqueInput | UserCardioSetWhereUniqueInput[]
+    disconnect?: UserCardioSetWhereUniqueInput | UserCardioSetWhereUniqueInput[]
+    delete?: UserCardioSetWhereUniqueInput | UserCardioSetWhereUniqueInput[]
+    connect?: UserCardioSetWhereUniqueInput | UserCardioSetWhereUniqueInput[]
+    update?: UserCardioSetUpdateWithWhereUniqueWithoutUserWorkoutExerciseInput | UserCardioSetUpdateWithWhereUniqueWithoutUserWorkoutExerciseInput[]
+    updateMany?: UserCardioSetUpdateManyWithWhereWithoutUserWorkoutExerciseInput | UserCardioSetUpdateManyWithWhereWithoutUserWorkoutExerciseInput[]
+    deleteMany?: UserCardioSetScalarWhereInput | UserCardioSetScalarWhereInput[]
+  }
+
+  export type UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput = {
+    create?: XOR<UserStrengthSetCreateWithoutUserWorkoutExerciseInput, UserStrengthSetUncheckedCreateWithoutUserWorkoutExerciseInput> | UserStrengthSetCreateWithoutUserWorkoutExerciseInput[] | UserStrengthSetUncheckedCreateWithoutUserWorkoutExerciseInput[]
+    connectOrCreate?: UserStrengthSetCreateOrConnectWithoutUserWorkoutExerciseInput | UserStrengthSetCreateOrConnectWithoutUserWorkoutExerciseInput[]
+    upsert?: UserStrengthSetUpsertWithWhereUniqueWithoutUserWorkoutExerciseInput | UserStrengthSetUpsertWithWhereUniqueWithoutUserWorkoutExerciseInput[]
+    createMany?: UserStrengthSetCreateManyUserWorkoutExerciseInputEnvelope
+    set?: UserStrengthSetWhereUniqueInput | UserStrengthSetWhereUniqueInput[]
+    disconnect?: UserStrengthSetWhereUniqueInput | UserStrengthSetWhereUniqueInput[]
+    delete?: UserStrengthSetWhereUniqueInput | UserStrengthSetWhereUniqueInput[]
+    connect?: UserStrengthSetWhereUniqueInput | UserStrengthSetWhereUniqueInput[]
+    update?: UserStrengthSetUpdateWithWhereUniqueWithoutUserWorkoutExerciseInput | UserStrengthSetUpdateWithWhereUniqueWithoutUserWorkoutExerciseInput[]
+    updateMany?: UserStrengthSetUpdateManyWithWhereWithoutUserWorkoutExerciseInput | UserStrengthSetUpdateManyWithWhereWithoutUserWorkoutExerciseInput[]
+    deleteMany?: UserStrengthSetScalarWhereInput | UserStrengthSetScalarWhereInput[]
+  }
+
+  export type UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput = {
+    create?: XOR<UserCardioSetCreateWithoutUserWorkoutExerciseInput, UserCardioSetUncheckedCreateWithoutUserWorkoutExerciseInput> | UserCardioSetCreateWithoutUserWorkoutExerciseInput[] | UserCardioSetUncheckedCreateWithoutUserWorkoutExerciseInput[]
+    connectOrCreate?: UserCardioSetCreateOrConnectWithoutUserWorkoutExerciseInput | UserCardioSetCreateOrConnectWithoutUserWorkoutExerciseInput[]
+    upsert?: UserCardioSetUpsertWithWhereUniqueWithoutUserWorkoutExerciseInput | UserCardioSetUpsertWithWhereUniqueWithoutUserWorkoutExerciseInput[]
+    createMany?: UserCardioSetCreateManyUserWorkoutExerciseInputEnvelope
+    set?: UserCardioSetWhereUniqueInput | UserCardioSetWhereUniqueInput[]
+    disconnect?: UserCardioSetWhereUniqueInput | UserCardioSetWhereUniqueInput[]
+    delete?: UserCardioSetWhereUniqueInput | UserCardioSetWhereUniqueInput[]
+    connect?: UserCardioSetWhereUniqueInput | UserCardioSetWhereUniqueInput[]
+    update?: UserCardioSetUpdateWithWhereUniqueWithoutUserWorkoutExerciseInput | UserCardioSetUpdateWithWhereUniqueWithoutUserWorkoutExerciseInput[]
+    updateMany?: UserCardioSetUpdateManyWithWhereWithoutUserWorkoutExerciseInput | UserCardioSetUpdateManyWithWhereWithoutUserWorkoutExerciseInput[]
+    deleteMany?: UserCardioSetScalarWhereInput | UserCardioSetScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutUserWorkoutInput = {
@@ -21842,6 +29088,49 @@ export namespace Prisma {
     _max?: NestedEnumExerciseTypeFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -21867,49 +29156,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -21970,48 +29216,6 @@ export namespace Prisma {
 
   export type ProgramCreateManyOwnerInputEnvelope = {
     data: ProgramCreateManyOwnerInput | ProgramCreateManyOwnerInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type UserSetCreateWithoutUserInput = {
-    id?: string
-    reps?: number
-    weight?: number | null
-    isBodyWeight?: boolean
-    restTime?: number
-    order?: number
-    isCompleted?: boolean
-    isWarmup?: boolean
-    isMuscleFailure?: boolean
-    isJointPain?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    userWorkoutExercise: UserWorkoutExerciseCreateNestedOneWithoutUserSetsInput
-  }
-
-  export type UserSetUncheckedCreateWithoutUserInput = {
-    id?: string
-    reps?: number
-    weight?: number | null
-    isBodyWeight?: boolean
-    restTime?: number
-    order?: number
-    isCompleted?: boolean
-    isWarmup?: boolean
-    isMuscleFailure?: boolean
-    isJointPain?: boolean
-    userWorkoutExerciseId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type UserSetCreateOrConnectWithoutUserInput = {
-    where: UserSetWhereUniqueInput
-    create: XOR<UserSetCreateWithoutUserInput, UserSetUncheckedCreateWithoutUserInput>
-  }
-
-  export type UserSetCreateManyUserInputEnvelope = {
-    data: UserSetCreateManyUserInput | UserSetCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -22106,42 +29310,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Program"> | Date | string
   }
 
-  export type UserSetUpsertWithWhereUniqueWithoutUserInput = {
-    where: UserSetWhereUniqueInput
-    update: XOR<UserSetUpdateWithoutUserInput, UserSetUncheckedUpdateWithoutUserInput>
-    create: XOR<UserSetCreateWithoutUserInput, UserSetUncheckedCreateWithoutUserInput>
-  }
-
-  export type UserSetUpdateWithWhereUniqueWithoutUserInput = {
-    where: UserSetWhereUniqueInput
-    data: XOR<UserSetUpdateWithoutUserInput, UserSetUncheckedUpdateWithoutUserInput>
-  }
-
-  export type UserSetUpdateManyWithWhereWithoutUserInput = {
-    where: UserSetScalarWhereInput
-    data: XOR<UserSetUpdateManyMutationInput, UserSetUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type UserSetScalarWhereInput = {
-    AND?: UserSetScalarWhereInput | UserSetScalarWhereInput[]
-    OR?: UserSetScalarWhereInput[]
-    NOT?: UserSetScalarWhereInput | UserSetScalarWhereInput[]
-    id?: StringFilter<"UserSet"> | string
-    reps?: IntFilter<"UserSet"> | number
-    weight?: FloatNullableFilter<"UserSet"> | number | null
-    isBodyWeight?: BoolFilter<"UserSet"> | boolean
-    restTime?: IntFilter<"UserSet"> | number
-    order?: IntFilter<"UserSet"> | number
-    isCompleted?: BoolFilter<"UserSet"> | boolean
-    isWarmup?: BoolFilter<"UserSet"> | boolean
-    isMuscleFailure?: BoolFilter<"UserSet"> | boolean
-    isJointPain?: BoolFilter<"UserSet"> | boolean
-    userId?: StringFilter<"UserSet"> | string
-    userWorkoutExerciseId?: StringFilter<"UserSet"> | string
-    createdAt?: DateTimeFilter<"UserSet"> | Date | string
-    updatedAt?: DateTimeFilter<"UserSet"> | Date | string
-  }
-
   export type WorkoutUpsertWithWhereUniqueWithoutOwnerInput = {
     where: WorkoutWhereUniqueInput
     update: XOR<WorkoutUpdateWithoutOwnerInput, WorkoutUncheckedUpdateWithoutOwnerInput>
@@ -22204,7 +29372,7 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    coreSet?: CoreSetCreateNestedOneWithoutWorkoutExerciseInput
+    coreStrengthSet?: CoreStrengthSetCreateNestedOneWithoutWorkoutExerciseInput
     coreCardioSet?: CoreCardioSetCreateNestedOneWithoutWorkoutExerciseInput
     workout: WorkoutCreateNestedOneWithoutWorkoutExercisesInput
     userWorkoutExercises?: UserWorkoutExerciseCreateNestedManyWithoutWorkoutExerciseInput
@@ -22214,7 +29382,7 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
-    coreSetId?: string | null
+    coreStrengthSetId?: string | null
     coreCardioSetId?: string | null
     workoutId: string
     createdAt?: Date | string
@@ -22255,167 +29423,12 @@ export namespace Prisma {
     id?: StringFilter<"WorkoutExercise"> | string
     order?: IntFilter<"WorkoutExercise"> | number
     notes?: StringNullableFilter<"WorkoutExercise"> | string | null
-    coreSetId?: StringNullableFilter<"WorkoutExercise"> | string | null
+    coreStrengthSetId?: StringNullableFilter<"WorkoutExercise"> | string | null
     coreCardioSetId?: StringNullableFilter<"WorkoutExercise"> | string | null
     exerciseId?: StringFilter<"WorkoutExercise"> | string
     workoutId?: StringFilter<"WorkoutExercise"> | string
     createdAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
     updatedAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
-  }
-
-  export type WorkoutExerciseCreateWithoutCoreSetInput = {
-    id?: string
-    order?: number
-    notes?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    coreCardioSet?: CoreCardioSetCreateNestedOneWithoutWorkoutExerciseInput
-    exercise: ExerciseCreateNestedOneWithoutWorkoutExercisesInput
-    workout: WorkoutCreateNestedOneWithoutWorkoutExercisesInput
-    userWorkoutExercises?: UserWorkoutExerciseCreateNestedManyWithoutWorkoutExerciseInput
-  }
-
-  export type WorkoutExerciseUncheckedCreateWithoutCoreSetInput = {
-    id?: string
-    order?: number
-    notes?: string | null
-    coreCardioSetId?: string | null
-    exerciseId: string
-    workoutId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    userWorkoutExercises?: UserWorkoutExerciseUncheckedCreateNestedManyWithoutWorkoutExerciseInput
-  }
-
-  export type WorkoutExerciseCreateOrConnectWithoutCoreSetInput = {
-    where: WorkoutExerciseWhereUniqueInput
-    create: XOR<WorkoutExerciseCreateWithoutCoreSetInput, WorkoutExerciseUncheckedCreateWithoutCoreSetInput>
-  }
-
-  export type WorkoutExerciseCreateManyCoreSetInputEnvelope = {
-    data: WorkoutExerciseCreateManyCoreSetInput | WorkoutExerciseCreateManyCoreSetInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type CoreSetRepsCreateWithoutCoreSetInput = {
-    id?: string
-    reps?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type CoreSetRepsUncheckedCreateWithoutCoreSetInput = {
-    id?: string
-    reps?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type CoreSetRepsCreateOrConnectWithoutCoreSetInput = {
-    where: CoreSetRepsWhereUniqueInput
-    create: XOR<CoreSetRepsCreateWithoutCoreSetInput, CoreSetRepsUncheckedCreateWithoutCoreSetInput>
-  }
-
-  export type CoreSetRepsCreateManyCoreSetInputEnvelope = {
-    data: CoreSetRepsCreateManyCoreSetInput | CoreSetRepsCreateManyCoreSetInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type CoreSetWeightCreateWithoutCoreSetInput = {
-    id?: string
-    isBodyWeight?: boolean
-    weight?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type CoreSetWeightUncheckedCreateWithoutCoreSetInput = {
-    id?: string
-    isBodyWeight?: boolean
-    weight?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type CoreSetWeightCreateOrConnectWithoutCoreSetInput = {
-    where: CoreSetWeightWhereUniqueInput
-    create: XOR<CoreSetWeightCreateWithoutCoreSetInput, CoreSetWeightUncheckedCreateWithoutCoreSetInput>
-  }
-
-  export type CoreSetWeightCreateManyCoreSetInputEnvelope = {
-    data: CoreSetWeightCreateManyCoreSetInput | CoreSetWeightCreateManyCoreSetInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type WorkoutExerciseUpsertWithWhereUniqueWithoutCoreSetInput = {
-    where: WorkoutExerciseWhereUniqueInput
-    update: XOR<WorkoutExerciseUpdateWithoutCoreSetInput, WorkoutExerciseUncheckedUpdateWithoutCoreSetInput>
-    create: XOR<WorkoutExerciseCreateWithoutCoreSetInput, WorkoutExerciseUncheckedCreateWithoutCoreSetInput>
-  }
-
-  export type WorkoutExerciseUpdateWithWhereUniqueWithoutCoreSetInput = {
-    where: WorkoutExerciseWhereUniqueInput
-    data: XOR<WorkoutExerciseUpdateWithoutCoreSetInput, WorkoutExerciseUncheckedUpdateWithoutCoreSetInput>
-  }
-
-  export type WorkoutExerciseUpdateManyWithWhereWithoutCoreSetInput = {
-    where: WorkoutExerciseScalarWhereInput
-    data: XOR<WorkoutExerciseUpdateManyMutationInput, WorkoutExerciseUncheckedUpdateManyWithoutCoreSetInput>
-  }
-
-  export type CoreSetRepsUpsertWithWhereUniqueWithoutCoreSetInput = {
-    where: CoreSetRepsWhereUniqueInput
-    update: XOR<CoreSetRepsUpdateWithoutCoreSetInput, CoreSetRepsUncheckedUpdateWithoutCoreSetInput>
-    create: XOR<CoreSetRepsCreateWithoutCoreSetInput, CoreSetRepsUncheckedCreateWithoutCoreSetInput>
-  }
-
-  export type CoreSetRepsUpdateWithWhereUniqueWithoutCoreSetInput = {
-    where: CoreSetRepsWhereUniqueInput
-    data: XOR<CoreSetRepsUpdateWithoutCoreSetInput, CoreSetRepsUncheckedUpdateWithoutCoreSetInput>
-  }
-
-  export type CoreSetRepsUpdateManyWithWhereWithoutCoreSetInput = {
-    where: CoreSetRepsScalarWhereInput
-    data: XOR<CoreSetRepsUpdateManyMutationInput, CoreSetRepsUncheckedUpdateManyWithoutCoreSetInput>
-  }
-
-  export type CoreSetRepsScalarWhereInput = {
-    AND?: CoreSetRepsScalarWhereInput | CoreSetRepsScalarWhereInput[]
-    OR?: CoreSetRepsScalarWhereInput[]
-    NOT?: CoreSetRepsScalarWhereInput | CoreSetRepsScalarWhereInput[]
-    id?: StringFilter<"CoreSetReps"> | string
-    coreSetId?: StringFilter<"CoreSetReps"> | string
-    reps?: IntFilter<"CoreSetReps"> | number
-    createdAt?: DateTimeFilter<"CoreSetReps"> | Date | string
-    updatedAt?: DateTimeFilter<"CoreSetReps"> | Date | string
-  }
-
-  export type CoreSetWeightUpsertWithWhereUniqueWithoutCoreSetInput = {
-    where: CoreSetWeightWhereUniqueInput
-    update: XOR<CoreSetWeightUpdateWithoutCoreSetInput, CoreSetWeightUncheckedUpdateWithoutCoreSetInput>
-    create: XOR<CoreSetWeightCreateWithoutCoreSetInput, CoreSetWeightUncheckedCreateWithoutCoreSetInput>
-  }
-
-  export type CoreSetWeightUpdateWithWhereUniqueWithoutCoreSetInput = {
-    where: CoreSetWeightWhereUniqueInput
-    data: XOR<CoreSetWeightUpdateWithoutCoreSetInput, CoreSetWeightUncheckedUpdateWithoutCoreSetInput>
-  }
-
-  export type CoreSetWeightUpdateManyWithWhereWithoutCoreSetInput = {
-    where: CoreSetWeightScalarWhereInput
-    data: XOR<CoreSetWeightUpdateManyMutationInput, CoreSetWeightUncheckedUpdateManyWithoutCoreSetInput>
-  }
-
-  export type CoreSetWeightScalarWhereInput = {
-    AND?: CoreSetWeightScalarWhereInput | CoreSetWeightScalarWhereInput[]
-    OR?: CoreSetWeightScalarWhereInput[]
-    NOT?: CoreSetWeightScalarWhereInput | CoreSetWeightScalarWhereInput[]
-    id?: StringFilter<"CoreSetWeight"> | string
-    coreSetId?: StringFilter<"CoreSetWeight"> | string
-    isBodyWeight?: BoolFilter<"CoreSetWeight"> | boolean
-    weight?: FloatNullableFilter<"CoreSetWeight"> | number | null
-    createdAt?: DateTimeFilter<"CoreSetWeight"> | Date | string
-    updatedAt?: DateTimeFilter<"CoreSetWeight"> | Date | string
   }
 
   export type WorkoutExerciseCreateWithoutCoreCardioSetInput = {
@@ -22424,7 +29437,7 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    coreSet?: CoreSetCreateNestedOneWithoutWorkoutExerciseInput
+    coreStrengthSet?: CoreStrengthSetCreateNestedOneWithoutWorkoutExerciseInput
     exercise: ExerciseCreateNestedOneWithoutWorkoutExercisesInput
     workout: WorkoutCreateNestedOneWithoutWorkoutExercisesInput
     userWorkoutExercises?: UserWorkoutExerciseCreateNestedManyWithoutWorkoutExerciseInput
@@ -22434,7 +29447,7 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
-    coreSetId?: string | null
+    coreStrengthSetId?: string | null
     exerciseId: string
     workoutId: string
     createdAt?: Date | string
@@ -22449,6 +29462,102 @@ export namespace Prisma {
 
   export type WorkoutExerciseCreateManyCoreCardioSetInputEnvelope = {
     data: WorkoutExerciseCreateManyCoreCardioSetInput | WorkoutExerciseCreateManyCoreCardioSetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CoreCardioSetWorkoutTimeCreateWithoutCoreCardioSetInput = {
+    id?: string
+    workTime?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetWorkoutTimeUncheckedCreateWithoutCoreCardioSetInput = {
+    id?: string
+    workTime?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetWorkoutTimeCreateOrConnectWithoutCoreCardioSetInput = {
+    where: CoreCardioSetWorkoutTimeWhereUniqueInput
+    create: XOR<CoreCardioSetWorkoutTimeCreateWithoutCoreCardioSetInput, CoreCardioSetWorkoutTimeUncheckedCreateWithoutCoreCardioSetInput>
+  }
+
+  export type CoreCardioSetWorkoutTimeCreateManyCoreCardioSetInputEnvelope = {
+    data: CoreCardioSetWorkoutTimeCreateManyCoreCardioSetInput | CoreCardioSetWorkoutTimeCreateManyCoreCardioSetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CoreCardioSetAvgSpeedCreateWithoutCoreCardioSetInput = {
+    id?: string
+    avgSpeed?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetAvgSpeedUncheckedCreateWithoutCoreCardioSetInput = {
+    id?: string
+    avgSpeed?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetAvgSpeedCreateOrConnectWithoutCoreCardioSetInput = {
+    where: CoreCardioSetAvgSpeedWhereUniqueInput
+    create: XOR<CoreCardioSetAvgSpeedCreateWithoutCoreCardioSetInput, CoreCardioSetAvgSpeedUncheckedCreateWithoutCoreCardioSetInput>
+  }
+
+  export type CoreCardioSetAvgSpeedCreateManyCoreCardioSetInputEnvelope = {
+    data: CoreCardioSetAvgSpeedCreateManyCoreCardioSetInput | CoreCardioSetAvgSpeedCreateManyCoreCardioSetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CoreCardioSetDistanceCreateWithoutCoreCardioSetInput = {
+    id?: string
+    distance?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetDistanceUncheckedCreateWithoutCoreCardioSetInput = {
+    id?: string
+    distance?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetDistanceCreateOrConnectWithoutCoreCardioSetInput = {
+    where: CoreCardioSetDistanceWhereUniqueInput
+    create: XOR<CoreCardioSetDistanceCreateWithoutCoreCardioSetInput, CoreCardioSetDistanceUncheckedCreateWithoutCoreCardioSetInput>
+  }
+
+  export type CoreCardioSetDistanceCreateManyCoreCardioSetInputEnvelope = {
+    data: CoreCardioSetDistanceCreateManyCoreCardioSetInput | CoreCardioSetDistanceCreateManyCoreCardioSetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CoreCardioSetCalorieTargetCreateWithoutCoreCardioSetInput = {
+    id?: string
+    calorieTarget?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetCalorieTargetUncheckedCreateWithoutCoreCardioSetInput = {
+    id?: string
+    calorieTarget?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetCalorieTargetCreateOrConnectWithoutCoreCardioSetInput = {
+    where: CoreCardioSetCalorieTargetWhereUniqueInput
+    create: XOR<CoreCardioSetCalorieTargetCreateWithoutCoreCardioSetInput, CoreCardioSetCalorieTargetUncheckedCreateWithoutCoreCardioSetInput>
+  }
+
+  export type CoreCardioSetCalorieTargetCreateManyCoreCardioSetInputEnvelope = {
+    data: CoreCardioSetCalorieTargetCreateManyCoreCardioSetInput | CoreCardioSetCalorieTargetCreateManyCoreCardioSetInput[]
     skipDuplicates?: boolean
   }
 
@@ -22468,244 +29577,731 @@ export namespace Prisma {
     data: XOR<WorkoutExerciseUpdateManyMutationInput, WorkoutExerciseUncheckedUpdateManyWithoutCoreCardioSetInput>
   }
 
-  export type CoreSetCreateWithoutRepsInput = {
+  export type CoreCardioSetWorkoutTimeUpsertWithWhereUniqueWithoutCoreCardioSetInput = {
+    where: CoreCardioSetWorkoutTimeWhereUniqueInput
+    update: XOR<CoreCardioSetWorkoutTimeUpdateWithoutCoreCardioSetInput, CoreCardioSetWorkoutTimeUncheckedUpdateWithoutCoreCardioSetInput>
+    create: XOR<CoreCardioSetWorkoutTimeCreateWithoutCoreCardioSetInput, CoreCardioSetWorkoutTimeUncheckedCreateWithoutCoreCardioSetInput>
+  }
+
+  export type CoreCardioSetWorkoutTimeUpdateWithWhereUniqueWithoutCoreCardioSetInput = {
+    where: CoreCardioSetWorkoutTimeWhereUniqueInput
+    data: XOR<CoreCardioSetWorkoutTimeUpdateWithoutCoreCardioSetInput, CoreCardioSetWorkoutTimeUncheckedUpdateWithoutCoreCardioSetInput>
+  }
+
+  export type CoreCardioSetWorkoutTimeUpdateManyWithWhereWithoutCoreCardioSetInput = {
+    where: CoreCardioSetWorkoutTimeScalarWhereInput
+    data: XOR<CoreCardioSetWorkoutTimeUpdateManyMutationInput, CoreCardioSetWorkoutTimeUncheckedUpdateManyWithoutCoreCardioSetInput>
+  }
+
+  export type CoreCardioSetWorkoutTimeScalarWhereInput = {
+    AND?: CoreCardioSetWorkoutTimeScalarWhereInput | CoreCardioSetWorkoutTimeScalarWhereInput[]
+    OR?: CoreCardioSetWorkoutTimeScalarWhereInput[]
+    NOT?: CoreCardioSetWorkoutTimeScalarWhereInput | CoreCardioSetWorkoutTimeScalarWhereInput[]
+    id?: StringFilter<"CoreCardioSetWorkoutTime"> | string
+    coreCardioSetId?: StringFilter<"CoreCardioSetWorkoutTime"> | string
+    workTime?: IntNullableFilter<"CoreCardioSetWorkoutTime"> | number | null
+    createdAt?: DateTimeFilter<"CoreCardioSetWorkoutTime"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreCardioSetWorkoutTime"> | Date | string
+  }
+
+  export type CoreCardioSetAvgSpeedUpsertWithWhereUniqueWithoutCoreCardioSetInput = {
+    where: CoreCardioSetAvgSpeedWhereUniqueInput
+    update: XOR<CoreCardioSetAvgSpeedUpdateWithoutCoreCardioSetInput, CoreCardioSetAvgSpeedUncheckedUpdateWithoutCoreCardioSetInput>
+    create: XOR<CoreCardioSetAvgSpeedCreateWithoutCoreCardioSetInput, CoreCardioSetAvgSpeedUncheckedCreateWithoutCoreCardioSetInput>
+  }
+
+  export type CoreCardioSetAvgSpeedUpdateWithWhereUniqueWithoutCoreCardioSetInput = {
+    where: CoreCardioSetAvgSpeedWhereUniqueInput
+    data: XOR<CoreCardioSetAvgSpeedUpdateWithoutCoreCardioSetInput, CoreCardioSetAvgSpeedUncheckedUpdateWithoutCoreCardioSetInput>
+  }
+
+  export type CoreCardioSetAvgSpeedUpdateManyWithWhereWithoutCoreCardioSetInput = {
+    where: CoreCardioSetAvgSpeedScalarWhereInput
+    data: XOR<CoreCardioSetAvgSpeedUpdateManyMutationInput, CoreCardioSetAvgSpeedUncheckedUpdateManyWithoutCoreCardioSetInput>
+  }
+
+  export type CoreCardioSetAvgSpeedScalarWhereInput = {
+    AND?: CoreCardioSetAvgSpeedScalarWhereInput | CoreCardioSetAvgSpeedScalarWhereInput[]
+    OR?: CoreCardioSetAvgSpeedScalarWhereInput[]
+    NOT?: CoreCardioSetAvgSpeedScalarWhereInput | CoreCardioSetAvgSpeedScalarWhereInput[]
+    id?: StringFilter<"CoreCardioSetAvgSpeed"> | string
+    coreCardioSetId?: StringFilter<"CoreCardioSetAvgSpeed"> | string
+    avgSpeed?: FloatNullableFilter<"CoreCardioSetAvgSpeed"> | number | null
+    createdAt?: DateTimeFilter<"CoreCardioSetAvgSpeed"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreCardioSetAvgSpeed"> | Date | string
+  }
+
+  export type CoreCardioSetDistanceUpsertWithWhereUniqueWithoutCoreCardioSetInput = {
+    where: CoreCardioSetDistanceWhereUniqueInput
+    update: XOR<CoreCardioSetDistanceUpdateWithoutCoreCardioSetInput, CoreCardioSetDistanceUncheckedUpdateWithoutCoreCardioSetInput>
+    create: XOR<CoreCardioSetDistanceCreateWithoutCoreCardioSetInput, CoreCardioSetDistanceUncheckedCreateWithoutCoreCardioSetInput>
+  }
+
+  export type CoreCardioSetDistanceUpdateWithWhereUniqueWithoutCoreCardioSetInput = {
+    where: CoreCardioSetDistanceWhereUniqueInput
+    data: XOR<CoreCardioSetDistanceUpdateWithoutCoreCardioSetInput, CoreCardioSetDistanceUncheckedUpdateWithoutCoreCardioSetInput>
+  }
+
+  export type CoreCardioSetDistanceUpdateManyWithWhereWithoutCoreCardioSetInput = {
+    where: CoreCardioSetDistanceScalarWhereInput
+    data: XOR<CoreCardioSetDistanceUpdateManyMutationInput, CoreCardioSetDistanceUncheckedUpdateManyWithoutCoreCardioSetInput>
+  }
+
+  export type CoreCardioSetDistanceScalarWhereInput = {
+    AND?: CoreCardioSetDistanceScalarWhereInput | CoreCardioSetDistanceScalarWhereInput[]
+    OR?: CoreCardioSetDistanceScalarWhereInput[]
+    NOT?: CoreCardioSetDistanceScalarWhereInput | CoreCardioSetDistanceScalarWhereInput[]
+    id?: StringFilter<"CoreCardioSetDistance"> | string
+    coreCardioSetId?: StringFilter<"CoreCardioSetDistance"> | string
+    distance?: FloatNullableFilter<"CoreCardioSetDistance"> | number | null
+    createdAt?: DateTimeFilter<"CoreCardioSetDistance"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreCardioSetDistance"> | Date | string
+  }
+
+  export type CoreCardioSetCalorieTargetUpsertWithWhereUniqueWithoutCoreCardioSetInput = {
+    where: CoreCardioSetCalorieTargetWhereUniqueInput
+    update: XOR<CoreCardioSetCalorieTargetUpdateWithoutCoreCardioSetInput, CoreCardioSetCalorieTargetUncheckedUpdateWithoutCoreCardioSetInput>
+    create: XOR<CoreCardioSetCalorieTargetCreateWithoutCoreCardioSetInput, CoreCardioSetCalorieTargetUncheckedCreateWithoutCoreCardioSetInput>
+  }
+
+  export type CoreCardioSetCalorieTargetUpdateWithWhereUniqueWithoutCoreCardioSetInput = {
+    where: CoreCardioSetCalorieTargetWhereUniqueInput
+    data: XOR<CoreCardioSetCalorieTargetUpdateWithoutCoreCardioSetInput, CoreCardioSetCalorieTargetUncheckedUpdateWithoutCoreCardioSetInput>
+  }
+
+  export type CoreCardioSetCalorieTargetUpdateManyWithWhereWithoutCoreCardioSetInput = {
+    where: CoreCardioSetCalorieTargetScalarWhereInput
+    data: XOR<CoreCardioSetCalorieTargetUpdateManyMutationInput, CoreCardioSetCalorieTargetUncheckedUpdateManyWithoutCoreCardioSetInput>
+  }
+
+  export type CoreCardioSetCalorieTargetScalarWhereInput = {
+    AND?: CoreCardioSetCalorieTargetScalarWhereInput | CoreCardioSetCalorieTargetScalarWhereInput[]
+    OR?: CoreCardioSetCalorieTargetScalarWhereInput[]
+    NOT?: CoreCardioSetCalorieTargetScalarWhereInput | CoreCardioSetCalorieTargetScalarWhereInput[]
+    id?: StringFilter<"CoreCardioSetCalorieTarget"> | string
+    coreCardioSetId?: StringFilter<"CoreCardioSetCalorieTarget"> | string
+    calorieTarget?: IntNullableFilter<"CoreCardioSetCalorieTarget"> | number | null
+    createdAt?: DateTimeFilter<"CoreCardioSetCalorieTarget"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreCardioSetCalorieTarget"> | Date | string
+  }
+
+  export type CoreCardioSetCreateWithoutCalorieTargetInput = {
     id?: string
-    restTime?: number
-    numberOfSets?: number
-    hasWarmup?: boolean
+    warmupTime?: number | null
+    avgHeartRate?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    workoutExercise?: WorkoutExerciseCreateNestedManyWithoutCoreSetInput
-    weight?: CoreSetWeightCreateNestedManyWithoutCoreSetInput
+    workoutExercise?: WorkoutExerciseCreateNestedManyWithoutCoreCardioSetInput
+    workTime?: CoreCardioSetWorkoutTimeCreateNestedManyWithoutCoreCardioSetInput
+    avgSpeed?: CoreCardioSetAvgSpeedCreateNestedManyWithoutCoreCardioSetInput
+    distance?: CoreCardioSetDistanceCreateNestedManyWithoutCoreCardioSetInput
   }
 
-  export type CoreSetUncheckedCreateWithoutRepsInput = {
+  export type CoreCardioSetUncheckedCreateWithoutCalorieTargetInput = {
     id?: string
-    restTime?: number
-    numberOfSets?: number
-    hasWarmup?: boolean
+    warmupTime?: number | null
+    avgHeartRate?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    workoutExercise?: WorkoutExerciseUncheckedCreateNestedManyWithoutCoreSetInput
-    weight?: CoreSetWeightUncheckedCreateNestedManyWithoutCoreSetInput
+    workoutExercise?: WorkoutExerciseUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    workTime?: CoreCardioSetWorkoutTimeUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    avgSpeed?: CoreCardioSetAvgSpeedUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    distance?: CoreCardioSetDistanceUncheckedCreateNestedManyWithoutCoreCardioSetInput
   }
 
-  export type CoreSetCreateOrConnectWithoutRepsInput = {
-    where: CoreSetWhereUniqueInput
-    create: XOR<CoreSetCreateWithoutRepsInput, CoreSetUncheckedCreateWithoutRepsInput>
+  export type CoreCardioSetCreateOrConnectWithoutCalorieTargetInput = {
+    where: CoreCardioSetWhereUniqueInput
+    create: XOR<CoreCardioSetCreateWithoutCalorieTargetInput, CoreCardioSetUncheckedCreateWithoutCalorieTargetInput>
   }
 
-  export type CoreSetUpsertWithoutRepsInput = {
-    update: XOR<CoreSetUpdateWithoutRepsInput, CoreSetUncheckedUpdateWithoutRepsInput>
-    create: XOR<CoreSetCreateWithoutRepsInput, CoreSetUncheckedCreateWithoutRepsInput>
-    where?: CoreSetWhereInput
+  export type CoreCardioSetUpsertWithoutCalorieTargetInput = {
+    update: XOR<CoreCardioSetUpdateWithoutCalorieTargetInput, CoreCardioSetUncheckedUpdateWithoutCalorieTargetInput>
+    create: XOR<CoreCardioSetCreateWithoutCalorieTargetInput, CoreCardioSetUncheckedCreateWithoutCalorieTargetInput>
+    where?: CoreCardioSetWhereInput
   }
 
-  export type CoreSetUpdateToOneWithWhereWithoutRepsInput = {
-    where?: CoreSetWhereInput
-    data: XOR<CoreSetUpdateWithoutRepsInput, CoreSetUncheckedUpdateWithoutRepsInput>
+  export type CoreCardioSetUpdateToOneWithWhereWithoutCalorieTargetInput = {
+    where?: CoreCardioSetWhereInput
+    data: XOR<CoreCardioSetUpdateWithoutCalorieTargetInput, CoreCardioSetUncheckedUpdateWithoutCalorieTargetInput>
   }
 
-  export type CoreSetUpdateWithoutRepsInput = {
+  export type CoreCardioSetUpdateWithoutCalorieTargetInput = {
     id?: StringFieldUpdateOperationsInput | string
-    restTime?: IntFieldUpdateOperationsInput | number
-    numberOfSets?: IntFieldUpdateOperationsInput | number
-    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
+    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workoutExercise?: WorkoutExerciseUpdateManyWithoutCoreSetNestedInput
-    weight?: CoreSetWeightUpdateManyWithoutCoreSetNestedInput
+    workoutExercise?: WorkoutExerciseUpdateManyWithoutCoreCardioSetNestedInput
+    workTime?: CoreCardioSetWorkoutTimeUpdateManyWithoutCoreCardioSetNestedInput
+    avgSpeed?: CoreCardioSetAvgSpeedUpdateManyWithoutCoreCardioSetNestedInput
+    distance?: CoreCardioSetDistanceUpdateManyWithoutCoreCardioSetNestedInput
   }
 
-  export type CoreSetUncheckedUpdateWithoutRepsInput = {
+  export type CoreCardioSetUncheckedUpdateWithoutCalorieTargetInput = {
     id?: StringFieldUpdateOperationsInput | string
-    restTime?: IntFieldUpdateOperationsInput | number
-    numberOfSets?: IntFieldUpdateOperationsInput | number
-    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
+    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workoutExercise?: WorkoutExerciseUncheckedUpdateManyWithoutCoreSetNestedInput
-    weight?: CoreSetWeightUncheckedUpdateManyWithoutCoreSetNestedInput
+    workoutExercise?: WorkoutExerciseUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    workTime?: CoreCardioSetWorkoutTimeUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    avgSpeed?: CoreCardioSetAvgSpeedUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    distance?: CoreCardioSetDistanceUncheckedUpdateManyWithoutCoreCardioSetNestedInput
   }
 
-  export type CoreSetCreateWithoutWeightInput = {
+  export type CoreCardioSetCreateWithoutDistanceInput = {
     id?: string
-    restTime?: number
-    numberOfSets?: number
-    hasWarmup?: boolean
+    warmupTime?: number | null
+    avgHeartRate?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    workoutExercise?: WorkoutExerciseCreateNestedManyWithoutCoreSetInput
-    reps?: CoreSetRepsCreateNestedManyWithoutCoreSetInput
+    workoutExercise?: WorkoutExerciseCreateNestedManyWithoutCoreCardioSetInput
+    workTime?: CoreCardioSetWorkoutTimeCreateNestedManyWithoutCoreCardioSetInput
+    avgSpeed?: CoreCardioSetAvgSpeedCreateNestedManyWithoutCoreCardioSetInput
+    calorieTarget?: CoreCardioSetCalorieTargetCreateNestedManyWithoutCoreCardioSetInput
   }
 
-  export type CoreSetUncheckedCreateWithoutWeightInput = {
+  export type CoreCardioSetUncheckedCreateWithoutDistanceInput = {
     id?: string
-    restTime?: number
-    numberOfSets?: number
-    hasWarmup?: boolean
+    warmupTime?: number | null
+    avgHeartRate?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    workoutExercise?: WorkoutExerciseUncheckedCreateNestedManyWithoutCoreSetInput
-    reps?: CoreSetRepsUncheckedCreateNestedManyWithoutCoreSetInput
+    workoutExercise?: WorkoutExerciseUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    workTime?: CoreCardioSetWorkoutTimeUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    avgSpeed?: CoreCardioSetAvgSpeedUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    calorieTarget?: CoreCardioSetCalorieTargetUncheckedCreateNestedManyWithoutCoreCardioSetInput
   }
 
-  export type CoreSetCreateOrConnectWithoutWeightInput = {
-    where: CoreSetWhereUniqueInput
-    create: XOR<CoreSetCreateWithoutWeightInput, CoreSetUncheckedCreateWithoutWeightInput>
+  export type CoreCardioSetCreateOrConnectWithoutDistanceInput = {
+    where: CoreCardioSetWhereUniqueInput
+    create: XOR<CoreCardioSetCreateWithoutDistanceInput, CoreCardioSetUncheckedCreateWithoutDistanceInput>
   }
 
-  export type CoreSetUpsertWithoutWeightInput = {
-    update: XOR<CoreSetUpdateWithoutWeightInput, CoreSetUncheckedUpdateWithoutWeightInput>
-    create: XOR<CoreSetCreateWithoutWeightInput, CoreSetUncheckedCreateWithoutWeightInput>
-    where?: CoreSetWhereInput
+  export type CoreCardioSetUpsertWithoutDistanceInput = {
+    update: XOR<CoreCardioSetUpdateWithoutDistanceInput, CoreCardioSetUncheckedUpdateWithoutDistanceInput>
+    create: XOR<CoreCardioSetCreateWithoutDistanceInput, CoreCardioSetUncheckedCreateWithoutDistanceInput>
+    where?: CoreCardioSetWhereInput
   }
 
-  export type CoreSetUpdateToOneWithWhereWithoutWeightInput = {
-    where?: CoreSetWhereInput
-    data: XOR<CoreSetUpdateWithoutWeightInput, CoreSetUncheckedUpdateWithoutWeightInput>
+  export type CoreCardioSetUpdateToOneWithWhereWithoutDistanceInput = {
+    where?: CoreCardioSetWhereInput
+    data: XOR<CoreCardioSetUpdateWithoutDistanceInput, CoreCardioSetUncheckedUpdateWithoutDistanceInput>
   }
 
-  export type CoreSetUpdateWithoutWeightInput = {
+  export type CoreCardioSetUpdateWithoutDistanceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    restTime?: IntFieldUpdateOperationsInput | number
-    numberOfSets?: IntFieldUpdateOperationsInput | number
-    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
+    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workoutExercise?: WorkoutExerciseUpdateManyWithoutCoreSetNestedInput
-    reps?: CoreSetRepsUpdateManyWithoutCoreSetNestedInput
+    workoutExercise?: WorkoutExerciseUpdateManyWithoutCoreCardioSetNestedInput
+    workTime?: CoreCardioSetWorkoutTimeUpdateManyWithoutCoreCardioSetNestedInput
+    avgSpeed?: CoreCardioSetAvgSpeedUpdateManyWithoutCoreCardioSetNestedInput
+    calorieTarget?: CoreCardioSetCalorieTargetUpdateManyWithoutCoreCardioSetNestedInput
   }
 
-  export type CoreSetUncheckedUpdateWithoutWeightInput = {
+  export type CoreCardioSetUncheckedUpdateWithoutDistanceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    restTime?: IntFieldUpdateOperationsInput | number
-    numberOfSets?: IntFieldUpdateOperationsInput | number
-    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
+    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workoutExercise?: WorkoutExerciseUncheckedUpdateManyWithoutCoreSetNestedInput
-    reps?: CoreSetRepsUncheckedUpdateManyWithoutCoreSetNestedInput
+    workoutExercise?: WorkoutExerciseUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    workTime?: CoreCardioSetWorkoutTimeUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    avgSpeed?: CoreCardioSetAvgSpeedUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    calorieTarget?: CoreCardioSetCalorieTargetUncheckedUpdateManyWithoutCoreCardioSetNestedInput
   }
 
-  export type UserCreateWithoutUserSetsInput = {
+  export type CoreCardioSetCreateWithoutAvgSpeedInput = {
     id?: string
-    email: string
-    passwordHash?: string | null
-    googleId?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    imgUrl?: string | null
-    isAdmin?: boolean
+    warmupTime?: number | null
+    avgHeartRate?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    programs?: ProgramCreateNestedManyWithoutOwnerInput
-    workouts?: WorkoutCreateNestedManyWithoutOwnerInput
-    userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
+    workoutExercise?: WorkoutExerciseCreateNestedManyWithoutCoreCardioSetInput
+    workTime?: CoreCardioSetWorkoutTimeCreateNestedManyWithoutCoreCardioSetInput
+    distance?: CoreCardioSetDistanceCreateNestedManyWithoutCoreCardioSetInput
+    calorieTarget?: CoreCardioSetCalorieTargetCreateNestedManyWithoutCoreCardioSetInput
   }
 
-  export type UserUncheckedCreateWithoutUserSetsInput = {
+  export type CoreCardioSetUncheckedCreateWithoutAvgSpeedInput = {
     id?: string
-    email: string
-    passwordHash?: string | null
-    googleId?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    imgUrl?: string | null
-    isAdmin?: boolean
+    warmupTime?: number | null
+    avgHeartRate?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    programs?: ProgramUncheckedCreateNestedManyWithoutOwnerInput
-    workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
-    userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
+    workoutExercise?: WorkoutExerciseUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    workTime?: CoreCardioSetWorkoutTimeUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    distance?: CoreCardioSetDistanceUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    calorieTarget?: CoreCardioSetCalorieTargetUncheckedCreateNestedManyWithoutCoreCardioSetInput
   }
 
-  export type UserCreateOrConnectWithoutUserSetsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutUserSetsInput, UserUncheckedCreateWithoutUserSetsInput>
+  export type CoreCardioSetCreateOrConnectWithoutAvgSpeedInput = {
+    where: CoreCardioSetWhereUniqueInput
+    create: XOR<CoreCardioSetCreateWithoutAvgSpeedInput, CoreCardioSetUncheckedCreateWithoutAvgSpeedInput>
   }
 
-  export type UserWorkoutExerciseCreateWithoutUserSetsInput = {
+  export type CoreCardioSetUpsertWithoutAvgSpeedInput = {
+    update: XOR<CoreCardioSetUpdateWithoutAvgSpeedInput, CoreCardioSetUncheckedUpdateWithoutAvgSpeedInput>
+    create: XOR<CoreCardioSetCreateWithoutAvgSpeedInput, CoreCardioSetUncheckedCreateWithoutAvgSpeedInput>
+    where?: CoreCardioSetWhereInput
+  }
+
+  export type CoreCardioSetUpdateToOneWithWhereWithoutAvgSpeedInput = {
+    where?: CoreCardioSetWhereInput
+    data: XOR<CoreCardioSetUpdateWithoutAvgSpeedInput, CoreCardioSetUncheckedUpdateWithoutAvgSpeedInput>
+  }
+
+  export type CoreCardioSetUpdateWithoutAvgSpeedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
+    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workoutExercise?: WorkoutExerciseUpdateManyWithoutCoreCardioSetNestedInput
+    workTime?: CoreCardioSetWorkoutTimeUpdateManyWithoutCoreCardioSetNestedInput
+    distance?: CoreCardioSetDistanceUpdateManyWithoutCoreCardioSetNestedInput
+    calorieTarget?: CoreCardioSetCalorieTargetUpdateManyWithoutCoreCardioSetNestedInput
+  }
+
+  export type CoreCardioSetUncheckedUpdateWithoutAvgSpeedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
+    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workoutExercise?: WorkoutExerciseUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    workTime?: CoreCardioSetWorkoutTimeUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    distance?: CoreCardioSetDistanceUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    calorieTarget?: CoreCardioSetCalorieTargetUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+  }
+
+  export type CoreCardioSetCreateWithoutWorkTimeInput = {
+    id?: string
+    warmupTime?: number | null
+    avgHeartRate?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workoutExercise?: WorkoutExerciseCreateNestedManyWithoutCoreCardioSetInput
+    avgSpeed?: CoreCardioSetAvgSpeedCreateNestedManyWithoutCoreCardioSetInput
+    distance?: CoreCardioSetDistanceCreateNestedManyWithoutCoreCardioSetInput
+    calorieTarget?: CoreCardioSetCalorieTargetCreateNestedManyWithoutCoreCardioSetInput
+  }
+
+  export type CoreCardioSetUncheckedCreateWithoutWorkTimeInput = {
+    id?: string
+    warmupTime?: number | null
+    avgHeartRate?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workoutExercise?: WorkoutExerciseUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    avgSpeed?: CoreCardioSetAvgSpeedUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    distance?: CoreCardioSetDistanceUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    calorieTarget?: CoreCardioSetCalorieTargetUncheckedCreateNestedManyWithoutCoreCardioSetInput
+  }
+
+  export type CoreCardioSetCreateOrConnectWithoutWorkTimeInput = {
+    where: CoreCardioSetWhereUniqueInput
+    create: XOR<CoreCardioSetCreateWithoutWorkTimeInput, CoreCardioSetUncheckedCreateWithoutWorkTimeInput>
+  }
+
+  export type CoreCardioSetUpsertWithoutWorkTimeInput = {
+    update: XOR<CoreCardioSetUpdateWithoutWorkTimeInput, CoreCardioSetUncheckedUpdateWithoutWorkTimeInput>
+    create: XOR<CoreCardioSetCreateWithoutWorkTimeInput, CoreCardioSetUncheckedCreateWithoutWorkTimeInput>
+    where?: CoreCardioSetWhereInput
+  }
+
+  export type CoreCardioSetUpdateToOneWithWhereWithoutWorkTimeInput = {
+    where?: CoreCardioSetWhereInput
+    data: XOR<CoreCardioSetUpdateWithoutWorkTimeInput, CoreCardioSetUncheckedUpdateWithoutWorkTimeInput>
+  }
+
+  export type CoreCardioSetUpdateWithoutWorkTimeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
+    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workoutExercise?: WorkoutExerciseUpdateManyWithoutCoreCardioSetNestedInput
+    avgSpeed?: CoreCardioSetAvgSpeedUpdateManyWithoutCoreCardioSetNestedInput
+    distance?: CoreCardioSetDistanceUpdateManyWithoutCoreCardioSetNestedInput
+    calorieTarget?: CoreCardioSetCalorieTargetUpdateManyWithoutCoreCardioSetNestedInput
+  }
+
+  export type CoreCardioSetUncheckedUpdateWithoutWorkTimeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
+    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workoutExercise?: WorkoutExerciseUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    avgSpeed?: CoreCardioSetAvgSpeedUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    distance?: CoreCardioSetDistanceUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    calorieTarget?: CoreCardioSetCalorieTargetUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+  }
+
+  export type UserWorkoutExerciseCreateWithoutUserCardioSetInput = {
     id?: string
     workoutExercise: WorkoutExerciseCreateNestedOneWithoutUserWorkoutExercisesInput
     userWorkout: UserWorkoutCreateNestedOneWithoutUserWorkoutExercisesInput
+    userStrengthSet?: UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
-  export type UserWorkoutExerciseUncheckedCreateWithoutUserSetsInput = {
+  export type UserWorkoutExerciseUncheckedCreateWithoutUserCardioSetInput = {
     id?: string
     workoutExerciseId: string
     userWorkoutId: string
+    userStrengthSet?: UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
-  export type UserWorkoutExerciseCreateOrConnectWithoutUserSetsInput = {
+  export type UserWorkoutExerciseCreateOrConnectWithoutUserCardioSetInput = {
     where: UserWorkoutExerciseWhereUniqueInput
-    create: XOR<UserWorkoutExerciseCreateWithoutUserSetsInput, UserWorkoutExerciseUncheckedCreateWithoutUserSetsInput>
+    create: XOR<UserWorkoutExerciseCreateWithoutUserCardioSetInput, UserWorkoutExerciseUncheckedCreateWithoutUserCardioSetInput>
   }
 
-  export type UserUpsertWithoutUserSetsInput = {
-    update: XOR<UserUpdateWithoutUserSetsInput, UserUncheckedUpdateWithoutUserSetsInput>
-    create: XOR<UserCreateWithoutUserSetsInput, UserUncheckedCreateWithoutUserSetsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutUserSetsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutUserSetsInput, UserUncheckedUpdateWithoutUserSetsInput>
-  }
-
-  export type UserUpdateWithoutUserSetsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
-    googleId?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    isAdmin?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    programs?: ProgramUpdateManyWithoutOwnerNestedInput
-    workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
-    userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutUserSetsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
-    googleId?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    isAdmin?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    programs?: ProgramUncheckedUpdateManyWithoutOwnerNestedInput
-    workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
-    userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
-  }
-
-  export type UserWorkoutExerciseUpsertWithoutUserSetsInput = {
-    update: XOR<UserWorkoutExerciseUpdateWithoutUserSetsInput, UserWorkoutExerciseUncheckedUpdateWithoutUserSetsInput>
-    create: XOR<UserWorkoutExerciseCreateWithoutUserSetsInput, UserWorkoutExerciseUncheckedCreateWithoutUserSetsInput>
+  export type UserWorkoutExerciseUpsertWithoutUserCardioSetInput = {
+    update: XOR<UserWorkoutExerciseUpdateWithoutUserCardioSetInput, UserWorkoutExerciseUncheckedUpdateWithoutUserCardioSetInput>
+    create: XOR<UserWorkoutExerciseCreateWithoutUserCardioSetInput, UserWorkoutExerciseUncheckedCreateWithoutUserCardioSetInput>
     where?: UserWorkoutExerciseWhereInput
   }
 
-  export type UserWorkoutExerciseUpdateToOneWithWhereWithoutUserSetsInput = {
+  export type UserWorkoutExerciseUpdateToOneWithWhereWithoutUserCardioSetInput = {
     where?: UserWorkoutExerciseWhereInput
-    data: XOR<UserWorkoutExerciseUpdateWithoutUserSetsInput, UserWorkoutExerciseUncheckedUpdateWithoutUserSetsInput>
+    data: XOR<UserWorkoutExerciseUpdateWithoutUserCardioSetInput, UserWorkoutExerciseUncheckedUpdateWithoutUserCardioSetInput>
   }
 
-  export type UserWorkoutExerciseUpdateWithoutUserSetsInput = {
+  export type UserWorkoutExerciseUpdateWithoutUserCardioSetInput = {
     id?: StringFieldUpdateOperationsInput | string
     workoutExercise?: WorkoutExerciseUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
     userWorkout?: UserWorkoutUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
+    userStrengthSet?: UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
-  export type UserWorkoutExerciseUncheckedUpdateWithoutUserSetsInput = {
+  export type UserWorkoutExerciseUncheckedUpdateWithoutUserCardioSetInput = {
     id?: StringFieldUpdateOperationsInput | string
     workoutExerciseId?: StringFieldUpdateOperationsInput | string
     userWorkoutId?: StringFieldUpdateOperationsInput | string
+    userStrengthSet?: UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
+  }
+
+  export type WorkoutExerciseCreateWithoutCoreStrengthSetInput = {
+    id?: string
+    order?: number
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    coreCardioSet?: CoreCardioSetCreateNestedOneWithoutWorkoutExerciseInput
+    exercise: ExerciseCreateNestedOneWithoutWorkoutExercisesInput
+    workout: WorkoutCreateNestedOneWithoutWorkoutExercisesInput
+    userWorkoutExercises?: UserWorkoutExerciseCreateNestedManyWithoutWorkoutExerciseInput
+  }
+
+  export type WorkoutExerciseUncheckedCreateWithoutCoreStrengthSetInput = {
+    id?: string
+    order?: number
+    notes?: string | null
+    coreCardioSetId?: string | null
+    exerciseId: string
+    workoutId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userWorkoutExercises?: UserWorkoutExerciseUncheckedCreateNestedManyWithoutWorkoutExerciseInput
+  }
+
+  export type WorkoutExerciseCreateOrConnectWithoutCoreStrengthSetInput = {
+    where: WorkoutExerciseWhereUniqueInput
+    create: XOR<WorkoutExerciseCreateWithoutCoreStrengthSetInput, WorkoutExerciseUncheckedCreateWithoutCoreStrengthSetInput>
+  }
+
+  export type WorkoutExerciseCreateManyCoreStrengthSetInputEnvelope = {
+    data: WorkoutExerciseCreateManyCoreStrengthSetInput | WorkoutExerciseCreateManyCoreStrengthSetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CoreStrengthSetRepsCreateWithoutCoreStrengthSetInput = {
+    id?: string
+    reps?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreStrengthSetRepsUncheckedCreateWithoutCoreStrengthSetInput = {
+    id?: string
+    reps?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreStrengthSetRepsCreateOrConnectWithoutCoreStrengthSetInput = {
+    where: CoreStrengthSetRepsWhereUniqueInput
+    create: XOR<CoreStrengthSetRepsCreateWithoutCoreStrengthSetInput, CoreStrengthSetRepsUncheckedCreateWithoutCoreStrengthSetInput>
+  }
+
+  export type CoreStrengthSetRepsCreateManyCoreStrengthSetInputEnvelope = {
+    data: CoreStrengthSetRepsCreateManyCoreStrengthSetInput | CoreStrengthSetRepsCreateManyCoreStrengthSetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CoreStrengthSetWeightCreateWithoutCoreStrengthSetInput = {
+    id?: string
+    isBodyWeight?: boolean
+    weight?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreStrengthSetWeightUncheckedCreateWithoutCoreStrengthSetInput = {
+    id?: string
+    isBodyWeight?: boolean
+    weight?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreStrengthSetWeightCreateOrConnectWithoutCoreStrengthSetInput = {
+    where: CoreStrengthSetWeightWhereUniqueInput
+    create: XOR<CoreStrengthSetWeightCreateWithoutCoreStrengthSetInput, CoreStrengthSetWeightUncheckedCreateWithoutCoreStrengthSetInput>
+  }
+
+  export type CoreStrengthSetWeightCreateManyCoreStrengthSetInputEnvelope = {
+    data: CoreStrengthSetWeightCreateManyCoreStrengthSetInput | CoreStrengthSetWeightCreateManyCoreStrengthSetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type WorkoutExerciseUpsertWithWhereUniqueWithoutCoreStrengthSetInput = {
+    where: WorkoutExerciseWhereUniqueInput
+    update: XOR<WorkoutExerciseUpdateWithoutCoreStrengthSetInput, WorkoutExerciseUncheckedUpdateWithoutCoreStrengthSetInput>
+    create: XOR<WorkoutExerciseCreateWithoutCoreStrengthSetInput, WorkoutExerciseUncheckedCreateWithoutCoreStrengthSetInput>
+  }
+
+  export type WorkoutExerciseUpdateWithWhereUniqueWithoutCoreStrengthSetInput = {
+    where: WorkoutExerciseWhereUniqueInput
+    data: XOR<WorkoutExerciseUpdateWithoutCoreStrengthSetInput, WorkoutExerciseUncheckedUpdateWithoutCoreStrengthSetInput>
+  }
+
+  export type WorkoutExerciseUpdateManyWithWhereWithoutCoreStrengthSetInput = {
+    where: WorkoutExerciseScalarWhereInput
+    data: XOR<WorkoutExerciseUpdateManyMutationInput, WorkoutExerciseUncheckedUpdateManyWithoutCoreStrengthSetInput>
+  }
+
+  export type CoreStrengthSetRepsUpsertWithWhereUniqueWithoutCoreStrengthSetInput = {
+    where: CoreStrengthSetRepsWhereUniqueInput
+    update: XOR<CoreStrengthSetRepsUpdateWithoutCoreStrengthSetInput, CoreStrengthSetRepsUncheckedUpdateWithoutCoreStrengthSetInput>
+    create: XOR<CoreStrengthSetRepsCreateWithoutCoreStrengthSetInput, CoreStrengthSetRepsUncheckedCreateWithoutCoreStrengthSetInput>
+  }
+
+  export type CoreStrengthSetRepsUpdateWithWhereUniqueWithoutCoreStrengthSetInput = {
+    where: CoreStrengthSetRepsWhereUniqueInput
+    data: XOR<CoreStrengthSetRepsUpdateWithoutCoreStrengthSetInput, CoreStrengthSetRepsUncheckedUpdateWithoutCoreStrengthSetInput>
+  }
+
+  export type CoreStrengthSetRepsUpdateManyWithWhereWithoutCoreStrengthSetInput = {
+    where: CoreStrengthSetRepsScalarWhereInput
+    data: XOR<CoreStrengthSetRepsUpdateManyMutationInput, CoreStrengthSetRepsUncheckedUpdateManyWithoutCoreStrengthSetInput>
+  }
+
+  export type CoreStrengthSetRepsScalarWhereInput = {
+    AND?: CoreStrengthSetRepsScalarWhereInput | CoreStrengthSetRepsScalarWhereInput[]
+    OR?: CoreStrengthSetRepsScalarWhereInput[]
+    NOT?: CoreStrengthSetRepsScalarWhereInput | CoreStrengthSetRepsScalarWhereInput[]
+    id?: StringFilter<"CoreStrengthSetReps"> | string
+    coreStrengthSetId?: StringFilter<"CoreStrengthSetReps"> | string
+    reps?: IntFilter<"CoreStrengthSetReps"> | number
+    createdAt?: DateTimeFilter<"CoreStrengthSetReps"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreStrengthSetReps"> | Date | string
+  }
+
+  export type CoreStrengthSetWeightUpsertWithWhereUniqueWithoutCoreStrengthSetInput = {
+    where: CoreStrengthSetWeightWhereUniqueInput
+    update: XOR<CoreStrengthSetWeightUpdateWithoutCoreStrengthSetInput, CoreStrengthSetWeightUncheckedUpdateWithoutCoreStrengthSetInput>
+    create: XOR<CoreStrengthSetWeightCreateWithoutCoreStrengthSetInput, CoreStrengthSetWeightUncheckedCreateWithoutCoreStrengthSetInput>
+  }
+
+  export type CoreStrengthSetWeightUpdateWithWhereUniqueWithoutCoreStrengthSetInput = {
+    where: CoreStrengthSetWeightWhereUniqueInput
+    data: XOR<CoreStrengthSetWeightUpdateWithoutCoreStrengthSetInput, CoreStrengthSetWeightUncheckedUpdateWithoutCoreStrengthSetInput>
+  }
+
+  export type CoreStrengthSetWeightUpdateManyWithWhereWithoutCoreStrengthSetInput = {
+    where: CoreStrengthSetWeightScalarWhereInput
+    data: XOR<CoreStrengthSetWeightUpdateManyMutationInput, CoreStrengthSetWeightUncheckedUpdateManyWithoutCoreStrengthSetInput>
+  }
+
+  export type CoreStrengthSetWeightScalarWhereInput = {
+    AND?: CoreStrengthSetWeightScalarWhereInput | CoreStrengthSetWeightScalarWhereInput[]
+    OR?: CoreStrengthSetWeightScalarWhereInput[]
+    NOT?: CoreStrengthSetWeightScalarWhereInput | CoreStrengthSetWeightScalarWhereInput[]
+    id?: StringFilter<"CoreStrengthSetWeight"> | string
+    coreStrengthSetId?: StringFilter<"CoreStrengthSetWeight"> | string
+    isBodyWeight?: BoolFilter<"CoreStrengthSetWeight"> | boolean
+    weight?: FloatNullableFilter<"CoreStrengthSetWeight"> | number | null
+    createdAt?: DateTimeFilter<"CoreStrengthSetWeight"> | Date | string
+    updatedAt?: DateTimeFilter<"CoreStrengthSetWeight"> | Date | string
+  }
+
+  export type CoreStrengthSetCreateWithoutRepsInput = {
+    id?: string
+    restTime?: number
+    numberOfSets?: number
+    hasWarmup?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workoutExercise?: WorkoutExerciseCreateNestedManyWithoutCoreStrengthSetInput
+    weight?: CoreStrengthSetWeightCreateNestedManyWithoutCoreStrengthSetInput
+  }
+
+  export type CoreStrengthSetUncheckedCreateWithoutRepsInput = {
+    id?: string
+    restTime?: number
+    numberOfSets?: number
+    hasWarmup?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workoutExercise?: WorkoutExerciseUncheckedCreateNestedManyWithoutCoreStrengthSetInput
+    weight?: CoreStrengthSetWeightUncheckedCreateNestedManyWithoutCoreStrengthSetInput
+  }
+
+  export type CoreStrengthSetCreateOrConnectWithoutRepsInput = {
+    where: CoreStrengthSetWhereUniqueInput
+    create: XOR<CoreStrengthSetCreateWithoutRepsInput, CoreStrengthSetUncheckedCreateWithoutRepsInput>
+  }
+
+  export type CoreStrengthSetUpsertWithoutRepsInput = {
+    update: XOR<CoreStrengthSetUpdateWithoutRepsInput, CoreStrengthSetUncheckedUpdateWithoutRepsInput>
+    create: XOR<CoreStrengthSetCreateWithoutRepsInput, CoreStrengthSetUncheckedCreateWithoutRepsInput>
+    where?: CoreStrengthSetWhereInput
+  }
+
+  export type CoreStrengthSetUpdateToOneWithWhereWithoutRepsInput = {
+    where?: CoreStrengthSetWhereInput
+    data: XOR<CoreStrengthSetUpdateWithoutRepsInput, CoreStrengthSetUncheckedUpdateWithoutRepsInput>
+  }
+
+  export type CoreStrengthSetUpdateWithoutRepsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    restTime?: IntFieldUpdateOperationsInput | number
+    numberOfSets?: IntFieldUpdateOperationsInput | number
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workoutExercise?: WorkoutExerciseUpdateManyWithoutCoreStrengthSetNestedInput
+    weight?: CoreStrengthSetWeightUpdateManyWithoutCoreStrengthSetNestedInput
+  }
+
+  export type CoreStrengthSetUncheckedUpdateWithoutRepsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    restTime?: IntFieldUpdateOperationsInput | number
+    numberOfSets?: IntFieldUpdateOperationsInput | number
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workoutExercise?: WorkoutExerciseUncheckedUpdateManyWithoutCoreStrengthSetNestedInput
+    weight?: CoreStrengthSetWeightUncheckedUpdateManyWithoutCoreStrengthSetNestedInput
+  }
+
+  export type CoreStrengthSetCreateWithoutWeightInput = {
+    id?: string
+    restTime?: number
+    numberOfSets?: number
+    hasWarmup?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workoutExercise?: WorkoutExerciseCreateNestedManyWithoutCoreStrengthSetInput
+    reps?: CoreStrengthSetRepsCreateNestedManyWithoutCoreStrengthSetInput
+  }
+
+  export type CoreStrengthSetUncheckedCreateWithoutWeightInput = {
+    id?: string
+    restTime?: number
+    numberOfSets?: number
+    hasWarmup?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workoutExercise?: WorkoutExerciseUncheckedCreateNestedManyWithoutCoreStrengthSetInput
+    reps?: CoreStrengthSetRepsUncheckedCreateNestedManyWithoutCoreStrengthSetInput
+  }
+
+  export type CoreStrengthSetCreateOrConnectWithoutWeightInput = {
+    where: CoreStrengthSetWhereUniqueInput
+    create: XOR<CoreStrengthSetCreateWithoutWeightInput, CoreStrengthSetUncheckedCreateWithoutWeightInput>
+  }
+
+  export type CoreStrengthSetUpsertWithoutWeightInput = {
+    update: XOR<CoreStrengthSetUpdateWithoutWeightInput, CoreStrengthSetUncheckedUpdateWithoutWeightInput>
+    create: XOR<CoreStrengthSetCreateWithoutWeightInput, CoreStrengthSetUncheckedCreateWithoutWeightInput>
+    where?: CoreStrengthSetWhereInput
+  }
+
+  export type CoreStrengthSetUpdateToOneWithWhereWithoutWeightInput = {
+    where?: CoreStrengthSetWhereInput
+    data: XOR<CoreStrengthSetUpdateWithoutWeightInput, CoreStrengthSetUncheckedUpdateWithoutWeightInput>
+  }
+
+  export type CoreStrengthSetUpdateWithoutWeightInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    restTime?: IntFieldUpdateOperationsInput | number
+    numberOfSets?: IntFieldUpdateOperationsInput | number
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workoutExercise?: WorkoutExerciseUpdateManyWithoutCoreStrengthSetNestedInput
+    reps?: CoreStrengthSetRepsUpdateManyWithoutCoreStrengthSetNestedInput
+  }
+
+  export type CoreStrengthSetUncheckedUpdateWithoutWeightInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    restTime?: IntFieldUpdateOperationsInput | number
+    numberOfSets?: IntFieldUpdateOperationsInput | number
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workoutExercise?: WorkoutExerciseUncheckedUpdateManyWithoutCoreStrengthSetNestedInput
+    reps?: CoreStrengthSetRepsUncheckedUpdateManyWithoutCoreStrengthSetNestedInput
+  }
+
+  export type UserWorkoutExerciseCreateWithoutUserStrengthSetInput = {
+    id?: string
+    workoutExercise: WorkoutExerciseCreateNestedOneWithoutUserWorkoutExercisesInput
+    userWorkout: UserWorkoutCreateNestedOneWithoutUserWorkoutExercisesInput
+    userCardioSet?: UserCardioSetCreateNestedManyWithoutUserWorkoutExerciseInput
+  }
+
+  export type UserWorkoutExerciseUncheckedCreateWithoutUserStrengthSetInput = {
+    id?: string
+    workoutExerciseId: string
+    userWorkoutId: string
+    userCardioSet?: UserCardioSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
+  }
+
+  export type UserWorkoutExerciseCreateOrConnectWithoutUserStrengthSetInput = {
+    where: UserWorkoutExerciseWhereUniqueInput
+    create: XOR<UserWorkoutExerciseCreateWithoutUserStrengthSetInput, UserWorkoutExerciseUncheckedCreateWithoutUserStrengthSetInput>
+  }
+
+  export type UserWorkoutExerciseUpsertWithoutUserStrengthSetInput = {
+    update: XOR<UserWorkoutExerciseUpdateWithoutUserStrengthSetInput, UserWorkoutExerciseUncheckedUpdateWithoutUserStrengthSetInput>
+    create: XOR<UserWorkoutExerciseCreateWithoutUserStrengthSetInput, UserWorkoutExerciseUncheckedCreateWithoutUserStrengthSetInput>
+    where?: UserWorkoutExerciseWhereInput
+  }
+
+  export type UserWorkoutExerciseUpdateToOneWithWhereWithoutUserStrengthSetInput = {
+    where?: UserWorkoutExerciseWhereInput
+    data: XOR<UserWorkoutExerciseUpdateWithoutUserStrengthSetInput, UserWorkoutExerciseUncheckedUpdateWithoutUserStrengthSetInput>
+  }
+
+  export type UserWorkoutExerciseUpdateWithoutUserStrengthSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workoutExercise?: WorkoutExerciseUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
+    userWorkout?: UserWorkoutUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
+    userCardioSet?: UserCardioSetUpdateManyWithoutUserWorkoutExerciseNestedInput
+  }
+
+  export type UserWorkoutExerciseUncheckedUpdateWithoutUserStrengthSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workoutExerciseId?: StringFieldUpdateOperationsInput | string
+    userWorkoutId?: StringFieldUpdateOperationsInput | string
+    userCardioSet?: UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
   export type ProgramWorkoutCreateWithoutProgramInput = {
@@ -22773,7 +30369,6 @@ export namespace Prisma {
     isAdmin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    userSets?: UserSetCreateNestedManyWithoutUserInput
     workouts?: WorkoutCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
   }
@@ -22789,7 +30384,6 @@ export namespace Prisma {
     isAdmin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    userSets?: UserSetUncheckedCreateNestedManyWithoutUserInput
     workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
   }
@@ -22865,7 +30459,6 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userSets?: UserSetUpdateManyWithoutUserNestedInput
     workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
   }
@@ -22881,7 +30474,6 @@ export namespace Prisma {
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userSets?: UserSetUncheckedUpdateManyWithoutUserNestedInput
     workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
   }
@@ -23026,7 +30618,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     programs?: ProgramCreateNestedManyWithoutOwnerInput
-    userSets?: UserSetCreateNestedManyWithoutUserInput
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
   }
 
@@ -23042,7 +30633,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     programs?: ProgramUncheckedCreateNestedManyWithoutOwnerInput
-    userSets?: UserSetUncheckedCreateNestedManyWithoutUserInput
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -23057,7 +30647,7 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    coreSet?: CoreSetCreateNestedOneWithoutWorkoutExerciseInput
+    coreStrengthSet?: CoreStrengthSetCreateNestedOneWithoutWorkoutExerciseInput
     coreCardioSet?: CoreCardioSetCreateNestedOneWithoutWorkoutExerciseInput
     exercise: ExerciseCreateNestedOneWithoutWorkoutExercisesInput
     userWorkoutExercises?: UserWorkoutExerciseCreateNestedManyWithoutWorkoutExerciseInput
@@ -23067,7 +30657,7 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
-    coreSetId?: string | null
+    coreStrengthSetId?: string | null
     coreCardioSetId?: string | null
     exerciseId: string
     createdAt?: Date | string
@@ -23162,7 +30752,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     programs?: ProgramUpdateManyWithoutOwnerNestedInput
-    userSets?: UserSetUpdateManyWithoutUserNestedInput
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
   }
 
@@ -23178,7 +30767,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     programs?: ProgramUncheckedUpdateManyWithoutOwnerNestedInput
-    userSets?: UserSetUncheckedUpdateManyWithoutUserNestedInput
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -23230,55 +30818,55 @@ export namespace Prisma {
     data: XOR<UserWorkoutUpdateManyMutationInput, UserWorkoutUncheckedUpdateManyWithoutWorkoutInput>
   }
 
-  export type CoreSetCreateWithoutWorkoutExerciseInput = {
+  export type CoreStrengthSetCreateWithoutWorkoutExerciseInput = {
     id?: string
     restTime?: number
     numberOfSets?: number
     hasWarmup?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    reps?: CoreSetRepsCreateNestedManyWithoutCoreSetInput
-    weight?: CoreSetWeightCreateNestedManyWithoutCoreSetInput
+    reps?: CoreStrengthSetRepsCreateNestedManyWithoutCoreStrengthSetInput
+    weight?: CoreStrengthSetWeightCreateNestedManyWithoutCoreStrengthSetInput
   }
 
-  export type CoreSetUncheckedCreateWithoutWorkoutExerciseInput = {
+  export type CoreStrengthSetUncheckedCreateWithoutWorkoutExerciseInput = {
     id?: string
     restTime?: number
     numberOfSets?: number
     hasWarmup?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    reps?: CoreSetRepsUncheckedCreateNestedManyWithoutCoreSetInput
-    weight?: CoreSetWeightUncheckedCreateNestedManyWithoutCoreSetInput
+    reps?: CoreStrengthSetRepsUncheckedCreateNestedManyWithoutCoreStrengthSetInput
+    weight?: CoreStrengthSetWeightUncheckedCreateNestedManyWithoutCoreStrengthSetInput
   }
 
-  export type CoreSetCreateOrConnectWithoutWorkoutExerciseInput = {
-    where: CoreSetWhereUniqueInput
-    create: XOR<CoreSetCreateWithoutWorkoutExerciseInput, CoreSetUncheckedCreateWithoutWorkoutExerciseInput>
+  export type CoreStrengthSetCreateOrConnectWithoutWorkoutExerciseInput = {
+    where: CoreStrengthSetWhereUniqueInput
+    create: XOR<CoreStrengthSetCreateWithoutWorkoutExerciseInput, CoreStrengthSetUncheckedCreateWithoutWorkoutExerciseInput>
   }
 
   export type CoreCardioSetCreateWithoutWorkoutExerciseInput = {
     id?: string
     warmupTime?: number | null
     avgHeartRate?: number | null
-    avgSpeed?: number | null
-    distance?: number | null
-    calorieTarget?: number | null
-    duration?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    workTime?: CoreCardioSetWorkoutTimeCreateNestedManyWithoutCoreCardioSetInput
+    avgSpeed?: CoreCardioSetAvgSpeedCreateNestedManyWithoutCoreCardioSetInput
+    distance?: CoreCardioSetDistanceCreateNestedManyWithoutCoreCardioSetInput
+    calorieTarget?: CoreCardioSetCalorieTargetCreateNestedManyWithoutCoreCardioSetInput
   }
 
   export type CoreCardioSetUncheckedCreateWithoutWorkoutExerciseInput = {
     id?: string
     warmupTime?: number | null
     avgHeartRate?: number | null
-    avgSpeed?: number | null
-    distance?: number | null
-    calorieTarget?: number | null
-    duration?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    workTime?: CoreCardioSetWorkoutTimeUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    avgSpeed?: CoreCardioSetAvgSpeedUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    distance?: CoreCardioSetDistanceUncheckedCreateNestedManyWithoutCoreCardioSetInput
+    calorieTarget?: CoreCardioSetCalorieTargetUncheckedCreateNestedManyWithoutCoreCardioSetInput
   }
 
   export type CoreCardioSetCreateOrConnectWithoutWorkoutExerciseInput = {
@@ -23345,13 +30933,15 @@ export namespace Prisma {
   export type UserWorkoutExerciseCreateWithoutWorkoutExerciseInput = {
     id?: string
     userWorkout: UserWorkoutCreateNestedOneWithoutUserWorkoutExercisesInput
-    userSets?: UserSetCreateNestedManyWithoutUserWorkoutExerciseInput
+    userStrengthSet?: UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput
+    userCardioSet?: UserCardioSetCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
   export type UserWorkoutExerciseUncheckedCreateWithoutWorkoutExerciseInput = {
     id?: string
     userWorkoutId: string
-    userSets?: UserSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
+    userStrengthSet?: UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
+    userCardioSet?: UserCardioSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
   export type UserWorkoutExerciseCreateOrConnectWithoutWorkoutExerciseInput = {
@@ -23364,37 +30954,37 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type CoreSetUpsertWithoutWorkoutExerciseInput = {
-    update: XOR<CoreSetUpdateWithoutWorkoutExerciseInput, CoreSetUncheckedUpdateWithoutWorkoutExerciseInput>
-    create: XOR<CoreSetCreateWithoutWorkoutExerciseInput, CoreSetUncheckedCreateWithoutWorkoutExerciseInput>
-    where?: CoreSetWhereInput
+  export type CoreStrengthSetUpsertWithoutWorkoutExerciseInput = {
+    update: XOR<CoreStrengthSetUpdateWithoutWorkoutExerciseInput, CoreStrengthSetUncheckedUpdateWithoutWorkoutExerciseInput>
+    create: XOR<CoreStrengthSetCreateWithoutWorkoutExerciseInput, CoreStrengthSetUncheckedCreateWithoutWorkoutExerciseInput>
+    where?: CoreStrengthSetWhereInput
   }
 
-  export type CoreSetUpdateToOneWithWhereWithoutWorkoutExerciseInput = {
-    where?: CoreSetWhereInput
-    data: XOR<CoreSetUpdateWithoutWorkoutExerciseInput, CoreSetUncheckedUpdateWithoutWorkoutExerciseInput>
+  export type CoreStrengthSetUpdateToOneWithWhereWithoutWorkoutExerciseInput = {
+    where?: CoreStrengthSetWhereInput
+    data: XOR<CoreStrengthSetUpdateWithoutWorkoutExerciseInput, CoreStrengthSetUncheckedUpdateWithoutWorkoutExerciseInput>
   }
 
-  export type CoreSetUpdateWithoutWorkoutExerciseInput = {
+  export type CoreStrengthSetUpdateWithoutWorkoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
     restTime?: IntFieldUpdateOperationsInput | number
     numberOfSets?: IntFieldUpdateOperationsInput | number
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reps?: CoreSetRepsUpdateManyWithoutCoreSetNestedInput
-    weight?: CoreSetWeightUpdateManyWithoutCoreSetNestedInput
+    reps?: CoreStrengthSetRepsUpdateManyWithoutCoreStrengthSetNestedInput
+    weight?: CoreStrengthSetWeightUpdateManyWithoutCoreStrengthSetNestedInput
   }
 
-  export type CoreSetUncheckedUpdateWithoutWorkoutExerciseInput = {
+  export type CoreStrengthSetUncheckedUpdateWithoutWorkoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
     restTime?: IntFieldUpdateOperationsInput | number
     numberOfSets?: IntFieldUpdateOperationsInput | number
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reps?: CoreSetRepsUncheckedUpdateManyWithoutCoreSetNestedInput
-    weight?: CoreSetWeightUncheckedUpdateManyWithoutCoreSetNestedInput
+    reps?: CoreStrengthSetRepsUncheckedUpdateManyWithoutCoreStrengthSetNestedInput
+    weight?: CoreStrengthSetWeightUncheckedUpdateManyWithoutCoreStrengthSetNestedInput
   }
 
   export type CoreCardioSetUpsertWithoutWorkoutExerciseInput = {
@@ -23412,24 +31002,24 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
-    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
-    distance?: NullableFloatFieldUpdateOperationsInput | number | null
-    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
-    duration?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workTime?: CoreCardioSetWorkoutTimeUpdateManyWithoutCoreCardioSetNestedInput
+    avgSpeed?: CoreCardioSetAvgSpeedUpdateManyWithoutCoreCardioSetNestedInput
+    distance?: CoreCardioSetDistanceUpdateManyWithoutCoreCardioSetNestedInput
+    calorieTarget?: CoreCardioSetCalorieTargetUpdateManyWithoutCoreCardioSetNestedInput
   }
 
   export type CoreCardioSetUncheckedUpdateWithoutWorkoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
     warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
-    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
-    distance?: NullableFloatFieldUpdateOperationsInput | number | null
-    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
-    duration?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workTime?: CoreCardioSetWorkoutTimeUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    avgSpeed?: CoreCardioSetAvgSpeedUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    distance?: CoreCardioSetDistanceUncheckedUpdateManyWithoutCoreCardioSetNestedInput
+    calorieTarget?: CoreCardioSetCalorieTargetUncheckedUpdateManyWithoutCoreCardioSetNestedInput
   }
 
   export type ExerciseUpsertWithoutWorkoutExercisesInput = {
@@ -23531,7 +31121,7 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    coreSet?: CoreSetCreateNestedOneWithoutWorkoutExerciseInput
+    coreStrengthSet?: CoreStrengthSetCreateNestedOneWithoutWorkoutExerciseInput
     coreCardioSet?: CoreCardioSetCreateNestedOneWithoutWorkoutExerciseInput
     exercise: ExerciseCreateNestedOneWithoutWorkoutExercisesInput
     workout: WorkoutCreateNestedOneWithoutWorkoutExercisesInput
@@ -23541,7 +31131,7 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
-    coreSetId?: string | null
+    coreStrengthSetId?: string | null
     coreCardioSetId?: string | null
     exerciseId: string
     workoutId: string
@@ -23577,7 +31167,7 @@ export namespace Prisma {
     create: XOR<UserWorkoutCreateWithoutUserWorkoutExercisesInput, UserWorkoutUncheckedCreateWithoutUserWorkoutExercisesInput>
   }
 
-  export type UserSetCreateWithoutUserWorkoutExerciseInput = {
+  export type UserStrengthSetCreateWithoutUserWorkoutExerciseInput = {
     id?: string
     reps?: number
     weight?: number | null
@@ -23588,12 +31178,12 @@ export namespace Prisma {
     isWarmup?: boolean
     isMuscleFailure?: boolean
     isJointPain?: boolean
+    skippedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutUserSetsInput
   }
 
-  export type UserSetUncheckedCreateWithoutUserWorkoutExerciseInput = {
+  export type UserStrengthSetUncheckedCreateWithoutUserWorkoutExerciseInput = {
     id?: string
     reps?: number
     weight?: number | null
@@ -23604,18 +31194,58 @@ export namespace Prisma {
     isWarmup?: boolean
     isMuscleFailure?: boolean
     isJointPain?: boolean
-    userId: string
+    skippedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type UserSetCreateOrConnectWithoutUserWorkoutExerciseInput = {
-    where: UserSetWhereUniqueInput
-    create: XOR<UserSetCreateWithoutUserWorkoutExerciseInput, UserSetUncheckedCreateWithoutUserWorkoutExerciseInput>
+  export type UserStrengthSetCreateOrConnectWithoutUserWorkoutExerciseInput = {
+    where: UserStrengthSetWhereUniqueInput
+    create: XOR<UserStrengthSetCreateWithoutUserWorkoutExerciseInput, UserStrengthSetUncheckedCreateWithoutUserWorkoutExerciseInput>
   }
 
-  export type UserSetCreateManyUserWorkoutExerciseInputEnvelope = {
-    data: UserSetCreateManyUserWorkoutExerciseInput | UserSetCreateManyUserWorkoutExerciseInput[]
+  export type UserStrengthSetCreateManyUserWorkoutExerciseInputEnvelope = {
+    data: UserStrengthSetCreateManyUserWorkoutExerciseInput | UserStrengthSetCreateManyUserWorkoutExerciseInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserCardioSetCreateWithoutUserWorkoutExerciseInput = {
+    id?: string
+    warmupTime?: number | null
+    workTime?: number | null
+    avgHeartRate?: number | null
+    avgSpeed?: number | null
+    distance?: number | null
+    order?: number
+    isCompleted?: boolean
+    calorieTarget?: number | null
+    skippedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCardioSetUncheckedCreateWithoutUserWorkoutExerciseInput = {
+    id?: string
+    warmupTime?: number | null
+    workTime?: number | null
+    avgHeartRate?: number | null
+    avgSpeed?: number | null
+    distance?: number | null
+    order?: number
+    isCompleted?: boolean
+    calorieTarget?: number | null
+    skippedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCardioSetCreateOrConnectWithoutUserWorkoutExerciseInput = {
+    where: UserCardioSetWhereUniqueInput
+    create: XOR<UserCardioSetCreateWithoutUserWorkoutExerciseInput, UserCardioSetUncheckedCreateWithoutUserWorkoutExerciseInput>
+  }
+
+  export type UserCardioSetCreateManyUserWorkoutExerciseInputEnvelope = {
+    data: UserCardioSetCreateManyUserWorkoutExerciseInput | UserCardioSetCreateManyUserWorkoutExerciseInput[]
     skipDuplicates?: boolean
   }
 
@@ -23636,7 +31266,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreSet?: CoreSetUpdateOneWithoutWorkoutExerciseNestedInput
+    coreStrengthSet?: CoreStrengthSetUpdateOneWithoutWorkoutExerciseNestedInput
     coreCardioSet?: CoreCardioSetUpdateOneWithoutWorkoutExerciseNestedInput
     exercise?: ExerciseUpdateOneRequiredWithoutWorkoutExercisesNestedInput
     workout?: WorkoutUpdateOneRequiredWithoutWorkoutExercisesNestedInput
@@ -23646,7 +31276,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    coreSetId?: NullableStringFieldUpdateOperationsInput | string | null
+    coreStrengthSetId?: NullableStringFieldUpdateOperationsInput | string | null
     coreCardioSetId?: NullableStringFieldUpdateOperationsInput | string | null
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
@@ -23683,20 +31313,75 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserSetUpsertWithWhereUniqueWithoutUserWorkoutExerciseInput = {
-    where: UserSetWhereUniqueInput
-    update: XOR<UserSetUpdateWithoutUserWorkoutExerciseInput, UserSetUncheckedUpdateWithoutUserWorkoutExerciseInput>
-    create: XOR<UserSetCreateWithoutUserWorkoutExerciseInput, UserSetUncheckedCreateWithoutUserWorkoutExerciseInput>
+  export type UserStrengthSetUpsertWithWhereUniqueWithoutUserWorkoutExerciseInput = {
+    where: UserStrengthSetWhereUniqueInput
+    update: XOR<UserStrengthSetUpdateWithoutUserWorkoutExerciseInput, UserStrengthSetUncheckedUpdateWithoutUserWorkoutExerciseInput>
+    create: XOR<UserStrengthSetCreateWithoutUserWorkoutExerciseInput, UserStrengthSetUncheckedCreateWithoutUserWorkoutExerciseInput>
   }
 
-  export type UserSetUpdateWithWhereUniqueWithoutUserWorkoutExerciseInput = {
-    where: UserSetWhereUniqueInput
-    data: XOR<UserSetUpdateWithoutUserWorkoutExerciseInput, UserSetUncheckedUpdateWithoutUserWorkoutExerciseInput>
+  export type UserStrengthSetUpdateWithWhereUniqueWithoutUserWorkoutExerciseInput = {
+    where: UserStrengthSetWhereUniqueInput
+    data: XOR<UserStrengthSetUpdateWithoutUserWorkoutExerciseInput, UserStrengthSetUncheckedUpdateWithoutUserWorkoutExerciseInput>
   }
 
-  export type UserSetUpdateManyWithWhereWithoutUserWorkoutExerciseInput = {
-    where: UserSetScalarWhereInput
-    data: XOR<UserSetUpdateManyMutationInput, UserSetUncheckedUpdateManyWithoutUserWorkoutExerciseInput>
+  export type UserStrengthSetUpdateManyWithWhereWithoutUserWorkoutExerciseInput = {
+    where: UserStrengthSetScalarWhereInput
+    data: XOR<UserStrengthSetUpdateManyMutationInput, UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseInput>
+  }
+
+  export type UserStrengthSetScalarWhereInput = {
+    AND?: UserStrengthSetScalarWhereInput | UserStrengthSetScalarWhereInput[]
+    OR?: UserStrengthSetScalarWhereInput[]
+    NOT?: UserStrengthSetScalarWhereInput | UserStrengthSetScalarWhereInput[]
+    id?: StringFilter<"UserStrengthSet"> | string
+    reps?: IntFilter<"UserStrengthSet"> | number
+    weight?: FloatNullableFilter<"UserStrengthSet"> | number | null
+    isBodyWeight?: BoolFilter<"UserStrengthSet"> | boolean
+    restTime?: IntFilter<"UserStrengthSet"> | number
+    order?: IntFilter<"UserStrengthSet"> | number
+    isCompleted?: BoolFilter<"UserStrengthSet"> | boolean
+    isWarmup?: BoolFilter<"UserStrengthSet"> | boolean
+    isMuscleFailure?: BoolFilter<"UserStrengthSet"> | boolean
+    isJointPain?: BoolFilter<"UserStrengthSet"> | boolean
+    skippedReason?: StringNullableFilter<"UserStrengthSet"> | string | null
+    userWorkoutExerciseId?: StringFilter<"UserStrengthSet"> | string
+    createdAt?: DateTimeFilter<"UserStrengthSet"> | Date | string
+    updatedAt?: DateTimeFilter<"UserStrengthSet"> | Date | string
+  }
+
+  export type UserCardioSetUpsertWithWhereUniqueWithoutUserWorkoutExerciseInput = {
+    where: UserCardioSetWhereUniqueInput
+    update: XOR<UserCardioSetUpdateWithoutUserWorkoutExerciseInput, UserCardioSetUncheckedUpdateWithoutUserWorkoutExerciseInput>
+    create: XOR<UserCardioSetCreateWithoutUserWorkoutExerciseInput, UserCardioSetUncheckedCreateWithoutUserWorkoutExerciseInput>
+  }
+
+  export type UserCardioSetUpdateWithWhereUniqueWithoutUserWorkoutExerciseInput = {
+    where: UserCardioSetWhereUniqueInput
+    data: XOR<UserCardioSetUpdateWithoutUserWorkoutExerciseInput, UserCardioSetUncheckedUpdateWithoutUserWorkoutExerciseInput>
+  }
+
+  export type UserCardioSetUpdateManyWithWhereWithoutUserWorkoutExerciseInput = {
+    where: UserCardioSetScalarWhereInput
+    data: XOR<UserCardioSetUpdateManyMutationInput, UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseInput>
+  }
+
+  export type UserCardioSetScalarWhereInput = {
+    AND?: UserCardioSetScalarWhereInput | UserCardioSetScalarWhereInput[]
+    OR?: UserCardioSetScalarWhereInput[]
+    NOT?: UserCardioSetScalarWhereInput | UserCardioSetScalarWhereInput[]
+    id?: StringFilter<"UserCardioSet"> | string
+    warmupTime?: IntNullableFilter<"UserCardioSet"> | number | null
+    workTime?: IntNullableFilter<"UserCardioSet"> | number | null
+    avgHeartRate?: IntNullableFilter<"UserCardioSet"> | number | null
+    avgSpeed?: FloatNullableFilter<"UserCardioSet"> | number | null
+    distance?: FloatNullableFilter<"UserCardioSet"> | number | null
+    order?: IntFilter<"UserCardioSet"> | number
+    isCompleted?: BoolFilter<"UserCardioSet"> | boolean
+    calorieTarget?: IntNullableFilter<"UserCardioSet"> | number | null
+    userWorkoutExerciseId?: StringFilter<"UserCardioSet"> | string
+    skippedReason?: StringNullableFilter<"UserCardioSet"> | string | null
+    createdAt?: DateTimeFilter<"UserCardioSet"> | Date | string
+    updatedAt?: DateTimeFilter<"UserCardioSet"> | Date | string
   }
 
   export type UserCreateWithoutUserWorkoutInput = {
@@ -23711,7 +31396,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     programs?: ProgramCreateNestedManyWithoutOwnerInput
-    userSets?: UserSetCreateNestedManyWithoutUserInput
     workouts?: WorkoutCreateNestedManyWithoutOwnerInput
   }
 
@@ -23727,7 +31411,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     programs?: ProgramUncheckedCreateNestedManyWithoutOwnerInput
-    userSets?: UserSetUncheckedCreateNestedManyWithoutUserInput
     workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -23739,13 +31422,15 @@ export namespace Prisma {
   export type UserWorkoutExerciseCreateWithoutUserWorkoutInput = {
     id?: string
     workoutExercise: WorkoutExerciseCreateNestedOneWithoutUserWorkoutExercisesInput
-    userSets?: UserSetCreateNestedManyWithoutUserWorkoutExerciseInput
+    userStrengthSet?: UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput
+    userCardioSet?: UserCardioSetCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
   export type UserWorkoutExerciseUncheckedCreateWithoutUserWorkoutInput = {
     id?: string
     workoutExerciseId: string
-    userSets?: UserSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
+    userStrengthSet?: UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
+    userCardioSet?: UserCardioSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
   export type UserWorkoutExerciseCreateOrConnectWithoutUserWorkoutInput = {
@@ -23839,7 +31524,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     programs?: ProgramUpdateManyWithoutOwnerNestedInput
-    userSets?: UserSetUpdateManyWithoutUserNestedInput
     workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
   }
 
@@ -23855,7 +31539,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     programs?: ProgramUncheckedUpdateManyWithoutOwnerNestedInput
-    userSets?: UserSetUncheckedUpdateManyWithoutUserNestedInput
     workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -23956,22 +31639,6 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type UserSetCreateManyUserInput = {
-    id?: string
-    reps?: number
-    weight?: number | null
-    isBodyWeight?: boolean
-    restTime?: number
-    order?: number
-    isCompleted?: boolean
-    isWarmup?: boolean
-    isMuscleFailure?: boolean
-    isJointPain?: boolean
-    userWorkoutExerciseId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
   export type WorkoutCreateManyOwnerInput = {
     id?: string
     name?: string | null
@@ -24021,54 +31688,6 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UserSetUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    reps?: IntFieldUpdateOperationsInput | number
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
-    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
-    restTime?: IntFieldUpdateOperationsInput | number
-    order?: IntFieldUpdateOperationsInput | number
-    isCompleted?: BoolFieldUpdateOperationsInput | boolean
-    isWarmup?: BoolFieldUpdateOperationsInput | boolean
-    isMuscleFailure?: BoolFieldUpdateOperationsInput | boolean
-    isJointPain?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userWorkoutExercise?: UserWorkoutExerciseUpdateOneRequiredWithoutUserSetsNestedInput
-  }
-
-  export type UserSetUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    reps?: IntFieldUpdateOperationsInput | number
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
-    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
-    restTime?: IntFieldUpdateOperationsInput | number
-    order?: IntFieldUpdateOperationsInput | number
-    isCompleted?: BoolFieldUpdateOperationsInput | boolean
-    isWarmup?: BoolFieldUpdateOperationsInput | boolean
-    isMuscleFailure?: BoolFieldUpdateOperationsInput | boolean
-    isJointPain?: BoolFieldUpdateOperationsInput | boolean
-    userWorkoutExerciseId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UserSetUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    reps?: IntFieldUpdateOperationsInput | number
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
-    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
-    restTime?: IntFieldUpdateOperationsInput | number
-    order?: IntFieldUpdateOperationsInput | number
-    isCompleted?: BoolFieldUpdateOperationsInput | boolean
-    isWarmup?: BoolFieldUpdateOperationsInput | boolean
-    isMuscleFailure?: BoolFieldUpdateOperationsInput | boolean
-    isJointPain?: BoolFieldUpdateOperationsInput | boolean
-    userWorkoutExerciseId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -24133,7 +31752,7 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
-    coreSetId?: string | null
+    coreStrengthSetId?: string | null
     coreCardioSetId?: string | null
     workoutId: string
     createdAt?: Date | string
@@ -24146,7 +31765,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreSet?: CoreSetUpdateOneWithoutWorkoutExerciseNestedInput
+    coreStrengthSet?: CoreStrengthSetUpdateOneWithoutWorkoutExerciseNestedInput
     coreCardioSet?: CoreCardioSetUpdateOneWithoutWorkoutExerciseNestedInput
     workout?: WorkoutUpdateOneRequiredWithoutWorkoutExercisesNestedInput
     userWorkoutExercises?: UserWorkoutExerciseUpdateManyWithoutWorkoutExerciseNestedInput
@@ -24156,7 +31775,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    coreSetId?: NullableStringFieldUpdateOperationsInput | string | null
+    coreStrengthSetId?: NullableStringFieldUpdateOperationsInput | string | null
     coreCardioSetId?: NullableStringFieldUpdateOperationsInput | string | null
     workoutId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24168,115 +31787,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    coreSetId?: NullableStringFieldUpdateOperationsInput | string | null
+    coreStrengthSetId?: NullableStringFieldUpdateOperationsInput | string | null
     coreCardioSetId?: NullableStringFieldUpdateOperationsInput | string | null
     workoutId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type WorkoutExerciseCreateManyCoreSetInput = {
-    id?: string
-    order?: number
-    notes?: string | null
-    coreCardioSetId?: string | null
-    exerciseId: string
-    workoutId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type CoreSetRepsCreateManyCoreSetInput = {
-    id?: string
-    reps?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type CoreSetWeightCreateManyCoreSetInput = {
-    id?: string
-    isBodyWeight?: boolean
-    weight?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type WorkoutExerciseUpdateWithoutCoreSetInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreCardioSet?: CoreCardioSetUpdateOneWithoutWorkoutExerciseNestedInput
-    exercise?: ExerciseUpdateOneRequiredWithoutWorkoutExercisesNestedInput
-    workout?: WorkoutUpdateOneRequiredWithoutWorkoutExercisesNestedInput
-    userWorkoutExercises?: UserWorkoutExerciseUpdateManyWithoutWorkoutExerciseNestedInput
-  }
-
-  export type WorkoutExerciseUncheckedUpdateWithoutCoreSetInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    coreCardioSetId?: NullableStringFieldUpdateOperationsInput | string | null
-    exerciseId?: StringFieldUpdateOperationsInput | string
-    workoutId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userWorkoutExercises?: UserWorkoutExerciseUncheckedUpdateManyWithoutWorkoutExerciseNestedInput
-  }
-
-  export type WorkoutExerciseUncheckedUpdateManyWithoutCoreSetInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    coreCardioSetId?: NullableStringFieldUpdateOperationsInput | string | null
-    exerciseId?: StringFieldUpdateOperationsInput | string
-    workoutId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CoreSetRepsUpdateWithoutCoreSetInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    reps?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CoreSetRepsUncheckedUpdateWithoutCoreSetInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    reps?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CoreSetRepsUncheckedUpdateManyWithoutCoreSetInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    reps?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CoreSetWeightUpdateWithoutCoreSetInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CoreSetWeightUncheckedUpdateWithoutCoreSetInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CoreSetWeightUncheckedUpdateManyWithoutCoreSetInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -24285,9 +31798,37 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
-    coreSetId?: string | null
+    coreStrengthSetId?: string | null
     exerciseId: string
     workoutId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetWorkoutTimeCreateManyCoreCardioSetInput = {
+    id?: string
+    workTime?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetAvgSpeedCreateManyCoreCardioSetInput = {
+    id?: string
+    avgSpeed?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetDistanceCreateManyCoreCardioSetInput = {
+    id?: string
+    distance?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreCardioSetCalorieTargetCreateManyCoreCardioSetInput = {
+    id?: string
+    calorieTarget?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -24298,7 +31839,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreSet?: CoreSetUpdateOneWithoutWorkoutExerciseNestedInput
+    coreStrengthSet?: CoreStrengthSetUpdateOneWithoutWorkoutExerciseNestedInput
     exercise?: ExerciseUpdateOneRequiredWithoutWorkoutExercisesNestedInput
     workout?: WorkoutUpdateOneRequiredWithoutWorkoutExercisesNestedInput
     userWorkoutExercises?: UserWorkoutExerciseUpdateManyWithoutWorkoutExerciseNestedInput
@@ -24308,7 +31849,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    coreSetId?: NullableStringFieldUpdateOperationsInput | string | null
+    coreStrengthSetId?: NullableStringFieldUpdateOperationsInput | string | null
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24320,9 +31861,199 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    coreSetId?: NullableStringFieldUpdateOperationsInput | string | null
+    coreStrengthSetId?: NullableStringFieldUpdateOperationsInput | string | null
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetWorkoutTimeUpdateWithoutCoreCardioSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workTime?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetWorkoutTimeUncheckedUpdateWithoutCoreCardioSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workTime?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetWorkoutTimeUncheckedUpdateManyWithoutCoreCardioSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workTime?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetAvgSpeedUpdateWithoutCoreCardioSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetAvgSpeedUncheckedUpdateWithoutCoreCardioSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetAvgSpeedUncheckedUpdateManyWithoutCoreCardioSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetDistanceUpdateWithoutCoreCardioSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    distance?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetDistanceUncheckedUpdateWithoutCoreCardioSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    distance?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetDistanceUncheckedUpdateManyWithoutCoreCardioSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    distance?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetCalorieTargetUpdateWithoutCoreCardioSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetCalorieTargetUncheckedUpdateWithoutCoreCardioSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreCardioSetCalorieTargetUncheckedUpdateManyWithoutCoreCardioSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WorkoutExerciseCreateManyCoreStrengthSetInput = {
+    id?: string
+    order?: number
+    notes?: string | null
+    coreCardioSetId?: string | null
+    exerciseId: string
+    workoutId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreStrengthSetRepsCreateManyCoreStrengthSetInput = {
+    id?: string
+    reps?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CoreStrengthSetWeightCreateManyCoreStrengthSetInput = {
+    id?: string
+    isBodyWeight?: boolean
+    weight?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WorkoutExerciseUpdateWithoutCoreStrengthSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    coreCardioSet?: CoreCardioSetUpdateOneWithoutWorkoutExerciseNestedInput
+    exercise?: ExerciseUpdateOneRequiredWithoutWorkoutExercisesNestedInput
+    workout?: WorkoutUpdateOneRequiredWithoutWorkoutExercisesNestedInput
+    userWorkoutExercises?: UserWorkoutExerciseUpdateManyWithoutWorkoutExerciseNestedInput
+  }
+
+  export type WorkoutExerciseUncheckedUpdateWithoutCoreStrengthSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    coreCardioSetId?: NullableStringFieldUpdateOperationsInput | string | null
+    exerciseId?: StringFieldUpdateOperationsInput | string
+    workoutId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userWorkoutExercises?: UserWorkoutExerciseUncheckedUpdateManyWithoutWorkoutExerciseNestedInput
+  }
+
+  export type WorkoutExerciseUncheckedUpdateManyWithoutCoreStrengthSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    coreCardioSetId?: NullableStringFieldUpdateOperationsInput | string | null
+    exerciseId?: StringFieldUpdateOperationsInput | string
+    workoutId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreStrengthSetRepsUpdateWithoutCoreStrengthSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reps?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreStrengthSetRepsUncheckedUpdateWithoutCoreStrengthSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reps?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreStrengthSetRepsUncheckedUpdateManyWithoutCoreStrengthSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reps?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreStrengthSetWeightUpdateWithoutCoreStrengthSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreStrengthSetWeightUncheckedUpdateWithoutCoreStrengthSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoreStrengthSetWeightUncheckedUpdateManyWithoutCoreStrengthSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -24397,7 +32128,7 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
-    coreSetId?: string | null
+    coreStrengthSetId?: string | null
     coreCardioSetId?: string | null
     exerciseId: string
     createdAt?: Date | string
@@ -24426,7 +32157,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreSet?: CoreSetUpdateOneWithoutWorkoutExerciseNestedInput
+    coreStrengthSet?: CoreStrengthSetUpdateOneWithoutWorkoutExerciseNestedInput
     coreCardioSet?: CoreCardioSetUpdateOneWithoutWorkoutExerciseNestedInput
     exercise?: ExerciseUpdateOneRequiredWithoutWorkoutExercisesNestedInput
     userWorkoutExercises?: UserWorkoutExerciseUpdateManyWithoutWorkoutExerciseNestedInput
@@ -24436,7 +32167,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    coreSetId?: NullableStringFieldUpdateOperationsInput | string | null
+    coreStrengthSetId?: NullableStringFieldUpdateOperationsInput | string | null
     coreCardioSetId?: NullableStringFieldUpdateOperationsInput | string | null
     exerciseId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24448,7 +32179,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    coreSetId?: NullableStringFieldUpdateOperationsInput | string | null
+    coreStrengthSetId?: NullableStringFieldUpdateOperationsInput | string | null
     coreCardioSetId?: NullableStringFieldUpdateOperationsInput | string | null
     exerciseId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24513,13 +32244,15 @@ export namespace Prisma {
   export type UserWorkoutExerciseUpdateWithoutWorkoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
     userWorkout?: UserWorkoutUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
-    userSets?: UserSetUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userStrengthSet?: UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userCardioSet?: UserCardioSetUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
   export type UserWorkoutExerciseUncheckedUpdateWithoutWorkoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
     userWorkoutId?: StringFieldUpdateOperationsInput | string
-    userSets?: UserSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userStrengthSet?: UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userCardioSet?: UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
   export type UserWorkoutExerciseUncheckedUpdateManyWithoutWorkoutExerciseInput = {
@@ -24527,7 +32260,7 @@ export namespace Prisma {
     userWorkoutId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type UserSetCreateManyUserWorkoutExerciseInput = {
+  export type UserStrengthSetCreateManyUserWorkoutExerciseInput = {
     id?: string
     reps?: number
     weight?: number | null
@@ -24538,28 +32271,27 @@ export namespace Prisma {
     isWarmup?: boolean
     isMuscleFailure?: boolean
     isJointPain?: boolean
-    userId: string
+    skippedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type UserSetUpdateWithoutUserWorkoutExerciseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    reps?: IntFieldUpdateOperationsInput | number
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
-    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
-    restTime?: IntFieldUpdateOperationsInput | number
-    order?: IntFieldUpdateOperationsInput | number
-    isCompleted?: BoolFieldUpdateOperationsInput | boolean
-    isWarmup?: BoolFieldUpdateOperationsInput | boolean
-    isMuscleFailure?: BoolFieldUpdateOperationsInput | boolean
-    isJointPain?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutUserSetsNestedInput
+  export type UserCardioSetCreateManyUserWorkoutExerciseInput = {
+    id?: string
+    warmupTime?: number | null
+    workTime?: number | null
+    avgHeartRate?: number | null
+    avgSpeed?: number | null
+    distance?: number | null
+    order?: number
+    isCompleted?: boolean
+    calorieTarget?: number | null
+    skippedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type UserSetUncheckedUpdateWithoutUserWorkoutExerciseInput = {
+  export type UserStrengthSetUpdateWithoutUserWorkoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
     reps?: IntFieldUpdateOperationsInput | number
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -24570,12 +32302,12 @@ export namespace Prisma {
     isWarmup?: BoolFieldUpdateOperationsInput | boolean
     isMuscleFailure?: BoolFieldUpdateOperationsInput | boolean
     isJointPain?: BoolFieldUpdateOperationsInput | boolean
-    userId?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserSetUncheckedUpdateManyWithoutUserWorkoutExerciseInput = {
+  export type UserStrengthSetUncheckedUpdateWithoutUserWorkoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
     reps?: IntFieldUpdateOperationsInput | number
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -24586,7 +32318,68 @@ export namespace Prisma {
     isWarmup?: BoolFieldUpdateOperationsInput | boolean
     isMuscleFailure?: BoolFieldUpdateOperationsInput | boolean
     isJointPain?: BoolFieldUpdateOperationsInput | boolean
-    userId?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reps?: IntFieldUpdateOperationsInput | number
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    restTime?: IntFieldUpdateOperationsInput | number
+    order?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    isWarmup?: BoolFieldUpdateOperationsInput | boolean
+    isMuscleFailure?: BoolFieldUpdateOperationsInput | boolean
+    isJointPain?: BoolFieldUpdateOperationsInput | boolean
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCardioSetUpdateWithoutUserWorkoutExerciseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
+    workTime?: NullableIntFieldUpdateOperationsInput | number | null
+    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
+    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
+    distance?: NullableFloatFieldUpdateOperationsInput | number | null
+    order?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCardioSetUncheckedUpdateWithoutUserWorkoutExerciseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
+    workTime?: NullableIntFieldUpdateOperationsInput | number | null
+    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
+    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
+    distance?: NullableFloatFieldUpdateOperationsInput | number | null
+    order?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
+    workTime?: NullableIntFieldUpdateOperationsInput | number | null
+    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
+    avgSpeed?: NullableFloatFieldUpdateOperationsInput | number | null
+    distance?: NullableFloatFieldUpdateOperationsInput | number | null
+    order?: IntFieldUpdateOperationsInput | number
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -24599,13 +32392,15 @@ export namespace Prisma {
   export type UserWorkoutExerciseUpdateWithoutUserWorkoutInput = {
     id?: StringFieldUpdateOperationsInput | string
     workoutExercise?: WorkoutExerciseUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
-    userSets?: UserSetUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userStrengthSet?: UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userCardioSet?: UserCardioSetUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
   export type UserWorkoutExerciseUncheckedUpdateWithoutUserWorkoutInput = {
     id?: StringFieldUpdateOperationsInput | string
     workoutExerciseId?: StringFieldUpdateOperationsInput | string
-    userSets?: UserSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userStrengthSet?: UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userCardioSet?: UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
   export type UserWorkoutExerciseUncheckedUpdateManyWithoutUserWorkoutInput = {

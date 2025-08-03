@@ -42,7 +42,16 @@ export const getLastWorkout = async (req: Request, res: Response) => {
       throw new AppError("Workout ID is required", 400);
     }
 
-    const userWorkout = await userWorkoutService.getLastWorkout(workoutId);
+    const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
+
+    if (!userId) {
+      throw new AppError("User not authenticated", 401);
+    }
+
+    const userWorkout = await userWorkoutService.getLastWorkout(
+      workoutId,
+      userId
+    );
 
     if (!userWorkout) {
       return res.status(404).json({

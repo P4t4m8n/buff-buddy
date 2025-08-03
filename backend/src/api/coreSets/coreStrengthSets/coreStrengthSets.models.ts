@@ -1,9 +1,9 @@
-export interface ICoreSet {
+export interface ICoreStrengthSet {
   id: string;
   hasWarmup: boolean;
   restTime: number;
-  createdAt?: Date | null|string;
-  updatedAt?: Date | null|string;
+  createdAt?: Date | null | string;
+  updatedAt?: Date | null | string;
   numberOfSets: number;
   reps: {
     id: string;

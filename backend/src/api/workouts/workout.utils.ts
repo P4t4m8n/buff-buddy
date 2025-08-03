@@ -1,70 +1,72 @@
 import { IWorkoutDTO } from "../../../../shared/models/workout.model";
 import { Prisma } from "../../../prisma/generated/prisma";
+import { coreCardioSetsUtil } from "../coreSets/coreCardioSets/coreCardioSets.util";
+import { coreStrengthSetsUtil } from "../coreSets/coreStrengthSets/coreStrengthSets.util";
 import { IWorkout, IWorkoutFilter } from "./workouts.models";
 
-export const workoutUtils = {
-  buildWhereClause(
-    filter: IWorkoutFilter,
-    userId: string
-  ): Prisma.WorkoutWhereInput {
-    const where: Prisma.WorkoutWhereInput = {};
+const buildWhereClause = (
+  filter: IWorkoutFilter,
+  userId: string
+): Prisma.WorkoutWhereInput => {
+  const where: Prisma.WorkoutWhereInput = {};
 
-    if (filter.programName) {
-      where.programWorkouts = {
-        some: {
-          program: {
-            name: { contains: filter.programName, mode: "insensitive" },
-          },
+  if (filter.programName) {
+    where.programWorkouts = {
+      some: {
+        program: {
+          name: { contains: filter.programName, mode: "insensitive" },
         },
-      };
-    }
-
-    if (filter.dayOfWeek) {
-      where.programWorkouts = {
-        ...(where.programWorkouts || {}),
-        some: {
-          ...(where.programWorkouts?.some || {}),
-          daysOfWeek: { has: filter.dayOfWeek },
-        },
-      };
-    }
-
-    if (filter.exerciseName) {
-      where.workoutExercises = {
-        some: {
-          exercise: {
-            name: { contains: filter.exerciseName, mode: "insensitive" },
-          },
-        },
-      };
-    }
-
-    if (filter.ownerName) {
-      where.owner = {
-        OR: [
-          { firstName: { contains: filter.ownerName, mode: "insensitive" } },
-          { lastName: { contains: filter.ownerName, mode: "insensitive" } },
-        ],
-      };
-    }
-
-    where.ownerId = userId;
-    return where;
-  },
-  buildDTO: (workout: IWorkout): IWorkoutDTO => ({
-    ...workout,
-    workoutExercises: workout.workoutExercises.map((we) => ({
-      ...we,
-      coreSet: {
-        ...we.coreSet,
-        reps: we.coreSet.reps[0].reps,
-        weight: we.coreSet.weight[0].weight,
-        isBodyWeight: we.coreSet.weight[0].isBodyWeight ?? false,
       },
-    })),
-  }),
+    };
+  }
 
-  buildDTOArr(programs: IWorkout[]): IWorkoutDTO[] {
-    return programs.map((program) => this.buildDTO(program));
-  },
+  if (filter.dayOfWeek) {
+    where.programWorkouts = {
+      ...(where.programWorkouts || {}),
+      some: {
+        ...(where.programWorkouts?.some || {}),
+        daysOfWeek: { has: filter.dayOfWeek },
+      },
+    };
+  }
+
+  if (filter.exerciseName) {
+    where.workoutExercises = {
+      some: {
+        exercise: {
+          name: { contains: filter.exerciseName, mode: "insensitive" },
+        },
+      },
+    };
+  }
+
+  if (filter.ownerName) {
+    where.owner = {
+      OR: [
+        { firstName: { contains: filter.ownerName, mode: "insensitive" } },
+        { lastName: { contains: filter.ownerName, mode: "insensitive" } },
+      ],
+    };
+  }
+
+  where.ownerId = userId;
+  return where;
+};
+const buildDTO = (workout: IWorkout): IWorkoutDTO => ({
+  ...workout,
+  workoutExercises: workout?.workoutExercises?.map((we) => ({
+    ...we,
+    coreStrengthSet: coreStrengthSetsUtil.toDTO(we.coreStrengthSet),
+    coreCardioSet: coreCardioSetsUtil.toDTO(we.coreCardioSet),
+  })),
+});
+
+const buildDTOArr = (programs: IWorkout[]): IWorkoutDTO[] => {
+  return programs.map((program) => buildDTO(program));
+};
+
+export const workoutUtils = {
+  buildWhereClause,
+  buildDTO,
+  buildDTOArr,
 };

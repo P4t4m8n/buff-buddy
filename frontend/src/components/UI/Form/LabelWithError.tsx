@@ -1,3 +1,4 @@
+import { twMerge } from "tailwind-merge";
 import Label from "./Label";
 interface ILabelWithErrorProps
   extends React.LabelHTMLAttributes<HTMLLabelElement> {
@@ -12,11 +13,13 @@ export default function LabelWithError({
   isMoveUpEffect = true,
   ...props
 }: ILabelWithErrorProps) {
-  const style = error
+  const errorStyle = error
     ? `text-sm w-fit text-red-orange
      peer-[:not(:placeholder-shown)]:text-red-orange
                   peer-focus:text-red-orange`
     : "";
+
+  const style = twMerge(errorStyle, props.className ?? "");
   return (
     <Label isMoveUpEffect={isMoveUpEffect} {...props} className={style}>
       {error ? error : labelText}

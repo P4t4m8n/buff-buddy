@@ -1,4 +1,6 @@
 import { IProgramDTO } from "../../../../shared/models/program.model";
+import { userUtil } from "../users/user.util";
+import { workoutUtils } from "../workouts/workout.utils";
 import { IProgram } from "./programs.models";
 
 export const programsUtils = {
@@ -9,25 +11,10 @@ export const programsUtils = {
     startDate: program?.startDate,
     endDate: program?.endDate,
     isActive: program?.isActive ?? false,
-    owner: {
-      id: program?.owner?.id,
-      firstName: program?.owner?.firstName,
-      lastName: program?.owner?.lastName,
-    },
+    owner: userUtil.toSmallDTO(program?.owner),
     programWorkouts: (program?.programWorkouts ?? []).map((pw) => ({
       ...pw,
-      workout: {
-        ...pw.workout,
-        workoutExercises: pw.workout.workoutExercises.map((we) => ({
-          ...we,
-          coreSet: {
-            ...we.coreSet,
-            reps: we.coreSet.reps[0].reps,
-            weight: we.coreSet.weight[0].weight,
-            isBodyWeight: we.coreSet.weight[0].isBodyWeight ?? false,
-          },
-        })),
-      },
+      workout: workoutUtils.buildDTO(pw.workout),
     })),
   }),
 

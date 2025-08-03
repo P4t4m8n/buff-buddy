@@ -145,7 +145,63 @@ exports.Prisma.ExerciseScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.CoreSetScalarFieldEnum = {
+exports.Prisma.CoreCardioSetScalarFieldEnum = {
+  id: 'id',
+  warmupTime: 'warmupTime',
+  avgHeartRate: 'avgHeartRate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CoreCardioSetCalorieTargetScalarFieldEnum = {
+  id: 'id',
+  coreCardioSetId: 'coreCardioSetId',
+  calorieTarget: 'calorieTarget',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CoreCardioSetDistanceScalarFieldEnum = {
+  id: 'id',
+  coreCardioSetId: 'coreCardioSetId',
+  distance: 'distance',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CoreCardioSetAvgSpeedScalarFieldEnum = {
+  id: 'id',
+  coreCardioSetId: 'coreCardioSetId',
+  avgSpeed: 'avgSpeed',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CoreCardioSetWorkoutTimeScalarFieldEnum = {
+  id: 'id',
+  coreCardioSetId: 'coreCardioSetId',
+  workTime: 'workTime',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserCardioSetScalarFieldEnum = {
+  id: 'id',
+  warmupTime: 'warmupTime',
+  workTime: 'workTime',
+  avgHeartRate: 'avgHeartRate',
+  avgSpeed: 'avgSpeed',
+  distance: 'distance',
+  order: 'order',
+  isCompleted: 'isCompleted',
+  calorieTarget: 'calorieTarget',
+  userWorkoutExerciseId: 'userWorkoutExerciseId',
+  skippedReason: 'skippedReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CoreStrengthSetScalarFieldEnum = {
   id: 'id',
   restTime: 'restTime',
   numberOfSets: 'numberOfSets',
@@ -154,36 +210,24 @@ exports.Prisma.CoreSetScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.CoreCardioSetScalarFieldEnum = {
+exports.Prisma.CoreStrengthSetRepsScalarFieldEnum = {
   id: 'id',
-  warmupTime: 'warmupTime',
-  avgHeartRate: 'avgHeartRate',
-  avgSpeed: 'avgSpeed',
-  distance: 'distance',
-  calorieTarget: 'calorieTarget',
-  duration: 'duration',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.CoreSetRepsScalarFieldEnum = {
-  id: 'id',
-  coreSetId: 'coreSetId',
+  coreStrengthSetId: 'coreStrengthSetId',
   reps: 'reps',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.CoreSetWeightScalarFieldEnum = {
+exports.Prisma.CoreStrengthSetWeightScalarFieldEnum = {
   id: 'id',
-  coreSetId: 'coreSetId',
+  coreStrengthSetId: 'coreStrengthSetId',
   isBodyWeight: 'isBodyWeight',
   weight: 'weight',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.UserSetScalarFieldEnum = {
+exports.Prisma.UserStrengthSetScalarFieldEnum = {
   id: 'id',
   reps: 'reps',
   weight: 'weight',
@@ -194,7 +238,7 @@ exports.Prisma.UserSetScalarFieldEnum = {
   isWarmup: 'isWarmup',
   isMuscleFailure: 'isMuscleFailure',
   isJointPain: 'isJointPain',
-  userId: 'userId',
+  skippedReason: 'skippedReason',
   userWorkoutExerciseId: 'userWorkoutExerciseId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -234,7 +278,7 @@ exports.Prisma.WorkoutExerciseScalarFieldEnum = {
   id: 'id',
   order: 'order',
   notes: 'notes',
-  coreSetId: 'coreSetId',
+  coreStrengthSetId: 'coreStrengthSetId',
   coreCardioSetId: 'coreCardioSetId',
   exerciseId: 'exerciseId',
   workoutId: 'workoutId',
@@ -368,23 +412,28 @@ exports.ExerciseMuscle = exports.$Enums.ExerciseMuscle = {
 };
 
 exports.DaysOfWeek = exports.$Enums.DaysOfWeek = {
+  sunday: 'sunday',
   monday: 'monday',
   tuesday: 'tuesday',
   wednesday: 'wednesday',
   thursday: 'thursday',
   friday: 'friday',
-  saturday: 'saturday',
-  sunday: 'sunday'
+  saturday: 'saturday'
 };
 
 exports.Prisma.ModelName = {
   User: 'User',
   Exercise: 'Exercise',
-  CoreSet: 'CoreSet',
   CoreCardioSet: 'CoreCardioSet',
-  CoreSetReps: 'CoreSetReps',
-  CoreSetWeight: 'CoreSetWeight',
-  UserSet: 'UserSet',
+  CoreCardioSetCalorieTarget: 'CoreCardioSetCalorieTarget',
+  CoreCardioSetDistance: 'CoreCardioSetDistance',
+  CoreCardioSetAvgSpeed: 'CoreCardioSetAvgSpeed',
+  CoreCardioSetWorkoutTime: 'CoreCardioSetWorkoutTime',
+  UserCardioSet: 'UserCardioSet',
+  CoreStrengthSet: 'CoreStrengthSet',
+  CoreStrengthSetReps: 'CoreStrengthSetReps',
+  CoreStrengthSetWeight: 'CoreStrengthSetWeight',
+  UserStrengthSet: 'UserStrengthSet',
   Program: 'Program',
   ProgramWorkout: 'ProgramWorkout',
   Workout: 'Workout',

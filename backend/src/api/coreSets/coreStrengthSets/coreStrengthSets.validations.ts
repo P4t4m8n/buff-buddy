@@ -1,7 +1,10 @@
 import { z } from "zod";
-import { CrudOperationSchema } from "../../shared/validations/shared.validations";
+import {
+  CrudOperationSchema,
+  IDSchema,
+} from "../../../shared/validations/shared.validations";
 
-const coreSetWeightRefinement = (
+const coreStrengthSetWeightRefinement = (
   data: { weight?: number; isBodyWeight?: boolean },
   ctx: z.RefinementCtx
 ) => {
@@ -21,19 +24,7 @@ const coreSetWeightRefinement = (
   }
 };
 
-// const coreSetProgramExerciseIdRefinement = (
-//   data: { programExerciseId?: string },
-//   ctx: z.RefinementCtx
-// ) => {
-//   if (!data.programExerciseId || data.programExerciseId.trim() === "") {
-//     ctx.addIssue({
-//       code: z.ZodIssueCode.custom,
-//       message: "Program Exercise ID is required.",
-//     });
-//   }
-// };
-
-const CoreSetSchema = z.object({
+const CoreStrengthSetSchema = z.object({
   numberOfSets: z.coerce
     .number()
     .int("Number of sets must be a whole number")
@@ -69,20 +60,18 @@ const CoreSetSchema = z.object({
   programExerciseId: z.string().optional(),
 });
 
-//TODO:Create and nested are the same, maybe join them later?
-export const CreateCoreSetSchema = CoreSetSchema.superRefine(
-  coreSetWeightRefinement
+export const CreateCoreStrengthSetSchema = CoreStrengthSetSchema.superRefine(
+  coreStrengthSetWeightRefinement
 );
 
-export const UpdateCoreSetSchema = CoreSetSchema.partial().superRefine(
-  coreSetWeightRefinement
-);
+export const UpdateCoreStrengthSetSchema =
+  CoreStrengthSetSchema.partial().superRefine(coreStrengthSetWeightRefinement);
 
-export const CoreSetParamsSchema = z.object({
-  id: z.string().min(1, "CoreSet ID is required"),
+export const CoreStrengthSetParamsSchema = z.object({
+  id: IDSchema,
 });
 
-export const CoreSetQuerySchema = z.object({
+export const CoreStrengthSetQuerySchema = z.object({
   programExerciseId: z.string().optional(),
   hasWarmup: z.coerce.boolean().optional(),
   minWeight: z.coerce.number().min(0).optional(),
@@ -93,11 +82,13 @@ export const CoreSetQuerySchema = z.object({
   page: z.coerce.number().min(1).optional(),
 });
 
-export type CreateCoreSetInput = z.infer<typeof CreateCoreSetSchema>;
-export type UpdateCoreSetInput = z.infer<typeof UpdateCoreSetSchema>;
-export type CoreSetParams = z.infer<typeof CoreSetParamsSchema>;
-export type CoreSetQuery = z.infer<typeof CoreSetQuerySchema>;
-
-export type CreateCoreSetInputWithOperation = z.infer<
-  typeof CreateCoreSetSchema
+export type TCreateCoreStrengthSetInput = z.infer<
+  typeof CreateCoreStrengthSetSchema
 >;
+export type TUpdateCoreStrengthSetInput = z.infer<
+  typeof UpdateCoreStrengthSetSchema
+>;
+export type TCoreStrengthSetParams = z.infer<
+  typeof CoreStrengthSetParamsSchema
+>;
+export type TCoreStrengthSetQuery = z.infer<typeof CoreStrengthSetQuerySchema>;

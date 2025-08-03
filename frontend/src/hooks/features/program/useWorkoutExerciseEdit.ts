@@ -14,7 +14,8 @@ interface IWorkoutExerciseEditHook {
   handleSelectExercise: (exercise: IExerciseDTO) => void;
   filterExercises: (searchValue: string) => IExerciseDTO[];
   handleInputChange: (e: ChangeEvent) => void;
-  handleSetChange: (e: ChangeEvent) => void;
+  handleCoreStrengthSetChange: (e: ChangeEvent) => void;
+  handleCoreCardioSetChange: (e: ChangeEvent) => void;
   resetWorkoutExerciseToEdit: () => void;
   workoutExerciseToEdit: IWorkoutExerciseEditDTO | null;
   exercises: IExerciseDTO[];
@@ -66,7 +67,7 @@ export const useWorkoutExerciseEdit = (
     });
   };
 
-  const handleSetChange = useCallback((e: ChangeEvent) => {
+  const handleCoreStrengthSetChange = useCallback((e: ChangeEvent) => {
     const target = e.target as HTMLInputElement;
     const { name, value, type, checked } = target;
 
@@ -86,6 +87,23 @@ export const useWorkoutExerciseEdit = (
     });
   }, []);
 
+  const handleCoreCardioSetChange = useCallback((e: ChangeEvent) => {
+    const target = e.target as HTMLInputElement;
+    const { name, value, type, checked } = target;
+    const key = name.split("-")[0];
+    setWorkoutExerciseToEdit((prev) => {
+      if (!prev) return null;
+      const updatedCoreCardioSet = {
+        ...prev.coreCardioSet,
+        [key]: type === "checkbox" ? checked : parseFloat(value),
+      };
+      return {
+        ...prev,
+        coreCardioSet: updatedCoreCardioSet,
+      };
+    });
+  }, []);
+
   const resetWorkoutExerciseToEdit = () => {
     setWorkoutExerciseToEdit(
       workoutExercise
@@ -99,7 +117,8 @@ export const useWorkoutExerciseEdit = (
     handleSelectExercise,
     filterExercises,
     handleInputChange,
-    handleSetChange,
+    handleCoreStrengthSetChange,
+    handleCoreCardioSetChange,
     resetWorkoutExerciseToEdit,
     workoutExerciseToEdit,
     exercises,

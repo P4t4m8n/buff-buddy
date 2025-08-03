@@ -1,6 +1,11 @@
 import { z } from "zod";
 import sanitizeHtml from "sanitize-html";
 
+interface IValidationProps {
+  minLength?: number;
+  maxLength?: number;
+  fieldName?: string;
+}
 export const conditionalOrderRefinement = (
   data: { order?: number | null; crudOperation?: string },
   ctx: z.RefinementCtx
@@ -65,13 +70,9 @@ export const conditionalWeightRefinement = (
 
 export const stringValidationAndSanitization = ({
   minLength = 0,
-  MaxLength = 100,
+  maxLength = 100,
   fieldName,
-}: {
-  minLength?: number;
-  MaxLength?: number;
-  fieldName?: string;
-}) => {
+}: IValidationProps) => {
   return z
     .string()
     .transform((val) =>
@@ -84,9 +85,21 @@ export const stringValidationAndSanitization = ({
       `${fieldName} must be at least ${minLength} characters long`
     )
     .refine(
-      (val) => val.length <= MaxLength,
-      `${fieldName} must be less than ${MaxLength} characters`
+      (val) => val.length <= maxLength,
+      `${fieldName} must be less than ${maxLength} characters`
     );
+};
+
+export const numberValidation = ({
+  minLength = 0,
+  maxLength = 100,
+  fieldName,
+}: IValidationProps) => {
+  return z
+    .number()
+    .int(`${fieldName} must be a whole number`)
+    .min(minLength, `${fieldName} must be at least 1`)
+    .max(maxLength, `${fieldName} cannot exceed 100`);
 };
 
 export const NotesSchema = z

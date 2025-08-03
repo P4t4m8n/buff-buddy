@@ -1,5 +1,5 @@
 import type { IUserSetEditDTO } from "../../../../shared/models/set.model";
-import type { IValidationError } from "../../models/errors.model";
+import type { TValidationError } from "../../models/errors.model";
 import Button from "../UI/Button";
 import Input from "../UI/Form/Input";
 import Label from "../UI/Form/Label";
@@ -13,7 +13,7 @@ interface INumberInput {
 }
 interface IWorkoutExerciseUserSetProps {
   item: IUserSetEditDTO;
-  errors?: IValidationError<IUserSetEditDTO>;
+  errors?: TValidationError<IUserSetEditDTO>;
   handleUserSetsChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   logUserSet: (id?: string) => void;
 }

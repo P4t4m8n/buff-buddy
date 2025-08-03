@@ -6,14 +6,16 @@ import {
   CrudOperationEnumSchema,
   IDSchema,
 } from "../../shared/validations/shared.validations";
-import { CreateCoreSetSchema } from "../coreSets/coreSets.validations";
+import { CreateCoreStrengthSetSchema } from "../coreSets/coreStrengthSets/coreStrengthSets.validations";
+import { CreateCoreCardioSetSchema } from "../coreSets/coreCardioSets/coreCardioSets.validations";
 
 export const CreateWorkoutExerciseSchema = z.object({
-  order: OrderSchema.optional().nullable(), 
+  order: OrderSchema.optional().nullable(),
   notes: NotesSchema,
   exerciseId: IDSchema,
   isActive: z.coerce.boolean().default(true),
-  coreSet: CreateCoreSetSchema,
+  coreStrengthSet: CreateCoreStrengthSetSchema.optional(),
+  coreCardioSet: CreateCoreCardioSetSchema.optional(),
   crudOperation: z.optional(CrudOperationEnumSchema).default("read"),
   id: z.string().optional(),
 });
@@ -42,17 +44,14 @@ export const WorkoutExerciseQuerySchema = z.object({
   page: z.coerce.number().min(1).optional(),
 });
 
-export type CreateWorkoutExerciseInput = z.infer<
+export type TCreateWorkoutExerciseInput = z.infer<
   typeof CreateWorkoutExerciseSchema
 >;
-export type UpdateWorkoutExerciseInput = z.infer<
+export type TUpdateWorkoutExerciseInput = z.infer<
   typeof UpdateWorkoutExerciseSchema
 >;
-export type WorkoutExerciseParams = z.infer<typeof WorkoutExerciseParamsSchema>;
-export type WorkoutExerciseQuery = z.infer<typeof WorkoutExerciseQuerySchema>;
-export type CreateNestedWorkoutExerciseInput = z.infer<
+export type TWorkoutExerciseParams = z.infer<typeof WorkoutExerciseParamsSchema>;
+export type TWorkoutExerciseQuery = z.infer<typeof WorkoutExerciseQuerySchema>;
+export type TCreateNestedWorkoutExerciseInput = z.infer<
   typeof CreateWorkoutExerciseSchema
->;
-export type UpdateNestedWorkoutExerciseInput = z.infer<
-  typeof UpdateNestedWorkoutExerciseSchema
 >;

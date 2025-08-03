@@ -19,7 +19,7 @@ export const ExerciseTypeSchema = z.enum(EXERCISE_TYPES);
 const YoutubeURLSchema = stringValidationAndSanitization({
   fieldName: "Youtube url",
   minLength: 1,
-  MaxLength: 255,
+  maxLength: 255,
 })
   .transform((url) => {
     // Normalize YouTube URL format

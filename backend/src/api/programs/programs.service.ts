@@ -1,10 +1,15 @@
 import { DaysOfWeek, Prisma, Program } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
 import { dbUtil } from "../../shared/utils/db.util";
-import { coreSetsSQL } from "../coreSets/coreSets.sql";
-import { PROGRAM_SELECT } from "./program.sql";
+import { coreCardioSetsSQL } from "../coreSets/coreCardioSets/coreCardioSets.sql";
+import { coreStrengthSetsSQL } from "../coreSets/coreStrengthSets/coreStrengthSets.sql";
+import { workoutSQL } from "../workouts/workout.sql";
+import { programsSQL } from "./program.sql";
 import { IProgram, IProgramFilter } from "./programs.models";
-import { CreateProgramInput, UpdateProgramInput } from "./programs.validations";
+import {
+  TCreateProgramInput,
+  TUpdateProgramInput,
+} from "./programs.validations";
 
 //TODO?? move to raw SQL for performance due to junction tables and reorganize of structure data
 export const programsService = {
@@ -22,71 +27,31 @@ export const programsService = {
       where,
       skip,
       take,
-      select: PROGRAM_SELECT,
+      select: programsSQL.PROGRAM_SELECT,
     })) as unknown as IProgram[];
   },
+
   getById: async (id: string, userId: string): Promise<IProgram | null> => {
     return (await prisma.program.findUnique({
       where: { id, ownerId: userId },
-      select: PROGRAM_SELECT,
+      select: programsSQL.PROGRAM_SELECT,
     })) as unknown as IProgram;
   },
 
   create: async (
-    dto: CreateProgramInput,
+    dto: TCreateProgramInput,
     userId: string
   ): Promise<IProgram> => {
     return (await prisma.program.create({
-      data: {
-        name: dto.name,
-        notes: dto.notes,
-        isActive: dto.isActive,
-        startDate: dto.startDate,
-        endDate: dto.endDate,
-        owner: {
-          connect: { id: userId },
-        },
-        programWorkouts: {
-          create: (dto.programWorkouts ?? []).map((w) => ({
-            workout: {
-              connectOrCreate: {
-                where: { id: w.workout.id },
-                create: {
-                  name: w.workout.name ?? dto.name,
-                  owner: {
-                    connect: {
-                      id: userId,
-                    },
-                  },
-                  workoutExercises: {
-                    create: (w.workout.workoutExercises ?? []).map((we) => ({
-                      order: we.order || 1,
-                      notes: we.notes,
-                      exercise: {
-                        connect: {
-                          id: we.exerciseId,
-                        },
-                      },
-                      coreSet: {
-                        create: coreSetsSQL.getCreateCoreSets(we.coreSet),
-                      },
-                    })),
-                  },
-                },
-              },
-            },
-            daysOfWeek: w.daysOfWeek as DaysOfWeek[],
-          })),
-        },
-      },
-      select: PROGRAM_SELECT,
+      data: programsSQL.getProgramCreate(dto, userId),
+      select: programsSQL.PROGRAM_SELECT,
     })) as unknown as IProgram;
   },
 
   //TODO?? moving to raw sql in the end, so lazy solution for now
   update: async (
     id: string,
-    dto: UpdateProgramInput,
+    dto: TUpdateProgramInput,
     userId: string
   ): Promise<IProgram> => {
     const programData = dbUtil.cleanData({
@@ -128,26 +93,13 @@ export const programsService = {
             tx.programWorkout.update({
               where: { id: w.id },
               data: {
-                daysOfWeek: w.daysOfWeek as DaysOfWeek[],
+                ...dbUtil.cleanData({
+                  daysOfWeek: w.daysOfWeek as DaysOfWeek[],
+                }),
                 workout: {
                   connectOrCreate: {
                     where: { id: w.workout.id },
-                    create: {
-                      name: w.workout.name ?? dto.name,
-                      owner: { connect: { id: userId } },
-                      workoutExercises: {
-                        create: (w.workout.workoutExercises ?? []).map(
-                          (we) => ({
-                            order: we.order || 1,
-                            notes: we.notes,
-                            exercise: { connect: { id: we.exerciseId } },
-                            coreSet: {
-                              create: coreSetsSQL.getCreateCoreSets(we.coreSet),
-                            },
-                          })
-                        ),
-                      },
-                    },
+                    create: workoutSQL.getWorkoutCreate(w.workout, userId),
                   },
                 },
               },
@@ -167,22 +119,7 @@ export const programsService = {
                 workout: {
                   connectOrCreate: {
                     where: { id: w.workout.id },
-                    create: {
-                      name: w.workout.name ?? dto.name,
-                      owner: { connect: { id: userId } },
-                      workoutExercises: {
-                        create: (w.workout.workoutExercises ?? []).map(
-                          (we) => ({
-                            order: we.order || 1,
-                            notes: we.notes,
-                            exercise: { connect: { id: we.exerciseId } },
-                            coreSet: {
-                              create: coreSetsSQL.getCreateCoreSets(we.coreSet),
-                            },
-                          })
-                        ),
-                      },
-                    },
+                    create: workoutSQL.getWorkoutCreate(w.workout, userId),
                   },
                 },
               },
@@ -194,7 +131,7 @@ export const programsService = {
       // Return the updated program
       return await tx.program.findUniqueOrThrow({
         where: { id },
-        select: PROGRAM_SELECT,
+        select: programsSQL.PROGRAM_SELECT,
       });
     })) as unknown as IProgram;
   },

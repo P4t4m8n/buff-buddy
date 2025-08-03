@@ -12,7 +12,7 @@ describe("Programs API", () => {
   let authToken: string;
   let testUserId: string;
   let testWorkoutId: string;
-  let testExerciseId: string;
+  let testExercises: IExerciseDTO[] = [];
   const createdProgramIds: string[] = [];
 
   beforeAll(async () => {
@@ -26,22 +26,90 @@ describe("Programs API", () => {
     const userRes = await request(app)
       .post("/api/v1/auth/sign-up")
       .send(userCredentials);
+    console.log("🚀 ~ userRes:", userRes.body)
     testUserId = userRes.body.data.id;
     authToken = userRes.headers["set-cookie"][0].split(";")[0].split("=")[1];
 
-    const exercise: IExerciseDTO = {
-      name: `Program Test Exercise ${Date.now()}`,
-      youtubeUrl: "https://www.youtube.com/watch?v=prgtest",
-      type: "strength",
-      equipment: ["barbell"],
-      muscles: ["chest"],
-    };
+    const exercises: IExerciseDTO[] = [
+      {
+        name: "Push Up",
+        youtubeUrl: "https://www.youtube.com/watch?v=_l3ySVKYVJ8",
+        type: "cardio",
+        equipment: ["cable_machine"],
+        muscles: ["chest", "triceps", "abductors"],
+      },
+      {
+        name: "Barbell Squat",
+        youtubeUrl: "https://www.youtube.com/watch?v=Dy28eq2PjcM",
+        type: "strength",
+        equipment: ["barbell"],
+        muscles: ["quads", "glutes", "hamstrings", "lower_back"],
+      },
+      {
+        name: "Dumbbell Curl",
+        youtubeUrl: "https://www.youtube.com/watch?v=ykJmrZ5v0Oo",
+        type: "strength",
+        equipment: ["dumbbell"],
+        muscles: ["biceps", "forearms"],
+      },
+      {
+        name: "Plank",
+        youtubeUrl: "https://www.youtube.com/watch?v=pSHjTRCQxIw",
+        type: "cardio",
+        equipment: ["air_bike"],
+        muscles: ["triceps", "abs", "rotator_cuff"],
+      },
+      {
+        name: "Deadlift",
+        youtubeUrl: "https://www.youtube.com/watch?v=op9kVnSso6Q",
+        type: "miscellaneous",
+        equipment: ["barbell"],
+        muscles: ["triceps", "abs", "rotator_cuff"],
+      },
+      {
+        name: "Kettlebell Swing",
+        youtubeUrl: "https://www.youtube.com/watch?v=6u6Qp7LZKwg",
+        type: "strength",
+        equipment: ["kettlebell"],
+        muscles: ["glutes", "hamstrings", "forearms"],
+      },
+      {
+        name: "Cable Row",
+        youtubeUrl: "https://www.youtube.com/watch?v=GZbfZ033f74",
+        type: "strength",
+        equipment: ["foam_roller"],
+        muscles: ["chest", "biceps", "forearms"],
+      },
+      {
+        name: "Medicine Ball Slam",
+        youtubeUrl: "https://www.youtube.com/watch?v=F5bP6fQFGJw",
+        type: "strength",
+        equipment: ["medicine_ball"],
+        muscles: ["quads", "hamstrings", "triceps"],
+      },
+      {
+        name: "Resistance Band Pull Apart",
+        youtubeUrl: "https://www.youtube.com/watch?v=QmWf4j6lFzY",
+        type: "strength",
+        equipment: ["cable_column"],
+        muscles: ["glutes", "front_delts", "traps"],
+      },
+      {
+        name: "Calf Raise",
+        youtubeUrl: "https://www.youtube.com/watch?v=YMmgqO8Jo-k",
+        type: "strength",
+        equipment: ["incline_bench"],
+        muscles: ["calves"],
+      },
+    ];
 
-    const exerciseRes = await request(app)
-      .post("/api/v1/exercises/edit")
-      .set("Cookie", `token=${authToken}`)
-      .send(exercise);
-    testExerciseId = exerciseRes.body.data.id;
+    for (const exercise of exercises) {
+      const exerciseRes = await request(app)
+        .post("/api/v1/exercises/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(exercise);
+      testExercises.push(exerciseRes.body.data.id);
+    }
 
     const workout: IWorkoutEditDTO = {
       name: "Full Body Test Workout",
@@ -51,14 +119,66 @@ describe("Programs API", () => {
         {
           order: 1,
           notes: "First exercise",
-          exerciseId: testExerciseId,
+          exerciseId: testExercises[0].id,
           crudOperation: "create",
-          coreSet: {
+          coreStrengthSet: {
             reps: 12,
             weight: 50,
             restTime: 60,
             numberOfSets: 3,
             hasWarmup: true,
+            crudOperation: "create",
+          },
+          coreCardioSet: {
+            warmupTime: 60 * 10, // 10 minutes
+            workTime: 60 * 20, // 20 minutes
+            avgHeartRate: 120,
+            avgSpeed: 8,
+            distance: 5,
+            calorieTarget: 300,
+            crudOperation: "create",
+          },
+        },
+        {
+          order: 2,
+          notes: "Second exercise",
+          exerciseId: testExercises[1].id,
+          crudOperation: "create",
+          coreStrengthSet: {
+            reps: 10,
+            weight: 70,
+            restTime: 90,
+            numberOfSets: 4,
+            hasWarmup: false,
+            crudOperation: "create",
+          },
+        },
+        {
+          order: 3,
+          notes: "Third exercise",
+          exerciseId: testExercises[2].id,
+          crudOperation: "create",
+          coreStrengthSet: {
+            reps: 15,
+            weight: 20,
+            restTime: 45,
+            numberOfSets: 2,
+            hasWarmup: true,
+            crudOperation: "create",
+          },
+        },
+        {
+          order: 4,
+          notes: "Fourth exercise",
+          exerciseId: testExercises[3].id,
+          crudOperation: "create",
+          coreCardioSet: {
+            warmupTime: 60 * 5, // 5 minutes
+            workTime: 60 * 15, // 15 minutes
+            avgHeartRate: 130,
+            avgSpeed: 7,
+            distance: 3,
+            calorieTarget: 200,
             crudOperation: "create",
           },
         },
@@ -212,14 +332,85 @@ describe("Programs API", () => {
   describe("PUT /api/v1/programs/edit/:id", () => {
     let programId: string;
     beforeEach(async () => {
+      const workout: IWorkoutEditDTO = {
+        name: "Full Body Test Workout",
+        notes: "A workout for testing purposes.",
+        crudOperation: "create",
+        workoutExercises: [
+          {
+            order: 1,
+            notes: "First exercise",
+            exerciseId: testExercises[0].id,
+            crudOperation: "create",
+            coreStrengthSet: {
+              reps: 12,
+              weight: 50,
+              restTime: 60,
+              numberOfSets: 3,
+              hasWarmup: true,
+              crudOperation: "create",
+            },
+            coreCardioSet: {
+              warmupTime: 60 * 10, // 10 minutes
+              workTime: 60 * 20, // 20 minutes
+              avgHeartRate: 120,
+              avgSpeed: 8,
+              distance: 5,
+              calorieTarget: 300,
+              crudOperation: "create",
+            },
+          },
+          {
+            order: 2,
+            notes: "Second exercise",
+            exerciseId: testExercises[1].id,
+            crudOperation: "create",
+            coreStrengthSet: {
+              reps: 10,
+              weight: 70,
+              restTime: 90,
+              numberOfSets: 4,
+              hasWarmup: false,
+              crudOperation: "create",
+            },
+          },
+          {
+            order: 3,
+            notes: "Third exercise",
+            exerciseId: testExercises[2].id,
+            crudOperation: "create",
+            coreStrengthSet: {
+              reps: 15,
+              weight: 20,
+              restTime: 45,
+              numberOfSets: 2,
+              hasWarmup: true,
+              crudOperation: "create",
+            },
+          },
+          {
+            order: 4,
+            notes: "Fourth exercise",
+            exerciseId: testExercises[3].id,
+            crudOperation: "create",
+            coreCardioSet: {
+              warmupTime: 60 * 5, // 5 minutes
+              workTime: 60 * 15, // 15 minutes
+              avgHeartRate: 130,
+              avgSpeed: 7,
+              distance: 3,
+              calorieTarget: 200,
+              crudOperation: "create",
+            },
+          },
+        ],
+      };
       const program: IProgramEditDTO = {
         name: "Program To Update",
         startDate: "2025-03-01",
         endDate: "2025-04-01",
         isActive: true,
-        programWorkouts: [
-          { workout: { id: testWorkoutId }, daysOfWeek: ["tuesday"] },
-        ],
+        programWorkouts: [{ workout: workout, daysOfWeek: ["tuesday"] }],
       };
       const res = await request(app)
         .post("/api/v1/programs/edit")
@@ -287,13 +478,14 @@ describe("Programs API", () => {
         });
     }
 
-    if (testExerciseId) {
-      await request(app)
-        .delete(`/api/v1/exercises/${testExerciseId}`)
-        .set("Cookie", `token=${authToken}`)
-        .catch((err) => {
-          console.error(err);
-        });
+    if (testExercises.length > 0) {
+      for (const id of testExercises) {
+        await request(app)
+          .delete(`/api/v1/exercises/${id}`)
+          .catch((err) => {
+            console.error(err);
+          });
+      }
     }
     if (testUserId) {
       await request(app)

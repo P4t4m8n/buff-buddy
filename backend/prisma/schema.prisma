@@ -8,16 +8,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum MuscleGroup {
-  CHEST
-  SHOULDERS
-  BACK
-  ARMS
-  CORE
-  LEGS
-  STABILIZERS
-}
-
 enum ExerciseMuscle {
   // Chest
   chest
@@ -145,13 +135,13 @@ enum ExerciseType {
 }
 
 enum DaysOfWeek {
+  sunday
   monday
   tuesday
   wednesday
   thursday
   friday
   saturday
-  sunday
 }
 
 model User {
@@ -162,7 +152,6 @@ model User {
   firstName    String?
   lastName     String?
   programs     Program[]
-  userSets     UserSet[]
   workouts     Workout[]
   userWorkout  UserWorkout[]
   imgUrl       String?
@@ -184,53 +173,104 @@ model Exercise {
   updatedAt        DateTime            @updatedAt
 }
 
-
-
-model CoreSet {
-  id              String            @id @default(cuid())
-  restTime        Int               @default(60)
-  numberOfSets    Int               @default(1)
-  hasWarmup       Boolean           @default(false)
-  workoutExercise WorkoutExercise[]
-  reps            CoreSetReps[]
-  weight          CoreSetWeight[]
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-}
-
 model CoreCardioSet {
-  id              String            @id @default(cuid())
-  workoutExercise WorkoutExercise[]
-  warmupTime      Int?
-  workTime        Int? //in seconds
+  id              String                       @id @default(cuid())
+  warmupTime      Int? //in seconds
   avgHeartRate    Int?
-  avgSpeed        Float?
-  distance        Float?
-  calorieTarget   Int?
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
+  workoutExercise WorkoutExercise[]
+  workTime        CoreCardioSetWorkoutTime[] //in seconds
+  avgSpeed        CoreCardioSetAvgSpeed[] //in km/h
+  distance        CoreCardioSetDistance[] //in meters
+  calorieTarget   CoreCardioSetCalorieTarget[]
+  createdAt       DateTime                     @default(now())
+  updatedAt       DateTime                     @updatedAt
 }
 
-model CoreSetReps {
-  id        String   @id @default(cuid())
-  coreSetId String
-  coreSet   CoreSet  @relation(fields: [coreSetId], references: [id], onDelete: Cascade)
-  reps      Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model CoreCardioSetCalorieTarget {
+  id              String        @id @default(cuid())
+  coreCardioSetId String
+  coreCardioSet   CoreCardioSet @relation(fields: [coreCardioSetId], references: [id], onDelete: Cascade)
+  calorieTarget   Int? // in kcal
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
 
-model CoreSetWeight {
-  id           String   @id @default(cuid())
-  coreSetId    String
-  coreSet      CoreSet  @relation(fields: [coreSetId], references: [id], onDelete: Cascade)
-  isBodyWeight Boolean  @default(false)
-  weight       Float?   @default(0)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+model CoreCardioSetDistance {
+  id              String        @id @default(cuid())
+  coreCardioSetId String
+  coreCardioSet   CoreCardioSet @relation(fields: [coreCardioSetId], references: [id], onDelete: Cascade)
+  distance        Float? // in km
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
 
-model UserSet {
+model CoreCardioSetAvgSpeed {
+  id              String        @id @default(cuid())
+  coreCardioSetId String
+  coreCardioSet   CoreCardioSet @relation(fields: [coreCardioSetId], references: [id], onDelete: Cascade)
+  avgSpeed        Float? // in km/h
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model CoreCardioSetWorkoutTime {
+  id              String        @id @default(cuid())
+  coreCardioSetId String
+  coreCardioSet   CoreCardioSet @relation(fields: [coreCardioSetId], references: [id], onDelete: Cascade)
+  workTime        Int? //in seconds
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model UserCardioSet {
+  id                    String              @id @default(cuid())
+  warmupTime            Int?                @default(0)
+  workTime              Int?
+  avgHeartRate          Int?
+  avgSpeed              Float?
+  distance              Float?
+  order                 Int                 @default(1)
+  isCompleted           Boolean             @default(false)
+  calorieTarget         Int?
+  userWorkoutExerciseId String
+  skippedReason         String?
+  userWorkoutExercise   UserWorkoutExercise @relation(fields: [userWorkoutExerciseId], references: [id], onDelete: Cascade)
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+}
+
+model CoreStrengthSet {
+  id              String                  @id @default(cuid())
+  restTime        Int                     @default(60)
+  numberOfSets    Int                     @default(1)
+  hasWarmup       Boolean                 @default(false)
+  workoutExercise WorkoutExercise[]
+  reps            CoreStrengthSetReps[]
+  weight          CoreStrengthSetWeight[]
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+}
+
+model CoreStrengthSetReps {
+  id                String          @id @default(cuid())
+  coreStrengthSetId String
+  coreStrengthSet   CoreStrengthSet @relation(fields: [coreStrengthSetId], references: [id], onDelete: Cascade)
+  reps              Int             @default(0)
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+}
+
+model CoreStrengthSetWeight {
+  id                String          @id @default(cuid())
+  coreStrengthSetId String
+  coreStrengthSet   CoreStrengthSet @relation(fields: [coreStrengthSetId], references: [id], onDelete: Cascade)
+  isBodyWeight      Boolean         @default(false)
+  weight            Float?          @default(0)
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+}
+
+model UserStrengthSet {
   id                    String              @id @default(cuid())
   reps                  Int                 @default(0)
   weight                Float?              @default(0)
@@ -241,8 +281,7 @@ model UserSet {
   isWarmup              Boolean             @default(false)
   isMuscleFailure       Boolean             @default(false)
   isJointPain           Boolean             @default(false)
-  userId                String
-  user                  User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skippedReason         String?
   userWorkoutExerciseId String
   userWorkoutExercise   UserWorkoutExercise @relation(fields: [userWorkoutExerciseId], references: [id], onDelete: Cascade)
   createdAt             DateTime            @default(now())
@@ -294,8 +333,8 @@ model WorkoutExercise {
   id                   String                @id @default(cuid())
   order                Int                   @default(0)
   notes                String?
-  coreSetId            String?
-  coreSet              CoreSet?              @relation(fields: [coreSetId], references: [id], onDelete: Cascade)
+  coreStrengthSetId    String?
+  coreStrengthSet      CoreStrengthSet?      @relation(fields: [coreStrengthSetId], references: [id], onDelete: Cascade)
   coreCardioSetId      String?
   coreCardioSet        CoreCardioSet?        @relation(fields: [coreCardioSetId], references: [id], onDelete: Cascade)
   exerciseId           String
@@ -308,12 +347,13 @@ model WorkoutExercise {
 }
 
 model UserWorkoutExercise {
-  id                String          @id @default(cuid())
+  id                String            @id @default(cuid())
   workoutExerciseId String
-  workoutExercise   WorkoutExercise @relation(fields: [workoutExerciseId], references: [id], onDelete: Cascade)
+  workoutExercise   WorkoutExercise   @relation(fields: [workoutExerciseId], references: [id], onDelete: Cascade)
   userWorkoutId     String
-  userWorkout       UserWorkout     @relation(fields: [userWorkoutId], references: [id], onDelete: Cascade)
-  userSets          UserSet[]
+  userWorkout       UserWorkout       @relation(fields: [userWorkoutId], references: [id], onDelete: Cascade)
+  userStrengthSet   UserStrengthSet[]
+  userCardioSet     UserCardioSet[]
 }
 
 model UserWorkout {

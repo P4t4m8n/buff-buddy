@@ -37,7 +37,9 @@ export default function WorkoutExerciseCoreSet({
 
   return (
     <div className="w-full h-full grid gap-2 px-4 ">
-      <h3 className="underline text-lg font-semibold px-4">Core Sets</h3>
+      <h3 className="underline text-lg font-semibold px-4 text-center">
+        Core Sets
+      </h3>
       <div className="  flex flex-col  gap-1 w-full border rounded justify-between p-2">
         <div className="flex justify-between">
           <Input

@@ -4,19 +4,20 @@ import TextArea from "../UI/Form/TextArea";
 import Button from "../UI/Button";
 import Loader from "../UI/Loader";
 
-import WorkoutExerciseCoreSet from "./WorkoutExerciseCoreSet";
-
 import { useWorkoutExerciseEdit } from "../../hooks/features/program/useWorkoutExerciseEdit";
 import { useFormErrors } from "../../hooks/shared/useFormErrors";
+import { toTitle } from "../../utils/toTitle";
 
+import WorkoutExerciseCoreSet from "./WorkoutExerciseCoreSet";
+import WorkoutExerciseEditAddExercise from "./WorkoutExerciseEditAddExercise";
+import SelectWithSearchOld from "../UI/Form/SelectWithSearchOld";
+import WorkoutExerciseCoreCardioSet from "./WorkoutExerciseCoreCardioSet";
+
+import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
 import type { IWorkoutExerciseEditDTO } from "../../../../shared/models/workout.model";
 import type { IModelProps } from "../UI/GenericModel";
 import type { ICoreSetEditDTO } from "../../../../shared/models/set.model";
-
-import WorkoutExerciseEditAddExercise from "./WorkoutExerciseEditAddExercise";
-import SelectWithSearchOld from "../UI/Form/SelectWithSearchOld";
-import { toTitle } from "../../utils/toTitle";
-import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
+import type { ICoreCardioSetEditDTO } from "../../../../shared/models/cardioSet.model";
 
 interface WorkoutExerciseEditProps extends IModelProps<HTMLDivElement> {
   workoutExercise?: IWorkoutExerciseEditDTO;
@@ -33,13 +34,16 @@ export default function WorkoutExerciseEdit({
     handleSelectExercise,
     filterExercises,
     handleInputChange,
-    handleSetChange,
+    handleCoreStrengthSetChange,
+    handleCoreCardioSetChange,
     workoutExerciseToEdit,
     exercises,
     resetWorkoutExerciseToEdit,
   } = useWorkoutExerciseEdit(workoutExercise, workoutExerciseLength);
 
   const { errors: coreSetsErrors } = useFormErrors<ICoreSetEditDTO>();
+  const { errors: coreCardioSetsErrors } =
+    useFormErrors<ICoreCardioSetEditDTO>();
   const { errors: workoutExerciseErrors } =
     useFormErrors<IWorkoutExerciseEditDTO>();
 
@@ -86,15 +90,22 @@ export default function WorkoutExerciseEdit({
 
   const { order, notes, exercise, coreSet, coreCardioSet } =
     workoutExerciseToEdit;
+
   const workoutExerciseType = (type?: ExerciseType | null) => {
     switch (type) {
       case "cardio":
-        return null;
+        return (
+          <WorkoutExerciseCoreCardioSet
+            coreCardioSet={coreCardioSet}
+            handleChange={handleCoreCardioSetChange}
+            errors={coreCardioSetsErrors}
+          />
+        );
       case "strength":
         return (
           <WorkoutExerciseCoreSet
             coreSet={coreSet}
-            handleChange={handleSetChange}
+            handleChange={handleCoreStrengthSetChange}
             errors={coreSetsErrors}
           />
         );

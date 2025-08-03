@@ -1,6 +1,7 @@
+import { IUserCardioSetDTO } from "./cardioSet.model";
 import type { IEntity } from "./entity.model";
 import type { IProgramDTO } from "./program.model";
-import type { IUserSetDTO } from "./set.model";
+import type { IUserStrengthSetDTO } from "./strengthSet.model";
 import type { IUserDTO } from "./user.model";
 import type { IWorkoutDTO, IWorkoutExerciseDTO } from "./workout.model";
 
@@ -25,9 +26,11 @@ export interface IUserWorkoutEditDTO extends IUserWorkoutBase {
 }
 
 export interface IUserWorkoutExercisesDTO extends IWorkoutExerciseDTO {
-  userSets: IUserSetDTO[];
+  userSets: IUserStrengthSetDTO[];
+  userCardioSets?: IUserCardioSetDTO[];
 }
 export interface IUserWorkoutEditExercisesDTO extends IWorkoutExerciseDTO {
   workoutExerciseId: string;
-  userSets: IUserSetDTO[];
+  userStrengthSets: IUserStrengthSetDTO[];
+  userCardioSets?: IUserCardioSetDTO[];
 }

@@ -1,64 +1,28 @@
 import { TCreateUserWorkoutInput } from "./userWorkout.validations";
 import { prisma } from "../../../prisma/prisma";
-import { IUserWorkout, IUserWorkoutEdit } from "./userWorkouts.model";
-import { exerciseSQL } from "../exercises/exercise.sql";
-import { coreSetsSQL } from "../coreSets/coreSets.sql";
+import { IUserWorkout } from "./userWorkouts.model";
+
 import { userWorkoutSql } from "./userWorkout.sql";
+import { userStrengthSetsSQL } from "../userSets/userStrengthSets/userStrengthSets.sql";
+import { userCardioSetsSQL } from "../userSets/userCardioSets/userCardioSets.sql";
+import { userSQL } from "../users/users.sql";
+import { workoutSQL } from "../workouts/workout.sql";
 
 export const userWorkoutService = {
   create: async (dto: TCreateUserWorkoutInput): Promise<IUserWorkout> => {
-    return await prisma.userWorkout.create({
-      data: {
-        dateCompleted: dto.dateCompleted,
-        owner: {
-          connect: {
-            id: dto.ownerId,
-          },
-        },
-        program: {
-          connect: {
-            id: dto.programId,
-          },
-        },
-        workout: {
-          connect: {
-            id: dto.workoutId,
-          },
-        },
-        userWorkoutExercises: {
-          create: dto.workoutExercises.map((we) => ({
-            workoutExercise: {
-              connect: {
-                id: we.workoutExerciseId,
-              },
-            },
-            userSets: {
-              create: we.userSets.map((us) => ({
-                reps: us.reps,
-                weight: us.weight,
-                isBodyWeight: us.isBodyWeight,
-                isCompleted: us.isCompleted,
-                isWarmup: us.isWarmup,
-                isMuscleFailure: us.isMuscleFailure,
-                isJointPain: us.isJointPain,
-                order: us?.order,
-                user: {
-                  connect: {
-                    id: dto.ownerId,
-                  },
-                },
-              })),
-            },
-          })),
-        },
-      },
-      select: userWorkoutSql.USER_EXERCISE_SELECT,
-    });
+    return (await prisma.userWorkout.create({
+      data: userWorkoutSql.getCreateUserWork(dto),
+      select: userWorkoutSql.USER_WORKOUT_SELECT,
+    })) as unknown as IUserWorkout;
   },
-  getLastWorkout: async (workoutId: string): Promise<IUserWorkout | null> => {
-    return await prisma.userWorkout.findFirst({
+  getLastWorkout: async (
+    workoutId: string,
+    userId: string
+  ): Promise<IUserWorkout | null> => {
+    return (await prisma.userWorkout.findFirst({
       where: {
         workoutId,
+        ownerId: userId,
         dateCompleted: {
           not: null,
         },
@@ -66,8 +30,8 @@ export const userWorkoutService = {
       orderBy: {
         dateCompleted: "desc",
       },
-      select: userWorkoutSql.USER_EXERCISE_SELECT,
-    });
+      select: userWorkoutSql.USER_WORKOUT_SELECT,
+    })) as unknown as IUserWorkout;
   },
 
   /* 

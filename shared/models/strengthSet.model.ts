@@ -1,20 +1,21 @@
 import type { TCrudOperation } from "./app.model";
 import type { IEntity } from "./entity.model";
 
-export interface ICoreSetDTO extends IEntity {
+export interface ICoreStrengthSetDTO extends IEntity {
   reps?: number | null; // Target number of repetitions for the set
   weight?: number | null; // Weight lifted in kg
   numberOfSets?: number; // Total number of sets in the exercise
   isBodyWeight?: boolean; // Indicates if the set is bodyweight only
   restTime?: number | null; // Rest time in seconds before the next set
   hasWarmup?: boolean; // Indicates if the set was a warmup set
+  skippedReason?: string;
 }
-export interface ICoreSetEditDTO extends ICoreSetDTO {
+export interface ICoreStrengthSetEditDTO extends ICoreStrengthSetDTO {
   crudOperation?: TCrudOperation;
   workoutExerciseId?: string; // Foreign key to ProgramExercise
 }
 
-export interface IUserSetDTO extends IEntity {
+export interface IUserStrengthSetDTO extends IEntity {
   reps?: number | null; // Actual number of repetitions performed
   lastReps?: number | null; // Last recorded repetitions for the set
   weight?: number | null; // Actual weight lifted in kg
@@ -27,9 +28,10 @@ export interface IUserSetDTO extends IEntity {
   lastIsJointPain?: boolean | null; // Last recorded joint pain status
   isBodyWeight?: boolean; // Indicates if the set was bodyweight only
   order?: number;
+  skippedReason?: string;
 }
 
-export interface IUserSetEditDTO extends Omit<IUserSetDTO, "coreSet"> {
+export interface IUserStrengthSetEditDTO extends IUserStrengthSetDTO {
   coreSetId?: string; // Foreign key to CoreSet
   programExerciseId?: string;
   crudOperation?: TCrudOperation;

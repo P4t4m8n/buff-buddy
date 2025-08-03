@@ -2,8 +2,6 @@ import {
   IUserWorkoutDTO,
   IUserWorkoutEditDTO,
 } from "../../../../shared/models/userWorkout";
-import { coreSetsUtil } from "../coreSets/coreSets.util";
-import { workoutUtils } from "../workouts/workout.utils";
 import { IUserWorkout, IUserWorkoutEdit } from "./userWorkouts.model";
 
 export const userWorkoutsUtils = {

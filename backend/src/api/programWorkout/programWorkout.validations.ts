@@ -4,7 +4,10 @@ import {
   DaysOfWeekSchema,
   IDSchema,
 } from "../../shared/validations/shared.validations";
-import { UpdateWorkoutSchema } from "../workouts/workouts.validations";
+import {
+  UpdateWorkoutSchema,
+  CreateWorkoutSchema,
+} from "../workouts/workouts.validations";
 
 const BadeProgramWorkoutSchema = z.object({
   daysOfWeek: DaysOfWeekSchema.optional(),
@@ -12,17 +15,17 @@ const BadeProgramWorkoutSchema = z.object({
 });
 
 export const CreateProgramWorkoutSchema = BadeProgramWorkoutSchema.extend({
-  workout: UpdateWorkoutSchema,
+  workout: CreateWorkoutSchema,
 });
 export const UpdateProgramWorkoutSchema = BadeProgramWorkoutSchema.extend({
   workout: UpdateWorkoutSchema,
   id: IDSchema.optional(),
 });
 
-export type CreateProgramWorkoutInput = z.infer<
+export type TCreateProgramWorkoutInput = z.infer<
   typeof CreateProgramWorkoutSchema
 >;
 
-export type UpdateProgramWorkoutInput = z.infer<
+export type TUpdateProgramWorkoutInput = z.infer<
   typeof UpdateProgramWorkoutSchema
 >;

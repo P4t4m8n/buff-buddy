@@ -54,6 +54,6 @@ export const ProgramQuerySchema = z.object({
   page: z.coerce.number().min(1).optional(),
 });
 
-export type CreateProgramInput = z.infer<typeof CreateProgramSchema>;
-export type UpdateProgramInput = z.infer<typeof UpdateProgramSchema>;
-export type ProgramQuery = z.infer<typeof ProgramQuerySchema>;
+export type TCreateProgramInput = z.infer<typeof CreateProgramSchema>;
+export type TUpdateProgramInput = z.infer<typeof UpdateProgramSchema>;
+export type TProgramQuery = z.infer<typeof ProgramQuerySchema>;

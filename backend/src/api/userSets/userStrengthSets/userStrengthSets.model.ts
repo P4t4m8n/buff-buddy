@@ -1,10 +1,11 @@
-export interface IUserSet {
+export interface IUserStrengthSet {
   id: string;
   reps: number;
-  weight: number|null;
+  weight: number | null;
   isWarmup: boolean;
   isCompleted: boolean;
   isMuscleFailure: boolean;
   isJointPain: boolean;
   isBodyWeight: boolean;
+  skippedReason?: string | null;
 }
