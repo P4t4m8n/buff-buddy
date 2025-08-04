@@ -36,48 +36,43 @@ const PROGRAM_SELECT: Prisma.ProgramSelect = {
 const getProgramWorkoutCreate = (
   dto: TCreateProgramWorkoutInput,
   userId: string
-) => {
-  return {
-    workout: {
-      connectOrCreate: {
-        where: { id: dto.workout?.id },
-        create: {
-          name: dto.workout.name ?? "",
-          owner: {
-            connect: {
-              id: userId,
-            },
-          },
-          notes: dto.workout.notes,
-          workoutExercises: {
-            create: (dto.workout.workoutExercises ?? []).map((we) => ({
-              order: we.order ?? 1,
-              notes: we.notes,
-              exercise: {
-                connect: {
-                  id: we.exerciseId,
-                },
-              },
-              coreCardioSet: {
-                connectOrCreate: {
-                  where: { id: we.coreCardioSet?.id },
-                  create: coreCardioSetsSQL.getCreateCoreSets(we.coreCardioSet),
-                },
-              },
-              coreStrengthSet: {
-                connectOrCreate: {
-                  where: { id: we.coreStrengthSet?.id },
-                  create: coreStrengthSetsSQL.getCreateCoreSets(
-                    we.coreStrengthSet
-                  ),
-                },
-              },
-            })),
-          },
-        },
+): Prisma.ProgramWorkoutCreateWithoutProgramInput => {
+  const workoutCreateData: Prisma.WorkoutCreateInput = {
+    name: dto.workout?.name ?? "Unnamed Workout",
+    notes: dto.workout?.notes,
+    owner: {
+      connect: {
+        id: userId,
       },
     },
+    workoutExercises: {
+      create: (dto.workout?.workoutExercises ?? []).map((we) => ({
+        order: we.order ?? 1,
+        notes: we.notes,
+        exercise: {
+          connect: {
+            id: we.exerciseData.id,
+          },
+        },
+        coreCardioSet: we.coreCardioSet
+          ? {
+              create: coreCardioSetsSQL.getCreateCoreSets(we.coreCardioSet),
+            }
+          : undefined,
+        coreStrengthSet: we.coreStrengthSet
+          ? {
+              create: coreStrengthSetsSQL.getCreateCoreSets(we.coreStrengthSet),
+            }
+          : undefined,
+      })),
+    },
+  };
+
+  return {
     daysOfWeek: dto.daysOfWeek as DaysOfWeek[],
+    workout: dto.workout?.id
+      ? { connect: { id: dto.workout.id } }
+      : { create: workoutCreateData },
   };
 };
 

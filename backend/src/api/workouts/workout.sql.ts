@@ -1,8 +1,10 @@
 import { Prisma } from "../../../prisma/generated/prisma";
+import { dbUtil } from "../../shared/utils/db.util";
 import { coreCardioSetsSQL } from "../coreSets/coreCardioSets/coreCardioSets.sql";
 import { coreStrengthSetsSQL } from "../coreSets/coreStrengthSets/coreStrengthSets.sql";
 import { exerciseSQL } from "../exercises/exercise.sql";
 import { userSQL } from "../users/users.sql";
+import { workoutExerciseSQL } from "../workoutExercise/workoutExercise.sql";
 import {
   TCreateWorkoutExerciseInput,
   TUpdateWorkoutExerciseInput,
@@ -38,45 +40,55 @@ const WORKOUT_SELECT: Prisma.WorkoutSelect = {
     select: WORKOUT_EXERCISE_SELECT,
   },
 };
+
 const WORKOUT_SELECT_SMALL: Partial<Prisma.WorkoutSelect> = {
   id: true,
   name: true,
   notes: true,
 };
 
-const getWorkoutExerciseCreate = (
-  dto: TCreateWorkoutExerciseInput | TUpdateWorkoutExerciseInput | null
-): Prisma.WorkoutExerciseCreateInput => {
+const getWorkoutCreate = (
+  data?: TCreateWorkoutInput | null,
+  userId?: string | null
+): Prisma.WorkoutCreateInput => {
   return {
-    order: dto?.order || 1,
-    notes: dto?.notes,
-    exercise: { connect: { id: dto?.exerciseId } },
-    coreStrengthSet: {
-      create: coreStrengthSetsSQL.getCreateCoreSets(dto?.coreStrengthSet),
-    },
-    coreCardioSet: {
-      create: coreCardioSetsSQL.getCreateCoreSets(dto?.coreCardioSet),
-    },
-
-    workout: {
-      create: undefined,
-      connectOrCreate: undefined,
-      connect: undefined,
+    name: data?.name ?? data?.name,
+    owner: { connect: { id: userId ?? undefined } },
+    workoutExercises: {
+      create: (data?.workoutExercises ?? []).map((we) =>
+        workoutExerciseSQL.getWorkoutExerciseCreate(we)
+      ),
     },
   };
 };
 
-const getWorkoutCreate = (
-  dto?: TCreateWorkoutInput | TUpdateWorkoutInput | null,
-  userId?: string | null
-): Prisma.WorkoutCreateInput => {
+const getWorkoutUpdate = (
+  data: TUpdateWorkoutInput
+): Prisma.WorkoutUpdateInput => {
+  const { workoutExercises, ...workoutData } = data;
+
+  const exercisesToCreate =
+    (workoutExercises?.filter(
+      (we) => we.crudOperation === "create"
+    ) as TCreateWorkoutExerciseInput[]) ?? [];
+  const exercisesToUpdate =
+    workoutExercises?.filter((we) => we.crudOperation === "update") ?? [];
+  const exercisesToDelete =
+    workoutExercises?.filter((we) => we.crudOperation === "delete") ?? [];
   return {
-    name: dto?.name ?? dto?.name,
-    owner: { connect: { id: userId ?? undefined } },
+    ...dbUtil.cleanData({
+      notes: workoutData.notes,
+      name: workoutData.name,
+    }),
     workoutExercises: {
-      create: (dto?.workoutExercises ?? []).map((we) =>
-        getWorkoutExerciseCreate(we)
+      deleteMany: exercisesToDelete.map((we) => ({ id: we.id! })),
+      create: exercisesToCreate.map((we) =>
+        workoutExerciseSQL.getWorkoutExerciseCreate(we)
       ),
+      update: exercisesToUpdate.map((we) => ({
+        where: { id: we.id! },
+        data: workoutExerciseSQL.getWorkoutExerciseUpdate(we),
+      })),
     },
   };
 };
@@ -86,5 +98,5 @@ export const workoutSQL = {
   WORKOUT_SELECT_SMALL,
   WORKOUT_EXERCISE_SELECT,
   getWorkoutCreate,
-  getWorkoutExerciseCreate,
+  getWorkoutUpdate,
 };

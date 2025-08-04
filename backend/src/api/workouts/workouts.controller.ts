@@ -70,7 +70,7 @@ export const createWorkout = async (req: Request, res: Response) => {
       throw new AppError("User not authenticated", 401);
     }
     const invalidatedData = req.body;
-
+    
     invalidatedData.ownerId = ownerId;
 
     const validatedData = CreateWorkoutSchema.parse(invalidatedData);

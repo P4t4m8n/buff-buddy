@@ -41,7 +41,7 @@ export const CreateCoreCardioSetSchema = z.object({
   }),
 
   crudOperation: CrudOperationSchema,
-  id: IDSchema,
+  id: IDSchema.optional(),
 });
 
 export const UpdateCoreCardioSetSchema =

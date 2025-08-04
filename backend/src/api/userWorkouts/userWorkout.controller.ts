@@ -19,7 +19,7 @@ export const createUserWorkout = async (req: Request, res: Response) => {
     const validatedData = CreateUserWorkoutSchema.parse(invalidatedData);
 
     const userWorkoutData = await userWorkoutService.create(validatedData);
-    const userWorkoutDTO = userWorkoutsUtils.toDTO(userWorkoutData);
+    const userWorkoutDTO = userWorkoutsUtils.buildDTO(userWorkoutData);
 
     res.status(201).json({
       message: "User-Workout created successfully",
@@ -48,7 +48,7 @@ export const getLastWorkout = async (req: Request, res: Response) => {
       throw new AppError("User not authenticated", 401);
     }
 
-    const userWorkout = await userWorkoutService.getLastWorkout(
+    const userWorkout = await userWorkoutService.getLastUserWorkout(
       workoutId,
       userId
     );
@@ -59,7 +59,7 @@ export const getLastWorkout = async (req: Request, res: Response) => {
       });
     }
 
-    const userWorkoutDTO = userWorkoutsUtils.toDTO(userWorkout);
+    const userWorkoutDTO = userWorkoutsUtils.buildDTO(userWorkout);
 
     res.status(200).json({
       message: "Last User-Workout retrieved successfully",

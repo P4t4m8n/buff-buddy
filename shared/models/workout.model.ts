@@ -8,6 +8,7 @@ import type { IEntity } from "./entity.model";
 import type { TDayOfWeek, IBaseFilter, TCrudOperation } from "./app.model";
 import type { IProgramDTO } from "./program.model";
 import type { ICoreCardioSetEditDTO } from "./cardioSet.model";
+import { ExerciseType } from "../../backend/prisma/generated/prisma";
 
 interface IWorkoutBase extends IEntity {
   name?: string | null;
@@ -40,7 +41,10 @@ export interface IWorkoutExerciseEditDTO extends IEntity {
   notes?: string | null;
   coreStrengthSet?: ICoreStrengthSetEditDTO;
   coreCardioSet?: ICoreCardioSetEditDTO;
-  exerciseId?: string; //For backend relationship
+  exerciseData: {
+    id: string;
+    type: ExerciseType;
+  }; //For backend relationship
   exercise?: IExerciseDTO; //Exists only on the front to show the exercise details
   crudOperation?: TCrudOperation;
 }

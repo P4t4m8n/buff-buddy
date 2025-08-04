@@ -10,13 +10,16 @@ export interface IProgramFilter extends IBaseFilter {
   exerciseName?: string;
 }
 
-export interface IProgram {
+export interface IProgramBase {
   id: string;
   name: string;
   notes: string | null;
   isActive: boolean;
   startDate: Date;
   endDate: Date | null;
+}
+
+export interface IProgram extends IProgramBase {
   createdAt: Date;
   updatedAt: Date;
   owner: {

@@ -180,7 +180,6 @@ export const seedExercises = async () => {
 
 seedExercises()
   .then((result) => {
-    console.log(result);
   })
   .catch((error) => {
     console.error("Error seeding exercises:", error);

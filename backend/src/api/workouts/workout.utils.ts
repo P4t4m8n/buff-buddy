@@ -1,7 +1,6 @@
 import { IWorkoutDTO } from "../../../../shared/models/workout.model";
 import { Prisma } from "../../../prisma/generated/prisma";
-import { coreCardioSetsUtil } from "../coreSets/coreCardioSets/coreCardioSets.util";
-import { coreStrengthSetsUtil } from "../coreSets/coreStrengthSets/coreStrengthSets.util";
+import { workoutExerciseUtils } from "../workoutExercise/workoutExercise.util";
 import { IWorkout, IWorkoutFilter } from "./workouts.models";
 
 const buildWhereClause = (
@@ -54,11 +53,9 @@ const buildWhereClause = (
 };
 const buildDTO = (workout: IWorkout): IWorkoutDTO => ({
   ...workout,
-  workoutExercises: workout?.workoutExercises?.map((we) => ({
-    ...we,
-    coreStrengthSet: coreStrengthSetsUtil.toDTO(we.coreStrengthSet),
-    coreCardioSet: coreCardioSetsUtil.toDTO(we.coreCardioSet),
-  })),
+  workoutExercises: workout?.workoutExercises?.map((we) =>
+    workoutExerciseUtils.buildDTO(we)
+  ),
 });
 
 const buildDTOArr = (programs: IWorkout[]): IWorkoutDTO[] => {

@@ -103,7 +103,6 @@ const WorkoutExerciseCoreCardioSetInput = ({
   handleChange: (e: React.ChangeEvent) => void;
   itemId: string;
 }) => {
-  console.log("🚀 ~ WorkoutExerciseCoreCardioSetInput ~ item:", item);
   const { name, value, error, label } = item;
 
   if (name === "border") {

@@ -4,6 +4,7 @@ import { dbUtil } from "../../shared/utils/db.util";
 import { coreCardioSetsSQL } from "../coreSets/coreCardioSets/coreCardioSets.sql";
 import { coreStrengthSetsSQL } from "../coreSets/coreStrengthSets/coreStrengthSets.sql";
 import { workoutSQL } from "../workouts/workout.sql";
+import { TCreateWorkoutInput } from "../workouts/workouts.validations";
 import { programsSQL } from "./program.sql";
 import { IProgram, IProgramFilter } from "./programs.models";
 import {
@@ -69,70 +70,41 @@ export const programsService = {
     const workoutsToDelete =
       dto.programWorkouts?.filter((wo) => wo.crudOperation === "delete") ?? [];
 
-    // Start transaction
-    return (await prisma.$transaction(async (tx) => {
-      // Update the program itself
-      await tx.program.update({
-        where: { id },
-        data: programData,
-      });
-
-      // Delete workouts
-      if (workoutsToDelete.length > 0) {
-        await Promise.all(
-          workoutsToDelete.map((w) =>
-            tx.programWorkout.delete({ where: { id: w.id } })
-          )
-        );
-      }
-
-      // Update workouts
-      if (workoutsToUpdate.length > 0) {
-        await Promise.all(
-          workoutsToUpdate.map((w) =>
-            tx.programWorkout.update({
-              where: { id: w.id },
-              data: {
-                ...dbUtil.cleanData({
-                  daysOfWeek: w.daysOfWeek as DaysOfWeek[],
-                }),
-                workout: {
-                  connectOrCreate: {
-                    where: { id: w.workout.id },
-                    create: workoutSQL.getWorkoutCreate(w.workout, userId),
-                  },
+    return (await prisma.program.update({
+      where: { id, ownerId: userId },
+      data: {
+        ...programData,
+        programWorkouts: {
+          delete: workoutsToDelete.map((wo) => ({ id: wo.id! })),
+          create: workoutsToCreate.map((wo) => ({
+            daysOfWeek: wo.daysOfWeek as DaysOfWeek[],
+            workout: {
+              connectOrCreate: {
+                where: { id: wo.workout.id },
+                create: workoutSQL.getWorkoutCreate(
+                  wo.workout as TCreateWorkoutInput,
+                  userId
+                ),
+              },
+            },
+          })),
+          update: workoutsToUpdate.map((wo) => ({
+            where: { id: wo.id! },
+            data: {
+              daysOfWeek: wo.daysOfWeek as DaysOfWeek[],
+              workout: {
+                connectOrCreate: {
+                  where: { id: wo.workout.id },
+                  create: workoutSQL.getWorkoutCreate(
+                    wo.workout as TCreateWorkoutInput,
+                    userId
+                  ),
                 },
               },
-            })
-          )
-        );
-      }
-
-      // Create new workouts
-      if (workoutsToCreate.length > 0) {
-        await Promise.all(
-          workoutsToCreate.map((w) =>
-            tx.programWorkout.create({
-              data: {
-                program: { connect: { id } },
-                daysOfWeek: w.daysOfWeek as DaysOfWeek[],
-                workout: {
-                  connectOrCreate: {
-                    where: { id: w.workout.id },
-                    create: workoutSQL.getWorkoutCreate(w.workout, userId),
-                  },
-                },
-              },
-            })
-          )
-        );
-      }
-
-      // Return the updated program
-      return await tx.program.findUniqueOrThrow({
-        where: { id },
-        select: programsSQL.PROGRAM_SELECT,
-      });
+            },
+          })),
+        },
+      },
     })) as unknown as IProgram;
   },
 

@@ -14,8 +14,9 @@ const BadeProgramWorkoutSchema = z.object({
   crudOperation: CrudOperationSchema,
 });
 
+//TODO?? optional for now improve validation later as a user can send a new workout to create or send an only the id to connect
 export const CreateProgramWorkoutSchema = BadeProgramWorkoutSchema.extend({
-  workout: CreateWorkoutSchema,
+  workout: CreateWorkoutSchema.optional(),
 });
 export const UpdateProgramWorkoutSchema = BadeProgramWorkoutSchema.extend({
   workout: UpdateWorkoutSchema,

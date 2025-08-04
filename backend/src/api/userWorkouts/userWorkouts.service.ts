@@ -15,7 +15,7 @@ export const userWorkoutService = {
       select: userWorkoutSql.USER_WORKOUT_SELECT,
     })) as unknown as IUserWorkout;
   },
-  getLastWorkout: async (
+  getLastUserWorkout: async (
     workoutId: string,
     userId: string
   ): Promise<IUserWorkout | null> => {
@@ -30,6 +30,7 @@ export const userWorkoutService = {
       orderBy: {
         dateCompleted: "desc",
       },
+      take: 1,
       select: userWorkoutSql.USER_WORKOUT_SELECT,
     })) as unknown as IUserWorkout;
   },

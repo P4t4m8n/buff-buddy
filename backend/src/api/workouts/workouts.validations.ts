@@ -19,7 +19,7 @@ const BaseWorkoutSchema = z.object({
   workoutExercises: z
     .array(CreateNestedWorkoutExerciseSchema)
     .min(1, "At least one workout set is required")
-    .max(50, "Maximum 50 workout sets allowed per workout"),
+    .max(50, "Maximum 50 workout sets allowed per workout").optional(),
     id: IDSchema.optional(),
 });
 

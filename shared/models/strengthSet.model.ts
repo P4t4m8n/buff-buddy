@@ -28,7 +28,7 @@ export interface IUserStrengthSetDTO extends IEntity {
   lastIsJointPain?: boolean | null; // Last recorded joint pain status
   isBodyWeight?: boolean; // Indicates if the set was bodyweight only
   order?: number;
-  skippedReason?: string;
+  skippedReason?: string|null;
 }
 
 export interface IUserStrengthSetEditDTO extends IUserStrengthSetDTO {

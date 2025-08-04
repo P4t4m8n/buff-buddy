@@ -149,6 +149,7 @@ exports.Prisma.CoreCardioSetScalarFieldEnum = {
   id: 'id',
   warmupTime: 'warmupTime',
   avgHeartRate: 'avgHeartRate',
+  workoutExerciseId: 'workoutExerciseId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -206,6 +207,7 @@ exports.Prisma.CoreStrengthSetScalarFieldEnum = {
   restTime: 'restTime',
   numberOfSets: 'numberOfSets',
   hasWarmup: 'hasWarmup',
+  workoutExerciseId: 'workoutExerciseId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -278,8 +280,6 @@ exports.Prisma.WorkoutExerciseScalarFieldEnum = {
   id: 'id',
   order: 'order',
   notes: 'notes',
-  coreStrengthSetId: 'coreStrengthSetId',
-  coreCardioSetId: 'coreCardioSetId',
   exerciseId: 'exerciseId',
   workoutId: 'workoutId',
   createdAt: 'createdAt',

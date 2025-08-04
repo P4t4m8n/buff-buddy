@@ -13,7 +13,7 @@ export interface IUserWorkoutDTO extends IUserWorkoutBase {
   program?: IProgramDTO | null;
   workout?: IWorkoutDTO;
   owner?: Partial<IUserDTO> | null;
-  workoutExercises: IUserWorkoutExercisesDTO[];
+  userWorkoutExercises: IUserWorkoutExercisesDTO[];
 }
 
 export interface IUserWorkoutEditDTO extends IUserWorkoutBase {
@@ -21,13 +21,13 @@ export interface IUserWorkoutEditDTO extends IUserWorkoutBase {
   programId?: string | null;
   workout?: IWorkoutDTO | null;
   workoutId?: string | null;
-  workoutExercises: IUserWorkoutEditExercisesDTO[];
+  userWorkoutExercises: IUserWorkoutEditExercisesDTO[];
   lastUserWorkout?: IUserWorkoutDTO | null;
 }
 
 export interface IUserWorkoutExercisesDTO extends IWorkoutExerciseDTO {
-  userSets: IUserStrengthSetDTO[];
-  userCardioSets?: IUserCardioSetDTO[];
+  userStrengthSets?: IUserStrengthSetDTO[] | null;
+  userCardioSets?: IUserCardioSetDTO[] | null;
 }
 export interface IUserWorkoutEditExercisesDTO extends IWorkoutExerciseDTO {
   workoutExerciseId: string;

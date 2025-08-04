@@ -4,9 +4,10 @@ import {
   IWorkoutDTO,
   IWorkoutEditDTO,
 } from "../../../../shared/models/workout.model";
+import { IExerciseDTO } from "../../../../shared/models/exercise.model";
 
 describe("Workouts API", () => {
-  let testExerciseId: string;
+  let testExercises: IExerciseDTO[] = [];
   let authToken: string;
   let testUserId: string;
   const createdWorkoutIds: string[] = [];
@@ -25,17 +26,45 @@ describe("Workouts API", () => {
     testUserId = userRes.body.data.id;
 
     authToken = userRes.headers["set-cookie"][0].split(";")[0].split("=")[1];
-    const exerciseRes = await request(app)
-      .post("/api/v1/exercises/edit")
-      .set("Cookie", `token=${authToken}`)
-      .send({
-        name: "Test Workout Exercise",
-        youtubeUrl: "https://www.youtube.com/watch?v=testworkout",
-        types: ["cardio"],
-        equipment: ["body_weight"],
-        muscles: ["biceps"],
-      });
-    testExerciseId = exerciseRes.body.data.id;
+
+    const exercises: IExerciseDTO[] = [
+      {
+        name: "cardio 1",
+        youtubeUrl: "https://www.youtube.com/watch?v=_l3ySVKYVJ8",
+        type: "cardio",
+        equipment: ["cable_machine"],
+        muscles: ["chest", "triceps", "abductors"],
+      },
+      {
+        name: "strength 1",
+        youtubeUrl: "https://www.youtube.com/watch?v=Dy28eq2PjcM",
+        type: "strength",
+        equipment: ["barbell"],
+        muscles: ["quads", "glutes", "hamstrings", "lower_back"],
+      },
+      {
+        name: "strength 2",
+        youtubeUrl: "https://www.youtube.com/watch?v=ykJmrZ5v0Oo",
+        type: "strength",
+        equipment: ["dumbbell"],
+        muscles: ["biceps", "forearms"],
+      },
+      {
+        name: "cardio 2",
+        youtubeUrl: "https://www.youtube.com/watch?v=pSHjTRCQxIw",
+        type: "cardio",
+        equipment: ["air_bike"],
+        muscles: ["triceps", "abs", "rotator_cuff"],
+      },
+    ];
+
+    for (const exercise of exercises) {
+      const exerciseRes = await request(app)
+        .post("/api/v1/exercises/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(exercise);
+      testExercises.push(exerciseRes.body.data);
+    }
   });
 
   describe("POST /api/v1/workouts/edit", () => {
@@ -48,14 +77,18 @@ describe("Workouts API", () => {
           {
             order: 1,
             notes: "First exercise",
-            exerciseId: testExerciseId,
+            exerciseData: {
+              type: testExercises[0].type!,
+              id: testExercises[0].id!,
+            },
             crudOperation: "create",
-            coreSet: {
-              reps: 12,
-              weight: 50,
-              restTime: 60,
-              numberOfSets: 3,
-              hasWarmup: true,
+            coreCardioSet: {
+              warmupTime: 60 * 10, // 10 minutes
+              workTime: 60 * 20, // 20 minutes
+              avgHeartRate: 120,
+              avgSpeed: 8,
+              distance: 5,
+              calorieTarget: 300,
               crudOperation: "create",
             },
           },
@@ -68,10 +101,56 @@ describe("Workouts API", () => {
         .send(newWorkout);
 
       expect(res.status).toBe(201);
+      const workout: IWorkoutDTO = res.body.data;
       expect(res.body.message).toBe("Workout created successfully");
-      expect(res.body.data).toHaveProperty("id");
-      expect(res.body.data.name).toBe(newWorkout.name);
-      createdWorkoutIds.push(res.body.data.id);
+      expect(workout).toHaveProperty("id");
+      expect(workout.name).toBe(newWorkout.name);
+      expect(workout.workoutExercises).toHaveLength(1);
+      expect(workout?.workoutExercises?.[0]?.exercise?.id).toBe(
+        newWorkout.workoutExercises?.[0].exerciseData.id
+      );
+      expect(workout?.workoutExercises?.[0]?.coreCardioSet?.avgHeartRate).toBe(
+        newWorkout?.workoutExercises?.[0]?.coreCardioSet?.avgHeartRate
+      );
+      createdWorkoutIds.push(workout.id!);
+    });
+
+    it("should reject workout with wrong coreSet", async () => {
+      const newWorkout: IWorkoutEditDTO = {
+        name: "Invlaid workout",
+        notes: "A workout for testing purposes.",
+        crudOperation: "create",
+        workoutExercises: [
+          {
+            order: 1,
+            notes: "First exercise",
+            exerciseData: {
+              type: testExercises[1].type!,
+              id: testExercises[1].id!,
+            },
+            crudOperation: "create",
+            coreCardioSet: {
+              warmupTime: 60 * 10, // 10 minutes
+              workTime: 60 * 20, // 20 minutes
+              avgHeartRate: 120,
+              avgSpeed: 8,
+              distance: 5,
+              calorieTarget: 300,
+              crudOperation: "create",
+            },
+          },
+        ],
+      };
+      const res = await request(app)
+        .post("/api/v1/workouts/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(newWorkout);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors).toBeDefined();
+      expect(res.body.errors["workoutExercises.0.coreStrengthSet"]).toBe(
+        "Core strength set is required for strength exercises"
+      );
     });
 
     it("should reject workout with missing required fields", async () => {
@@ -90,8 +169,8 @@ describe("Workouts API", () => {
         workoutExercises: [
           {
             order: 1,
-            exerciseId: testExerciseId,
-            coreSet: { order: 1, restTime: 60 },
+            exerciseId: testExercises[1].id,
+            coreStrengthSet: { order: 1, restTime: 60 },
           },
         ],
       };
@@ -111,8 +190,8 @@ describe("Workouts API", () => {
         workoutExercises: [
           {
             order: 1,
-            exerciseId: testExerciseId,
-            coreSets: [
+            exerciseId: testExercises[1].id,
+            coreStrengthSets: [
               {
                 order: 1,
                 reps: 10,
@@ -137,7 +216,9 @@ describe("Workouts API", () => {
 
   describe("GET /api/v1/workouts", () => {
     it("should return a paginated list of workouts", async () => {
-      const res = await request(app).get("/api/v1/workouts?page=1&take=5");
+      const res = await request(app)
+        .get("/api/v1/workouts?page=1&take=5")
+        .set("Cookie", `token=${authToken}`);
       expect(res.status).toBe(200);
       expect(Array.isArray(res.body)).toBe(true);
       expect(res.body.length).toBeLessThanOrEqual(5);
@@ -146,18 +227,21 @@ describe("Workouts API", () => {
 
   describe("GET /api/v1/workouts/:id", () => {
     it("should get a workout by its id with all nested data", async () => {
-      const res = await request(app).get(
-        `/api/v1/workouts/${createdWorkoutIds[0]}`
-      );
+      const res = await request(app)
+        .get(`/api/v1/workouts/${createdWorkoutIds[0]}`)
+        .set("Cookie", `token=${authToken}`);
       expect(res.status).toBe(200);
-      expect(res.body.id).toBe(createdWorkoutIds[0]);
-      expect(res.body.name).toBe("Full Body Test Workout");
-      expect(res.body.workoutExercises).toHaveLength(1);
-      expect(res.body.workoutExercises[0].coreSet).toBeDefined();
+      const workout: IWorkoutDTO = res.body;
+      expect(workout.id).toBe(createdWorkoutIds[0]);
+      expect(workout.name).toBe("Full Body Test Workout");
+      expect(workout.workoutExercises).toHaveLength(1);
+      expect(workout.workoutExercises?.[0].coreCardioSet).toBeDefined();
     });
 
     it("should return 404 for a non-existent workout id", async () => {
-      const res = await request(app).get("/api/v1/workouts/non-existent-id");
+      const res = await request(app)
+        .get("/api/v1/workouts/non-existent-id")
+        .set("Cookie", `token=${authToken}`);
       expect(res.status).toBe(404);
     });
   });
@@ -176,8 +260,11 @@ describe("Workouts API", () => {
             crudOperation: "create",
             order: 1,
             notes: "Initial exercise",
-            exerciseId: testExerciseId,
-            coreSet: {
+            exerciseData: {
+              type: testExercises[1].type!,
+              id: testExercises[1].id!,
+            },
+            coreStrengthSet: {
               reps: 8,
               weight: 88,
               restTime: 88,
@@ -222,8 +309,11 @@ describe("Workouts API", () => {
             notes: "Updated exercise notes",
             crudOperation: "update",
             order: 2,
-            exerciseId: testExerciseId,
-            coreSet: {
+            exerciseData: {
+              id: testExercises[1].id!,
+              type: testExercises[1].type!,
+            },
+            coreStrengthSet: {
               crudOperation: "update",
               reps: 20,
               isBodyWeight: true,
@@ -236,8 +326,11 @@ describe("Workouts API", () => {
             notes: "create exercise notes",
             crudOperation: "create",
             order: 2,
-            exerciseId: testExerciseId,
-            coreSet: {
+            exerciseData: {
+              id: testExercises[2].id!,
+              type: testExercises[2].type!,
+            },
+            coreStrengthSet: {
               crudOperation: "create",
               reps: 15,
               isBodyWeight: false,
@@ -282,8 +375,11 @@ describe("Workouts API", () => {
           {
             order: 1,
             crudOperation: "create",
-            exerciseId: testExerciseId,
-            coreSet: {
+            exerciseData: {
+              id: testExercises[1].id!,
+              type: testExercises[1].type!,
+            },
+            coreStrengthSet: {
               crudOperation: "create",
               reps: 1,
               weight: 0,
@@ -308,7 +404,9 @@ describe("Workouts API", () => {
       expect(deleteRes.status).toBe(200);
       expect(deleteRes.body.message).toBe("Workout deleted successfully");
 
-      const getRes = await request(app).get(`/api/v1/workouts/${workoutId}`);
+      const getRes = await request(app)
+        .get(`/api/v1/workouts/${workoutId}`)
+        .set("Cookie", `token=${authToken}`);
       expect(getRes.status).toBe(404);
     });
 
@@ -324,9 +422,22 @@ describe("Workouts API", () => {
     for (const id of createdWorkoutIds) {
       await request(app)
         .delete(`/api/v1/workouts/${id}`)
+        .set("Cookie", `token=${authToken}`)
+
         .catch((err) => {
           console.error(err);
         });
+    }
+    if (testExercises.length > 0) {
+      for (const exercise of testExercises) {
+        await request(app)
+          .delete(`/api/v1/exercises/${exercise.id}`)
+          .set("Cookie", `token=${authToken}`)
+
+          .catch((err) => {
+            console.error(err);
+          });
+      }
     }
     if (testUserId) {
       await request(app)
@@ -336,10 +447,5 @@ describe("Workouts API", () => {
           console.error(err);
         });
     }
-    await request(app)
-      .delete(`/api/v1/exercises/${testExerciseId}`)
-      .catch((err) => {
-        console.error(err);
-      });
   });
 });

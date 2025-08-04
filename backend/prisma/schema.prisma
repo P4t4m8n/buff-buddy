@@ -174,16 +174,17 @@ model Exercise {
 }
 
 model CoreCardioSet {
-  id              String                       @id @default(cuid())
-  warmupTime      Int? //in seconds
-  avgHeartRate    Int?
-  workoutExercise WorkoutExercise[]
-  workTime        CoreCardioSetWorkoutTime[] //in seconds
-  avgSpeed        CoreCardioSetAvgSpeed[] //in km/h
-  distance        CoreCardioSetDistance[] //in meters
-  calorieTarget   CoreCardioSetCalorieTarget[]
-  createdAt       DateTime                     @default(now())
-  updatedAt       DateTime                     @updatedAt
+  id                String                       @id @default(cuid())
+  warmupTime        Int? //in seconds
+  avgHeartRate      Int?
+  workoutExerciseId String?                       @unique
+  workoutExercise   WorkoutExercise?              @relation(fields: [workoutExerciseId], references: [id], onDelete: Cascade)
+  workTime          CoreCardioSetWorkoutTime[] //in seconds
+  avgSpeed          CoreCardioSetAvgSpeed[] //in km/h
+  distance          CoreCardioSetDistance[] //in meters
+  calorieTarget     CoreCardioSetCalorieTarget[]
+  createdAt         DateTime                     @default(now())
+  updatedAt         DateTime                     @updatedAt
 }
 
 model CoreCardioSetCalorieTarget {
@@ -240,17 +241,17 @@ model UserCardioSet {
 }
 
 model CoreStrengthSet {
-  id              String                  @id @default(cuid())
-  restTime        Int                     @default(60)
-  numberOfSets    Int                     @default(1)
-  hasWarmup       Boolean                 @default(false)
-  workoutExercise WorkoutExercise[]
-  reps            CoreStrengthSetReps[]
-  weight          CoreStrengthSetWeight[]
-  createdAt       DateTime                @default(now())
-  updatedAt       DateTime                @updatedAt
+  id                String                  @id @default(cuid())
+  restTime          Int                     @default(60)
+  numberOfSets      Int                     @default(1)
+  hasWarmup         Boolean                 @default(false)
+  workoutExerciseId String?                 @unique
+  workoutExercise   WorkoutExercise?         @relation(fields: [workoutExerciseId], references: [id], onDelete: Cascade)
+  reps              CoreStrengthSetReps[]
+  weight            CoreStrengthSetWeight[]
+  createdAt         DateTime                @default(now())
+  updatedAt         DateTime                @updatedAt
 }
-
 model CoreStrengthSetReps {
   id                String          @id @default(cuid())
   coreStrengthSetId String
@@ -333,10 +334,8 @@ model WorkoutExercise {
   id                   String                @id @default(cuid())
   order                Int                   @default(0)
   notes                String?
-  coreStrengthSetId    String?
-  coreStrengthSet      CoreStrengthSet?      @relation(fields: [coreStrengthSetId], references: [id], onDelete: Cascade)
-  coreCardioSetId      String?
-  coreCardioSet        CoreCardioSet?        @relation(fields: [coreCardioSetId], references: [id], onDelete: Cascade)
+  coreStrengthSet      CoreStrengthSet?
+  coreCardioSet        CoreCardioSet?
   exerciseId           String
   exercise             Exercise              @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
   workoutId            String

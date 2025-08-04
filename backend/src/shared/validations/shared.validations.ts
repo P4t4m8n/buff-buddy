@@ -80,6 +80,7 @@ export const stringValidationAndSanitization = ({
     )
     .transform((val) => val.trim())
     .transform((val) => val.replace(/\s+/g, " "))
+    .transform((val) => val.toLowerCase())
     .refine(
       (val) => val.length >= (minLength ?? 0),
       `${fieldName} must be at least ${minLength} characters long`

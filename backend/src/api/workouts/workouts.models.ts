@@ -16,26 +16,29 @@ export interface IWorkoutFilter extends IBaseFilter {
   ownerName?: string;
 }
 
-export interface IWorkout {
-  id?: string;
+export interface IWorkoutExercise {
+  id: string;
+  order: number;
+  notes: string | null;
+  exercise: {
+    id: string;
+    youtubeUrl: string | null;
+    name: string;
+    types: ExerciseType[];
+    muscles: ExerciseMuscle[];
+    equipment: ExerciseEquipment[];
+  };
+  coreStrengthSet: ICoreStrengthSet;
+  coreCardioSet?: ICoreCardioSet;
+}
+
+export interface IWorkoutBase {
+  id: string;
   name?: string | null;
   notes?: string | null;
+}
+
+export interface IWorkout extends IWorkoutBase {
   owner?: IUserBase | null;
-  workoutExercises?:
-    | {
-        id: string;
-        order: number;
-        notes: string | null;
-        exercise: {
-          id: string;
-          youtubeUrl: string | null;
-          name: string;
-          types: ExerciseType[];
-          muscles: ExerciseMuscle[];
-          equipment: ExerciseEquipment[];
-        };
-        coreStrengthSet: ICoreStrengthSet;
-        coreCardioSet?: ICoreCardioSet;
-      }[]
-    | null;
+  workoutExercises?: IWorkoutExercise[] | null;
 }
