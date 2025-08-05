@@ -8,7 +8,6 @@ export interface ICoreStrengthSetDTO extends IEntity {
   isBodyWeight?: boolean; // Indicates if the set is bodyweight only
   restTime?: number | null; // Rest time in seconds before the next set
   hasWarmup?: boolean; // Indicates if the set was a warmup set
-  skippedReason?: string;
 }
 export interface ICoreStrengthSetEditDTO extends ICoreStrengthSetDTO {
   crudOperation?: TCrudOperation;

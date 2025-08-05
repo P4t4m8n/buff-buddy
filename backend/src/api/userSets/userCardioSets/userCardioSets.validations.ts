@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { nullable, z } from "zod";
 import {
   BooleanSchema,
   CrudOperationSchema,
@@ -8,16 +8,22 @@ import {
 } from "../../../shared/validations/shared.validations";
 
 export const CreateUserCardioSetSchema = z.object({
-  workTime: numberValidation({ fieldName: "Work Time" }),
-  avgHeartRate: numberValidation({ fieldName: "Average Heart Rate" }),
-  avgSpeed: numberValidation({ fieldName: "Average Speed" }),
-  distance: numberValidation({ fieldName: "Distance" }),
-  caloriesBurned: numberValidation({ fieldName: "Calories Burned" }),
+  workTime: numberValidation({ fieldName: "Work Time", maxLength: 10000000 }),
+  avgHeartRate: numberValidation({
+    fieldName: "Average Heart Rate",
+    maxLength: 200,
+  }),
+  avgSpeed: numberValidation({
+    fieldName: "Average Speed",
+    maxLength: 10000000,
+  }),
+  distance: numberValidation({ fieldName: "Distance",maxLength: 10000000 }),
+  caloriesBurned: numberValidation({ fieldName: "Calories Burned",maxLength: 10000000 }),
   isCompleted: BooleanSchema,
   order: z.number().optional(),
   skippedReason: stringValidationAndSanitization({
     fieldName: "Skipped Reason",
-  }),
+  }).nullable().optional(),
   crudOperation: CrudOperationSchema,
 });
 

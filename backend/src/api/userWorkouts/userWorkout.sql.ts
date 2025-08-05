@@ -98,7 +98,7 @@ const getCreateUserWork = (
       },
     },
     userWorkoutExercises: {
-      create: dto.workoutExercises.map((we) => ({
+      create: dto.userWorkoutExercises.map((we) => ({
         workoutExercise: {
           connect: {
             id: we.workoutExerciseId,

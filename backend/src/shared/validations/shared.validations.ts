@@ -103,30 +103,6 @@ export const numberValidation = ({
     .max(maxLength, `${fieldName} cannot exceed 100`);
 };
 
-export const NotesSchema = z
-  .string()
-  .nullish()
-  .optional()
-  .transform((val) => {
-    if (!val) return undefined;
-    return sanitizeHtml(val, {
-      allowedTags: [],
-      allowedAttributes: {},
-    });
-  })
-  .transform((val) => {
-    if (!val) return undefined;
-    return val.trim();
-  })
-  .transform((val) => {
-    if (!val) return undefined;
-    return val.replace(/\s+/g, " ");
-  })
-  .refine(
-    (val) => !val || val.length <= 1000,
-    "Notes must be less than 1000 characters"
-  );
-
 export const CrudOperationEnumSchema = z.enum([
   "create",
   "update",
@@ -159,24 +135,6 @@ export const OrderSchema = z.coerce
   .int("Order must be a whole number")
   .min(1, "Order must be at least 1")
   .max(100, "Order cannot exceed 100");
-
-export const NameSchema = z
-  .string()
-  .min(1, "Program name is required")
-  .max(200, "Program name must be less than 200 characters")
-  .transform((val) =>
-    sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} })
-  )
-  .transform((val) => val.trim())
-  .transform((val) => val.replace(/\s+/g, " "))
-  .refine(
-    (val) => val.length >= 1,
-    "Program name is required after sanitization"
-  )
-  .refine(
-    (val) => val.length <= 100,
-    "Program name must be less than 100 characters"
-  );
 
 export const IDSchema = z
   .string()

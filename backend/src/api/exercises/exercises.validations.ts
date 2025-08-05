@@ -5,10 +5,7 @@ import {
   EXERCISE_MUSCLES,
   EXERCISE_TYPES,
 } from "../../../../shared/consts/exercise.consts";
-import {
-  NotesSchema,
-  stringValidationAndSanitization,
-} from "../../shared/validations/shared.validations";
+import { stringValidationAndSanitization } from "../../shared/validations/shared.validations";
 
 export const ExerciseMuscleSchema = z.enum(EXERCISE_MUSCLES);
 
@@ -63,7 +60,9 @@ export const CreateExerciseSchema = z.object({
   }),
 
   youtubeUrl: YoutubeURLSchema,
-  notes: NotesSchema,
+  notes: stringValidationAndSanitization({
+    fieldName: "Exercise notes",
+  }).optional(),
   type: ExerciseTypeSchema,
 
   equipment: z

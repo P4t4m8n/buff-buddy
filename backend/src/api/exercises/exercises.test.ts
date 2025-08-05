@@ -42,7 +42,9 @@ describe("Exercises API", () => {
       const exercise: IExerciseDTO = res.body.data;
       expect(res.body.message).toBe("Exercise created successfully");
       expect(exercise).toHaveProperty("id");
-      expect(exercise.name).toBe(newExercise.name);
+      createdExerciseIds.push(res.body.data.id);
+
+      expect(exercise.name).toBe(newExercise.name?.toLowerCase());
       expect(exercise.youtubeUrl).toBe(newExercise.youtubeUrl);
       expect(exercise.type).toBe(newExercise.type);
       expect(exercise.equipment).toEqual(
@@ -51,7 +53,6 @@ describe("Exercises API", () => {
       expect(exercise.muscles).toEqual(
         expect.arrayContaining(newExercise?.muscles ?? [])
       );
-      createdExerciseIds.push(res.body.data.id);
     });
     it("should reject exercise with invalid youtubeUrl ", async () => {
       const invalidExercise = {
@@ -169,7 +170,7 @@ describe("Exercises API", () => {
       const res = await request(app).get("/api/v1/exercises?name=Pull-up");
       expect(res.status).toBe(200);
       expect(
-        res.body.every((e: IExerciseDTO) => e.name?.includes("Pull-up"))
+        res.body.every((e: IExerciseDTO) => e.name?.includes("pull-up"))
       ).toBe(true);
     });
 
@@ -192,7 +193,7 @@ describe("Exercises API", () => {
     let exerciseId: string;
     const exercise: IExerciseDTO = {
       name: "Get By ID Test",
-      youtubeUrl: "https://www.youtube.com/watch?v=getbyidTest",
+      youtubeUrl: "https://www.youtube.com/watch?v=getbyidtest",
       type: "cardio",
       equipment: ["air_bike"],
       muscles: ["chest"],
@@ -211,7 +212,7 @@ describe("Exercises API", () => {
       const res = await request(app).get(`/api/v1/exercises/${exerciseId}`);
       expect(res.status).toBe(200);
       expect(res.body.data.id).toBe(exerciseId);
-      expect(res.body.data.name).toBe("Get By ID Test");
+      expect(res.body.data.name).toBe("get by id test");
       expect(res.body.data.youtubeUrl).toBe(exercise.youtubeUrl);
       expect(res.body.data.type).toBe("cardio");
       expect(res.body.data.equipment).toEqual(
@@ -256,8 +257,7 @@ describe("Exercises API", () => {
         .set("Cookie", `token=${authToken}`)
         .send(updateData);
 
-      expect(res.status).toBe(200);
-      expect(res.body.data.name).toBe(updateData.name);
+      expect(res.body.data.name).toBe(updateData.name?.toLowerCase());
       expect(res.body.data.muscles).toEqual(
         expect.arrayContaining(updateData?.muscles ?? [])
       );

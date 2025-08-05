@@ -1,16 +1,22 @@
 import { z } from "zod";
-import {
-  NameSchema,
-  NotesSchema,
-} from "../../shared/validations/shared.validations";
+import { stringValidationAndSanitization } from "../../shared/validations/shared.validations";
 import {
   CreateProgramWorkoutSchema,
   UpdateProgramWorkoutSchema,
 } from "../programWorkout/programWorkout.validations";
 
 const BaseProgramSchema = z.object({
-  name: NameSchema,
-  notes: NotesSchema,
+  name: stringValidationAndSanitization({
+    fieldName: "Program name",
+    minLength: 1,
+    maxLength: 100,
+  }),
+
+  notes: stringValidationAndSanitization({
+    fieldName: "Program notes",
+    minLength: 0,
+    maxLength: 500,
+  }).optional(),
 
   startDate: z
     .string()

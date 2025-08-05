@@ -1,10 +1,10 @@
 import { z } from "zod";
 import {
   conditionalOrderRefinement,
-  NotesSchema,
   OrderSchema,
   CrudOperationEnumSchema,
   IDSchema,
+  stringValidationAndSanitization,
 } from "../../shared/validations/shared.validations";
 import { CreateCoreStrengthSetSchema } from "../coreSets/coreStrengthSets/coreStrengthSets.validations";
 import { CreateCoreCardioSetSchema } from "../coreSets/coreCardioSets/coreCardioSets.validations";
@@ -60,7 +60,11 @@ const exerciseTypeSetRefinement = (
 
 const WorkoutExerciseSchema = z.object({
   order: OrderSchema.optional().nullable(),
-  notes: NotesSchema,
+  notes: stringValidationAndSanitization({
+    minLength: 0,
+    maxLength: 500,
+    fieldName: "notes",
+  }).optional(),
   exerciseData: z.object({
     id: IDSchema,
     type: ExerciseTypeSchema,

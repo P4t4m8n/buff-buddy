@@ -23,7 +23,7 @@ const UserStrengthSetSchema = z.object({
 
   skippedReason: stringValidationAndSanitization({
     fieldName: "Skipped Reason",
-  }),
+  }).optional(),
   crudOperation: CrudOperationSchema,
 });
 

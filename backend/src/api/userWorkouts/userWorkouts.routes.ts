@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { createUserWorkout } from "./userWorkout.controller";
+import { createUserWorkout, getLastWorkout } from "./userWorkout.controller";
 
 export const userWorkoutsRoutes = Router();
 
 userWorkoutsRoutes.post("/", createUserWorkout);
+userWorkoutsRoutes.get("/:workoutId/last", getLastWorkout);

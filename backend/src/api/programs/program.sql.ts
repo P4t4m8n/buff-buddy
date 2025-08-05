@@ -51,7 +51,7 @@ const getProgramWorkoutCreate = (
         notes: we.notes,
         exercise: {
           connect: {
-            id: we.exerciseData.id,
+            id: we.exerciseData?.id,
           },
         },
         coreCardioSet: we.coreCardioSet

@@ -129,7 +129,7 @@ describe("Programs API", () => {
       expect(res.body.message).toBe("Program created successfully");
       const program: IProgramDTO = res.body.data;
       expect(program.id).toBeDefined();
-      expect(program.name).toBe(newProgram.name);
+      expect(program.name).toBe(newProgram.name?.toLowerCase());
       expect(program.programWorkouts).toHaveLength(1);
       expect(program?.programWorkouts?.[0]?.workout?.id).toBe(testWorkoutId);
       expect(program?.programWorkouts?.[0]?.daysOfWeek).toEqual([
@@ -195,7 +195,7 @@ describe("Programs API", () => {
 
       expect(res.status).toBe(200);
       expect(
-        res.body.every((p: IProgramDTO) => (p?.name || "").includes("Lifting"))
+        res.body.every((p: IProgramDTO) => (p?.name || "").includes("lifting"))
       ).toBe(true);
     });
   });
@@ -227,7 +227,7 @@ describe("Programs API", () => {
 
       expect(res.status).toBe(200);
       expect(res.body.id).toBe(programId);
-      expect(res.body.name).toBe("Program To Get");
+      expect(res.body.name).toBe("program to get");
     });
 
     it("should return 404 for a non-existent program ID", async () => {
@@ -335,8 +335,7 @@ describe("Programs API", () => {
         .post("/api/v1/programs/edit")
         .set("Cookie", `token=${authToken}`)
         .send(program);
-      console.log("🚀 ~ res.body:", res.body);
-      console.log("🚀 ~ programId:", programId);
+
       programId = res.body.data.id;
       createdProgramIds.push(programId);
     });
@@ -353,8 +352,8 @@ describe("Programs API", () => {
         .send(updateData);
 
       expect(res.status).toBe(200);
-      expect(res.body.data.name).toBe(updateData.name);
-      expect(res.body.data.notes).toBe(updateData.notes);
+      expect(res.body.data.name).toBe(updateData.name?.toLowerCase());
+      expect(res.body.data.notes).toBe(updateData.notes?.toLowerCase());
     });
   });
 

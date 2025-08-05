@@ -2,8 +2,7 @@ import { z } from "zod";
 import {
   CrudOperationSchema,
   IDSchema,
-  NameSchema,
-  NotesSchema,
+  stringValidationAndSanitization,
 } from "../../shared/validations/shared.validations";
 import {
   CreateNestedWorkoutExerciseSchema,
@@ -11,16 +10,24 @@ import {
 } from "../workoutExercise/workoutExercise.validations";
 
 const BaseWorkoutSchema = z.object({
-  programId: z.string().nullish().optional(),
-  ownerId: z.string().nullish().optional(),
-  notes: NotesSchema,
-  name: NameSchema.default("").optional(),
+  programId: z.string().nullish(),
+  ownerId: z.string().nullish(),
+  notes: stringValidationAndSanitization({
+    fieldName: "Workout notes",
+    minLength: 0,
+    maxLength: 500,
+  }).optional(),
+  name: stringValidationAndSanitization({
+    fieldName: "Workout name",
+    minLength: 1,
+    maxLength: 100,
+  }),
   crudOperation: CrudOperationSchema,
   workoutExercises: z
     .array(CreateNestedWorkoutExerciseSchema)
     .min(1, "At least one workout set is required")
-    .max(50, "Maximum 50 workout sets allowed per workout").optional(),
-    id: IDSchema.optional(),
+    .max(50, "Maximum 50 workout sets allowed per workout"),
+  id: IDSchema.optional(),
 });
 
 export const CreateWorkoutSchema = BaseWorkoutSchema;

@@ -1,3 +1,4 @@
+import { TCrudOperation } from "./app.model";
 import type { IEntity } from "./entity.model";
 import type { IWorkoutExerciseEditSet } from "./workout.model";
 
@@ -22,5 +23,12 @@ export interface IUserCardioSetDTO extends IEntity {
   caloriesBurned?: number | null; // Actual calories burned during the set
   isCompleted?: boolean | null; // Indicates if the cardio set was completed
   skippedReason?: string | null; // Reason for skipping the cardio set
+  order?: number; // Order of the cardio set in the workout
+}
+
+export interface IUserCardioSetEditDTO extends IUserCardioSetDTO {
+  coreSetId?: string; // Foreign key to CoreCardioSet
+  programExerciseId?: string; // Foreign key to ProgramExercise
+  crudOperation?: TCrudOperation; // CRUD operation type
   order?: number; // Order of the cardio set in the workout
 }

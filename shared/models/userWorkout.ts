@@ -31,6 +31,6 @@ export interface IUserWorkoutExercisesDTO extends IWorkoutExerciseDTO {
 }
 export interface IUserWorkoutEditExercisesDTO extends IWorkoutExerciseDTO {
   workoutExerciseId: string;
-  userStrengthSets: IUserStrengthSetDTO[];
+  userStrengthSets?: IUserStrengthSetDTO[];
   userCardioSets?: IUserCardioSetDTO[];
 }

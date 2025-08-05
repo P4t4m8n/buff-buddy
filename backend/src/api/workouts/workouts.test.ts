@@ -104,7 +104,7 @@ describe("Workouts API", () => {
       const workout: IWorkoutDTO = res.body.data;
       expect(res.body.message).toBe("Workout created successfully");
       expect(workout).toHaveProperty("id");
-      expect(workout.name).toBe(newWorkout.name);
+      expect(workout.name).toBe(newWorkout.name?.toLowerCase());
       expect(workout.workoutExercises).toHaveLength(1);
       expect(workout?.workoutExercises?.[0]?.exercise?.id).toBe(
         newWorkout.workoutExercises?.[0].exerciseData.id
@@ -233,7 +233,7 @@ describe("Workouts API", () => {
       expect(res.status).toBe(200);
       const workout: IWorkoutDTO = res.body;
       expect(workout.id).toBe(createdWorkoutIds[0]);
-      expect(workout.name).toBe("Full Body Test Workout");
+      expect(workout.name).toBe("full body test workout");
       expect(workout.workoutExercises).toHaveLength(1);
       expect(workout.workoutExercises?.[0].coreCardioSet).toBeDefined();
     });
@@ -297,8 +297,8 @@ describe("Workouts API", () => {
         .send(updateFields);
 
       expect(res.status).toBe(200);
-      expect(res.body.data.name).toBe("Updated Workout Name");
-      expect(res.body.data.notes).toBe("Updated notes.");
+      expect(res.body.data.name).toBe(updateFields.name?.toLowerCase());
+      expect(res.body.data.notes).toBe(updateFields.notes?.toLowerCase());
     });
 
     it("should perform CRUD operations on nested workoutExercises and coreSets", async () => {
@@ -354,7 +354,7 @@ describe("Workouts API", () => {
         updatedWorkout.workoutExercises?.find(
           (we) => we.id === originalWorkoutExerciseId
         )?.notes
-      ).toBe("Updated exercise notes");
+      ).toBe("updated exercise notes");
     });
 
     it("should return 400 for updating a non-existent workout", async () => {
