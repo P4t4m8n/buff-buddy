@@ -8,14 +8,8 @@ import { authService } from "./auth.service";
 import { AppError } from "../../shared/services/Error.service";
 import { COOKIE } from "./auth.consts";
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
-
-type TGoogleUserResponse = {
-  email: string;
-  given_name: string;
-  family_name: string;
-  picture: string;
-  id: string;
-};
+import { TGoogleUserResponse } from "./auth.model";
+import { get } from "http";
 
 export const signUp = async (req: Request, res: Response) => {
   try {
@@ -101,56 +95,10 @@ export const googleCallback = async (req: Request, res: Response) => {
       throw AppError.create("Authorization code is required", 400);
     }
 
-    const clientId = process.env.GOOGLE_CLIENT_ID;
-    const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-    const redirectUri = process.env.GOOGLE_REDIRECT_URI;
+    const accessToken = await getGoogleTokenResponse(code.toString());
 
-    if (!clientId || !clientSecret || !redirectUri) {
-      throw AppError.create("Google OAuth credentials are not set", 500);
-    }
-
-    const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({
-        code: code.toString(),
-        client_id: clientId,
-        client_secret: clientSecret,
-        redirect_uri: redirectUri,
-        grant_type: "authorization_code",
-      }).toString(),
-    });
-
-    if (!tokenResponse.ok) {
-      throw AppError.create(
-        "Failed to exchange authorization code for tokens",
-        500
-      );
-    }
-
-    const tokenData = await tokenResponse.json();
-    const accessToken = tokenData.access_token;
-
-    if (!accessToken) {
-      throw AppError.create("Access token is required", 400);
-    }
-
-    const userInfoResponse = await fetch(
-      "https://www.googleapis.com/oauth2/v1/userinfo?alt=json",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-
-    if (!userInfoResponse.ok) {
-      throw AppError.create("Failed to fetch user info from Google", 500);
-    }
-    const userInfo = (await userInfoResponse.json()) as TGoogleUserResponse;
+    const userInfo = await getGoogleUserInfo(accessToken);
+    
     const validateGoogleAuth = GoogleOAuthSchema.parse({
       email: userInfo.email,
       firstName: userInfo.given_name,
@@ -192,4 +140,63 @@ export const deleteUser = async (req: Request, res: Response) => {
       errors: err.errors || {},
     });
   }
+};
+
+const getGoogleTokenResponse = async (code: string): Promise<string> => {
+  const clientId = process.env.GOOGLE_CLIENT_ID;
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+  const redirectUri = process.env.GOOGLE_REDIRECT_URI;
+
+  if (!clientId || !clientSecret || !redirectUri) {
+    throw AppError.create("Google OAuth credentials are not set", 500);
+  }
+
+  const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      code: code.toString(),
+      client_id: clientId,
+      client_secret: clientSecret,
+      redirect_uri: redirectUri,
+      grant_type: "authorization_code",
+    }).toString(),
+  });
+
+  if (!tokenResponse.ok) {
+    throw AppError.create(
+      "Failed to exchange authorization code for tokens",
+      500
+    );
+  }
+
+  const tokenData = await tokenResponse.json();
+  const accessToken = tokenData.access_token;
+
+  if (!accessToken) {
+    throw AppError.create("Access token is required", 400);
+  }
+  return accessToken;
+};
+
+const getGoogleUserInfo = async (
+  accessToken: string
+): Promise<TGoogleUserResponse> => {
+  const userInfoResponse = await fetch(
+    "https://www.googleapis.com/oauth2/v1/userinfo?alt=json",
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  if (!userInfoResponse.ok) {
+    throw AppError.create("Failed to fetch user info from Google", 500);
+  }
+  const userInfo = (await userInfoResponse.json()) as TGoogleUserResponse;
+  return userInfo;
 };

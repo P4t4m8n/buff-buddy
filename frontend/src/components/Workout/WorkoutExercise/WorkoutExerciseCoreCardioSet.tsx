@@ -1,11 +1,9 @@
-import type {
-  ICoreCardioSetEditDTO,
-} from "../../../../shared/models/cardioSet.model";
-import type { TValidationError } from "../../models/errors.model";
-import { toTitle } from "../../utils/toTitle";
-import Input from "../UI/Form/Input";
-import Label from "../UI/Form/Label";
-import GenericList from "../UI/GenericList";
+import type { ICoreCardioSetEditDTO } from "../../../../../shared/models/cardioSet.model";
+import type { TValidationError } from "../../../models/errors.model";
+import { toTitle } from "../../../utils/toTitle";
+import Input from "../../UI/Form/Input";
+import Label from "../../UI/Form/Label";
+import GenericList from "../../UI/GenericList";
 
 interface IWorkoutExerciseCoreCardioSetProps {
   coreCardioSet?: ICoreCardioSetEditDTO;

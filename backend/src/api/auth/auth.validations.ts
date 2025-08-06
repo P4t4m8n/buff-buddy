@@ -1,5 +1,9 @@
 import { z } from "zod";
 import sanitizeHtml from "sanitize-html";
+import {
+  IDSchema,
+  stringValidationAndSanitization,
+} from "../../shared/validations/shared.validations";
 
 export const CreateUserSchema = z
   .object({
@@ -57,53 +61,17 @@ export const CreateUserSchema = z
       })
       .transform((val) => val?.trim()),
 
-    firstName: z
-      .string()
-      .optional()
-      .transform((val) => {
-        if (!val) return undefined;
-        return sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} });
-      })
-      .transform((val) => {
-        if (!val) return undefined;
-        return val.trim();
-      })
-      .transform((val) => {
-        if (!val) return undefined;
-        return val.replace(/\s+/g, " ");
-      })
-      .refine(
-        (val) => !val || val.length <= 50,
-        "First name must be less than 50 characters"
-      )
-      .refine(
-        (val) => !val || /^[a-zA-Z\s'-]+$/.test(val),
-        "First name can only contain letters, spaces, hyphens, and apostrophes"
-      ),
+    firstName: stringValidationAndSanitization({
+      maxLength: 50,
+      minLength: 1,
+      fieldName: "First name",
+    }),
 
-    lastName: z
-      .string()
-      .optional()
-      .transform((val) => {
-        if (!val) return undefined;
-        return sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} });
-      })
-      .transform((val) => {
-        if (!val) return undefined;
-        return val.trim();
-      })
-      .transform((val) => {
-        if (!val) return undefined;
-        return val.replace(/\s+/g, " ");
-      })
-      .refine(
-        (val) => !val || val.length <= 50,
-        "Last name must be less than 50 characters"
-      )
-      .refine(
-        (val) => !val || /^[a-zA-Z\s'-]+$/.test(val),
-        "Last name can only contain letters, spaces, hyphens, and apostrophes"
-      ),
+    lastName: stringValidationAndSanitization({
+      maxLength: 50,
+      minLength: 1,
+      fieldName: "Last name",
+    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -165,79 +133,31 @@ export const GoogleOAuthSchema = z.object({
     })
     .transform((val) => val?.trim()),
 
-  firstName: z
-    .string()
-    .optional()
-    .transform((val) => {
-      if (!val) return undefined;
-      return sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} });
-    })
-    .transform((val) => {
-      if (!val) return undefined;
-      return val.trim();
-    })
-    .transform((val) => {
-      if (!val) return undefined;
-      return val.replace(/\s+/g, " ");
-    }),
+  firstName: stringValidationAndSanitization({
+    maxLength: 50,
+    minLength: 1,
+    fieldName: "First name",
+  }).optional(),
 
-  lastName: z
-    .string()
-    .optional()
-    .transform((val) => {
-      if (!val) return undefined;
-      return sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} });
-    })
-    .transform((val) => {
-      if (!val) return undefined;
-      return val.trim();
-    })
-    .transform((val) => {
-      if (!val) return undefined;
-      return val.replace(/\s+/g, " ");
-    }),
+  lastName: stringValidationAndSanitization({
+    maxLength: 50,
+    minLength: 1,
+    fieldName: "Last name",
+  }).optional(),
 });
 
 export const UpdateUserSchema = z.object({
-  firstName: z
-    .string()
-    .optional()
-    .transform((val) => {
-      if (!val) return undefined;
-      return sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} });
-    })
-    .transform((val) => {
-      if (!val) return undefined;
-      return val.trim();
-    })
-    .transform((val) => {
-      if (!val) return undefined;
-      return val.replace(/\s+/g, " ");
-    })
-    .refine(
-      (val) => !val || val.length <= 50,
-      "First name must be less than 50 characters"
-    ),
+  firstName: stringValidationAndSanitization({
+    maxLength: 50,
+    minLength: 1,
+    fieldName: "First name",
+  }).optional(),
 
-  lastName: z
-    .string()
-    .optional()
-    .transform((val) => {
-      if (!val) return undefined;
-      return sanitizeHtml(val, { allowedTags: [], allowedAttributes: {} });
-    })
-    .transform((val) => {
-      if (!val) return undefined;
-      return val.trim();
-    })
-    .transform((val) => {
-      if (!val) return undefined;
-      return val.replace(/\s+/g, " ");
-    })
-    .refine(
-      (val) => !val || val.length <= 50,
-      "Last name must be less than 50 characters"
-    ),
+  lastName: stringValidationAndSanitization({
+    maxLength: 50,
+    minLength: 1,
+    fieldName: "Last name",
+  }).optional(),
 });
 
 export const ChangePasswordSchema = z
@@ -290,12 +210,12 @@ export const ChangePasswordSchema = z
   });
 
 export const UserParamsSchema = z.object({
-  id: z.string().min(1, "User ID is required"),
+  id: IDSchema,
 });
 
-export type CreateUserInput = z.infer<typeof CreateUserSchema>;
-export type SignInInput = z.infer<typeof SignInSchema>;
-export type GoogleOAuthInput = z.infer<typeof GoogleOAuthSchema>;
-export type UpdateUserInput = z.infer<typeof UpdateUserSchema>;
-export type ChangePasswordInput = z.infer<typeof ChangePasswordSchema>;
-export type UserParams = z.infer<typeof UserParamsSchema>;
+export type TCreateUserInput = z.infer<typeof CreateUserSchema>;
+export type TSignInInput = z.infer<typeof SignInSchema>;
+export type TGoogleOAuthInput = z.infer<typeof GoogleOAuthSchema>;
+export type TUpdateUserInput = z.infer<typeof UpdateUserSchema>;
+export type TChangePasswordInput = z.infer<typeof ChangePasswordSchema>;
+export type TUserParams = z.infer<typeof UserParamsSchema>;

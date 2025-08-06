@@ -1,21 +1,22 @@
 import { useCallback, useEffect, useState } from "react";
-import type { SetStateAction, Dispatch, ChangeEvent } from "react";
 import { useExerciseStore } from "../../../store/exercise.store";
 
 import { workoutExerciseUtils } from "../../../utils/workoutExercises.util";
+import { coreCardioSetUtil } from "../../../utils/coreCardioSet";
+import { coreStrengthSetUtil } from "../../../utils/coreStrengthSet.util";
+
 import type { IWorkoutExerciseEditDTO } from "../../../../../shared/models/workout.model";
 import type { IExerciseDTO } from "../../../../../shared/models/exercise.model";
-import { coreSetUtil } from "../../../utils/coreSet.util";
 
 interface IWorkoutExerciseEditHook {
-  setWorkoutExerciseToEdit: Dispatch<
-    SetStateAction<IWorkoutExerciseEditDTO | null>
+  setWorkoutExerciseToEdit: React.Dispatch<
+    React.SetStateAction<IWorkoutExerciseEditDTO | null>
   >;
   handleSelectExercise: (exercise: IExerciseDTO) => void;
   filterExercises: (searchValue: string) => IExerciseDTO[];
-  handleInputChange: (e: ChangeEvent) => void;
-  handleCoreStrengthSetChange: (e: ChangeEvent) => void;
-  handleCoreCardioSetChange: (e: ChangeEvent) => void;
+  handleInputChange: (e: React.ChangeEvent) => void;
+  handleCoreStrengthSetChange: (e: React.ChangeEvent) => void;
+  handleCoreCardioSetChange: (e: React.ChangeEvent) => void;
   resetWorkoutExerciseToEdit: () => void;
   workoutExerciseToEdit: IWorkoutExerciseEditDTO | null;
   exercises: IExerciseDTO[];
@@ -39,12 +40,20 @@ export const useWorkoutExerciseEdit = (
   const handleSelectExercise = (exercise: IExerciseDTO) => {
     setWorkoutExerciseToEdit((prev) => {
       if (!prev) return null;
-      return {
+      const tempPrev = {
         ...prev,
+        exerciseData: {
+          id: exercise.id!,
+          type: exercise.type!,
+        },
         exercise: exercise,
-        exerciseId: exercise.id,
-        coreSet: prev?.coreSet ? prev.coreSet : coreSetUtil.getEmpty(),
       };
+      if (exercise.type === "strength") {
+        tempPrev.coreStrengthSet = coreStrengthSetUtil.getEmpty();
+      } else if (exercise.type === "cardio") {
+        tempPrev.coreCardioSet = coreCardioSetUtil.getEmpty();
+      }
+      return tempPrev;
     });
   };
 
@@ -55,7 +64,7 @@ export const useWorkoutExerciseEdit = (
     );
   };
 
-  const handleInputChange = (e: ChangeEvent) => {
+  const handleInputChange = (e: React.ChangeEvent) => {
     const target = e.target as HTMLInputElement;
     const { name, value, type } = target;
 
@@ -67,7 +76,7 @@ export const useWorkoutExerciseEdit = (
     });
   };
 
-  const handleCoreStrengthSetChange = useCallback((e: ChangeEvent) => {
+  const handleCoreStrengthSetChange = useCallback((e: React.ChangeEvent) => {
     const target = e.target as HTMLInputElement;
     const { name, value, type, checked } = target;
 
@@ -76,18 +85,18 @@ export const useWorkoutExerciseEdit = (
     setWorkoutExerciseToEdit((prev) => {
       if (!prev) return null;
       const updatedCoreSet = {
-        ...prev.coreSet,
-        weight: key === "isBodyWeight" ? 0 : prev?.coreSet?.weight ?? 1,
+        ...prev.coreStrengthSet,
+        weight: key === "isBodyWeight" ? 0 : prev?.coreStrengthSet?.weight ?? 1,
         [key]: type === "checkbox" ? checked : parseFloat(value),
       };
       return {
         ...prev,
-        coreSet: updatedCoreSet,
+        coreStrengthSet: updatedCoreSet,
       };
     });
   }, []);
 
-  const handleCoreCardioSetChange = useCallback((e: ChangeEvent) => {
+  const handleCoreCardioSetChange = useCallback((e: React.ChangeEvent) => {
     const target = e.target as HTMLInputElement;
     const { name, value, type, checked } = target;
     const key = name.split("-")[0];

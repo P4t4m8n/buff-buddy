@@ -19,7 +19,7 @@ export default function YoutubePlayer({ youtubeUrl }: YoutubePlayerProps) {
       src={getYoutubeEmbedUrl(youtubeUrl)}
       title="YouTube video player"
       allowFullScreen
-      className="aspect-video  max-w-[40rem] rounded "
+      className="aspect-video z-0 max-w-[40rem] rounded "
     ></iframe>
   );
 }

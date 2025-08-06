@@ -5,7 +5,10 @@ import {
   EXERCISE_MUSCLES,
   EXERCISE_TYPES,
 } from "../../../../shared/consts/exercise.consts";
-import { stringValidationAndSanitization } from "../../shared/validations/shared.validations";
+import {
+  IDSchema,
+  stringValidationAndSanitization,
+} from "../../shared/validations/shared.validations";
 
 export const ExerciseMuscleSchema = z.enum(EXERCISE_MUSCLES);
 
@@ -81,7 +84,7 @@ export const CreateExerciseSchema = z.object({
 export const UpdateExerciseSchema = CreateExerciseSchema.partial();
 
 export const ExerciseParamsSchema = z.object({
-  id: z.string().min(1, "Exercise ID is required"),
+  id: IDSchema,
 });
 
 export const ExerciseQuerySchema = z.object({
@@ -108,7 +111,7 @@ export const ExerciseQuerySchema = z.object({
   take: z.coerce.number().min(1).optional(),
 });
 
-export type CreateExerciseInput = z.infer<typeof CreateExerciseSchema>;
-export type UpdateExerciseInput = z.infer<typeof UpdateExerciseSchema>;
-export type ExerciseParams = z.infer<typeof ExerciseParamsSchema>;
-export type ExerciseQuery = z.infer<typeof ExerciseQuerySchema>;
+export type TCreateExerciseInput = z.infer<typeof CreateExerciseSchema>;
+export type TUpdateExerciseInput = z.infer<typeof UpdateExerciseSchema>;
+export type TExerciseParams = z.infer<typeof ExerciseParamsSchema>;
+export type TExerciseQuery = z.infer<typeof ExerciseQuerySchema>;

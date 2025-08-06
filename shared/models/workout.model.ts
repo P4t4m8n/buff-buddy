@@ -25,8 +25,8 @@ export interface IWorkoutExerciseDTO extends IEntity {
   order?: number;
   notes?: string | null;
   exercise?: IExerciseDTO;
-  coreStrengthSet?: ICoreStrengthSetDTO;
-  coreCardioSet?: ICoreCardioSetEditDTO;
+  coreStrengthSet?: ICoreStrengthSetDTO | null;
+  coreCardioSet?: ICoreCardioSetEditDTO | null;
 }
 
 export interface IWorkoutEditDTO extends IWorkoutBase {
@@ -44,7 +44,7 @@ export interface IWorkoutExerciseEditDTO extends IEntity {
   exerciseData: {
     id: string;
     type: ExerciseType;
-  }; //For backend relationship
+  } | null; //For backend relationship
   exercise?: IExerciseDTO; //Exists only on the front to show the exercise details
   crudOperation?: TCrudOperation;
 }

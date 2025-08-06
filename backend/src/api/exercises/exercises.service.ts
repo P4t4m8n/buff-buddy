@@ -8,8 +8,8 @@ import { dbUtil } from "../../shared/utils/db.util";
 import { exerciseSQL } from "./exercise.sql";
 import { exerciseUtil } from "./exercise.util";
 import {
-  CreateExerciseInput,
-  UpdateExerciseInput,
+  TCreateExerciseInput,
+  TUpdateExerciseInput,
 } from "./exercises.validations";
 
 export const exerciseService = {
@@ -33,7 +33,7 @@ export const exerciseService = {
       select: exerciseSQL.EXERCISE_SELECT,
     });
   },
-  create: async (dto: CreateExerciseInput): Promise<IExerciseDTO> => {
+  create: async (dto: TCreateExerciseInput): Promise<IExerciseDTO> => {
     return await prisma.exercise.create({
       data: {
         name: dto.name,
@@ -45,7 +45,7 @@ export const exerciseService = {
       select: exerciseSQL.EXERCISE_SELECT,
     });
   },
-  update: async (id: string, dto: UpdateExerciseInput): Promise<Exercise> => {
+  update: async (id: string, dto: TUpdateExerciseInput): Promise<Exercise> => {
     return await prisma.exercise.update({
       where: { id },
       data: dbUtil.cleanData({ ...dto }),

@@ -7,7 +7,7 @@ import type { IWorkoutExerciseEditDTO } from "../../../../shared/models/workout.
 import GenericSaveButton from "../UI/GenericSaveButton";
 import { useWorkoutStore } from "../../store/workout.store";
 import GenericModel from "../UI/GenericModel";
-import WorkoutExerciseEdit from "./WorkoutExerciseEdit";
+import WorkoutExerciseEdit from "./WorkoutExercise/WorkoutExerciseEdit/WorkoutExerciseEdit";
 
 interface WorkoutEditHeaderProps {
   name?: string | null;

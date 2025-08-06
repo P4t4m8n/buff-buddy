@@ -41,7 +41,7 @@ export const getWorkoutById = async (req: Request, res: Response) => {
     }
     const { id } = req.params;
 
-    const workoutData = await workoutsService.getById(id,userId);
+    const workoutData = await workoutsService.getById(id, userId);
     if (!workoutData) {
       throw new AppError("Workout not found", 404);
     }
@@ -70,7 +70,7 @@ export const createWorkout = async (req: Request, res: Response) => {
       throw new AppError("User not authenticated", 401);
     }
     const invalidatedData = req.body;
-    
+
     invalidatedData.ownerId = ownerId;
 
     const validatedData = CreateWorkoutSchema.parse(invalidatedData);

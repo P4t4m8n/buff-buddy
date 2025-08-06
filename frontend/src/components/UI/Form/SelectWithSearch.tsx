@@ -1,36 +1,41 @@
-import { useEffect, useState, type ChangeEvent, type MouseEvent } from "react";
+import React, {
+  useEffect,
+  useState,
+  type ChangeEvent,
+  type MouseEvent,
+} from "react";
 import { useModel } from "../../../hooks/shared/useModel";
 import Button from "../Button";
 import IconArrow from "../Icons/IconArrow";
-import IconPlus from "../Icons/IconPlus";
 import Input from "./Input";
 import Label from "./Label";
-import { toTitle } from "../../../utils/toTitle";
+import GenericList from "../GenericList";
+import { appUtil } from "../../../utils/app.util";
+import type {
+  ISelectAddComponentProps,
+  ISelectItemComponentProps,
+} from "../../../models/select.model";
 
-interface SelectWithSearchProps<T, P> {
+interface SelectWithSearchProps<T> {
   options: readonly T[];
-  selectedValue: T;
+  SelectedComponent?: React.ReactNode;
   handleSelect: (option: T) => void;
   error?: string | null;
-  parentModelRef?: React.RefObject<HTMLDivElement | null>;
-  AddComponent?: React.ComponentType<IComponentProps<T>>;
-  addComponentProps?: P;
+  parentModelRef?: React.RefObject<HTMLDivElement | HTMLFormElement | null>;
+  AddComponent?: React.ComponentType<ISelectAddComponentProps>;
+  SelectItemComponent: React.ComponentType<ISelectItemComponentProps<T>>;
+  filterBy: (option: T) => string;
 }
-
-interface IComponentProps<T> {
-  option?: T;
-  parentRef?: React.RefObject<HTMLDivElement | null>;
-  isPortal?: boolean;
-}
-export default function SelectWithSearch<T, P>({
+export default function SelectWithSearch<T>({
   options,
-  selectedValue,
+  SelectedComponent,
   handleSelect,
   error,
   parentModelRef,
   AddComponent,
-  addComponentProps,
-}: SelectWithSearchProps<T, P>) {
+  SelectItemComponent,
+  filterBy,
+}: SelectWithSearchProps<T>) {
   const [optionsList, setOptionsList] = useState<T[]>([]);
 
   const [open, modelRef, setOpen] = useModel<HTMLDivElement>();
@@ -45,7 +50,7 @@ export default function SelectWithSearch<T, P>({
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const searchValue = e.currentTarget.value.toLowerCase();
     const filteredOptions = options?.filter((option) =>
-      (option as string).toLowerCase().includes(searchValue)
+     filterBy(option).toLowerCase().includes(searchValue)
     );
     setOptionsList(filteredOptions || []);
   };
@@ -88,7 +93,7 @@ export default function SelectWithSearch<T, P>({
         className="flex items-center justify-between w-full h-10 border rounded p-1 cursor-pointer "
         onClick={handleModel}
       >
-        <h3>{selectedValue ? `${selectedValue}` : "Select Exercise Type"}</h3>
+        <h3>{SelectedComponent}</h3>
 
         <IconArrow className="w-6 h-6 group-has-[ul]:rotate-180 " />
       </Button>
@@ -99,7 +104,7 @@ export default function SelectWithSearch<T, P>({
       ) : null}
       {open ? (
         <div
-          className={`absolute z-10 
+          className={`absolute z-10
                   shadow-[0px_0px_6px_1px_rgba(0,0,0,1)] bg-main-orange
                    border rounded p-2 w-full grid grid-rows-[2rem_calc(100%-2rem)]
                     gap-[.5rem] h-42 ${modelPositionClass}`}
@@ -112,23 +117,13 @@ export default function SelectWithSearch<T, P>({
           <ul className="grid grid-rows-[repeat(auto-fill,2rem)] gap-2 h-full overflow-auto">
             {AddComponent ? (
               <li className="w-full h-full">
-                <AddComponent
-                  isPortal={true}
-                  parentRef={modelRef}
-                  {...(addComponentProps as P)}
-                />
+                <AddComponent isPortal={true} parentRef={modelRef} />
               </li>
             ) : null}
-            {optionsList.map((option, index) => (
-              <li key={index} className="w-full h-full">
-                <Button
-                  onClick={(e) => onClick(e, option)}
-                  className="w-full h-full flex cursor-pointer items-center justify-between"
-                >
-                  <p>{toTitle(option)}</p>
-                  <IconPlus className=" h-8 aspect-square stroke-main-black" />
-                </Button>
-              </li>
+            {optionsList.map((option) => (
+              <React.Fragment key={appUtil.getTempId("select-index", option)}>
+                <SelectItemComponent item={option} onClick={onClick} />
+              </React.Fragment>
             ))}
           </ul>
         </div>

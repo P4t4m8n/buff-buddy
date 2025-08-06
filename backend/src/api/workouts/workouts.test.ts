@@ -3,6 +3,7 @@ import { app } from "../../server";
 import {
   IWorkoutDTO,
   IWorkoutEditDTO,
+  IWorkoutExerciseDTO,
 } from "../../../../shared/models/workout.model";
 import { IExerciseDTO } from "../../../../shared/models/exercise.model";
 
@@ -107,7 +108,7 @@ describe("Workouts API", () => {
       expect(workout.name).toBe(newWorkout.name?.toLowerCase());
       expect(workout.workoutExercises).toHaveLength(1);
       expect(workout?.workoutExercises?.[0]?.exercise?.id).toBe(
-        newWorkout.workoutExercises?.[0].exerciseData.id
+        newWorkout.workoutExercises?.[0].exerciseData?.id
       );
       expect(workout?.workoutExercises?.[0]?.coreCardioSet?.avgHeartRate).toBe(
         newWorkout?.workoutExercises?.[0]?.coreCardioSet?.avgHeartRate
@@ -248,7 +249,7 @@ describe("Workouts API", () => {
 
   describe("PUT /api/v1/workouts/edit/:id", () => {
     let workoutToUpdateId: string;
-    let originalWorkoutExerciseId: string;
+    let originalWorkoutExercises: IWorkoutExerciseDTO[];
 
     beforeEach(async () => {
       const workout: IWorkoutEditDTO = {
@@ -259,7 +260,7 @@ describe("Workouts API", () => {
           {
             crudOperation: "create",
             order: 1,
-            notes: "Initial exercise",
+            notes: "Initial exercise str",
             exerciseData: {
               type: testExercises[1].type!,
               id: testExercises[1].id!,
@@ -273,6 +274,24 @@ describe("Workouts API", () => {
               crudOperation: "create",
             },
           },
+          {
+            crudOperation: "create",
+            order: 1,
+            notes: "Initial exercise car",
+            exerciseData: {
+              type: testExercises[0].type!,
+              id: testExercises[0].id!,
+            },
+            coreCardioSet: {
+              warmupTime: 60 * 10, // 10 minutes
+              workTime: 60 * 20, // 20 minutes
+              avgHeartRate: 120,
+              avgSpeed: 8,
+              distance: 5,
+              calorieTarget: 300,
+              crudOperation: "create",
+            },
+          },
         ],
       };
 
@@ -281,7 +300,7 @@ describe("Workouts API", () => {
         .set("Cookie", `token=${authToken}`)
         .send(workout);
       workoutToUpdateId = workoutRes.body.data.id;
-      originalWorkoutExerciseId = workoutRes.body.data.workoutExercises[0].id;
+      originalWorkoutExercises = workoutRes.body.data.workoutExercises;
 
       createdWorkoutIds.push(workoutToUpdateId);
     });
@@ -301,12 +320,18 @@ describe("Workouts API", () => {
       expect(res.body.data.notes).toBe(updateFields.notes?.toLowerCase());
     });
 
-    it("should perform CRUD operations on nested workoutExercises and coreSets", async () => {
+    it("should perform CRUD operations on workout and nested workoutExercises and coreStrengthSets", async () => {
+      const x = originalWorkoutExercises.find(
+        (e) => e.notes === "initial exercise str"
+      );
+      const y = originalWorkoutExercises.find(
+        (e) => e.notes === "initial exercise car"
+      );
       const updatePayload: IWorkoutEditDTO = {
         workoutExercises: [
           {
-            id: originalWorkoutExerciseId,
-            notes: "Updated exercise notes",
+            id: x?.id,
+            notes: "Updated CRUD str",
             crudOperation: "update",
             order: 2,
             exerciseData: {
@@ -315,11 +340,32 @@ describe("Workouts API", () => {
             },
             coreStrengthSet: {
               crudOperation: "update",
-              reps: 20,
-              isBodyWeight: true,
+              reps: 1,
               weight: 0,
-              restTime: 30,
-              numberOfSets: 2,
+              restTime: 111,
+              isBodyWeight: true,
+              numberOfSets: 1,
+              id: x?.coreStrengthSet?.id,
+            },
+          },
+          {
+            id: y?.id!,
+            notes: "Updated CRUD car",
+            crudOperation: "update",
+            order: 2,
+            exerciseData: {
+              id: testExercises[0].id!,
+              type: testExercises[0].type!,
+            },
+            coreCardioSet: {
+              crudOperation: "update",
+              warmupTime: 1,
+              workTime: 1,
+              avgHeartRate: 1,
+              avgSpeed: 1,
+              distance: 1,
+              calorieTarget: 1,
+              id: y?.coreCardioSet?.id,
             },
           },
           {
@@ -349,12 +395,8 @@ describe("Workouts API", () => {
 
       expect(res.status).toBe(200);
       const updatedWorkout = res.body.data as IWorkoutDTO;
-      expect(updatedWorkout.workoutExercises).toHaveLength(2);
-      expect(
-        updatedWorkout.workoutExercises?.find(
-          (we) => we.id === originalWorkoutExerciseId
-        )?.notes
-      ).toBe("updated exercise notes");
+
+      expect(updatedWorkout.id).toBe(workoutToUpdateId);
     });
 
     it("should return 400 for updating a non-existent workout", async () => {

@@ -1,4 +1,3 @@
-import { IBaseFilter } from "../../../../shared/models/app.model";
 import {
   ExerciseEquipment,
   ExerciseMuscle,

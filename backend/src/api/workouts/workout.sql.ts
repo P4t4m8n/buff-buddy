@@ -75,7 +75,8 @@ const getWorkoutUpdate = (
     workoutExercises?.filter((we) => we.crudOperation === "update") ?? [];
   const exercisesToDelete =
     workoutExercises?.filter((we) => we.crudOperation === "delete") ?? [];
-  return {
+  const x = {
+    id: workoutData.id,
     ...dbUtil.cleanData({
       notes: workoutData.notes,
       name: workoutData.name,
@@ -91,6 +92,7 @@ const getWorkoutUpdate = (
       })),
     },
   };
+  return x;
 };
 
 export const workoutSQL = {

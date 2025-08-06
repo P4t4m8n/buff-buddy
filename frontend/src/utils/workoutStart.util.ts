@@ -2,6 +2,7 @@ import type { IWorkoutDTO } from "../../../shared/models/workout.model";
 import type {
   IUserWorkoutDTO,
   IUserWorkoutEditDTO,
+  IUserWorkoutEditExercisesDTO,
 } from "../../../shared/models/userWorkout";
 import { appUtil } from "./app.util";
 import { userSetsUtil } from "./userSets.util";
@@ -23,22 +24,37 @@ export const workoutStartUtil = {
         notes: workoutDTO?.notes,
         owner: workoutDTO?.owner,
       },
-      workoutExercises: (workoutDTO?.workoutExercises ?? [])?.map((we) => ({
-        id: we.id,
-        order: we.order,
-        notes: we.notes,
-        exercise: we.exercise,
-        workoutExerciseId: we.id!,
-        coreSet: we.coreSet,
-        userSets: userSetsUtil.createUserSets(
-          we.coreSet?.numberOfSets,
-          we.coreSet?.isBodyWeight,
-          we.coreSet?.hasWarmup,
-          we.coreSet?.weight,
-          lastUserWorkout?.workoutExercises.find((ex) => ex.exercise?.id === we.exercise?.id)
-            ?.userSets
-        ),
-      })),
+      userWorkoutExercises: (workoutDTO?.workoutExercises ?? [])?.map((we) => {
+        const item: IUserWorkoutEditExercisesDTO = {
+          id: we.id,
+          order: we.order,
+          notes: we.notes,
+          exercise: we.exercise,
+          workoutExerciseId: we.id!,
+        };
+        const type = we.exercise?.type;
+
+        if (type === "strength") {
+          const lastUserSet = lastUserWorkout?.userWorkoutExercises?.find(
+            (lastWe) => lastWe.exercise?.id === we.exercise?.id
+          )?.userStrengthSets;
+          item.coreStrengthSet = we.coreStrengthSet;
+          item.userStrengthSets = userSetsUtil.createUserStrengthSets(
+            we.coreStrengthSet!,
+            lastUserSet
+          );
+        } else if (type === "cardio") {
+          const lastUserSet = lastUserWorkout?.userWorkoutExercises?.find(
+            (lastWe) => lastWe.exercise?.id === we.exercise?.id
+          )?.userCardioSets;
+          item.coreCardioSet = we.coreCardioSet;
+          item.userCardioSets = userSetsUtil.createUserCardioSets(
+            1,
+            lastUserSet
+          );
+        }
+        return item;
+      }),
       lastUserWorkout: lastUserWorkout ?? null,
     };
   },

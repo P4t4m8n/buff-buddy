@@ -19,6 +19,7 @@ interface IProgramWorkoutEditSelectedProps {
     isCopy?: boolean
   ) => void;
   parentRef?: React.RefObject<HTMLDivElement | null>;
+  handleSelectedWorkoutUpdate?: (workout: IWorkoutDTO | null) => void;
 }
 export default function ProgramWorkoutEditSelected({
   selectedProgramWorkout,
@@ -26,6 +27,7 @@ export default function ProgramWorkoutEditSelected({
   saveToProgram,
   onSelectProgramWorkout,
   parentRef,
+  handleSelectedWorkoutUpdate,
 }: IProgramWorkoutEditSelectedProps) {
   const options = calendarUtil.getShortWeekDays(true);
   const selectedOptions =
@@ -51,7 +53,7 @@ export default function ProgramWorkoutEditSelected({
         </Button>
         <GenericModel
           Model={WorkoutEdit}
-          modelProps={{ workout }}
+          modelProps={{ workout, afterSubmit: handleSelectedWorkoutUpdate }}
           mode="edit"
           buttonProps={{ buttonStyle: "model" }}
           isPortal={true}

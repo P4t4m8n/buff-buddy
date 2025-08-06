@@ -1,8 +1,8 @@
-import type { ICoreSetEditDTO } from "../../../shared/models/set.model";
+import type { ICoreStrengthSetEditDTO } from "../../../shared/models/strengthSet.model";
 import { appUtil } from "./app.util";
 
-export const coreSetUtil = {
-  getEmpty: (): ICoreSetEditDTO => ({
+export const coreStrengthSetUtil = {
+  getEmpty: (): ICoreStrengthSetEditDTO => ({
     id: appUtil.getTempId("temp"),
     isBodyWeight: false,
     numberOfSets: 1,

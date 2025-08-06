@@ -1,23 +1,24 @@
-import Input from "../UI/Form/Input";
-import Label from "../UI/Form/Label";
-import TextArea from "../UI/Form/TextArea";
-import Button from "../UI/Button";
-import Loader from "../UI/Loader";
+import Input from "../../../UI/Form/Input";
+import Label from "../../../UI/Form/Label";
+import TextArea from "../../../UI/Form/TextArea";
+import Button from "../../../UI/Button";
+import Loader from "../../../UI/Loader";
 
-import { useWorkoutExerciseEdit } from "../../hooks/features/program/useWorkoutExerciseEdit";
-import { useFormErrors } from "../../hooks/shared/useFormErrors";
-import { toTitle } from "../../utils/toTitle";
+import { useWorkoutExerciseEdit } from "../../../../hooks/features/program/useWorkoutExerciseEdit";
+import { useFormErrors } from "../../../../hooks/shared/useFormErrors";
+import { toTitle } from "../../../../utils/toTitle";
 
-import WorkoutExerciseCoreSet from "./WorkoutExerciseCoreSet";
 import WorkoutExerciseEditAddExercise from "./WorkoutExerciseEditAddExercise";
-import SelectWithSearchOld from "../UI/Form/SelectWithSearchOld";
-import WorkoutExerciseCoreCardioSet from "./WorkoutExerciseCoreCardioSet";
+import WorkoutExerciseCoreCardioSet from "../WorkoutExerciseCoreCardioSet";
+import WorkoutExerciseCoreStrengthSet from "../WorkoutExerciseCoreStrengthSet";
+import SelectWithSearch from "../../../UI/Form/SelectWithSearch";
+import WorkoutExerciseEditExerciseSelect from "./WorkoutExerciseEditExerciseSelect";
 
-import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
-import type { IWorkoutExerciseEditDTO } from "../../../../shared/models/workout.model";
-import type { IModelProps } from "../UI/GenericModel";
-import type { ICoreSetEditDTO } from "../../../../shared/models/set.model";
-import type { ICoreCardioSetEditDTO } from "../../../../shared/models/cardioSet.model";
+import type { ExerciseType } from "../../../../../../backend/prisma/generated/prisma";
+import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
+import type { IModelProps } from "../../../UI/GenericModel";
+import type { ICoreCardioSetEditDTO } from "../../../../../../shared/models/cardioSet.model";
+import type { ICoreStrengthSetDTO } from "../../../../../../shared/models/strengthSet.model";
 
 interface WorkoutExerciseEditProps extends IModelProps<HTMLDivElement> {
   workoutExercise?: IWorkoutExerciseEditDTO;
@@ -32,7 +33,6 @@ export default function WorkoutExerciseEdit({
 }: WorkoutExerciseEditProps) {
   const {
     handleSelectExercise,
-    filterExercises,
     handleInputChange,
     handleCoreStrengthSetChange,
     handleCoreCardioSetChange,
@@ -41,7 +41,7 @@ export default function WorkoutExerciseEdit({
     resetWorkoutExerciseToEdit,
   } = useWorkoutExerciseEdit(workoutExercise, workoutExerciseLength);
 
-  const { errors: coreSetsErrors } = useFormErrors<ICoreSetEditDTO>();
+  const { errors: coreSetsErrors } = useFormErrors<ICoreStrengthSetDTO>();
   const { errors: coreCardioSetsErrors } =
     useFormErrors<ICoreCardioSetEditDTO>();
   const { errors: workoutExerciseErrors } =
@@ -88,7 +88,7 @@ export default function WorkoutExerciseEdit({
 
   if (!workoutExerciseToEdit) return <Loader />;
 
-  const { order, notes, exercise, coreSet, coreCardioSet } =
+  const { order, notes, exercise, coreStrengthSet, coreCardioSet } =
     workoutExerciseToEdit;
 
   const workoutExerciseType = (type?: ExerciseType | null) => {
@@ -103,8 +103,8 @@ export default function WorkoutExerciseEdit({
         );
       case "strength":
         return (
-          <WorkoutExerciseCoreSet
-            coreSet={coreSet}
+          <WorkoutExerciseCoreStrengthSet
+            coreSet={coreStrengthSet}
             handleChange={handleCoreStrengthSetChange}
             errors={coreSetsErrors}
           />
@@ -159,22 +159,16 @@ export default function WorkoutExerciseEdit({
             </Label>
           ) : null}
         </TextArea>
-
-        <SelectWithSearchOld
+        <SelectWithSearch
           options={exercises}
-          selectedOptionName={exercise?.name}
-          inputName="exercise"
-          handleSelect={handleSelectExercise}
-          filterOptions={filterExercises}
-          parentModelRef={modelRef}
-          error={workoutExerciseErrors?.exerciseId}
           SelectedComponent={
             exercise?.id ? toTitle(exercise?.name) : "Select an Exercise"
           }
-          SelectItemComponent={({ option }) => (
-            <span className="">{toTitle(option?.name)}</span>
-          )}
+          handleSelect={handleSelectExercise}
+          parentModelRef={modelRef}
           AddComponent={WorkoutExerciseEditAddExercise}
+          SelectItemComponent={WorkoutExerciseEditExerciseSelect}
+          filterBy={(option) => option.name!}
         />
       </div>
 
@@ -200,3 +194,13 @@ export default function WorkoutExerciseEdit({
     </div>
   );
 }
+
+// <li key={index} className="w-full h-full">
+//           <Button
+//             onClick={(e) => onClick(e, option)}
+//             className="w-full h-full flex cursor-pointer items-center justify-between"
+//           >
+//             <p>{toTitle(option)}</p>
+//             <IconPlus className=" h-8 aspect-square stroke-main-black" />
+//           </Button>
+//         </li>

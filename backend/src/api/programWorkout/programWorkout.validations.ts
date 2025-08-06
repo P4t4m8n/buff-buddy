@@ -9,15 +9,6 @@ import {
   CreateWorkoutSchema,
 } from "../workouts/workouts.validations";
 
-const connectOrCreateWorkoutRefinement = (
-  data: { workout?: any },
-  ctx: z.RefinementCtx
-) => {
-  if (data.workout.id) {
-    return true;
-  }
-};
-
 const BadeProgramWorkoutSchema = z.object({
   daysOfWeek: DaysOfWeekSchema.optional(),
   crudOperation: CrudOperationSchema,

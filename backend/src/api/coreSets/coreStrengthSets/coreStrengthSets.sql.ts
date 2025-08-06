@@ -37,7 +37,7 @@ export const coreStrengthSetsSQL: ICoreStrengthSetSQL = {
   },
   getUpdateCoreSets(coreSet) {
     const _coreSet = this.getCreateCoreSets(coreSet);
-    return dbUtil.cleanData({ ..._coreSet });
+    return dbUtil.cleanData({ ..._coreSet, id: coreSet?.id });
   },
 
   CORE_STRENGTH_SET_SELECT: {
@@ -49,15 +49,16 @@ export const coreStrengthSetsSQL: ICoreStrengthSetSQL = {
     numberOfSets: true,
     reps: {
       take: 1,
-      orderBy: { createdAt: "asc" },
+      orderBy: { createdAt: "desc" },
       select: {
         id: true,
         reps: true,
+        createdAt: true,
       },
     },
     weight: {
       take: 1,
-      orderBy: { createdAt: "asc" },
+      orderBy: { createdAt: "desc" },
       select: {
         id: true,
         weight: true,

@@ -1,7 +1,8 @@
 import { ICoreStrengthSetDTO } from "../../../../../shared/models/strengthSet.model";
 import { ICoreStrengthSet } from "./coreStrengthSets.models";
 
-const toDTO = (data?: ICoreStrengthSet | null): ICoreStrengthSetDTO => {
+const toDTO = (data?: ICoreStrengthSet | null): ICoreStrengthSetDTO | null => {
+  if (!data) return null;
   return {
     id: data?.id,
     hasWarmup: data?.hasWarmup,

@@ -6,7 +6,6 @@ import {
   UpdateExerciseSchema,
 } from "./exercises.validations";
 import { exerciseService } from "./exercises.service";
-import { IExerciseDTO } from "../../../../shared/models/exercise.model";
 
 export const getExercises = async (req: Request, res: Response) => {
   try {
@@ -98,4 +97,3 @@ export const deleteExercise = async (req: Request, res: Response) => {
     });
   }
 };
-

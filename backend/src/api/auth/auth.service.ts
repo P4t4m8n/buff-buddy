@@ -1,15 +1,15 @@
 import { prisma } from "../../../prisma/prisma";
 import {
-  CreateUserInput,
-  GoogleOAuthInput,
-  SignInInput,
+  TCreateUserInput,
+  TGoogleOAuthInput,
+  TSignInInput,
 } from "./auth.validations";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { AppError } from "../../shared/services/Error.service";
 
 export const authService = {
-  signUp: async (dto: CreateUserInput | GoogleOAuthInput) => {
+  signUp: async (dto: TCreateUserInput | TGoogleOAuthInput) => {
     const { email, firstName, lastName } = dto;
     const saltRounds = parseInt(process.env.SALT_ROUNDS || "10", 10);
 
@@ -46,7 +46,7 @@ export const authService = {
     };
   },
 
-  signIn: async (dto: SignInInput | GoogleOAuthInput) => {
+  signIn: async (dto: TSignInInput | TGoogleOAuthInput) => {
     const { email } = dto;
 
     const user = await prisma.user.findUnique({
@@ -87,7 +87,7 @@ export const authService = {
       token,
     };
   },
-  signInWithGoogle: async (dto: GoogleOAuthInput) => {
+  signInWithGoogle: async (dto: TGoogleOAuthInput) => {
     const { email, firstName, lastName, googleId } = dto;
 
     const user = await prisma.user.upsert({

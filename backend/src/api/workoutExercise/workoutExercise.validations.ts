@@ -6,8 +6,14 @@ import {
   IDSchema,
   stringValidationAndSanitization,
 } from "../../shared/validations/shared.validations";
-import { CreateCoreStrengthSetSchema } from "../coreSets/coreStrengthSets/coreStrengthSets.validations";
-import { CreateCoreCardioSetSchema } from "../coreSets/coreCardioSets/coreCardioSets.validations";
+import {
+  CreateCoreStrengthSetSchema,
+  UpdateCoreStrengthSetSchema,
+} from "../coreSets/coreStrengthSets/coreStrengthSets.validations";
+import {
+  CreateCoreCardioSetSchema,
+  UpdateCoreCardioSetSchema,
+} from "../coreSets/coreCardioSets/coreCardioSets.validations";
 import { ExerciseTypeSchema } from "../exercises/exercises.validations";
 
 const exerciseTypeSetRefinement = (
@@ -80,8 +86,12 @@ export const CreateWorkoutExerciseSchema = WorkoutExerciseSchema.superRefine(
   exerciseTypeSetRefinement
 );
 
-export const UpdateWorkoutExerciseSchema =
-  WorkoutExerciseSchema.partial().superRefine(exerciseTypeSetRefinement);
+export const UpdateWorkoutExerciseSchema = WorkoutExerciseSchema.partial()
+  .extend({
+    coreStrengthSet: UpdateCoreStrengthSetSchema.optional(),
+    coreCardioSet: UpdateCoreCardioSetSchema.optional(),
+  })
+  .superRefine(exerciseTypeSetRefinement);
 
 export const CreateNestedWorkoutExerciseSchema =
   CreateWorkoutExerciseSchema.superRefine(conditionalOrderRefinement);

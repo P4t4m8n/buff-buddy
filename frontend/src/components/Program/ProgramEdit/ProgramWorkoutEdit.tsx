@@ -15,10 +15,12 @@ import ProgramWorkoutEditSelected from "./ProgramWorkoutEditSelected";
 import WorkoutEdit from "../../Workout/WorkoutEdit";
 import AvailableWorkoutPreview from "./AvailableWorkoutPreview";
 import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
+import { workoutUtils } from "../../../utils/workout.util";
+import { appUtil } from "../../../utils/app.util";
 
 interface ProgramWorkoutProps extends IModelProps<HTMLDivElement> {
   programWorkout?: IProgramWorkoutDTO;
-  handleProgramWorkouts?: (workout: IProgramWorkoutDTO) => void;
+  handleProgramWorkouts?: (workout: IProgramWorkoutEditDTO) => void;
 }
 
 export default function ProgramWorkoutEdit({
@@ -68,11 +70,23 @@ export default function ProgramWorkoutEdit({
   const saveToProgram = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
- 
+
     if (selectedWorkout && handleProgramWorkouts && handleModel) {
       handleProgramWorkouts(selectedWorkout);
       handleModel(e);
     }
+  };
+
+  const handleSelectedWorkoutUpdate = (workout: IWorkoutDTO | null) => {
+    setSelectedWorkout((prev) => {
+      if (!prev) return null;
+      if (!workout) return prev;
+      const updatedWorkout = workoutUtils.dtoToEditDto(workout);
+      return {
+        ...prev,
+        workout: updatedWorkout,
+      };
+    });
   };
 
   useEffect(() => {
@@ -102,6 +116,7 @@ export default function ProgramWorkoutEdit({
           saveToProgram={saveToProgram}
           onSelectProgramWorkout={onSelectProgramWorkout}
           parentRef={modelRef}
+          handleSelectedWorkoutUpdate={handleSelectedWorkoutUpdate}
         />
       </header>
 

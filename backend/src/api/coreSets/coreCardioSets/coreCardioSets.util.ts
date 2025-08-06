@@ -1,7 +1,8 @@
 import { ICoreCardioSetDTO } from "../../../../../shared/models/cardioSet.model";
 import { ICoreCardioSet } from "./coreCardioSets.models";
 
-const toDTO = (data?: ICoreCardioSet | null): ICoreCardioSetDTO => {
+const toDTO = (data?: ICoreCardioSet | null): ICoreCardioSetDTO | null => {
+  if (!data) return null;
   return {
     id: data?.id,
     warmupTime: data?.warmupTime,

@@ -1,8 +1,6 @@
 import { DaysOfWeek, Prisma, Program } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
 import { dbUtil } from "../../shared/utils/db.util";
-import { coreCardioSetsSQL } from "../coreSets/coreCardioSets/coreCardioSets.sql";
-import { coreStrengthSetsSQL } from "../coreSets/coreStrengthSets/coreStrengthSets.sql";
 import { workoutSQL } from "../workouts/workout.sql";
 import { TCreateWorkoutInput } from "../workouts/workouts.validations";
 import { programsSQL } from "./program.sql";
@@ -105,6 +103,7 @@ export const programsService = {
           })),
         },
       },
+      select: programsSQL.PROGRAM_SELECT,
     })) as unknown as IProgram;
   },
 

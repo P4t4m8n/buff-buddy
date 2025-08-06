@@ -1,14 +1,14 @@
-import type { ICoreSetEditDTO } from "../../../shared/models/set.model";
+import type { ICoreCardioSetEditDTO } from "../../../shared/models/cardioSet.model";
 
-export const coreCardioSet = {
-  getEmpty: (): ICoreSetEditDTO => ({
+export const coreCardioSetUtil = {
+  getEmpty: (): ICoreCardioSetEditDTO => ({
     id: "temp_" + Math.random().toString(36).substring(2, 15),
-    isBodyWeight: false,
-    numberOfSets: 1,
-    reps: 10,
-    weight: 10,
-    restTime: 10,
-    hasWarmup: false,
+    warmupTime: null,
+    workTime: null,
+    avgHeartRate: null,
+    avgSpeed: null,
+    distance: null,
+    calorieTarget: null,
     crudOperation: "create",
   }),
 };

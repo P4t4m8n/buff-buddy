@@ -16,7 +16,7 @@ const BaseWorkoutSchema = z.object({
     fieldName: "Workout notes",
     minLength: 0,
     maxLength: 500,
-  }).optional(),
+  }).nullish().optional(),
   name: stringValidationAndSanitization({
     fieldName: "Workout name",
     minLength: 1,

@@ -98,9 +98,8 @@ export const numberValidation = ({
 }: IValidationProps) => {
   return z
     .number()
-    .int(`${fieldName} must be a whole number`)
-    .min(minLength, `${fieldName} must be at least 1`)
-    .max(maxLength, `${fieldName} cannot exceed 100`);
+    .min(minLength, `${fieldName} must be at least ${minLength}`)
+    .max(maxLength, `${fieldName} cannot exceed ${maxLength}`);
 };
 
 export const CrudOperationEnumSchema = z.enum([

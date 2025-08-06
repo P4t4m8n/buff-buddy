@@ -37,7 +37,6 @@ export const workoutsService = {
       select: workoutSQL.WORKOUT_SELECT,
     }) as unknown as Promise<IWorkout>;
   },
-  //TODO ?? Really need to refactor this
   update: async (id: string, dto: TUpdateWorkoutInput): Promise<IWorkout> => {
     return (await prisma.workout.update({
       where: { id },

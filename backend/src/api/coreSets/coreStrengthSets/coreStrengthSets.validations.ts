@@ -2,6 +2,7 @@ import { z } from "zod";
 import {
   CrudOperationSchema,
   IDSchema,
+  numberValidation,
 } from "../../../shared/validations/shared.validations";
 
 const coreStrengthSetWeightRefinement = (
@@ -25,38 +26,36 @@ const coreStrengthSetWeightRefinement = (
 };
 
 const CoreStrengthSetSchema = z.object({
-  numberOfSets: z.coerce
-    .number()
-    .int("Number of sets must be a whole number")
-    .min(1, "Number of sets must be at least 1")
-    .max(100, "Number of sets cannot exceed 100")
-    .optional()
-    .default(1),
+  numberOfSets: numberValidation({
+    fieldName: "Number of sets",
+    minLength: 1,
+    maxLength: 100,
+  }),
 
-  reps: z.coerce
-    .number()
-    .int("Reps must be a whole number")
-    .min(1, "Reps must be at least 1")
-    .max(1000, "Reps cannot exceed 1000"),
+  reps: numberValidation({
+    fieldName: "Reps",
+    minLength: 1,
+    maxLength: 1000,
+  }),
 
-  weight: z.coerce
-    .number()
-    .min(0, "Weight cannot be negative")
-    .max(10000, "Weight cannot exceed 10000")
-    .transform((val) => Math.round(val * 100) / 100),
+  weight: numberValidation({
+    fieldName: "Weight",
+    minLength: 0,
+    maxLength: 1000,
+  }).transform((val) => Math.round(val * 100) / 100),
 
   isBodyWeight: z.coerce.boolean().default(false),
 
-  restTime: z.coerce
-    .number()
-    .int("Rest time must be a whole number")
-    .min(0, "Rest time cannot be negative")
-    .max(3600, "Rest time cannot exceed 1 hour (3600 seconds)"),
+  restTime: numberValidation({
+    fieldName: "Rest time",
+    minLength: 0,
+    maxLength: 3600,
+  }),
 
   hasWarmup: z.coerce.boolean().default(false),
 
   crudOperation: CrudOperationSchema,
-  id: z.optional(z.string()),
+  id: IDSchema.optional(),
   programExerciseId: z.string().optional(),
 });
 

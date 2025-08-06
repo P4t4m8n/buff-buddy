@@ -3,7 +3,7 @@ import Label from "./Label";
 interface ILabelWithErrorProps
   extends React.LabelHTMLAttributes<HTMLLabelElement> {
   error?: string;
-  labelText: string;
+  labelText?: string;
   isMoveUpEffect?: boolean;
 }
 

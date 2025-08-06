@@ -1,15 +1,20 @@
 import type {
-  IUserSetDTO,
-  IUserSetEditDTO,
-} from "../../../shared/models/set.model";
+  IUserCardioSetDTO,
+  IUserCardioSetEditDTO,
+} from "../../../shared/models/cardioSet.model";
+import type {
+  ICoreStrengthSetDTO,
+  IUserStrengthSetDTO,
+  IUserStrengthSetEditDTO,
+} from "../../../shared/models/strengthSet.model";
 import { appUtil } from "./app.util";
 
 export const userSetsUtil = {
-  getEmpty: (
+  getEmptyStrength: (
     order: number,
-    lastUserSets?: IUserSetDTO,
+    lastUserSets?: IUserStrengthSetDTO,
     isBodyWeight?: boolean
-  ): IUserSetEditDTO => {
+  ): IUserStrengthSetEditDTO => {
     return {
       id: appUtil.getTempId("temp"),
       reps: null,
@@ -26,10 +31,10 @@ export const userSetsUtil = {
     };
   },
   //TODO??HArdcoded at the moment improve later maybe move to backend
-  getWarmupSet: (
+  getStrengthWarmupSet: (
     isBodyWeight?: boolean,
     weight?: number | null
-  ): IUserSetEditDTO => {
+  ): IUserStrengthSetEditDTO => {
     const warmupWeight = isBodyWeight
       ? null
       : weight
@@ -46,26 +51,55 @@ export const userSetsUtil = {
       order: 0, // Warmup set is always the first set
     };
   },
-
-  createUserSets(
-    numberOfSets: number = 1,
-    isBodyWeight?: boolean,
-    hasWarmup?: boolean,
-    weight?: number | null,
-    lastUserSets?: IUserSetDTO[]
-  ): IUserSetEditDTO[] {
+  createUserStrengthSets(
+    coreSet: ICoreStrengthSetDTO,
+    lastUserSets?: IUserStrengthSetDTO[] | null
+  ): IUserStrengthSetEditDTO[] {
+    const { numberOfSets = 1, hasWarmup, isBodyWeight, weight } = coreSet;
     const sortedLastSets =
       lastUserSets?.sort((a, b) => (a?.order ?? 1) - (b?.order ?? 1)) ?? [];
     const sets = Array.from({ length: numberOfSets }).map((_, idx) =>
-      userSetsUtil.getEmpty(idx + 1, sortedLastSets[idx], isBodyWeight)
+      userSetsUtil.getEmptyStrength(idx + 1, sortedLastSets[idx], isBodyWeight)
     );
 
     if (hasWarmup) {
-      const warmupSet = this.getWarmupSet(isBodyWeight, weight);
+      const warmupSet = this.getStrengthWarmupSet(isBodyWeight, weight);
       warmupSet.isWarmup = true;
       sets.unshift(warmupSet);
     }
 
     return sets;
+  },
+
+  getEmptyCardio: (lastUserSet?: IUserCardioSetDTO): IUserCardioSetEditDTO => {
+    return {
+      id: appUtil.getTempId("temp"),
+
+      workTime: null,
+      lastWorkTime: lastUserSet?.workTime ?? null,
+      avgHeartRate: null,
+      lastAvgHeartRate: lastUserSet?.avgHeartRate ?? null,
+      avgSpeed: null,
+      lastAvgSpeed: lastUserSet?.avgSpeed ?? null,
+      distance: null,
+      lastDistance: lastUserSet?.distance ?? null,
+      caloriesBurned: null,
+      lastCaloriesBurned: lastUserSet?.caloriesBurned ?? null,
+      isCompleted: false,
+      skippedReason: null,
+      lastSkippedReason: lastUserSet?.skippedReason ?? null,
+      crudOperation: "create",
+      order: lastUserSet?.order ?? 0,
+    };
+  },
+  createUserCardioSets(
+    numberOfSets: number = 1,
+    lastUserSets?: IUserCardioSetDTO[] | null
+  ): IUserCardioSetEditDTO[] {
+    const sortedLastSets =
+      lastUserSets?.sort((a, b) => (a?.order ?? 1) - (b?.order ?? 1)) ?? [];
+    return Array.from({ length: numberOfSets }).map((_, idx) =>
+      this.getEmptyCardio(sortedLastSets[idx])
+    );
   },
 };

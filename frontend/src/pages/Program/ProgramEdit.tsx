@@ -15,7 +15,7 @@ import ProgramWorkoutEditWeekList from "../../components/Program/ProgramEdit/Pro
 import ProgramWorkoutEdit from "../../components/Program/ProgramEdit/ProgramWorkoutEdit";
 
 export default function ProgramEdit() {
-  const { id } = useParams<{ id?: string }>();
+  const { programId } = useParams<{ programId?: string }>();
 
   const {
     programToEdit,
@@ -26,7 +26,7 @@ export default function ProgramEdit() {
     handleProgramWorkouts,
     navigate,
     handleInputChange,
-  } = useProgramEdit(id);
+  } = useProgramEdit(programId);
 
   if (isLoading || !programToEdit) {
     return <Loader />;
@@ -35,7 +35,7 @@ export default function ProgramEdit() {
   const { name, notes, startDate, endDate, programWorkouts, isActive } =
     programToEdit;
 
-  const headerText = id ? `Edit Program: ${name}` : `Create New Program`;
+  const headerText = programId ? `Edit Program: ${name}` : `Create New Program`;
 
   const dateRange = {
     start: calendarUtil.convertDate(startDate),
@@ -53,7 +53,9 @@ export default function ProgramEdit() {
                       lg:grid-rows-[2rem_3.5rem_9.5rem] grid-cols-3
                       lg:grid-cols-[1fr_1fr_8.5rem] lg:h-68 gap-4 justify-around`}
         >
-          <h2 className="text-2xl font-semibold col-span-full truncate">{headerText}</h2>
+          <h2 className="text-2xl font-semibold col-span-full truncate">
+            {headerText}
+          </h2>
           <Input
             value={name || ""}
             type="text"

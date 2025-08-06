@@ -70,9 +70,10 @@ const getProgramWorkoutCreate = (
 
   return {
     daysOfWeek: dto.daysOfWeek as DaysOfWeek[],
-    workout: dto.workout?.id
-      ? { connect: { id: dto.workout.id } }
-      : { create: workoutCreateData },
+    workout:
+      dto.workout?.id && !dto.workout.id.startsWith("temp/")
+        ? { connect: { id: dto.workout.id } }
+        : { create: workoutCreateData },
   };
 };
 

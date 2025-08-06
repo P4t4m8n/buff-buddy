@@ -13,7 +13,7 @@ interface IProgramStore {
   isLoadingId: string | null;
   loadPrograms: () => Promise<void>;
   getProgramById: (id?: string) => Promise<IProgramDTO | null>;
-  saveProgram: (programToSave: IProgramEditDTO) => Promise<IProgramDTO >;
+  saveProgram: (programToSave: IProgramEditDTO) => Promise<IProgramDTO>;
   deleteProgram: (id: string) => Promise<void>;
 }
 
@@ -55,24 +55,8 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
 
   saveProgram: async (program: IProgramEditDTO) => {
     try {
-      const programToSave: IProgramEditDTO = {
-        ...program,
-        programWorkouts: program?.programWorkouts?.map((pw) => ({
-          ...pw,
-          workout: {
-            ...pw.workout,
-            workoutExercises: pw.workout?.workoutExercises?.map((we) => ({
-              coreSet: we.coreSet,
-              id: we.id,
-              notes: we.notes,
-              order: we.order,
-              exerciseId: we.exercise?.id,
-            })),
-          },
-        })),
-      };
       set({ isLoading: true });
-      const { data } = await programService.save(programToSave);
+      const { data } = await programService.save(program);
       set((state) => {
         const idx = state.programs.findIndex(
           (program) => program.id === data.id

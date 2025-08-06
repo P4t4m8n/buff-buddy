@@ -24,6 +24,9 @@ import type { IModelProps } from "../UI/GenericModel";
 import SelectMultiWithSearch from "../UI/Form/SelectMultiWithSearch";
 import SelectWithSearch from "../UI/Form/SelectWithSearch";
 import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
+import { toTitle } from "../../utils/toTitle";
+import type { ISelectItemComponentProps } from "../../models/select.model";
+import IconPlus from "../UI/Icons/IconPlus";
 
 interface ExerciseEditProps extends IModelProps<HTMLFormElement> {
   exercise?: IExerciseDTO;
@@ -89,10 +92,10 @@ export default function ExerciseEdit({
     });
   };
 
-  const handleType = (type: ExerciseType) => {
+  const handleType = (option: ExerciseType) => {
     setExerciseToEdit((prev) => {
       if (!prev) return prev;
-      return { ...prev, type };
+      return { ...prev, type: option };
     });
   };
 
@@ -124,7 +127,7 @@ export default function ExerciseEdit({
       ref={modelRef}
       onSubmit={onSubmit}
       className="bg-amber p-4 grid gap-4 rounded w-[calc(100%-1rem)]
-       max-w-96 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50"
+       max-w-96 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40"
     >
       <Input hidden defaultValue={exercise?.id} name="id" />
 
@@ -151,9 +154,12 @@ export default function ExerciseEdit({
       />
       <SelectWithSearch
         options={EXERCISE_TYPES}
-        selectedValue={type as ExerciseType}
         handleSelect={handleType}
+        SelectedComponent={type ? toTitle(type) : "Select a Type"}
+        parentModelRef={modelRef}
+        filterBy={(item) => item}
         error={errors?.type}
+        SelectItemComponent={ExerciseTypeSelectItem}
       />
       {selects.map((select) => (
         <SelectMultiWithSearch
@@ -176,3 +182,20 @@ export default function ExerciseEdit({
     </form>
   );
 }
+
+const ExerciseTypeSelectItem = ({
+  item,
+  onClick,
+}: ISelectItemComponentProps<ExerciseType>) => {
+  return (
+    <li className="w-full h-full">
+      <Button
+        onClick={(e) => onClick(e, item)}
+        className="w-full h-full flex cursor-pointer items-center justify-between"
+      >
+        {item ? item : "No Type Selected"}
+        <IconPlus className=" h-8 aspect-square stroke-main-black" />
+      </Button>
+    </li>
+  );
+};

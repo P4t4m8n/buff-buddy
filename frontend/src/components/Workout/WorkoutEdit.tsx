@@ -1,138 +1,49 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
+
+import Loader from "../UI/Loader";
+import WorkoutEditHeader from "./WorkoutEditHeader";
+
+import { useWorkoutEdit } from "../../hooks/features/workout/useWorkoutEdit";
+import WorkoutExerciseEditList from "./WorkoutExercise/WorkoutExerciseEdit/WorkoutExerciseEditList";
+import type { IModelProps } from "../UI/GenericModel";
 import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
-  IWorkoutExerciseEditDTO,
 } from "../../../../shared/models/workout.model";
-import { useWorkoutStore } from "../../store/workout.store";
-import { workoutUtils } from "../../utils/workout.util";
-import Loader from "../UI/Loader";
-import WorkoutEditHeader from "./WorkoutEditHeader";
-import type { IModelProps } from "../UI/GenericModel";
-import WorkoutExerciseEditList from "./WorkoutExerciseEditList";
 
 interface WorkoutCreateProps extends IModelProps<HTMLFormElement> {
   workout?: IWorkoutDTO | IWorkoutEditDTO;
   handleModel?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  afterSubmit?: (workout: IWorkoutDTO) => void;
 }
+
 export default function WorkoutEdit({
   workout,
   handleModel,
+  afterSubmit,
   ...props
 }: WorkoutCreateProps) {
+  const { id } = useParams<{ id?: string }>();
   const { setOpen } = props;
+  const navigate = setOpen ? null : useNavigate();
 
-  const [workoutToEdit, setWorkoutToEdit] = useState<IWorkoutEditDTO | null>(
-    null
-  );
-  const navigate = useNavigate();
-
-  const saveWorkout = useWorkoutStore((state) => state.saveWorkout);
-
-  useEffect(() => {
-    const _workout = workout
-      ? "programId" in workout
-        ? workout
-        : workoutUtils.dtoToEditDto(workout as IWorkoutDTO)
-      : workoutUtils.getEmpty();
-
-    setWorkoutToEdit(_workout);
-  }, [workout]);
-
-  //TODO?? improve logic, specially change of order
-  const handleWorkoutExercises = (workoutExercise: IWorkoutExerciseEditDTO) => {
-    setWorkoutToEdit((prev) => {
-      if (!prev) return null;
-      const workoutExercises = prev?.workoutExercises ?? [];
-
-      const idx = prev?.workoutExercises?.findIndex(
-        (ex) => ex.id === workoutExercise.id
-      );
-
-      // Check if this a new item and its not an update of a new item
-      if (
-        (idx === undefined || idx === -1) &&
-        workoutExercise?.crudOperation === "create"
-      ) {
-        return {
-          ...prev,
-          workoutExercises: sortAndMapWorkoutExercises([
-            workoutExercise,
-            ...workoutExercises,
-          ]),
-        };
-      }
-
-      if (idx === undefined || idx === -1) {
-        return prev;
-      }
-
-      return {
-        ...prev,
-        workoutExercises: sortAndMapWorkoutExercises(
-          workoutExercises.toSpliced(idx!, 1, workoutExercise)
-        ),
-      };
-    });
-  };
-
-  const sortAndMapWorkoutExercises = (
-    workoutExercises: IWorkoutExerciseEditDTO[]
-  ): IWorkoutExerciseEditDTO[] => {
-    const length = workoutExercises.length;
-
-    return workoutExercises
-      .sort((a, b) => (a?.order || length) - (b?.order || length))
-      .map((ex, i) => {
-        const isChangeOrder = ex.order !== i + 1;
-
-        if (!isChangeOrder || ex.crudOperation === "delete") return ex;
-        return {
-          ...ex,
-          order: i + 1,
-          crudOperation:
-            ex.crudOperation !== "create" ? "update" : ex.crudOperation,
-        };
-      });
-  };
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    if (workoutToEdit) {
-      setWorkoutToEdit({
-        ...workoutToEdit,
-        [name]: value,
-      });
-    }
-  };
-
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!workoutToEdit) return;
-    const savedWorkout = await saveWorkout(workoutToEdit);
-
-    if (savedWorkout && setOpen) {
-      setOpen((prev) => !prev);
-    } else if (savedWorkout) {
-      navigate(-1);
-    }
-  };
+  const {
+    workoutToEdit,
+    isLoading,
+    errors,
+    handleWorkoutExercises,
+    handleInputChange,
+    onSubmit,
+  } = useWorkoutEdit(workout, navigate, id, setOpen, afterSubmit);
 
   const onCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    if (handleModel) {
-      handleModel(e);
-      return;
-    }
-    navigate(-1);
+    if (handleModel) handleModel(e);
+    else if (navigate) navigate(-1);
   };
 
-  if (!workoutToEdit) {
+  if (!workoutToEdit || isLoading) {
     return <Loader />;
   }
 

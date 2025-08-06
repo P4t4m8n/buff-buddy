@@ -9,7 +9,6 @@ import DateInput from "../../components/UI/Form/DateInput/DateInput";
 import type { IDateRange } from "../../models/calendar.model";
 import { useFormErrors } from "../../hooks/shared/useFormErrors";
 import WorkoutStartExerciseList from "../../components/WorkoutStart/WorkoutStartExerciseList";
-import type { IUserSetDTO } from "../../../../shared/models/set.model";
 import { workoutStartService } from "../../services/workoutStart";
 import type {
   IUserWorkoutDTO,
@@ -28,6 +27,7 @@ export default function WorkoutStartPage() {
 
   const [workoutStart, setWorkoutStart] =
     React.useState<IUserWorkoutEditDTO | null>(null);
+  console.log("🚀 ~ WorkoutStartPage ~ workoutStart:", workoutStart)
   const { errors } = useFormErrors<IUserWorkoutDTO>();
 
   const getById = useWorkoutStore((state) => state.getById);
@@ -89,32 +89,32 @@ export default function WorkoutStartPage() {
     e.stopPropagation();
     const target = e.target as HTMLInputElement;
     const { name, value, type, checked } = target;
-    const [key, id] = name.split("-") as [keyof IUserSetDTO, string];
+    const [key, id] = name.split("-") as [any, string];
 
-    setWorkoutStart((prev) => {
-      if (!prev) return null;
+    // setWorkoutStart((prev) => {
+    //   if (!prev) return null;
 
-      const workoutExercises = prev.workoutExercises.map((we) => {
-        const idx = we.userSets.findIndex((us) => us.id === id);
-        if (idx < 0) {
-          return we;
-        }
-        const tempUserSet = we.userSets[idx];
+    //   const workoutExercises = prev.userWorkoutExercises.map((we) => {
+    //     const idx = we.userSets.findIndex((us) => us.id === id);
+    //     if (idx < 0) {
+    //       return we;
+    //     }
+    //     const tempUserSet = we.userSets[idx];
 
-        tempUserSet[key] =
-          type === "checkbox" ? checked : (parseFloat(value) as any); //TODO?? I have no idea how to solve this type error;
+    //     tempUserSet[key] =
+    //       type === "checkbox" ? checked : (parseFloat(value) as any); //TODO?? I have no idea how to solve this type error;
 
-        const userSets = we.userSets.toSpliced(idx, 1, tempUserSet);
-        return {
-          ...we,
-          userSets,
-        };
-      });
-      return {
-        ...prev,
-        workoutExercises,
-      };
-    });
+    //     const userSets = we.userSets.toSpliced(idx, 1, tempUserSet);
+    //     return {
+    //       ...we,
+    //       userSets,
+    //     };
+    //   });
+    //   return {
+    //     ...prev,
+    //     workoutExercises,
+    //   };
+    // });
   };
 
   const logUserSet = (id?: string) => {
@@ -126,77 +126,77 @@ export default function WorkoutStartPage() {
       console.error("No workout exercise to log.");
       return;
     }
-    setWorkoutStart((prev) => {
-      if (!prev) return null;
-      const { workoutExercises } = prev;
-      const _workoutExercise = workoutExercises.find((we) =>
-        we.userSets.some((us) => us.id === id)
-      );
+    // setWorkoutStart((prev) => {
+    //   if (!prev) return null;
+    //   const { userWorkoutExercises } = prev;
+    //   const userWorkoutExercises = userWorkoutExercises.find((we) =>
+    //     we.userSets.some((us) => us.id === id)
+    //   );
 
-      if (!_workoutExercise) {
-        console.warn("Workout exercise not found for user set id:", id);
-        return prev;
-      }
+    //   if (!_workoutExercise) {
+    //     console.warn("Workout exercise not found for user set id:", id);
+    //     return prev;
+    //   }
 
-      const idx = _workoutExercise.userSets.findIndex((us) => us.id === id);
+    //   const idx = _workoutExercise.userSets.findIndex((us) => us.id === id);
 
-      if (idx < 0) {
-        console.warn("User set not found for id:", id);
-        return prev;
-      }
+    //   if (idx < 0) {
+    //     console.warn("User set not found for id:", id);
+    //     return prev;
+    //   }
 
-      const newUserSet = {
-        ..._workoutExercise.userSets[idx],
-        isCompleted: true,
-      };
+    //   const newUserSet = {
+    //     ..._workoutExercise.userSets[idx],
+    //     isCompleted: true,
+    //   };
 
-      const userSets = _workoutExercise.userSets.toSpliced(idx, 1, newUserSet);
-      const newWorkoutExercise = workoutExercises.map((we) => {
-        if (we.id !== _workoutExercise.id) return we;
-        return {
-          ...we,
-          userSets,
-        };
-      });
-      return {
-        ...prev,
-        workoutExercises: newWorkoutExercise,
-      };
-    });
+    //   const userSets = _workoutExercise.userSets.toSpliced(idx, 1, newUserSet);
+    //   const newWorkoutExercise = workoutExercises.map((we) => {
+    //     if (we.id !== _workoutExercise.id) return we;
+    //     return {
+    //       ...we,
+    //       userSets,
+    //     };
+    //   });
+    //   return {
+    //     ...prev,
+    //     workoutExercises: newWorkoutExercise,
+    //   };
+    // });
   };
 
   const completeAllExerciseSets = (id: string) => {
-    setWorkoutStart((prev) => {
-      if (!prev) return null;
-      const workoutExercises = prev.workoutExercises.map((we) => {
-        if (we.id !== id) return we;
-        const userSets = we.userSets.map((us) => ({
-          ...us,
-          reps: we.coreSet?.reps,
-          weight: we.coreSet?.weight,
-          isCompleted: true,
-        }));
-        return {
-          ...we,
-          userSets,
-        };
-      });
-      return {
-        ...prev,
-        workoutExercises,
-      };
-    });
+    // setWorkoutStart((prev) => {
+    //   if (!prev) return null;
+    //   const workoutExercises = prev.workoutExercises.map((we) => {
+    //     if (we.id !== id) return we;
+    //     const userSets = we.userSets.map((us) => ({
+    //       ...us,
+    //       reps: we.coreSet?.reps,
+    //       weight: we.coreSet?.weight,
+    //       isCompleted: true,
+    //     }));
+    //     return {
+    //       ...we,
+    //       userSets,
+    //     };
+    //   });
+    //   return {
+    //     ...prev,
+    //     workoutExercises,
+    //   };
+    // });
   };
 
   if (isLoadingId) {
     return <Loader />;
   }
 
-  const { workoutExercises, workout, lastUserWorkout } = workoutStart ?? {};
+  const { userWorkoutExercises, workout, lastUserWorkout } = workoutStart ?? {};
   const { name } = workout ?? {};
 
   const sortedWorkoutExercises =
-    workoutExercises?.sort((a, b) => a.order! - b.order!) ?? [];
+    userWorkoutExercises?.sort((a, b) => a.order! - b.order!) ?? [];
 
   return (
     <form

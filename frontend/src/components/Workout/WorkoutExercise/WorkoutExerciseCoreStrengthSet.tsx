@@ -1,18 +1,18 @@
-import Label from "../UI/Form/Label";
-import Input from "../UI/Form/Input";
+import Label from "../../UI/Form/Label";
+import Input from "../../UI/Form/Input";
 
-import { toTitle } from "../../utils/toTitle";
+import { toTitle } from "../../../utils/toTitle";
 
 import type { ChangeEvent } from "react";
-import type { ICoreSetEditDTO } from "../../../../shared/models/set.model";
-import type { TErrorCoreSets } from "../../models/errors.model";
+import type { TValidationError } from "../../../models/errors.model";
+import type { ICoreStrengthSetEditDTO } from "../../../../../shared/models/strengthSet.model";
 
 interface IWorkoutExerciseCoreSetProps {
-  coreSet?: ICoreSetEditDTO;
+  coreSet?: ICoreStrengthSetEditDTO;
   handleChange: (e: ChangeEvent) => void;
-  errors?: TErrorCoreSets;
+  errors?: TValidationError<ICoreStrengthSetEditDTO>;
 }
-export default function WorkoutExerciseCoreSet({
+export default function WorkoutExerciseCoreStrengthSet({
   coreSet,
   handleChange,
   errors,

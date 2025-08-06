@@ -45,7 +45,7 @@ export const coreCardioSetsSQL: ICoreCardioSetsSQL = {
   },
   getUpdateCoreSets(coreSet) {
     const _coreSet = this.getCreateCoreSets(coreSet);
-    return dbUtil.cleanData({ ..._coreSet });
+    return dbUtil.cleanData({ ..._coreSet, id: coreSet?.id });
   },
 
   CORE_CARDIO_SET_SELECT: {
@@ -56,7 +56,7 @@ export const coreCardioSetsSQL: ICoreCardioSetsSQL = {
     updatedAt: true,
     workTime: {
       take: 1,
-      orderBy: { createdAt: "asc" },
+      orderBy: { createdAt: "desc" },
       select: {
         id: true,
         workTime: true,
@@ -64,7 +64,7 @@ export const coreCardioSetsSQL: ICoreCardioSetsSQL = {
     },
     avgSpeed: {
       take: 1,
-      orderBy: { createdAt: "asc" },
+      orderBy: { createdAt: "desc" },
       select: {
         id: true,
         avgSpeed: true,
@@ -72,7 +72,7 @@ export const coreCardioSetsSQL: ICoreCardioSetsSQL = {
     },
     distance: {
       take: 1,
-      orderBy: { createdAt: "asc" },
+      orderBy: { createdAt: "desc" },
       select: {
         id: true,
         distance: true,
@@ -80,7 +80,7 @@ export const coreCardioSetsSQL: ICoreCardioSetsSQL = {
     },
     calorieTarget: {
       take: 1,
-      orderBy: { createdAt: "asc" },
+      orderBy: { createdAt: "desc" },
       select: {
         id: true,
         calorieTarget: true,
