@@ -64,7 +64,7 @@ export default function WorkoutStartUserCardioSets({
   ];
 
   return (
-    <div>
+    <div className="flex flex-col gap-4 items-center ">
       <WorkoutStartUserCardioLast lastSet={lastSet} />
       <GenericList
         items={numberInputs}

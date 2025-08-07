@@ -32,7 +32,7 @@ export default function WorkoutStartUserCardioLast({
     { label: "Last Calories Burned", value: lastCaloriesBurned || "N/A" },
   ];
   return (
-    <div>
+    <div className="inline-flex flex-col gap-2 items-center w-full">
       <h6 className="col-span-full text-center underline underline-offset-2">
         Previous workout set:
       </h6>
@@ -40,7 +40,7 @@ export default function WorkoutStartUserCardioLast({
         items={items}
         ItemComponent={Item}
         getKey={(item) => item.label}
-        ulStyle="flex"
+        ulStyle="grid grid-rows-2 grid-cols-3 gap-4 justify-items-center"
       />
     </div>
   );
@@ -53,9 +53,9 @@ const Item = ({
 }) => {
   const { label, value } = item;
   return (
-    <li className="flex flex-col items-center  ">
-      <h5 className="text-sm text-gray-500">{label}</h5>
-      <p className="text-lg font-semibold">{value}</p>
+    <li className="flex items-center w-fit  ">
+      <h5 className=" text-gray-500">{label}</h5>
+      <p className=" font-semibold">{value}</p>
     </li>
   );
 };

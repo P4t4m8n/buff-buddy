@@ -15,3 +15,7 @@ export interface IBaseFilter {
 export interface IBaseNameAndId extends IEntity {
   name?: string;
 }
+
+export interface IIconProps {
+  className?: string;
+}
