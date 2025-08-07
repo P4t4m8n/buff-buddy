@@ -1,4 +1,7 @@
-import { IUserWorkoutDTO } from "../../../../shared/models/userWorkout";
+import {
+  IUserWorkoutDTO,
+  IUserWorkoutExercisesDTO,
+} from "../../../../shared/models/userWorkout";
 import { userCardioSetsUtils } from "../userSets/userCardioSets/userCardioSets.util";
 import { userStrengthSetsUtils } from "../userSets/userStrengthSets/userStrengthSets.util";
 import { workoutExerciseUtils } from "../workoutExercise/workoutExercise.util";
@@ -16,16 +19,22 @@ const buildDTO = (data: IUserWorkout): IUserWorkoutDTO => {
       notes: data.workout?.notes ?? null,
     },
     userWorkoutExercises: data.userWorkoutExercises.map((uw) => {
-      return {
+
+      const uwe: IUserWorkoutExercisesDTO = {
         id: uw.id,
-        workoutExercise: workoutExerciseUtils.buildDTO(uw.workoutExercise),
-        userStrengthSets: uw?.userStrengthSets?.map((us) =>
-          userStrengthSetsUtils.buildDTO(us)
-        ),
-        userCardioSets: uw?.userCardioSets?.map((uc) =>
-          userCardioSetsUtils.buildDTO(uc)
-        ),
+
+        ...workoutExerciseUtils.buildDTO(uw.workoutExercise),
       };
+      const userStrengthSets = uw?.userStrengthSet?.map((us) =>
+        userStrengthSetsUtils.buildDTO(us)
+    );
+    const userCardioSets = uw?.userCardioSet?.map((uc) =>
+      userCardioSetsUtils.buildDTO(uc)
+  );
+  
+  if (userStrengthSets) uwe.userStrengthSets = userStrengthSets;
+  if (userCardioSets) uwe.userCardioSets = userCardioSets;
+      return uwe;
     }),
   };
 };

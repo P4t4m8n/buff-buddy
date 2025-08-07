@@ -195,7 +195,7 @@ exports.Prisma.UserCardioSetScalarFieldEnum = {
   distance: 'distance',
   order: 'order',
   isCompleted: 'isCompleted',
-  calorieTarget: 'calorieTarget',
+  caloriesBurned: 'caloriesBurned',
   userWorkoutExerciseId: 'userWorkoutExerciseId',
   skippedReason: 'skippedReason',
   createdAt: 'createdAt',

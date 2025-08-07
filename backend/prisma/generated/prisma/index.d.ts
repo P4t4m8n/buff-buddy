@@ -10870,7 +10870,7 @@ export namespace Prisma {
     avgSpeed: number | null
     distance: number | null
     order: number | null
-    calorieTarget: number | null
+    caloriesBurned: number | null
   }
 
   export type UserCardioSetSumAggregateOutputType = {
@@ -10880,7 +10880,7 @@ export namespace Prisma {
     avgSpeed: number | null
     distance: number | null
     order: number | null
-    calorieTarget: number | null
+    caloriesBurned: number | null
   }
 
   export type UserCardioSetMinAggregateOutputType = {
@@ -10892,7 +10892,7 @@ export namespace Prisma {
     distance: number | null
     order: number | null
     isCompleted: boolean | null
-    calorieTarget: number | null
+    caloriesBurned: number | null
     userWorkoutExerciseId: string | null
     skippedReason: string | null
     createdAt: Date | null
@@ -10908,7 +10908,7 @@ export namespace Prisma {
     distance: number | null
     order: number | null
     isCompleted: boolean | null
-    calorieTarget: number | null
+    caloriesBurned: number | null
     userWorkoutExerciseId: string | null
     skippedReason: string | null
     createdAt: Date | null
@@ -10924,7 +10924,7 @@ export namespace Prisma {
     distance: number
     order: number
     isCompleted: number
-    calorieTarget: number
+    caloriesBurned: number
     userWorkoutExerciseId: number
     skippedReason: number
     createdAt: number
@@ -10940,7 +10940,7 @@ export namespace Prisma {
     avgSpeed?: true
     distance?: true
     order?: true
-    calorieTarget?: true
+    caloriesBurned?: true
   }
 
   export type UserCardioSetSumAggregateInputType = {
@@ -10950,7 +10950,7 @@ export namespace Prisma {
     avgSpeed?: true
     distance?: true
     order?: true
-    calorieTarget?: true
+    caloriesBurned?: true
   }
 
   export type UserCardioSetMinAggregateInputType = {
@@ -10962,7 +10962,7 @@ export namespace Prisma {
     distance?: true
     order?: true
     isCompleted?: true
-    calorieTarget?: true
+    caloriesBurned?: true
     userWorkoutExerciseId?: true
     skippedReason?: true
     createdAt?: true
@@ -10978,7 +10978,7 @@ export namespace Prisma {
     distance?: true
     order?: true
     isCompleted?: true
-    calorieTarget?: true
+    caloriesBurned?: true
     userWorkoutExerciseId?: true
     skippedReason?: true
     createdAt?: true
@@ -10994,7 +10994,7 @@ export namespace Prisma {
     distance?: true
     order?: true
     isCompleted?: true
-    calorieTarget?: true
+    caloriesBurned?: true
     userWorkoutExerciseId?: true
     skippedReason?: true
     createdAt?: true
@@ -11097,7 +11097,7 @@ export namespace Prisma {
     distance: number | null
     order: number
     isCompleted: boolean
-    calorieTarget: number | null
+    caloriesBurned: number | null
     userWorkoutExerciseId: string
     skippedReason: string | null
     createdAt: Date
@@ -11132,7 +11132,7 @@ export namespace Prisma {
     distance?: boolean
     order?: boolean
     isCompleted?: boolean
-    calorieTarget?: boolean
+    caloriesBurned?: boolean
     userWorkoutExerciseId?: boolean
     skippedReason?: boolean
     createdAt?: boolean
@@ -11149,7 +11149,7 @@ export namespace Prisma {
     distance?: boolean
     order?: boolean
     isCompleted?: boolean
-    calorieTarget?: boolean
+    caloriesBurned?: boolean
     userWorkoutExerciseId?: boolean
     skippedReason?: boolean
     createdAt?: boolean
@@ -11166,7 +11166,7 @@ export namespace Prisma {
     distance?: boolean
     order?: boolean
     isCompleted?: boolean
-    calorieTarget?: boolean
+    caloriesBurned?: boolean
     userWorkoutExerciseId?: boolean
     skippedReason?: boolean
     createdAt?: boolean
@@ -11183,14 +11183,14 @@ export namespace Prisma {
     distance?: boolean
     order?: boolean
     isCompleted?: boolean
-    calorieTarget?: boolean
+    caloriesBurned?: boolean
     userWorkoutExerciseId?: boolean
     skippedReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserCardioSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "warmupTime" | "workTime" | "avgHeartRate" | "avgSpeed" | "distance" | "order" | "isCompleted" | "calorieTarget" | "userWorkoutExerciseId" | "skippedReason" | "createdAt" | "updatedAt", ExtArgs["result"]["userCardioSet"]>
+  export type UserCardioSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "warmupTime" | "workTime" | "avgHeartRate" | "avgSpeed" | "distance" | "order" | "isCompleted" | "caloriesBurned" | "userWorkoutExerciseId" | "skippedReason" | "createdAt" | "updatedAt", ExtArgs["result"]["userCardioSet"]>
   export type UserCardioSetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     userWorkoutExercise?: boolean | UserWorkoutExerciseDefaultArgs<ExtArgs>
   }
@@ -11215,7 +11215,7 @@ export namespace Prisma {
       distance: number | null
       order: number
       isCompleted: boolean
-      calorieTarget: number | null
+      caloriesBurned: number | null
       userWorkoutExerciseId: string
       skippedReason: string | null
       createdAt: Date
@@ -11652,7 +11652,7 @@ export namespace Prisma {
     readonly distance: FieldRef<"UserCardioSet", 'Float'>
     readonly order: FieldRef<"UserCardioSet", 'Int'>
     readonly isCompleted: FieldRef<"UserCardioSet", 'Boolean'>
-    readonly calorieTarget: FieldRef<"UserCardioSet", 'Int'>
+    readonly caloriesBurned: FieldRef<"UserCardioSet", 'Int'>
     readonly userWorkoutExerciseId: FieldRef<"UserCardioSet", 'String'>
     readonly skippedReason: FieldRef<"UserCardioSet", 'String'>
     readonly createdAt: FieldRef<"UserCardioSet", 'DateTime'>
@@ -23672,7 +23672,7 @@ export namespace Prisma {
     distance: 'distance',
     order: 'order',
     isCompleted: 'isCompleted',
-    calorieTarget: 'calorieTarget',
+    caloriesBurned: 'caloriesBurned',
     userWorkoutExerciseId: 'userWorkoutExerciseId',
     skippedReason: 'skippedReason',
     createdAt: 'createdAt',
@@ -24437,7 +24437,7 @@ export namespace Prisma {
     distance?: FloatNullableFilter<"UserCardioSet"> | number | null
     order?: IntFilter<"UserCardioSet"> | number
     isCompleted?: BoolFilter<"UserCardioSet"> | boolean
-    calorieTarget?: IntNullableFilter<"UserCardioSet"> | number | null
+    caloriesBurned?: IntNullableFilter<"UserCardioSet"> | number | null
     userWorkoutExerciseId?: StringFilter<"UserCardioSet"> | string
     skippedReason?: StringNullableFilter<"UserCardioSet"> | string | null
     createdAt?: DateTimeFilter<"UserCardioSet"> | Date | string
@@ -24454,7 +24454,7 @@ export namespace Prisma {
     distance?: SortOrderInput | SortOrder
     order?: SortOrder
     isCompleted?: SortOrder
-    calorieTarget?: SortOrderInput | SortOrder
+    caloriesBurned?: SortOrderInput | SortOrder
     userWorkoutExerciseId?: SortOrder
     skippedReason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -24474,7 +24474,7 @@ export namespace Prisma {
     distance?: FloatNullableFilter<"UserCardioSet"> | number | null
     order?: IntFilter<"UserCardioSet"> | number
     isCompleted?: BoolFilter<"UserCardioSet"> | boolean
-    calorieTarget?: IntNullableFilter<"UserCardioSet"> | number | null
+    caloriesBurned?: IntNullableFilter<"UserCardioSet"> | number | null
     userWorkoutExerciseId?: StringFilter<"UserCardioSet"> | string
     skippedReason?: StringNullableFilter<"UserCardioSet"> | string | null
     createdAt?: DateTimeFilter<"UserCardioSet"> | Date | string
@@ -24491,7 +24491,7 @@ export namespace Prisma {
     distance?: SortOrderInput | SortOrder
     order?: SortOrder
     isCompleted?: SortOrder
-    calorieTarget?: SortOrderInput | SortOrder
+    caloriesBurned?: SortOrderInput | SortOrder
     userWorkoutExerciseId?: SortOrder
     skippedReason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -24515,7 +24515,7 @@ export namespace Prisma {
     distance?: FloatNullableWithAggregatesFilter<"UserCardioSet"> | number | null
     order?: IntWithAggregatesFilter<"UserCardioSet"> | number
     isCompleted?: BoolWithAggregatesFilter<"UserCardioSet"> | boolean
-    calorieTarget?: IntNullableWithAggregatesFilter<"UserCardioSet"> | number | null
+    caloriesBurned?: IntNullableWithAggregatesFilter<"UserCardioSet"> | number | null
     userWorkoutExerciseId?: StringWithAggregatesFilter<"UserCardioSet"> | string
     skippedReason?: StringNullableWithAggregatesFilter<"UserCardioSet"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"UserCardioSet"> | Date | string
@@ -25730,7 +25730,7 @@ export namespace Prisma {
     distance?: number | null
     order?: number
     isCompleted?: boolean
-    calorieTarget?: number | null
+    caloriesBurned?: number | null
     skippedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25746,7 +25746,7 @@ export namespace Prisma {
     distance?: number | null
     order?: number
     isCompleted?: boolean
-    calorieTarget?: number | null
+    caloriesBurned?: number | null
     userWorkoutExerciseId: string
     skippedReason?: string | null
     createdAt?: Date | string
@@ -25762,7 +25762,7 @@ export namespace Prisma {
     distance?: NullableFloatFieldUpdateOperationsInput | number | null
     order?: IntFieldUpdateOperationsInput | number
     isCompleted?: BoolFieldUpdateOperationsInput | boolean
-    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25778,7 +25778,7 @@ export namespace Prisma {
     distance?: NullableFloatFieldUpdateOperationsInput | number | null
     order?: IntFieldUpdateOperationsInput | number
     isCompleted?: BoolFieldUpdateOperationsInput | boolean
-    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     userWorkoutExerciseId?: StringFieldUpdateOperationsInput | string
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25794,7 +25794,7 @@ export namespace Prisma {
     distance?: number | null
     order?: number
     isCompleted?: boolean
-    calorieTarget?: number | null
+    caloriesBurned?: number | null
     userWorkoutExerciseId: string
     skippedReason?: string | null
     createdAt?: Date | string
@@ -25810,7 +25810,7 @@ export namespace Prisma {
     distance?: NullableFloatFieldUpdateOperationsInput | number | null
     order?: IntFieldUpdateOperationsInput | number
     isCompleted?: BoolFieldUpdateOperationsInput | boolean
-    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25825,7 +25825,7 @@ export namespace Prisma {
     distance?: NullableFloatFieldUpdateOperationsInput | number | null
     order?: IntFieldUpdateOperationsInput | number
     isCompleted?: BoolFieldUpdateOperationsInput | boolean
-    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     userWorkoutExerciseId?: StringFieldUpdateOperationsInput | string
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27109,7 +27109,7 @@ export namespace Prisma {
     distance?: SortOrder
     order?: SortOrder
     isCompleted?: SortOrder
-    calorieTarget?: SortOrder
+    caloriesBurned?: SortOrder
     userWorkoutExerciseId?: SortOrder
     skippedReason?: SortOrder
     createdAt?: SortOrder
@@ -27123,7 +27123,7 @@ export namespace Prisma {
     avgSpeed?: SortOrder
     distance?: SortOrder
     order?: SortOrder
-    calorieTarget?: SortOrder
+    caloriesBurned?: SortOrder
   }
 
   export type UserCardioSetMaxOrderByAggregateInput = {
@@ -27135,7 +27135,7 @@ export namespace Prisma {
     distance?: SortOrder
     order?: SortOrder
     isCompleted?: SortOrder
-    calorieTarget?: SortOrder
+    caloriesBurned?: SortOrder
     userWorkoutExerciseId?: SortOrder
     skippedReason?: SortOrder
     createdAt?: SortOrder
@@ -27151,7 +27151,7 @@ export namespace Prisma {
     distance?: SortOrder
     order?: SortOrder
     isCompleted?: SortOrder
-    calorieTarget?: SortOrder
+    caloriesBurned?: SortOrder
     userWorkoutExerciseId?: SortOrder
     skippedReason?: SortOrder
     createdAt?: SortOrder
@@ -27165,7 +27165,7 @@ export namespace Prisma {
     avgSpeed?: SortOrder
     distance?: SortOrder
     order?: SortOrder
-    calorieTarget?: SortOrder
+    caloriesBurned?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -31221,7 +31221,7 @@ export namespace Prisma {
     distance?: number | null
     order?: number
     isCompleted?: boolean
-    calorieTarget?: number | null
+    caloriesBurned?: number | null
     skippedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -31236,7 +31236,7 @@ export namespace Prisma {
     distance?: number | null
     order?: number
     isCompleted?: boolean
-    calorieTarget?: number | null
+    caloriesBurned?: number | null
     skippedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -31380,7 +31380,7 @@ export namespace Prisma {
     distance?: FloatNullableFilter<"UserCardioSet"> | number | null
     order?: IntFilter<"UserCardioSet"> | number
     isCompleted?: BoolFilter<"UserCardioSet"> | boolean
-    calorieTarget?: IntNullableFilter<"UserCardioSet"> | number | null
+    caloriesBurned?: IntNullableFilter<"UserCardioSet"> | number | null
     userWorkoutExerciseId?: StringFilter<"UserCardioSet"> | string
     skippedReason?: StringNullableFilter<"UserCardioSet"> | string | null
     createdAt?: DateTimeFilter<"UserCardioSet"> | Date | string
@@ -32188,7 +32188,7 @@ export namespace Prisma {
     distance?: number | null
     order?: number
     isCompleted?: boolean
-    calorieTarget?: number | null
+    caloriesBurned?: number | null
     skippedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32251,7 +32251,7 @@ export namespace Prisma {
     distance?: NullableFloatFieldUpdateOperationsInput | number | null
     order?: IntFieldUpdateOperationsInput | number
     isCompleted?: BoolFieldUpdateOperationsInput | boolean
-    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32266,7 +32266,7 @@ export namespace Prisma {
     distance?: NullableFloatFieldUpdateOperationsInput | number | null
     order?: IntFieldUpdateOperationsInput | number
     isCompleted?: BoolFieldUpdateOperationsInput | boolean
-    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32281,7 +32281,7 @@ export namespace Prisma {
     distance?: NullableFloatFieldUpdateOperationsInput | number | null
     order?: IntFieldUpdateOperationsInput | number
     isCompleted?: BoolFieldUpdateOperationsInput | boolean
-    calorieTarget?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -18,8 +18,8 @@ export interface IUserWorkout {
   userWorkoutExercises: {
     id: string;
     workoutExercise: IWorkoutExercise;
-    userStrengthSets?: IUserStrengthSet[] | null;
-    userCardioSets?: IUserCardioSet[] | null;
+    userStrengthSet?: IUserStrengthSet[] | null;
+    userCardioSet?: IUserCardioSet[] | null;
   }[];
 }
 

@@ -36,7 +36,9 @@ export const workoutStartUtil = {
 
         if (type === "strength") {
           const lastUserSet = lastUserWorkout?.userWorkoutExercises?.find(
-            (lastWe) => lastWe.exercise?.id === we.exercise?.id
+            (lastWe) => {
+              return lastWe.exercise?.id === we.exercise?.id;
+            }
           )?.userStrengthSets;
           item.coreStrengthSet = we.coreStrengthSet;
           item.userStrengthSets = userSetsUtil.createUserStrengthSets(

@@ -18,9 +18,12 @@ export const userSetsUtil = {
     return {
       id: appUtil.getTempId("temp"),
       reps: null,
-      lastReps: lastUserSets?.reps ?? null,
+      lastSet: {
+        lastReps: lastUserSets?.reps ?? null,
+        lastWeight: lastUserSets?.weight ?? null,
+        lastSkippedReason: lastUserSets?.skippedReason ?? null,
+      },
       weight: null,
-      lastWeight: lastUserSets?.weight ?? null,
       isCompleted: false,
       isMuscleFailure: false,
       lastIsMuscleFailure: lastUserSets?.isMuscleFailure ?? false,
@@ -41,7 +44,7 @@ export const userSetsUtil = {
       ? Math.round((weight ?? 0) * 0.35)
       : null;
     return {
-      id: appUtil.getTempId("warmup"),
+      id: appUtil.getTempId("temp/warmup"),
       reps: 10,
       weight: warmupWeight,
       isCompleted: false,
@@ -74,20 +77,21 @@ export const userSetsUtil = {
   getEmptyCardio: (lastUserSet?: IUserCardioSetDTO): IUserCardioSetEditDTO => {
     return {
       id: appUtil.getTempId("temp"),
-
+      lastSet: {
+        lastWorkTime: lastUserSet?.workTime ?? null,
+        lastAvgHeartRate: lastUserSet?.avgHeartRate ?? null,
+        lastAvgSpeed: lastUserSet?.avgSpeed ?? null,
+        lastCaloriesBurned: lastUserSet?.caloriesBurned ?? null,
+        lastSkippedReason: lastUserSet?.skippedReason ?? null,
+        lastDistance: lastUserSet?.distance ?? null,
+      },
       workTime: null,
-      lastWorkTime: lastUserSet?.workTime ?? null,
       avgHeartRate: null,
-      lastAvgHeartRate: lastUserSet?.avgHeartRate ?? null,
       avgSpeed: null,
-      lastAvgSpeed: lastUserSet?.avgSpeed ?? null,
       distance: null,
-      lastDistance: lastUserSet?.distance ?? null,
       caloriesBurned: null,
-      lastCaloriesBurned: lastUserSet?.caloriesBurned ?? null,
       isCompleted: false,
       skippedReason: null,
-      lastSkippedReason: lastUserSet?.skippedReason ?? null,
       crudOperation: "create",
       order: lastUserSet?.order ?? 0,
     };
