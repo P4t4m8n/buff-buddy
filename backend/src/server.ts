@@ -23,7 +23,12 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.resolve("public")));
 } else {
   const corsOptions: cors.CorsOptions = {
-    origin: ["http://127.0.0.1:5173", "http://localhost:5173", "10.0.0.3:8081"],
+    origin: [
+      "http://127.0.0.1:5173",
+      "http://localhost:5173",
+      "https://localhost:5173",
+      "https://127.0.0.1:5173",
+    ],
     credentials: true,
   };
   app.use(cors(corsOptions));

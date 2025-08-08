@@ -1,0 +1,13 @@
+{
+  "name": "My PWA",
+  "icons": [
+    {
+      "src": "pwa-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "prefer_related_applications": false
+}
