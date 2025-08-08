@@ -8,63 +8,6 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    VitePWA({
-      registerType: "autoUpdate",
-      includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
-      manifest: {
-        name: "Buff Buddy",
-        short_name: "BuffBuddy",
-        description: "Your ultimate workout tracking companion.",
-        theme_color: "#ff9900",
-        background_color: "#1a1a1a",
-        display: "standalone",
-        start_url: "/",
-
-        icons: [
-          {
-            src: "pwa-192x192.png",
-            sizes: "192x192",
-            type: "image/png",
-          },
-          {
-            src: "pwa-512x512.png",
-            sizes: "512x512",
-            type: "image/png",
-          },
-          {
-            src: "pwa-512x512.png",
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "any maskable",
-          },
-        ],
-        screenshots: [
-          {
-            src: "1.jpg",
-            sizes: "1280x720",
-            type: "image/jpeg",
-            form_factor: "wide",
-            label: "Buff Buddy Desktop View",
-          },
-        ],
-      },
-      workbox: {
-
-        runtimeCaching: [
-          {
-            urlPattern: ({ url }) => {
-              return url.pathname.startsWith("/api");
-            },
-            handler: "NetworkOnly",
-            options: {
-              cacheName: "api-cache",
-            },
-          },
-        ],
-      },
-      devOptions: {
-        enabled: true,
-      },
-    }),
+ 
   ],
 });
