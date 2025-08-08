@@ -7,7 +7,7 @@ import {
 } from "../../../prisma/generated/prisma";
 import { ICoreCardioSet } from "../coreSets/coreCardioSets/coreCardioSets.models";
 import { ICoreStrengthSet } from "../coreSets/coreStrengthSets/coreStrengthSets.models";
-import { IUserBase } from "../users/users.model";
+import { IUser } from "../users/users.model";
 
 export interface IWorkoutFilter extends IBaseFilter {
   programName?: string;
@@ -39,6 +39,6 @@ export interface IWorkoutBase {
 }
 
 export interface IWorkout extends IWorkoutBase {
-  owner?: IUserBase | null;
+  owner?: IUser | null;
   workoutExercises?: IWorkoutExercise[] | null;
 }
