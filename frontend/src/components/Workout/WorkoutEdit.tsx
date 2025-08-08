@@ -30,7 +30,6 @@ export default function WorkoutEdit({
   const {
     workoutToEdit,
     isLoading,
-    errors,
     handleWorkoutExercises,
     handleInputChange,
     onSubmit,

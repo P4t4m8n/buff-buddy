@@ -232,7 +232,7 @@ model UserCardioSet {
   distance              Float?
   order                 Int                 @default(1)
   isCompleted           Boolean             @default(false)
-  calorieTarget         Int?
+  caloriesBurned        Int?
   userWorkoutExerciseId String
   skippedReason         String?
   userWorkoutExercise   UserWorkoutExercise @relation(fields: [userWorkoutExerciseId], references: [id], onDelete: Cascade)

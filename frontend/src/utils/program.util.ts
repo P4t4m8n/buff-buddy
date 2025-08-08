@@ -3,7 +3,6 @@ import type {
   IProgramEditDTO,
 } from "../../../shared/models/program.model";
 import { workoutUtils } from "./workout.util";
-import { workoutExerciseUtils } from "./workoutExercises.util";
 
 export const programUtils = {
   isProgramActive: ({ startDate, endDate }: Partial<IProgramDTO>) => {
