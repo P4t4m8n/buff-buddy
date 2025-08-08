@@ -35,6 +35,18 @@ export default defineConfig({
             purpose: "any maskable",
           },
         ],
+        screenshots: [
+          {
+            src: "1.jpg", 
+            sizes: "1280x720",
+            type: "image/png",
+            form_factor: "wide",
+            label: "Buff Buddy Desktop View",
+          },
+        ],
+      },
+      devOptions: {
+        enabled: true,
       },
     }),
   ],
