@@ -109,6 +109,7 @@ export const googleCallback = async (req: Request, res: Response) => {
     const { token } = await authService.signInWithGoogle(validateGoogleAuth);
 
     const frontendUrl = process.env.FRONTEND_URL;
+    console.log("🚀 ~ googleCallback ~ frontendUrl:", frontendUrl)
     res.cookie("token", token, COOKIE).redirect(frontendUrl!);
   } catch (error) {
     const err = AppError.handleResponse(error);
