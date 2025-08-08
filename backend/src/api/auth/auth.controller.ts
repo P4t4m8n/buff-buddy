@@ -22,7 +22,6 @@ export const signUp = async (req: Request, res: Response) => {
     });
   } catch (error) {
     const err = AppError.handleResponse(error);
-    console.log("🚀 ~ signUp ~ err:", err)
     res.status(err.status || 500).json({
       message: err.message || "An unexpected error occurred",
       errors: err.errors || {},
@@ -114,6 +113,7 @@ export const googleCallback = async (req: Request, res: Response) => {
     res.cookie("token", token, COOKIE).redirect(frontendUrl!);
   } catch (error) {
     const err = AppError.handleResponse(error);
+    console.log("🚀 ~ googleCallback ~ err:", err)
     res.status(err.status || 500).json({
       message: err.message || "An unexpected error occurred",
       errors: err.errors || {},
