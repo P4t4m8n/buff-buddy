@@ -22,6 +22,7 @@ export const signUp = async (req: Request, res: Response) => {
     });
   } catch (error) {
     const err = AppError.handleResponse(error);
+    console.log("🚀 ~ signUp ~ err:", err)
     res.status(err.status || 500).json({
       message: err.message || "An unexpected error occurred",
       errors: err.errors || {},
