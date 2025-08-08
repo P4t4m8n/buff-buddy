@@ -17,6 +17,9 @@ export default defineConfig({
         description: "Your ultimate workout tracking companion.",
         theme_color: "#ff9900",
         background_color: "#1a1a1a",
+        display: "standalone",
+        start_url: "/",
+
         icons: [
           {
             src: "pwa-192x192.png",
@@ -37,11 +40,25 @@ export default defineConfig({
         ],
         screenshots: [
           {
-            src: "1.jpg", 
+            src: "1.jpg",
             sizes: "1280x720",
-            type: "image/png",
+            type: "image/jpeg",
             form_factor: "wide",
             label: "Buff Buddy Desktop View",
+          },
+        ],
+      },
+      workbox: {
+
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => {
+              return url.pathname.startsWith("/api");
+            },
+            handler: "NetworkOnly",
+            options: {
+              cacheName: "api-cache",
+            },
           },
         ],
       },
