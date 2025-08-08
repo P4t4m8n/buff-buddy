@@ -79,18 +79,22 @@ export const getSessionUser = async (req: Request, res: Response) => {
 
 export const googleRedirect = async (req: Request, res: Response) => {
   const clientId = process.env.GOOGLE_CLIENT_ID;
+  console.log("🚀 ~ googleRedirect ~ clientId:", clientId)
   const redirectUri = process.env.GOOGLE_REDIRECT_URI;
+  console.log("🚀 ~ googleRedirect ~ redirectUri:", redirectUri)
   if (!clientId || !redirectUri) {
     throw AppError.create("Google OAuth credentials are not set", 500);
   }
   const googleAuthURL = `https://accounts.google.com/o/oauth2/v2/auth
   ?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email%20profile`;
+  console.log("🚀 ~ googleRedirect ~ googleAuthURL:", googleAuthURL)
   res.redirect(googleAuthURL);
 };
 
 export const googleCallback = async (req: Request, res: Response) => {
   try {
     const { code } = req.query;
+    console.log("🚀 ~ googleCallback ~ req.query:", req.query)
     if (!code) {
       throw AppError.create("Authorization code is required", 400);
     }
