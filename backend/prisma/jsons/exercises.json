@@ -138,5 +138,26 @@
     "type": "strength",
     "equipment": ["dumbbell"],
     "muscles": ["front_delts", "side_delts", "rear_delts"]
+  },
+  {
+    "name": "recumbent cross trainer",
+    "youtubeUrl": "https://www.youtube.com/watch?v=yCZGRUKk2_g",
+    "type": "cardio",
+    "equipment": ["functional_trainer"],
+    "muscles": ["glutes", "hamstrings", "calves"]
+  },
+  {
+    "name": "spinning",
+    "youtubeUrl": "https://www.youtube.com/watch?v=xukv_ew5t1q",
+    "type": "cardio",
+    "equipment": ["spin_bike"],
+    "muscles": ["rotator_cuff"]
+  },
+  {
+    "name": "dumbbell bench wrist curl",
+    "youtubeUrl": "https://www.youtube.com/watch?v=2wppcjbe03o&amp;list=plyqkj7lwu2rvqpfrgpwoyz-jj2xog_3zx&amp;index=2",
+    "type": "strength",
+    "equipment": ["dumbbell"],
+    "muscles": ["forearms"]
   }
 ]
