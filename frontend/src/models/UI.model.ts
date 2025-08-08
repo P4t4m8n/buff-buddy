@@ -19,3 +19,5 @@ export interface IBaseNameAndId extends IEntity {
 export interface IIconProps {
   className?: string;
 }
+
+export type TModelButtonIconMode = "create" | "edit" | "details" | "delete";

@@ -1,24 +1,29 @@
-import { useRef, useState, type ChangeEvent } from "react";
+import { useEffect, useState } from "react";
+import type { ChangeEvent } from "react";
 import { useModel } from "./useModel";
 
 export const useSelect = <T>(
   options: readonly T[],
-  modelPosition: string,
-  filterOptions: (searchValue: string) => T[],
-  parentModelRef?: React.RefObject<HTMLDivElement | null>
+  filterBy: (option: T) => string,
+  handleSelect: (option: T) => void,
+  parentModelRef?: React.RefObject<HTMLDivElement | HTMLFormElement | null>
 ) => {
-  const [optionsList, setOptionsList] = useState<T[]>(
-    options ? [...options] : []
-  );
-
-  const fieldRef = useRef<HTMLDivElement>(null);
+  const [optionsList, setOptionsList] = useState<T[]>([]);
 
   const [open, modelRef, setOpen] = useModel<HTMLDivElement>();
-  const [modelPositionClass, setModelPositionClass] = useState(modelPosition);
+  const [modelPositionClass, setModelPositionClass] = useState(
+    "top-[calc(100%+.25rem)]"
+  );
+
+  useEffect(() => {
+    setOptionsList(options ? [...options] : []);
+  }, [options]);
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const searchValue = e.currentTarget.value;
-    const filteredOptions = filterOptions(searchValue);
+    const searchValue = e.currentTarget.value.toLowerCase();
+    const filteredOptions = options?.filter((option) =>
+      filterBy(option).toLowerCase().includes(searchValue)
+    );
     setOptionsList(filteredOptions || []);
   };
 
@@ -27,14 +32,14 @@ export const useSelect = <T>(
     e.preventDefault();
     e.stopPropagation();
 
-    if (!open && fieldRef.current && parentModelRef?.current) {
-      const fieldRect = fieldRef.current.getBoundingClientRect();
-      const modelHeight = parentModelRef.current.clientHeight;
-      const viewportHeight = window.innerHeight;
+    if (!open && modelRef.current && parentModelRef?.current) {
+      const parentRect = parentModelRef.current.getBoundingClientRect();
+      const fieldRect = modelRef.current.getBoundingClientRect();
+      const modelHeight = 128;
       const gap = 4;
 
-      const spaceBelow = viewportHeight - fieldRect.bottom;
-      const spaceAbove = fieldRect.top;
+      const spaceBelow = parentRect.bottom - fieldRect.bottom;
+      const spaceAbove = fieldRect.top - parentRect.top;
 
       if (spaceBelow >= modelHeight + gap) {
         setModelPositionClass("top-[calc(100%+.25rem)]");
@@ -48,26 +53,30 @@ export const useSelect = <T>(
     setOpen((prev) => !prev);
   };
 
-  const memorizedHook: [
-    T[],
-    React.RefObject<HTMLDivElement | null>,
-    React.RefObject<HTMLDivElement | null>,
-    boolean,
-    React.Dispatch<React.SetStateAction<boolean>>,
-    string,
-    React.Dispatch<React.SetStateAction<string>>,
-    (e: ChangeEvent<HTMLInputElement>) => void,
-    (e: React.MouseEvent<HTMLButtonElement>) => void
-  ] = [
+  const onClick = (e: React.MouseEvent, option: T) => {
+    e.preventDefault();
+    e.stopPropagation();
+    handleSelect(option);
+    setOpen(false);
+  };
+
+  const memorizedHook: {
+    optionsList: T[];
+    open: boolean;
+    modelRef: React.RefObject<HTMLDivElement | null>;
+    modelPositionClass: string;
+    handleSearchChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    handleModel: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick: (e: React.MouseEvent, option: T) => void;
+  } = {
     optionsList,
-    modelRef,
-    fieldRef,
     open,
-    setOpen,
+    modelRef,
     modelPositionClass,
-    setModelPositionClass,
     handleSearchChange,
     handleModel,
-  ];
+    onClick,
+  };
+
   return memorizedHook;
 };

@@ -1,20 +1,15 @@
-import React, {
-  useEffect,
-  useState,
-  type ChangeEvent,
-  type MouseEvent,
-} from "react";
-import { useModel } from "../../../hooks/shared/useModel";
+import React from "react";
 import Button from "../Button";
 import IconArrow from "../Icons/IconArrow";
 import Input from "./Input";
 import Label from "./Label";
-import GenericList from "../GenericList";
 import { appUtil } from "../../../utils/app.util";
 import type {
   ISelectAddComponentProps,
   ISelectItemComponentProps,
 } from "../../../models/select.model";
+import { twMerge } from "tailwind-merge";
+import { useSelect } from "../../../hooks/shared/useSelect";
 
 interface SelectWithSearchProps<T> {
   options: readonly T[];
@@ -36,59 +31,23 @@ export default function SelectWithSearch<T>({
   SelectItemComponent,
   filterBy,
 }: SelectWithSearchProps<T>) {
-  const [optionsList, setOptionsList] = useState<T[]>([]);
+  const {
+    optionsList,
+    open,
+    modelRef,
+    modelPositionClass,
+    handleSearchChange,
+    handleModel,
+    onClick,
+  } = useSelect(options, filterBy, handleSelect, parentModelRef);
 
-  const [open, modelRef, setOpen] = useModel<HTMLDivElement>();
-  const [modelPositionClass, setModelPositionClass] = useState(
-    "top-[calc(100%+.25rem)]"
+  const modelStyle = twMerge(
+    "absolute z-10 shadow-[0px_0px_6px_1px_rgba(0,0,0,1)] bg-black-300 border rounded p-2 w-full grid grid-rows-[2rem_calc(100%-2rem)] gap-[.5rem] h-42",
+    modelPositionClass
   );
 
-  useEffect(() => {
-    setOptionsList(options ? [...options] : []);
-  }, [options]);
-
-  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const searchValue = e.currentTarget.value.toLowerCase();
-    const filteredOptions = options?.filter((option) =>
-     filterBy(option).toLowerCase().includes(searchValue)
-    );
-    setOptionsList(filteredOptions || []);
-  };
-
-  //TODO?? Improve this function to handle position better
-  const handleModel = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!open && modelRef.current && parentModelRef?.current) {
-      const fieldRect = modelRef.current.getBoundingClientRect();
-      const modelHeight = parentModelRef.current.clientHeight;
-      const viewportHeight = window.innerHeight;
-      const gap = 4;
-
-      const spaceBelow = viewportHeight - fieldRect.bottom;
-      const spaceAbove = fieldRect.top;
-
-      if (spaceBelow >= modelHeight + gap) {
-        setModelPositionClass("top-[calc(100%+.25rem)]");
-      } else if (spaceAbove >= modelHeight + gap) {
-        setModelPositionClass("bottom-[calc(100%+.25rem)]");
-      } else {
-        setModelPositionClass("top-[calc(100%+.25rem)]");
-      }
-    }
-
-    setOpen((prev) => !prev);
-  };
-
-  const onClick = (e: MouseEvent, option: T) => {
-    e.preventDefault();
-    e.stopPropagation();
-    handleSelect(option);
-    setOpen(false);
-  };
-
   return (
-    <div className=" group relative" ref={modelRef}>
+    <div className="  group relative" ref={modelRef}>
       <Button
         className="flex items-center justify-between w-full h-10 border rounded p-1 cursor-pointer "
         onClick={handleModel}
@@ -103,18 +62,13 @@ export default function SelectWithSearch<T>({
         </Label>
       ) : null}
       {open ? (
-        <div
-          className={`absolute z-10
-                  shadow-[0px_0px_6px_1px_rgba(0,0,0,1)] bg-main-orange
-                   border rounded p-2 w-full grid grid-rows-[2rem_calc(100%-2rem)]
-                    gap-[.5rem] h-42 ${modelPositionClass}`}
-        >
+        <div className={modelStyle}>
           <Input
             className="border-b w-full h-full pb-1 "
             onChange={handleSearchChange}
             placeholder="Search by name"
           />
-          <ul className="grid grid-rows-[repeat(auto-fill,2rem)] gap-2 h-full overflow-auto">
+          <ul className="grid grid-rows-[repeat(auto-fill,2rem)] gap-4 h-full overflow-auto pb-2">
             {AddComponent ? (
               <li className="w-full h-full">
                 <AddComponent isPortal={true} parentRef={modelRef} />

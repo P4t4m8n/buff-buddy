@@ -13,7 +13,7 @@ export default function AppNavList() {
     {
       label: "home",
       path: "/",
-      icon: <IconHome className="w-6 h-6 " />,
+      icon: <IconHome className="w-6 h-6" />,
     },
     {
       label: "workouts",
@@ -35,19 +35,14 @@ export default function AppNavList() {
       path: "/profile",
       icon: <IconProfile className="w-6 h-6 " />,
     },
-    // {
-    //   label: 'admin',
-    //   path: '/admin',
-    //   icon: <IconAdmin className="w-6 h-6 " />,
-    // },
   ];
 
   return (
-    <nav className="w-full h-full">
+    <nav className="w-full h-full ">
       <GenericList
         items={paths}
         getKey={(item) => item.path}
-        ulStyle="flex justify-around items-center h-full bg-main-black text-white"
+        ulStyle="flex justify-around items-center h-full  "
         ItemComponent={ItemComponent}
       />
     </nav>
@@ -59,8 +54,9 @@ const ItemComponent = ({ item }: { item: IAppNav }) => {
     <li key={item.path}>
       <NavItem
         navItem={item}
-        activeClass="text-amber stroke-amber"
-        inactiveClass="grid items-center justify-items-center stroke-white transition-all duration-300"
+        activeClass="text-gray-200 stroke-2 stroke-gray-200 font-bold underline "
+        inactiveClass="grid items-center justify-items-center
+         stroke-main-orange fill-none text-main-orange transition-all duration-300"
       />
     </li>
   );

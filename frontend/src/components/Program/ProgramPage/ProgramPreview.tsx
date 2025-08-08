@@ -25,7 +25,7 @@ export default function ProgramPreview({
   return (
     <li
       className={`p-4 grid w-full gap-6 shadow-[0_0_1px_1px_rgba(0,0,0,.1)]
-                  hover:shadow-[0_0_2px_2px_rgba(0,0,0,.3)] transition-all duration-300 
+                  hover:shadow-[0_0_2px_2px_rgba(0,0,0,.3)] shadow-main-orange transition-all duration-300 
                   rounded items-center`}
     >
       <span className="flex items-center justify-between">

@@ -1,16 +1,16 @@
-import { Outlet } from "react-router";
 import { useEffect, useState } from "react";
+import { Outlet } from "react-router";
 
 import { useProgramStore } from "../../store/program.store";
 
 import { calendarUtil } from "../../utils/calendar.util";
-
 import { toTitle } from "../../utils/toTitle";
+
 import Loader from "../../components/UI/Loader";
 import Button from "../../components/UI/Button";
 import IconArrow from "../../components/UI/Icons/IconArrow";
-
-import ProgramWorkoutList from "../../components/ProgramWorkout/ProgramWorkoutList";
+import GenericList from "../../components/UI/GenericList";
+import ProgramWorkoutPreview from "../../components/ProgramWorkout/ProgramWorkoutPreview";
 
 import type { DaysOfWeek } from "../../../../backend/prisma/generated/prisma";
 import type { IProgramWorkoutDTO } from "../../../../shared/models/program.model";
@@ -55,20 +55,26 @@ export default function WorkoutPage() {
   }
 
   return (
-    <div className="h-main flex flex-col gap-4 relative overflow-auto ">
-      <header className="w-full h-16 border-b px-mobile pt-2 ">
+    <div className="h-main flex flex-col gap-4 relative w-full    ">
+      <header className="w-full h-16 shadow-border-b px-mobile pt-2 ">
         <h2 className="text-center">Workouts Page</h2>
         <div className="inline-flex items-center justify-between gap-2 w-full">
           <Button className="w-6 aspect-square" onClick={() => onChangeDay(-1)}>
-            <IconArrow className=" -rotate-90" />
+            <IconArrow className=" -rotate-90 stroke-main-orange fill-main-orange " />
           </Button>
           <p>{toTitle(day)}</p>
           <Button className="w-6 aspect-square" onClick={() => onChangeDay(1)}>
-            <IconArrow className=" rotate-90" />
+            <IconArrow className=" rotate-90 stroke-main-orange fill-main-orange " />
           </Button>
         </div>
       </header>
-      <ProgramWorkoutList programWorkouts={cleanPrograms} day={day} />
+      {/*//INFO: Workouts Preview per day*/}
+      <GenericList
+        items={cleanPrograms}
+        ItemComponent={ProgramWorkoutPreview}
+        getKey={(item) => item?.id ?? "" + day}
+        ulStyle="px-mobile columns-[3_12.5rem] overflow-y-auto overflow-x-hidden "
+      />
       <Outlet />
     </div>
   );

@@ -27,16 +27,14 @@ export default function HomePage() {
   const user = useAuthStore((state) => state.user);
 
   return (
-    <div className="h-main p-4 md:p-8 bg-gray-900 text-white overflow-y-auto">
+    <div className="h-main p-8  overflow-y-auto text-main-orange">
       <header className="mb-8">
         <h2 className="text-3xl font-bold">Welcome Back, {user?.firstName}!</h2>
-        <p className="text-gray-400">
-          Here's a look at your progress. Keep it up!
-        </p>
+        <p className="">Here's a look at your progress. Keep it up!</p>
       </header>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      {/*//INFO: Stats Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 ">
         <StatCard
           title="Steps Today"
           value="8,452"
@@ -59,9 +57,9 @@ export default function HomePage() {
         />
       </div>
 
-      {/* Charts Grid */}
+      {/*//INFO Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Daily Activity Chart */}
+        {/*//INFO Daily Activity Chart */}
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
           <h3 className="text-xl font-semibold mb-4">Daily Activity</h3>
           <div style={{ width: "100%", height: 300 }}>
@@ -84,7 +82,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Most Trained Muscles Chart */}
+        {/*//INFO: Most Trained Muscles Chart */}
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
           <h3 className="text-xl font-semibold mb-4">Most Trained Muscles</h3>
           <div style={{ width: "100%", height: 300 }}>
@@ -92,7 +90,7 @@ export default function HomePage() {
               series={[
                 {
                   data: muscleData,
-                  highlightScope: {   },
+                  highlightScope: {},
                   faded: {
                     innerRadius: 30,
                     additionalRadius: -30,

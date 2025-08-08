@@ -10,10 +10,7 @@ export default function App() {
     <>
       <BrowserRouter>
         <AuthGuard>
-          <div
-            className="bg-gradient-to-br from-main-orange/90 
-                     to-red-orange/85 h-screen w-screen font-display font-semibold"
-          >
+          <div className="background w-screen font-display font-semibold text-main-orange grid gap-2 ">
             <Routes>{routes}</Routes>
             <AppFooter />
           </div>

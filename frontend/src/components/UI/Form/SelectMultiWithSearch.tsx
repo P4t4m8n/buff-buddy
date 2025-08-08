@@ -9,7 +9,7 @@ import type { TExerciseInfo } from "../../../../../shared/models/exercise.model"
 import type { ChangeEvent, MouseEvent } from "react";
 import { toTitle } from "../../../utils/toTitle";
 
-interface SelectWithSearchProps {
+interface ISelectMultiWithSearchProps {
   options: readonly string[];
   selectedOptions?: string[];
   inputName: TExerciseInfo;
@@ -19,6 +19,7 @@ interface SelectWithSearchProps {
 }
 
 //TODO??Improve error UI
+//TODO??Refactor to match the generic structure and ue the hook
 export default function SelectMultiWithSearch({
   options,
   selectedOptions,
@@ -26,7 +27,7 @@ export default function SelectMultiWithSearch({
   handleSelect,
   parentModelRef,
   error,
-}: SelectWithSearchProps) {
+}: ISelectMultiWithSearchProps) {
   const [optionsList, setOptionsList] = useState<string[]>([]);
   const [optionsSelected, setOptionsSelected] = useState<string[]>([]);
   const fieldRef = useRef<HTMLDivElement>(null);
@@ -101,7 +102,6 @@ export default function SelectMultiWithSearch({
 
     setOpen((prev) => !prev);
   };
-  //TODO?? Make the open button to cover the entire length and use relative positing for the selected options
   return (
     <div ref={modelRef} className="w-full h-fit relative">
       <div

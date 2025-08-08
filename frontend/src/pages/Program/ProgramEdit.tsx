@@ -46,7 +46,7 @@ export default function ProgramEdit() {
     <div>
       <form
         onSubmit={onSaveProgram}
-        className="h-main bg-main-orange px-4 pt-4 grid grid-rows-[auto_1fr] gap-4"
+        className="h-main  px-4 pt-4 grid grid-rows-[auto_1fr] gap-4"
       >
         <header
           className={`grid grid-rows-[2rem_2.5rem_2.5rem_5rem_2.5rem]
@@ -66,7 +66,7 @@ export default function ProgramEdit() {
             className={`w-full h-10 peer outline-offset-0 pl-2 border-1 rounded ${
               errors?.name ? "border-red-orange outline-red-orange" : ""
             }`}
-            divStyle="bg-main-orange h-fit order-1 w-full col-span-2 lg:col-span-1"
+            divStyle="h-fit order-1 w-full col-span-2 lg:col-span-1"
           >
             <LabelWithError
               htmlFor="name"
@@ -102,7 +102,7 @@ export default function ProgramEdit() {
             rows={3}
             placeholder="Add a note..."
             className="w-full h-full  block peer outline-offset-0  pl-2 peer resize-none"
-            divStyle="bg-main-orange border-1 rounded h-auto col-span-full lg:col-span-2 order-4"
+            divStyle=" border-1 rounded h-auto col-span-full lg:col-span-2 order-4"
           ></TextArea>
           <div
             className="inline-flex lg:grid items-center lg:justify-items-center gap-2 order-5

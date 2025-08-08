@@ -41,7 +41,7 @@ export default function WorkoutEditHeader({
         onChange={handleInputChange}
         className={`w-full h-10 peer outline-offset-0 pl-2 border-1 rounded
               `}
-        divStyle="bg-main-orange h-fit"
+        divStyle=" h-fit"
       >
         <Label
           isMoveUpEffect={true}
@@ -57,8 +57,8 @@ export default function WorkoutEditHeader({
         id={"notes-" + workoutId}
         rows={3}
         placeholder=""
-        className="w-full h-20 block peer outline-offset-0 p-2 resize-none border-1 rounded "
-        divStyle="bg-main-orange  h-auto col-span-full relative group "
+        className="w-full h-full block peer outline-offset-0 p-2 resize-none border-1 rounded  "
+        divStyle="  h-auto col-span-full relative group "
         onChange={handleInputChange}
       >
         <Label

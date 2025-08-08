@@ -1,4 +1,4 @@
 //TODO?? implement ProfilePage
 export default function ProfilePage() {
-  return <div>ProfilePage-TBA</div>;
+  return <div className="h-main">ProfilePage-TBA</div>;
 }

@@ -6,7 +6,7 @@ interface DateInputControlProps {
   mode: TDateInputMode;
   startDate?: Date | null;
   setMode: Dispatch<React.SetStateAction<TDateInputMode>>;
-  clearSelection: (e:MouseEvent) => void;
+  clearSelection: (e: MouseEvent) => void;
 }
 
 export default function DateInputControl({
@@ -22,7 +22,7 @@ export default function DateInputControl({
           e.preventDefault();
           setMode(mode === "single" ? "range" : "single");
         }}
-        className="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
+        className="px-3 py-1 text-xs bg-main-orange text-black-900 hover:bg-main-orange/90 rounded-md transition-colors"
       >
         {mode === "single" ? "Single" : "Range"}
       </Button>
@@ -30,7 +30,7 @@ export default function DateInputControl({
       {startDate ? (
         <Button
           onClick={clearSelection}
-          className="px-3 py-1 text-xs bg-red-100 hover:bg-red-200 text-red-700 rounded-md transition-colors"
+          className="px-3 py-1 text-xs bg-main-orange hover:bg-main-orange/90  text-red-700 rounded-md transition-colors"
         >
           Clear
         </Button>

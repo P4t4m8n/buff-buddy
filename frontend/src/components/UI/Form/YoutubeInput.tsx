@@ -29,7 +29,7 @@ export default function YoutubeInput({
         value={youtubeUrl || ""}
         onChange={(e) => setYoutubeUrl(e.target.value)}
         className={`w-full h-10 peer outline-offset-0 pl-2 border-1 rounded`}
-        divStyle="bg-main-orange rounded  border-black outline-black"
+        divStyle=" rounded  border-black outline-black"
         name="youtubeUrl"
       >
         {" "}

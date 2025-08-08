@@ -56,7 +56,7 @@ export default function WorkoutEdit({
     <form
       onSubmit={onSubmit}
       className="h-main p-1 py-2 grid grid-cols-1 grid-rows-[21rem_calc(100%-22rem)]
-                 gap-4 fixed inset-0 bg-main-orange w-full z-20"
+                 gap-4 fixed inset-0 bg-black-500 w-full z-20"
     >
       <WorkoutEditHeader
         workoutId={workoutToEdit.id}

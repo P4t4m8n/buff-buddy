@@ -16,7 +16,6 @@ import WorkoutEdit from "../../Workout/WorkoutEdit";
 import AvailableWorkoutPreview from "./AvailableWorkoutPreview";
 import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
 import { workoutUtils } from "../../../utils/workout.util";
-import { appUtil } from "../../../utils/app.util";
 
 interface ProgramWorkoutProps extends IModelProps<HTMLDivElement> {
   programWorkout?: IProgramWorkoutDTO;
@@ -106,7 +105,7 @@ export default function ProgramWorkoutEdit({
   return (
     <div
       ref={modelRef}
-      className="h-main fixed inset-0 bg-main-orange p-2 z-10 flex flex-col gap-4"
+      className="h-main fixed inset-0 bg-black-500 p-2 z-10 flex flex-col gap-4"
     >
       <header className={""}>
         <h3 className="text-center">Pick a workout</h3>

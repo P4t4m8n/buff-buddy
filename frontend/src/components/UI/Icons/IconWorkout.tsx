@@ -1,18 +1,9 @@
+import type { IIconProps } from "../../../models/UI.model";
 
-export default function IconWorkout( {className}: {className?: string} ) {
+export default function IconWorkout({ className }: IIconProps) {
   return (
     <svg viewBox="0 0 24 24" className={className}>
       <g>
-        {/* <defs>
-            <style>
-                .cls-1 {
-                    fill: none;
-                    stroke: #020202;
-                    stroke-miterlimit: 10;
-                    stroke-width: 1.91px;
-                }
-            </style>
-        </defs> */}
         <rect x="1.48" y="3.37" width="21.04" height="4.78"></rect>
         <rect x="1.48" y="8.15" width="21.04" height="14.35"></rect>
         <line x1="3.39" y1="14.85" x2="5.3" y2="14.85"></line>

@@ -2,39 +2,22 @@ import IconCreate from "../components/UI/Icons/IconCreate";
 import IconDetails from "../components/UI/Icons/IconDetails";
 import IconEdit from "../components/UI/Icons/IconEdit";
 import IconTrash from "../components/UI/Icons/IconTrash";
-
-export type TModelButtonIconMode = "create" | "edit" | "details" | "delete";
+import type { TModelButtonIconMode } from "../models/UI.model";
 
 export const ModelButtonIcon = (mode?: TModelButtonIconMode) => {
+  const fillNone = `fill-none stroke-black-900  h-full aspect-square
+             group-hover:stroke-main-orange transition-all duration-300`;
+  const fillBlack = `fill-black-900 stroke-none  h-full aspect-square
+             group-hover:fill-main-orange transition-all duration-300`;
   switch (mode) {
     case "create":
-      return (
-        <IconCreate
-          className="fill-none stroke-amber h-full aspect-square
-             group-hover:stroke-main-black transition-all duration-300"
-        />
-      );
+      return <IconCreate className={fillNone} />;
     case "edit":
-      return (
-        <IconEdit
-          className="fill-none stroke-amber h-full aspect-square
-             group-hover:stroke-main-black transition-all duration-300"
-        />
-      );
+      return <IconEdit className={fillNone} />;
     case "details":
-      return (
-        <IconDetails
-          className="fill-amber stroke-amber h-full aspect-square
-             group-hover:stroke-main-black group-hover:fill-amber transition-all duration-300"
-        />
-      );
+      return <IconDetails className={fillBlack} />;
     case "delete":
-      return (
-        <IconTrash
-          className="fill-amber stroke-none h-full aspect-square
-               group-hover:fill-main-black transition-all duration-300"
-        />
-      );
+      return <IconTrash className={fillBlack} />;
 
     default:
       return null;

@@ -3,10 +3,8 @@ import { useModel } from "../../hooks/shared/useModel";
 import { createPortal } from "react-dom";
 import ModelOverlay from "./ModelOverlay";
 import Button, { type IButtonProps } from "./Button";
-import {
-  ModelButtonIcon,
-  type TModelButtonIconMode,
-} from "../../utils/ModelButtonIcon.util";
+import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
+import type { TModelButtonIconMode } from "../../models/UI.model";
 
 export interface IModelProps<T extends HTMLElement> {
   handleModel?: (e: React.MouseEvent<HTMLButtonElement>) => void;

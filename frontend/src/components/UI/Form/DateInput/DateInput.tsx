@@ -95,7 +95,7 @@ export default function DateInput({
       {isOpen && !disabled && (
         <div
           className="absolute top-[calc(100%+.25rem)] left-0 grid gap-2
-         bg-white border border-gray-200 rounded-xl shadow-lg z-50 p-4 w-full"
+         bg-black-500 border rounded-xl z-50 p-4 w-full"
         >
           <DateInputControl
             mode={mode}

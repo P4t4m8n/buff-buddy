@@ -17,7 +17,7 @@ export default function WorkoutExerciseEditExerciseSelect({
         className="w-full h-full flex cursor-pointer items-center justify-between"
       >
         <span className="">{toTitle(item?.name)}</span>
-        <IconPlus className=" h-8 aspect-square stroke-main-black" />
+        <IconPlus className=" h-6 aspect-square stroke-main-orange" />
       </Button>
     </li>
   );

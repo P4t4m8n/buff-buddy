@@ -93,7 +93,7 @@ export default function WorkoutStartExerciseItem({
   const liStyle = twMerge(
     "border rounded gap-4 px-mobile transition-all duration-300 w-full relative",
     exerciseConfig.isFinished ? "border-green-500" : "",
-    isOpen ? "h-fit bg-main-orange z-10" : "h-20 min-h-20 overflow-hidden"
+    isOpen ? "h-fit  z-10" : "h-20 min-h-20 overflow-hidden"
   );
 
   const divClass = twMerge(
@@ -101,23 +101,24 @@ export default function WorkoutStartExerciseItem({
     isOpen ? "flex flex-col opacity-100 h-fit pb-4" : "opacity-0 h-auto"
   );
 
+  const modelButtonStyle = twMerge(
+    "w-full flex items-center h-16 transition-all duration-300",
+    isOpen ? "border-b pb-2" : ""
+  );
+
+  const iconArrowStyle = twMerge(
+    "w-8 aspect-square ml-auto transition-all duration-300 stroke-none fill-main-orange",
+    isOpen ? "rotate-180" : ""
+  );
+
   return (
     <li className={liStyle}>
-      <Button
-        onClick={handleModel}
-        className={`w-full flex items-center h-16 transition-all duration-300 ${
-          isOpen ? "border-b pb-2" : ""
-        }`}
-      >
+      <Button onClick={handleModel} className={modelButtonStyle}>
         <span className="inline-flex flex-col text-start">
           <h4>{exerciseName}</h4>
           <p>Sets: {exerciseConfig.numberOfSets}</p>
         </span>
-        <IconArrow
-          className={`w-8 aspect-square ml-auto ${
-            isOpen ? "rotate-180" : ""
-          } transition-all duration-300`}
-        />
+        <IconArrow className={iconArrowStyle} />
       </Button>
 
       <div className={divClass}>
@@ -140,10 +141,9 @@ export default function WorkoutStartExerciseItem({
           ulStyle="h-full flex flex-col gap-2"
         />
 
-        <div className="flex w-full gap-8">
+        <div className="flex w-full gap-8 text-black">
           <Button
-            className="text-amber hover:text-black w-full
-             opacity-50 cursor-not-allowed"
+            className="opacity-50 cursor-not-allowed text-black"
             buttonStyle="model"
             disabled={true}
             type="button"

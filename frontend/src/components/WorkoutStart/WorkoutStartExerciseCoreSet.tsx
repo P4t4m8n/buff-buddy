@@ -17,7 +17,7 @@ export default function WorkoutStartExerciseCoreSet({
       items={items}
       ItemComponent={CoreSet}
       getKey={(item) => item.name}
-      ulStyle="flex justify-around sticky top-0 bg-main-orange z-10 border-b pb-2"
+      ulStyle="flex justify-around sticky top-0 z-10 border-b pb-2"
     />
   );
 }

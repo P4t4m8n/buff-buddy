@@ -48,6 +48,7 @@ export default function WorkoutExerciseEdit({
     useFormErrors<IWorkoutExerciseEditDTO>();
 
   const { modelRef, setOpen } = props;
+  console.log("🚀 ~ WorkoutExerciseEdit ~ modelRef:", modelRef);
 
   const onUpsertWorkoutExercise = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -117,8 +118,9 @@ export default function WorkoutExerciseEdit({
   const isExercise = !!exercise?.id;
   return (
     <div
-      className={`grid w-[calc(100%-1rem)] max-w-96 grid-cols-1 bg-main-orange 
-         rounded max-h-svh items-center justify-items-center gap-4`}
+      ref={modelRef}
+      className={`flex flex-col w-[calc(100%-1rem)] max-w-96 grid-cols-1  bg-black-400 border
+         rounded  gap-4`}
     >
       <div className=" flex flex-col items gap-4 w-full justify-around px-4 pt-4">
         <Input
@@ -146,8 +148,8 @@ export default function WorkoutExerciseEdit({
           name="notes"
           rows={3}
           placeholder=""
-          className="w-full h-20 block peer outline-offset-0 p-2 resize-none border-1 rounded "
-          divStyle="bg-main-orange  h-auto col-span-full relative group "
+          className="w-full h-28 block peer outline-offset-0 p-2 resize-none border-1 rounded "
+          divStyle="  h-auto col-span-full relative group "
           onChange={handleInputChange}
         >
           <Label labelPosition="textArea" isMoveUpEffect={true} htmlFor="note">
@@ -173,7 +175,7 @@ export default function WorkoutExerciseEdit({
       </div>
 
       {isExercise ? workoutExerciseType(exercise?.type) : null}
-      <div className="col-span-full w-full flex justify-between px-4 pb-4">
+      <div className="col-span-full w-full flex justify-between px-4 pb-4 mt-auto">
         <Button buttonStyle="warning" onClick={onCancel}>
           Cancel
         </Button>

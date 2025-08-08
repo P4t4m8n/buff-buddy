@@ -26,7 +26,7 @@ export default function WorkoutStartUserStrengthSets({
   errors,
 }: IWorkoutExerciseUserSetProps) {
   const inputStyle = `bg-amber rounded w-8 aspect-square  text-center border outline-none`;
-  const divStyle = "inline-flex flex-row-reverse gap-1 items-center";
+  const divStyle = "inline-flex flex-row-reverse gap-1 items-center ";
 
   const {
     id,
@@ -125,7 +125,7 @@ export default function WorkoutStartUserStrengthSets({
         </Input>
       ))}
       <Button
-        className="text-amber hover:text-black w-full col-span-2 opacity-50 cursor-not-allowed"
+        className="text-amber hover:text-black w-full col-span-2 opacity-50 cursor-not-allowed text-black"
         buttonStyle="model"
         disabled={true}
         type="button"
@@ -134,7 +134,7 @@ export default function WorkoutStartUserStrengthSets({
       </Button>
 
       <Button
-        className={`text-amber hover:text-black col-span-2 w-full ${
+        className={`text-amber hover:text-black col-span-2 w-full text-black ${
           isCompleted ? "bg-main-green" : ""
         }`}
         buttonStyle="model"

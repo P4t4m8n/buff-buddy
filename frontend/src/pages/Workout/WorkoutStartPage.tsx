@@ -33,7 +33,6 @@ export default function WorkoutStartPage() {
 
   const [workoutStart, setWorkoutStart] =
     React.useState<IUserWorkoutEditDTO | null>(null);
-  console.log("🚀 ~ WorkoutStartPage ~ workoutStart:", workoutStart)
   const { errors } = useFormErrors<IUserWorkoutDTO>();
 
   const getById = useWorkoutStore((state) => state.getById);
@@ -279,7 +278,7 @@ export default function WorkoutStartPage() {
     <form
       onSubmit={onSubmit}
       className="fixed inset-0 h-main overflow-hidden grid grid-cols-1 grid-rows-[5.5rem_calc(100%-10rem)_2.5rem]
-       gap-4 bg-main-orange py-mobile"
+       gap-4 bg-black-800 pt-mobile"
     >
       <div className="px-mobile">
         <h2 className="text-center text-xl underline underline-offset-2 pb-4">

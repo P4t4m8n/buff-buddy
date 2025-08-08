@@ -126,7 +126,7 @@ export default function ExerciseEdit({
     <form
       ref={modelRef}
       onSubmit={onSubmit}
-      className="bg-amber p-4 grid gap-4 rounded w-[calc(100%-1rem)]
+      className="bg-black-500 p-4 grid gap-4 rounded w-[calc(100%-1rem)]
        max-w-96 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40"
     >
       <Input hidden defaultValue={exercise?.id} name="id" />
@@ -140,7 +140,7 @@ export default function ExerciseEdit({
         title="Name should only contain letters, numbers, and spaces."
         defaultValue={exerciseToEdit?.name}
         className={`w-full h-10 peer outline-offset-0 pl-2 border-1 rounded`}
-        divStyle="bg-main-orange  rounded h-full border-black outline-black"
+        divStyle="  rounded h-full border-black outline-black"
       >
         <LabelWithError
           htmlFor="name"
