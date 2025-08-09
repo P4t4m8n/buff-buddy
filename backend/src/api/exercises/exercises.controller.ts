@@ -11,6 +11,7 @@ export const getExercises = async (req: Request, res: Response) => {
   try {
     const filter = ExerciseQuerySchema.parse(req.query);
     const exercises = await exerciseService.getAll(filter);
+    
 
     res.status(200).json(exercises);
   } catch (error) {

@@ -1,26 +1,30 @@
 import { create } from "zustand";
 import type {
+  IWorkoutDTO,
   IWorkoutEditDTO,
+  IWorkoutFilter,
 } from "../../../shared/models/workout.model";
 import { workoutService } from "../services/workout.service";
-import type { IWorkoutStore } from "../models/store.model";
+import type { IStoreBase } from "../models/store.model";
 
-export const useWorkoutStore = create<IWorkoutStore>((set, get) => ({
-  workouts: [],
+export const useWorkoutStore = create<
+  IStoreBase<IWorkoutDTO, IWorkoutEditDTO, IWorkoutFilter>
+>((set, get) => ({
+  items: [],
   isLoading: false,
   isLoadingId: null,
   isDeleting: false,
   isSavingId: null,
 
-  loadWorkouts: async () => {
+  loadItems: async () => {
     try {
       set({ isLoading: true });
 
-      if (get().workouts.length > 0) {
+      if (get().items.length > 0) {
         return;
       }
       const _workouts = await workoutService.get({});
-      set({ workouts: _workouts, isLoading: false });
+      set({ items: _workouts, isLoading: false });
     } finally {
       set({ isLoading: false });
     }
@@ -31,7 +35,7 @@ export const useWorkoutStore = create<IWorkoutStore>((set, get) => ({
     }
     try {
       set({ isLoadingId: id });
-      const workout = get().workouts.find((w) => w.id === id);
+      const workout = get().items.find((w) => w.id === id);
       return !workout ? await workoutService.getById(id) : workout;
     } finally {
       if (get().isLoadingId === id) {
@@ -39,19 +43,19 @@ export const useWorkoutStore = create<IWorkoutStore>((set, get) => ({
       }
     }
   },
-  saveWorkout: async (workoutToSave: IWorkoutEditDTO) => {
+  saveItem: async (workoutToSave: IWorkoutEditDTO) => {
     const currentId = workoutToSave.id;
     try {
       set({ isLoading: true, isSavingId: workoutToSave.id });
       const savedWorkout = await workoutService.save(workoutToSave);
       if (savedWorkout) {
         set((state) => {
-          const idx = state.workouts.findIndex((w) => w.id === savedWorkout.id);
+          const idx = state.items.findIndex((w) => w.id === savedWorkout.id);
           if (idx === -1) {
-            return { workouts: [...state.workouts, savedWorkout] };
+            return { items: [...state.items, savedWorkout] };
           }
           return {
-            workouts: state.workouts.map((w) =>
+            items: state.items.map((w) =>
               w.id === savedWorkout.id ? savedWorkout : w
             ),
           };
@@ -66,12 +70,12 @@ export const useWorkoutStore = create<IWorkoutStore>((set, get) => ({
       }
     }
   },
-  deleteWorkout: async (id: string) => {
+  deleteItem: async (id: string) => {
     try {
       set({ isDeleting: true });
       await workoutService.delete(id);
       set((state) => ({
-        workouts: state.workouts.filter((w) => w.id !== id),
+        items: state.items.filter((w) => w.id !== id),
       }));
     } finally {
       set({ isDeleting: false });

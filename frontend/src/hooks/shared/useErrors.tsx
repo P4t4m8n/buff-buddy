@@ -13,7 +13,6 @@ export function useErrors<T extends object>() {
   }, []);
 
   const handleError = useCallback((error: unknown, emitToToast?: boolean) => {
-    emitEvent({ type: "error", cmp: "error" });
     if (error instanceof ZodError) {
       const formattedErrors: TErrors<T> = {};
       for (const issue of error.issues) {

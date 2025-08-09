@@ -1,38 +1,19 @@
-import { useEffect, useState } from "react";
-
 import { useExerciseStore } from "../store/exercise.store";
 
+import { useItemsPage } from "../hooks/shared/useItemsPage";
+
+import ExerciseList from "../components/Exercise/ExerciseList";
 import ExerciseEdit from "../components/Exercise/ExerciseEdit";
 import GenericModel from "../components/UI/GenericModel";
 
-import type { IExerciseDTO } from "../../../shared/models/exercise.model";
-import ExerciseList from "../components/Exercise/ExerciseList";
-
 export default function ExercisePage() {
-  const loadExercises = useExerciseStore((state) => state.loadExercises);
-  const deleteExercise = useExerciseStore((state) => state.deleteExercise);
-
-  const exercises = useExerciseStore((state) => state.exercises);
-  const isLoading = useExerciseStore((state) => state.isLoading);
-
-  const [filteredExercises, setFilteredExercises] =
-    useState<IExerciseDTO[]>(exercises);
-
-  useEffect(() => {
-    loadExercises();
-  }, [loadExercises]);
-
-  useEffect(() => {
-    setFilteredExercises(exercises);
-  }, [exercises]);
-
-  const onDelete = async (id?: string) => {
-    if (!id) {
-      console.warn("No ID provided for deletion.");
-      return;
-    }
-    await deleteExercise(id);
-  };
+  const {
+    items: exercises,
+    isLoading,
+    onDeleteItem,
+  } = useItemsPage({
+    useStore: useExerciseStore,
+  });
 
   return (
     <section className="h-main flex flex-col gap-4">
@@ -52,9 +33,9 @@ export default function ExercisePage() {
         />
       </header>
       <ExerciseList
-        filteredExercises={filteredExercises}
+        filteredExercises={exercises}
         isLoading={isLoading}
-        onDelete={onDelete}
+        onDelete={onDeleteItem}
       />
     </section>
   );

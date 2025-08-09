@@ -45,14 +45,14 @@ const GetLoader = ({ loaderType = "default" }: ILoaderProps) => {
 
 const PulseItem = () => {
   return (
-    <li className=" h-fit animate-pulse  flex flex-col gap-2 p-4 rounded bg-main-orange/70 border border-black/50">
-      <span className="h-6 w-2/3 rounded bg-secondary-orange/70 "></span>
-      <span className="h-10 rounded bg-secondary-orange/70"></span>
-      <span className="h-10 rounded bg-secondary-orange/70"></span>
+    <li className=" h-fit animate-pulse  flex flex-col gap-2 p-4 rounded border bg-black-500  border-main-orange">
+      <span className="h-6 w-2/3 rounded bg-black-300 "></span>
+      <span className="h-10 rounded bg-black-300"></span>
+      <span className="h-10 rounded bg-black-300"></span>
       <span className="h-10 flex gap-3">
-        <span className=" h-10 w-24 mr-auto bg-secondary-orange/70 "></span>
-        <span className=" h-10 w-20 rounded bg-secondary-orange/70 "></span>
-        <span className=" h-10 w-20 rounded bg-secondary-orange/70 "></span>
+        <span className=" h-10 w-24 mr-auto bg-black-300 "></span>
+        <span className=" h-10 w-20 rounded bg-black-300 "></span>
+        <span className=" h-10 w-20 rounded bg-black-300 "></span>
       </span>
     </li>
   );

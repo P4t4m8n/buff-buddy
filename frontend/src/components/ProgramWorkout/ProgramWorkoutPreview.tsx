@@ -1,4 +1,5 @@
 import type { IProgramWorkoutDTO } from "../../../../shared/models/program.model";
+import GenericList from "../UI/GenericList";
 import GenericModel from "../UI/GenericModel";
 import GenericTags from "../UI/GenericTags";
 import IconStart from "../UI/Icons/IconStart";
@@ -8,6 +9,13 @@ import WorkoutEdit from "../Workout/WorkoutEdit";
 interface IProgramWorkoutPreviewProps {
   item: IProgramWorkoutDTO;
 }
+
+type TTagItem<T> = {
+  header: string;
+  items: T[];
+  getKey: (item: T) => string;
+  getTag: (item: T) => string;
+};
 export default function ProgramWorkoutPreview({
   item: programWorkout,
 }: IProgramWorkoutPreviewProps) {
@@ -27,48 +35,43 @@ export default function ProgramWorkoutPreview({
     .flat();
   const cleanedEquipmentUsed = [...new Set(equipmentUsed)];
 
+  const tags: TTagItem<any>[] = [
+    {
+      header: "Exercise Types",
+      items: cleanedTypesUsed ?? [],
+      getKey: (item: any) => item,
+      getTag: (item: any) => item,
+    },
+    {
+      header: "Exercises",
+      items: workoutExercises ?? [],
+      getKey: (item: any) => item.id!,
+      getTag: (item: any) => item.exercise?.name ?? "",
+    },
+    {
+      header: "Equipment",
+      items: cleanedEquipmentUsed ?? [],
+      getKey: (item: any) => item,
+      getTag: (item: any) => item ?? "",
+    },
+    {
+      header: "Muscles Used",
+      items: cleanedMusclesUsed ?? [],
+      getKey: (item: any) => item!,
+      getTag: (item: any) => item!,
+    },
+  ];
+
   return (
     <li className="border rounded flex flex-col gap-2 p-2 h-fit break-inside-avoid mb-4">
       <h4 className="text-center text-xl">{name}</h4>
-      <ul className=" flex flex-col  w-full">
-        <li className="w-fit overflow-auto ">
-          <h5>Exercises Types:</h5>
-          {/* Exercises type tags*/}
-          <GenericTags
-            items={cleanedTypesUsed ?? []}
-            getKey={(item) => item!}
-            getTag={(item) => item ?? ""}
-          />
-        </li>
+      <GenericList
+        items={tags}
+        ItemComponent={TagItem}
+        getKey={(item) => item.header}
+        ulStyle="flex flex-col  w-full"
+      />
 
-        <li className="w-fit overflow-auto">
-          <h5>Exercises:</h5>
-          {/* Exercises name tags */}
-          <GenericTags
-            items={workoutExercises ?? []}
-            getKey={(item) => item.id!}
-            getTag={(item) => item.exercise?.name ?? ""}
-          />
-        </li>
-        <li className="w-fit overflow-auto">
-          <h5>Equipment:</h5>
-          {/* Exercises name tags */}
-          <GenericTags
-            items={cleanedEquipmentUsed ?? []}
-            getKey={(item) => item!}
-            getTag={(item) => item ?? ""}
-          />
-        </li>
-        <li className="w-fit overflow-auto">
-          <h5>Muscles USed:</h5>
-          {/* Muscles name tags */}
-          <GenericTags
-            items={cleanedMusclesUsed ?? []}
-            getKey={(item) => item!}
-            getTag={(item) => item!}
-          />
-        </li>
-      </ul>
       <div className="gap-2 inline-flex justify-between shadow-border-t mt-2 pt-2">
         <GenericModel
           Model={WorkoutEdit}
@@ -98,3 +101,13 @@ export default function ProgramWorkoutPreview({
     </li>
   );
 }
+
+const TagItem = <T,>({ item }: { item: TTagItem<T> }) => {
+  const { header, ...items } = item;
+  return (
+    <li className="w-full overflow-auto ">
+      <h5>{header}</h5>
+      <GenericTags {...items} />
+    </li>
+  );
+};

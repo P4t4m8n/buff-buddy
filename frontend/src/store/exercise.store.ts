@@ -4,47 +4,49 @@ import type {
   IExerciseFilter,
 } from "../../../shared/models/exercise.model";
 import { exerciseService } from "../services/exercise.service";
-import type { IExerciseStore } from "../models/store.model";
+import type { IStoreBase } from "../models/store.model";
 
-export const useExerciseStore = create<IExerciseStore>((set, get) => ({
-  exercises: [],
+export const useExerciseStore = create<
+  IStoreBase<IExerciseDTO, IExerciseDTO, IExerciseFilter>
+>((set, get) => ({
+  items: [],
   isLoading: false,
   isDeleting: false,
   isSavingId: null,
   isLoadingId: null,
 
-  loadExercises: async (filter?: IExerciseFilter) => {
+  loadItems: async (filter?: IExerciseFilter) => {
     try {
       set({ isLoading: true });
 
-      if (get().exercises.length > 0) {
+      if (get().items.length > 0) {
         return;
       }
 
       const _exercises = await exerciseService.get(filter);
 
-      set({ exercises: _exercises, isLoading: false });
+      set({ items: _exercises, isLoading: false });
     } finally {
       set({ isLoading: false });
     }
   },
-  saveExercise: async (exerciseToSave: IExerciseDTO) => {
+  saveItem: async (exerciseToSave: IExerciseDTO) => {
     const currentId = exerciseToSave.id;
     set({ isSavingId: currentId });
     try {
       const { data } = await exerciseService.save(exerciseToSave);
 
       set((state) => {
-        const idx = state.exercises.findIndex(
+        const idx = state.items.findIndex(
           (exercise) => exercise.id === currentId
         );
 
-        const updatedExercises = [...state.exercises];
+        const updatedExercises = [...state.items];
         if (idx !== -1) {
           updatedExercises[idx] = data;
-          return { exercises: updatedExercises };
+          return { items: updatedExercises };
         } else {
-          return { exercises: [...state.exercises, data] };
+          return { items: [...state.items, data] };
         }
       });
       return true;
@@ -56,12 +58,12 @@ export const useExerciseStore = create<IExerciseStore>((set, get) => ({
       }
     }
   },
-  deleteExercise: async (id: string) => {
+  deleteItem: async (id: string) => {
     set({ isDeleting: true });
     try {
       await exerciseService.delete(id);
       set((state) => ({
-        exercises: state.exercises.filter((exercise) => exercise?.id !== id),
+        items: state.items.filter((exercise) => exercise?.id !== id),
       }));
     } finally {
       set({ isDeleting: false });

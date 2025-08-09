@@ -2,32 +2,31 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router";
 
 import { useProgramStore } from "../../store/program.store";
+import { useItemsPage } from "../../hooks/shared/useItemsPage";
 
 import { calendarUtil } from "../../utils/calendar.util";
 import { toTitle } from "../../utils/toTitle";
+
+import ProgramWorkoutPreview from "../../components/ProgramWorkout/ProgramWorkoutPreview";
 
 import Loader from "../../components/UI/Loader";
 import Button from "../../components/UI/Button";
 import IconArrow from "../../components/UI/Icons/IconArrow";
 import GenericList from "../../components/UI/GenericList";
-import ProgramWorkoutPreview from "../../components/ProgramWorkout/ProgramWorkoutPreview";
 
 import type { DaysOfWeek } from "../../../../backend/prisma/generated/prisma";
 import type { IProgramWorkoutDTO } from "../../../../shared/models/program.model";
 
 export default function WorkoutPage() {
-  const programs = useProgramStore((state) => state.programs);
-
-  const loadPrograms = useProgramStore((state) => state.loadPrograms);
-
-  const isLoading = useProgramStore((state) => state.isLoading);
+  const { items: programs, isLoading } = useItemsPage({
+    useStore: useProgramStore,
+  });
 
   const [day, setDay] = useState<DaysOfWeek | null>(null);
 
   useEffect(() => {
-    loadPrograms();
     setDay(calendarUtil.getDay(new Date()));
-  }, [loadPrograms]);
+  }, []);
 
   const onChangeDay = (dir: number) => {
     const newDay = calendarUtil.getNextDay(day!, dir);
@@ -51,7 +50,7 @@ export default function WorkoutPage() {
     .filter((p) => !!p); //FOR TS to be quiet
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader loaderType="screen" />;
   }
 
   return (

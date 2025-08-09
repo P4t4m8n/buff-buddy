@@ -3,71 +3,61 @@ import { programService } from "../services/program.service";
 import type {
   IProgramDTO,
   IProgramEditDTO,
+  IProgramFilter,
 } from "../../../shared/models/program.model";
+import type { IStoreBase } from "../models/store.model";
 
-interface IProgramStore {
-  programs: IProgramDTO[];
-  isLoading: boolean;
-  isDeleting: boolean;
-  isSavingId: string | null;
-  isLoadingId: string | null;
-  loadPrograms: () => Promise<void>;
-  getProgramById: (id?: string) => Promise<IProgramDTO | null>;
-  saveProgram: (programToSave: IProgramEditDTO) => Promise<IProgramDTO>;
-  deleteProgram: (id: string) => Promise<void>;
-}
-
-export const useProgramStore = create<IProgramStore>((set, get) => ({
-  programs: [],
+export const useProgramStore = create<
+  IStoreBase<IProgramDTO, IProgramEditDTO, IProgramFilter>
+>((set, get) => ({
+  items: [],
   isLoading: false,
   isDeleting: false,
   isLoadingId: null,
   isSavingId: null,
 
-  loadPrograms: async () => {
+  loadItems: async () => {
     try {
       set({ isLoading: true });
 
-      if (get().programs.length > 0) {
+      if (get().items.length > 0) {
         return;
       }
 
       const _programs = await programService.get({});
-      set({ programs: _programs, isLoading: false });
+      set({ items: _programs, isLoading: false });
     } finally {
       set({ isLoading: false });
     }
   },
 
-  getProgramById: async (id?: string) => {
+  getById: async (id?: string) => {
     try {
       if (!id) {
         return null;
       }
       set({ isLoadingId: id });
 
-      const program = get().programs.find((p) => p.id === id);
+      const program = get().items.find((p) => p.id === id);
       return !program ? await programService.getById(id) : program;
     } finally {
       set({ isLoading: false });
     }
   },
 
-  saveProgram: async (program: IProgramEditDTO) => {
+  saveItem: async (program: IProgramEditDTO) => {
     try {
       set({ isLoading: true });
       const { data } = await programService.save(program);
       set((state) => {
-        const idx = state.programs.findIndex(
-          (program) => program.id === data.id
-        );
+        const idx = state.items.findIndex((program) => program.id === data.id);
 
         if (idx !== -1) {
-          const updatedPrograms = [...state.programs];
+          const updatedPrograms = [...state.items];
           updatedPrograms[idx] = data as IProgramDTO;
-          return { programs: updatedPrograms };
+          return { items: updatedPrograms };
         } else {
-          return { programs: [...state.programs, data as IProgramDTO] };
+          return { items: [...state.items, data as IProgramDTO] };
         }
       });
       return data;
@@ -76,12 +66,12 @@ export const useProgramStore = create<IProgramStore>((set, get) => ({
     }
   },
 
-  deleteProgram: async (id: string) => {
+  deleteItem: async (id: string) => {
     try {
       set({ isDeleting: true });
       await programService.delete(id);
       set((state) => ({
-        programs: state.programs.filter((program) => program.id !== id),
+        items: state.items.filter((program) => program.id !== id),
       }));
     } finally {
       set({ isDeleting: false });
