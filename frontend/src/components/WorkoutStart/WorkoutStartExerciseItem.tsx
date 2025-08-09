@@ -32,7 +32,7 @@ export default function WorkoutStartExerciseItem({
   logUserSet,
   completeAllExerciseSets,
 }: IWorkoutStartExerciseItemProps) {
-  const [isOpen, , , handleModel] = useModel();
+  const { isOpen, handleModel } = useModel();
   const {
     id,
     exercise,

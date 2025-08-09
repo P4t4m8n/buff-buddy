@@ -24,8 +24,8 @@ export default function WorkoutEdit({
   ...props
 }: WorkoutCreateProps) {
   const { id } = useParams<{ id?: string }>();
-  const { setOpen } = props;
-  const navigate = setOpen ? null : useNavigate();
+  const { setIsOpen } = props;
+  const navigate = setIsOpen ? null : useNavigate();
 
   const {
     workoutToEdit,
@@ -33,7 +33,7 @@ export default function WorkoutEdit({
     handleWorkoutExercises,
     handleInputChange,
     onSubmit,
-  } = useWorkoutEdit(workout, navigate, id, setOpen, afterSubmit);
+  } = useWorkoutEdit(workout, navigate, id, setIsOpen, afterSubmit);
 
   const onCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

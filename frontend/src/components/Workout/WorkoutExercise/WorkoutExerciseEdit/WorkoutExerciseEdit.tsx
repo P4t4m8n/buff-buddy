@@ -47,7 +47,7 @@ export default function WorkoutExerciseEdit({
   const { errors: workoutExerciseErrors } =
     useErrors<IWorkoutExerciseEditDTO>();
 
-  const { modelRef, setOpen } = props;
+  const { modelRef, setIsOpen } = props;
 
   const onUpsertWorkoutExercise = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -64,7 +64,7 @@ export default function WorkoutExerciseEdit({
 
     handleWorkoutExercises(weToUpsert);
     resetWorkoutExerciseToEdit();
-    if (setOpen) setOpen(false);
+    if (setIsOpen) setIsOpen(false);
   };
 
   const onDeleteWorkoutExercise = (e: React.MouseEvent) => {
@@ -76,14 +76,14 @@ export default function WorkoutExerciseEdit({
       order: workoutExerciseLength ?? Infinity,
     };
     handleWorkoutExercises(peToRemove);
-    if (setOpen) setOpen(false);
+    if (setIsOpen) setIsOpen(false);
   };
 
   const onCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
     resetWorkoutExerciseToEdit();
-    if (setOpen) setOpen(false);
+    if (setIsOpen) setIsOpen(false);
   };
 
   if (!workoutExerciseToEdit) return <Loader />;

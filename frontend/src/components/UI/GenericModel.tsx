@@ -30,7 +30,7 @@ export default function GenericModel<T extends HTMLElement, P>({
   mode,
   isOverlay = true,
 }: IGenericDialogProps<T, P>) {
-  const [isOpen, modelRef, , setIsOpen, handleModel, ,] = useModel<T>();
+  const { isOpen, modelRef, setIsOpen, handleModel } = useModel<T>();
 
   const getModel = () => {
     const props: P & IModelProps<T> = {

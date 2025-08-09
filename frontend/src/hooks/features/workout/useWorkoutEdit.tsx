@@ -22,7 +22,7 @@ export const useWorkoutEdit = (
 
   const { errors, setErrors, handleError } = useErrors<IWorkoutEditDTO>();
 
-  const saveWorkout = useWorkoutStore((state) => state.saveWorkout);
+  const saveWorkout = useWorkoutStore((state) => state.saveItem);
   const getById = useWorkoutStore((state) => state.getById);
   const isLoading = useWorkoutStore(
     (state) => state.isLoadingId === workoutToEdit?.id
@@ -134,7 +134,7 @@ export const useWorkoutEdit = (
 
       if (!workoutToEdit) return;
 
-      const savedWorkout = await saveWorkout(workoutToEdit);
+      const savedWorkout = (await saveWorkout(workoutToEdit)) as IWorkoutDTO;
       if (!savedWorkout) {
         setErrors({ unknown: "Failed to save workout." });
         return;

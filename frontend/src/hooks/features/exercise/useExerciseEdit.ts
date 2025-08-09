@@ -20,7 +20,7 @@ export const useExerciseEdit = (
     IExerciseDTO | undefined | null
   >(null);
 
-  const saveExercise = useExerciseStore((state) => state.saveExercise);
+  const saveExercise = useExerciseStore((state) => state.saveItem);
 
   const { errors, clearErrors, handleError } = useErrors<IExerciseDTO>();
   useEffect(() => {

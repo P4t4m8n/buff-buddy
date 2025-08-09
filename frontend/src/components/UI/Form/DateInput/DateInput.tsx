@@ -33,7 +33,7 @@ export default function DateInput({
   className = "",
   errorRange,
 }: DateInputProps) {
-  const [isOpen, modelRef, , handleModel] = useModel<HTMLDivElement>();
+  const { isOpen, modelRef, handleModel } = useModel<HTMLDivElement>();
   const {
     currentDate,
     setCurrentDate,

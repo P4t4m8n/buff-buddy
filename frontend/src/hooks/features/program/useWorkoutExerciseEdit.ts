@@ -28,8 +28,8 @@ export const useWorkoutExerciseEdit = (
 ): IWorkoutExerciseEditHook => {
   const [workoutExerciseToEdit, setWorkoutExerciseToEdit] =
     useState<IWorkoutExerciseEditDTO | null>(null);
-  const exercises = useExerciseStore((state) => state.exercises);
-  const loadExercises = useExerciseStore((state) => state.loadExercises);
+  const exercises = useExerciseStore((state) => state.items);
+  const loadExercises = useExerciseStore((state) => state.loadItems);
 
   useEffect(() => {
     resetWorkoutExerciseToEdit();

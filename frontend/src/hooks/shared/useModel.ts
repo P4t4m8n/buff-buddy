@@ -20,17 +20,17 @@
  */
 
 //TODO?? Update JSdocs
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 
-type TUseModelHook<T extends HTMLElement> = [
-  boolean,
-  React.RefObject<T | null>,
-  string,
-  Dispatch<SetStateAction<boolean>>,
-  (e: React.MouseEvent<HTMLButtonElement>) => void,
-  (e: React.MouseEvent<HTMLButtonElement>) => void
-];
+type TUseModelHook<T extends HTMLElement> = {
+  isOpen: boolean;
+  modelRef: React.RefObject<T | null>;
+  modelPositionClass: string;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  handleModel: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleModelWithPosition: (e: React.MouseEvent<HTMLButtonElement>) => void;
+};
 
 export const useModel = <T extends HTMLElement>(
   callBack?: null | (() => void),
@@ -125,24 +125,12 @@ export const useModel = <T extends HTMLElement>(
     };
   }, [isOpen, modelRef, checkClickOutside, checkKeyPress]);
 
-  const memoizedValue: TUseModelHook<T> = useMemo(
-    () => [
-      isOpen,
-      modelRef,
-      modelPositionClass,
-      setIsOpen,
-      handleModel,
-      handleModelWithPosition,
-    ],
-    [
-      isOpen,
-      modelRef,
-      modelPositionClass,
-      setIsOpen,
-      handleModel,
-      handleModelWithPosition,
-    ]
-  );
-
-  return memoizedValue;
+  return {
+    isOpen,
+    modelRef,
+    modelPositionClass,
+    setIsOpen,
+    handleModel,
+    handleModelWithPosition,
+  };
 };

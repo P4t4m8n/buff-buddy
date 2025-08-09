@@ -2,7 +2,8 @@ import type {
   IUserWorkoutDTO,
   IUserWorkoutEditDTO,
 } from "../../../shared/models/userWorkout";
-import { apiService, type THttpPostResponse } from "./api.service";
+import type { THttpPostResponse } from "../models/apiService.model";
+import { apiService } from "./api.service";
 
 export const workoutStartService = {
   rootPath: "/user-workouts",

@@ -30,6 +30,19 @@ export const useExerciseStore = create<
       set({ isLoading: false });
     }
   },
+  getById: async (id?: string) => {
+    try {
+      if (!id) {
+        return null;
+      }
+      set({ isLoadingId: id });
+
+      const exercise = get().items.find((p) => p.id === id);
+      return !exercise ? await exerciseService.getById(id) : exercise;
+    } finally {
+      set({ isLoading: false });
+    }
+  },
   saveItem: async (exerciseToSave: IExerciseDTO) => {
     const currentId = exerciseToSave.id;
     set({ isSavingId: currentId });

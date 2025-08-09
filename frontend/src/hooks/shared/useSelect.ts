@@ -11,14 +11,14 @@ export const useSelect = <T, P>(
   const [optionsList, setOptionsList] = useState<T[]>([]);
   const modelBasePositionClass = "top-[calc(100%+.25rem)]";
 
-  const [
+  const {
     isOpen,
     modelRef,
     modelPositionClass,
     setIsOpen,
     handleModel,
     handleModelWithPosition,
-  ] = useModel<HTMLDivElement>(null, parentModelRef, modelBasePositionClass);
+  } = useModel<HTMLDivElement>(null, parentModelRef, modelBasePositionClass);
 
   useEffect(() => {
     setOptionsList(options ? [...options] : []);

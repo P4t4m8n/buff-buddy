@@ -3,7 +3,8 @@ import type {
   IAuthUserDTO,
   IAuthSignUpDTO,
 } from "../../../shared/models/auth.model";
-import { apiService, type THttpPostResponse } from "./api.service";
+import type { THttpPostResponse } from "../models/apiService.model";
+import { apiService } from "./api.service";
 
 export const authService = {
   rootPath: "/auth",

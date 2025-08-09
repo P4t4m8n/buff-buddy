@@ -3,8 +3,9 @@ import type {
   IProgramFilter,
   IProgramEditDTO,
 } from "../../../shared/models/program.model";
+import type { THttpPostResponse } from "../models/apiService.model";
 
-import { apiService, type THttpPostResponse } from "./api.service";
+import { apiService } from "./api.service";
 
 export const programService = {
   rootPath: "/programs",

@@ -1,24 +1,21 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import type { StoreApi, UseBoundStore } from "zustand";
+import type { IGetByIdStore } from "../../models/store.model";
 
-interface IGetByIdStore<T> {
-  getById: (id?: string) => Promise<T | null>;
-  isLoadingId: string | null;
-}
 interface IUseItemDetails<T> {
   id?: string;
   navigate: (path: string) => void;
   itemToView: T | null;
   isLoadingId: boolean;
 }
-interface IUseItemDetailsProps<T, S extends IGetByIdStore<T>> {
-  useStore: UseBoundStore<StoreApi<S>>;
+interface IUseItemDetailsProps<T> {
+  useStore: UseBoundStore<StoreApi<IGetByIdStore<T>>>;
 }
 
-export const useItemDetails = <T, S extends IGetByIdStore<T>>({
+export const useItemDetails = <T,>({
   useStore,
-}: IUseItemDetailsProps<T, S>): IUseItemDetails<T> => {
+}: IUseItemDetailsProps<T>): IUseItemDetails<T> => {
   const { id } = useParams<{ id?: string }>();
 
   const navigate = useNavigate();

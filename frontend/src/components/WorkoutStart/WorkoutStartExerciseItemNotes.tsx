@@ -8,7 +8,7 @@ interface IWorkoutExerciseItemNotsProps {
 export default function WorkoutStartExerciseItemNotes({
   notes,
 }: IWorkoutExerciseItemNotsProps) {
-  const [isOpen, , , handleModel] = useModel();
+  const { isOpen, handleModel } = useModel();
 
   return (
     <Button

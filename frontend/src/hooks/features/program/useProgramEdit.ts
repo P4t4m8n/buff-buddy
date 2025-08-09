@@ -29,8 +29,8 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
   const { errors, handleError } = useErrors<IProgramEditDTO>();
 
   const isLoading = useProgramStore((state) => state.isLoading);
-  const getProgramById = useProgramStore((state) => state.getProgramById);
-  const saveProgram = useProgramStore((state) => state.saveProgram);
+  const getProgramById = useProgramStore((state) => state.getById);
+  const saveProgram = useProgramStore((state) => state.saveItem);
 
   const navigate = useNavigate();
 
@@ -64,7 +64,7 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
       const notes = formData.get("notes") as string;
       const isActive = formData.get("isActive") === "on";
       const programToSave = { ...programToEdit, name, notes, isActive };
-      const res = await saveProgram(programToSave);
+      const res = (await saveProgram(programToSave)) as IProgramEditDTO;
 
       const { id } = res;
       navigate(`/programs/${id}`);

@@ -1,32 +1,16 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import type { IProgramDTO } from "../../../../shared/models/program.model";
 import { useProgramStore } from "../../store/program.store";
+import { useItemDetails } from "../../hooks/shared/useItemDetails";
+
 import { toTitle } from "../../utils/toTitle";
 import ActiveButtonIcon from "../../utils/ActiveButtonIcon.util";
-import Loader from "../../components/UI/Loader";
 import { calendarUtil } from "../../utils/calendar.util";
 
+import Loader from "../../components/UI/Loader";
+
 export default function ProgramDetails() {
-  const { id } = useParams<{ id?: string }>();
-  const [programToDisplay, setProgramToDisplay] = useState<IProgramDTO | null>(
-    null
-  );
-  const isLoading = useProgramStore((state) => state.isLoading);
-
-  const getProgramById = useProgramStore((state) => state.getProgramById);
-
-  useEffect(() => {
-    if (id) {
-      getProgramById(id)
-        .then((program) => {
-          setProgramToDisplay(program as IProgramDTO | null);
-        })
-        .catch((err) => {
-          console.error("Error fetching program:", err);
-        });
-    }
-  }, [id, getProgramById]);
+  const { itemToView: programToView, isLoadingId: isLoading } = useItemDetails({
+    useStore: useProgramStore,
+  });
 
   if (isLoading) {
     return <Loader />;
@@ -34,14 +18,14 @@ export default function ProgramDetails() {
 
   //TODO?? handle error better
   //TODO?? handle no program found
-  if (!programToDisplay) {
+  if (!programToView) {
     return (
       <section className="h-main">
         <p>No program found.</p>
       </section>
     );
   }
-  const { name, notes, startDate, endDate, isActive } = programToDisplay;
+  const { name, notes, startDate, endDate, isActive } = programToView;
   const title = toTitle(name + " Program Details");
   const dates = calendarUtil.getFormatDateRange(startDate, endDate);
 

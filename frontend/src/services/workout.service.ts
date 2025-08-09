@@ -3,7 +3,8 @@ import type {
   IWorkoutFilter,
   IWorkoutDTO,
 } from "../../../shared/models/workout.model";
-import { apiService, type THttpPostResponse } from "./api.service";
+import type { THttpPostResponse } from "../models/apiService.model";
+import { apiService } from "./api.service";
 
 export const workoutService = {
   rootPath: "/workouts",
