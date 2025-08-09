@@ -7,7 +7,6 @@ import GenericDeleteButton from "../../UI/GenericDeleteButton";
 import Button from "../../UI/Button";
 
 import type { IProgramDTO } from "../../../../../shared/models/program.model";
-import ActiveButtonIcon from "../../../utils/ActiveButtonIcon.util";
 interface ProgramPreviewProps {
   item: IProgramDTO;
   onDeleteProgram?: (id?: string) => Promise<void>;
@@ -20,7 +19,12 @@ export default function ProgramPreview({
 
   const dates = calendarUtil.getFormatDateRange(startDate, endDate);
 
-  const isActiveIcon = ActiveButtonIcon({ isActive });
+
+  const activeMarkup = isActive ? (
+    <span className="text-success-green border rounded p-2">Active</span>
+  ) : (
+    <span className="text-error-red">Inactive</span>
+  );
 
   return (
     <li
@@ -30,7 +34,7 @@ export default function ProgramPreview({
     >
       <span className="flex items-center justify-between">
         <h4 className="truncate ">{toTitle(name)}</h4>
-        <p className="">{isActiveIcon}</p>
+        {activeMarkup}
       </span>
       <p className="">{dates}</p>
 
@@ -42,7 +46,7 @@ export default function ProgramPreview({
           <Button buttonStyle="model">{ModelButtonIcon("edit")}</Button>
         </Link>
         <GenericDeleteButton
-          itemId={id}
+          itemId={""}
           useStore={useProgramStore}
           deleteAction={onDeleteProgram!}
         />

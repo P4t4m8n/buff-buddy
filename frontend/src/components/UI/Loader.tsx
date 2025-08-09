@@ -17,12 +17,12 @@ const GetLoader = ({ loaderType = "default" }: ILoaderProps) => {
     case "screen":
       return (
         <div
-          className="flex justify-center items-center h-screen overflow-hidden bg-gradient-to-br from-main-orange/90 
-                     to-red-orange/85"
+          className="flex justify-center items-center h-main overflow-hidden bg-gradient-to-br from-black-900
+                     to-black-400"
         >
           <div className="loader relative w-full -rotate-[35deg]">
             <div className="box relative -left-58 flex justify-center items-center w-[calc(100%+400px)]">
-              <div className="cube w-48 aspect-square bg-red-orange"></div>
+              <div className="cube w-48 aspect-square bg-black-900"></div>
             </div>
           </div>
         </div>

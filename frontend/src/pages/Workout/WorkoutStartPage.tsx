@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router";
 
 import { workoutStartUtil } from "../../utils/workoutStart.util";
 import { useWorkoutStore } from "../../store/workout.store";
-import { useFormErrors } from "../../hooks/shared/useFormErrors";
+import { useErrors } from "../../hooks/shared/useErrors";
 import { workoutStartService } from "../../services/workoutStart";
 
 import Button from "../../components/UI/Button";
@@ -33,7 +33,7 @@ export default function WorkoutStartPage() {
 
   const [workoutStart, setWorkoutStart] =
     React.useState<IUserWorkoutEditDTO | null>(null);
-  const { errors } = useFormErrors<IUserWorkoutDTO>();
+  const { errors } = useErrors<IUserWorkoutDTO>();
 
   const getById = useWorkoutStore((state) => state.getById);
 

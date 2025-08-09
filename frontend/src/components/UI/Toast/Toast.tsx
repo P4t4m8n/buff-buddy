@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { eventEmitter, TOAST_TYPES } from "../../utils/toast.util";
+import { twMerge } from "tailwind-merge";
 
+import { eventEmitter, TOAST_TYPES } from "../../../utils/toast.util";
+
+const TIMEOUT_DURATION = 2000;
+
+//TODO?? animation is only moving up. move down not working need to add a 3rd state for the finished animation before destroying the toastCOmponent
 export default function Toast() {
   const [toastComponent, setToastComponent] = useState<React.ReactNode | null>(
     null
@@ -16,7 +21,7 @@ export default function Toast() {
           clearTimeout(timeoutIdRef.current);
           timeoutIdRef.current = null;
         }
-        timeoutIdRef.current = setTimeout(closeMsg, 2000);
+        timeoutIdRef.current = setTimeout(closeMsg, TIMEOUT_DURATION);
       });
     });
     return () => {
@@ -43,15 +48,18 @@ export default function Toast() {
     timeoutIdRef.current = setTimeout(closeMsg, 2000);
   };
 
-  if (!toastComponent) return null;
+  const toastStyle = twMerge(
+    "fixed z-50 h-fit w-full px-4 items-center justify-center flex transition-all duration-300",
+    toastComponent ? " bottom-8 " : "-bottom-8"
+  );
 
   return (
-    <section
+    <div
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className=" fixed bottom-8 z-50  bg-green-500"
+      className={toastStyle}
     >
       {toastComponent}
-    </section>
+    </div>
   );
 }

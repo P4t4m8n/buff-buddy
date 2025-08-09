@@ -7,7 +7,7 @@ import type {
   IWorkoutExerciseEditDTO,
 } from "../../../../../shared/models/workout.model";
 import { workoutUtils } from "../../../utils/workout.util";
-import { useFormErrors } from "../../shared/useFormErrors";
+import { useErrors } from "../../shared/useErrors";
 
 export const useWorkoutEdit = (
   workout?: IWorkoutDTO | IWorkoutEditDTO,
@@ -20,7 +20,7 @@ export const useWorkoutEdit = (
     null
   );
 
-  const { errors, setErrors, handleError } = useFormErrors<IWorkoutEditDTO>();
+  const { errors, setErrors, handleError } = useErrors<IWorkoutEditDTO>();
 
   const saveWorkout = useWorkoutStore((state) => state.saveWorkout);
   const getById = useWorkoutStore((state) => state.getById);

@@ -9,27 +9,50 @@ import ProgramPreview from "../../components/Program/ProgramPage/ProgramPreview"
 import Button from "../../components/UI/Button";
 import Loader from "../../components/UI/Loader";
 import GenericList from "../../components/UI/GenericList";
+import { useErrors } from "../../hooks/shared/useErrors";
+import { ClientError } from "../../services/ClientError.service";
 
 export default function ProgramPage() {
   const programs = useProgramStore((state) => state.programs);
   const loadPrograms = useProgramStore((state) => state.loadPrograms);
   const isLoading = useProgramStore((state) => state.isLoading);
+  console.log("🚀 ~ ProgramPage ~ isLoading:", isLoading);
   const deleteProgram = useProgramStore((state) => state.deleteProgram);
 
+  const { errors, clearErrors, handleError } = useErrors();
+  console.log("🚀 ~ ProgramPage ~ errors:", errors);
+
   useEffect(() => {
-    loadPrograms();
-  }, [loadPrograms]);
+    const init = async () => {
+      try {
+        clearErrors();
+        await loadPrograms();
+      } catch (error) {
+        const emitToToast = true;
+        handleError(error, emitToToast);
+      }
+    };
+    init();
+  }, []);
 
   const onDeleteProgram = useCallback(
     async (id?: string) => {
-      if (!id) return;
-      await deleteProgram(id);
+      console.log("🚀 ~ ProgramPage ~ id:", id);
+      try {
+        if (!id) {
+          throw ClientError.create("Program ID is required for deletion.");
+        }
+        await deleteProgram(id);
+      } catch (error) {
+        const emitToToast = true;
+        handleError(error, emitToToast);
+      }
     },
     [deleteProgram]
   );
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader loaderType="screen" />;
   }
 
   return (
@@ -37,7 +60,7 @@ export default function ProgramPage() {
       <header className="p-mobile md:p-desktop shadow-border-b ">
         <span className="text-center">
           <h2 className="text-3xl font-bold text-main-black ">Your Programs</h2>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-300 text-lg">
             Manage, edit, or create new training routines to reach your goals!
           </p>
         </span>
@@ -45,7 +68,9 @@ export default function ProgramPage() {
           <Button buttonStyle="model">{ModelButtonIcon("edit")}</Button>
         </Link>
       </header>
-
+      {/*
+       //INFO:Programs preview list
+      */}
       <GenericList
         items={programs}
         ulStyle="grid grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]
@@ -54,7 +79,17 @@ export default function ProgramPage() {
         ItemComponent={ProgramPreview}
         itemComponentProps={{ onDeleteProgram }}
         getKey={(item) => item.id!}
+        NoItemsComponent={NoProgramsComponent}
       />
     </section>
   );
 }
+
+const NoProgramsComponent = () => (
+  <span className="flex flex-col items-center justify-center h-full">
+    <h3 className="text-2xl font-bold ">No programs found</h3>
+    <p className="text-main-orange/90">
+      Create your first program to get started!
+    </p>
+  </span>
+);

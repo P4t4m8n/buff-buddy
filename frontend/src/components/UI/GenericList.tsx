@@ -16,6 +16,7 @@ interface GenericListProps<T, P> {
   itemComponentProps?: P;
   ulStyle?: string;
   getKey: (item: T) => string | number;
+  NoItemsComponent?: React.ComponentType;
 }
 
 export default function GenericList<T, P>({
@@ -24,7 +25,17 @@ export default function GenericList<T, P>({
   itemComponentProps,
   ItemComponent,
   getKey,
+  NoItemsComponent,
 }: GenericListProps<T, P>) {
+  
+  if (!items || !items.length) {
+    return NoItemsComponent ? (
+      <NoItemsComponent />
+    ) : (
+      <p className="text-center text-gray-500">No items found</p>
+    );
+  }
+
   return (
     <ul className={ulStyle}>
       {items.map((item) => (

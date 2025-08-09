@@ -4,7 +4,10 @@ import { programsService } from "./programs.service";
 
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
 import { programsUtils } from "./programs.utils";
-import { CreateProgramSchema, UpdateProgramSchema } from "./programs.validations";
+import {
+  CreateProgramSchema,
+  UpdateProgramSchema,
+} from "./programs.validations";
 
 export const getPrograms = async (req: Request, res: Response) => {
   try {
@@ -15,7 +18,7 @@ export const getPrograms = async (req: Request, res: Response) => {
       throw new AppError("User not authenticated", 401);
     }
 
-    const programsData = await programsService.getAll(filter, userId);
+    const programsData = await programsService.getAll(filter, userId!);
 
     const programs = programsUtils.buildDTOArr(programsData);
 

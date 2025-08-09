@@ -4,7 +4,7 @@ import type {
   IExerciseDTO,
   TExerciseInfo,
 } from "../../../../../shared/models/exercise.model";
-import { useFormErrors } from "../../shared/useFormErrors";
+import { useErrors } from "../../shared/useErrors";
 import { exerciseService } from "../../../services/exercise.service";
 import type {
   ExerciseEquipment,
@@ -22,7 +22,7 @@ export const useExerciseEdit = (
 
   const saveExercise = useExerciseStore((state) => state.saveExercise);
 
-  const { errors, clearErrors, handleError } = useFormErrors<IExerciseDTO>();
+  const { errors, clearErrors, handleError } = useErrors<IExerciseDTO>();
   useEffect(() => {
     setExerciseToEdit(() => (exercise ? exercise : exerciseService.getEmpty()));
   }, [exercise]);

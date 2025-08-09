@@ -7,7 +7,7 @@ import Button from "../components/UI/Button";
 import AuthPageHeader from "../components/Auth/AuthPageHeader";
 import AuthPageFooter from "../components/Auth/AuthPageFooter";
 import { GOOGLE_AUTH_URL } from "../consts/auth.const";
-import { useFormErrors } from "../hooks/shared/useFormErrors";
+import { useErrors } from "../hooks/shared/useErrors";
 import type {
   IAuthSignInDTO,
   IAuthSignUpDTO,
@@ -17,7 +17,7 @@ export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(false);
 
   const { signIn, signUp, isLoading } = useAuthStore();
-  const { errors, handleError } = useFormErrors<
+  const { errors, handleError } = useErrors<
     IAuthSignInDTO | IAuthSignUpDTO
   >();
 

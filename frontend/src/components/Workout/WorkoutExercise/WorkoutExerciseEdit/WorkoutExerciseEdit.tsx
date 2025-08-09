@@ -5,7 +5,7 @@ import Button from "../../../UI/Button";
 import Loader from "../../../UI/Loader";
 
 import { useWorkoutExerciseEdit } from "../../../../hooks/features/program/useWorkoutExerciseEdit";
-import { useFormErrors } from "../../../../hooks/shared/useFormErrors";
+import { useErrors } from "../../../../hooks/shared/useErrors";
 import { toTitle } from "../../../../utils/toTitle";
 
 import WorkoutExerciseEditAddExercise from "./WorkoutExerciseEditAddExercise";
@@ -41,11 +41,11 @@ export default function WorkoutExerciseEdit({
     resetWorkoutExerciseToEdit,
   } = useWorkoutExerciseEdit(workoutExercise, workoutExerciseLength);
 
-  const { errors: coreSetsErrors } = useFormErrors<ICoreStrengthSetDTO>();
+  const { errors: coreSetsErrors } = useErrors<ICoreStrengthSetDTO>();
   const { errors: coreCardioSetsErrors } =
-    useFormErrors<ICoreCardioSetEditDTO>();
+    useErrors<ICoreCardioSetEditDTO>();
   const { errors: workoutExerciseErrors } =
-    useFormErrors<IWorkoutExerciseEditDTO>();
+    useErrors<IWorkoutExerciseEditDTO>();
 
   const { modelRef, setOpen } = props;
 

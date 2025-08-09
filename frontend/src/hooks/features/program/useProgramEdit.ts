@@ -7,7 +7,7 @@ import type { IDateRange } from "../../../models/calendar.model";
 import { useProgramStore } from "../../../store/program.store";
 import { useNavigate } from "react-router";
 import { programUtils } from "../../../utils/program.util";
-import { useFormErrors } from "../../shared/useFormErrors";
+import { useErrors } from "../../shared/useErrors";
 
 interface IProgramEditHook {
   programToEdit: IProgramEditDTO | null;
@@ -26,7 +26,7 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
   const [programToEdit, setProgramToEdit] = useState<IProgramEditDTO | null>(
     null
   );
-  const { errors, handleError } = useFormErrors<IProgramEditDTO>();
+  const { errors, handleError } = useErrors<IProgramEditDTO>();
 
   const isLoading = useProgramStore((state) => state.isLoading);
   const getProgramById = useProgramStore((state) => state.getProgramById);
