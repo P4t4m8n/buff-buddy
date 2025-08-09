@@ -1,8 +1,3 @@
-import type {
-  ExerciseEquipment,
-  ExerciseMuscle,
-} from "../../backend/prisma/generated/prisma";
-
 export const EXERCISE_INFO = ["types", "equipment", "muscles"] as const;
 
 export const EXERCISE_MUSCLES = [

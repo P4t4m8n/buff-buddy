@@ -31,10 +31,11 @@ export const useExerciseEdit = (
     e.preventDefault();
     e.stopPropagation();
     clearErrors();
+    const { id: exerciseId } = exerciseToEdit || {};
     try {
       const formData = new FormData(e.currentTarget);
-      const name = formData.get("name") as string;
-      const youtubeUrl = formData.get("youtubeUrl") as string;
+      const name = formData.get("name" + exerciseId) as string;
+      const youtubeUrl = formData.get("youtubeUrl" + exerciseId) as string;
       const id = formData.get("id") as string;
 
       const res = await saveExercise({

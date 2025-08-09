@@ -3,7 +3,7 @@ import { dbUtil } from "../../../shared/utils/db.util";
 import {
   TCreateCoreStrengthSetInput,
   TUpdateCoreStrengthSetInput,
-} from "../../../../../shared/validations/coreStrengthSets.validations";
+} from "./coreStrengthSets.validations";
 
 interface ICoreStrengthSetSQL {
   getCreateCoreSets: (

@@ -1,3 +1,4 @@
+import { twMerge } from "tailwind-merge";
 import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
 import { toTitle } from "../../utils/toTitle";
 
@@ -8,5 +9,6 @@ export default function ExerciseTypeSelected({
   type,
 }: IExerciseTypeSelectedProps) {
   const text = type ? toTitle(type) : "Select a Type";
-  return <span className="pl-2 text-sm">{text}</span>;
+  const style = twMerge(type ? "text-main-orange" : "text-gray-500", "text-sm");
+  return <span className={style}>{text}</span>;
 }

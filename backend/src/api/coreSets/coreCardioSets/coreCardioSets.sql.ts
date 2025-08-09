@@ -3,7 +3,7 @@ import { dbUtil } from "../../../shared/utils/db.util";
 import {
   TCreateCoreCardioSetInput,
   TUpdateCoreCardioSetInput,
-} from "../../../../../shared/validations/coreCardioSets.validations";
+} from "./coreCardioSets.validations";
 
 interface ICoreCardioSetsSQL {
   getCreateCoreSets: (

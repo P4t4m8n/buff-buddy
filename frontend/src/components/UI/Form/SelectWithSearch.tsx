@@ -7,8 +7,8 @@ import { appUtil } from "../../../utils/app.util";
 
 import Button from "../Button";
 import Input from "./Input";
-import Label from "./Label";
 import IconArrow from "../Icons/IconArrow";
+import LabelWithError from "./LabelWithError";
 
 import type {
   ISelectAddComponentProps,
@@ -20,19 +20,19 @@ interface SelectWithSearchProps<T, P> {
   error?: string | null;
   parentModelRef?: React.RefObject<HTMLDivElement | HTMLFormElement | null>;
   SelectedComponent?: React.ReactNode;
-  handleSelect: (option: T, inputName?: P) => void;
-  filterBy: (option: T) => string;
   AddComponent?: React.ComponentType<ISelectAddComponentProps>;
   SelectItemComponent: React.ComponentType<ISelectItemComponentProps<T>>;
+  handleSelect: (option: T, inputName?: P) => void;
+  filterBy: (option: T) => string;
 }
 export default function SelectWithSearch<T, P>({
   options,
-  SelectedComponent,
-  handleSelect,
   error,
   parentModelRef,
+  SelectedComponent,
   AddComponent,
   SelectItemComponent,
+  handleSelect,
   filterBy,
 }: SelectWithSearchProps<T, P>) {
   const {
@@ -49,22 +49,23 @@ export default function SelectWithSearch<T, P>({
     "absolute z-10 shadow-[0px_0px_6px_1px_rgba(0,0,0,1)] bg-black-300 border rounded p-2 w-full grid grid-rows-[2rem_calc(100%-2rem)] gap-[.5rem] h-42",
     modelPositionClass
   );
+  const selectedDivStyle = twMerge(
+    "inline-flex items-center  w-full border rounded px-2 h-10",
+    error ? "border-error-red" : ""
+  );
 
   return (
     <div className="group relative" ref={modelRef}>
+      <LabelWithError isMoveUpEffect={false} error={error ?? ""} />
+
       <Button
-        className="flex items-center justify-between w-full h-10 border rounded p-1 cursor-pointer "
+        className={selectedDivStyle}
         onClick={handleModel}
       >
         {SelectedComponent}
 
-        <IconArrow className="w-6 h-6 group-has-[ul]:rotate-180 stroke-none fill-main-orange transition-transform duration-300" />
+        <IconArrow className="w-6 h-6 group-has-[ul]:rotate-180 stroke-none fill-main-orange transition-transform duration-300 ml-auto " />
       </Button>
-      {error ? (
-        <Label htmlFor="order" className="text-sm text-red-orange">
-          {error}
-        </Label>
-      ) : null}
 
       {/*
       //INFO:Not using the generic list because need to add the add component

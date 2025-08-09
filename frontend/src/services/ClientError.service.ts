@@ -31,13 +31,13 @@ export class ClientError extends Error {
     message: string,
     statusCode: number = 500,
     isOperational: boolean = true,
-    validationErrors?: Record<string, string>
+    errors?: Record<string, string>
   ): ClientError {
     const newError = new ClientError(
       message,
       statusCode,
       isOperational,
-      validationErrors
+      errors
     );
     console.error(newError);
     return newError;

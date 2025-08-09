@@ -1,3 +1,7 @@
+import type {
+  THttpErrorResponse,
+  THttpMethod,
+} from "../models/apiService.model";
 import { ClientError } from "./ClientError.service";
 
 const BASE_URL =
@@ -9,18 +13,6 @@ interface IApiService {
   put: <T>(endpoint: string, data?: unknown) => Promise<T>;
   delete: <T>(endpoint: string, data?: unknown) => Promise<T>;
 }
-
-export const HTTP_METHODS = ["GET", "POST", "PUT", "DELETE"] as const;
-export type THttpPostResponse<T> = {
-  massage: string;
-  data: T;
-};
-
-export type THttpErrorResponse = {
-  message?: string;
-  errors?: Record<string, string>;
-};
-type THttpMethod = (typeof HTTP_METHODS)[number];
 
 export const apiService: IApiService = {
   get(endpoint, data) {
@@ -64,7 +56,6 @@ const ajax = async <T>(
     url += `?${queryParams.toString()}`;
   }
 
-  // console.info("Calling API endpoint:", url, "with options:", options);
   const res = await fetch(url, options);
   if (!res.ok) {
     let errorBody: THttpErrorResponse;
@@ -73,7 +64,7 @@ const ajax = async <T>(
     } catch {
       errorBody = {};
     }
-    throw new ClientError(
+    throw ClientError.create(
       errorBody?.message || res.statusText,
       res.status,
       undefined,

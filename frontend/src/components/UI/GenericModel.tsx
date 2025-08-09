@@ -8,7 +8,7 @@ import type { TModelButtonIconMode } from "../../models/UI.model";
 
 export interface IModelProps<T extends HTMLElement> {
   handleModel?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   modelRef?: React.RefObject<T | null>;
 }
 
@@ -30,13 +30,13 @@ export default function GenericModel<T extends HTMLElement, P>({
   mode,
   isOverlay = true,
 }: IGenericDialogProps<T, P>) {
-  const [isOpen, modelRef, setOpen, handleModel] = useModel<T>();
+  const [isOpen, modelRef, , setIsOpen, handleModel, ,] = useModel<T>();
 
   const getModel = () => {
     const props: P & IModelProps<T> = {
       ...(modelProps as P),
       handleModel,
-      setOpen,
+      setIsOpen,
       modelRef,
     };
     return isPortal ? (

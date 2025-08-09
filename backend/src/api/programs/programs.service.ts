@@ -2,13 +2,13 @@ import { DaysOfWeek, Prisma, Program } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
 import { dbUtil } from "../../shared/utils/db.util";
 import { workoutSQL } from "../workouts/workout.sql";
-import { TCreateWorkoutInput } from "../../../../shared/validations/workouts.validations";
+import { TCreateWorkoutInput } from "../workouts/workouts.validations";
 import { programsSQL } from "./program.sql";
 import { IProgram, IProgramFilter } from "./programs.models";
 import {
   TCreateProgramInput,
   TUpdateProgramInput,
-} from "../../../../shared/validations/programs.validations";
+} from "./programs.validations";
 
 //TODO?? move to raw SQL for performance due to junction tables and reorganize of structure data
 export const programsService = {

@@ -39,3 +39,9 @@ export const CRUD_OPERATIONS = [
 export type TCrudOperation = (typeof CRUD_OPERATIONS)[number];
 
 export type TIconMode = "create" | "edit" | "details" | "delete";
+
+export interface IValidationProps {
+  minLength?: number;
+  maxLength?: number;
+  fieldName?: string;
+}

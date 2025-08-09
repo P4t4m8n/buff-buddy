@@ -33,7 +33,6 @@ export default function SelectMultiWithSearch<T, P>({
     modelRef,
     modelPositionClass,
     handleSearchChange,
-    handleModel,
     handleModelWithPosition,
 
     setOptionsList,
@@ -76,10 +75,15 @@ export default function SelectMultiWithSearch<T, P>({
     isOpen ? "rotate-180" : ""
   );
 
+  const selectedDivStyle = twMerge(
+    "inline-flex items-center gap-2 w-full border rounded pl-2 h-10",
+    error ? "border-error-red" : ""
+  );
+
   return (
     <div ref={modelRef} className="w-full h-fit relative">
-      <div className="inline-flex items-center gap-2 w-full border rounded pl-2 h-10">
-        <LabelWithError error={error} />
+      <LabelWithError error={error} isMoveUpEffect={false} />
+      <div className={selectedDivStyle}>
         {optionsSelected.length ? (
           <GenericList
             items={optionsSelected}
@@ -92,7 +96,7 @@ export default function SelectMultiWithSearch<T, P>({
             ulStyle=" w-full flex flex-wrap gap-2"
           />
         ) : (
-          <p>No selected options</p>
+          <p className="text-gray-500">No selected options</p>
         )}
 
         <Button

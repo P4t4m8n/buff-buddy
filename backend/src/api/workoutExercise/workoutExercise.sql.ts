@@ -41,10 +41,10 @@ const getWorkoutExerciseUpdate = (
     ...dbUtil.cleanData({
       order: data.order ?? undefined,
       notes: data.notes,
-      exercise: { connect: { id: data.exerciseData } },
+      exercise: { connect: { id: data.exerciseData?.id } },
     }),
   };
-  
+
   if (data.coreStrengthSet) {
     updateInput.coreStrengthSet = {
       update: dbUtil.cleanData(
@@ -52,7 +52,7 @@ const getWorkoutExerciseUpdate = (
       ),
     };
   }
-  
+
   if (data.coreCardioSet) {
     updateInput.coreCardioSet = {
       update: dbUtil.cleanData(

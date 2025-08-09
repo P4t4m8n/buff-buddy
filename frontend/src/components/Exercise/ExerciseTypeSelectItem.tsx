@@ -12,7 +12,7 @@ export default function ExerciseTypeSelectItem({
     <li className="w-full h-full">
       <Button
         onClick={(e) => onClick(e, item)}
-        className="w-full h-full flex cursor-pointer items-center justify-between"
+        className="w-full h-full flex cursor-pointer items-center justify-between "
       >
         {item ? item : "No Type Selected"}
         <IconPlus className=" h-8 aspect-square stroke-main-black" />

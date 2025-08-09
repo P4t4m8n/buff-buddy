@@ -1,12 +1,10 @@
 import { Request, Response } from "express";
 import { AppError } from "../../shared/services/Error.service";
 import { programsService } from "./programs.service";
-import {
-  CreateProgramSchema,
-  UpdateProgramSchema,
-} from "../../../../shared/validations/programs.validations";
+
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
 import { programsUtils } from "./programs.utils";
+import { CreateProgramSchema, UpdateProgramSchema } from "./programs.validations";
 
 export const getPrograms = async (req: Request, res: Response) => {
   try {

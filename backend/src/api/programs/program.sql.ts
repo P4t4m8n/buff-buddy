@@ -1,11 +1,11 @@
 import { DaysOfWeek, Prisma } from "../../../prisma/generated/prisma";
 import { coreCardioSetsSQL } from "../coreSets/coreCardioSets/coreCardioSets.sql";
 import { coreStrengthSetsSQL } from "../coreSets/coreStrengthSets/coreStrengthSets.sql";
-import { TCreateProgramWorkoutInput } from "../../../../shared/validations/programWorkout.validations";
 import { userSQL } from "../users/users.sql";
 import { workoutSQL } from "../workouts/workout.sql";
+import { TCreateProgramInput } from "./programs.validations";
+import { TCreateProgramWorkoutInput } from "./programWorkout.validations";
 
-import { TCreateProgramInput } from "../../../../shared/validations/programs.validations";
 
 const PROGRAM_WORKOUTS_SELECT: Prisma.ProgramWorkoutSelect = {
   id: true,

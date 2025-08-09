@@ -14,9 +14,9 @@ export default function LabelWithError({
   ...props
 }: ILabelWithErrorProps) {
   const errorStyle = error
-    ? `text-sm w-fit text-red-orange
-     peer-[:not(:placeholder-shown)]:text-red-orange
-                  peer-focus:text-red-orange`
+    ? `text-sm w-fit text-error-red
+     peer-[:not(:placeholder-shown)]:text-error-red
+                  peer-focus:text-error-red`
     : "";
 
   const style = twMerge(errorStyle, props.className ?? "");

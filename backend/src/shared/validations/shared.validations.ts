@@ -1,11 +1,8 @@
 import { z } from "zod";
 import sanitizeHtml from "sanitize-html";
+import { IValidationProps } from "../../../../shared/models/app.model";
 
-interface IValidationProps {
-  minLength?: number;
-  maxLength?: number;
-  fieldName?: string;
-}
+
 export const conditionalOrderRefinement = (
   data: { order?: number | null; crudOperation?: string },
   ctx: z.RefinementCtx

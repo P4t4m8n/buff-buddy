@@ -32,7 +32,7 @@ export default function ExerciseEdit({
   exercise,
   ...props
 }: ExerciseEditProps) {
-  const { setOpen, modelRef } = props;
+  const { setIsOpen, modelRef } = props;
 
   const {
     exerciseToEdit,
@@ -41,7 +41,7 @@ export default function ExerciseEdit({
     handleType,
     handleExerciseInfo,
     onCancel,
-  } = useExerciseEdit(exercise, setOpen);
+  } = useExerciseEdit(exercise, setIsOpen);
 
   const { id, muscles, equipment, type, name, youtubeUrl } =
     exerciseToEdit || {};
@@ -64,7 +64,7 @@ export default function ExerciseEdit({
       ref={modelRef}
       onSubmit={onSubmit}
       className="bg-black-500 p-4 grid gap-4 rounded w-[calc(100%-1rem)]
-       max-w-96 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 border"
+                   max-w-96 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 border"
     >
       <Input hidden defaultValue={id} name="id" />
 
@@ -80,7 +80,11 @@ export default function ExerciseEdit({
         error={errors?.name}
       />
 
-      <YoutubeInput youtubeUrlProps={youtubeUrl} error={errors?.youtubeUrl} />
+      <YoutubeInput
+        youtubeUrlProps={youtubeUrl}
+        error={errors?.youtubeUrl}
+        parentId={id}
+      />
 
       {/* //INFO: Exercise Type Select */}
       <SelectWithSearch

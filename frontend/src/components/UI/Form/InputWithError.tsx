@@ -14,22 +14,23 @@ export default function InputWithError({
   error,
 }: InputWithErrorProps) {
   const labelErrorStyle = error
-    ? `text-sm w-fit text-red-orange
-     peer-[:not(:placeholder-shown)]:text-red-orange
-                  peer-focus:text-red-orange`
+    ? `text-sm w-fit text-error-red
+       peer-[:not(:placeholder-shown)]:text-error-red
+       peer-focus:text-error-red`
     : "";
 
   const inputStyle = twMerge(
     "w-full h-10 peer outline-offset-0 pl-2 border-1 rounded",
-    inputProps.className ?? ""
+    inputProps.className ?? "",
+    error ? "border-error-red" : ""
   );
 
   const labelStyle = twMerge(labelErrorStyle, labelProps.className ?? "");
 
-  const divStyle = "rounded h-full border-black outline-black";
+  const divStyle = "rounded h-full ";
   return (
     <Input
-    placeholder=""
+      placeholder=""
       {...inputProps}
       className={inputStyle}
       divStyle={divStyle}
