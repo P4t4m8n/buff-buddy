@@ -1,13 +1,14 @@
 import { z } from "zod";
+
 import {
   CrudOperationSchema,
   DaysOfWeekSchema,
   IDSchema,
-} from "./shared.validations";
+} from "../../shared/validations/shared.validations";
 import {
-  UpdateWorkoutSchema,
   CreateWorkoutSchema,
-} from "./workouts.validations";
+  UpdateWorkoutSchema,
+} from "../workouts/workouts.validations";
 
 const BadeProgramWorkoutSchema = z.object({
   daysOfWeek: DaysOfWeekSchema.optional(),

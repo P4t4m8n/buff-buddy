@@ -4,6 +4,11 @@ import type {
 } from "../../../shared/models/exercise.model";
 import { appUtil } from "../utils/app.util";
 import { apiService, type THttpPostResponse } from "./api.service";
+import {
+  CreateExerciseSchema,
+  UpdateExerciseSchema,
+} from "../../../backend/src/api/exercises/exercises.validations";
+import { ClientError } from "./ClientError.service";
 
 export const exerciseService = {
   rootPath: "/exercises",
@@ -20,15 +25,21 @@ export const exerciseService = {
   },
 
   async save(dto: IExerciseDTO): Promise<THttpPostResponse<IExerciseDTO>> {
-    return dto.id
-      ? await apiService.put<THttpPostResponse<IExerciseDTO>>(
-          `${this.rootPath}/edit/${dto.id}`,
-          dto
-        )
-      : await apiService.post<THttpPostResponse<IExerciseDTO>>(
-          `${this.rootPath}/edit`,
-          dto
-        );
+    if (!dto) throw ClientError.create("Exercise data is required", 400);
+
+    if (!dto.id || dto.id.startsWith("temp")) {
+      const validatedDTO = CreateExerciseSchema.parse(dto);
+      return await apiService.post<THttpPostResponse<IExerciseDTO>>(
+        `${this.rootPath}/edit`,
+        validatedDTO
+      );
+    }
+
+    const validatedDTO = UpdateExerciseSchema.parse(dto);
+    return await apiService.put<THttpPostResponse<IExerciseDTO>>(
+      `${this.rootPath}/edit/${dto.id}`,
+      validatedDTO
+    );
   },
 
   async delete(id: string): Promise<void> {

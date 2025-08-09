@@ -6,7 +6,7 @@ import { userSQL } from "../users/users.sql";
 import { userCardioSetsSQL } from "../userSets/userCardioSets/userCardioSets.sql";
 import { userStrengthSetsSQL } from "../userSets/userStrengthSets/userStrengthSets.sql";
 import { workoutSQL } from "../workouts/workout.sql";
-import { TCreateUserWorkoutInput } from "../../../../shared/validations/userWorkout.validations";
+import { TCreateUserWorkoutInput } from "./userWorkout.validations";
 
 const USER_WORKOUT_EXERCISE_SELECT: Prisma.UserWorkoutExerciseSelect = {
   id: true,

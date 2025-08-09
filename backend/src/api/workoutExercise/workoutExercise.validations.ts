@@ -5,16 +5,11 @@ import {
   CrudOperationEnumSchema,
   IDSchema,
   stringValidationAndSanitization,
-} from "./shared.validations";
-import {
-  CreateCoreStrengthSetSchema,
-  UpdateCoreStrengthSetSchema,
-} from "./coreStrengthSets.validations";
-import {
-  CreateCoreCardioSetSchema,
-  UpdateCoreCardioSetSchema,
-} from "./coreCardioSets.validations";
-import { ExerciseTypeSchema } from "./exercises.validations";
+} from "../../shared/validations/shared.validations";
+
+import { ExerciseTypeSchema } from "../exercises/exercises.validations";
+import { CreateCoreStrengthSetSchema, UpdateCoreStrengthSetSchema } from "../coreSets/coreStrengthSets/coreStrengthSets.validations";
+import { CreateCoreCardioSetSchema, UpdateCoreCardioSetSchema } from "../coreSets/coreCardioSets/coreCardioSets.validations";
 
 const exerciseTypeSetRefinement = (
   data: {

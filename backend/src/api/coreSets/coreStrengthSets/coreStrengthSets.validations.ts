@@ -1,9 +1,9 @@
 import { z } from "zod";
 import {
+  numberValidation,
   CrudOperationSchema,
   IDSchema,
-  numberValidation,
-} from "./shared.validations";
+} from "../../../shared/validations/shared.validations";
 
 const coreStrengthSetWeightRefinement = (
   data: { weight?: number; isBodyWeight?: boolean },

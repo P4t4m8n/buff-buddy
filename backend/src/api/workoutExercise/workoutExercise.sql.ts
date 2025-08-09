@@ -5,7 +5,7 @@ import { coreStrengthSetsSQL } from "../coreSets/coreStrengthSets/coreStrengthSe
 import {
   TCreateWorkoutExerciseInput,
   TUpdateWorkoutExerciseInput,
-} from "../../../../shared/validations/workoutExercise.validations";
+} from "./workoutExercise.validations";
 
 const getWorkoutExerciseCreate = (
   dto: TCreateWorkoutExerciseInput | null
@@ -41,7 +41,7 @@ const getWorkoutExerciseUpdate = (
     ...dbUtil.cleanData({
       order: data.order ?? undefined,
       notes: data.notes,
-      exercise: { connect: { id: data.exerciseData?.id } },
+      exercise: { connect: { id: data.exerciseData } },
     }),
   };
   

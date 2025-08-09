@@ -3,11 +3,11 @@ import {
   CrudOperationSchema,
   IDSchema,
   stringValidationAndSanitization,
-} from "./shared.validations";
+} from "../../shared/validations/shared.validations";
 import {
   CreateNestedWorkoutExerciseSchema,
   UpdateNestedWorkoutExerciseSchema,
-} from "./workoutExercise.validations";
+} from "../../api/workoutExercise/workoutExercise.validations";
 
 const BaseWorkoutSchema = z.object({
   programId: z.string().nullish(),
@@ -16,7 +16,9 @@ const BaseWorkoutSchema = z.object({
     fieldName: "Workout notes",
     minLength: 0,
     maxLength: 500,
-  }).nullish().optional(),
+  })
+    .nullish()
+    .optional(),
   name: stringValidationAndSanitization({
     fieldName: "Workout name",
     minLength: 1,

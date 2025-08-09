@@ -1,4 +1,4 @@
-import { ApiError } from "../utils/ApiError.util";
+import { ClientError } from "./ClientError.service";
 
 const BASE_URL =
   import.meta.env.VITE_PUBLIC_API_BASE_URL || "http://localhost:3030";
@@ -73,9 +73,10 @@ const ajax = async <T>(
     } catch {
       errorBody = {};
     }
-    throw new ApiError(
+    throw new ClientError(
       errorBody?.message || res.statusText,
       res.status,
+      undefined,
       errorBody?.errors
     );
   }

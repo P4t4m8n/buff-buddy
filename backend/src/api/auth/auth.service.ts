@@ -7,7 +7,7 @@ import {
   TCreateUserInput,
   TGoogleOAuthInput,
   TSignInInput,
-} from "../../../../shared/validations/auth.validations";
+} from "./auth.validations";
 
 export const authService = {
   signUp: async (dto: TCreateUserInput | TGoogleOAuthInput) => {

@@ -3,7 +3,7 @@ import {
   CreateUserSchema,
   GoogleOAuthSchema,
   SignInSchema,
-} from "../../../../shared/validations/auth.validations";
+} from "./auth.validations";
 import { authService } from "./auth.service";
 import { AppError } from "../../shared/services/Error.service";
 import { COOKIE } from "./auth.consts";

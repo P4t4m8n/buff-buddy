@@ -10,7 +10,7 @@ import { exerciseUtil } from "./exercise.util";
 import {
   TCreateExerciseInput,
   TUpdateExerciseInput,
-} from "../../../../shared/validations/exercises.validations";
+} from "./exercises.validations";
 
 export const exerciseService = {
   getAll: async (filter: IExerciseFilter): Promise<IExerciseDTO[]> => {

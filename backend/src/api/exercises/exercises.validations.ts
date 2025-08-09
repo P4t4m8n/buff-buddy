@@ -1,14 +1,13 @@
 import { z } from "zod";
-import sanitizeHtml from "sanitize-html";
 import {
   EXERCISE_EQUIPMENT,
   EXERCISE_MUSCLES,
   EXERCISE_TYPES,
-} from "../consts/exercise.consts";
+} from "../../../../shared/consts/exercise.consts";
 import {
   IDSchema,
   stringValidationAndSanitization,
-} from "./shared.validations";
+} from "../../shared/validations/shared.validations";
 
 export const ExerciseMuscleSchema = z.enum(EXERCISE_MUSCLES);
 

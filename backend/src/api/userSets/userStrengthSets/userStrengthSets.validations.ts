@@ -1,12 +1,13 @@
 import { z } from "zod";
+
 import {
+  numberValidation,
   BooleanSchema,
   conditionalWeightRefinement,
   CrudOperationSchema,
   IDSchema,
-  numberValidation,
   stringValidationAndSanitization,
-} from "./shared.validations";
+} from "../../../shared/validations/shared.validations";
 
 const UserStrengthSetSchema = z.object({
   reps: numberValidation({ fieldName: "Reps" }),

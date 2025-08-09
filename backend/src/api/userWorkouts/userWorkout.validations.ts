@@ -2,7 +2,7 @@ import { z } from "zod";
 import {
   DateSchema,
   IDSchema,
-} from "./shared.validations";
+} from "../../shared/validations/shared.validations";
 import { CreateUserStrengthSetSchema } from "./userStrengthSets.validations";
 import { CreateUserCardioSetSchema } from "./userCardioSets.validations";
 const userSetRefinement = (

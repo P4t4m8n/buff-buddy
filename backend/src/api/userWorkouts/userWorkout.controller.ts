@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
 import { AppError } from "../../shared/services/Error.service";
-import { CreateUserWorkoutSchema } from "../../../../shared/validations/userWorkout.validations";
+import { CreateUserWorkoutSchema } from "./userWorkout.validations";
 import { userWorkoutService } from "./userWorkouts.service";
 import { userWorkoutsUtils } from "./userWorkouts.util";
 

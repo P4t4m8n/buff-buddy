@@ -6,7 +6,6 @@ import {
 
 import { useExerciseStore } from "../../store/exercise.store";
 import { useExerciseEdit } from "../../hooks/features/exercise/useExerciseEdit";
-import { toTitle } from "../../utils/toTitle";
 
 import Button from "../UI/Button";
 import Input from "../UI/Form/Input";
@@ -17,13 +16,13 @@ import SelectWithSearch from "../UI/Form/SelectWithSearch";
 import InputWithError from "../UI/Form/InputWithError";
 
 import ExerciseTypeSelectItem from "./ExerciseTypeSelectItem";
+import ExerciseTypeSelected from "./ExerciseTypeSelected";
 
 import type {
   IExerciseDTO,
   TExerciseInfo,
 } from "../../../../shared/models/exercise.model";
 import type { IModelProps } from "../UI/GenericModel";
-import ExerciseTypeSelected from "./ExerciseTypeSelected";
 
 interface ExerciseEditProps extends IModelProps<HTMLFormElement> {
   exercise?: IExerciseDTO;
@@ -65,7 +64,7 @@ export default function ExerciseEdit({
       ref={modelRef}
       onSubmit={onSubmit}
       className="bg-black-500 p-4 grid gap-4 rounded w-[calc(100%-1rem)]
-       max-w-96 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40"
+       max-w-96 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 border"
     >
       <Input hidden defaultValue={id} name="id" />
 

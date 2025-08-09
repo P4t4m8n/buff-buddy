@@ -7,38 +7,50 @@ import Button from "../components/UI/Button";
 import AuthPageHeader from "../components/Auth/AuthPageHeader";
 import AuthPageFooter from "../components/Auth/AuthPageFooter";
 import { GOOGLE_AUTH_URL } from "../consts/auth.const";
+import { useFormErrors } from "../hooks/shared/useFormErrors";
+import type {
+  IAuthSignInDTO,
+  IAuthSignUpDTO,
+} from "../../../shared/models/auth.model";
 
 export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(false);
 
-  const { signIn, signUp, isLoading, error } = useAuthStore();
+  const { signIn, signUp, isLoading } = useAuthStore();
+  const { errors, handleError } = useFormErrors<
+    IAuthSignInDTO | IAuthSignUpDTO
+  >();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
+    try {
+      e.preventDefault();
+      e.stopPropagation();
 
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+      const formData = new FormData(e.currentTarget);
+      const email = formData.get("email") as string;
+      const password = formData.get("password") as string;
 
-    if (isSignUp) {
-      const firstName = formData.get("firstName") as string;
-      const lastName = formData.get("lastName") as string;
-      const confirmPassword = formData.get("confirmPassword") as string;
+      if (isSignUp) {
+        const firstName = formData.get("firstName") as string;
+        const lastName = formData.get("lastName") as string;
+        const confirmPassword = formData.get("confirmPassword") as string;
 
-      if (password !== confirmPassword) {
-        return alert("Passwords do not match");
+        if (password !== confirmPassword) {
+          return alert("Passwords do not match");
+        }
+
+        await signUp({
+          firstName,
+          lastName,
+          email,
+          password,
+          confirmPassword,
+        });
+      } else {
+        await signIn({ email, password });
       }
-
-      await signUp({
-        firstName,
-        lastName,
-        email,
-        password,
-        confirmPassword,
-      });
-    } else {
-      await signIn({ email, password });
+    } catch (error) {
+      handleError(error);
     }
   };
 
@@ -65,9 +77,9 @@ export default function AuthPage() {
             </p>
           </div>
 
-          {error && (
+          {errors && (
             <span className="bg-red-100 border border-red-400 text-red-700">
-              {error.message}
+              {errors.email || errors.password || errors.unknown}
             </span>
           )}
 
@@ -114,7 +126,7 @@ export default function AuthPage() {
                   type="text"
                   name="lastName"
                   placeholder=""
-                      className={`w-full h-10 peer outline-offset-0 pl-2 border-1 rounded`}
+                  className={`w-full h-10 peer outline-offset-0 pl-2 border-1 rounded`}
                   divStyle="  rounded h-full border-black outline-black"
                   required={isSignUp}
                 >

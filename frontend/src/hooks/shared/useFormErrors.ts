@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
-import { ApiError } from "../../utils/ApiError.util";
 import { emitEvent } from "../../utils/toast.util";
+import { ClientError } from "../../services/ClientError.service";
 
 type TFormErrors<T> = Partial<Record<keyof T | "unknown", string>>;
 
@@ -13,7 +13,7 @@ export function useFormErrors<T extends object>() {
 
   const handleError = useCallback((error: unknown) => {
     emitEvent({ type: "error", cmp: "error" });
-    if (error instanceof ApiError) {
+    if (ClientError.isAppError(error)) {
       setErrors((prev) => ({
         ...(prev as TFormErrors<T>),
         ...error.errors,

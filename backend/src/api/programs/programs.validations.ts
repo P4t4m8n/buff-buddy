@@ -1,9 +1,7 @@
 import { z } from "zod";
-import { stringValidationAndSanitization } from "./shared.validations";
-import {
-  CreateProgramWorkoutSchema,
-  UpdateProgramWorkoutSchema,
-} from "./programWorkout.validations";
+import { stringValidationAndSanitization } from "../../shared/validations/shared.validations";
+import { CreateProgramWorkoutSchema, UpdateProgramWorkoutSchema } from "./programWorkout.validations";
+
 
 const BaseProgramSchema = z.object({
   name: stringValidationAndSanitization({

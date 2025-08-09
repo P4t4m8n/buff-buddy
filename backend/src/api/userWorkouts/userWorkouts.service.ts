@@ -1,4 +1,4 @@
-import { TCreateUserWorkoutInput } from "../../../../shared/validations/userWorkout.validations";
+import { TCreateUserWorkoutInput } from "./userWorkout.validations";
 import { prisma } from "../../../prisma/prisma";
 import { IUserWorkout } from "./userWorkouts.model";
 import { userWorkoutSql } from "./userWorkout.sql";

@@ -8,11 +8,11 @@ import { workoutExerciseSQL } from "../workoutExercise/workoutExercise.sql";
 import {
   TCreateWorkoutExerciseInput,
   TUpdateWorkoutExerciseInput,
-} from "../../../../shared/validations/workoutExercise.validations";
+} from "../workoutExercise/workoutExercise.validations";
 import {
   TCreateWorkoutInput,
   TUpdateWorkoutInput,
-} from "../../../../shared/validations/workouts.validations";
+} from "./workouts.validations";
 
 const WORKOUT_EXERCISE_SELECT: Prisma.WorkoutExerciseSelect = {
   id: true,
@@ -75,7 +75,7 @@ const getWorkoutUpdate = (
     workoutExercises?.filter((we) => we.crudOperation === "update") ?? [];
   const exercisesToDelete =
     workoutExercises?.filter((we) => we.crudOperation === "delete") ?? [];
-  const x = {
+  const x: Prisma.WorkoutUpdateInput = {
     id: workoutData.id,
     ...dbUtil.cleanData({
       notes: workoutData.notes,

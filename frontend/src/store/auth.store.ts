@@ -5,11 +5,9 @@ import type {
   IAuthUserDTO,
   IAuthSignUpDTO,
 } from "../../../shared/models/auth.model";
-import { ApiError } from "../utils/ApiError.util";
 
 interface IAuthStore {
   user: IAuthUserDTO | null;
-  error: { errors?: Record<string, string>; message: string } | null;
   isLoading: boolean;
   loadSessionUser: () => Promise<void>;
   signIn: (dto: IAuthSignInDTO) => Promise<void>;
@@ -19,25 +17,13 @@ interface IAuthStore {
 
 export const useAuthStore = create<IAuthStore>((set) => ({
   user: null,
-  error: null,
   isLoading: true,
 
   loadSessionUser: async () => {
     try {
-      set({ isLoading: true, error: null });
+      set({ isLoading: true });
       const res = await authService.getSessionUser();
-      set({ user: res.data, error: null });
-    } catch (error) {
-      set({
-        error:
-          error instanceof ApiError
-            ? { errors: error.errors, message: error.message }
-            : {
-                errors: { unknown: "Error" },
-                message: "Unknown",
-              },
-        user: null,
-      });
+      set({ user: res.data });
     } finally {
       set({ isLoading: false });
     }
@@ -45,20 +31,9 @@ export const useAuthStore = create<IAuthStore>((set) => ({
 
   signIn: async (dto: IAuthSignInDTO) => {
     try {
-      set({ isLoading: true, error: null });
+      set({ isLoading: true });
       const user = await authService.signIn(dto);
       set({ user });
-    } catch (error) {
-      set({
-        error:
-          error instanceof ApiError
-            ? { errors: error.errors, message: error.message }
-            : {
-                errors: { unknown: "Error" },
-                message: "Unknown",
-              },
-        user: null,
-      });
     } finally {
       set({ isLoading: false });
     }
@@ -66,20 +41,9 @@ export const useAuthStore = create<IAuthStore>((set) => ({
 
   signUp: async (dto: IAuthSignUpDTO) => {
     try {
-      set({ isLoading: true, error: null });
+      set({ isLoading: true });
       const user = await authService.signUp(dto);
       set({ user });
-    } catch (error) {
-      set({
-        error:
-          error instanceof ApiError
-            ? { errors: error.errors, message: error.message }
-            : {
-                errors: { unknown: "Error" },
-                message: "Unknown",
-              },
-        user: null,
-      });
     } finally {
       set({ isLoading: false });
     }
@@ -87,20 +51,9 @@ export const useAuthStore = create<IAuthStore>((set) => ({
 
   signOut: async () => {
     try {
-      set({ isLoading: true, error: null });
+      set({ isLoading: true });
       await authService.signOut();
       set({ user: null });
-    } catch (error) {
-      set({
-        error:
-          error instanceof ApiError
-            ? { errors: error.errors, message: error.message }
-            : {
-                errors: { unknown: "Error" },
-                message: "Unknown",
-              },
-        user: null,
-      });
     } finally {
       set({ isLoading: false });
     }
