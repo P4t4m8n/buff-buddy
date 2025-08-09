@@ -6,7 +6,7 @@ import {
   CreateWorkoutSchema,
   UpdateWorkoutSchema,
   WorkoutQuerySchema,
-} from "./workouts.validations";
+} from "../../../../shared/validations/workouts.validations";
 import { workoutUtils } from "./workout.utils";
 
 export const getWorkouts = async (req: Request, res: Response) => {

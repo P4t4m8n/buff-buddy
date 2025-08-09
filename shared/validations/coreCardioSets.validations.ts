@@ -3,7 +3,7 @@ import {
   CrudOperationSchema,
   IDSchema,
   numberValidation,
-} from "../../../shared/validations/shared.validations";
+} from "./shared.validations";
 
 const DAY_IN_SECONDES = 60 * 60 * 24;
 

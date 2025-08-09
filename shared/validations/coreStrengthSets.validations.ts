@@ -3,7 +3,7 @@ import {
   CrudOperationSchema,
   IDSchema,
   numberValidation,
-} from "../../../shared/validations/shared.validations";
+} from "./shared.validations";
 
 const coreStrengthSetWeightRefinement = (
   data: { weight?: number; isBodyWeight?: boolean },

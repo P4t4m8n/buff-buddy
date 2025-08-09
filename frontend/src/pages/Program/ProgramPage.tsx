@@ -12,7 +12,6 @@ import GenericList from "../../components/UI/GenericList";
 
 export default function ProgramPage() {
   const programs = useProgramStore((state) => state.programs);
-  console.log("🚀 ~ ProgramPage ~ programs:", programs)
   const loadPrograms = useProgramStore((state) => state.loadPrograms);
   const isLoading = useProgramStore((state) => state.isLoading);
   const deleteProgram = useProgramStore((state) => state.deleteProgram);

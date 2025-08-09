@@ -3,7 +3,7 @@ import sanitizeHtml from "sanitize-html";
 import {
   IDSchema,
   stringValidationAndSanitization,
-} from "../../shared/validations/shared.validations";
+} from "./shared.validations";
 
 export const CreateUserSchema = z
   .object({

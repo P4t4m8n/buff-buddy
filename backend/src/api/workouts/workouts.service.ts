@@ -4,7 +4,7 @@ import { IWorkout, IWorkoutFilter } from "./workouts.models";
 import {
   TCreateWorkoutInput,
   TUpdateWorkoutInput,
-} from "./workouts.validations";
+} from "../../../../shared/validations/workouts.validations";
 import { workoutUtils } from "./workout.utils";
 import { workoutSQL } from "./workout.sql";
 

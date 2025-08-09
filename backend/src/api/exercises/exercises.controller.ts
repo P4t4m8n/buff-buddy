@@ -4,7 +4,7 @@ import {
   CreateExerciseSchema,
   ExerciseQuerySchema,
   UpdateExerciseSchema,
-} from "./exercises.validations";
+} from "../../../../shared/validations/exercises.validations";
 import { exerciseService } from "./exercises.service";
 
 export const getExercises = async (req: Request, res: Response) => {

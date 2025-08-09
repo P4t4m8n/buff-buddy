@@ -5,7 +5,7 @@ import {
   IDSchema,
   numberValidation,
   stringValidationAndSanitization,
-} from "../../../shared/validations/shared.validations";
+} from "./shared.validations";
 
 export const CreateUserCardioSetSchema = z.object({
   workTime: numberValidation({ fieldName: "Work Time", maxLength: 10000000 }),

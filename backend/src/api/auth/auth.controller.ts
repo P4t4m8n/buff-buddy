@@ -3,13 +3,12 @@ import {
   CreateUserSchema,
   GoogleOAuthSchema,
   SignInSchema,
-} from "./auth.validations";
+} from "../../../../shared/validations/auth.validations";
 import { authService } from "./auth.service";
 import { AppError } from "../../shared/services/Error.service";
 import { COOKIE } from "./auth.consts";
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
 import { TGoogleUserResponse } from "./auth.model";
-import { get } from "http";
 
 export const signUp = async (req: Request, res: Response) => {
   try {
@@ -79,22 +78,18 @@ export const getSessionUser = async (req: Request, res: Response) => {
 
 export const googleRedirect = async (req: Request, res: Response) => {
   const clientId = process.env.GOOGLE_CLIENT_ID;
-  console.log("🚀 ~ googleRedirect ~ clientId:", clientId)
   const redirectUri = process.env.GOOGLE_REDIRECT_URI;
-  console.log("🚀 ~ googleRedirect ~ redirectUri:", redirectUri)
   if (!clientId || !redirectUri) {
     throw AppError.create("Google OAuth credentials are not set", 500);
   }
   const googleAuthURL = `https://accounts.google.com/o/oauth2/v2/auth
   ?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email%20profile`;
-  console.log("🚀 ~ googleRedirect ~ googleAuthURL:", googleAuthURL)
   res.redirect(googleAuthURL);
 };
 
 export const googleCallback = async (req: Request, res: Response) => {
   try {
     const { code } = req.query;
-    console.log("🚀 ~ googleCallback ~ req.query:", req.query)
     if (!code) {
       throw AppError.create("Authorization code is required", 400);
     }
@@ -102,7 +97,7 @@ export const googleCallback = async (req: Request, res: Response) => {
     const accessToken = await getGoogleTokenResponse(code.toString());
 
     const userInfo = await getGoogleUserInfo(accessToken);
-    
+
     const validateGoogleAuth = GoogleOAuthSchema.parse({
       email: userInfo.email,
       firstName: userInfo.given_name,
@@ -113,11 +108,9 @@ export const googleCallback = async (req: Request, res: Response) => {
     const { token } = await authService.signInWithGoogle(validateGoogleAuth);
 
     const frontendUrl = process.env.FRONTEND_URL;
-    console.log("🚀 ~ googleCallback ~ frontendUrl:", frontendUrl)
     res.cookie("token", token, COOKIE).redirect(frontendUrl!);
   } catch (error) {
     const err = AppError.handleResponse(error);
-    console.log("🚀 ~ googleCallback ~ err:", err)
     res.status(err.status || 500).json({
       message: err.message || "An unexpected error occurred",
       errors: err.errors || {},

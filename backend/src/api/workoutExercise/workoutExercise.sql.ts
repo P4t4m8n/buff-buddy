@@ -5,7 +5,7 @@ import { coreStrengthSetsSQL } from "../coreSets/coreStrengthSets/coreStrengthSe
 import {
   TCreateWorkoutExerciseInput,
   TUpdateWorkoutExerciseInput,
-} from "./workoutExercise.validations";
+} from "../../../../shared/validations/workoutExercise.validations";
 
 const getWorkoutExerciseCreate = (
   dto: TCreateWorkoutExerciseInput | null

@@ -1,5 +1,5 @@
 import { Prisma } from "../../../../prisma/generated/prisma";
-import { TCreateUserCardioSetInput } from "./userCardioSets.validations";
+import { TCreateUserCardioSetInput } from "../../../../../shared/validations/userCardioSets.validations";
 
 const getCreateUserCardioSet = (
   dto: TCreateUserCardioSetInput

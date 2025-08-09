@@ -4,7 +4,7 @@ import { programsService } from "./programs.service";
 import {
   CreateProgramSchema,
   UpdateProgramSchema,
-} from "./programs.validations";
+} from "../../../../shared/validations/programs.validations";
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
 import { programsUtils } from "./programs.utils";
 

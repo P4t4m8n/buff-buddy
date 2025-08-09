@@ -15,7 +15,6 @@ export default function WorkoutStartUserCardioLast({
     lastAvgSpeed,
     lastCaloriesBurned,
   } = lastSet || {};
-  console.log("🚀 ~ WorkoutStartUserCardioLast ~ lastSet:", lastSet);
 
   const items = [
     { label: "Last Skipped Reason", value: lastSkippedReason || "N/A" },

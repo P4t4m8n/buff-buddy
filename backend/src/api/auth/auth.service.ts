@@ -1,12 +1,13 @@
 import { prisma } from "../../../prisma/prisma";
+
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { AppError } from "../../shared/services/Error.service";
 import {
   TCreateUserInput,
   TGoogleOAuthInput,
   TSignInInput,
-} from "./auth.validations";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { AppError } from "../../shared/services/Error.service";
+} from "../../../../shared/validations/auth.validations";
 
 export const authService = {
   signUp: async (dto: TCreateUserInput | TGoogleOAuthInput) => {

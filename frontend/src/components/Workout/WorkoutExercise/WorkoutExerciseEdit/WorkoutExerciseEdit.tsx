@@ -48,7 +48,6 @@ export default function WorkoutExerciseEdit({
     useFormErrors<IWorkoutExerciseEditDTO>();
 
   const { modelRef, setOpen } = props;
-  console.log("🚀 ~ WorkoutExerciseEdit ~ modelRef:", modelRef);
 
   const onUpsertWorkoutExercise = (e: React.MouseEvent) => {
     e.preventDefault();

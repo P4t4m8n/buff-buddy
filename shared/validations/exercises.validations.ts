@@ -4,11 +4,11 @@ import {
   EXERCISE_EQUIPMENT,
   EXERCISE_MUSCLES,
   EXERCISE_TYPES,
-} from "../../../../shared/consts/exercise.consts";
+} from "../consts/exercise.consts";
 import {
   IDSchema,
   stringValidationAndSanitization,
-} from "../../shared/validations/shared.validations";
+} from "./shared.validations";
 
 export const ExerciseMuscleSchema = z.enum(EXERCISE_MUSCLES);
 

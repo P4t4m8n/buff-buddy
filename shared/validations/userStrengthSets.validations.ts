@@ -6,7 +6,7 @@ import {
   IDSchema,
   numberValidation,
   stringValidationAndSanitization,
-} from "../../../shared/validations/shared.validations";
+} from "./shared.validations";
 
 const UserStrengthSetSchema = z.object({
   reps: numberValidation({ fieldName: "Reps" }),

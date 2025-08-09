@@ -2,9 +2,9 @@ import { z } from "zod";
 import {
   DateSchema,
   IDSchema,
-} from "../../shared/validations/shared.validations";
-import { CreateUserStrengthSetSchema } from "../userSets/userStrengthSets/userStrengthSets.validations";
-import { CreateUserCardioSetSchema } from "../userSets/userCardioSets/userCardioSets.validations";
+} from "./shared.validations";
+import { CreateUserStrengthSetSchema } from "./userStrengthSets.validations";
+import { CreateUserCardioSetSchema } from "./userCardioSets.validations";
 const userSetRefinement = (
   data: {
     userStrengthSets?: any[];

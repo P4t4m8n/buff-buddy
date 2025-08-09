@@ -3,11 +3,11 @@ import {
   CrudOperationSchema,
   IDSchema,
   stringValidationAndSanitization,
-} from "../../shared/validations/shared.validations";
+} from "./shared.validations";
 import {
   CreateNestedWorkoutExerciseSchema,
   UpdateNestedWorkoutExerciseSchema,
-} from "../workoutExercise/workoutExercise.validations";
+} from "./workoutExercise.validations";
 
 const BaseWorkoutSchema = z.object({
   programId: z.string().nullish(),

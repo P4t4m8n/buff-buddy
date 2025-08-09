@@ -8,11 +8,11 @@ import { workoutExerciseSQL } from "../workoutExercise/workoutExercise.sql";
 import {
   TCreateWorkoutExerciseInput,
   TUpdateWorkoutExerciseInput,
-} from "../workoutExercise/workoutExercise.validations";
+} from "../../../../shared/validations/workoutExercise.validations";
 import {
   TCreateWorkoutInput,
   TUpdateWorkoutInput,
-} from "./workouts.validations";
+} from "../../../../shared/validations/workouts.validations";
 
 const WORKOUT_EXERCISE_SELECT: Prisma.WorkoutExerciseSelect = {
   id: true,
