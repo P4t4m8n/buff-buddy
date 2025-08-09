@@ -5,24 +5,23 @@
 @theme {
   /* --color-main-orange: rgb(253, 127, 32);
   --color-secondary-orange: hsl(28, 98%, 70%);
-  --color-red-orange: rgb(252, 46, 32);
   --color-amber: rgb(253, 183, 80);
   --color-main-black: rgb(1, 1, 0);
   --color-main-green: rgb(22, 163, 74);
   --color-main-white: hsl(0, 5%, 70%);
-
+  
   --color-background: linear-gradient(
     to bottom right,
     rgba(253, 127, 32, 0.9),
     rgba(252, 46, 32, 0.85)
-  );
-  --color-main-background: linear-gradient(
-    to bottom right,
-    rgba(255, 255, 255, 0.9),
-    rgba(255, 255, 255, 0.85) ;
-  );
-  --color-black-start: rgba(10, 0, 0, 1);
-  --color-black-end: rgba(20, 20, 20, 0.9); */
+    );
+    --color-main-background: linear-gradient(
+      to bottom right,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.85) ;
+      );
+      --color-black-start: rgba(10, 0, 0, 1);
+      --color-black-end: rgba(20, 20, 20, 0.9); */
   --color-main-orange: rgb(255, 112, 3);
   --color-black-900: hsl(340, 60%, 1%);
   --color-black-800: hsl(0, 25%, 2%);
@@ -31,6 +30,8 @@
   --color-black-500: hsl(0, 0%, 4%);
   --color-black-400: hsl(0, 25%, 2%);
   --color-black-300: hsl(0, 1%, 14%);
+
+  --color-error-red: rgb(252, 46, 32);
 
   --color-gray-400: hsl(0, 0%, 29%);
   --color-gray-300: #b5b5b5;
@@ -64,7 +65,6 @@
 .test-color {
   background-color: rgba(253, 127, 32, 0.5);
 }
-
 
 .switch-label {
   position: relative;

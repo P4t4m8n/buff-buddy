@@ -26,14 +26,21 @@ import type { Dispatch, SetStateAction } from "react";
 type TUseModelHook<T extends HTMLElement> = [
   boolean,
   React.RefObject<T | null>,
+  string,
   Dispatch<SetStateAction<boolean>>,
+  (e: React.MouseEvent<HTMLButtonElement>) => void,
   (e: React.MouseEvent<HTMLButtonElement>) => void
 ];
 
 export const useModel = <T extends HTMLElement>(
-  callBack?: null | (() => void)
+  callBack?: null | (() => void),
+  parentModelRef?: React.RefObject<HTMLDivElement | HTMLFormElement | null>,
+  baseModelPositionClass: string | undefined = "top-[calc(100%+.25rem)]"
 ): TUseModelHook<T> => {
   const [isOpen, setIsOpen] = useState(false);
+  const [modelPositionClass, setModelPositionClass] = useState(
+    baseModelPositionClass
+  );
   const modelRef = useRef<T>(null);
 
   const eventListenerRef = useRef<{
@@ -49,6 +56,33 @@ export const useModel = <T extends HTMLElement>(
     e.stopPropagation();
     setIsOpen((prev) => !prev);
   }, []);
+
+  const handleModelWithPosition = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!isOpen && modelRef.current && parentModelRef?.current) {
+        const parentRect = parentModelRef.current.getBoundingClientRect();
+        const fieldRect = modelRef.current.getBoundingClientRect();
+        const modelHeight = 128;
+        const gap = 4;
+
+        const spaceBelow = parentRect.bottom - fieldRect.bottom;
+        const spaceAbove = fieldRect.top - parentRect.top;
+
+        if (spaceBelow >= modelHeight + gap) {
+          setModelPositionClass("top-[calc(100%+.25rem)]");
+        } else if (spaceAbove >= modelHeight + gap) {
+          setModelPositionClass("bottom-[calc(100%+.25rem)]");
+        } else {
+          setModelPositionClass("top-[calc(100%+.25rem)]");
+        }
+      }
+
+      setIsOpen((prev) => !prev);
+    },
+    []
+  );
 
   const checkClickOutside = useCallback(
     (ev: MouseEvent) => {
@@ -92,8 +126,22 @@ export const useModel = <T extends HTMLElement>(
   }, [isOpen, modelRef, checkClickOutside, checkKeyPress]);
 
   const memoizedValue: TUseModelHook<T> = useMemo(
-    () => [isOpen, modelRef, setIsOpen, handleModel],
-    [isOpen, modelRef, setIsOpen, handleModel]
+    () => [
+      isOpen,
+      modelRef,
+      modelPositionClass,
+      setIsOpen,
+      handleModel,
+      handleModelWithPosition,
+    ],
+    [
+      isOpen,
+      modelRef,
+      modelPositionClass,
+      setIsOpen,
+      handleModel,
+      handleModelWithPosition,
+    ]
   );
 
   return memoizedValue;

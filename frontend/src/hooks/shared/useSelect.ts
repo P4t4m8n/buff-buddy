@@ -2,18 +2,23 @@ import { useEffect, useState } from "react";
 import type { ChangeEvent } from "react";
 import { useModel } from "./useModel";
 
-export const useSelect = <T>(
+export const useSelect = <T, P>(
   options: readonly T[],
   filterBy: (option: T) => string,
-  handleSelect: (option: T) => void,
+  handleSelect?: ((option: T, inputName?: P) => void) | null,
   parentModelRef?: React.RefObject<HTMLDivElement | HTMLFormElement | null>
 ) => {
   const [optionsList, setOptionsList] = useState<T[]>([]);
+  const modelBasePositionClass = "top-[calc(100%+.25rem)]";
 
-  const [open, modelRef, setOpen] = useModel<HTMLDivElement>();
-  const [modelPositionClass, setModelPositionClass] = useState(
-    "top-[calc(100%+.25rem)]"
-  );
+  const [
+    isOpen,
+    modelRef,
+    modelPositionClass,
+    setIsOpen,
+    handleModel,
+    handleModelWithPosition,
+  ] = useModel<HTMLDivElement>(null, parentModelRef, modelBasePositionClass);
 
   useEffect(() => {
     setOptionsList(options ? [...options] : []);
@@ -27,55 +32,33 @@ export const useSelect = <T>(
     setOptionsList(filteredOptions || []);
   };
 
-  //TODO?? Improve this function to handle position better
-  const handleModel = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onOptionClick = (e: React.MouseEvent, option: T, inputName?: P) => {
     e.preventDefault();
     e.stopPropagation();
-
-    if (!open && modelRef.current && parentModelRef?.current) {
-      const parentRect = parentModelRef.current.getBoundingClientRect();
-      const fieldRect = modelRef.current.getBoundingClientRect();
-      const modelHeight = 128;
-      const gap = 4;
-
-      const spaceBelow = parentRect.bottom - fieldRect.bottom;
-      const spaceAbove = fieldRect.top - parentRect.top;
-
-      if (spaceBelow >= modelHeight + gap) {
-        setModelPositionClass("top-[calc(100%+.25rem)]");
-      } else if (spaceAbove >= modelHeight + gap) {
-        setModelPositionClass("bottom-[calc(100%+.25rem)]");
-      } else {
-        setModelPositionClass("top-[calc(100%+.25rem)]");
-      }
-    }
-
-    setOpen((prev) => !prev);
-  };
-
-  const onClick = (e: React.MouseEvent, option: T) => {
-    e.preventDefault();
-    e.stopPropagation();
-    handleSelect(option);
-    setOpen(false);
+    if (handleSelect) handleSelect(option, inputName);
+    setIsOpen(false);
   };
 
   const memorizedHook: {
     optionsList: T[];
-    open: boolean;
+    isOpen: boolean;
     modelRef: React.RefObject<HTMLDivElement | null>;
     modelPositionClass: string;
+    handleModelWithPosition: (e: React.MouseEvent<HTMLButtonElement>) => void;
     handleSearchChange: (e: ChangeEvent<HTMLInputElement>) => void;
     handleModel: (e: React.MouseEvent<HTMLButtonElement>) => void;
-    onClick: (e: React.MouseEvent, option: T) => void;
+    onOptionClick: (e: React.MouseEvent, option: T) => void;
+    setOptionsList: React.Dispatch<React.SetStateAction<T[]>>;
   } = {
     optionsList,
-    open,
+    isOpen,
     modelRef,
     modelPositionClass,
+    handleModelWithPosition,
     handleSearchChange,
     handleModel,
-    onClick,
+    onOptionClick,
+    setOptionsList,
   };
 
   return memorizedHook;

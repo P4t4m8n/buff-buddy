@@ -1,27 +1,31 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
+
+import { useSelect } from "../../../hooks/shared/useSelect";
+
+import { appUtil } from "../../../utils/app.util";
+
 import Button from "../Button";
-import IconArrow from "../Icons/IconArrow";
 import Input from "./Input";
 import Label from "./Label";
-import { appUtil } from "../../../utils/app.util";
+import IconArrow from "../Icons/IconArrow";
+
 import type {
   ISelectAddComponentProps,
   ISelectItemComponentProps,
 } from "../../../models/select.model";
-import { twMerge } from "tailwind-merge";
-import { useSelect } from "../../../hooks/shared/useSelect";
 
-interface SelectWithSearchProps<T> {
+interface SelectWithSearchProps<T, P> {
   options: readonly T[];
-  SelectedComponent?: React.ReactNode;
-  handleSelect: (option: T) => void;
   error?: string | null;
   parentModelRef?: React.RefObject<HTMLDivElement | HTMLFormElement | null>;
+  SelectedComponent?: React.ReactNode;
+  handleSelect: (option: T, inputName?: P) => void;
+  filterBy: (option: T) => string;
   AddComponent?: React.ComponentType<ISelectAddComponentProps>;
   SelectItemComponent: React.ComponentType<ISelectItemComponentProps<T>>;
-  filterBy: (option: T) => string;
 }
-export default function SelectWithSearch<T>({
+export default function SelectWithSearch<T, P>({
   options,
   SelectedComponent,
   handleSelect,
@@ -30,15 +34,15 @@ export default function SelectWithSearch<T>({
   AddComponent,
   SelectItemComponent,
   filterBy,
-}: SelectWithSearchProps<T>) {
+}: SelectWithSearchProps<T, P>) {
   const {
     optionsList,
-    open,
+    isOpen,
     modelRef,
     modelPositionClass,
     handleSearchChange,
     handleModel,
-    onClick,
+    onOptionClick,
   } = useSelect(options, filterBy, handleSelect, parentModelRef);
 
   const modelStyle = twMerge(
@@ -47,21 +51,25 @@ export default function SelectWithSearch<T>({
   );
 
   return (
-    <div className="  group relative" ref={modelRef}>
+    <div className="group relative" ref={modelRef}>
       <Button
         className="flex items-center justify-between w-full h-10 border rounded p-1 cursor-pointer "
         onClick={handleModel}
       >
-        <h3>{SelectedComponent}</h3>
+        {SelectedComponent}
 
-        <IconArrow className="w-6 h-6 group-has-[ul]:rotate-180 " />
+        <IconArrow className="w-6 h-6 group-has-[ul]:rotate-180 stroke-none fill-main-orange transition-transform duration-300" />
       </Button>
       {error ? (
-        <Label htmlFor="order" className=" text-sm text-red-orange">
+        <Label htmlFor="order" className="text-sm text-red-orange">
           {error}
         </Label>
       ) : null}
-      {open ? (
+
+      {/*
+      //INFO:Not using the generic list because need to add the add component
+      */}
+      {isOpen ? (
         <div className={modelStyle}>
           <Input
             className="border-b w-full h-full pb-1 "
@@ -76,7 +84,7 @@ export default function SelectWithSearch<T>({
             ) : null}
             {optionsList.map((option) => (
               <React.Fragment key={appUtil.getTempId("select-index", option)}>
-                <SelectItemComponent item={option} onClick={onClick} />
+                <SelectItemComponent item={option} onClick={onOptionClick} />
               </React.Fragment>
             ))}
           </ul>
