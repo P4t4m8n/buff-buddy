@@ -23,7 +23,7 @@ export default function ExerciseTagCategory({
         items={items ?? []}
         ItemComponent={ExerciseTag}
         itemComponentProps={{}}
-        ulStyle="inline-flex w-full overflow-auto gap-1 "
+        ulStyle="inline-flex w-full overflow-auto gap-1"
         getKey={(item) => item}
       />
     </li>

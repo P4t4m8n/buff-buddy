@@ -16,15 +16,15 @@ export default function ExerciseAttributes({
   muscles,
 }: ExerciseInfoListProps) {
   const items = [
-    { label: "Equipment", items: equipment ?? [] },
-    { label: "Muscles", items: muscles ?? [] },
+    { label: "Equipment:", items: equipment ?? [] },
+    { label: "Muscles:", items: muscles ?? [] },
   ];
   return (
     <GenericList
       items={items}
       ItemComponent={ExerciseTagCategory}
       getKey={(item) => item.label}
-      ulStyle="grid gap-2"
+      ulStyle="grid gap-2 items-center"
       itemComponentProps={{ label: "" }}
     />
   );
