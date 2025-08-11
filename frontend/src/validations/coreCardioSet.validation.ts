@@ -1,11 +1,10 @@
 import { z } from "zod";
 import {
   CrudOperationSchema,
-  IDSchema,
   numberValidation,
-} from "../../../shared/validations/shared.validations";
-import { DAY_IN_SECONDES } from "../../../../../shared/consts/app.consts";
-
+  IDSchema,
+} from "./shared.validation";
+import { DAY_IN_SECONDES } from "../../../shared/consts/app.consts";
 
 export const CreateCoreCardioSetSchema = z.object({
   warmupTime: numberValidation({
@@ -58,11 +57,4 @@ export const CoreCardioSetQuerySchema = z.object({
   page: z.coerce.number().min(1).optional(),
 });
 
-export type TCreateCoreCardioSetInput = z.infer<
-  typeof CreateCoreCardioSetSchema
->;
-export type TUpdateCoreCardioSetInput = z.infer<
-  typeof UpdateCoreCardioSetSchema
->;
-export type TCoreCardioSetParams = z.infer<typeof CoreCardioSetParamsSchema>;
-export type TCoreCardioSetQuery = z.infer<typeof CoreCardioSetQuerySchema>;
+

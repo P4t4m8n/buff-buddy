@@ -4,8 +4,13 @@ import type {
   IProgramEditDTO,
 } from "../../../shared/models/program.model";
 import type { THttpPostResponse } from "../models/apiService.model";
+import {
+  CreateProgramSchema,
+  UpdateProgramSchema,
+} from "../validations/program.validation";
 
 import { apiService } from "./api.service";
+import { ClientError } from "./ClientError.service";
 
 export const programService = {
   rootPath: "/programs",
@@ -19,17 +24,21 @@ export const programService = {
   },
 
   async save(dto: IProgramEditDTO): Promise<THttpPostResponse<IProgramDTO>> {
-    const res = dto.id
-      ? await apiService.put<THttpPostResponse<IProgramDTO>>(
-          `${this.rootPath}/edit/${dto.id}`,
-          dto
-        )
-      : await apiService.post<THttpPostResponse<IProgramDTO>>(
-          `${this.rootPath}/edit`,
-          dto
-        );
+    if (!dto) throw ClientError.create("Program data is required", 400);
+    const { id } = dto;
 
-    return res;
+    if (!id || id.startsWith("temp")) {
+      const validatedDTO = CreateProgramSchema.parse(dto);
+      return await apiService.post<THttpPostResponse<IProgramDTO>>(
+        `${this.rootPath}/edit`,
+        validatedDTO
+      );
+    }
+    const validatedDTO = UpdateProgramSchema.parse(dto);
+    return await apiService.put<THttpPostResponse<IProgramDTO>>(
+      `${this.rootPath}/edit/${dto.id}`,
+      validatedDTO
+    );
   },
 
   async delete(id: string): Promise<void> {

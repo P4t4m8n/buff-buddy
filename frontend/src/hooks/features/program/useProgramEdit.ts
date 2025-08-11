@@ -28,7 +28,9 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
   );
   const { errors, handleError } = useErrors<IProgramEditDTO>();
 
-  const isLoading = useProgramStore((state) => state.isLoading);
+  const isLoading = useProgramStore(
+    (state) => state.isLoadingId === programToEdit?.id
+  );
   const getProgramById = useProgramStore((state) => state.getById);
   const saveProgram = useProgramStore((state) => state.saveItem);
 

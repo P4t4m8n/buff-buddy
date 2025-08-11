@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import { workoutStartUtil } from "../../utils/workoutStart.util";
 import { useWorkoutStore } from "../../store/workout.store";
 import { useErrors } from "../../hooks/shared/useErrors";
-import { workoutStartService } from "../../services/workoutStart";
+import { workoutStartService } from "../../services/userWorkout.service";
 
 import Button from "../../components/UI/Button";
 import GenericSaveButton from "../../components/UI/GenericSaveButton";

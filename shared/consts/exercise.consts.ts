@@ -125,3 +125,4 @@ export const EXERCISE_TYPES = [
   "flexibility",
   "miscellaneous",
 ] as const;
+

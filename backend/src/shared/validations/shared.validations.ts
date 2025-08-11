@@ -1,6 +1,7 @@
 import { z } from "zod";
 import sanitizeHtml from "sanitize-html";
 import { IValidationProps } from "../../../../shared/models/app.model";
+import { CRUD_OPERATIONS, DAY_OF_WEEK } from "../../../../shared/consts/app.consts";
 
 
 export const conditionalOrderRefinement = (
@@ -99,27 +100,13 @@ export const numberValidation = ({
     .max(maxLength, `${fieldName} cannot exceed ${maxLength}`);
 };
 
-export const CrudOperationEnumSchema = z.enum([
-  "create",
-  "update",
-  "edit",
-  "delete",
-  "read",
-]);
+export const CrudOperationEnumSchema = z.enum(CRUD_OPERATIONS);
 
 export const CrudOperationSchema = z
   .optional(CrudOperationEnumSchema)
   .default("read");
 
-export const DaysOfWeekEnumSchema = z.enum([
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-  "sunday",
-]);
+export const DaysOfWeekEnumSchema = z.enum(DAY_OF_WEEK);
 
 export const DaysOfWeekSchema = z
   .array(DaysOfWeekEnumSchema)

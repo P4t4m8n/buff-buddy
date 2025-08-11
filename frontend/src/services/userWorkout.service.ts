@@ -3,17 +3,20 @@ import type {
   IUserWorkoutEditDTO,
 } from "../../../shared/models/userWorkout";
 import type { THttpPostResponse } from "../models/apiService.model";
+import { CreateUserWorkoutSchema } from "../validations/userWorkout.validation";
 import { apiService } from "./api.service";
 
 export const workoutStartService = {
   rootPath: "/user-workouts",
 
   async save(
-    workoutStart: IUserWorkoutEditDTO
+    dto: IUserWorkoutEditDTO
   ): Promise<THttpPostResponse<IUserWorkoutDTO>> {
+
+    const validatedDTO = CreateUserWorkoutSchema.parse(dto);
     return await apiService.post<THttpPostResponse<IUserWorkoutDTO>>(
       `${this.rootPath}`,
-      workoutStart
+      validatedDTO
     );
   },
   async getLastWorkout(
