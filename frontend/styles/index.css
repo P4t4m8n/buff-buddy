@@ -61,57 +61,13 @@
     align-items: center;
     justify-content: center;
   }
-}
-
-.test-color {
-  background-color: rgba(253, 127, 32, 0.5);
-}
-
-.switch-label {
-  position: relative;
-  width: 6rem;
-  height: 2.5rem;
-  border-radius: 100vh;
-  background: var(--color-red-orange);
-  cursor: pointer;
-  transition: background-color 0.4s;
-  display: block;
-}
-input:checked + .switch-label {
-  background: #16a34a;
-}
-.switch-label::before {
-  content: "";
-  position: absolute;
-  display: inline;
-  height: 1.5rem;
-  width: 1.5rem;
-  left: 0.25rem;
-  top: 50%;
-  background: #fff;
-  border-radius: 100vh;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
-  transition: transform 0.4s;
-  transform: translateX(4rem) translateY(-50%);
-}
-input:checked + .switch-label::before {
-  transform: translateX(0) translateY(-50%);
-}
-.switch-label::after {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 1rem;
-  font-size: 0.75rem;
-  font-weight: bold;
-  color: #fff;
-  transition: all 0.2s;
-  content: "Inactive";
-}
-input:checked + .switch-label::after {
-  left: auto;
-  right: 1rem;
-  content: "Active";
+  .background {
+    background: radial-gradient(
+      var(--color-black-300),
+      var(--color-black-700),
+      var(--color-black-900)
+    );
+  }
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -124,14 +80,6 @@ input[type="number"]::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
-}
-
-.background {
-  background: radial-gradient(
-    var(--color-black-300),
-    var(--color-black-700),
-    var(--color-black-900)
-  );
 }
 
 @utility scrollbar-hide {

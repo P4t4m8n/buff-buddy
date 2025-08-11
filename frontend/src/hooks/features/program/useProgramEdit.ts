@@ -59,12 +59,13 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
 
   const onSaveProgram = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
+      const { id: programId } = programToEdit || {};
       e.preventDefault();
       e.stopPropagation();
       const formData = new FormData(e.currentTarget);
-      const name = formData.get("name") as string;
-      const notes = formData.get("notes") as string;
-      const isActive = formData.get("isActive") === "on";
+      const name = formData.get("name-" + programId) as string;
+      const notes = formData.get("notes" + programId) as string;
+      const isActive = formData.get("isActive" + programId) === "on";
       const programToSave = { ...programToEdit, name, notes, isActive };
       const res = (await saveProgram(programToSave)) as IProgramEditDTO;
 

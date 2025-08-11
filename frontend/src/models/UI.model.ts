@@ -21,3 +21,5 @@ export interface IIconProps {
 }
 
 export type TModelButtonIconMode = "create" | "edit" | "details" | "delete";
+
+export type TLabelPosition = "input" | "textArea";

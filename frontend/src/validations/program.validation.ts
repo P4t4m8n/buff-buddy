@@ -13,7 +13,9 @@ export const BaseProgramSchema = z.object({
   }),
   notes: stringValidation({
     fieldName: "Program notes",
-  }).optional(),
+  })
+    .optional()
+    .nullish(),
 
   startDate: dateValidation("Program start date"),
   endDate: dateValidation("Program end date"),

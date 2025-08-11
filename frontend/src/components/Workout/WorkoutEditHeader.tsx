@@ -8,9 +8,11 @@ import GenericSaveButton from "../UI/GenericSaveButton";
 import { useWorkoutStore } from "../../store/workout.store";
 import GenericModel from "../UI/GenericModel";
 import WorkoutExerciseEdit from "./WorkoutExercise/WorkoutExerciseEdit/WorkoutExerciseEdit";
+import InputWithError from "../UI/Form/InputWithError";
 
 interface WorkoutEditHeaderProps {
   name?: string | null;
+  nameError?: string | null;
   notes?: string | null;
   workoutId?: string;
   workoutExerciseLength: number;
@@ -22,6 +24,7 @@ interface WorkoutEditHeaderProps {
 }
 export default function WorkoutEditHeader({
   name,
+  nameError,
   notes,
   workoutId,
   workoutExerciseLength,
@@ -32,25 +35,24 @@ export default function WorkoutEditHeader({
   return (
     <header className="grid gap-2">
       <h3 className="text-center text-2xl">Create Workout</h3>
-      <Input
-        value={name || ""}
-        type="text"
-        name="name"
-        id={"name-" + workoutId}
-        placeholder=""
-        onChange={handleInputChange}
-        className={`w-full h-10 peer outline-offset-0 pl-2 border-1 rounded
-              `}
+      <InputWithError
+        inputProps={{
+          value: name || "",
+          type: "text",
+          name: "name",
+          id: "name-" + workoutId,
+          placeholder: "",
+          onChange: handleInputChange,
+        }}
+        labelProps={{
+          labelPosition: "input",
+          htmlFor: "name-" + workoutId,
+          children: "Workout Name",
+        }}
         divStyle=" h-fit"
-      >
-        <Label
-          isMoveUpEffect={true}
-          labelPosition="input"
-          htmlFor={"name-" + workoutId}
-        >
-          Workout Name
-        </Label>
-      </Input>
+        error={nameError}
+      />
+
       <TextArea
         value={notes || ""}
         name="notes"

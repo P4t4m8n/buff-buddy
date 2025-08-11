@@ -1,4 +1,5 @@
 import { twMerge } from "tailwind-merge";
+import type { TLabelPosition } from "../../../models/UI.model";
 
 const moveUpEffect = `absolute bg-inherit rounded z-10 transition-all duration-300 block text-gray-500 pl-2
                      peer-focus:-top-0 peer-focus:text-xs peer-focus:px-3 peer-focus:text-black peer-focus:font-semibold  peer-focus:bg-main-orange
@@ -9,7 +10,7 @@ const moveUpEffect = `absolute bg-inherit rounded z-10 transition-all duration-3
 interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {
   children?: React.ReactNode;
   isMoveUpEffect?: boolean;
-  labelPosition?: "input" | "textArea";
+  labelPosition?: TLabelPosition;
 }
 
 const labelPositionClasses = {

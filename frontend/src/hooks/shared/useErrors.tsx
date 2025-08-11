@@ -13,17 +13,25 @@ export function useErrors<T extends object>() {
   }, []);
 
   const handleError = useCallback((error: unknown, emitToToast?: boolean) => {
+    console.log("🚀 ~ useErrors ~ error:", error);
+    const formattedErrors: TErrors<T> = {};
     if (error instanceof ZodError) {
-      const formattedErrors: TErrors<T> = {};
       for (const issue of error.issues) {
-        const path = issue.path.join(".") as keyof T;
-        if (!formattedErrors[path]) {
-          formattedErrors[path] = issue.message;
+        let current: any = formattedErrors;
+        for (let i = 0; i < issue.path.length - 1; i++) {
+          const key = issue.path[i];
+          const nextKey = issue.path[i + 1];
+
+          if (current[key] === undefined) {
+            current[key] = typeof nextKey === "number" ? [] : {};
+          }
+          current = current[key];
         }
+        current[issue.path[issue.path.length - 1]] = issue.message;
       }
-      setErrors(formattedErrors);
-    }
-    if (ClientError.isAppError(error)) {
+      console.log("🚀 ~ useErrors ~ formattedErrors:", formattedErrors)
+      setErrors(formattedErrors as TErrors<T>);
+    } else if (ClientError.isAppError(error)) {
       setErrors((prev) => ({
         ...(prev as TErrors<T>),
         ...error.errors,

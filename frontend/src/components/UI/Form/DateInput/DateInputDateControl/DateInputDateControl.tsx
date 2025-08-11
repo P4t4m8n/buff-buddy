@@ -1,7 +1,7 @@
 import type { Dispatch } from "react";
 import { toTitle } from "../../../../../utils/toTitle";
 import DateInputDateControlButton from "./DateInputDateControlButton";
-import { MONTHS } from "../../../../../../../shared/models/app.model";
+import { MONTHS } from "../../../../../../../shared/consts/app.consts";
 
 interface DateInputDateControlProps {
   setCurrentDate: Dispatch<React.SetStateAction<Date>>;

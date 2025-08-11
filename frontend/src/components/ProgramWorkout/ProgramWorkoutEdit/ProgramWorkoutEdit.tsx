@@ -13,9 +13,9 @@ import type {
 import { programWorkoutUtil } from "../../../utils/programWorkout.util";
 import ProgramWorkoutEditSelected from "./ProgramWorkoutEditSelected";
 import WorkoutEdit from "../../Workout/WorkoutEdit";
-import AvailableWorkoutPreview from "./AvailableWorkoutPreview";
 import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
 import { workoutUtils } from "../../../utils/workout.util";
+import AvailableWorkoutPreview from "../../Program/ProgramEdit/AvailableWorkoutPreview";
 
 interface ProgramWorkoutProps extends IModelProps<HTMLDivElement> {
   programWorkout?: IProgramWorkoutDTO;

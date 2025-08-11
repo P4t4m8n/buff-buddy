@@ -1,5 +1,6 @@
-import { DAY_OF_WEEK, type TDayOfWeek } from "../../../shared/models/app.model";
+import { DAY_OF_WEEK } from "../../../shared/consts/app.consts";
 import { toTitle } from "./toTitle";
+import type { TDayOfWeek } from "../../../shared/models/app.model";
 
 export const calendarUtil = {
   getShortWeekDays: (isTitle: boolean = true): string[] => {

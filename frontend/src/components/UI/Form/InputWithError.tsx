@@ -1,17 +1,22 @@
 import { twMerge } from "tailwind-merge";
 import Input from "./Input";
 import Label from "./Label";
+import type { TLabelPosition } from "../../../models/UI.model";
 
 interface InputWithErrorProps {
   inputProps: React.InputHTMLAttributes<HTMLInputElement>;
-  labelProps: React.LabelHTMLAttributes<HTMLLabelElement>;
+  labelProps: React.LabelHTMLAttributes<HTMLLabelElement> & {
+    labelPosition?: TLabelPosition;
+  };
   error?: string | null;
+  divStyle?: string;
 }
 
 export default function InputWithError({
   inputProps,
   labelProps,
   error,
+  divStyle = "rounded h-full",
 }: InputWithErrorProps) {
   const labelErrorStyle = error
     ? `text-sm w-fit text-error-red
@@ -26,8 +31,8 @@ export default function InputWithError({
   );
 
   const labelStyle = twMerge(labelErrorStyle, labelProps.className ?? "");
+  const { labelPosition, ..._labelProps } = labelProps;
 
-  const divStyle = "rounded h-full ";
   return (
     <Input
       placeholder=""
@@ -35,7 +40,12 @@ export default function InputWithError({
       className={inputStyle}
       divStyle={divStyle}
     >
-      <Label isMoveUpEffect={true} {...labelProps} className={labelStyle}>
+      <Label
+        isMoveUpEffect={true}
+        labelPosition={labelPosition ?? "input"}
+        {..._labelProps}
+        className={labelStyle}
+      >
         {error ? error : labelProps.children}
       </Label>
     </Input>

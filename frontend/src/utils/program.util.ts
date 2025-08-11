@@ -2,6 +2,7 @@ import type {
   IProgramDTO,
   IProgramEditDTO,
 } from "../../../shared/models/program.model";
+import { appUtil } from "./app.util";
 import { workoutUtils } from "./workout.util";
 
 export const programUtils = {
@@ -38,7 +39,7 @@ export const programUtils = {
   },
   getEmpty(): IProgramEditDTO {
     return {
-      id: "",
+      id: appUtil.getTempId(),
       name: "",
       notes: "",
       startDate: null,

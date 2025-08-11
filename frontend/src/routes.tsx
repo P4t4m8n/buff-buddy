@@ -36,7 +36,7 @@ export const ROUTES: RouteConfig[] = [
     element: <WorkoutPage />,
     children: [
       {
-        path: "/workouts/:id",
+        path: "/workouts/:workoutId",
         element: <WorkoutDetailsPage />,
       },
       {

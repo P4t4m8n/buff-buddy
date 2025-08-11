@@ -11,13 +11,19 @@ export const authService = {
   rootPath: "/auth",
 
   async signIn(dto: IAuthSignInDTO): Promise<IAuthUserDTO> {
-    const validatedDTp = SignInSchema.parse(dto);
-    return await apiService.post<IAuthUserDTO>(`${this.rootPath}/sign-in`, validatedDTp);
+    const validatedDTO = SignInSchema.parse(dto);
+    return await apiService.post<IAuthUserDTO>(
+      `${this.rootPath}/sign-in`,
+      validatedDTO
+    );
   },
 
   async signUp(dto: IAuthSignUpDTO): Promise<IAuthUserDTO> {
-    const
-    return await apiService.post<IAuthUserDTO>(`${this.rootPath}/sign-up`, dto);
+    const validatedDTO = SignInSchema.parse(dto);
+    return await apiService.post<IAuthUserDTO>(
+      `${this.rootPath}/sign-up`,
+      validatedDTO
+    );
   },
 
   async signOut(): Promise<void> {

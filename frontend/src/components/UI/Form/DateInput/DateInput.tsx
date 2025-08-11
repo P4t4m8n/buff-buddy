@@ -11,7 +11,8 @@ import type {
   TDateInputMode,
 } from "../../../../models/calendar.model";
 import { useDateInput } from "../../../../hooks/features/calendar/useDateInput";
-import { DAY_OF_WEEK } from "../../../../../../shared/models/app.model";
+import { DAY_OF_WEEK } from "../../../../../../shared/consts/app.consts";
+import { twMerge } from "tailwind-merge";
 
 interface DateInputProps {
   handleDateSelect: (range: IDateRange) => void;
@@ -51,7 +52,7 @@ export default function DateInput({
     if (!errorRange) return null;
     const { startDate, endDate } = errorRange;
     return (
-      <div className="text-red-orange text-sm flex gap-4">
+      <div className="text-error-red text-sm flex gap-4">
         {startDate && (
           <span className="inline-flex">
             <h6 className=" ">Start Date</h6>
@@ -68,16 +69,18 @@ export default function DateInput({
     );
   };
 
+  const isError = errorRange?.startDate || errorRange?.endDate;
+
+  const divStyle = twMerge("relative w-full", className);
+  const buttonStyle = twMerge(
+    "p-2 rounded w-full h-10 flex justify-between items-center cursor-pointer border",
+    isError ? "border border-error-red text-error-red" : ""
+  );
+
   return (
-    <div className={`relative w-full   ${className}`} ref={modelRef}>
-      <Button
-        onClick={handleModel}
-        className={`border ${
-          errorRange?.startDate || errorRange?.endDate
-            ? "border-red-orange"
-            : ""
-        } p-2 rounded w-full h-10 flex justify-between items-center cursor-pointer`}
-      >
+    <div className={divStyle} ref={modelRef}>
+      {buildError()}
+      <Button onClick={handleModel} className={buttonStyle}>
         <DateInputDateDisplay
           mode={mode}
           startDate={selectedRange?.start}
@@ -90,7 +93,6 @@ export default function DateInput({
            hover:border-main-black cursor-pointer"
         />
       </Button>
-      {buildError()}
 
       {isOpen && !disabled && (
         <div
