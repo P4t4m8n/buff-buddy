@@ -23,8 +23,7 @@ export const useItemsPage = <T, F>({ useStore }: IUseItemsPageProps<T, F>) => {
         clearErrors();
         await loadItems();
       } catch (error) {
-        const emitToToast = true;
-        handleError(error, emitToToast);
+        handleError({ error, emitToToast: true });
       }
     };
     init();
@@ -37,8 +36,7 @@ export const useItemsPage = <T, F>({ useStore }: IUseItemsPageProps<T, F>) => {
       }
       await deleteItem(id);
     } catch (error) {
-      const emitToToast = true;
-      handleError(error, emitToToast);
+      handleError({ error, emitToToast: true });
     }
   }, []);
 

@@ -66,16 +66,20 @@ const exerciseTypeSetRefinement = (
 };
 
 const WorkoutExerciseSchema = z.object({
-  order: OrderSchema.optional().nullable(),
+  order: OrderSchema.optional(),
+
   notes: stringValidation({
     minLength: 0,
     maxLength: 500,
     fieldName: "notes",
   }).optional(),
-  exerciseData: z.object({
-    id: IDSchema,
-    type: ExerciseTypeSchema,
-  }),
+  exerciseData: z
+    .object({
+      id: IDSchema,
+      type: ExerciseTypeSchema,
+    })
+    .nullable()
+    .refine((val) => val !== null, { message: "You must pick an Exercise" }),
   isActive: BooleanSchema,
   coreStrengthSet: CreateCoreStrengthSetSchema.optional(),
   coreCardioSet: CreateCoreCardioSetSchema.optional(),

@@ -17,9 +17,7 @@ export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(false);
 
   const { signIn, signUp, isLoading } = useAuthStore();
-  const { errors, handleError } = useErrors<
-    IAuthSignInDTO | IAuthSignUpDTO
-  >();
+  const { errors, handleError } = useErrors<IAuthSignInDTO | IAuthSignUpDTO>();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
@@ -50,7 +48,7 @@ export default function AuthPage() {
         await signIn({ email, password });
       }
     } catch (error) {
-      handleError(error);
+      handleError({ error });
     }
   };
 

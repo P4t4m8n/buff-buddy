@@ -12,51 +12,52 @@ export function useErrors<T extends object>() {
     setErrors(null);
   }, []);
 
-  const handleError = useCallback((error: unknown, emitToToast?: boolean) => {
-    console.log("🚀 ~ useErrors ~ error:", error);
-    const formattedErrors: TErrors<T> = {};
-    if (error instanceof ZodError) {
-      for (const issue of error.issues) {
-        let current: any = formattedErrors;
-        for (let i = 0; i < issue.path.length - 1; i++) {
-          const key = issue.path[i];
-          const nextKey = issue.path[i + 1];
+  const handleError = useCallback(
+    ({ error, emitToToast }: { error: unknown; emitToToast?: boolean }) => {
+      const formattedErrors: TErrors<T> = {};
+      if (error instanceof ZodError) {
+        for (const issue of error.issues) {
+          let current: any = formattedErrors;
+          for (let i = 0; i < issue.path.length - 1; i++) {
+            const key = issue.path[i];
+            const nextKey = issue.path[i + 1];
 
-          if (current[key] === undefined) {
-            current[key] = typeof nextKey === "number" ? [] : {};
-          }
-          current = current[key];
-        }
-        current[issue.path[issue.path.length - 1]] = issue.message;
-      }
-      console.log("🚀 ~ useErrors ~ formattedErrors:", formattedErrors)
-      setErrors(formattedErrors as TErrors<T>);
-    } else if (ClientError.isAppError(error)) {
-      setErrors((prev) => ({
-        ...(prev as TErrors<T>),
-        ...error.errors,
-      }));
-    } else {
-      setErrors((prev) => ({
-        ...(prev as TErrors<T>),
-        unknown: "An unknown error occurred while saving.",
-      }));
-    }
-    if (emitToToast) {
-      emitEvent({
-        type: "error",
-        cmp: (
-          <ToastError
-            error={
-              error instanceof Error
-                ? error.message
-                : "An unexpected error occurred"
+            if (current[key] === undefined) {
+              current[key] = typeof nextKey === "number" ? [] : {};
             }
-          />
-        ),
-      });
-    }
-  }, []);
+            current = current[key];
+          }
+          current[issue.path[issue.path.length - 1]] = issue.message;
+        }
+        setErrors(formattedErrors as TErrors<T>);
+      } else if (ClientError.isAppError(error)) {
+        setErrors((prev) => ({
+          ...(prev as TErrors<T>),
+          ...error.errors,
+        }));
+      } else {
+        setErrors((prev) => ({
+          ...(prev as TErrors<T>),
+          unknown: "An unknown error occurred while saving.",
+        }));
+      }
+      if (emitToToast) {
+        emitEvent({
+          type: "error",
+          cmp: (
+            <ToastError
+              error={
+                error instanceof Error
+                  ? error.message
+                  : "An unexpected error occurred"
+              }
+            />
+          ),
+        });
+      }
+    },
+    []
+  );
 
   return {
     errors,

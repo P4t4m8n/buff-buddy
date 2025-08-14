@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import type { NavigateFunction } from "react-router";
 import { useWorkoutStore } from "../../../store/workout.store";
 import type {
   IWorkoutDTO,
@@ -8,19 +7,22 @@ import type {
 } from "../../../../../shared/models/workout.model";
 import { workoutUtils } from "../../../utils/workout.util";
 import { useErrors } from "../../shared/useErrors";
+import { ClientError } from "../../../services/ClientError.service";
 
-export const useWorkoutEdit = (
-  workout?: IWorkoutDTO | IWorkoutEditDTO,
-  navigate?: NavigateFunction | null,
-  id?: string,
-  setOpen?: React.Dispatch<React.SetStateAction<boolean>>,
-  afterSubmit?: (workout: IWorkoutDTO) => void
-) => {
+interface IUseWorkoutEditProps {
+  workoutId?: string;
+  workout?: IWorkoutDTO | IWorkoutEditDTO;
+}
+
+export const useWorkoutEdit = ({
+  workout,
+  workoutId,
+}: IUseWorkoutEditProps) => {
   const [workoutToEdit, setWorkoutToEdit] = useState<IWorkoutEditDTO | null>(
     null
   );
 
-  const { errors, setErrors, handleError } = useErrors<IWorkoutEditDTO>();
+  const { errors, handleError } = useErrors<IWorkoutEditDTO>();
 
   const saveWorkout = useWorkoutStore((state) => state.saveItem);
   const getById = useWorkoutStore((state) => state.getById);
@@ -36,22 +38,21 @@ export const useWorkoutEdit = (
         return;
       }
 
-      if (!id) {
+      if (!workoutId) {
         const newWorkout = workoutUtils.getEmpty();
         setWorkoutToEdit(newWorkout);
         return;
       }
 
       try {
-        const updateWorkout = await getById(id);
+        const updateWorkout = await getById(workoutId);
         if (!updateWorkout) {
-          setErrors({ unknown: "Workout not found." });
-          return;
+          throw ClientError.create("Workout not found");
         }
         const workoutToUpdate = workoutUtils.dtoToEditDto(updateWorkout);
         setWorkoutToEdit(workoutToUpdate);
       } catch (error) {
-        handleError(error);
+        handleError({ error });
       }
     };
 
@@ -127,36 +128,14 @@ export const useWorkoutEdit = (
     }
   };
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const onSubmit = async () => {
     try {
-      e.preventDefault();
-      e.stopPropagation();
+      if (!workoutToEdit)
+        throw ClientError.create("Workout to edit is not defined");
 
-      if (!workoutToEdit) return;
-
-      const savedWorkout = (await saveWorkout(workoutToEdit)) as IWorkoutDTO;
-      if (!savedWorkout) {
-        setErrors({ unknown: "Failed to save workout." });
-        return;
-      }
-
-      if (afterSubmit) {
-        afterSubmit(savedWorkout);
-      }
-      if (setOpen) {
-        setOpen(false);
-        return;
-      } else if (navigate) {
-        navigate(-1);
-        return;
-      } else {
-        console.warn(
-          "No navigation function provided, cannot redirect after save."
-        );
-        return;
-      }
+      return await saveWorkout(workoutToEdit);
     } catch (error) {
-      handleError(error);
+      handleError({ error });
     }
   };
 

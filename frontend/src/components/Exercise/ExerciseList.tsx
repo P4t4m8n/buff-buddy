@@ -1,6 +1,6 @@
 import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
 import GenericList from "../UI/GenericList";
-import Loader from "../UI/Loader";
+import Loader from "../UI/loader/Loader";
 import ExercisePreview from "./ExercisePreview";
 
 interface IExerciseListProps {

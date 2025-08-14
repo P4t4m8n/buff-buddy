@@ -5,11 +5,14 @@ import { toTitle } from "../../utils/toTitle";
 import ActiveButtonIcon from "../../utils/ActiveButtonIcon.util";
 import { calendarUtil } from "../../utils/calendar.util";
 
-import Loader from "../../components/UI/Loader";
+import Loader from "../../components/UI/loader/Loader";
+import { useParams } from "react-router";
 
 export default function ProgramDetails() {
+  const { programId } = useParams<{ programId?: string }>();
   const { itemToView: programToView, isLoadingId: isLoading } = useItemDetails({
     useStore: useProgramStore,
+    id: programId,
   });
 
   if (isLoading) {

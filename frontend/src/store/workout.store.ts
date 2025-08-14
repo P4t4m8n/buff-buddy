@@ -1,10 +1,12 @@
 import { create } from "zustand";
+
+import { workoutService } from "../services/workout.service";
+
 import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
   IWorkoutFilter,
 } from "../../../shared/models/workout.model";
-import { workoutService } from "../services/workout.service";
 import type { IStoreBase } from "../models/store.model";
 
 export const useWorkoutStore = create<

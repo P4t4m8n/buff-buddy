@@ -7,6 +7,7 @@ interface InputWithErrorProps {
   inputProps: React.InputHTMLAttributes<HTMLInputElement>;
   labelProps: React.LabelHTMLAttributes<HTMLLabelElement> & {
     labelPosition?: TLabelPosition;
+    isMoveUpEffect?: boolean;
   };
   error?: string | null;
   divStyle?: string;
@@ -25,7 +26,7 @@ export default function InputWithError({
     : "";
 
   const inputStyle = twMerge(
-    "w-full h-10 peer outline-offset-0 pl-2 border-1 rounded",
+    "w-full peer outline-offset-0 border-1 rounded",
     inputProps.className ?? "",
     error ? "border-error-red" : ""
   );
@@ -41,7 +42,6 @@ export default function InputWithError({
       divStyle={divStyle}
     >
       <Label
-        isMoveUpEffect={true}
         labelPosition={labelPosition ?? "input"}
         {..._labelProps}
         className={labelStyle}

@@ -2,7 +2,7 @@ import type { IWorkoutDTO } from "../../../shared/models/workout.model";
 import type {
   IUserWorkoutDTO,
   IUserWorkoutEditDTO,
-  IUserWorkoutEditExercisesDTO,
+  IUserWorkoutExercisesEditDTO,
 } from "../../../shared/models/userWorkout";
 import { appUtil } from "./app.util";
 import { userSetsUtil } from "./userSets.util";
@@ -25,7 +25,7 @@ export const workoutStartUtil = {
         owner: workoutDTO?.owner,
       },
       userWorkoutExercises: (workoutDTO?.workoutExercises ?? [])?.map((we) => {
-        const item: IUserWorkoutEditExercisesDTO = {
+        const item: IUserWorkoutExercisesEditDTO = {
           id: we.id,
           order: we.order,
           notes: we.notes,

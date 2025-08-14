@@ -54,6 +54,27 @@
 
   --shadow-border-t: 0 -1px 0px -0px;
   --shadow-border-b: 0 1px 0px -0px;
+
+  --animate-rotation: rotation 1.6s linear infinite;
+  --animate-rotationBack: rotationBack .8s linear infinite;
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes rotationBack {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
 }
 @layer utilities {
   .flex-center {

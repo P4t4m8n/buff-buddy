@@ -5,7 +5,7 @@ import Button from "../../UI/Button";
 import CheckboxMulti from "../../UI/Form/CheckboxMulti";
 import Label from "../../UI/Form/Label";
 import GenericModel from "../../UI/GenericModel";
-import WorkoutEdit from "../../Workout/WorkoutEdit";
+import WorkoutEditModel from "../../Workout/WorkoutEditModel";
 
 import WorkoutTags from "../../Workout/WorkoutTags";
 
@@ -52,7 +52,7 @@ export default function ProgramWorkoutEditSelected({
           Cancel
         </Button>
         <GenericModel
-          Model={WorkoutEdit}
+          Model={WorkoutEditModel}
           modelProps={{ workout, afterSubmit: handleSelectedWorkoutUpdate }}
           mode="edit"
           buttonProps={{ buttonStyle: "model" }}

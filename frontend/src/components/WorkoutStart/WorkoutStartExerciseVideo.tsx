@@ -14,7 +14,7 @@ export default function WorkoutStartExerciseVideo({
   const buttonText = isOpen ? "Hide Video" : "Show Video";
   return (
     <>
-      <Button onClick={handleModel} className="w-full">
+      <Button onClick={handleModel} className="w-full pt-2">
         {buttonText}
       </Button>
       {isOpen ? <YoutubePlayer youtubeUrl={youtubeUrl} /> : null}

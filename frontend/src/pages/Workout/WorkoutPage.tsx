@@ -9,7 +9,7 @@ import { toTitle } from "../../utils/toTitle";
 
 import ProgramWorkoutPreview from "../../components/ProgramWorkout/ProgramWorkoutPreview";
 
-import Loader from "../../components/UI/Loader";
+import Loader from "../../components/UI/loader/Loader";
 import Button from "../../components/UI/Button";
 import IconArrow from "../../components/UI/Icons/IconArrow";
 import GenericList from "../../components/UI/GenericList";
@@ -34,14 +34,6 @@ export default function WorkoutPage() {
   };
 
   //TODO??To memo or not to memo, this is the question
-  // const cleanPrograms = useMemo(() => {
-  //   return programs
-  //     .filter((p) => p.isActive)
-  //     .map((p) => p.programWorkouts)
-  //     .flat()
-  //     .filter((pw) => pw?.daysOfWeek.includes(day!))
-  //     .filter((p) => !!p); //FOR TS to be quiet
-  // }, [programs, day]);
   const cleanPrograms: IProgramWorkoutDTO[] = programs
     .filter((p) => p.isActive)
     .map((p) => p.programWorkouts?.map((pw) => ({ ...pw, programId: p.id })))
@@ -55,7 +47,7 @@ export default function WorkoutPage() {
 
   return (
     <div className="h-main flex flex-col gap-4 relative w-full    ">
-      <header className="w-full h-16 shadow-border-b px-mobile pt-2 ">
+      <header className="w-full h-16 shadow-border-b px-mobile pt-2 flex flex-col ">
         <h2 className="text-center">Workouts Page</h2>
         <div className="inline-flex items-center justify-between gap-2 w-full">
           <Button className="w-6 aspect-square" onClick={() => onChangeDay(-1)}>
@@ -67,6 +59,9 @@ export default function WorkoutPage() {
           </Button>
         </div>
       </header>
+      <span className="bg-main-orange w-fit py-2 px-2 rounded text-black self-center ">
+        <p>Start ad-hook workout-tba</p>
+      </span>
       {/*//INFO: Workouts Preview per day*/}
       <GenericList
         items={cleanPrograms}

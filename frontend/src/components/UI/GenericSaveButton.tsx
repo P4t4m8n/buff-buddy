@@ -6,7 +6,7 @@ interface SavableStore {
 }
 
 import type React from "react";
-import Loader from "./Loader";
+import Loader from "./loader/Loader";
 
 interface GenericSaveButtonProps<T extends SavableStore> {
   itemId?: string;
@@ -29,11 +29,11 @@ export default function GenericSaveButton<T extends SavableStore>({
       type={type}
       disabled={isSaving}
       onClick={saveAction}
-      className={`bg-inherit border-1 p-2 hover:bg-main-orange h-full
+      className={`bg-inherit border-1 flex-center  hover:bg-main-orange h-full w-full
                              hover:text-white rounded transition-all duration-300
                              hover:cursor-pointer  `}
     >
-      {isSaving ? <Loader /> : "Save"}
+      {isSaving ? <Loader loaderType="spinner" /> : "Save"}
     </Button>
   );
 }

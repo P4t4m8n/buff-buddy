@@ -8,7 +8,7 @@ import { workoutStartService } from "../../services/userWorkout.service";
 
 import Button from "../../components/UI/Button";
 import GenericSaveButton from "../../components/UI/GenericSaveButton";
-import Loader from "../../components/UI/Loader";
+import Loader from "../../components/UI/loader/Loader";
 import DateInput from "../../components/UI/Form/DateInput/DateInput";
 import GenericList from "../../components/UI/GenericList";
 import WorkoutStartExerciseItem from "../../components/WorkoutStart/WorkoutStartExerciseItem";
@@ -16,10 +16,13 @@ import WorkoutStartExerciseItem from "../../components/WorkoutStart/WorkoutStart
 import type {
   IUserWorkoutDTO,
   IUserWorkoutEditDTO,
+  IUserWorkoutExercisesEditDTO,
 } from "../../../../shared/models/userWorkout";
 import type { IDateRange } from "../../models/calendar.model";
 import type { IUserStrengthSetDTO } from "../../../../shared/models/strengthSet.model";
 import type { IUserCardioSetDTO } from "../../../../shared/models/cardioSet.model";
+import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
+import type { TValidationError } from "../../models/errors.model";
 
 //TODO?? state function move to hook or context? deep props drilling
 //TODO?? move child component into memo to prevent render?
@@ -33,7 +36,8 @@ export default function WorkoutStartPage() {
 
   const [workoutStart, setWorkoutStart] =
     React.useState<IUserWorkoutEditDTO | null>(null);
-  const { errors } = useErrors<IUserWorkoutDTO>();
+  const { errors, handleError, clearErrors } = useErrors<IUserWorkoutDTO>();
+  console.log("🚀 ~ WorkoutStartPage ~ errors:", errors);
 
   const getById = useWorkoutStore((state) => state.getById);
 
@@ -71,12 +75,13 @@ export default function WorkoutStartPage() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
+      clearErrors();
       e.preventDefault();
       e.stopPropagation();
       await workoutStartService.save(workoutStart!);
       navigate(-1);
     } catch (error) {
-      console.error("Error submitting workout start:", error);
+      handleError({ error });
     }
   };
 
@@ -164,7 +169,7 @@ export default function WorkoutStartPage() {
     });
   };
 
-  const logUserSet = (userSetId?: string) => {
+  const handleUserSet = (userSetId?: string, type?: ExerciseType) => {
     if (!userSetId) {
       console.error("Logging user set with id:", userSetId); //TODO?? for debugging remove later
       return;
@@ -173,11 +178,22 @@ export default function WorkoutStartPage() {
       console.error("No workout exercise to log."); //TODO?? for debugging remove later
       return;
     }
+
+    const key = type === "strength" ? "userStrengthSets" : "userCardioSets";
+
+    logUserSet(key, userSetId);
+  };
+
+  const logUserSet = (
+    key: "userStrengthSets" | "userCardioSets",
+    userSetId?: string
+  ) => {
+    clearErrors();
     setWorkoutStart((prev) => {
       if (!prev) return null;
       const { userWorkoutExercises } = prev;
       const _userWorkoutExercises = userWorkoutExercises.find((we) =>
-        we.userStrengthSets?.some((us) => us.id === userSetId)
+        we[key]?.some((us) => us.id === userSetId)
       );
 
       if (!_userWorkoutExercises) {
@@ -186,21 +202,22 @@ export default function WorkoutStartPage() {
       }
 
       const idx =
-        _userWorkoutExercises.userStrengthSets?.findIndex(
-          (us) => us.id === userSetId
-        ) ?? -1;
+        _userWorkoutExercises[key]?.findIndex((us) => us.id === userSetId) ??
+        -1;
 
       if (idx < 0) {
         console.warn("User set not found for id:", userSetId);
         return prev;
       }
 
+      const userSet = _userWorkoutExercises[key]?.[idx];
+
       const newUserSet = {
-        ..._userWorkoutExercises?.userStrengthSets?.[idx],
+        ...userSet,
         isCompleted: true,
       };
 
-      const userSets = _userWorkoutExercises.userStrengthSets?.toSpliced(
+      const userSets = _userWorkoutExercises[key]?.toSpliced(
         idx,
         1,
         newUserSet
@@ -209,12 +226,12 @@ export default function WorkoutStartPage() {
         if (we.id !== _userWorkoutExercises.id) return we;
         return {
           ...we,
-          userSets,
+          [key]: userSets,
         };
       });
       return {
         ...prev,
-        workoutExercises: newWorkoutExercise,
+        userWorkoutExercises: newWorkoutExercise,
       };
     });
   };
@@ -265,12 +282,26 @@ export default function WorkoutStartPage() {
   const { name } = workout ?? {};
 
   const sortedWorkoutExercises =
-    userWorkoutExercises?.sort((a, b) => a.order! - b.order!) ?? [];
+    userWorkoutExercises
+      ?.map((uwe, idx) => ({
+        userWorkoutExercise: uwe,
+        errors:
+          (errors?.userWorkoutExercises?.[
+            idx
+          ] as TValidationError<IUserWorkoutExercisesEditDTO>) || undefined,
+      }))
+      .sort(
+        (a, b) => a.userWorkoutExercise.order! - b.userWorkoutExercise.order!
+      ) ?? [];
+  console.log(
+    "🚀 ~ WorkoutStartPage ~ sortedWorkoutExercises:",
+    sortedWorkoutExercises
+  );
 
   const listItemProps = {
     handleUserStrengthSetsChange,
     handleUserCardioSetsChange,
-    logUserSet,
+    handleUserSet,
     completeAllExerciseSets,
   };
 
@@ -299,11 +330,11 @@ export default function WorkoutStartPage() {
         items={sortedWorkoutExercises}
         ItemComponent={WorkoutStartExerciseItem}
         itemComponentProps={listItemProps}
-        getKey={(we) => we.id!}
+        getKey={(we) => we.userWorkoutExercise.id!}
         ulStyle=" flex flex-col overflow-y-auto gap-2 px-mobile"
       />
 
-      <div className="flex justify-between h-10 px-mobile ">
+      <div className="grid grid-cols-[auto_4rem] h-10 px-mobile ">
         <Button
           buttonStyle="warning"
           type="button"

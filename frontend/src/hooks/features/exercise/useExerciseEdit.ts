@@ -48,7 +48,7 @@ export const useExerciseEdit = (
         setOpen(false);
       }
     } catch (error) {
-      handleError(error);
+      handleError({error});
     }
   };
 

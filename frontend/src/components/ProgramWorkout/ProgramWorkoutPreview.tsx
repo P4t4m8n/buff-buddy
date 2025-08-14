@@ -1,10 +1,12 @@
-import type { IProgramWorkoutDTO } from "../../../../shared/models/program.model";
+import WorkoutEditModel from "../Workout/WorkoutEditModel";
+
 import GenericList from "../UI/GenericList";
 import GenericModel from "../UI/GenericModel";
 import GenericTags from "../UI/GenericTags";
 import IconStart from "../UI/Icons/IconStart";
 import LinkComponent from "../UI/Link";
-import WorkoutEdit from "../Workout/WorkoutEdit";
+
+import type { IProgramWorkoutDTO } from "../../../../shared/models/program.model";
 
 interface IProgramWorkoutPreviewProps {
   item: IProgramWorkoutDTO;
@@ -74,7 +76,7 @@ export default function ProgramWorkoutPreview({
 
       <div className="gap-2 inline-flex justify-between shadow-border-t mt-2 pt-2">
         <GenericModel
-          Model={WorkoutEdit}
+          Model={WorkoutEditModel}
           modelProps={{ workout }}
           mode="edit"
           buttonProps={{ buttonStyle: "model" }}

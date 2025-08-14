@@ -2,9 +2,9 @@ import IconCreate from "../components/UI/Icons/IconCreate";
 import IconDetails from "../components/UI/Icons/IconDetails";
 import IconEdit from "../components/UI/Icons/IconEdit";
 import IconTrash from "../components/UI/Icons/IconTrash";
-import type { TModelButtonIconMode } from "../models/UI.model";
+import type { TIconMode } from "../models/UI.model";
 
-export const ModelButtonIcon = (mode?: TModelButtonIconMode) => {
+export const ModelButtonIcon = (mode?: TIconMode) => {
   const fillNone = `fill-none stroke-black-900  h-full aspect-square
              group-hover:stroke-main-orange transition-all duration-300`;
   const fillBlack = `fill-black-900 stroke-none  h-full aspect-square

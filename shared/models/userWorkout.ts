@@ -27,7 +27,7 @@ export interface IUserWorkoutEditDTO extends IUserWorkoutBase {
   programId?: string | null;
   workout?: IWorkoutDTO | null;
   workoutId?: string | null;
-  userWorkoutExercises: IUserWorkoutEditExercisesDTO[];
+  userWorkoutExercises: IUserWorkoutExercisesEditDTO[];
   lastUserWorkout?: IUserWorkoutDTO | null;
 }
 
@@ -35,7 +35,7 @@ export interface IUserWorkoutExercisesDTO extends IWorkoutExerciseDTO {
   userStrengthSets?: IUserStrengthSetDTO[] | null;
   userCardioSets?: IUserCardioSetDTO[] | null;
 }
-export interface IUserWorkoutEditExercisesDTO extends IWorkoutExerciseDTO {
+export interface IUserWorkoutExercisesEditDTO extends IWorkoutExerciseDTO {
   workoutExerciseId: string;
   userStrengthSets?: IUserStrengthSetEditDTO[];
   userCardioSets?: IUserCardioSetEditDTO[];

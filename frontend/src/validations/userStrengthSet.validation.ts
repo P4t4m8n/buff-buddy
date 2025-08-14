@@ -9,7 +9,7 @@ import {
 } from "./shared.validation";
 
 const UserStrengthSetSchema = z.object({
-  reps: numberValidation({ fieldName: "Reps" }),
+  reps: numberValidation({ fieldName: "Reps", minLength: 1 }),
   weight: numberValidation({ fieldName: "Weight", maxLength: 1000 }).transform(
     (val) => Math.round(val * 100) / 100
   ),
@@ -45,5 +45,3 @@ export const UserStrengthSetQuerySchema = z.object({
   skip: z.coerce.number().min(0).optional(),
   page: z.coerce.number().min(1).optional(),
 });
-
-

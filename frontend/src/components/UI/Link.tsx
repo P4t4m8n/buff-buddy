@@ -1,9 +1,13 @@
-import { Link, type LinkProps } from "react-router";
-import type { TButtonLinkStyle } from "../../models/styles.model";
-import { BUTTON_LINK_STYLES } from "../../consts/styles";
+import { Link } from "react-router";
 import { twMerge } from "tailwind-merge";
+
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
-import type { TIconMode } from "../../../../shared/models/app.model";
+
+import { BUTTON_LINK_STYLES } from "../../consts/styles";
+
+import type { LinkProps } from "react-router";
+import type { TButtonLinkStyle } from "../../models/styles.model";
+import type { TIconMode } from "../../models/UI.model";
 
 interface ILinkProps extends LinkProps, React.RefAttributes<HTMLAnchorElement> {
   linkStyle?: TButtonLinkStyle | null;

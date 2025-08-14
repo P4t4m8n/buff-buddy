@@ -27,7 +27,9 @@ export default function Label({
   const style = isMoveUpEffect
     ? twMerge(
         moveUpEffect,
-        labelPositionClasses[labelPosition || "input"],
+        labelPositionClasses[
+          (labelPosition as keyof typeof labelPositionClasses) ?? "input"
+        ],
         props.className
       )
     : props.className;

@@ -9,8 +9,7 @@ import Label from "../../components/UI/Form/Label";
 import TextArea from "../../components/UI/Form/TextArea";
 import Button from "../../components/UI/Button";
 import DateInput from "../../components/UI/Form/DateInput/DateInput";
-import Input from "../../components/UI/Form/Input";
-import Loader from "../../components/UI/Loader";
+import Loader from "../../components/UI/loader/Loader";
 import GenericModel from "../../components/UI/GenericModel";
 import GenericSaveButton from "../../components/UI/GenericSaveButton";
 import ProgramWorkoutEdit from "../../components/ProgramWorkout/ProgramWorkoutEdit/ProgramWorkoutEdit";
@@ -31,7 +30,6 @@ export default function ProgramEdit() {
     navigate,
     handleInputChange,
   } = useProgramEdit(programIdParams);
-  console.log("🚀 ~ ProgramEdit ~ errors:", errors);
 
   if (isLoading || !programToEdit) {
     return <Loader />;
@@ -61,8 +59,8 @@ export default function ProgramEdit() {
     >
       <header
         className={`grid grid-rows-[2rem_2.5rem_4.75rem_5rem_2.5rem_auto]
-                      lg:grid-rows-[2rem_3.5rem_9.5rem_auto] grid-cols-3
-                      lg:grid-cols-[1fr_1fr_8.5rem] lg:h-68 gap-4 justify-around items-center`}
+                    lg:grid-rows-[2rem_4rem_6.5rem_auto] grid-cols-3
+                    lg:grid-cols-[1fr_1fr_8.5rem] lg:h-68 gap-4 justify-around items-center`}
       >
         <h2 className="text-2xl font-semibold col-span-full truncate">
           {headerText}
@@ -75,19 +73,21 @@ export default function ProgramEdit() {
             id: "name-" + programId,
             placeholder: "",
             onChange: handleInputChange,
+            className: "h-10 pl-2",
           }}
           labelProps={{
             htmlFor: "name" + programId,
             children: "Program Name",
+            isMoveUpEffect: true,
           }}
           error={errors?.name}
-          divStyle="h-fit order-1 w-full col-span-2 lg:col-span-1"
+          divStyle="h-fit order-1 w-full col-span-2 lg:col-span-1 self-end"
         />
 
         <DateInput
           handleDateSelect={handleDateSelect}
           selectedRange={dateRange}
-          className="col-span-full lg:col-span-1 order-3 lg:order-2"
+          className="col-span-full lg:col-span-1 order-3 lg:order-2 self-end"
           errorRange={{
             startDate: errors?.startDate,
             endDate: errors?.endDate,
@@ -101,24 +101,37 @@ export default function ProgramEdit() {
           onChange={handleInputChange}
           value={notes ?? ""}
           name="notes"
+          id={"notes-" + programId}
           rows={3}
-          placeholder="Add a note..."
+          placeholder=""
           className="w-full h-full  block peer outline-offset-0  pl-2 peer resize-none"
-          divStyle="border-1 rounded h-auto col-span-full lg:col-span-2 order-4"
-        ></TextArea>
+          divStyle="border-1 relative rounded h-full col-span-full lg:col-span-2 order-4"
+        >
+          <Label
+            labelPosition="textArea"
+            isMoveUpEffect={true}
+            htmlFor={"notes-" + programId}
+          >
+            Notes
+          </Label>
+        </TextArea>
         <div
-          className="inline-flex lg:grid items-center lg:justify-items-center gap-2 order-5
-                       w-full col-span-full lg-col-span-1 lg:col-start-3"
+          className="inline-flex lg:grid lg:grid-cols-2 items-center lg:justify-items-center gap-2 order-5
+                       w-full h-full lg:h-auto col-span-full lg-col-span-1 lg:col-start-3"
         >
           <GenericModel
             Model={ProgramWorkoutEdit}
             modelProps={{ handleProgramWorkouts }}
             mode="create"
-            buttonProps={{ buttonStyle: "model", className: "mr-auto" }}
+            buttonProps={{
+              buttonStyle: "model",
+              className: "mr-auto col-span-2 lg:w-full",
+            }}
             isOverlay={false}
           />
 
           <Button
+            className="w-full"
             buttonStyle="warning"
             onClick={(e) => {
               e.preventDefault();

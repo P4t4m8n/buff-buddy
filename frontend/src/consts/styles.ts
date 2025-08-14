@@ -9,3 +9,5 @@ export const BUTTON_LINK_STYLES = {
             hover:text-white rounded transition-all duration-300
             hover:cursor-pointer  `,
 };
+
+export const LABEL_POSITION = ["input", "textArea"];

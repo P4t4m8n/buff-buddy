@@ -1,6 +1,6 @@
 import type { IProgramDTO } from "../../../../../shared/models/program.model";
 import GenericList from "../../UI/GenericList";
-import Loader from "../../UI/Loader";
+import Loader from "../../UI/loader/Loader";
 import ProgramPreview from "./ProgramPreview";
 
 interface IProgramsListProps {

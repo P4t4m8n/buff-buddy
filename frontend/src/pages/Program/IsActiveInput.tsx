@@ -11,7 +11,7 @@ export default function IsActiveInput({
   isActive,
 }: IIsActiveInputProps) {
   const mainClass =
-    " relative w-24 h-10 rounded-full bg-error-red cursor-pointer transition-colors duration-[400ms] block peer-checked:bg-success-green";
+    " relative w-24  h-10 rounded-full bg-error-red cursor-pointer transition-colors duration-[400ms] block peer-checked:bg-success-green";
 
   const before = `before:absolute before:left-1 before:top-1/2 before:h-6 before:w-6 before:translate-x-16 before:-translate-y-1/2
           before:rounded-full before:bg-white before:shadow-sm before:transition-transform before:duration-[400ms] before:content-['']
@@ -28,7 +28,7 @@ export default function IsActiveInput({
       type="checkBox"
       name="isActive"
       id="isActive"
-      divStyle="flex items-center order-2 justify-self-end lg:justify-self-center"
+      divStyle="flex items-center order-2 justify-self-end lg:justify-self-center self-end"
       hidden
       className="hidden peer"
     >

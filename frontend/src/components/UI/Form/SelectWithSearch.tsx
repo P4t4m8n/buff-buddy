@@ -51,20 +51,19 @@ export default function SelectWithSearch<T, P>({
   );
   const selectedDivStyle = twMerge(
     "inline-flex items-center  w-full border rounded px-2 h-10",
-    error ? "border-error-red" : ""
+    error
+      ? "border-error-red text-error-red fill-error-red"
+      : "fill-main-orange"
   );
 
   return (
     <div className="group relative" ref={modelRef}>
       <LabelWithError isMoveUpEffect={false} error={error ?? ""} />
 
-      <Button
-        className={selectedDivStyle}
-        onClick={handleModel}
-      >
+      <Button className={selectedDivStyle} onClick={handleModel}>
         {SelectedComponent}
 
-        <IconArrow className="w-6 h-6 group-has-[ul]:rotate-180 stroke-none fill-main-orange transition-transform duration-300 ml-auto " />
+        <IconArrow className="w-6 h-6 group-has-[ul]:rotate-180 stroke-none  transition-transform duration-300 ml-auto " />
       </Button>
 
       {/*

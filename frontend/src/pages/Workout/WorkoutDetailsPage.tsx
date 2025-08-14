@@ -1,27 +1,19 @@
-import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useWorkoutStore } from "../../store/workout.store";
-import Loader from "../../components/UI/Loader";
+import Loader from "../../components/UI/loader/Loader";
 import ItemNotFound from "../../components/UI/ItemNotFound";
-import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
 import Button from "../../components/UI/Button";
+import { useItemDetails } from "../../hooks/shared/useItemDetails";
 
 //TODO??Implement  workout details
 export default function WorkoutDetailsPage() {
-  const { id } = useParams<{ id?: string }>();
+  const { workoutId } = useParams<{ workoutId?: string }>();
   const navigate = useNavigate();
 
-  const [workoutToView, setWorkoutToView] = React.useState<IWorkoutDTO | null>(
-    null
-  );
-  const getWorkoutById = useWorkoutStore((state) => state.getById);
-  const isLoadingId = useWorkoutStore((state) => state.isLoadingId === id);
-
-  useEffect(() => {
-    getWorkoutById(id).then((w) => {
-      setWorkoutToView(w);
-    });
-  }, [id, getWorkoutById]);
+  const { itemToView: workoutToView, isLoadingId } = useItemDetails({
+    useStore: useWorkoutStore,
+    id: workoutId,
+  });
 
   if (isLoadingId) {
     return <Loader />;
@@ -32,9 +24,9 @@ export default function WorkoutDetailsPage() {
   }
 
   return (
-    <div className="absolute inset-0 h-full bg-main-orange p-mobile">
+    <div className="absolute inset-0 h-full background  p-mobile">
       <h2>WorkoutDetails -TBA</h2>
-      <p>{id}</p>
+      <p>{workoutId}</p>
       <p>{workoutToView.name}</p>
       <Button buttonStyle="save" onClick={() => navigate(-1)}>
         Back

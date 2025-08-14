@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import ModelOverlay from "./ModelOverlay";
 import Button, { type IButtonProps } from "./Button";
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
-import type { TModelButtonIconMode } from "../../models/UI.model";
+import type { TIconMode } from "../../models/UI.model";
 
 export interface IModelProps<T extends HTMLElement> {
   handleModel?: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -18,7 +18,7 @@ interface IGenericDialogProps<T extends HTMLElement, P> {
   parentRef?: React.RefObject<HTMLDivElement | null>;
   isPortal?: boolean;
   buttonProps?: IButtonProps;
-  mode?: TModelButtonIconMode;
+  mode?: TIconMode;
   isOverlay?: boolean;
 }
 export default function GenericModel<T extends HTMLElement, P>({

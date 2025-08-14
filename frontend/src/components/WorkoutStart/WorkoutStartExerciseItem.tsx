@@ -11,28 +11,36 @@ import IconArrow from "../UI/Icons/IconArrow";
 import WorkoutStartExerciseVideo from "./WorkoutStartExerciseVideo";
 import GenericList from "../UI/GenericList";
 
-import type { IUserWorkoutEditExercisesDTO } from "../../../../shared/models/userWorkout";
+import type { IUserWorkoutExercisesEditDTO } from "../../../../shared/models/userWorkout";
 import type { IUserCardioSetEditDTO } from "../../../../shared/models/cardioSet.model";
 import type { IUserStrengthSetEditDTO } from "../../../../shared/models/strengthSet.model";
+import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
+import type { TValidationError } from "../../models/errors.model";
 
 interface IWorkoutStartExerciseItemProps {
-  item: IUserWorkoutEditExercisesDTO;
+  item: {
+    userWorkoutExercise: IUserWorkoutExercisesEditDTO;
+    errors?: TValidationError<IUserWorkoutExercisesEditDTO>;
+  };
+
   handleUserStrengthSetsChange?: (
     e: React.ChangeEvent<HTMLInputElement>
   ) => void;
   handleUserCardioSetsChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  logUserSet: (id?: string) => void;
+  handleUserSet: (userSetId?: string, type?: ExerciseType) => void;
   completeAllExerciseSets: (id: string) => void;
 }
 
 export default function WorkoutStartExerciseItem({
-  item: workoutStart,
+  item,
   handleUserStrengthSetsChange,
   handleUserCardioSetsChange,
-  logUserSet,
+  handleUserSet,
   completeAllExerciseSets,
 }: IWorkoutStartExerciseItemProps) {
   const { isOpen, handleModel } = useModel();
+
+  const { userWorkoutExercise, errors } = item;
   const {
     id,
     exercise,
@@ -41,7 +49,7 @@ export default function WorkoutStartExerciseItem({
     coreCardioSet,
     userCardioSets,
     notes,
-  } = workoutStart;
+  } = userWorkoutExercise;
   const { youtubeUrl, name: exerciseName, type } = exercise ?? {};
 
   let exerciseConfig;
@@ -50,7 +58,12 @@ export default function WorkoutStartExerciseItem({
     exerciseConfig = {
       numberOfSets: coreStrengthSet?.numberOfSets,
       userSetListComponent: WorkoutStartUserStrengthSets,
-      userSetListProps: { handleUserStrengthSetsChange, logUserSet },
+      userSetListProps: {
+        handleUserStrengthSetsChange,
+        handleUserSet,
+        errors:
+          errors?.userStrengthSets as TValidationError<IUserStrengthSetEditDTO>,
+      },
       userSetListData: userStrengthSets,
       isFinished: userStrengthSets?.every((set) => set?.isCompleted),
       coreSetItems: [
@@ -74,7 +87,12 @@ export default function WorkoutStartExerciseItem({
     exerciseConfig = {
       numberOfSets: 1, //INFO: Cardio is typically one long set
       userSetListComponent: WorkoutStartUserCardioSets,
-      userSetListProps: { handleUserCardioSetsChange, logUserSet },
+      userSetListProps: {
+        handleUserCardioSetsChange,
+        handleUserSet,
+        errors:
+          errors?.userCardioSets as TValidationError<IUserCardioSetEditDTO>,
+      },
       userSetListData: userCardioSets,
       isFinished: userCardioSets?.every((set) => set?.isCompleted),
       coreSetItems: [
@@ -90,10 +108,13 @@ export default function WorkoutStartExerciseItem({
     return null;
   }
 
+  const isError = !!errors?.userStrengthSets || !!errors?.userCardioSets;
+
   const liStyle = twMerge(
     "border rounded gap-4 px-mobile transition-all duration-300 w-full relative",
     exerciseConfig.isFinished ? "border-green-500" : "",
-    isOpen ? "h-fit  z-10" : "h-20 min-h-20 overflow-hidden"
+    isOpen ? "h-fit  z-10" : "h-20 min-h-20 overflow-hidden",
+    isError ? "border-error-red text-error-red animate-pulse" : ""
   );
 
   const divClass = twMerge(
@@ -143,7 +164,7 @@ export default function WorkoutStartExerciseItem({
 
         <div className="flex w-full gap-8 text-black">
           <Button
-            className="opacity-50 cursor-not-allowed text-black"
+            className="opacity-50 cursor-not-allowed text-black "
             buttonStyle="model"
             disabled={true}
             type="button"

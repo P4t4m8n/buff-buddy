@@ -1,6 +1,9 @@
 import z from "zod";
 import type { IValidationProps } from "../../../shared/models/app.model";
-import { CRUD_OPERATIONS, DAY_OF_WEEK } from "../../../shared/consts/app.consts";
+import {
+  CRUD_OPERATIONS,
+  DAY_OF_WEEK,
+} from "../../../shared/consts/app.consts";
 
 export const stringValidation = ({
   minLength = 0,
@@ -51,7 +54,7 @@ export const refineDateRange = (
       (data) => data[startData] <= data[endDate],
       `${fieldName} start date must be before or equal to end date`
     );
-}
+};
 
 export const CrudOperationEnumSchema = z.enum(CRUD_OPERATIONS);
 
@@ -64,9 +67,9 @@ export const DaysOfWeekEnumSchema = z.enum(DAY_OF_WEEK);
 export const DaysOfWeekSchema = z
   .array(DaysOfWeekEnumSchema)
   .max(7, "Maximum 7 days allowed")
-  .transform((days) => [...new Set(days)]); 
+  .transform((days) => [...new Set(days)]);
 
-  export const IDSchema = z
+export const IDSchema = z
   .string()
   .min(1, "ID is required")
   .transform((val) => (val.startsWith("temp-") ? "" : val))
@@ -138,19 +141,21 @@ export const conditionalWeightRefinement = (
   }
 };
 
-export const OrderSchema = z.coerce
-  .number()
-  .int("Order must be a whole number")
-  .min(1, "Order must be at least 1")
-  .max(100, "Order cannot exceed 100");
-
-  export const numberValidation = ({
+export const numberValidation = ({
   minLength = 0,
   maxLength = 100,
   fieldName,
 }: IValidationProps) => {
-  return z
-    .number()
+  return z.coerce
+    .number({
+      invalid_type_error: `${fieldName} must be a number`,
+      required_error: `${fieldName} is required`,
+    })
     .min(minLength, `${fieldName} must be at least ${minLength}`)
     .max(maxLength, `${fieldName} cannot exceed ${maxLength}`);
 };
+export const OrderSchema = numberValidation({
+  minLength: 1,
+  maxLength: 100,
+  fieldName: "Order",
+});

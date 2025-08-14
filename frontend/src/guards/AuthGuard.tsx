@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import AuthPage from "../pages/AuthPage";
 import { useAuthStore } from "../store/auth.store";
-import Loader from "../components/UI/Loader";
+import Loader from "../components/UI/loader/Loader";
 interface AuthProviderProps {
   children: React.ReactNode;
 }

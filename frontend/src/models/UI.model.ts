@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 import type { IEntity } from "../../../shared/models/entity.model";
+import type { ICON_MODE } from "../consts/UI.const";
+import type { LABEL_POSITION } from "../consts/styles";
 
 export interface IAppNav {
   label: string;
@@ -20,6 +22,6 @@ export interface IIconProps {
   className?: string;
 }
 
-export type TModelButtonIconMode = "create" | "edit" | "details" | "delete";
+export type TIconMode = (typeof ICON_MODE)[number];
 
-export type TLabelPosition = "input" | "textArea";
+export type TLabelPosition = (typeof LABEL_POSITION)[number];

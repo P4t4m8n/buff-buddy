@@ -1,3 +1,4 @@
+import type { ExerciseType } from "../../../../../backend/prisma/generated/prisma";
 import type { IUserCardioSetEditDTO } from "../../../../../shared/models/cardioSet.model";
 import type { TValidationError } from "../../../models/errors.model";
 import Button from "../../UI/Button";
@@ -10,13 +11,13 @@ interface IWorkoutStartUserCardioSetsProps {
   item: IUserCardioSetEditDTO;
   errors?: TValidationError<IUserCardioSetEditDTO>;
   handleUserCardioSetsChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  logUserSet: (id?: string) => void;
+  handleUserSet: (userSetId?: string, type?: ExerciseType) => void;
 }
 export default function WorkoutStartUserCardioSets({
   item: userSet,
   errors,
   handleUserCardioSetsChange,
-  logUserSet,
+  handleUserSet,
 }: IWorkoutStartUserCardioSetsProps) {
   const {
     id,
@@ -85,7 +86,7 @@ export default function WorkoutStartUserCardioSets({
           isCompleted ? "bg-main-green" : ""
         }`}
         buttonStyle="model"
-        onClick={() => logUserSet(id)}
+        onClick={() => handleUserSet(id, "cardio")}
         type="button"
       >
         {isCompleted ? "Update" : "Complete"}

@@ -10,7 +10,7 @@ import ProgramDetails from "./pages/Program/ProgramDetails";
 import WorkoutPage from "./pages/Workout/WorkoutPage";
 import WorkoutDetailsPage from "./pages/Workout/WorkoutDetailsPage";
 import WorkoutStartPage from "./pages/Workout/WorkoutStartPage";
-import WorkoutEdit from "./components/Workout/WorkoutEdit";
+import WorkoutEditPage from "./pages/Workout/WorkoutEditPage";
 
 export interface RouteConfig {
   path: string;
@@ -48,7 +48,11 @@ export const ROUTES: RouteConfig[] = [
 
   {
     path: "/workouts/edit",
-    element: <WorkoutEdit />,
+    element: <WorkoutEditPage />,
+  },
+  {
+    path: "/workouts/edit/:workoutId",
+    element: <WorkoutEditPage />,
   },
   {
     path: "/programs",
@@ -61,7 +65,7 @@ export const ROUTES: RouteConfig[] = [
     children: [
       {
         path: "workouts/edit",
-        element: <WorkoutEdit />,
+        element: <WorkoutEditPage />,
       },
     ],
   },

@@ -72,7 +72,7 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
       const { id } = res;
       navigate(`/programs/${id}`);
     } catch (error) {
-      handleError(error);
+      handleError({error});
     }
   };
 
@@ -100,18 +100,19 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, type, value } = e.target;
+     const key = name.split("-")[0];
     setProgramToEdit((prev) => {
       if (!prev) return null;
       // Only use checked for checkboxes
       if (type === "checkbox" && "checked" in e.target) {
         return {
           ...prev,
-          [name]: (e.target as HTMLInputElement).checked,
+          [key]: (e.target as HTMLInputElement).checked,
         };
       }
       return {
         ...prev,
-        [name]: value,
+        [key]: value,
       };
     });
   };

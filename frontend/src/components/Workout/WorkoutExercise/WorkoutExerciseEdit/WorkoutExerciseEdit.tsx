@@ -1,9 +1,3 @@
-import Input from "../../../UI/Form/Input";
-import Label from "../../../UI/Form/Label";
-import TextArea from "../../../UI/Form/TextArea";
-import Button from "../../../UI/Button";
-import Loader from "../../../UI/Loader";
-
 import { useWorkoutExerciseEdit } from "../../../../hooks/features/program/useWorkoutExerciseEdit";
 import { useErrors } from "../../../../hooks/shared/useErrors";
 import { toTitle } from "../../../../utils/toTitle";
@@ -14,11 +8,22 @@ import WorkoutExerciseCoreStrengthSet from "../WorkoutExerciseCoreStrengthSet";
 import SelectWithSearch from "../../../UI/Form/SelectWithSearch";
 import WorkoutExerciseEditExerciseSelect from "./WorkoutExerciseEditExerciseSelect";
 
+import Label from "../../../UI/Form/Label";
+import TextArea from "../../../UI/Form/TextArea";
+import Button from "../../../UI/Button";
+import Loader from "../../../UI/loader/Loader";
+
 import type { ExerciseType } from "../../../../../../backend/prisma/generated/prisma";
 import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
 import type { IModelProps } from "../../../UI/GenericModel";
+import type { ICoreStrengthSetEditDTO } from "../../../../../../shared/models/strengthSet.model";
+import {
+  CreateWorkoutExerciseSchema,
+  UpdateWorkoutExerciseSchema,
+} from "../../../../validations/workoutExercise.validation";
+import InputWithError from "../../../UI/Form/InputWithError";
+import type { TValidationError } from "../../../../models/errors.model";
 import type { ICoreCardioSetEditDTO } from "../../../../../../shared/models/cardioSet.model";
-import type { ICoreStrengthSetDTO } from "../../../../../../shared/models/strengthSet.model";
 
 interface WorkoutExerciseEditProps extends IModelProps<HTMLDivElement> {
   workoutExercise?: IWorkoutExerciseEditDTO;
@@ -41,30 +46,40 @@ export default function WorkoutExerciseEdit({
     resetWorkoutExerciseToEdit,
   } = useWorkoutExerciseEdit(workoutExercise, workoutExerciseLength);
 
-  const { errors: coreSetsErrors } = useErrors<ICoreStrengthSetDTO>();
-  const { errors: coreCardioSetsErrors } =
-    useErrors<ICoreCardioSetEditDTO>();
-  const { errors: workoutExerciseErrors } =
+  // const { errors: coreSetsErrors } = useErrors<ICoreStrengthSetDTO>();
+  // const { errors: coreCardioSetsErrors } = useErrors<ICoreCardioSetEditDTO>();
+  const { errors: workoutExerciseErrors, handleError } =
     useErrors<IWorkoutExerciseEditDTO>();
 
   const { modelRef, setIsOpen } = props;
 
   const onUpsertWorkoutExercise = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+    try {
+      e.preventDefault();
+      e.stopPropagation();
 
-    if (!workoutExerciseToEdit) return;
+      if (!workoutExerciseToEdit) return;
 
-    const weToUpsert: IWorkoutExerciseEditDTO = {
-      ...workoutExerciseToEdit,
-      crudOperation: !workoutExerciseToEdit?.id?.startsWith("temp")
-        ? "update"
-        : "create",
-    };
+      const weToUpsert: IWorkoutExerciseEditDTO = {
+        ...workoutExerciseToEdit,
+        crudOperation: !workoutExerciseToEdit?.id?.startsWith("temp")
+          ? "update"
+          : "create",
+      };
 
-    handleWorkoutExercises(weToUpsert);
-    resetWorkoutExerciseToEdit();
-    if (setIsOpen) setIsOpen(false);
+      const { id } = weToUpsert;
+      if (!id || id.startsWith("temp")) {
+        CreateWorkoutExerciseSchema.parse(weToUpsert);
+      } else {
+        UpdateWorkoutExerciseSchema.parse(weToUpsert);
+      }
+
+      handleWorkoutExercises(weToUpsert);
+      resetWorkoutExerciseToEdit();
+      if (setIsOpen) setIsOpen(false);
+    } catch (error) {
+      handleError({ error });
+    }
   };
 
   const onDeleteWorkoutExercise = (e: React.MouseEvent) => {
@@ -98,7 +113,9 @@ export default function WorkoutExerciseEdit({
           <WorkoutExerciseCoreCardioSet
             coreCardioSet={coreCardioSet}
             handleChange={handleCoreCardioSetChange}
-            errors={coreCardioSetsErrors}
+            errors={
+              workoutExerciseErrors?.coreCardioSet as unknown as TValidationError<ICoreCardioSetEditDTO>
+            }
           />
         );
       case "strength":
@@ -106,7 +123,9 @@ export default function WorkoutExerciseEdit({
           <WorkoutExerciseCoreStrengthSet
             coreSet={coreStrengthSet}
             handleChange={handleCoreStrengthSetChange}
-            errors={coreSetsErrors}
+            errors={
+              workoutExerciseErrors?.coreStrengthSet as unknown as TValidationError<ICoreStrengthSetEditDTO>
+            }
           />
         );
       default:
@@ -122,26 +141,27 @@ export default function WorkoutExerciseEdit({
          rounded  gap-4`}
     >
       <div className=" flex flex-col items gap-4 w-full justify-around px-4 pt-4">
-        <Input
-          name="order"
-          type="number"
-          defaultValue={
-            order && order >= 1 ? order : workoutExerciseLength ?? 1
-          }
+        <InputWithError
           divStyle=" grid grid-cols-[auto_auto_1fr] justify-end gap-2 items-center"
-          className="border w-[4ch] aspect-square rounded text-center order-2  "
-          min={1}
-          onChange={handleInputChange}
-        >
-          <Label labelPosition="input" className="order-1" htmlFor="order">
-            Order:
-          </Label>
-          {workoutExerciseErrors?.order ? (
-            <Label htmlFor="order" className="order-3 text-sm text-red-orange">
-              {workoutExerciseErrors?.order}
-            </Label>
-          ) : null}
-        </Input>
+          inputProps={{
+            name: "order",
+            type: "number",
+            defaultValue:
+              order && order >= 1 ? order : workoutExerciseLength ?? 1,
+            className:
+              "border w-[4ch] aspect-square rounded text-center order-2  ",
+            min: 1,
+            onChange: handleInputChange,
+          }}
+          labelProps={{
+            labelPosition: "input",
+            className: "order-1",
+            htmlFor: "order",
+            children: "Order:",
+          }}
+          error={workoutExerciseErrors?.order}
+        />
+
         <TextArea
           defaultValue={notes ?? ""}
           name="notes"
@@ -170,6 +190,7 @@ export default function WorkoutExerciseEdit({
           AddComponent={WorkoutExerciseEditAddExercise}
           SelectItemComponent={WorkoutExerciseEditExerciseSelect}
           filterBy={(option) => option.name!}
+          error={workoutExerciseErrors?.exerciseData}
         />
       </div>
 
