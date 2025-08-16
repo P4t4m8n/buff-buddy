@@ -9,34 +9,82 @@ import {
   stringValidationAndSanitization,
 } from "../../../shared/validations/shared.validations";
 
+const UserStrengthSkippedSetSchema = z
+  .object({
+    skippedReason: stringValidationAndSanitization({
+      fieldName: "Skipped Reason",
+      minLength: 1,
+      maxLength: 500,
+    }),
+    isCompleted: z.literal(false, {
+      message: "A skipped set cannot be marked as completed.",
+    }),
+    reps: z.any().optional(),
+    weight: z.any().optional(),
+    isBodyWeight: z.any().optional(),
+  })
+  .superRefine((data, ctx) => {
+    if ("reps" in data && !!data.reps) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["reps"],
+        message: "Reps must not be provided when skippedReason is present.",
+      });
+    }
+    if ("weight" in data && !!data.weight) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["weight"],
+        message: "Weight must not be provided when skippedReason is present.",
+      });
+    }
+    if ("isBodyWeight" in data && !!data.isBodyWeight) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["isBodyWeight"],
+        message:
+          "isBodyWeight must not be provided when skippedReason is present.",
+      });
+    }
+  });
+
+const UserStrengthNonSkippedSetSchema = z
+  .object({
+    skippedReason: z.union([z.literal(""), z.null(), z.undefined()]),
+    reps: numberValidation({ fieldName: "Reps", minLength: 1 }),
+    weight: numberValidation({
+      fieldName: "Weight",
+      maxLength: 1000,
+    }).transform((val) => Math.round(val * 100) / 100),
+    isBodyWeight: BooleanSchema,
+  })
+  .superRefine(conditionalWeightRefinement);
+
+const UserStrengthUnionSchema = z.union([
+  UserStrengthSkippedSetSchema,
+  UserStrengthNonSkippedSetSchema,
+]);
+
 const UserStrengthSetSchema = z.object({
-  reps: numberValidation({ fieldName: "Reps" }),
-  weight: numberValidation({ fieldName: "Weight", maxLength: 1000 }).transform(
-    (val) => Math.round(val * 100) / 100
-  ),
   order: z.number().optional(),
 
-  isBodyWeight: BooleanSchema,
   isCompleted: BooleanSchema,
   isJointPain: BooleanSchema,
   isMuscleFailure: BooleanSchema,
   isWarmup: BooleanSchema,
 
-  skippedReason: stringValidationAndSanitization({
-    fieldName: "Skipped Reason",
-  }).optional(),
   crudOperation: CrudOperationSchema,
 });
 
-export const CreateUserStrengthSetSchema = UserStrengthSetSchema.superRefine(
-  conditionalWeightRefinement
+export const CreateUserStrengthSetSchema = z.intersection(
+  UserStrengthSetSchema,
+  UserStrengthUnionSchema
 );
 
-export const UpdateUserStrengthSetSchema = UserStrengthSetSchema.partial()
-  .extend({
+export const UpdateUserStrengthSetSchema =
+  UserStrengthSetSchema.partial().extend({
     id: IDSchema,
-  })
-  .superRefine(conditionalWeightRefinement);
+  });
 
 export const UserStrengthSetParamsSchema = z.object({
   id: IDSchema,

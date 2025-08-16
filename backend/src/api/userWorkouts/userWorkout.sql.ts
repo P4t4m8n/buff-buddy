@@ -2,6 +2,7 @@ import { Prisma } from "../../../prisma/generated/prisma";
 import { coreCardioSetsSQL } from "../coreSets/coreCardioSets/coreCardioSets.sql";
 import { coreStrengthSetsSQL } from "../coreSets/coreStrengthSets/coreStrengthSets.sql";
 import { exerciseSQL } from "../exercises/exercise.sql";
+import { programsSQL } from "../programs/program.sql";
 import { userSQL } from "../users/users.sql";
 import { userCardioSetsSQL } from "../userSets/userCardioSets/userCardioSets.sql";
 import { userStrengthSetsSQL } from "../userSets/userStrengthSets/userStrengthSets.sql";
@@ -38,14 +39,7 @@ const USER_WORKOUT_SELECT: Prisma.UserWorkoutSelect = {
   id: true,
   dateCompleted: true,
   program: {
-    select: {
-      id: true,
-      name: true,
-      notes: true,
-      isActive: true,
-      startDate: true,
-      endDate: true,
-    },
+    select: programsSQL.SMALL_PROGRAM_SELECT,
   },
   owner: {
     select: {

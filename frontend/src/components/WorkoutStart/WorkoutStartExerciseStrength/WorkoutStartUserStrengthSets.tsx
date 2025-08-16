@@ -19,7 +19,7 @@ interface INumberInput {
   name: string;
   value: string | number;
   label: string;
-  isError: boolean;
+  error?: string;
 }
 interface IWorkoutExerciseUserSetProps {
   item: IUserStrengthSetEditDTO;
@@ -36,7 +36,7 @@ export default function WorkoutStartUserStrengthSets({
   errors: serverErrors,
 }: IWorkoutExerciseUserSetProps) {
   const inputStyle = `rounded w-8 aspect-square  text-center border outline-none`;
-  const divStyle = "inline-flex flex-col-reverse gap-1 items-center";
+  const divStyle = "inline-flex flex-col-reverse gap-1 items-center  h-full justify-between text-center";
 
   const {
     id: userSetId,
@@ -58,19 +58,23 @@ export default function WorkoutStartUserStrengthSets({
     ...serverErrors,
     ...errors,
   };
+  console.log(
+    "🚀 ~ WorkoutStartUserStrengthSets ~ combinedErrors:",
+    combinedErrors
+  );
 
   const numberInputs = [
     {
       name: `reps-${userSetId}`,
       value: reps || "",
       label: "Reps",
-      isError: !!combinedErrors?.reps,
+      error: combinedErrors?.reps,
     },
     {
       name: `weight-${userSetId}`,
       value: isBodyWeight ? "BW" : weight ?? "",
       label: "Weight",
-      isError: !!combinedErrors?.weight,
+      error: combinedErrors?.weight,
     },
   ];
 
@@ -106,7 +110,7 @@ export default function WorkoutStartUserStrengthSets({
         min={1}
         onChange={handleUserStrengthSetsChange!}
         inputId={userSetId}
-        isError={!!input.isError}
+        error={input.error}
         label={input.label}
       />
     );
@@ -115,7 +119,7 @@ export default function WorkoutStartUserStrengthSets({
   const onComplete = () => {
     try {
       clearErrors();
-      CreateUserStrengthSetSchema.parse(userSet);
+      if (!skippedReason) CreateUserStrengthSetSchema.parse(userSet);
       handleUserSet(userSetId, "strength");
     } catch (error) {
       handleError({ error });
@@ -132,7 +136,7 @@ export default function WorkoutStartUserStrengthSets({
   );
 
   return (
-    <div className="grid grid-cols-4 gap-x-2 grid-rows-[repeat(3,auto)] gap-y-3 justify-items-center content-between not-last:border-b-2 pb-2 items-center ">
+    <div className="grid grid-cols-4 gap-x-2 grid-rows-[repeat(3,auto)] gap-y-3 justify-items-center content-between not-last:border-b-2 pb-2 items-center  ">
       <WorkoutStartUserStrengthSetsLast {...lastSet} isWarmup={isWarmup} />
       {numberInputs.map((input) => getNumberInput(input))}
       {checkboxInputs.map((input) => (

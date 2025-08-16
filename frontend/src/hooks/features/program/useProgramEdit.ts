@@ -99,14 +99,8 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, type, value } = e.target;
-    console.log(
-      "🚀 ~ handleInputChange ~  name, type, value:",
-      name,
-      type,
-      value
-    );
+
     const key = name.split("-")[0];
-    console.log("🚀 ~ handleInputChange ~ key:", key);
     setProgramToEdit((prev) => {
       if (!prev) return null;
       // Only use checked for checkboxes

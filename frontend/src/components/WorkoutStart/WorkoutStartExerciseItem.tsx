@@ -44,7 +44,7 @@ export default function WorkoutStartExerciseItem(
     "border rounded gap-4 px-mobile transition-all duration-300 w-full relative",
     exerciseConfig?.isFinished ? "border-green-500" : "",
     isOpen ? "h-fit  z-10" : "h-20 min-h-20 overflow-hidden",
-    isError ? "border-error-red text-error-red animate-pulse" : ""
+    isError ? "border-error-red " : ""
   );
 
   const divClass = twMerge(
@@ -54,7 +54,8 @@ export default function WorkoutStartExerciseItem(
 
   const modelButtonStyle = twMerge(
     "w-full flex items-center h-16 transition-all duration-300",
-    isOpen ? "border-b pb-2" : ""
+    isOpen ? "border-b pb-2" : "",
+    isError ? "text-error-red " : ""
   );
 
   const iconArrowStyle = twMerge(
@@ -91,7 +92,10 @@ export default function WorkoutStartExerciseItem(
         >
           items={exerciseConfig?.userSetListData ?? []}
           ItemComponent={exerciseConfig.userSetListComponent}
-          itemComponentProps={exerciseConfig?.userSetListProps}
+          itemComponentProps={(item, index) => ({
+            ...(exerciseConfig.userSetListProps as typeof exerciseConfig.userSetListProps),
+            errors: (exerciseConfig.userSetListProps as any)?.errors?.[index],
+          })}
           getKey={(item) => item.id!}
           ulStyle="h-full flex flex-col gap-2"
         />

@@ -12,7 +12,7 @@ export interface IModelProps<T extends HTMLElement> {
   modelRef?: React.RefObject<T | null>;
 }
 
-interface IGenericDialogProps<T extends HTMLElement, P> {
+interface IGenericModelProps<T extends HTMLElement, P> {
   Model: React.ComponentType<P & IModelProps<T>>;
   modelProps?: P;
   parentRef?: React.RefObject<HTMLDivElement | null>;
@@ -29,7 +29,7 @@ export default function GenericModel<T extends HTMLElement, P>({
   buttonProps,
   mode,
   isOverlay = true,
-}: IGenericDialogProps<T, P>) {
+}: IGenericModelProps<T, P>) {
   const { isOpen, modelRef, setIsOpen, handleModel } = useModel<T>();
 
   const getModel = () => {

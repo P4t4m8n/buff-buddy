@@ -232,7 +232,7 @@ model UserCardioSet {
   distance              Float?
   order                 Int                 @default(1)
   isCompleted           Boolean             @default(false)
-  caloriesBurned         Int?
+  caloriesBurned        Int?
   userWorkoutExerciseId String
   skippedReason         String?
   userWorkoutExercise   UserWorkoutExercise @relation(fields: [userWorkoutExerciseId], references: [id], onDelete: Cascade)
@@ -274,8 +274,8 @@ model CoreStrengthSetWeight {
 
 model UserStrengthSet {
   id                    String              @id @default(cuid())
-  reps                  Int                 @default(0)
-  weight                Float?              @default(0)
+  reps                  Int?
+  weight                Float?
   isBodyWeight          Boolean             @default(false)
   restTime              Int                 @default(60)
   order                 Int                 @default(1)

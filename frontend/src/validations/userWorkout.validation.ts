@@ -39,7 +39,7 @@ export const CreateUserWorkoutSchema = z.object({
   dateCompleted: dateValidation("Workout date"),
   programId: IDSchema,
   workoutId: IDSchema,
-  ownerId: IDSchema,
+  ownerId: IDSchema.optional(),
   userWorkoutExercises: z.array(CreateUserWorkoutExercisesSchema),
 });
 

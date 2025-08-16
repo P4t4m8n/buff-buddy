@@ -6,7 +6,6 @@ import { workoutSQL } from "../workouts/workout.sql";
 import { TCreateProgramInput } from "./programs.validations";
 import { TCreateProgramWorkoutInput } from "./programWorkout.validations";
 
-
 const PROGRAM_WORKOUTS_SELECT: Prisma.ProgramWorkoutSelect = {
   id: true,
   daysOfWeek: true,
@@ -15,13 +14,16 @@ const PROGRAM_WORKOUTS_SELECT: Prisma.ProgramWorkoutSelect = {
   },
 };
 
-const PROGRAM_SELECT: Prisma.ProgramSelect = {
+const SMALL_PROGRAM_SELECT: Prisma.ProgramSelect = {
   id: true,
   name: true,
   notes: true,
   isActive: true,
   startDate: true,
   endDate: true,
+};
+const PROGRAM_SELECT: Prisma.ProgramSelect = {
+  ...SMALL_PROGRAM_SELECT,
   ownerId: true,
   createdAt: true,
   updatedAt: true,
@@ -99,6 +101,7 @@ const getProgramCreate = (
 };
 
 export const programsSQL = {
+  SMALL_PROGRAM_SELECT,
   PROGRAM_SELECT,
   PROGRAM_WORKOUTS_SELECT,
   getProgramCreate,

@@ -12,6 +12,7 @@ export const workoutStartService = {
   async save(
     dto: IUserWorkoutEditDTO
   ): Promise<THttpPostResponse<IUserWorkoutDTO>> {
+    console.log("🚀 ~ save ~ dto:", dto)
 
     const validatedDTO = CreateUserWorkoutSchema.parse(dto);
     return await apiService.post<THttpPostResponse<IUserWorkoutDTO>>(

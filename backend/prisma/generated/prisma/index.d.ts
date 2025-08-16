@@ -15700,7 +15700,7 @@ export namespace Prisma {
 
   export type UserStrengthSetGroupByOutputType = {
     id: string
-    reps: number
+    reps: number | null
     weight: number | null
     isBodyWeight: boolean
     restTime: number
@@ -15823,7 +15823,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      reps: number
+      reps: number | null
       weight: number | null
       isBodyWeight: boolean
       restTime: number
@@ -24719,7 +24719,7 @@ export namespace Prisma {
     OR?: UserStrengthSetWhereInput[]
     NOT?: UserStrengthSetWhereInput | UserStrengthSetWhereInput[]
     id?: StringFilter<"UserStrengthSet"> | string
-    reps?: IntFilter<"UserStrengthSet"> | number
+    reps?: IntNullableFilter<"UserStrengthSet"> | number | null
     weight?: FloatNullableFilter<"UserStrengthSet"> | number | null
     isBodyWeight?: BoolFilter<"UserStrengthSet"> | boolean
     restTime?: IntFilter<"UserStrengthSet"> | number
@@ -24737,7 +24737,7 @@ export namespace Prisma {
 
   export type UserStrengthSetOrderByWithRelationInput = {
     id?: SortOrder
-    reps?: SortOrder
+    reps?: SortOrderInput | SortOrder
     weight?: SortOrderInput | SortOrder
     isBodyWeight?: SortOrder
     restTime?: SortOrder
@@ -24758,7 +24758,7 @@ export namespace Prisma {
     AND?: UserStrengthSetWhereInput | UserStrengthSetWhereInput[]
     OR?: UserStrengthSetWhereInput[]
     NOT?: UserStrengthSetWhereInput | UserStrengthSetWhereInput[]
-    reps?: IntFilter<"UserStrengthSet"> | number
+    reps?: IntNullableFilter<"UserStrengthSet"> | number | null
     weight?: FloatNullableFilter<"UserStrengthSet"> | number | null
     isBodyWeight?: BoolFilter<"UserStrengthSet"> | boolean
     restTime?: IntFilter<"UserStrengthSet"> | number
@@ -24776,7 +24776,7 @@ export namespace Prisma {
 
   export type UserStrengthSetOrderByWithAggregationInput = {
     id?: SortOrder
-    reps?: SortOrder
+    reps?: SortOrderInput | SortOrder
     weight?: SortOrderInput | SortOrder
     isBodyWeight?: SortOrder
     restTime?: SortOrder
@@ -24801,7 +24801,7 @@ export namespace Prisma {
     OR?: UserStrengthSetScalarWhereWithAggregatesInput[]
     NOT?: UserStrengthSetScalarWhereWithAggregatesInput | UserStrengthSetScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"UserStrengthSet"> | string
-    reps?: IntWithAggregatesFilter<"UserStrengthSet"> | number
+    reps?: IntNullableWithAggregatesFilter<"UserStrengthSet"> | number | null
     weight?: FloatNullableWithAggregatesFilter<"UserStrengthSet"> | number | null
     isBodyWeight?: BoolWithAggregatesFilter<"UserStrengthSet"> | boolean
     restTime?: IntWithAggregatesFilter<"UserStrengthSet"> | number
@@ -26028,7 +26028,7 @@ export namespace Prisma {
 
   export type UserStrengthSetCreateInput = {
     id?: string
-    reps?: number
+    reps?: number | null
     weight?: number | null
     isBodyWeight?: boolean
     restTime?: number
@@ -26045,7 +26045,7 @@ export namespace Prisma {
 
   export type UserStrengthSetUncheckedCreateInput = {
     id?: string
-    reps?: number
+    reps?: number | null
     weight?: number | null
     isBodyWeight?: boolean
     restTime?: number
@@ -26062,7 +26062,7 @@ export namespace Prisma {
 
   export type UserStrengthSetUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    reps?: IntFieldUpdateOperationsInput | number
+    reps?: NullableIntFieldUpdateOperationsInput | number | null
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
@@ -26079,7 +26079,7 @@ export namespace Prisma {
 
   export type UserStrengthSetUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    reps?: IntFieldUpdateOperationsInput | number
+    reps?: NullableIntFieldUpdateOperationsInput | number | null
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
@@ -26096,7 +26096,7 @@ export namespace Prisma {
 
   export type UserStrengthSetCreateManyInput = {
     id?: string
-    reps?: number
+    reps?: number | null
     weight?: number | null
     isBodyWeight?: boolean
     restTime?: number
@@ -26113,7 +26113,7 @@ export namespace Prisma {
 
   export type UserStrengthSetUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    reps?: IntFieldUpdateOperationsInput | number
+    reps?: NullableIntFieldUpdateOperationsInput | number | null
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
@@ -26129,7 +26129,7 @@ export namespace Prisma {
 
   export type UserStrengthSetUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    reps?: IntFieldUpdateOperationsInput | number
+    reps?: NullableIntFieldUpdateOperationsInput | number | null
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
@@ -31172,7 +31172,7 @@ export namespace Prisma {
 
   export type UserStrengthSetCreateWithoutUserWorkoutExerciseInput = {
     id?: string
-    reps?: number
+    reps?: number | null
     weight?: number | null
     isBodyWeight?: boolean
     restTime?: number
@@ -31188,7 +31188,7 @@ export namespace Prisma {
 
   export type UserStrengthSetUncheckedCreateWithoutUserWorkoutExerciseInput = {
     id?: string
-    reps?: number
+    reps?: number | null
     weight?: number | null
     isBodyWeight?: boolean
     restTime?: number
@@ -31337,7 +31337,7 @@ export namespace Prisma {
     OR?: UserStrengthSetScalarWhereInput[]
     NOT?: UserStrengthSetScalarWhereInput | UserStrengthSetScalarWhereInput[]
     id?: StringFilter<"UserStrengthSet"> | string
-    reps?: IntFilter<"UserStrengthSet"> | number
+    reps?: IntNullableFilter<"UserStrengthSet"> | number | null
     weight?: FloatNullableFilter<"UserStrengthSet"> | number | null
     isBodyWeight?: BoolFilter<"UserStrengthSet"> | boolean
     restTime?: IntFilter<"UserStrengthSet"> | number
@@ -32165,7 +32165,7 @@ export namespace Prisma {
 
   export type UserStrengthSetCreateManyUserWorkoutExerciseInput = {
     id?: string
-    reps?: number
+    reps?: number | null
     weight?: number | null
     isBodyWeight?: boolean
     restTime?: number
@@ -32196,7 +32196,7 @@ export namespace Prisma {
 
   export type UserStrengthSetUpdateWithoutUserWorkoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
-    reps?: IntFieldUpdateOperationsInput | number
+    reps?: NullableIntFieldUpdateOperationsInput | number | null
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
@@ -32212,7 +32212,7 @@ export namespace Prisma {
 
   export type UserStrengthSetUncheckedUpdateWithoutUserWorkoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
-    reps?: IntFieldUpdateOperationsInput | number
+    reps?: NullableIntFieldUpdateOperationsInput | number | null
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
@@ -32228,7 +32228,7 @@ export namespace Prisma {
 
   export type UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
-    reps?: IntFieldUpdateOperationsInput | number
+    reps?: NullableIntFieldUpdateOperationsInput | number | null
     weight?: NullableFloatFieldUpdateOperationsInput | number | null
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number

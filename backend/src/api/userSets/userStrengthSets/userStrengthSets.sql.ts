@@ -5,7 +5,7 @@ const getCreateUserStrengthSet = (
   dto: TCreateUserStrengthSetInput
 ): Prisma.UserStrengthSetCreateInput => {
   return {
-    reps: dto.reps ?? 1,
+    reps: dto.reps ,
     weight: dto.weight,
     isBodyWeight: dto.isBodyWeight,
     isCompleted: dto.isCompleted,
@@ -13,6 +13,7 @@ const getCreateUserStrengthSet = (
     isMuscleFailure: dto.isMuscleFailure,
     isJointPain: dto.isJointPain,
     order: dto?.order,
+    skippedReason: dto?.skippedReason,
   } as Prisma.UserStrengthSetCreateInput;
 };
 
@@ -25,10 +26,11 @@ const CORE_STRENGTH_SET_SELECT: Prisma.UserStrengthSetSelect = {
   isMuscleFailure: true,
   isJointPain: true,
   isBodyWeight: true,
+  skippedReason: true,
   order: true,
 };
 
 export const userStrengthSetsSQL = {
   getCreateUserStrengthSet,
-  CORE_STRENGTH_SET_SELECT
+  CORE_STRENGTH_SET_SELECT,
 };

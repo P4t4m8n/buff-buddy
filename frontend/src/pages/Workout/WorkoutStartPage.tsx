@@ -36,6 +36,7 @@ export default function WorkoutStartPage() {
 
   const [workoutStart, setWorkoutStart] =
     React.useState<IUserWorkoutEditDTO | null>(null);
+  console.log("🚀 ~ WorkoutStartPage ~ workoutStart:", workoutStart)
   const { errors, handleError, clearErrors } = useErrors<IUserWorkoutDTO>();
 
   const getById = useWorkoutStore((state) => state.getById);
@@ -305,10 +306,7 @@ export default function WorkoutStartPage() {
       .sort(
         (a, b) => a.userWorkoutExercise.order! - b.userWorkoutExercise.order!
       ) ?? [];
-  console.log(
-    "🚀 ~ WorkoutStartPage ~ sortedWorkoutExercises:",
-    sortedWorkoutExercises
-  );
+
 
   const listItemProps = {
     handleUserStrengthSetsChange,

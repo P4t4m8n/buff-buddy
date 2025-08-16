@@ -13,7 +13,7 @@ import type { ComponentType } from "react";
 interface GenericListProps<T, P> {
   items: T[];
   ItemComponent: ComponentType<{ item: T } & P>;
-  itemComponentProps?: P;
+  itemComponentProps?: P | ((item: T, index: number) => P | undefined);
   ulStyle?: string;
   getKey: (item: T) => string | number;
   NoItemsComponent?: React.ComponentType;
@@ -27,7 +27,6 @@ export default function GenericList<T, P>({
   getKey,
   NoItemsComponent,
 }: GenericListProps<T, P>) {
-  
   if (!items || !items.length) {
     return NoItemsComponent ? (
       <NoItemsComponent />
@@ -38,11 +37,22 @@ export default function GenericList<T, P>({
 
   return (
     <ul className={ulStyle}>
-      {items.map((item) => (
-        <React.Fragment key={getKey(item)}>
-          <ItemComponent item={item} {...(itemComponentProps as P)} />
-        </React.Fragment>
-      ))}
+      {items.map((item, index) => {
+        // resolve per-item props if a function was provided, else use the object (or undefined)
+        const resolvedProps =
+          typeof itemComponentProps === "function"
+            ? (itemComponentProps as (item: T, index: number) => P | undefined)(
+                item,
+                index
+              )
+            : itemComponentProps;
+
+        return (
+          <React.Fragment key={getKey(item)}>
+            <ItemComponent item={item} {...(resolvedProps as P)} />
+          </React.Fragment>
+        );
+      })}
     </ul>
   );
 }

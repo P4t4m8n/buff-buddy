@@ -121,6 +121,7 @@ export const conditionalOrderRefinement = (
     }
   }
 };
+
 export const conditionalWeightRefinement = (
   data: { weight?: number; isBodyWeight?: boolean },
   ctx: z.RefinementCtx
