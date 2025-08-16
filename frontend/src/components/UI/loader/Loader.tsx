@@ -1,3 +1,4 @@
+import { twMerge } from "tailwind-merge";
 import GenericList from "../GenericList";
 import LoaderSmallRotation from "./LoaderSmallRotation";
 
@@ -5,22 +6,25 @@ export type TLoaderTypes = "default" | "spinner" | "screen" | "cards-pulse";
 
 interface ILoaderProps {
   loaderType?: TLoaderTypes;
+  isFullScreen?: boolean;
 }
 
 export default function Loader(props: ILoaderProps = {}) {
   return <GetLoader {...props} />;
 }
 
-const GetLoader = ({ loaderType = "default" }: ILoaderProps) => {
+const GetLoader = ({ loaderType = "default", isFullScreen }: ILoaderProps) => {
   switch (loaderType) {
     case "spinner":
       return <LoaderSmallRotation />;
     case "screen":
+      const height = isFullScreen ? "h-screen" : "h-main";
+      const style = twMerge(
+        "flex justify-center items-center h-main overflow-hidden bg-gradient-to-br from-black-900 to-black-400",
+        height
+      );
       return (
-        <div
-          className="flex justify-center items-center h-main overflow-hidden bg-gradient-to-br from-black-900
-                     to-black-400"
-        >
+        <div className={style}>
           <div className="loader relative w-full -rotate-[35deg]">
             <div className="box relative -left-58 flex justify-center items-center w-[calc(100%+400px)]">
               <div className="cube w-48 aspect-square bg-black-900"></div>
