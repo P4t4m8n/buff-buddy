@@ -1,18 +1,20 @@
+import WorkoutStartExerciseSkipEdit from "../WorkoutStartExerciseSkipEdit";
+import WorkoutStartUserCardioLast from "./WorkoutStartUserCardioLast";
+
+import Button from "../../UI/Button";
+import NumberInputWIthError from "../../UI/Form/NumberInputWIthError";
+import GenericModel from "../../UI/GenericModel";
+
 import type { ExerciseType } from "../../../../../backend/prisma/generated/prisma";
 import type { IUserCardioSetEditDTO } from "../../../../../shared/models/cardioSet.model";
 import type { TValidationError } from "../../../models/errors.model";
-import Button from "../../UI/Button";
-import Input from "../../UI/Form/Input";
-import Label from "../../UI/Form/Label";
-import GenericList from "../../UI/GenericList";
-import GenericModel from "../../UI/GenericModel";
-import WorkoutStartExerciseSkipEdit from "../WorkoutStartExerciseSkipEdit";
-import WorkoutStartUserCardioLast from "./WorkoutStartUserCardioLast";
 
 interface IWorkoutStartUserCardioSetsProps {
   item: IUserCardioSetEditDTO;
   errors?: TValidationError<IUserCardioSetEditDTO>;
-  handleUserCardioSetsChange?: (e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => void;
+  handleUserCardioSetsChange?: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   handleUserSet: (userSetId?: string, type?: ExerciseType) => void;
 }
 export default function WorkoutStartUserCardioSets({
@@ -21,8 +23,9 @@ export default function WorkoutStartUserCardioSets({
   handleUserCardioSetsChange,
   handleUserSet,
 }: IWorkoutStartUserCardioSetsProps) {
+  console.log("🚀 ~ handleUserCardioSetsChange:", handleUserCardioSetsChange);
   const {
-    id,
+    id: userSetId,
     workTime,
     distance,
     avgHeartRate,
@@ -35,52 +38,68 @@ export default function WorkoutStartUserCardioSets({
 
   const numberInputs = [
     {
-      name: `workTime-${id}`,
+      name: `workTime-${userSetId}`,
       value: workTime || "",
       label: "Work Time",
-      isError: !!errors?.workTime,
+      error: errors?.workTime,
     },
     {
-      name: `distance-${id}`,
+      name: `distance-${userSetId}`,
       value: distance || "",
       label: "Distance",
-      isError: !!errors?.distance,
+      error: errors?.distance,
     },
     {
-      name: `avgHeartRate-${id}`,
+      name: `avgHeartRate-${userSetId}`,
       value: avgHeartRate || "",
       label: "Avg Heart Rate",
-      isError: !!errors?.avgHeartRate,
+      error: errors?.avgHeartRate,
     },
     {
-      name: `avgSpeed-${id}`,
+      name: `avgSpeed-${userSetId}`,
       value: avgSpeed || "",
       label: "Avg Speed",
-      isError: !!errors?.avgSpeed,
+      error: errors?.avgSpeed,
     },
     {
-      name: `caloriesBurned-${id}`,
+      name: `caloriesBurned-${userSetId}`,
       value: caloriesBurned || "",
       label: "Calories Burned",
-      isError: !!errors?.caloriesBurned,
+      error: errors?.caloriesBurned,
     },
   ];
+
+  const divStyle = "inline-flex flex-row-reverse gap-1 items-center";
+  const inputStyle = `bg-amber rounded w-8 aspect-square  text-center border outline-none`;
 
   return (
     <div className="flex flex-col gap-4 items-center ">
       <WorkoutStartUserCardioLast lastSet={lastSet} />
-      <GenericList
-        items={numberInputs}
-        getKey={(item) => item.label}
-        ItemComponent={Item}
-        itemComponentProps={{ handleUserCardioSetsChange }}
-      />
+      {numberInputs.map((input) => (
+        <NumberInputWIthError
+          key={input.name}
+          name={input.name}
+          value={input.value}
+          divStyle={divStyle + " col-span-2"}
+          className={inputStyle}
+          min={1}
+          onChange={handleUserCardioSetsChange!}
+          inputId={userSetId}
+          error={input.error}
+          label={input.label}
+        />
+      ))}
+
       {/*
        * INFO: Render skip edit model
        */}
       <GenericModel
         Model={WorkoutStartExerciseSkipEdit}
-        modelProps={{ handleUserCardioSetsChange, skippedReason }}
+        modelProps={{
+          handleUserSetsChange: handleUserCardioSetsChange,
+          skippedReason,
+          userSetId,
+        }}
         buttonProps={{
           className:
             "text-amber hover:text-black w-full col-span-2 opacity-50 cursor-not-allowed text-black",
@@ -95,7 +114,7 @@ export default function WorkoutStartUserCardioSets({
           isCompleted ? "bg-main-green" : ""
         }`}
         buttonStyle="model"
-        onClick={() => handleUserSet(id, "cardio")}
+        onClick={() => handleUserSet(userSetId, "cardio")}
         type="button"
       >
         {isCompleted ? "Update" : "Complete"}
@@ -103,38 +122,3 @@ export default function WorkoutStartUserCardioSets({
     </div>
   );
 }
-
-type TNumberInput = {
-  name: string;
-  value: string | number;
-  label: string;
-  isError: boolean;
-};
-
-interface IItemProps {
-  item: TNumberInput;
-  handleUserCardioSetsChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-const Item = ({ item, handleUserCardioSetsChange }: IItemProps) => {
-  const { name, value, label, isError } = item;
-  const divStyle = "inline-flex flex-row-reverse gap-1 items-center";
-  const inputStyle = `bg-amber rounded w-8 aspect-square  text-center border outline-none`;
-
-  return (
-    <Input
-      key={name}
-      name={name}
-      type="number"
-      value={value}
-      divStyle={divStyle + " col-span-2"}
-      className={inputStyle + " " + (isError ? "border-red-500" : "")}
-      min={1}
-      step={"any"}
-      onChange={handleUserCardioSetsChange}
-    >
-      <Label className="" htmlFor={name}>
-        {label}:
-      </Label>
-    </Input>
-  );
-};

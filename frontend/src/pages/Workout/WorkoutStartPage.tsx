@@ -36,7 +36,7 @@ export default function WorkoutStartPage() {
 
   const [workoutStart, setWorkoutStart] =
     React.useState<IUserWorkoutEditDTO | null>(null);
-  console.log("🚀 ~ WorkoutStartPage ~ workoutStart:", workoutStart)
+  console.log("🚀 ~ WorkoutStartPage ~ workoutStart:", workoutStart);
   const { errors, handleError, clearErrors } = useErrors<IUserWorkoutDTO>();
 
   const getById = useWorkoutStore((state) => state.getById);
@@ -152,6 +152,8 @@ export default function WorkoutStartPage() {
     const target = e.target as HTMLInputElement;
     const { name, value, type, checked } = target;
     const [key, id] = name.split("-") as [keyof IUserCardioSetDTO, string];
+    console.log("🚀 ~ handleUserCardioSetsChange ~ id:", id)
+    console.log("🚀 ~ handleUserCardioSetsChange ~ key:", key)
 
     setWorkoutStart((prev) => {
       if (!prev) return null;
@@ -161,9 +163,17 @@ export default function WorkoutStartPage() {
           return we;
         }
         const tempUserSet = we.userCardioSets![idx]; //INFO: if Index exists userCardioSets is guaranteed to be defined
-
-        tempUserSet[key] =
-          type === "checkbox" ? checked : (parseFloat(value) as any); //TODO?? I have no idea how to solve this type error;
+        switch (type) {
+          case "checkbox":
+            tempUserSet[key] = checked as any; //TODO?? I have no idea how to solve this type error;;
+            break;
+          case "number":
+            tempUserSet[key] = parseFloat(value) as any; //TODO?? I have no idea how to solve this type error;
+            break;
+          default:
+            tempUserSet[key] = value as any; //TODO?? I have no idea how to solve this type error;
+            break;
+        }
 
         const userCardioSets = we.userCardioSets!.toSpliced(
           idx,
@@ -306,7 +316,6 @@ export default function WorkoutStartPage() {
       .sort(
         (a, b) => a.userWorkoutExercise.order! - b.userWorkoutExercise.order!
       ) ?? [];
-
 
   const listItemProps = {
     handleUserStrengthSetsChange,

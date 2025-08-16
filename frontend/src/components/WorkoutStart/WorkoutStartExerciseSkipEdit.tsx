@@ -1,4 +1,3 @@
-
 import Button from "../UI/Button";
 import Label from "../UI/Form/Label";
 import TextArea from "../UI/Form/TextArea";
@@ -7,14 +6,12 @@ import type { IModelProps } from "../UI/GenericModel";
 
 interface IWorkoutStartExerciseSkipEditProps
   extends IModelProps<HTMLDivElement> {
-  handleUserStrengthSetsChange?: (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => void;
+  handleUserSetsChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   skippedReason?: string | null;
   userSetId?: string;
 }
 export default function WorkoutStartExerciseSkipEdit({
-  handleUserStrengthSetsChange,
+  handleUserSetsChange,
   skippedReason,
   userSetId,
   ...modelProps
@@ -33,7 +30,7 @@ export default function WorkoutStartExerciseSkipEdit({
       stopPropagation: e.stopPropagation,
     } as React.ChangeEvent<HTMLTextAreaElement>;
 
-    handleUserStrengthSetsChange && handleUserStrengthSetsChange(event);
+    handleUserSetsChange && handleUserSetsChange(event);
     if (!setIsOpen) {
       console.warn("setIsOpen is not defined, skipping close action");
       return;
@@ -48,7 +45,7 @@ export default function WorkoutStartExerciseSkipEdit({
                    max-w-96 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 border"
     >
       <TextArea
-        onChange={handleUserStrengthSetsChange}
+        onChange={handleUserSetsChange}
         value={skippedReason ?? ""}
         name={textAreaId}
         id={textAreaId}
