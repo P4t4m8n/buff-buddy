@@ -31,7 +31,7 @@ export default function OptionModelList<T>({
       />
       <GenericList
         items={optionsList}
-        ulStyle="grid grid-rows-[repeat(auto-fill,2rem)] gap-2 h-full overflow-auto"
+        ulStyle="grid grid-rows-[repeat(auto-fill,2rem)] gap-2 h-full overflow-y-auto pb-4"
         ItemComponent={OptionsModelListItem}
         getKey={(item) => filterBy(item)}
         itemComponentProps={{

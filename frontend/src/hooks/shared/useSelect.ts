@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import type { ChangeEvent } from "react";
+
 import { useModel } from "./useModel";
+
+import type { ChangeEvent } from "react";
 
 export const useSelect = <T, P>(
   options: readonly T[],

@@ -37,7 +37,6 @@ export default function WorkoutStartPage() {
   const [workoutStart, setWorkoutStart] =
     React.useState<IUserWorkoutEditDTO | null>(null);
   const { errors, handleError, clearErrors } = useErrors<IUserWorkoutDTO>();
-  console.log("🚀 ~ WorkoutStartPage ~ errors:", errors);
 
   const getById = useWorkoutStore((state) => state.getById);
 
@@ -96,30 +95,43 @@ export default function WorkoutStartPage() {
   };
 
   const handleUserStrengthSetsChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     e.stopPropagation();
     const target = e.target as HTMLInputElement;
     const { name, value, type, checked } = target;
+
     const [key, id] = name.split("-") as [keyof IUserStrengthSetDTO, string];
 
     setWorkoutStart((prev) => {
       if (!prev) return null;
       const workoutExercises = prev.userWorkoutExercises.map((we) => {
-        const idx = we.userStrengthSets?.findIndex((us) => us.id === id) ?? -1; //INFO: In case userStrengthSets is undefined, we assume no sets exist
+        //INFO: In case userStrengthSets is undefined, we assume no sets exist
+        const idx = we.userStrengthSets?.findIndex((us) => us.id === id) ?? -1;
         if (idx < 0) {
           return we;
         }
-        const tempUserSet = we.userStrengthSets![idx]; //INFO: if Index exists userStrengthSets is guaranteed to be defined
+        //INFO: if Index exists userStrengthSets is guaranteed to be defined
+        const tempUserSet = we.userStrengthSets![idx];
 
-        tempUserSet[key] =
-          type === "checkbox" ? checked : (parseFloat(value) as any); //TODO?? I have no idea how to solve this type error;
+        switch (type) {
+          case "checkbox":
+            tempUserSet[key] = checked as any; //TODO?? I have no idea how to solve this type error;;
+            break;
+          case "number":
+            tempUserSet[key] = parseFloat(value) as any; //TODO?? I have no idea how to solve this type error;
+            break;
+          default:
+            tempUserSet[key] = value as any; //TODO?? I have no idea how to solve this type error;
+            break;
+        }
 
+        //INFO: if we got here, userStrengthSets is guaranteed to be defined
         const userStrengthSets = we.userStrengthSets!.toSpliced(
           idx,
           1,
           tempUserSet
-        ); //INFO: if we got here, userStrengthSets is guaranteed to be defined
+        );
         return {
           ...we,
           userStrengthSets,
@@ -133,7 +145,7 @@ export default function WorkoutStartPage() {
   };
 
   const handleUserCardioSetsChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     e.stopPropagation();
     const target = e.target as HTMLInputElement;

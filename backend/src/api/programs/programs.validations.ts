@@ -14,7 +14,7 @@ const BaseProgramSchema = z.object({
     fieldName: "Program notes",
     minLength: 0,
     maxLength: 500,
-  }).optional(),
+  }).optional().nullish(),
 
   startDate: z
     .string()

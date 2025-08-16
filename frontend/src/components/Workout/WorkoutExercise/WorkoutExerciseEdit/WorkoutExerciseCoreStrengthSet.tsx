@@ -1,11 +1,11 @@
-import NumberInputWIthError from "../../UI/Form/NumberInputWIthError";
+import NumberInputWIthError from "../../../UI/Form/NumberInputWIthError";
 
-import Label from "../../UI/Form/Label";
-import Input from "../../UI/Form/Input";
+import Label from "../../../UI/Form/Label";
+import Input from "../../../UI/Form/Input";
 
 import type { ChangeEvent } from "react";
-import type { TValidationError } from "../../../models/errors.model";
-import type { ICoreStrengthSetEditDTO } from "../../../../../shared/models/strengthSet.model";
+import type { TValidationError } from "../../../../models/errors.model";
+import type { ICoreStrengthSetEditDTO } from "../../../../../../shared/models/strengthSet.model";
 
 interface IWorkoutExerciseCoreSetProps {
   coreSet?: ICoreStrengthSetEditDTO;
@@ -104,6 +104,7 @@ export default function WorkoutExerciseCoreStrengthSet({
               {...input}
               onChange={handleChange}
               inputId={coreSetId}
+              key={input.name + coreSetId}
             />
           ))}
         </div>

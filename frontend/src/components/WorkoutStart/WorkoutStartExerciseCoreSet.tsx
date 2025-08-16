@@ -6,7 +6,7 @@ type TItem = {
 };
 
 interface IWorkoutStartExerciseCoreSetProps {
-  items: TItem[];
+  items?: TItem[];
 }
 
 export default function WorkoutStartExerciseCoreSet({
@@ -14,7 +14,7 @@ export default function WorkoutStartExerciseCoreSet({
 }: IWorkoutStartExerciseCoreSetProps) {
   return (
     <GenericList
-      items={items}
+      items={items ?? []}
       ItemComponent={CoreSet}
       getKey={(item) => item.name}
       ulStyle="flex justify-around sticky -top-[1px] z-10 border-b border-t py-2 bg-black-900"

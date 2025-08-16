@@ -64,7 +64,7 @@ export const useModel = <T extends HTMLElement>(
       if (!isOpen && modelRef.current && parentModelRef?.current) {
         const parentRect = parentModelRef.current.getBoundingClientRect();
         const fieldRect = modelRef.current.getBoundingClientRect();
-        const modelHeight = 128;
+        const modelHeight = 128;//TODO?? Adjust this value based on your model's height, change from hardcoded to dynamic
         const gap = 4;
 
         const spaceBelow = parentRect.bottom - fieldRect.bottom;

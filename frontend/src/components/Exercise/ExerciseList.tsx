@@ -1,7 +1,9 @@
-import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
+import ExercisePreview from "./ExercisePreview";
+
 import GenericList from "../UI/GenericList";
 import Loader from "../UI/loader/Loader";
-import ExercisePreview from "./ExercisePreview";
+
+import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
 
 interface IExerciseListProps {
   filteredExercises: IExerciseDTO[];

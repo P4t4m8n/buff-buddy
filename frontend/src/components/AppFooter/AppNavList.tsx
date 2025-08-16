@@ -3,9 +3,9 @@ import IconWorkout from "../UI/Icons/IconWorkout";
 import IconProgram from "../UI/Icons/IconProgram";
 import IconExercise from "../UI/Icons/IconExercise";
 import IconProfile from "../UI/Icons/IconProfile";
-// import IconAdmin from "../UI/Icons/IconAdmin";
 import NavItem from "../UI/NavItem";
 import GenericList from "../UI/GenericList";
+
 import type { IAppNav } from "../../models/UI.model";
 
 export default function AppNavList() {

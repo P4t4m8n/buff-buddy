@@ -1,3 +1,5 @@
+import { toTitle } from "../../utils/toTitle";
+
 import Button from "../UI/Button";
 import IconPlus from "../UI/Icons/IconPlus";
 
@@ -14,7 +16,7 @@ export default function ExerciseTypeSelectItem({
         onClick={(e) => onClick(e, item)}
         className="w-full h-full flex cursor-pointer items-center justify-between "
       >
-        {item ? item : "No Type Selected"}
+        {item ? toTitle(item) : "No Type Selected"}
         <IconPlus className=" h-8 aspect-square stroke-main-black" />
       </Button>
     </li>

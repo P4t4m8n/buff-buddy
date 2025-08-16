@@ -10,10 +10,12 @@ import { useParams } from "react-router";
 
 export default function ProgramDetails() {
   const { programId } = useParams<{ programId?: string }>();
+  console.log("🚀 ~ ProgramDetails ~ programId:", programId)
   const { itemToView: programToView, isLoadingId: isLoading } = useItemDetails({
     useStore: useProgramStore,
     id: programId,
   });
+  console.log("🚀 ~ ProgramDetails ~ programToView:", programToView)
 
   if (isLoading) {
     return <Loader />;

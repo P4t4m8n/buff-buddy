@@ -23,6 +23,7 @@ export const useExerciseEdit = (
   const saveExercise = useExerciseStore((state) => state.saveItem);
 
   const { errors, clearErrors, handleError } = useErrors<IExerciseDTO>();
+
   useEffect(() => {
     setExerciseToEdit(() => (exercise ? exercise : exerciseService.getEmpty()));
   }, [exercise]);
@@ -31,11 +32,10 @@ export const useExerciseEdit = (
     e.preventDefault();
     e.stopPropagation();
     clearErrors();
-    const { id: exerciseId } = exerciseToEdit || {};
     try {
       const formData = new FormData(e.currentTarget);
-      const name = formData.get("name" + exerciseId) as string;
-      const youtubeUrl = formData.get("youtubeUrl" + exerciseId) as string;
+      const name = formData.get("name") as string;
+      const youtubeUrl = formData.get("youtubeUrl") as string;
       const id = formData.get("id") as string;
 
       const res = await saveExercise({
@@ -48,7 +48,7 @@ export const useExerciseEdit = (
         setOpen(false);
       }
     } catch (error) {
-      handleError({error});
+      handleError({ error });
     }
   };
 

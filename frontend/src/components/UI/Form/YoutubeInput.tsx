@@ -27,15 +27,17 @@ export default function YoutubeInput({
     <div className="max-w-full flex flex-col gap-2 z-10">
       <InputWithError
         inputProps={{
-          name: "youtubeUrl" + parentId,
+          name: "youtubeUrl",
           id: "youtubeUrl" + parentId,
           type: "text",
           value: youtubeUrl || "",
           onChange: (e) => setYoutubeUrl(e.target.value),
+          className: "h-10 pl-2",
         }}
         labelProps={{
           htmlFor: "youtubeUrl" + parentId,
           children: "YouTube URL",
+          isMoveUpEffect: true,
         }}
         error={error}
       />

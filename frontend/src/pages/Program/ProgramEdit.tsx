@@ -30,9 +30,10 @@ export default function ProgramEdit() {
     navigate,
     handleInputChange,
   } = useProgramEdit(programIdParams);
+    console.log("🚀 ~ ProgramEdit ~ programToEdit:", programToEdit)
 
   if (isLoading || !programToEdit) {
-    return <Loader />;
+    return <Loader loaderType="screen" />;
   }
 
   const {
@@ -55,7 +56,7 @@ export default function ProgramEdit() {
   return (
     <form
       onSubmit={onSaveProgram}
-      className="h-main  px-4 pt-4 grid grid-rows-[auto_1fr] gap-4"
+      className="h-main px-4 pt-4 grid grid-rows-[auto_1fr] gap-4"
     >
       <header
         className={`grid grid-rows-[2rem_2.5rem_4.75rem_5rem_2.5rem_auto]
@@ -104,7 +105,7 @@ export default function ProgramEdit() {
           id={"notes-" + programId}
           rows={3}
           placeholder=""
-          className="w-full h-full  block peer outline-offset-0  pl-2 peer resize-none"
+          className="w-full h-full  block peer outline-offset-0  pl-2 peer resize-none pt-2"
           divStyle="border-1 relative rounded h-full col-span-full lg:col-span-2 order-4"
         >
           <Label

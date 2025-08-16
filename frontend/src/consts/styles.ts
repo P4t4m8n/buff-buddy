@@ -1,7 +1,7 @@
 export const BUTTON_LINK_STYLES = {
-  model: `bg-main-orange p-2 rounded aspect-square  transition-all grid items-center justify-center 
+  model: `bg-main-orange  rounded  transition-all flex-center 
                      duration-300 group border-2 border-transparent 
-                    hover:bg-black-500  hover:border-main-orange h-10 lg:h-14 aspect-square `,
+                    hover:bg-black-500  hover:border-main-orange h-10  `,
   warning: `w-16 border rounded hover:border-red-orange
                            cursor-pointer h-10
                            hover:text-red-orange transition-all duration-300`,

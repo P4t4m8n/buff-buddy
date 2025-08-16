@@ -3,8 +3,8 @@ import { useErrors } from "../../../../hooks/shared/useErrors";
 import { toTitle } from "../../../../utils/toTitle";
 
 import WorkoutExerciseEditAddExercise from "./WorkoutExerciseEditAddExercise";
-import WorkoutExerciseCoreCardioSet from "../WorkoutExerciseCoreCardioSet";
-import WorkoutExerciseCoreStrengthSet from "../WorkoutExerciseCoreStrengthSet";
+import WorkoutExerciseCoreCardioSet from "./WorkoutExerciseCoreCardioSet";
+import WorkoutExerciseCoreStrengthSet from "./WorkoutExerciseCoreStrengthSet";
 import SelectWithSearch from "../../../UI/Form/SelectWithSearch";
 import WorkoutExerciseEditExerciseSelect from "./WorkoutExerciseEditExerciseSelect";
 

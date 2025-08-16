@@ -15,22 +15,22 @@ export interface ICoreStrengthSetEditDTO extends ICoreStrengthSetDTO {
 }
 
 export interface IUserStrengthSetDTO extends IEntity {
-  lastSet?: IUserStrengthLastSet|null;
+  lastSet?: IUserStrengthLastSet | null;
   reps?: number | null; // Actual number of repetitions performed
   weight?: number | null; // Actual weight lifted in kg
   isWarmup?: boolean; // Indicates if the set was a warmup set
   isCompleted?: boolean | null; // Indicates if the set was completed but not necessarily successful
   isMuscleFailure?: boolean | null; // Indicates if the set was a muscle failure
-  lastIsMuscleFailure?: boolean | null; // Last recorded muscle failure status
   isJointPain?: boolean | null; // Indicates if the set was a joint part
-  lastIsJointPain?: boolean | null; // Last recorded joint pain status
   isBodyWeight?: boolean; // Indicates if the set was bodyweight only
   order?: number;
   skippedReason?: string | null;
 }
 
 interface IUserStrengthLastSet {
+  lastIsMuscleFailure?: boolean | null; // Last recorded muscle failure status
   lastReps?: number | null; // Last recorded repetitions for the set
+  lastIsJointPain?: boolean | null; // Last recorded joint pain status
   lastWeight?: number | null; // Last recorded weight for the set
   lastSkippedReason?: string | null; // Last recorded skipped reason for the set
 }

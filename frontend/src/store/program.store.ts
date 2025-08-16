@@ -41,13 +41,13 @@ export const useProgramStore = create<
       const program = get().items.find((p) => p.id === id);
       return !program ? await programService.getById(id) : program;
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingId: null });
     }
   },
 
   saveItem: async (program: IProgramEditDTO) => {
     try {
-      set({ isLoading: true });
+      set({ isLoadingId: program.id });
       const { data } = await programService.save(program);
       set((state) => {
         const idx = state.items.findIndex((program) => program.id === data.id);
@@ -57,7 +57,8 @@ export const useProgramStore = create<
           updatedPrograms[idx] = data as IProgramDTO;
           return { items: updatedPrograms };
         } else {
-          return { items: [...state.items, data as IProgramDTO] };
+          const updatedItems = state.items.toSpliced(idx, 1, data);
+          return { items: updatedItems };
         }
       });
       return data;

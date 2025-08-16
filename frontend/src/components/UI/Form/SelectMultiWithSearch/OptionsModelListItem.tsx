@@ -20,8 +20,8 @@ export default function OptionsModelListItem<T>({
         className="w-full h-full flex cursor-pointer"
         type="button"
       >
-        <p>{toTitle(filterBy(item))}</p>
-        <IconPlus className=" h-6 aspect-square stroke-main-orange ml-auto" />
+        <p className="text-xs">{toTitle(filterBy(item))}</p>
+        <IconPlus className=" h-2 aspect-square stroke-main-orange ml-auto" />
       </Button>
     </li>
   );

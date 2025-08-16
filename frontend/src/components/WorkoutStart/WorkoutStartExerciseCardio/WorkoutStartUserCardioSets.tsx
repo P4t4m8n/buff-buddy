@@ -5,12 +5,14 @@ import Button from "../../UI/Button";
 import Input from "../../UI/Form/Input";
 import Label from "../../UI/Form/Label";
 import GenericList from "../../UI/GenericList";
+import GenericModel from "../../UI/GenericModel";
+import WorkoutStartExerciseSkipEdit from "../WorkoutStartExerciseSkipEdit";
 import WorkoutStartUserCardioLast from "./WorkoutStartUserCardioLast";
 
 interface IWorkoutStartUserCardioSetsProps {
   item: IUserCardioSetEditDTO;
   errors?: TValidationError<IUserCardioSetEditDTO>;
-  handleUserCardioSetsChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleUserCardioSetsChange?: (e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => void;
   handleUserSet: (userSetId?: string, type?: ExerciseType) => void;
 }
 export default function WorkoutStartUserCardioSets({
@@ -26,9 +28,9 @@ export default function WorkoutStartUserCardioSets({
     avgHeartRate,
     avgSpeed,
     caloriesBurned,
-
     isCompleted,
     lastSet,
+    skippedReason,
   } = userSet;
 
   const numberInputs = [
@@ -73,14 +75,21 @@ export default function WorkoutStartUserCardioSets({
         ItemComponent={Item}
         itemComponentProps={{ handleUserCardioSetsChange }}
       />
-      <Button
-        className="text-amber hover:text-black w-full col-span-2 opacity-50 cursor-not-allowed"
-        buttonStyle="model"
-        disabled={true}
-        type="button"
-      >
-        ***Skip***
-      </Button>
+      {/*
+       * INFO: Render skip edit model
+       */}
+      <GenericModel
+        Model={WorkoutStartExerciseSkipEdit}
+        modelProps={{ handleUserCardioSetsChange, skippedReason }}
+        buttonProps={{
+          className:
+            "text-amber hover:text-black w-full col-span-2 opacity-50 cursor-not-allowed text-black",
+          buttonStyle: "model",
+          type: "button",
+          children: "Skip",
+        }}
+      />
+
       <Button
         className={`text-amber hover:text-black col-span-2 w-full ${
           isCompleted ? "bg-main-green" : ""

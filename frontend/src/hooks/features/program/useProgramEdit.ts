@@ -59,20 +59,19 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
 
   const onSaveProgram = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
-      const { id: programId } = programToEdit || {};
+      if (!programToEdit) {
+        console.warn("No program to save"); //INFO debugging not for production
+        return;
+      }
       e.preventDefault();
       e.stopPropagation();
-      const formData = new FormData(e.currentTarget);
-      const name = formData.get("name-" + programId) as string;
-      const notes = formData.get("notes" + programId) as string;
-      const isActive = formData.get("isActive" + programId) === "on";
-      const programToSave = { ...programToEdit, name, notes, isActive };
-      const res = (await saveProgram(programToSave)) as IProgramEditDTO;
+
+      const res = (await saveProgram(programToEdit)) as IProgramEditDTO;
 
       const { id } = res;
       navigate(`/programs/${id}`);
     } catch (error) {
-      handleError({error});
+      handleError({ error });
     }
   };
 
@@ -100,7 +99,14 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, type, value } = e.target;
-     const key = name.split("-")[0];
+    console.log(
+      "🚀 ~ handleInputChange ~  name, type, value:",
+      name,
+      type,
+      value
+    );
+    const key = name.split("-")[0];
+    console.log("🚀 ~ handleInputChange ~ key:", key);
     setProgramToEdit((prev) => {
       if (!prev) return null;
       // Only use checked for checkboxes

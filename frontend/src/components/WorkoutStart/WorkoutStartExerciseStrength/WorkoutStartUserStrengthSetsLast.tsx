@@ -7,6 +7,7 @@ interface IWorkoutStartUserSetsLastProps {
   lastMuscleFailure?: boolean | null;
   lastJointPain?: boolean | null;
   isWarmup?: boolean | null;
+  lastSkippedReason?: string | null;
 }
 export default function WorkoutStartUserStrengthSetsLast({
   lastReps,

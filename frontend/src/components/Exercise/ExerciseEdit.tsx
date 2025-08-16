@@ -71,12 +71,18 @@ export default function ExerciseEdit({
       <InputWithError
         inputProps={{
           type: "text",
-          name: "name" + id,
+          name: "name",
           id: "name" + id,
           placeholder: "",
           defaultValue: name,
+          className: "h-10 pl-2",
         }}
-        labelProps={{ htmlFor: "name" + id, children: "Exercise Name" }}
+        divStyle=""
+        labelProps={{
+          htmlFor: "name" + id,
+          children: "Exercise Name",
+          isMoveUpEffect: true,
+        }}
         error={errors?.name}
       />
 

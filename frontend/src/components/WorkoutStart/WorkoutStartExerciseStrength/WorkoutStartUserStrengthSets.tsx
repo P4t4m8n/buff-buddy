@@ -11,6 +11,9 @@ import type { ExerciseType } from "../../../../../backend/prisma/generated/prism
 import { useErrors } from "../../../hooks/shared/useErrors";
 import { CreateUserStrengthSetSchema } from "../../../validations/userStrengthSet.validation";
 import { twMerge } from "tailwind-merge";
+import GenericModel from "../../UI/GenericModel";
+import WorkoutStartExerciseSkipEdit from "../WorkoutStartExerciseSkipEdit";
+import { appUtil } from "../../../utils/app.util";
 
 interface INumberInput {
   name: string;
@@ -22,7 +25,7 @@ interface IWorkoutExerciseUserSetProps {
   item: IUserStrengthSetEditDTO;
   errors?: TValidationError<IUserStrengthSetEditDTO>;
   handleUserStrengthSetsChange?: (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   handleUserSet: (userSetId?: string, type?: ExerciseType) => void;
 }
@@ -36,10 +39,8 @@ export default function WorkoutStartUserStrengthSets({
   const divStyle = "inline-flex flex-col-reverse gap-1 items-center";
 
   const {
-    id: coreSetId,
+    id: userSetId,
     reps,
-    lastIsJointPain,
-    lastIsMuscleFailure,
     weight,
     isCompleted,
     isJointPain,
@@ -47,25 +48,26 @@ export default function WorkoutStartUserStrengthSets({
     isBodyWeight,
     isWarmup,
     lastSet,
+    skippedReason,
   } = userSet;
 
-  const { lastReps, lastWeight } = lastSet || {};
-  const { errors, handleError,clearErrors } = useErrors<IUserStrengthSetEditDTO>();
+  const { errors, handleError, clearErrors } =
+    useErrors<IUserStrengthSetEditDTO>();
+
   const combinedErrors = {
     ...serverErrors,
     ...errors,
   };
 
-
   const numberInputs = [
     {
-      name: `reps-${coreSetId}`,
+      name: `reps-${userSetId}`,
       value: reps || "",
       label: "Reps",
       isError: !!combinedErrors?.reps,
     },
     {
-      name: `weight-${coreSetId}`,
+      name: `weight-${userSetId}`,
       value: isBodyWeight ? "BW" : weight ?? "",
       label: "Weight",
       isError: !!combinedErrors?.weight,
@@ -74,12 +76,12 @@ export default function WorkoutStartUserStrengthSets({
 
   const checkboxInputs = [
     {
-      name: `isJointPain-${coreSetId}`,
+      name: `isJointPain-${userSetId}`,
       value: isJointPain,
       label: "Joint Pain",
     },
     {
-      name: `isMuscleFailure-${coreSetId}`,
+      name: `isMuscleFailure-${userSetId}`,
       value: isMuscleFailure,
       label: "Muscle Failure",
     },
@@ -103,7 +105,7 @@ export default function WorkoutStartUserStrengthSets({
         className={inputStyle}
         min={1}
         onChange={handleUserStrengthSetsChange!}
-        inputId={coreSetId}
+        inputId={userSetId}
         isError={!!input.isError}
         label={input.label}
       />
@@ -114,14 +116,16 @@ export default function WorkoutStartUserStrengthSets({
     try {
       clearErrors();
       CreateUserStrengthSetSchema.parse(userSet);
-      handleUserSet(coreSetId, "strength");
+      handleUserSet(userSetId, "strength");
     } catch (error) {
       handleError({ error });
     }
   };
 
   const completeButtonStyleBase = "col-span-2 w-full text-black";
+
   const completeButtonStyleComplete = isCompleted ? "bg-success-green" : "";
+
   const completeButtonStyle = twMerge(
     completeButtonStyleBase,
     completeButtonStyleComplete
@@ -129,13 +133,7 @@ export default function WorkoutStartUserStrengthSets({
 
   return (
     <div className="grid grid-cols-4 gap-x-2 grid-rows-[repeat(3,auto)] gap-y-3 justify-items-center content-between not-last:border-b-2 pb-2 items-center ">
-      <WorkoutStartUserStrengthSetsLast
-        isWarmup={isWarmup}
-        lastMuscleFailure={lastIsMuscleFailure}
-        lastJointPain={lastIsJointPain}
-        lastReps={lastReps}
-        lastWeight={lastWeight}
-      />
+      <WorkoutStartUserStrengthSetsLast {...lastSet} isWarmup={isWarmup} />
       {numberInputs.map((input) => getNumberInput(input))}
       {checkboxInputs.map((input) => (
         <Input
@@ -151,14 +149,21 @@ export default function WorkoutStartUserStrengthSets({
           <Label htmlFor={input.name}>{input.label}</Label>
         </Input>
       ))}
-      <Button
-        className="text-amber hover:text-black w-full col-span-2 opacity-50 cursor-not-allowed text-black"
-        buttonStyle="model"
-        disabled={true}
-        type="button"
-      >
-        ***Skip***
-      </Button>
+
+      {/*
+       * INFO: Render skip edit model
+       */}
+      <GenericModel
+        Model={WorkoutStartExerciseSkipEdit}
+        modelProps={{ handleUserStrengthSetsChange, skippedReason, userSetId }}
+        buttonProps={{
+          className:
+            "text-black hover:text-black w-full col-span-2  text-black",
+          buttonStyle: "model",
+          type: "button",
+          children: "Skip",
+        }}
+      />
 
       <Button
         className={completeButtonStyle}
