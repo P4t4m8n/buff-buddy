@@ -1,7 +1,7 @@
-import Button from "../../UI/Button";
-import GenericModel, { type IModelProps } from "../../UI/GenericModel";
+import GenericModel from "../../UI/GenericModel";
 import IconCheckMark from "../../UI/Icons/IconCheckMark";
 import IconInactive from "../../UI/Icons/IconInactive";
+import WorkoutStartExerciseSkipDetailsModel from "../WorkoutStartExerciseSkipDetailsModel";
 
 interface IWorkoutStartUserSetsLastProps {
   lastReps?: number | null;
@@ -33,7 +33,7 @@ export default function WorkoutStartUserStrengthSetsLast({
       </h6>
       {lastSkippedReason ? (
         <GenericModel
-          Model={LastSkippedModel}
+          Model={WorkoutStartExerciseSkipDetailsModel}
           modelProps={{ lastSkippedReason }}
           isOverlay={true}
           buttonProps={{
@@ -74,27 +74,3 @@ export default function WorkoutStartUserStrengthSetsLast({
     </div>
   );
 }
-
-interface ILastSkippedModelProps extends IModelProps<HTMLDivElement> {
-  lastSkippedReason?: string | null;
-}
-const LastSkippedModel = ({
-  lastSkippedReason,
-  ...modelProps
-}: ILastSkippedModelProps) => {
-  const { modelRef, handleModel } = modelProps;
-  return (
-    <div ref={modelRef} className="p-4 bg-black-500 border rounded grid  gap-4">
-      <h5 className="text-center text-xl">Skipped Set Reason:</h5>
-      <p className="text-center p-2">{lastSkippedReason}</p>
-      <Button
-        buttonStyle="save"
-        className=" place-self-center"
-        type="button"
-        onClick={handleModel}
-      >
-        Close
-      </Button>
-    </div>
-  );
-};

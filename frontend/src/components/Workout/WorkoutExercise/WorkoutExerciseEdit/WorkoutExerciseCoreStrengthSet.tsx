@@ -31,17 +31,17 @@ export default function WorkoutExerciseCoreStrengthSet({
   } = coreSet;
 
   const inputs = [
-    { name: "reps", value: reps ?? 0, isError: !!errors?.reps, label: "reps" },
+    { name: "reps", value: reps ?? 0, error: errors?.reps, label: "reps" },
     {
       name: "restTime",
       value: restTime ?? 0,
-      isError: !!errors?.restTime,
+      error: errors?.restTime,
       label: "rest time",
     },
     {
       name: "numberOfSets",
       value: numberOfSets ?? 0,
-      isError: !!errors?.numberOfSets,
+      error: errors?.numberOfSets,
       label: "Number of sets",
     },
   ];
@@ -63,7 +63,7 @@ export default function WorkoutExerciseCoreStrengthSet({
       onChange={handleChange}
       inputId={coreSetId}
       value={weight || ""}
-      isError={!!errors?.weight}
+      error={errors?.weight}
       label="Weight"
     />
   );

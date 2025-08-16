@@ -92,7 +92,7 @@ export default function WorkoutStartExerciseItem(
         >
           items={exerciseConfig?.userSetListData ?? []}
           ItemComponent={exerciseConfig.userSetListComponent}
-          itemComponentProps={(item, index) => ({
+          itemComponentProps={(_, index) => ({
             ...(exerciseConfig.userSetListProps as typeof exerciseConfig.userSetListProps),
             errors: (exerciseConfig.userSetListProps as any)?.errors?.[index],
           })}

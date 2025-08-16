@@ -1,7 +1,6 @@
 import { twMerge } from "tailwind-merge";
 import { toTitle } from "../../../utils/toTitle";
 import Input from "./Input";
-import Label from "./Label";
 import LabelWithError from "./LabelWithError";
 
 interface INumberInputWithErrorProps

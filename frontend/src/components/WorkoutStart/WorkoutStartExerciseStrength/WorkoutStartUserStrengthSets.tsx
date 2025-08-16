@@ -13,7 +13,6 @@ import { CreateUserStrengthSetSchema } from "../../../validations/userStrengthSe
 import { twMerge } from "tailwind-merge";
 import GenericModel from "../../UI/GenericModel";
 import WorkoutStartExerciseSkipEdit from "../WorkoutStartExerciseSkipEdit";
-import { appUtil } from "../../../utils/app.util";
 
 interface INumberInput {
   name: string;
