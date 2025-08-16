@@ -31,6 +31,7 @@ export const programUtils = {
       isActive: dto.isActive,
       programWorkouts:
         dto.programWorkouts?.map((pw) => ({
+          id: pw.id,
           workout: workoutUtils.dtoToEditDto(pw.workout, false),
           crudOperation: "read",
           daysOfWeek: pw.daysOfWeek || [],

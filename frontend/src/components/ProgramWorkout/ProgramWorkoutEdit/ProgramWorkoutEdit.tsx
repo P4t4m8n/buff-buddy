@@ -29,6 +29,7 @@ export default function ProgramWorkoutEdit({
 }: ProgramWorkoutProps) {
   const [selectedWorkout, setSelectedWorkout] =
     useState<IProgramWorkoutEditDTO | null>(null);
+  console.log("🚀 ~ ProgramWorkoutEdit ~ selectedWorkout:", selectedWorkout);
   const workouts = useWorkoutStore((state) => state.items);
   const loadWorkouts = useWorkoutStore((state) => state.loadItems);
   const { modelRef, handleModel } = props;
@@ -43,6 +44,14 @@ export default function ProgramWorkoutEdit({
       const newDaysOfWeek = isChecked
         ? [...(prev.daysOfWeek || []), fixedDay]
         : (prev.daysOfWeek || []).filter((day) => day !== fixedDay);
+
+      if (!newDaysOfWeek.length) {
+        return {
+          ...prev,
+          daysOfWeek: [],
+          crudOperation: "delete",
+        };
+      }
       return {
         ...prev,
         daysOfWeek: newDaysOfWeek,
@@ -62,6 +71,7 @@ export default function ProgramWorkoutEdit({
       const empty = programWorkoutUtil.getEmpty();
       _workout = programWorkoutUtil.dtoToEditDto({ ...empty, workout }, isCopy);
     }
+
 
     setSelectedWorkout(_workout);
   };

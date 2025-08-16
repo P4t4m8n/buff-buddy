@@ -30,6 +30,7 @@ export default function ProgramEdit() {
     navigate,
     handleInputChange,
   } = useProgramEdit(programIdParams);
+    console.log("🚀 ~ ProgramEdit ~ programToEdit:", programToEdit)
 
   if (isLoading || !programToEdit) {
     return <Loader loaderType="screen" />;

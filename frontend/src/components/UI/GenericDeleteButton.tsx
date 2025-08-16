@@ -23,6 +23,7 @@ export default function GenericDeleteButton<T extends DeletableStore>({
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    console.log("🚀 ~ handleClick ~ itemId:", itemId)
     if (itemId) {
       deleteAction(itemId);
     }

@@ -15,7 +15,7 @@ export default function ProgramPreview({
   item,
   onDeleteProgram,
 }: ProgramPreviewProps) {
-  const { name, startDate, endDate, id, isActive } = item;
+  const { name, startDate, endDate, id:programId, isActive } = item;
 
   const dates = calendarUtil.getFormatDateRange(startDate, endDate);
 
@@ -39,14 +39,14 @@ export default function ProgramPreview({
       <p className="">{dates}</p>
 
       <div className=" flex items-center gap-3 ">
-        <Link to={`/programs/${id}`} className="mr-auto">
+        <Link to={`/programs/${programId}`} className="mr-auto">
           <Button buttonStyle="model">{ModelButtonIcon("details")}</Button>
         </Link>
-        <Link to={`/programs/edit/${id}`} className="">
+        <Link to={`/programs/edit/${programId}`} className="">
           <Button buttonStyle="model">{ModelButtonIcon("edit")}</Button>
         </Link>
         <GenericDeleteButton
-          itemId={""}
+          itemId={programId}
           useStore={useProgramStore}
           deleteAction={onDeleteProgram!}
         />

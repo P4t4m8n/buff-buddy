@@ -30,6 +30,7 @@ export const useItemsPage = <T, F>({ useStore }: IUseItemsPageProps<T, F>) => {
   }, []);
 
   const onDeleteItem = useCallback(async (id?: string) => {
+    console.log("🚀 ~ useItemsPage ~ id:", id)
     try {
       if (!id) {
         throw ClientError.create("ID is required for deletion.");

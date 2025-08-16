@@ -24,6 +24,7 @@ export const programService = {
   },
 
   async save(dto: IProgramEditDTO): Promise<THttpPostResponse<IProgramDTO>> {
+    console.log("🚀 ~ save ~ dto:", dto)
     if (!dto) throw ClientError.create("Program data is required", 400);
     const { id } = dto;
 

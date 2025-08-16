@@ -53,21 +53,20 @@ export const useProgramStore = create<
         const idx = state.items.findIndex((program) => program.id === data.id);
 
         if (idx !== -1) {
-          const updatedPrograms = [...state.items];
-          updatedPrograms[idx] = data as IProgramDTO;
+          const updatedPrograms = state.items.toSpliced(idx, 1, data);
           return { items: updatedPrograms };
         } else {
-          const updatedItems = state.items.toSpliced(idx, 1, data);
-          return { items: updatedItems };
+          return { items: [...state.items, data] };
         }
       });
       return data;
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingId: null });
     }
   },
 
   deleteItem: async (id: string) => {
+    console.log("🚀 ~ id:", id);
     try {
       set({ isDeleting: true });
       await programService.delete(id);

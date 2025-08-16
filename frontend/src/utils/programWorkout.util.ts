@@ -10,6 +10,7 @@ export const programWorkoutUtil = {
     dto?: IProgramWorkoutDTO,
     isCopy?: boolean
   ): IProgramWorkoutEditDTO | null {
+    console.log("🚀 ~ dtoToEditDto ~ dto:", dto)
     if (!dto) {
       return null;
     }
