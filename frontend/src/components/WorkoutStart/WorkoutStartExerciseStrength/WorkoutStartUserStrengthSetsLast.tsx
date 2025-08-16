@@ -19,10 +19,7 @@ export default function WorkoutStartUserStrengthSetsLast({
   lastSkippedReason,
   isWarmup,
 }: IWorkoutStartUserSetsLastProps) {
-  console.log(
-    "🚀 ~ WorkoutStartUserStrengthSetsLast ~ lastSkippedReason:",
-    lastSkippedReason
-  );
+
   if (isWarmup) {
     return <span className=" col-span-full ">Warmup Set</span>;
   }

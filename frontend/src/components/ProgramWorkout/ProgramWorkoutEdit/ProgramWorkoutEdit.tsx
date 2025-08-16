@@ -29,7 +29,6 @@ export default function ProgramWorkoutEdit({
 }: ProgramWorkoutProps) {
   const [selectedWorkout, setSelectedWorkout] =
     useState<IProgramWorkoutEditDTO | null>(null);
-  console.log("🚀 ~ ProgramWorkoutEdit ~ selectedWorkout:", selectedWorkout);
   const workouts = useWorkoutStore((state) => state.items);
   const loadWorkouts = useWorkoutStore((state) => state.loadItems);
   const { modelRef, handleModel } = props;

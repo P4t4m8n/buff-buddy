@@ -66,7 +66,6 @@ export const useProgramStore = create<
   },
 
   deleteItem: async (id: string) => {
-    console.log("🚀 ~ id:", id);
     try {
       set({ isDeleting: true });
       await programService.delete(id);

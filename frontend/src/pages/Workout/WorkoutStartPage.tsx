@@ -36,7 +36,6 @@ export default function WorkoutStartPage() {
 
   const [workoutStart, setWorkoutStart] =
     React.useState<IUserWorkoutEditDTO | null>(null);
-  console.log("🚀 ~ WorkoutStartPage ~ workoutStart:", workoutStart);
   const { errors, handleError, clearErrors } = useErrors<IUserWorkoutDTO>();
 
   const getById = useWorkoutStore((state) => state.getById);
@@ -152,8 +151,6 @@ export default function WorkoutStartPage() {
     const target = e.target as HTMLInputElement;
     const { name, value, type, checked } = target;
     const [key, id] = name.split("-") as [keyof IUserCardioSetDTO, string];
-    console.log("🚀 ~ handleUserCardioSetsChange ~ id:", id)
-    console.log("🚀 ~ handleUserCardioSetsChange ~ key:", key)
 
     setWorkoutStart((prev) => {
       if (!prev) return null;

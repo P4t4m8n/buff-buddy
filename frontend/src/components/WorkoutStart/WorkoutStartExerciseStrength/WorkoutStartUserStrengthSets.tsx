@@ -57,10 +57,7 @@ export default function WorkoutStartUserStrengthSets({
     ...serverErrors,
     ...errors,
   };
-  console.log(
-    "🚀 ~ WorkoutStartUserStrengthSets ~ combinedErrors:",
-    combinedErrors
-  );
+
 
   const numberInputs = [
     {

@@ -23,7 +23,6 @@ export default function WorkoutStartUserCardioSets({
   handleUserCardioSetsChange,
   handleUserSet,
 }: IWorkoutStartUserCardioSetsProps) {
-  console.log("🚀 ~ handleUserCardioSetsChange:", handleUserCardioSetsChange);
   const {
     id: userSetId,
     workTime,
