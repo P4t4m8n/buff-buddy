@@ -13,6 +13,7 @@ export default function ExercisePage() {
     onDeleteItem,
   } = useItemsPage({
     useStore: useExerciseStore,
+    initialFilter: {},
   });
 
   return (

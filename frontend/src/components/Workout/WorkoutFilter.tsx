@@ -12,9 +12,7 @@ function WorkoutFilterMemo({
   workoutsFilter,
   setWorkoutsFilter,
 }: IWorkoutFilterProps) {
-  const { programId, dayOfWeek, exerciseId, isCompleted, isTemplate } =
-    workoutsFilter;
-  console.log("🚀 ~ WorkoutFilter ~ isTemplate:", isTemplate);
+  const { isTemplate } = workoutsFilter;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();

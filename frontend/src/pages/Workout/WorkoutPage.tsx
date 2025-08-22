@@ -20,6 +20,7 @@ import type { IProgramWorkoutDTO } from "../../../../shared/models/program.model
 export default function WorkoutPage() {
   const { items: programs, isLoading } = useItemsPage({
     useStore: useProgramStore,
+    initialFilter: {},
   });
 
   const [day, setDay] = useState<DaysOfWeek | null>(null);

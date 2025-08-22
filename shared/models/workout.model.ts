@@ -10,7 +10,7 @@ import type {
   ICoreStrengthSetEditDTO,
 } from "./strengthSet.model";
 import type { IEntity } from "./entity.model";
-import type { TDayOfWeek, IBaseFilter, TCrudOperation } from "./app.model";
+import type { IBaseFilter, TCrudOperation } from "./app.model";
 import type { IProgramDTO } from "./program.model";
 import type { ICoreCardioSetEditDTO } from "./cardioSet.model";
 

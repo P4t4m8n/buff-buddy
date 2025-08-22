@@ -6,29 +6,26 @@ import { calendarUtil } from "../../../utils/calendar.util";
 import { programWorkoutUtil } from "../../../utils/programWorkout.util";
 import { workoutUtils } from "../../../utils/workout.util";
 
-import AvailableWorkoutPreview from "../../Program/ProgramEdit/AvailableWorkoutPreview";
+import { useItemsPage } from "../../../hooks/shared/useItemsPage";
+import { INITIAL_WORKOUT_FILTER } from "../../../consts/filters.consts";
+
 import WorkoutEditModel from "../../Workout/WorkoutEditModel";
 import ProgramWorkoutEditSelected from "./ProgramWorkoutEditSelected";
+import WorkoutFilter from "../../Workout/WorkoutFilter";
+import WorkoutPreview from "../../Workout/WorkoutPreview";
 
 import Button from "../../UI/Button";
 import GenericModel from "../../UI/GenericModel";
 import GenericList from "../../UI/GenericList";
+import Loader from "../../UI/loader/Loader";
 
 import type {
   IProgramWorkoutDTO,
   IProgramWorkoutEditDTO,
 } from "../../../../../shared/models/program.model";
-import type {
-  IWorkoutFilter,
-  IWorkoutDTO,
-} from "../../../../../shared/models/workout.model";
+import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
 import type { MouseEvent } from "react";
 import type { IModelProps } from "../../UI/GenericModel";
-import WorkoutFilter from "../../Workout/WorkoutFilter";
-import WorkoutPreview from "../../Workout/WorkoutPreview";
-import { useItemsPage } from "../../../hooks/shared/useItemsPage";
-import { INITIAL_WORKOUT_FILTER } from "../../../consts/filters.consts";
-import Loader from "../../UI/loader/Loader";
 
 interface ProgramWorkoutProps extends IModelProps<HTMLDivElement> {
   programWorkout?: IProgramWorkoutDTO;
@@ -60,8 +57,6 @@ export default function ProgramWorkoutEdit({
 
     setSelectedWorkout(workoutEdit ?? null);
   }, [programWorkout]);
-
-
 
   const onDaysChange = (e: React.ChangeEvent) => {
     const target = e.target as HTMLInputElement;
@@ -126,9 +121,9 @@ export default function ProgramWorkoutEdit({
     });
   };
 
-  // const availableWorkouts = workouts.filter(
-  //   (wo) => !selectedWorkout || wo.id !== selectedWorkout.workout?.id
-  // );
+  const availableWorkouts = workouts.filter(
+    (wo) => !selectedWorkout || wo.id !== selectedWorkout.workout?.id
+  );
 
   const itemComponentProps = useMemo(
     () => ({ actionType: "programEdit", onSelectProgramWorkout }),
@@ -136,7 +131,7 @@ export default function ProgramWorkoutEdit({
   );
   const getKey = useCallback((item: IWorkoutDTO) => item.id!, []);
 
-    if (isLoading) {
+  if (isLoading) {
     return <Loader loaderType="screen" />;
   }
   return (
@@ -169,7 +164,7 @@ export default function ProgramWorkoutEdit({
         setWorkoutsFilter={setWorkoutsFilter}
       />
       <GenericList
-        items={workouts}
+        items={availableWorkouts}
         ItemComponent={WorkoutPreview}
         itemComponentProps={itemComponentProps}
         getKey={getKey}

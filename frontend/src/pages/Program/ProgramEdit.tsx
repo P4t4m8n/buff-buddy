@@ -96,6 +96,7 @@ export default function ProgramEdit() {
         <IsActiveInput
           handleInputChange={handleInputChange}
           isActive={isActive}
+          inputName="isActive"
         />
         <TextArea
           onChange={handleInputChange}

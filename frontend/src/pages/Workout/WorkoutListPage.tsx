@@ -5,10 +5,7 @@ import { useWorkoutStore } from "../../store/workout.store";
 import GenericList from "../../components/UI/GenericList";
 import WorkoutPreview from "../../components/Workout/WorkoutPreview";
 
-import type {
-  IWorkoutDTO,
-  IWorkoutFilter,
-} from "../../../../shared/models/workout.model";
+import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
 import WorkoutFilter from "../../components/Workout/WorkoutFilter";
 import { useItemsPage } from "../../hooks/shared/useItemsPage";
 import Loader from "../../components/UI/loader/Loader";
