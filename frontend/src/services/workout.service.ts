@@ -12,8 +12,10 @@ import { apiService } from "./api.service";
 
 export const workoutService = {
   rootPath: "/workouts",
-  async get(filter: IWorkoutFilter): Promise<IWorkoutDTO[]> {
+  async get(filter?: IWorkoutFilter): Promise<IWorkoutDTO[]> {
+    console.log("🚀 ~ get ~ filter:", filter);
     const queryParams = buildQueryParams(filter);
+    console.log("🚀 ~ get ~ queryParams:", queryParams);
     return await apiService.get<IWorkoutDTO[]>(
       `${this.rootPath}?${queryParams.toString()}`
     );
@@ -37,6 +39,7 @@ export const workoutService = {
     }
 
     const validatedDTO = UpdateWorkoutSchema.parse(dto);
+    console.log("🚀 ~ save ~ validatedDTO:", validatedDTO)
     const { data } = await apiService.put<THttpPostResponse<IWorkoutDTO>>(
       `${this.rootPath}/edit/${dto.id}`,
       validatedDTO
@@ -53,11 +56,18 @@ const buildQueryParams = (filter?: IWorkoutFilter): string => {
   if (!filter) return "";
 
   const params = new URLSearchParams();
-  if (filter.programId) params.append("programId", filter.programId);
-  if (filter.dayOfWeek) params.append("dayOfWeek", filter.dayOfWeek);
-  if (filter.exerciseId) params.append("exerciseId", filter.exerciseId);
-  if (filter.isCompleted !== undefined)
-    params.append("isCompleted", String(filter.isCompleted));
+  Object.entries(filter).forEach(([key, value]) => {
+    if (value !== undefined) {
+      params.append(key, String(value));
+    }
+  });
+  // if (filter.programId) params.append("programId", filter.programId);
+  // if (filter.dayOfWeek) params.append("dayOfWeek", filter.dayOfWeek);
+  // if (filter.exerciseId) params.append("exerciseId", filter.exerciseId);
+  // if (filter.isCompleted !== undefined)
+  //   params.append("isCompleted", String(filter.isCompleted));
+  // if (filter.isTemplate !== undefined)
+  //   params.append("isTemplate", String(filter.isTemplate));
 
-  return params.toString() ? `?${params.toString()}` : "";
+  return params.toString() ? `${params.toString()}` : "";
 };

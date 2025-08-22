@@ -21,6 +21,7 @@ export const useWorkoutEdit = ({
   const [workoutToEdit, setWorkoutToEdit] = useState<IWorkoutEditDTO | null>(
     null
   );
+  console.log("🚀 ~ useWorkoutEdit ~ workoutToEdit:", workoutToEdit);
 
   const { errors, handleError } = useErrors<IWorkoutEditDTO>();
 
@@ -119,11 +120,31 @@ export const useWorkoutEdit = ({
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
+    e.stopPropagation();
+    const target = e.target as HTMLInputElement;
+    const { name, value, type, checked } = target;
+    // console.log("🚀 ~ handleInputChange ~ type:", type);
+    // console.log("🚀 ~ handleInputChange ~ name:", name);
+    // console.log("🚀 ~ handleInputChange ~ value:", value);
+
+    // console.log("🚀 ~ handleInputChange ~ checked:", checked);
+    let newVal: boolean | string | number | null;
+    switch (type) {
+      case "checkbox":
+        newVal = checked;
+        break;
+      case "number":
+        newVal = parseFloat(value);
+        break;
+      default:
+        newVal = value;
+        break;
+    }
+    console.log("🚀 ~ handleInputChange ~ newVal:", newVal);
     if (workoutToEdit) {
       setWorkoutToEdit({
         ...workoutToEdit,
-        [name]: value,
+        [name]: newVal,
       });
     }
   };

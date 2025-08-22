@@ -15,6 +15,7 @@ import type {
   IWorkoutExerciseEditDTO,
 } from "../../../../shared/models/workout.model";
 import type { TErrors } from "../../models/errors.model";
+import IsActiveInput from "../UI/Form/IsActiveInput";
 
 interface IWorkoutEditProps {
   workoutToEdit?: IWorkoutEditDTO | null;
@@ -41,7 +42,14 @@ export default function WorkoutEdit({
     return <Loader loaderType="screen" />;
   }
 
-  const { notes, workoutExercises, name, id: workoutToEditId } = workoutToEdit;
+  const {
+    notes,
+    workoutExercises,
+    name,
+    id: workoutToEditId,
+    isTemplate,
+  } = workoutToEdit;
+
   const cleanedWorkoutExercises = workoutExercises
     ?.filter((ex) => ex.crudOperation !== "delete")
     .sort((a, b) => (a?.order || 0) - (b?.order || 0));
@@ -99,7 +107,15 @@ export default function WorkoutEdit({
                  gap-4 bg-black-500 w-full z-20"
     >
       <header className="flex flex-col gap-2 w-full">
-        <h3 className="text-center text-2xl">Create Workout</h3>
+        <div>
+          <h3 className="text-2xl">Edit Workout</h3>
+          <IsActiveInput
+            handleInputChange={handleInputChange}
+            isActive={!!isTemplate}
+            inputName="isTemplate"
+            afterContentText={{ active: "Template", inactive: "Private" }}
+          />
+        </div>
         <InputWithError
           inputProps={{
             value: name || "",
@@ -108,7 +124,6 @@ export default function WorkoutEdit({
             id: "name-" + workoutToEditId,
             placeholder: "",
             className: "h-10 pl-2",
-
             onChange: handleInputChange,
           }}
           labelProps={{

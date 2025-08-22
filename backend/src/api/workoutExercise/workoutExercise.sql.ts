@@ -41,6 +41,7 @@ const getWorkoutExerciseUpdate = (
     ...dbUtil.cleanData({
       order: data.order ?? undefined,
       notes: data.notes,
+      
       exercise: { connect: { id: data.exerciseData?.id } },
     }),
   };

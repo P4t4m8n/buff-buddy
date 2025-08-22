@@ -25,3 +25,9 @@ export interface IIconProps {
 export type TIconMode = (typeof ICON_MODE)[number];
 
 export type TLabelPosition = (typeof LABEL_POSITION)[number];
+
+export type TDebouncedFunction<F extends (...args: any[]) => any> = {
+  (...args: Parameters<F>): ReturnType<F> | void;
+  cancel: () => void;
+  flush: () => ReturnType<F> | undefined;
+};

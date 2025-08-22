@@ -1,6 +1,4 @@
-import { IBaseFilter } from "../../../../shared/models/app.model";
 import {
-  DaysOfWeek,
   ExerciseEquipment,
   ExerciseMuscle,
   ExerciseType,
@@ -9,12 +7,7 @@ import { ICoreCardioSet } from "../coreSets/coreCardioSets/coreCardioSets.models
 import { ICoreStrengthSet } from "../coreSets/coreStrengthSets/coreStrengthSets.models";
 import { IUser } from "../users/users.model";
 
-export interface IWorkoutFilter extends IBaseFilter {
-  programName?: string;
-  dayOfWeek?: DaysOfWeek;
-  exerciseName?: string;
-  ownerName?: string;
-}
+
 
 export interface IWorkoutExercise {
   id: string;
@@ -36,6 +29,7 @@ export interface IWorkoutBase {
   id: string;
   name?: string | null;
   notes?: string | null;
+  isTemplate?: boolean;
 }
 
 export interface IWorkout extends IWorkoutBase {

@@ -18944,6 +18944,7 @@ export namespace Prisma {
   export type WorkoutMinAggregateOutputType = {
     id: string | null
     name: string | null
+    isTemplate: boolean | null
     notes: string | null
     ownerId: string | null
     createdAt: Date | null
@@ -18953,6 +18954,7 @@ export namespace Prisma {
   export type WorkoutMaxAggregateOutputType = {
     id: string | null
     name: string | null
+    isTemplate: boolean | null
     notes: string | null
     ownerId: string | null
     createdAt: Date | null
@@ -18962,6 +18964,7 @@ export namespace Prisma {
   export type WorkoutCountAggregateOutputType = {
     id: number
     name: number
+    isTemplate: number
     notes: number
     ownerId: number
     createdAt: number
@@ -18973,6 +18976,7 @@ export namespace Prisma {
   export type WorkoutMinAggregateInputType = {
     id?: true
     name?: true
+    isTemplate?: true
     notes?: true
     ownerId?: true
     createdAt?: true
@@ -18982,6 +18986,7 @@ export namespace Prisma {
   export type WorkoutMaxAggregateInputType = {
     id?: true
     name?: true
+    isTemplate?: true
     notes?: true
     ownerId?: true
     createdAt?: true
@@ -18991,6 +18996,7 @@ export namespace Prisma {
   export type WorkoutCountAggregateInputType = {
     id?: true
     name?: true
+    isTemplate?: true
     notes?: true
     ownerId?: true
     createdAt?: true
@@ -19073,6 +19079,7 @@ export namespace Prisma {
   export type WorkoutGroupByOutputType = {
     id: string
     name: string | null
+    isTemplate: boolean
     notes: string | null
     ownerId: string | null
     createdAt: Date
@@ -19099,6 +19106,7 @@ export namespace Prisma {
   export type WorkoutSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    isTemplate?: boolean
     notes?: boolean
     ownerId?: boolean
     createdAt?: boolean
@@ -19113,6 +19121,7 @@ export namespace Prisma {
   export type WorkoutSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    isTemplate?: boolean
     notes?: boolean
     ownerId?: boolean
     createdAt?: boolean
@@ -19123,6 +19132,7 @@ export namespace Prisma {
   export type WorkoutSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    isTemplate?: boolean
     notes?: boolean
     ownerId?: boolean
     createdAt?: boolean
@@ -19133,13 +19143,14 @@ export namespace Prisma {
   export type WorkoutSelectScalar = {
     id?: boolean
     name?: boolean
+    isTemplate?: boolean
     notes?: boolean
     ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type WorkoutOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "notes" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["workout"]>
+  export type WorkoutOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "isTemplate" | "notes" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["workout"]>
   export type WorkoutInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | Workout$ownerArgs<ExtArgs>
     workoutExercises?: boolean | Workout$workoutExercisesArgs<ExtArgs>
@@ -19165,6 +19176,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string | null
+      isTemplate: boolean
       notes: string | null
       ownerId: string | null
       createdAt: Date
@@ -19598,6 +19610,7 @@ export namespace Prisma {
   interface WorkoutFieldRefs {
     readonly id: FieldRef<"Workout", 'String'>
     readonly name: FieldRef<"Workout", 'String'>
+    readonly isTemplate: FieldRef<"Workout", 'Boolean'>
     readonly notes: FieldRef<"Workout", 'String'>
     readonly ownerId: FieldRef<"Workout", 'String'>
     readonly createdAt: FieldRef<"Workout", 'DateTime'>
@@ -23768,6 +23781,7 @@ export namespace Prisma {
   export const WorkoutScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    isTemplate: 'isTemplate',
     notes: 'notes',
     ownerId: 'ownerId',
     createdAt: 'createdAt',
@@ -24967,6 +24981,7 @@ export namespace Prisma {
     NOT?: WorkoutWhereInput | WorkoutWhereInput[]
     id?: StringFilter<"Workout"> | string
     name?: StringNullableFilter<"Workout"> | string | null
+    isTemplate?: BoolFilter<"Workout"> | boolean
     notes?: StringNullableFilter<"Workout"> | string | null
     ownerId?: StringNullableFilter<"Workout"> | string | null
     createdAt?: DateTimeFilter<"Workout"> | Date | string
@@ -24980,6 +24995,7 @@ export namespace Prisma {
   export type WorkoutOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
+    isTemplate?: SortOrder
     notes?: SortOrderInput | SortOrder
     ownerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -24996,6 +25012,7 @@ export namespace Prisma {
     OR?: WorkoutWhereInput[]
     NOT?: WorkoutWhereInput | WorkoutWhereInput[]
     name?: StringNullableFilter<"Workout"> | string | null
+    isTemplate?: BoolFilter<"Workout"> | boolean
     notes?: StringNullableFilter<"Workout"> | string | null
     ownerId?: StringNullableFilter<"Workout"> | string | null
     createdAt?: DateTimeFilter<"Workout"> | Date | string
@@ -25009,6 +25026,7 @@ export namespace Prisma {
   export type WorkoutOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
+    isTemplate?: SortOrder
     notes?: SortOrderInput | SortOrder
     ownerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -25024,6 +25042,7 @@ export namespace Prisma {
     NOT?: WorkoutScalarWhereWithAggregatesInput | WorkoutScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Workout"> | string
     name?: StringNullableWithAggregatesFilter<"Workout"> | string | null
+    isTemplate?: BoolWithAggregatesFilter<"Workout"> | boolean
     notes?: StringNullableWithAggregatesFilter<"Workout"> | string | null
     ownerId?: StringNullableWithAggregatesFilter<"Workout"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Workout"> | Date | string
@@ -26299,6 +26318,7 @@ export namespace Prisma {
   export type WorkoutCreateInput = {
     id?: string
     name?: string | null
+    isTemplate?: boolean
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -26311,6 +26331,7 @@ export namespace Prisma {
   export type WorkoutUncheckedCreateInput = {
     id?: string
     name?: string | null
+    isTemplate?: boolean
     notes?: string | null
     ownerId?: string | null
     createdAt?: Date | string
@@ -26323,6 +26344,7 @@ export namespace Prisma {
   export type WorkoutUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    isTemplate?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26335,6 +26357,7 @@ export namespace Prisma {
   export type WorkoutUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    isTemplate?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26347,6 +26370,7 @@ export namespace Prisma {
   export type WorkoutCreateManyInput = {
     id?: string
     name?: string | null
+    isTemplate?: boolean
     notes?: string | null
     ownerId?: string | null
     createdAt?: Date | string
@@ -26356,6 +26380,7 @@ export namespace Prisma {
   export type WorkoutUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    isTemplate?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26364,6 +26389,7 @@ export namespace Prisma {
   export type WorkoutUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    isTemplate?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27488,6 +27514,7 @@ export namespace Prisma {
   export type WorkoutCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    isTemplate?: SortOrder
     notes?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
@@ -27497,6 +27524,7 @@ export namespace Prisma {
   export type WorkoutMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    isTemplate?: SortOrder
     notes?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
@@ -27506,6 +27534,7 @@ export namespace Prisma {
   export type WorkoutMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    isTemplate?: SortOrder
     notes?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
@@ -29199,6 +29228,7 @@ export namespace Prisma {
   export type WorkoutCreateWithoutOwnerInput = {
     id?: string
     name?: string | null
+    isTemplate?: boolean
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29210,6 +29240,7 @@ export namespace Prisma {
   export type WorkoutUncheckedCreateWithoutOwnerInput = {
     id?: string
     name?: string | null
+    isTemplate?: boolean
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29309,6 +29340,7 @@ export namespace Prisma {
     NOT?: WorkoutScalarWhereInput | WorkoutScalarWhereInput[]
     id?: StringFilter<"Workout"> | string
     name?: StringNullableFilter<"Workout"> | string | null
+    isTemplate?: BoolFilter<"Workout"> | boolean
     notes?: StringNullableFilter<"Workout"> | string | null
     ownerId?: StringNullableFilter<"Workout"> | string | null
     createdAt?: DateTimeFilter<"Workout"> | Date | string
@@ -30515,6 +30547,7 @@ export namespace Prisma {
   export type WorkoutCreateWithoutProgramWorkoutsInput = {
     id?: string
     name?: string | null
+    isTemplate?: boolean
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -30526,6 +30559,7 @@ export namespace Prisma {
   export type WorkoutUncheckedCreateWithoutProgramWorkoutsInput = {
     id?: string
     name?: string | null
+    isTemplate?: boolean
     notes?: string | null
     ownerId?: string | null
     createdAt?: Date | string
@@ -30590,6 +30624,7 @@ export namespace Prisma {
   export type WorkoutUpdateWithoutProgramWorkoutsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    isTemplate?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30601,6 +30636,7 @@ export namespace Prisma {
   export type WorkoutUncheckedUpdateWithoutProgramWorkoutsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    isTemplate?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30909,6 +30945,7 @@ export namespace Prisma {
   export type WorkoutCreateWithoutWorkoutExercisesInput = {
     id?: string
     name?: string | null
+    isTemplate?: boolean
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -30920,6 +30957,7 @@ export namespace Prisma {
   export type WorkoutUncheckedCreateWithoutWorkoutExercisesInput = {
     id?: string
     name?: string | null
+    isTemplate?: boolean
     notes?: string | null
     ownerId?: string | null
     createdAt?: Date | string
@@ -31074,6 +31112,7 @@ export namespace Prisma {
   export type WorkoutUpdateWithoutWorkoutExercisesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    isTemplate?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31085,6 +31124,7 @@ export namespace Prisma {
   export type WorkoutUncheckedUpdateWithoutWorkoutExercisesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    isTemplate?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31480,6 +31520,7 @@ export namespace Prisma {
   export type WorkoutCreateWithoutUserWorkoutsInput = {
     id?: string
     name?: string | null
+    isTemplate?: boolean
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -31491,6 +31532,7 @@ export namespace Prisma {
   export type WorkoutUncheckedCreateWithoutUserWorkoutsInput = {
     id?: string
     name?: string | null
+    isTemplate?: boolean
     notes?: string | null
     ownerId?: string | null
     createdAt?: Date | string
@@ -31612,6 +31654,7 @@ export namespace Prisma {
   export type WorkoutUpdateWithoutUserWorkoutsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    isTemplate?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31623,6 +31666,7 @@ export namespace Prisma {
   export type WorkoutUncheckedUpdateWithoutUserWorkoutsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    isTemplate?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31645,6 +31689,7 @@ export namespace Prisma {
   export type WorkoutCreateManyOwnerInput = {
     id?: string
     name?: string | null
+    isTemplate?: boolean
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -31698,6 +31743,7 @@ export namespace Prisma {
   export type WorkoutUpdateWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    isTemplate?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31709,6 +31755,7 @@ export namespace Prisma {
   export type WorkoutUncheckedUpdateWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    isTemplate?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31720,6 +31767,7 @@ export namespace Prisma {
   export type WorkoutUncheckedUpdateManyWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    isTemplate?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

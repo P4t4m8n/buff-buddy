@@ -18,14 +18,11 @@ export const useWorkoutStore = create<
   isDeleting: false,
   isSavingId: null,
 
-  loadItems: async () => {
+  loadItems: async (filter?: IWorkoutFilter) => {
     try {
       set({ isLoading: true });
 
-      if (get().items.length > 0) {
-        return;
-      }
-      const _workouts = await workoutService.get({});
+      const _workouts = await workoutService.get(filter);
       set({ items: _workouts, isLoading: false });
     } finally {
       set({ isLoading: false });

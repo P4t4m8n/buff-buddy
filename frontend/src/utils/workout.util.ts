@@ -14,6 +14,7 @@ export const workoutUtils = {
       id: isCopy ? appUtil.getTempId() : dto.id,
       notes: dto.notes,
       name: dto.name,
+      isTemplate: dto.isTemplate || false,
       programId: dto.program?.id ?? null,
       ownerId: dto.owner?.id,
       crudOperation: isCopy ? "create" : "update",

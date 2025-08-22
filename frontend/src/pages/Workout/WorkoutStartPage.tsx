@@ -23,6 +23,7 @@ import type { IUserStrengthSetDTO } from "../../../../shared/models/strengthSet.
 import type { IUserCardioSetDTO } from "../../../../shared/models/cardioSet.model";
 import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
 import type { TValidationError } from "../../models/errors.model";
+import { localStorageService } from "../../services/localStorage.service";
 
 //TODO?? state function move to hook or context? deep props drilling
 //TODO?? move child component into memo to prevent render?
@@ -36,6 +37,7 @@ export default function WorkoutStartPage() {
 
   const [workoutStart, setWorkoutStart] =
     React.useState<IUserWorkoutEditDTO | null>(null);
+  console.log("🚀 ~ WorkoutStartPage ~ workoutStart:", workoutStart)
   const { errors, handleError, clearErrors } = useErrors<IUserWorkoutDTO>();
 
   const getById = useWorkoutStore((state) => state.getById);
@@ -46,24 +48,43 @@ export default function WorkoutStartPage() {
 
   //TODO ?? Ugly improve later
   useEffect(() => {
+    const loadWorkoutStart = async () => {
+      const workout = await getById(workoutId);
+      let lastUserWorkout;
+      try {
+        lastUserWorkout = (await workoutStartService.getLastWorkout(workoutId))
+          .data;
+      } catch (error) {
+        lastUserWorkout = null;
+      }
+
+      const userWorkout = workoutStartUtil.workoutDTOToWorkoutStartDTO(
+        workout,
+        programId,
+        lastUserWorkout
+      );
+      setWorkoutStart(userWorkout);
+      return;
+    };
     const init = async () => {
       try {
-        const workout = await getById(workoutId);
-        let lastUserWorkout;
-        try {
-          lastUserWorkout = (
-            await workoutStartService.getLastWorkout(workoutId)
-          ).data;
-        } catch (error) {
-          lastUserWorkout = null;
+        const localStorageWorkout =
+          localStorageService.getSessionData<IUserWorkoutEditDTO>(
+            "workoutStart"
+          );
+
+        if (!localStorageWorkout) {
+          await loadWorkoutStart();
+          return;
         }
 
-        const userWorkout = workoutStartUtil.workoutDTOToWorkoutStartDTO(
-          workout,
-          programId,
-          lastUserWorkout
-        );
-        setWorkoutStart(userWorkout);
+        if (localStorageWorkout.workoutId !== workoutId) {
+          console.warn("Workout ID mismatch:", localStorageWorkout.workoutId);
+          await loadWorkoutStart();
+          return;
+        }
+
+        setWorkoutStart(localStorageWorkout);
       } catch (error) {
         console.error("Error initializing workout start:", error);
       }
@@ -78,6 +99,7 @@ export default function WorkoutStartPage() {
       e.preventDefault();
       e.stopPropagation();
       await workoutStartService.save(workoutStart!);
+      localStorageService.storeSessionData("workoutStart");
       navigate(-1);
     } catch (error) {
       handleError({ error });
@@ -87,10 +109,12 @@ export default function WorkoutStartPage() {
   const handleDateSelect = ({ start }: IDateRange) => {
     setWorkoutStart((prev) => {
       if (!prev) return null;
-      return {
+      const returnObj = {
         ...prev,
         dateCompleted: start,
       };
+      localStorageService.storeSessionData("workoutStart", returnObj);
+      return returnObj;
     });
   };
 
@@ -137,10 +161,13 @@ export default function WorkoutStartPage() {
           userStrengthSets,
         };
       });
-      return {
+
+      const returnObj = {
         ...prev,
         workoutExercises,
       };
+      localStorageService.storeSessionData("workoutStart", returnObj);
+      return returnObj;
     });
   };
 
@@ -182,10 +209,13 @@ export default function WorkoutStartPage() {
           userCardioSets,
         };
       });
-      return {
+
+      const returnObj = {
         ...prev,
         workoutExercises,
       };
+      localStorageService.storeSessionData("workoutStart", returnObj);
+      return returnObj;
     });
   };
 
@@ -249,10 +279,13 @@ export default function WorkoutStartPage() {
           [key]: userSets,
         };
       });
-      return {
+
+      const returnObj = {
         ...prev,
         userWorkoutExercises: newWorkoutExercise,
       };
+      localStorageService.storeSessionData("workoutStart", returnObj);
+      return returnObj;
     });
   };
 
@@ -287,10 +320,13 @@ export default function WorkoutStartPage() {
 
         return { ...returnWorkoutExercise };
       });
-      return {
+
+      const returnObj = {
         ...prev,
         userWorkoutExercises,
       };
+      localStorageService.storeSessionData("workoutStart", returnObj);
+      return returnObj;
     });
   };
 
@@ -324,7 +360,7 @@ export default function WorkoutStartPage() {
   return (
     <form
       onSubmit={onSubmit}
-      className="fixed inset-0 h-main overflow-hidden grid grid-cols-1 grid-rows-[5.5rem_calc(100%-10rem)_2.5rem]
+      className=" h-main overflow-hidden grid grid-cols-1 grid-rows-[5.5rem_calc(100%-10rem)_2.5rem]
        gap-4 bg-black-800 pt-mobile"
     >
       <div className="px-mobile">

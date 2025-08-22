@@ -1,5 +1,6 @@
 import { z } from "zod";
 import {
+  BooleanSchema,
   CrudOperationSchema,
   IDSchema,
   stringValidationAndSanitization,
@@ -12,6 +13,7 @@ import {
 const BaseWorkoutSchema = z.object({
   programId: z.string().nullish(),
   ownerId: z.string().nullish(),
+  isTemplate: BooleanSchema,
   notes: stringValidationAndSanitization({
     fieldName: "Workout notes",
     minLength: 0,
@@ -44,11 +46,18 @@ export const UpdateWorkoutSchema = BaseWorkoutSchema.extend({
 
 export const WorkoutQuerySchema = z.object({
   programId: z.string().optional(),
+  programName: z.string().optional(),
+  exerciseName: z.string().optional(),
+  ownerName: z.string().optional(),
   userId: z.string().optional(),
   exerciseId: z.string().optional(),
   date: z.string().optional(),
+  isTemplate: z
+    .string()
+    .transform((val) => val === "true")
+    .optional(),
   skip: z.coerce.number().min(0).optional(),
-  page: z.coerce.number().min(1).optional(),
+  take: z.coerce.number().min(1).optional(),
 });
 
 export type TCreateWorkoutInput = z.infer<typeof CreateWorkoutSchema>;

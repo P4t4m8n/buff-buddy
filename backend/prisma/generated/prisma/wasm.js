@@ -270,6 +270,7 @@ exports.Prisma.ProgramWorkoutScalarFieldEnum = {
 exports.Prisma.WorkoutScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  isTemplate: 'isTemplate',
   notes: 'notes',
   ownerId: 'ownerId',
   createdAt: 'createdAt',

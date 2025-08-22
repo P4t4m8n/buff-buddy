@@ -16,6 +16,7 @@ export default function ProgramPage() {
     onDeleteItem,
   } = useItemsPage({
     useStore: useProgramStore,
+    initialFilter: {},
   });
 
   return (

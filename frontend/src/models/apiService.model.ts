@@ -10,3 +10,5 @@ export type THttpErrorResponse = {
 };
 
 export type THttpMethod = (typeof HTTP_METHODS)[number];
+
+

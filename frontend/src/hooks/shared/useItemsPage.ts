@@ -1,15 +1,20 @@
 import type { StoreApi, UseBoundStore } from "zustand";
 import { useErrors } from "./useErrors";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ClientError } from "../../services/ClientError.service";
 import type { ILoadItemsStore } from "../../models/store.model";
 
 interface IUseItemsPageProps<T, F> {
   useStore: UseBoundStore<StoreApi<ILoadItemsStore<T, F>>>;
+  initialFilter: F;
 }
 
 //TODO?? Add filtering and searching capabilities
-export const useItemsPage = <T, F>({ useStore }: IUseItemsPageProps<T, F>) => {
+export const useItemsPage = <T, F>({
+  useStore,
+  initialFilter,
+}: IUseItemsPageProps<T, F>) => {
+  const [filter, setFilter] = useState<F>(initialFilter);
   const items = useStore((state) => state.items);
   const isLoading = useStore((state) => state.isLoading);
   const loadItems = useStore((state) => state.loadItems);
@@ -21,13 +26,13 @@ export const useItemsPage = <T, F>({ useStore }: IUseItemsPageProps<T, F>) => {
     const init = async () => {
       try {
         clearErrors();
-        await loadItems();
+        await loadItems(filter);
       } catch (error) {
         handleError({ error, emitToToast: true });
       }
     };
     init();
-  }, []);
+  }, [filter]);
 
   const onDeleteItem = useCallback(async (id?: string) => {
     try {
@@ -40,5 +45,5 @@ export const useItemsPage = <T, F>({ useStore }: IUseItemsPageProps<T, F>) => {
     }
   }, []);
 
-  return { items, isLoading, onDeleteItem };
+  return { items, isLoading, filter, setFilter, onDeleteItem };
 };

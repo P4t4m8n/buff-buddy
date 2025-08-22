@@ -15,7 +15,7 @@ import GenericSaveButton from "../../components/UI/GenericSaveButton";
 import ProgramWorkoutEdit from "../../components/ProgramWorkout/ProgramWorkoutEdit/ProgramWorkoutEdit";
 import ProgramWorkoutEditWeekList from "../../components/ProgramWorkout/ProgramWorkoutEdit/ProgramWorkoutEditWeekList";
 import InputWithError from "../../components/UI/Form/InputWithError";
-import IsActiveInput from "./IsActiveInput";
+import IsActiveInput from "../../components/UI/Form/IsActiveInput";
 
 export default function ProgramEdit() {
   const { programId: programIdParams } = useParams<{ programId?: string }>();
@@ -104,7 +104,7 @@ export default function ProgramEdit() {
           id={"notes-" + programId}
           rows={3}
           placeholder=""
-          className="w-full h-full  block peer outline-offset-0  pl-2 peer resize-none pt-2"
+          className="w-full h-full  block peer outline-offset-0 pl-2 peer resize-none pt-2"
           divStyle="border-1 relative rounded h-full col-span-full lg:col-span-2 order-4"
         >
           <Label

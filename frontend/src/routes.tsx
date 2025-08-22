@@ -11,6 +11,7 @@ import WorkoutPage from "./pages/Workout/WorkoutPage";
 import WorkoutDetailsPage from "./pages/Workout/WorkoutDetailsPage";
 import WorkoutStartPage from "./pages/Workout/WorkoutStartPage";
 import WorkoutEditPage from "./pages/Workout/WorkoutEditPage";
+import WorkoutListPage from "./pages/Workout/WorkoutListPage";
 
 export interface RouteConfig {
   path: string;
@@ -34,16 +35,19 @@ export const ROUTES: RouteConfig[] = [
   {
     path: "/workouts",
     element: <WorkoutPage />,
-    children: [
-      {
-        path: "/workouts/:workoutId",
-        element: <WorkoutDetailsPage />,
-      },
-      {
-        path: "/workouts/workout-start/:programId/:workoutId",
-        element: <WorkoutStartPage />,
-      },
-    ],
+    children: [],
+  },
+  {
+    path: "/workouts/list",
+    element: <WorkoutListPage />,
+  },
+  {
+    path: "/workouts/:workoutId",
+    element: <WorkoutDetailsPage />,
+  },
+  {
+    path: "/workouts/workout-start/:programId/:workoutId",
+    element: <WorkoutStartPage />,
   },
 
   {

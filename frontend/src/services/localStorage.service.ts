@@ -1,5 +1,5 @@
 import LZString from "lz-string";
-type TSessionDataKeys = "workout";
+type TSessionDataKeys = "workoutStart";
 
 const jsonStringify = <T>(data: T): string => JSON.stringify(data);
 const jsonParse = <T>(data: string): T => JSON.parse(data);

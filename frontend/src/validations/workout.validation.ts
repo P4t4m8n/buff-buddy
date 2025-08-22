@@ -6,7 +6,7 @@ import { CreateNestedWorkoutExerciseSchema,UpdateNestedWorkoutExerciseSchema } f
 const BaseWorkoutSchema = z.object({
   programId: IDSchema.nullish().optional(),
   ownerId:IDSchema.nullish().optional(),
-
+isTemplate: z.boolean().nullish().optional(),
   notes: stringValidation({
     fieldName: "Workout notes",
     minLength: 0,

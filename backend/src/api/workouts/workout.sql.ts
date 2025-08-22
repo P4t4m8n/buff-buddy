@@ -1,14 +1,14 @@
 import { Prisma } from "../../../prisma/generated/prisma";
+
 import { dbUtil } from "../../shared/utils/db.util";
+
 import { coreCardioSetsSQL } from "../coreSets/coreCardioSets/coreCardioSets.sql";
 import { coreStrengthSetsSQL } from "../coreSets/coreStrengthSets/coreStrengthSets.sql";
 import { exerciseSQL } from "../exercises/exercise.sql";
 import { userSQL } from "../users/users.sql";
 import { workoutExerciseSQL } from "../workoutExercise/workoutExercise.sql";
-import {
-  TCreateWorkoutExerciseInput,
-  TUpdateWorkoutExerciseInput,
-} from "../workoutExercise/workoutExercise.validations";
+
+import { TCreateWorkoutExerciseInput } from "../workoutExercise/workoutExercise.validations";
 import {
   TCreateWorkoutInput,
   TUpdateWorkoutInput,
@@ -33,6 +33,7 @@ const WORKOUT_SELECT: Prisma.WorkoutSelect = {
   id: true,
   name: true,
   notes: true,
+  isTemplate: true,
   owner: {
     select: userSQL.SMALL_USER_SELECT,
   },
@@ -80,6 +81,7 @@ const getWorkoutUpdate = (
     ...dbUtil.cleanData({
       notes: workoutData.notes,
       name: workoutData.name,
+      isTemplate: workoutData.isTemplate,
     }),
     workoutExercises: {
       deleteMany: exercisesToDelete.map((we) => ({ id: we.id! })),

@@ -1,10 +1,14 @@
-import { IWorkoutDTO } from "../../../../shared/models/workout.model";
+import {
+  IWorkoutDTO,
+  IWorkoutFilter,
+} from "../../../../shared/models/workout.model";
 import { Prisma } from "../../../prisma/generated/prisma";
 import { workoutExerciseUtils } from "../workoutExercise/workoutExercise.util";
-import { IWorkout, IWorkoutFilter } from "./workouts.models";
+import { IWorkout } from "./workouts.models";
+import { TWorkoutQuery } from "./workouts.validations";
 
 const buildWhereClause = (
-  filter: IWorkoutFilter,
+  filter: TWorkoutQuery,
   userId: string
 ): Prisma.WorkoutWhereInput => {
   const where: Prisma.WorkoutWhereInput = {};
@@ -15,16 +19,6 @@ const buildWhereClause = (
         program: {
           name: { contains: filter.programName, mode: "insensitive" },
         },
-      },
-    };
-  }
-
-  if (filter.dayOfWeek) {
-    where.programWorkouts = {
-      ...(where.programWorkouts || {}),
-      some: {
-        ...(where.programWorkouts?.some || {}),
-        daysOfWeek: { has: filter.dayOfWeek },
       },
     };
   }
@@ -46,6 +40,10 @@ const buildWhereClause = (
         { lastName: { contains: filter.ownerName, mode: "insensitive" } },
       ],
     };
+  }
+
+  if (filter.isTemplate) {
+    where.isTemplate = true;
   }
 
   where.ownerId = userId;

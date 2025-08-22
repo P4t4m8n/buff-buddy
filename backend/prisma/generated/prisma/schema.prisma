@@ -321,6 +321,7 @@ model ProgramWorkout {
 model Workout {
   id               String            @id @default(cuid())
   name             String?           @default("New Workout")
+  isTemplate       Boolean           @default(false)
   notes            String?
   ownerId          String?
   owner            User?             @relation(fields: [ownerId], references: [id], onDelete: Cascade)

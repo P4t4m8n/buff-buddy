@@ -10,6 +10,7 @@ interface ILoaderProps {
 }
 
 export default function Loader(props: ILoaderProps = {}) {
+
   return <GetLoader {...props} />;
 }
 

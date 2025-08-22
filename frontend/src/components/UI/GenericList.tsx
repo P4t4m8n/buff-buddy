@@ -19,7 +19,7 @@ interface GenericListProps<T, P> {
   NoItemsComponent?: React.ComponentType;
 }
 
-export default function GenericList<T, P>({
+function GenericListMemo<T, P>({
   items,
   ulStyle,
   itemComponentProps,
@@ -56,3 +56,45 @@ export default function GenericList<T, P>({
     </ul>
   );
 }
+
+const shallowEqual = (a: any, b: any) => {
+  if (a === b) return true;
+
+  if (!a || !b) return false;
+
+  const aKeys = Object.keys(a);
+  const bKeys = Object.keys(b);
+
+  if (aKeys.length !== bKeys.length) return false;
+
+  for (const k of aKeys) {
+    if (a[k] !== b[k]) return false;
+  }
+
+  return true;
+};
+
+const arePropsEqual = (prevProps: any, nextProps: any) => {
+  if (
+    prevProps.items !== nextProps.items ||
+    prevProps.ItemComponent !== nextProps.ItemComponent ||
+    prevProps.getKey !== nextProps.getKey ||
+    prevProps.ulStyle !== nextProps.ulStyle
+  ) {
+    return false;
+  }
+
+  const p = prevProps.itemComponentProps;
+  const n = nextProps.itemComponentProps;
+
+  if (typeof p === "function" || typeof n === "function") {
+    return p === n;
+  }
+
+  return shallowEqual(p, n);
+};
+
+export default React.memo(
+  GenericListMemo,
+  arePropsEqual
+) as typeof GenericListMemo;

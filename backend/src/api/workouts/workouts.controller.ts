@@ -106,6 +106,7 @@ export const updateWorkout = async (req: Request, res: Response) => {
     invalidatedData.id = id;
 
     const validatedData = UpdateWorkoutSchema.parse(invalidatedData);
+    console.log("🚀 ~ updateWorkout ~ validatedData:", validatedData)
 
     const workoutData = await workoutsService.update(id, validatedData);
     const workout = workoutUtils.buildDTO(workoutData);
