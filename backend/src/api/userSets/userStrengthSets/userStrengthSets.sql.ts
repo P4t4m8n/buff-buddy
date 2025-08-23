@@ -1,11 +1,11 @@
 import { Prisma } from "../../../../prisma/generated/prisma";
-import { TCreateUserStrengthSetInput } from "./userStrengthSets.validations";
+import type { TCreateUserStrengthSetInput } from "../../../../../shared/validations/userStrengthSet.validation";
 
 const getCreateUserStrengthSet = (
   dto: TCreateUserStrengthSetInput
 ): Prisma.UserStrengthSetCreateInput => {
   return {
-    reps: dto.reps ,
+    reps: dto.reps,
     weight: dto.weight,
     isBodyWeight: dto.isBodyWeight,
     isCompleted: dto.isCompleted,

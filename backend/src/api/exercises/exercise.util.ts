@@ -18,8 +18,6 @@ export const exerciseUtil = {
       where.muscles = { hasSome: filter.muscles };
     }
 
-    
-
     return where;
   },
 };

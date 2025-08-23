@@ -21,7 +21,6 @@ export const useWorkoutEdit = ({
   const [workoutToEdit, setWorkoutToEdit] = useState<IWorkoutEditDTO | null>(
     null
   );
-  console.log("🚀 ~ useWorkoutEdit ~ workoutToEdit:", workoutToEdit);
 
   const { errors, handleError } = useErrors<IWorkoutEditDTO>();
 
@@ -123,11 +122,7 @@ export const useWorkoutEdit = ({
     e.stopPropagation();
     const target = e.target as HTMLInputElement;
     const { name, value, type, checked } = target;
-    // console.log("🚀 ~ handleInputChange ~ type:", type);
-    // console.log("🚀 ~ handleInputChange ~ name:", name);
-    // console.log("🚀 ~ handleInputChange ~ value:", value);
 
-    // console.log("🚀 ~ handleInputChange ~ checked:", checked);
     let newVal: boolean | string | number | null;
     switch (type) {
       case "checkbox":
@@ -140,7 +135,6 @@ export const useWorkoutEdit = ({
         newVal = value;
         break;
     }
-    console.log("🚀 ~ handleInputChange ~ newVal:", newVal);
     if (workoutToEdit) {
       setWorkoutToEdit({
         ...workoutToEdit,

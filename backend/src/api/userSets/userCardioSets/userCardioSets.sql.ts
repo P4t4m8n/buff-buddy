@@ -1,5 +1,5 @@
 import { Prisma } from "../../../../prisma/generated/prisma";
-import { TCreateUserCardioSetInput } from "./userCardioSets.validations";
+import type { TCreateUserCardioSetInput } from "../../../../../shared/validations/userCardioSet.validation";
 
 const getCreateUserCardioSet = (
   dto: TCreateUserCardioSetInput
@@ -30,5 +30,5 @@ const CORE_CARDIO_SET_SELECT: Prisma.UserCardioSetSelect = {
 
 export const userCardioSetsSQL = {
   getCreateUserCardioSet,
-  CORE_CARDIO_SET_SELECT
+  CORE_CARDIO_SET_SELECT,
 };

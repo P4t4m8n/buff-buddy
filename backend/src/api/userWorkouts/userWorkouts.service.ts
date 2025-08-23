@@ -1,7 +1,7 @@
-import { TCreateUserWorkoutInput } from "./userWorkout.validations";
 import { prisma } from "../../../prisma/prisma";
 import { IUserWorkout } from "./userWorkouts.model";
 import { userWorkoutSql } from "./userWorkout.sql";
+import type { TCreateUserWorkoutInput } from "../../../../shared/validations/userWorkout.validations";
 
 export const userWorkoutService = {
   create: async (dto: TCreateUserWorkoutInput): Promise<IUserWorkout> => {

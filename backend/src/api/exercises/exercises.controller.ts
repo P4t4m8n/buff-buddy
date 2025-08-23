@@ -1,17 +1,13 @@
 import { Request, Response } from "express";
 import { AppError } from "../../shared/services/Error.service";
-import {
-  CreateExerciseSchema,
-  ExerciseQuerySchema,
-  UpdateExerciseSchema,
-} from "./exercises.validations";
+
 import { exerciseService } from "./exercises.service";
+import { exerciseValidation } from "../../../../shared/validations/exercise.validation";
 
 export const getExercises = async (req: Request, res: Response) => {
   try {
-    const filter = ExerciseQuerySchema.parse(req.query);
+    const filter = exerciseValidation.ExerciseQuerySchema.parse(req.query);
     const exercises = await exerciseService.getAll(filter);
-    
 
     res.status(200).json(exercises);
   } catch (error) {
@@ -25,8 +21,10 @@ export const getExercises = async (req: Request, res: Response) => {
 
 export const getExerciseById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const exercise = await exerciseService.getBtyId(id);
+    const { id } = exerciseValidation.ExerciseParamsSchema.parse(req.params);
+
+    const exercise = await exerciseService.getById(id);
+
     if (!exercise) {
       throw new AppError("Exercise not found", 404);
     }
@@ -45,7 +43,11 @@ export const getExerciseById = async (req: Request, res: Response) => {
 
 export const createExercise = async (req: Request, res: Response) => {
   try {
-    const validatedData = CreateExerciseSchema.parse(req.body);
+    const validatedData = exerciseValidation
+      .createExerciseFactorySchema({
+        toSanitize: true,
+      })
+      .parse(req.body);
 
     const exercise = await exerciseService.create(validatedData);
 
@@ -64,8 +66,13 @@ export const createExercise = async (req: Request, res: Response) => {
 
 export const updateExercise = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const validatedData = UpdateExerciseSchema.parse(req.body);
+    const { id } = exerciseValidation.ExerciseParamsSchema.parse(req.params);
+
+    const validatedData = exerciseValidation
+      .updateExerciseFactorySchema({
+        toSanitize: true,
+      })
+      .parse(req.body);
 
     const exercise = await exerciseService.update(id, validatedData);
 
@@ -83,7 +90,7 @@ export const updateExercise = async (req: Request, res: Response) => {
 
 export const deleteExercise = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const { id } = exerciseValidation.ExerciseParamsSchema.parse(req.params);
 
     await exerciseService.delete(id);
 

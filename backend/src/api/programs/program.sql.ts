@@ -3,8 +3,8 @@ import { coreCardioSetsSQL } from "../coreSets/coreCardioSets/coreCardioSets.sql
 import { coreStrengthSetsSQL } from "../coreSets/coreStrengthSets/coreStrengthSets.sql";
 import { userSQL } from "../users/users.sql";
 import { workoutSQL } from "../workouts/workout.sql";
-import { TCreateProgramInput } from "./programs.validations";
-import { TCreateProgramWorkoutInput } from "./programWorkout.validations";
+import type { TCreateProgramInput } from "../../../../shared/validations/program.validations";
+import type { TCreateProgramWorkoutInput } from "../../../../shared/validations/programWorkout.validations";
 
 const PROGRAM_WORKOUTS_SELECT: Prisma.ProgramWorkoutSelect = {
   id: true,

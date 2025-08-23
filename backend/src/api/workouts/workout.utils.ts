@@ -5,7 +5,7 @@ import {
 import { Prisma } from "../../../prisma/generated/prisma";
 import { workoutExerciseUtils } from "../workoutExercise/workoutExercise.util";
 import { IWorkout } from "./workouts.models";
-import { TWorkoutQuery } from "./workouts.validations";
+import type { TWorkoutQuery } from "../../../../shared/validations/workout.validations";
 
 const buildWhereClause = (
   filter: TWorkoutQuery,

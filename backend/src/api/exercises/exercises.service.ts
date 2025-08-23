@@ -7,10 +7,10 @@ import { prisma } from "../../../prisma/prisma";
 import { dbUtil } from "../../shared/utils/db.util";
 import { exerciseSQL } from "./exercise.sql";
 import { exerciseUtil } from "./exercise.util";
-import {
+import type {
   TCreateExerciseInput,
   TUpdateExerciseInput,
-} from "./exercises.validations";
+} from "../../../../shared/validations/exercise.validation";
 
 export const exerciseService = {
   getAll: async (filter: IExerciseFilter): Promise<IExerciseDTO[]> => {
@@ -27,7 +27,7 @@ export const exerciseService = {
       select: exerciseSQL.EXERCISE_SELECT,
     });
   },
-  getBtyId: async (id: string): Promise<IExerciseDTO | null> => {
+  getById: async (id: string): Promise<IExerciseDTO | null> => {
     return await prisma.exercise.findUnique({
       where: { id },
       select: exerciseSQL.EXERCISE_SELECT,

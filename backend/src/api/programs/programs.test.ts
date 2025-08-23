@@ -345,6 +345,8 @@ describe("Programs API", () => {
         name: "Updated Program Name",
         notes: "This program has been updated.",
         isActive: false,
+        startDate: "2025-03-01",
+        endDate: "2025-04-01",
       };
       const res = await request(app)
         .put(`/api/v1/programs/edit/${programId}`)

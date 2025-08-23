@@ -3,7 +3,7 @@ import type {
   IUserWorkoutEditDTO,
 } from "../../../shared/models/userWorkout";
 import type { THttpPostResponse } from "../models/apiService.model";
-import { CreateUserWorkoutSchema } from "../validations/userWorkout.validation";
+import { userWorkoutValidation } from "../../../shared/validations/userWorkout.validations";
 import { apiService } from "./api.service";
 
 export const workoutStartService = {
@@ -12,8 +12,10 @@ export const workoutStartService = {
   async save(
     dto: IUserWorkoutEditDTO
   ): Promise<THttpPostResponse<IUserWorkoutDTO>> {
+    const validatedDTO = userWorkoutValidation
+      .createUserWorkoutFactorySchema({ toSanitize: false })
+      .parse(dto);
 
-    const validatedDTO = CreateUserWorkoutSchema.parse(dto);
     return await apiService.post<THttpPostResponse<IUserWorkoutDTO>>(
       `${this.rootPath}`,
       validatedDTO

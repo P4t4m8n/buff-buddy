@@ -9,7 +9,7 @@ import type { IUserStrengthSetEditDTO } from "../../../../../shared/models/stren
 import type { TValidationError } from "../../../models/errors.model";
 import type { ExerciseType } from "../../../../../backend/prisma/generated/prisma";
 import { useErrors } from "../../../hooks/shared/useErrors";
-import { CreateUserStrengthSetSchema } from "../../../validations/userStrengthSet.validation";
+import { userStrengthSetsValidation } from "../../../../../shared/validations/userStrengthSet.validation";
 import { twMerge } from "tailwind-merge";
 import GenericModel from "../../UI/GenericModel";
 import WorkoutStartExerciseSkipEdit from "../WorkoutStartExerciseSkipEdit";
@@ -35,7 +35,8 @@ export default function WorkoutStartUserStrengthSets({
   errors: serverErrors,
 }: IWorkoutExerciseUserSetProps) {
   const inputStyle = `rounded w-8 aspect-square  text-center border outline-none`;
-  const divStyle = "inline-flex flex-col-reverse gap-1 items-center  h-full justify-between text-center";
+  const divStyle =
+    "inline-flex flex-col-reverse gap-1 items-center  h-full justify-between text-center";
 
   const {
     id: userSetId,
@@ -57,7 +58,6 @@ export default function WorkoutStartUserStrengthSets({
     ...serverErrors,
     ...errors,
   };
-
 
   const numberInputs = [
     {
@@ -115,7 +115,10 @@ export default function WorkoutStartUserStrengthSets({
   const onComplete = () => {
     try {
       clearErrors();
-      if (!skippedReason) CreateUserStrengthSetSchema.parse(userSet);
+      if (!skippedReason)
+        userStrengthSetsValidation
+          .createUserStrengthSetFactorySchema({ toSanitize: false })
+          .parse(userSet);
       handleUserSet(userSetId, "strength");
     } catch (error) {
       handleError({ error });

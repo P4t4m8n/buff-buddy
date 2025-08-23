@@ -3,11 +3,10 @@ import { coreCardioSetsSQL } from "../coreSets/coreCardioSets/coreCardioSets.sql
 import { coreStrengthSetsSQL } from "../coreSets/coreStrengthSets/coreStrengthSets.sql";
 import { exerciseSQL } from "../exercises/exercise.sql";
 import { programsSQL } from "../programs/program.sql";
-import { userSQL } from "../users/users.sql";
 import { userCardioSetsSQL } from "../userSets/userCardioSets/userCardioSets.sql";
 import { userStrengthSetsSQL } from "../userSets/userStrengthSets/userStrengthSets.sql";
 import { workoutSQL } from "../workouts/workout.sql";
-import { TCreateUserWorkoutInput } from "./userWorkout.validations";
+import type { TCreateUserWorkoutInput } from "../../../../shared/validations/userWorkout.validations";
 
 const USER_WORKOUT_EXERCISE_SELECT: Prisma.UserWorkoutExerciseSelect = {
   id: true,
@@ -115,5 +114,6 @@ const getCreateUserWork = (
 
 export const userWorkoutSql = {
   USER_WORKOUT_SELECT,
+  USER_WORKOUT_EXERCISE_SELECT,
   getCreateUserWork,
 };

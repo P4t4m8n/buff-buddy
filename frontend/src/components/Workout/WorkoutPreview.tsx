@@ -22,7 +22,6 @@ export default function WorkoutPreview({
   ...props
 }: IWorkoutPreviewProps) {
   const { name, workoutExercises } = workout;
-  console.log("render");
 
   return (
     <li className="p-2 border rounded grid gap-2">

@@ -37,7 +37,6 @@ export default function WorkoutStartPage() {
 
   const [workoutStart, setWorkoutStart] =
     React.useState<IUserWorkoutEditDTO | null>(null);
-  console.log("🚀 ~ WorkoutStartPage ~ workoutStart:", workoutStart)
   const { errors, handleError, clearErrors } = useErrors<IUserWorkoutDTO>();
 
   const getById = useWorkoutStore((state) => state.getById);

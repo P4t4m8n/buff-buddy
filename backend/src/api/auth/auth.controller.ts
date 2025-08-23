@@ -1,18 +1,18 @@
 import { Request, Response } from "express";
-import {
-  CreateUserSchema,
-  GoogleOAuthSchema,
-  SignInSchema,
-} from "./auth.validations";
+
 import { authService } from "./auth.service";
 import { AppError } from "../../shared/services/Error.service";
 import { COOKIE } from "./auth.consts";
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
 import { TGoogleUserResponse } from "./auth.model";
+import { authValidation } from "../../../../shared/validations/auth.validation";
 
 export const signUp = async (req: Request, res: Response) => {
   try {
-    const validateData = CreateUserSchema.parse(req.body);
+    const validateData = authValidation
+      .signUpFactorySchema({ toSanitize: true })
+      .parse(req.body);
+
     const { user, token } = await authService.signUp(validateData);
 
     res.cookie("token", token, COOKIE).status(201).json({
@@ -30,7 +30,10 @@ export const signUp = async (req: Request, res: Response) => {
 
 export const signIn = async (req: Request, res: Response) => {
   try {
-    const validateData = SignInSchema.parse(req.body);
+    const validateData = authValidation
+      .signInFactorySchema({ toSanitize: true })
+      .parse(req.body);
+
     const { user, token } = await authService.signIn(validateData);
 
     res.cookie("token", token, COOKIE).status(200).json({
@@ -60,7 +63,7 @@ export const signOut = async (req: Request, res: Response) => {
   }
 };
 
-export const getSessionUser = async (req: Request, res: Response) => {
+export const getSessionUser = async (_: Request, res: Response) => {
   try {
     const user = asyncLocalStorage.getStore()?.sessionUser;
     res.status(200).json({
@@ -76,12 +79,14 @@ export const getSessionUser = async (req: Request, res: Response) => {
   }
 };
 
-export const googleRedirect = async (req: Request, res: Response) => {
+export const googleRedirect = async (_: Request, res: Response) => {
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const redirectUri = process.env.GOOGLE_REDIRECT_URI;
+
   if (!clientId || !redirectUri) {
     throw AppError.create("Google OAuth credentials are not set", 500);
   }
+
   const googleAuthURL = `https://accounts.google.com/o/oauth2/v2/auth
   ?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email%20profile`;
   res.redirect(googleAuthURL);
@@ -89,6 +94,11 @@ export const googleRedirect = async (req: Request, res: Response) => {
 
 export const googleCallback = async (req: Request, res: Response) => {
   try {
+    const frontendUrl = process.env.FRONTEND_URL;
+    if (!frontendUrl) {
+      throw AppError.create("Frontend URL is not set", 500);
+    }
+
     const { code } = req.query;
     if (!code) {
       throw AppError.create("Authorization code is required", 400);
@@ -98,17 +108,19 @@ export const googleCallback = async (req: Request, res: Response) => {
 
     const userInfo = await getGoogleUserInfo(accessToken);
 
-    const validateGoogleAuth = GoogleOAuthSchema.parse({
-      email: userInfo.email,
-      firstName: userInfo.given_name,
-      lastName: userInfo.family_name,
-      googleId: userInfo.id,
-      imgUrl: userInfo.picture,
-    });
+    const validateGoogleAuth = authValidation
+      .googleOAuthFactorySchema({ toSanitize: true })
+      .parse({
+        email: userInfo.email,
+        firstName: userInfo.given_name,
+        lastName: userInfo.family_name,
+        googleId: userInfo.id,
+        imgUrl: userInfo.picture,
+      });
+
     const { token } = await authService.signInWithGoogle(validateGoogleAuth);
 
-    const frontendUrl = process.env.FRONTEND_URL;
-    res.cookie("token", token, COOKIE).redirect(frontendUrl!);
+    res.cookie("token", token, COOKIE).redirect(frontendUrl);
   } catch (error) {
     const err = AppError.handleResponse(error);
     res.status(err.status || 500).json({

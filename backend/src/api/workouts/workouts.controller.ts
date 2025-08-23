@@ -2,11 +2,7 @@ import { Request, Response } from "express";
 import { AppError } from "../../shared/services/Error.service";
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
 import { workoutsService } from "./workouts.service";
-import {
-  CreateWorkoutSchema,
-  UpdateWorkoutSchema,
-  WorkoutQuerySchema,
-} from "./workouts.validations";
+import { workoutValidation } from "../../../../shared/validations/workout.validations";
 import { workoutUtils } from "./workout.utils";
 
 export const getWorkouts = async (req: Request, res: Response) => {
@@ -16,7 +12,7 @@ export const getWorkouts = async (req: Request, res: Response) => {
     if (!userId) {
       throw new AppError("User not authenticated", 401);
     }
-    const filter = WorkoutQuerySchema.parse(req.query);
+    const filter = workoutValidation.WorkoutQuerySchema.parse(req.query);
 
     const workoutsData = await workoutsService.get(filter, userId);
     const workouts = workoutUtils.buildDTOArr(workoutsData);
@@ -73,7 +69,9 @@ export const createWorkout = async (req: Request, res: Response) => {
 
     invalidatedData.ownerId = ownerId;
 
-    const validatedData = CreateWorkoutSchema.parse(invalidatedData);
+    const validatedData = workoutValidation
+      .createWorkoutFactorySchema({ toSanitize: true })
+      .parse(invalidatedData);
 
     const workoutData = await workoutsService.create(validatedData);
     const workout = workoutUtils.buildDTO(workoutData);
@@ -102,11 +100,12 @@ export const updateWorkout = async (req: Request, res: Response) => {
     }
     const invalidatedData = req.body;
 
-    invalidatedData.userId = id;
+    invalidatedData.userId = userId;
     invalidatedData.id = id;
 
-    const validatedData = UpdateWorkoutSchema.parse(invalidatedData);
-    console.log("🚀 ~ updateWorkout ~ validatedData:", validatedData)
+    const validatedData = workoutValidation
+      .updateWorkoutFactorySchema({ toSanitize: true })
+      .parse(invalidatedData);
 
     const workoutData = await workoutsService.update(id, validatedData);
     const workout = workoutUtils.buildDTO(workoutData);

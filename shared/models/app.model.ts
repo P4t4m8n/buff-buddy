@@ -15,4 +15,11 @@ export interface IValidationProps {
   minLength?: number;
   maxLength?: number;
   fieldName?: string;
+  toSanitize?: boolean;
+}
+
+export interface IDateValidationProps {
+  startDate: string;
+  endDate: string;
+  fieldName: string;
 }

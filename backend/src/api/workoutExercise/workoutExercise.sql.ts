@@ -2,10 +2,10 @@ import { Prisma } from "../../../prisma/generated/prisma";
 import { dbUtil } from "../../shared/utils/db.util";
 import { coreCardioSetsSQL } from "../coreSets/coreCardioSets/coreCardioSets.sql";
 import { coreStrengthSetsSQL } from "../coreSets/coreStrengthSets/coreStrengthSets.sql";
-import {
+import type {
   TCreateWorkoutExerciseInput,
   TUpdateWorkoutExerciseInput,
-} from "./workoutExercise.validations";
+} from "../../../../shared/validations/workoutExercise.validations";
 
 const getWorkoutExerciseCreate = (
   dto: TCreateWorkoutExerciseInput | null

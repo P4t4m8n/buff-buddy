@@ -85,10 +85,10 @@ describe("Exercises API", () => {
 
       expect(res.status).toBe(400);
       expect(res.body).toHaveProperty("errors");
-      expect(res.body.errors.youtubeUrl).toMatch("Required");
-      expect(res.body.errors.type).toMatch("Required");
-      expect(res.body.errors.equipment).toMatch("Required");
-      expect(res.body.errors.muscles).toMatch("Required");
+      expect(res.body.errors.youtubeUrl).toMatch("Youtube url is required.");
+      expect(res.body.errors.type).toMatch("Type is required.");
+      expect(res.body.errors.equipment).toMatch("Equipment is required.");
+      expect(res.body.errors.muscles).toMatch("Muscles are required.");
     });
     it("should reject exercise with missing required type", async () => {
       const incompleteExercise = {

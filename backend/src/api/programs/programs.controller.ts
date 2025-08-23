@@ -4,14 +4,12 @@ import { programsService } from "./programs.service";
 
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
 import { programsUtils } from "./programs.utils";
-import {
-  CreateProgramSchema,
-  UpdateProgramSchema,
-} from "./programs.validations";
+import { programValidation } from "../../../../shared/validations/program.validations";
 
 export const getPrograms = async (req: Request, res: Response) => {
   try {
-    const filter = req.query as Record<string, string>;
+    const filter = programValidation.ProgramQuerySchema.parse(req.query);
+
     const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
 
     if (!userId) {
@@ -67,16 +65,14 @@ export const createProgram = async (req: Request, res: Response) => {
       throw new AppError("User not authenticated", 401);
     }
     const invalidatedData = req.body;
+
     invalidatedData.userId = userId;
-    const validatedData = CreateProgramSchema.parse(invalidatedData);
 
-    const id = asyncLocalStorage.getStore()?.sessionUser?.id;
+    const validatedData = programValidation
+      .createProgramFactorySchema({ toSanitize: true })
+      .parse(invalidatedData);
 
-    if (!id) {
-      throw new AppError("User not authenticated", 401);
-    }
-
-    const programData = await programsService.create(validatedData, id);
+    const programData = await programsService.create(validatedData, userId);
 
     const program = programsUtils.buildDTO(programData);
 
@@ -103,7 +99,10 @@ export const updateProgram = async (req: Request, res: Response) => {
       throw new AppError("User not authenticated", 401);
     }
 
-    const validatedData = UpdateProgramSchema.parse(req.body);
+    const validatedData = programValidation
+      .updateProgramFactorySchema({ toSanitize: true })
+      .parse(req.body);
+
     const programData = await programsService.update(id, validatedData, userId);
 
     const program = programsUtils.buildDTO(programData);

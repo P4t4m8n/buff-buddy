@@ -1,13 +1,14 @@
 import { Prisma, Workout } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
 import { IWorkout } from "./workouts.models";
-import {
+import { workoutUtils } from "./workout.utils";
+import { workoutSQL } from "./workout.sql";
+
+import type {
   TCreateWorkoutInput,
   TUpdateWorkoutInput,
   TWorkoutQuery,
-} from "./workouts.validations";
-import { workoutUtils } from "./workout.utils";
-import { workoutSQL } from "./workout.sql";
+} from "../../../../shared/validations/workout.validations";
 
 export const workoutsService = {
   get: async (filter: TWorkoutQuery, userId: string): Promise<IWorkout[]> => {

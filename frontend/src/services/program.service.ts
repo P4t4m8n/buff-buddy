@@ -4,10 +4,7 @@ import type {
   IProgramEditDTO,
 } from "../../../shared/models/program.model";
 import type { THttpPostResponse } from "../models/apiService.model";
-import {
-  CreateProgramSchema,
-  UpdateProgramSchema,
-} from "../validations/program.validation";
+import { programValidation } from "../../../shared/validations/program.validations";
 
 import { apiService } from "./api.service";
 import { ClientError } from "./ClientError.service";
@@ -28,13 +25,17 @@ export const programService = {
     const { id } = dto;
 
     if (!id || id.startsWith("temp")) {
-      const validatedDTO = CreateProgramSchema.parse(dto);
+      const validatedDTO = programValidation
+        .createProgramFactorySchema({ toSanitize: false })
+        .parse(dto);
       return await apiService.post<THttpPostResponse<IProgramDTO>>(
         `${this.rootPath}/edit`,
         validatedDTO
       );
     }
-    const validatedDTO = UpdateProgramSchema.parse(dto);
+    const validatedDTO = programValidation
+      .updateProgramFactorySchema({ toSanitize: false })
+      .parse(dto);
     return await apiService.put<THttpPostResponse<IProgramDTO>>(
       `${this.rootPath}/edit/${dto.id}`,
       validatedDTO

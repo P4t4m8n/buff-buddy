@@ -2,6 +2,7 @@ import type {
   THttpErrorResponse,
   THttpMethod,
 } from "../models/apiService.model";
+import { buildQueryParams } from "../utils/services.util";
 import { ClientError } from "./ClientError.service";
 
 const BASE_URL =
@@ -52,8 +53,8 @@ const ajax = async <T>(
       options.body = JSON.stringify(data);
     }
   } else if (method === "GET" && data) {
-    const queryParams = new URLSearchParams(data as Record<string, string>);
-    url += `?${queryParams.toString()}`;
+    const queryParams = buildQueryParams(data);
+    url += `?${queryParams}`;
   }
 
   const res = await fetch(url, options);

@@ -4,21 +4,13 @@ import type {
   IWorkoutDTO,
 } from "../../../shared/models/workout.model";
 import type { THttpPostResponse } from "../models/apiService.model";
-import {
-  CreateWorkoutSchema,
-  UpdateWorkoutSchema,
-} from "../validations/workout.validation";
+import { workoutValidation } from "../../../shared/validations/workout.validations";
 import { apiService } from "./api.service";
 
 export const workoutService = {
   rootPath: "/workouts",
   async get(filter?: IWorkoutFilter): Promise<IWorkoutDTO[]> {
-    console.log("🚀 ~ get ~ filter:", filter);
-    const queryParams = buildQueryParams(filter);
-    console.log("🚀 ~ get ~ queryParams:", queryParams);
-    return await apiService.get<IWorkoutDTO[]>(
-      `${this.rootPath}?${queryParams.toString()}`
-    );
+    return await apiService.get<IWorkoutDTO[]>(`${this.rootPath}`, filter);
   },
 
   async getById(id: string): Promise<IWorkoutDTO> {
@@ -29,8 +21,12 @@ export const workoutService = {
     if (!dto) throw new Error("Workout data is required");
 
     const { id } = dto;
+
     if (!id || id.startsWith("temp/")) {
-      const validatedDTO = CreateWorkoutSchema.parse(dto);
+      const validatedDTO = workoutValidation
+        .createWorkoutFactorySchema({ toSanitize: false })
+        .parse(dto);
+
       const { data } = await apiService.post<THttpPostResponse<IWorkoutDTO>>(
         `${this.rootPath}/edit`,
         validatedDTO
@@ -38,8 +34,10 @@ export const workoutService = {
       return data;
     }
 
-    const validatedDTO = UpdateWorkoutSchema.parse(dto);
-    console.log("🚀 ~ save ~ validatedDTO:", validatedDTO)
+    const validatedDTO = workoutValidation
+      .updateWorkoutFactorySchema({ toSanitize: false })
+      .parse(dto);
+
     const { data } = await apiService.put<THttpPostResponse<IWorkoutDTO>>(
       `${this.rootPath}/edit/${dto.id}`,
       validatedDTO
@@ -50,24 +48,4 @@ export const workoutService = {
   async delete(id: string): Promise<void> {
     return await apiService.delete<void>(`${this.rootPath}/${id}`);
   },
-};
-
-const buildQueryParams = (filter?: IWorkoutFilter): string => {
-  if (!filter) return "";
-
-  const params = new URLSearchParams();
-  Object.entries(filter).forEach(([key, value]) => {
-    if (value !== undefined) {
-      params.append(key, String(value));
-    }
-  });
-  // if (filter.programId) params.append("programId", filter.programId);
-  // if (filter.dayOfWeek) params.append("dayOfWeek", filter.dayOfWeek);
-  // if (filter.exerciseId) params.append("exerciseId", filter.exerciseId);
-  // if (filter.isCompleted !== undefined)
-  //   params.append("isCompleted", String(filter.isCompleted));
-  // if (filter.isTemplate !== undefined)
-  //   params.append("isTemplate", String(filter.isTemplate));
-
-  return params.toString() ? `${params.toString()}` : "";
 };

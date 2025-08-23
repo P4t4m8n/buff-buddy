@@ -4,7 +4,7 @@ import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
 
 import { AppError } from "../../shared/services/Error.service";
 
-import { CreateUserWorkoutSchema } from "./userWorkout.validations";
+import { userWorkoutValidation } from "../../.././../shared/validations/userWorkout.validations";
 
 import { userWorkoutService } from "./userWorkouts.service";
 
@@ -21,7 +21,9 @@ export const createUserWorkout = async (req: Request, res: Response) => {
 
     invalidatedData.ownerId = ownerId;
 
-    const validatedData = CreateUserWorkoutSchema.parse(invalidatedData);
+    const validatedData = userWorkoutValidation
+      .createUserWorkoutFactorySchema({ toSanitize: true })
+      .parse(invalidatedData);
 
     const userWorkoutData = await userWorkoutService.create(validatedData);
     const userWorkoutDTO = userWorkoutsUtils.buildDTO(userWorkoutData);

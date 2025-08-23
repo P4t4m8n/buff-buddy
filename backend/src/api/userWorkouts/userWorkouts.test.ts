@@ -8,7 +8,7 @@ import { IExerciseDTO } from "../../../../shared/models/exercise.model";
 import {
   IUserWorkoutDTO,
   IUserWorkoutEditDTO,
-  IUserWorkoutEditExercisesDTO,
+  IUserWorkoutExercisesEditDTO,
 } from "../../../../shared/models/userWorkout";
 import {
   IProgramDTO,
@@ -320,7 +320,7 @@ describe("UserWorkout API", () => {
         ownerId: testUserId,
         workoutId: testWorkouts[0].id,
         userWorkoutExercises: testWorkouts[0]!.workoutExercises!.map((we) => {
-          const workoutExercise: IUserWorkoutEditExercisesDTO = {
+          const workoutExercise: IUserWorkoutExercisesEditDTO = {
             workoutExerciseId: we.id!,
           };
           if (we.exercise?.type === "cardio") {
@@ -549,21 +549,16 @@ describe("UserWorkout API", () => {
     //   const res = await request(app)
     //     .get(`/api/v1/user-workouts/${testWorkouts[0].id}/last`)
     //     .set("Cookie", `token=${authToken}`);
-
     //   expect(res.status).toBe(200);
     //   expect(res.body.data.workout.id).toBe(testWorkouts[0].id);
     // });
-
     // it("should return 404 if no workout found for the given ID", async () => {
     //   const res = await request(app)
     //     .get("/api/v1/user-workouts/nonexistent/last")
     //     .set("Cookie", `token=${authToken}`);
-
     //   expect(res.status).toBe(404);
     //   expect(res.body.message).toBe("No workout found for the given ID");
     // });
-
-    
   });
 
   afterAll(async () => {

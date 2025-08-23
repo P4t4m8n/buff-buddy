@@ -17,10 +17,7 @@ import type { ExerciseType } from "../../../../../../backend/prisma/generated/pr
 import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
 import type { IModelProps } from "../../../UI/GenericModel";
 import type { ICoreStrengthSetEditDTO } from "../../../../../../shared/models/strengthSet.model";
-import {
-  CreateWorkoutExerciseSchema,
-  UpdateWorkoutExerciseSchema,
-} from "../../../../validations/workoutExercise.validation";
+import { workoutExerciseValidation } from "../../../../../../shared/validations/workoutExercise.validations";
 import InputWithError from "../../../UI/Form/InputWithError";
 import type { TValidationError } from "../../../../models/errors.model";
 import type { ICoreCardioSetEditDTO } from "../../../../../../shared/models/cardioSet.model";
@@ -69,9 +66,13 @@ export default function WorkoutExerciseEdit({
 
       const { id } = weToUpsert;
       if (!id || id.startsWith("temp")) {
-        CreateWorkoutExerciseSchema.parse(weToUpsert);
+        workoutExerciseValidation
+          .createWorkoutExerciseFactorySchema({ toSanitize: false })
+          .parse(weToUpsert);
       } else {
-        UpdateWorkoutExerciseSchema.parse(weToUpsert);
+        workoutExerciseValidation
+          .updateWorkoutExerciseFactorySchema({ toSanitize: false })
+          .parse(weToUpsert);
       }
 
       handleWorkoutExercises(weToUpsert);
