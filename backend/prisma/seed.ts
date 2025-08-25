@@ -1,6 +1,6 @@
 import { IExerciseDTO } from "../../shared/models/exercise.model";
+import { exerciseValidation } from "../../shared/validations/exercise.validation";
 import { exerciseService } from "../src/api/exercises/exercises.service";
-import { CreateExerciseSchema } from "../src/api/exercises/exercises.validations";
 import { AppError } from "../src/shared/services/Error.service";
 
 export const seedExercises = async () => {
@@ -164,7 +164,9 @@ export const seedExercises = async () => {
     ];
 
     const exercisesPromises = data.map((exercise) => {
-      const validatedData = CreateExerciseSchema.parse(exercise);
+      const validatedData = exerciseValidation
+        .createExerciseFactorySchema({ toSanitize: false })
+        .parse(exercise);
 
       return exerciseService.create(validatedData);
     });
@@ -179,8 +181,7 @@ export const seedExercises = async () => {
 };
 
 seedExercises()
-  .then((result) => {
-  })
+  .then((result) => {})
   .catch((error) => {
     console.error("Error seeding exercises:", error);
   });
