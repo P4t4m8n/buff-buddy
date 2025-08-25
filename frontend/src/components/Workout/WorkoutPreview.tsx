@@ -50,6 +50,7 @@ const DynamicAction = (props: IWorkoutPreviewProps) => {
 const ProgramEditActions = (props: Partial<IWorkoutPreviewProps>) => {
   const { onSelectProgramWorkout, item } = props;
   const isCopy = true;
+  const { isTemplate } = item ?? {};
 
   if (!onSelectProgramWorkout) return null;
 
@@ -61,12 +62,14 @@ const ProgramEditActions = (props: Partial<IWorkoutPreviewProps>) => {
       >
         Copy
       </Button>
-      <Button
-        buttonStyle="save"
-        onClick={(e) => onSelectProgramWorkout(e, item, !isCopy)}
-      >
-        Select
-      </Button>
+      {isTemplate ? null : (
+        <Button
+          buttonStyle="save"
+          onClick={(e) => onSelectProgramWorkout(e, item, !isCopy)}
+        >
+          Select
+        </Button>
+      )}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { twMerge } from "tailwind-merge";
 import Input from "./Input";
 import Label from "./Label";
+import { appUtil } from "../../../utils/app.util";
 
 interface IIsActiveInputProps {
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -36,19 +37,21 @@ export default function IsActiveInput({
   const afterAttrClass =
     "after:content-[attr(data-after-inactive)] peer-checked:after:content-[attr(data-after-active)]";
   const labelClass = twMerge(mainClass, before, after, afterAttrClass);
+
+  const idName = inputName + appUtil.getTempId();
   return (
     <Input
       onChange={handleInputChange}
       checked={isActive}
       type="checkbox"
       name={inputName}
-      id={inputName}
+      id={idName}
       divStyle="flex items-center order-2 justify-self-end lg:justify-self-center self-end"
       hidden
       className="hidden peer"
     >
       <Label
-        htmlFor={inputName}
+        htmlFor={idName}
         className={labelClass}
         data-after-inactive={safeAfter.inactive}
         data-after-active={safeAfter.active}

@@ -121,6 +121,7 @@ export default function ProgramWorkoutEdit({
     });
   };
 
+  //Remove the selected workout from the list of available workouts
   const availableWorkouts = workouts.filter(
     (wo) => !selectedWorkout || wo.id !== selectedWorkout.workout?.id
   );
@@ -134,6 +135,7 @@ export default function ProgramWorkoutEdit({
   if (isLoading) {
     return <Loader loaderType="screen" />;
   }
+
   return (
     <div
       ref={modelRef}
@@ -162,6 +164,7 @@ export default function ProgramWorkoutEdit({
       <WorkoutFilter
         workoutsFilter={workoutsFilter}
         setWorkoutsFilter={setWorkoutsFilter}
+        
       />
       <GenericList
         items={availableWorkouts}

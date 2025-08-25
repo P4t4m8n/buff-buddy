@@ -44,6 +44,7 @@ function WorkoutFilterMemo({
         handleInputChange={handleChange}
         isActive={!!isTemplate}
         inputName="isTemplate"
+        afterContentText={{ active: "Templates", inactive: "All" }}
       />
     </div>
   );
