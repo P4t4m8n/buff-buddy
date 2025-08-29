@@ -302,6 +302,73 @@ exports.Prisma.UserWorkoutScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.FoodItemScalarFieldEnum = {
+  id: 'id',
+  barcode: 'barcode',
+  name: 'name',
+  servingSize: 'servingSize',
+  calories: 'calories',
+  proteins: 'proteins',
+  carbohydrates: 'carbohydrates',
+  sugars: 'sugars',
+  fat: 'fat',
+  saturatedFat: 'saturatedFat',
+  fiber: 'fiber',
+  salt: 'salt',
+  cholesterol: 'cholesterol',
+  brandId: 'brandId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FoodItemLabelScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FoodItemImgScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  foodItemId: 'foodItemId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FoodItemBrandScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FoodItemCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MealScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  date: 'date',
+  mealType: 'mealType',
+  ownerId: 'ownerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MealFoodItemScalarFieldEnum = {
+  id: 'id',
+  mealId: 'mealId',
+  foodItemId: 'foodItemId',
+  quantity: 'quantity',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -422,6 +489,13 @@ exports.DaysOfWeek = exports.$Enums.DaysOfWeek = {
   saturday: 'saturday'
 };
 
+exports.MealType = exports.$Enums.MealType = {
+  breakfast: 'breakfast',
+  lunch: 'lunch',
+  dinner: 'dinner',
+  snack: 'snack'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Exercise: 'Exercise',
@@ -440,7 +514,14 @@ exports.Prisma.ModelName = {
   Workout: 'Workout',
   WorkoutExercise: 'WorkoutExercise',
   UserWorkoutExercise: 'UserWorkoutExercise',
-  UserWorkout: 'UserWorkout'
+  UserWorkout: 'UserWorkout',
+  FoodItem: 'FoodItem',
+  FoodItemLabel: 'FoodItemLabel',
+  FoodItemImg: 'FoodItemImg',
+  FoodItemBrand: 'FoodItemBrand',
+  FoodItemCategory: 'FoodItemCategory',
+  Meal: 'Meal',
+  MealFoodItem: 'MealFoodItem'
 };
 
 /**

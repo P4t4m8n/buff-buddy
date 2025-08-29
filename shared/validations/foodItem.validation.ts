@@ -1,0 +1,141 @@
+import { z } from "zod";
+
+import { validationUtil } from "./util.validation";
+
+const createFoodItemFactorySchema = ({
+  toSanitize,
+}: {
+  toSanitize?: boolean;
+}) => {
+  return z.object({
+    name: validationUtil.stringSchemaFactory({
+      fieldName: "Food  name",
+      minLength: 1,
+      toSanitize,
+    }),
+    barcode: validationUtil.stringSchemaFactory({
+      fieldName: "Food barcode",
+      minLength: 2,
+      maxLength: 100,
+      toSanitize,
+    }),
+    servingSize: validationUtil
+      .numberValidation({
+        fieldName: "Food serving size",
+        minLength: 0,
+      })
+      .optional(),
+    calories: validationUtil
+      .numberValidation({
+        fieldName: "Food calories",
+        minLength: 0,
+      })
+      .optional(),
+    proteins: validationUtil
+      .numberValidation({
+        fieldName: "Food protein",
+        minLength: 0,
+      })
+      .optional(),
+    carbohydrates: validationUtil
+      .numberValidation({
+        fieldName: "Food carbohydrates",
+        minLength: 0,
+      })
+      .optional(),
+    sugars: validationUtil
+      .numberValidation({
+        fieldName: "Food sugars",
+        minLength: 0,
+      })
+      .optional(),
+    fat: validationUtil
+      .numberValidation({
+        fieldName: "Food fat",
+        minLength: 0,
+      })
+      .optional(),
+    saturatedFat: validationUtil
+      .numberValidation({
+        fieldName: "Food saturated fat",
+        minLength: 0,
+      })
+      .optional(),
+    fiber: validationUtil
+      .numberValidation({
+        fieldName: "Food fiber",
+        minLength: 0,
+      })
+      .optional(),
+    sugar: validationUtil
+      .numberValidation({
+        fieldName: "Food sugar",
+        minLength: 0,
+      })
+      .optional(),
+    salt: validationUtil
+      .numberValidation({
+        fieldName: "Food salt",
+        minLength: 0,
+      })
+      .optional(),
+    cholesterol: validationUtil
+      .numberValidation({
+        fieldName: "Food cholesterol",
+        minLength: 0,
+      })
+      .optional(),
+    brand: validationUtil.stringSchemaFactory({
+      fieldName: "Food brand",
+      minLength: 2,
+      maxLength: 100,
+      toSanitize,
+    }),
+    categories: z.array(z.string()).min(1).optional(),
+    labels: z.array(z.string()).min(1).optional(),
+    images: z.array(z.string().url()).min(1).optional(),
+  });
+};
+
+const updateFoodItemSchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+  return createFoodItemFactorySchema({ toSanitize })
+    .partial()
+    .extend({
+      id: validationUtil.IDSchemaFactory({ toSanitize }),
+    });
+};
+
+const FoodItemQuerySchema = validationUtil.FilterSchema.extend({
+  name: z.string().optional(),
+  barcode: z.string().min(2).max(100).optional(),
+  calories: z.number().min(0).optional(),
+  protein: z.number().min(0).optional(),
+});
+
+const FoodItemIdParamsSchema = z.object({
+  id: validationUtil.IDSchemaFactory({ toSanitize: false }),
+});
+const FoodItemIdBarcodeSchema = z.object({
+  barcode: validationUtil.stringSchemaFactory({ toSanitize: false }),
+});
+const FoodItemParamsSchema = z.intersection(
+  FoodItemIdParamsSchema,
+  FoodItemIdBarcodeSchema
+);
+
+export const foodItemValidation = {
+  createFoodItemFactorySchema,
+  updateFoodItemSchema,
+  FoodItemQuerySchema,
+  FoodItemParamsSchema,
+};
+
+export type TCreateFoodItemInput = z.infer<
+  ReturnType<typeof createFoodItemFactorySchema>
+>;
+
+export type TUpdateFoodItemInput = z.infer<
+  ReturnType<typeof updateFoodItemSchema>
+>;
+
+export type TFoodItemQuery = z.infer<typeof FoodItemQuerySchema>;
