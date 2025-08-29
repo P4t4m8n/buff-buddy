@@ -49,11 +49,7 @@ export const workoutUtils = {
       }),
     };
   },
-  editDtoToDto: (dto: IWorkoutEditDTO): IWorkoutDTO => {
-    return {
-      id: dto.id,
-    };
-  },
+
   getEmpty: (): IWorkoutEditDTO => {
     return {
       id: appUtil.getTempId(),
