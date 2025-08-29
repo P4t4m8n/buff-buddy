@@ -29,10 +29,10 @@ export const calendarUtil = {
     return isTitle ? toTitle(shortDay) : shortDay;
   },
   fullWeekdaysToShort: (
-    fullDays: TDayOfWeek[],
+    fullDays?: TDayOfWeek[],
     isTitle: boolean = true
   ): string[] => {
-    return fullDays.map((day) => calendarUtil.fullWeekdayToShort(day, isTitle));
+    return fullDays?.map((day) => calendarUtil.fullWeekdayToShort(day, isTitle)) || [];
   },
   formatDate: (
     date?: Date | string | null,
