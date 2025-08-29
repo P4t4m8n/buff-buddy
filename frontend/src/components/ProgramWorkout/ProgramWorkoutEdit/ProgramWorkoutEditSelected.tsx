@@ -1,13 +1,14 @@
-import type { IProgramWorkoutDTO } from "../../../../../shared/models/program.model";
-import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
 import { calendarUtil } from "../../../utils/calendar.util";
+
+import WorkoutEditModel from "../../Workout/WorkoutEditModel";
+import WorkoutTags from "../../Workout/WorkoutTags";
 import Button from "../../UI/Button";
 import CheckboxMulti from "../../UI/Form/CheckboxMulti";
 import Label from "../../UI/Form/Label";
 import GenericModel from "../../UI/GenericModel";
-import WorkoutEditModel from "../../Workout/WorkoutEditModel";
 
-import WorkoutTags from "../../Workout/WorkoutTags";
+import type { IProgramWorkoutDTO } from "../../../../../shared/models/program.model";
+import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
 
 interface IProgramWorkoutEditSelectedProps {
   selectedProgramWorkout?: IProgramWorkoutDTO | null;
@@ -30,10 +31,10 @@ export default function ProgramWorkoutEditSelected({
   handleSelectedWorkoutUpdate,
 }: IProgramWorkoutEditSelectedProps) {
   const options = calendarUtil.getShortWeekDays(true);
-  const selectedOptions =
-    calendarUtil.fullWeekdaysToShort(
-      selectedProgramWorkout?.daysOfWeek || []
-    ) ?? [];
+
+  const selectedOptions = calendarUtil.fullWeekdaysToShort(
+    selectedProgramWorkout?.daysOfWeek
+  );
 
   if (!selectedProgramWorkout) {
     return <p className="text-center">No workout selected</p>;

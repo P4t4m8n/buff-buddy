@@ -8,6 +8,7 @@ import { useProgramStore } from "../../../store/program.store";
 import { useNavigate } from "react-router";
 import { programUtils } from "../../../utils/program.util";
 import { useErrors } from "../../shared/useErrors";
+import { formUtils } from "../../../utils/form.util";
 
 interface IProgramEditHook {
   programToEdit: IProgramEditDTO | null;
@@ -98,23 +99,7 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, type, value } = e.target;
-
-    const key = name.split("-")[0];
-    setProgramToEdit((prev) => {
-      if (!prev) return null;
-      // Only use checked for checkboxes
-      if (type === "checkbox" && "checked" in e.target) {
-        return {
-          ...prev,
-          [key]: (e.target as HTMLInputElement).checked,
-        };
-      }
-      return {
-        ...prev,
-        [key]: value,
-      };
-    });
+    formUtils.handleInputChange(e, setProgramToEdit);
   };
 
   return {

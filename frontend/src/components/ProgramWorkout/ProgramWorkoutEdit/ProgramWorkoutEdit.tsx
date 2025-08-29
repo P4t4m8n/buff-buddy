@@ -1,30 +1,16 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
-
-import { useWorkoutStore } from "../../../store/workout.store";
-
-import { calendarUtil } from "../../../utils/calendar.util";
-import { programWorkoutUtil } from "../../../utils/programWorkout.util";
-import { workoutUtils } from "../../../utils/workout.util";
-
-import { useItemsPage } from "../../../hooks/shared/useItemsPage";
-import { INITIAL_WORKOUT_FILTER } from "../../../consts/filters.consts";
+import { useProgramWorkoutEdit } from "../../../hooks/features/program/useProgramWorkoutEdit";
 
 import WorkoutEditModel from "../../Workout/WorkoutEditModel";
 import ProgramWorkoutEditSelected from "./ProgramWorkoutEditSelected";
-import WorkoutFilter from "../../Workout/WorkoutFilter";
-import WorkoutPreview from "../../Workout/WorkoutPreview";
+import ProgramWorkoutList from "./ProgramWorkoutList";
 
 import Button from "../../UI/Button";
 import GenericModel from "../../UI/GenericModel";
-import GenericList from "../../UI/GenericList";
-import Loader from "../../UI/loader/Loader";
 
 import type {
   IProgramWorkoutDTO,
   IProgramWorkoutEditDTO,
 } from "../../../../../shared/models/program.model";
-import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
-import type { MouseEvent } from "react";
 import type { IModelProps } from "../../UI/GenericModel";
 
 interface ProgramWorkoutProps extends IModelProps<HTMLDivElement> {
@@ -37,104 +23,26 @@ export default function ProgramWorkoutEdit({
   handleProgramWorkouts,
   ...props
 }: ProgramWorkoutProps) {
-  const [selectedWorkout, setSelectedWorkout] =
-    useState<IProgramWorkoutEditDTO | null>(null);
-
   const {
-    filter: workoutsFilter,
-    setFilter: setWorkoutsFilter,
-    items: workouts,
-    isLoading,
-  } = useItemsPage({
-    useStore: useWorkoutStore,
-    initialFilter: INITIAL_WORKOUT_FILTER,
-  });
+    selectedWorkout,
+    onDaysChange,
+    onSelectProgramWorkout,
+    handleSelectedWorkoutUpdate,
+  } = useProgramWorkoutEdit(programWorkout);
 
   const { modelRef, handleModel } = props;
 
-  useEffect(() => {
-    const workoutEdit = programWorkoutUtil.dtoToEditDto(programWorkout);
-
-    setSelectedWorkout(workoutEdit ?? null);
-  }, [programWorkout]);
-
-  const onDaysChange = (e: React.ChangeEvent) => {
-    const target = e.target as HTMLInputElement;
-    const value = target.value;
-    const isChecked = target.checked;
-    const fixedDay = calendarUtil.shortWeekdayToFull(value);
-    setSelectedWorkout((prev) => {
-      if (!prev) return null;
-      const newDaysOfWeek = isChecked
-        ? [...(prev.daysOfWeek || []), fixedDay]
-        : (prev.daysOfWeek || []).filter((day) => day !== fixedDay);
-
-      if (!newDaysOfWeek.length) {
-        return {
-          ...prev,
-          daysOfWeek: [],
-          crudOperation: "delete",
-        };
-      }
-      return {
-        ...prev,
-        daysOfWeek: newDaysOfWeek,
-      };
-    });
-  };
-
-  const onSelectProgramWorkout = (
-    e: React.MouseEvent<HTMLButtonElement>,
-    workout?: IWorkoutDTO,
-    isCopy?: boolean
-  ) => {
-    e.preventDefault();
-    e.stopPropagation();
-    let _workout = null;
-    if (workout) {
-      const empty = programWorkoutUtil.getEmpty();
-      _workout = programWorkoutUtil.dtoToEditDto({ ...empty, workout }, isCopy);
-    }
-
-    setSelectedWorkout(_workout);
-  };
-
-  const saveToProgram = (e: MouseEvent<HTMLButtonElement>) => {
+  const saveToProgram = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (selectedWorkout && handleProgramWorkouts && handleModel) {
+    if (selectedWorkout && handleProgramWorkouts) {
       handleProgramWorkouts(selectedWorkout);
+    }
+    if (handleModel) {
       handleModel(e);
     }
   };
-
-  const handleSelectedWorkoutUpdate = (workout: IWorkoutDTO | null) => {
-    setSelectedWorkout((prev) => {
-      if (!prev) return null;
-      if (!workout) return prev;
-      const updatedWorkout = workoutUtils.dtoToEditDto(workout);
-      return {
-        ...prev,
-        workout: updatedWorkout,
-      };
-    });
-  };
-
-  //Remove the selected workout from the list of available workouts
-  const availableWorkouts = workouts.filter(
-    (wo) => !selectedWorkout || wo.id !== selectedWorkout.workout?.id
-  );
-
-  const itemComponentProps = useMemo(
-    () => ({ actionType: "programEdit", onSelectProgramWorkout }),
-    []
-  );
-  const getKey = useCallback((item: IWorkoutDTO) => item.id!, []);
-
-  if (isLoading) {
-    return <Loader loaderType="screen" />;
-  }
 
   return (
     <div
@@ -161,17 +69,10 @@ export default function ProgramWorkoutEdit({
         isPortal={true}
         parentRef={modelRef}
       />
-      <WorkoutFilter
-        workoutsFilter={workoutsFilter}
-        setWorkoutsFilter={setWorkoutsFilter}
-        
-      />
-      <GenericList
-        items={availableWorkouts}
-        ItemComponent={WorkoutPreview}
-        itemComponentProps={itemComponentProps}
-        getKey={getKey}
-        ulStyle="flex flex-col gap-4 h-[calc(100%-9.5rem)] overflow-auto"
+
+      <ProgramWorkoutList
+        selectedWorkout={selectedWorkout}
+        onSelectProgramWorkout={onSelectProgramWorkout}
       />
 
       <Button
