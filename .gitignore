@@ -1,4 +1,7 @@
 trash/
 node_modules/
 backend/prisma/jsons/openfoodfacts-products.jsonl
+backend/prisma/jsons/food.json
+
+backend/prisma/jsons/openfoodfacts-products.jsonl
 .gitignore

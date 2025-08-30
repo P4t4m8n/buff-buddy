@@ -11,6 +11,7 @@ import WorkoutDetailsPage from "./pages/Workout/WorkoutDetailsPage";
 import WorkoutStartPage from "./pages/Workout/WorkoutStartPage";
 import WorkoutEditPage from "./pages/Workout/WorkoutEditPage";
 import WorkoutListPage from "./pages/Workout/WorkoutListPage";
+import DietPage from "./pages/DietPage";
 import ProgramEditPage from "./pages/Program/ProgramEditPage";
 
 export interface RouteConfig {
@@ -97,4 +98,8 @@ export const ROUTES: RouteConfig[] = [
     element: <AdminPage />,
     children: [],
   },
+  {
+    path: "/diet",
+    element: <DietPage />,
+  }
 ];

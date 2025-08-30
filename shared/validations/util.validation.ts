@@ -239,11 +239,16 @@ export const DateSchema = z.coerce
   .date()
   .refine((date) => !isNaN(date.getTime()), "Invalid date");
 
-export const OrderSchema = z.coerce
+const OrderSchema = z.coerce
   .number()
   .int("Order must be a whole number")
   .min(1, "Order must be at least 1")
   .max(100, "Order cannot exceed 100");
+
+const FilterSchema = z.object({
+  skip: z.coerce.number().min(0).optional(),
+  take: z.coerce.number().min(1).optional(),
+});
 
 export const validationUtil = {
   createSanitizer,
@@ -260,4 +265,5 @@ export const validationUtil = {
   DaysOfWeekSchema,
   DateSchema,
   OrderSchema,
+  FilterSchema,
 };
