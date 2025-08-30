@@ -54,9 +54,6 @@ export const programsService = {
     dto: TUpdateProgramInput,
     userId: string
   ): Promise<IProgram> => {
-    console.log("🚀 ~ userId:", userId)
-    console.log("🚀 ~ id:", id)
-    console.log("🚀 ~ dto:", dto)
     const programData = dbUtil.cleanData({
       name: dto.name,
       notes: dto.notes,
@@ -64,12 +61,13 @@ export const programsService = {
       startDate: dto.startDate,
       endDate: dto.endDate,
     });
-    console.log("🚀 ~ programData:", programData)
 
     const workoutsToCreate =
       dto.programWorkouts?.filter((wo) => wo.crudOperation === "create") ?? [];
+
     const workoutsToUpdate =
       dto.programWorkouts?.filter((wo) => wo.crudOperation === "update") ?? [];
+
     const workoutsToDelete =
       dto.programWorkouts?.filter((wo) => wo.crudOperation === "delete") ?? [];
 
@@ -91,21 +89,21 @@ export const programsService = {
               },
             },
           })),
-          update: workoutsToUpdate.map((wo) => ({
-            where: { id: wo.id! },
-            data: {
-              daysOfWeek: wo.daysOfWeek as DaysOfWeek[],
-              workout: {
-                connectOrCreate: {
-                  where: { id: wo.workout.id },
-                  create: workoutSQL.getWorkoutCreate(
-                    wo.workout as TCreateWorkoutInput,
-                    userId
-                  ),
-                },
-              },
-            },
-          })),
+          // update: workoutsToUpdate.map((wo) => ({
+          //   where: { id: wo.id! },
+          //   data: {
+          //     daysOfWeek: wo.daysOfWeek as DaysOfWeek[],
+          //     workout: {
+          //       connectOrCreate: {
+          //         where: { id: wo.workout.id },
+          //         create: workoutSQL.getWorkoutCreate(
+          //           wo.workout as TCreateWorkoutInput,
+          //           userId
+          //         ),
+          //       },
+          //     },
+          //   },
+          // })),
         },
       },
       select: programsSQL.PROGRAM_SELECT,

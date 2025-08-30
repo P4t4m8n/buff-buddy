@@ -337,9 +337,9 @@ async function loadFoodData() {
   try {
     await processOpenFoodFactsData(
       "backend\\prisma\\jsons\\openfoodfacts-products.jsonl", // Input file
-      "backend\\prisma\\jsons\\diet-products.json", // Output file
+      "backend\\prisma\\jsons\\diet-products-1.json", // Output file
       {
-        countries: ["en:israel"], // Optional: US products only
+        countries: ["en:Palestinian territories"], // Optional: US products only
         batchSize: 5000, // Process in batches
       }
     );

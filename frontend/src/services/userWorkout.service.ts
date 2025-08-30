@@ -10,8 +10,9 @@ export const workoutStartService = {
   rootPath: "/user-workouts",
 
   async save(
-    dto: IUserWorkoutEditDTO
+    dto?: IUserWorkoutEditDTO|null
   ): Promise<THttpPostResponse<IUserWorkoutDTO>> {
+    console.log("🚀 ~ save ~ dto:", dto)
     const validatedDTO = userWorkoutValidation
       .createUserWorkoutFactorySchema({ toSanitize: false })
       .parse(dto);

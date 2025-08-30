@@ -15,7 +15,7 @@ export const foodItemUtil = {
       where.calories = { equals: filter.calories };
     }
     if (filter.protein) {
-      where.protein = { equals: filter.protein };
+      where.proteins = { equals: filter.protein };
     }
 
     return where;

@@ -1,3 +1,5 @@
+
+
 export const MONTHS = [
   "january",
   "february",
@@ -39,5 +41,6 @@ export const ICON_MODE = [
   "read",
 ] as const;
 
-
 export const DAY_IN_SECONDES = 60 * 60 * 24;
+
+export const MEAL_TYPE = ["breakfast", "lunch", "dinner", "snack"] as const;

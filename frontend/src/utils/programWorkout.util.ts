@@ -15,9 +15,12 @@ export const programWorkoutUtil = {
     }
     return {
       ...dto,
-      crudOperation:
-        dto.id && !dto.id.startsWith("temp/") ? "update" : "create",
-      workout: workoutUtils.dtoToEditDto(dto.workout, isCopy),
+      crudOperation: appUtil.createOrUpdateCrud(dto.id, "read"),
+      workout: workoutUtils.dtoToEditDto({
+        dto: dto.workout,
+        isEdit: false,
+        isCopy,
+      }),
     };
   },
 

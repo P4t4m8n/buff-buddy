@@ -24,6 +24,7 @@ import type { IUserCardioSetDTO } from "../../../../shared/models/cardioSet.mode
 import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
 import type { TValidationError } from "../../models/errors.model";
 import { localStorageService } from "../../services/localStorage.service";
+import { useAuthStore } from "../../store/auth.store";
 
 //TODO?? state function move to hook or context? deep props drilling
 //TODO?? move child component into memo to prevent render?
@@ -38,12 +39,16 @@ export default function WorkoutStartPage() {
   const [workoutStart, setWorkoutStart] =
     React.useState<IUserWorkoutEditDTO | null>(null);
   const { errors, handleError, clearErrors } = useErrors<IUserWorkoutDTO>();
+  console.log("🚀 ~ WorkoutStartPage ~ errors:", errors);
 
   const getById = useWorkoutStore((state) => state.getById);
 
   const isLoadingId = useWorkoutStore(
     (state) => state.isLoadingId === workoutId
   );
+
+  const userId = useAuthStore((state) => state.user?.id);
+  console.log("🚀 ~ WorkoutStartPage ~ userId:", userId)
 
   //TODO ?? Ugly improve later
   useEffect(() => {
@@ -60,7 +65,8 @@ export default function WorkoutStartPage() {
       const userWorkout = workoutStartUtil.workoutDTOToWorkoutStartDTO(
         workout,
         programId,
-        lastUserWorkout
+        lastUserWorkout,
+        userId
       );
       setWorkoutStart(userWorkout);
       return;
@@ -97,10 +103,11 @@ export default function WorkoutStartPage() {
       clearErrors();
       e.preventDefault();
       e.stopPropagation();
-      await workoutStartService.save(workoutStart!);
+      await workoutStartService.save(workoutStart);
       localStorageService.storeSessionData("workoutStart");
       navigate(-1);
     } catch (error) {
+      console.log("🚀 ~ onSubmit ~ error:", error);
       handleError({ error });
     }
   };

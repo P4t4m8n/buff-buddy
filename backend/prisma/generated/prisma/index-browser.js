@@ -353,9 +353,9 @@ exports.Prisma.FoodItemCategoryScalarFieldEnum = {
 exports.Prisma.MealScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  date: 'date',
   mealType: 'mealType',
   ownerId: 'ownerId',
+  notes: 'notes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -365,6 +365,15 @@ exports.Prisma.MealFoodItemScalarFieldEnum = {
   mealId: 'mealId',
   foodItemId: 'foodItemId',
   quantity: 'quantity',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserMealScalarFieldEnum = {
+  id: 'id',
+  mealId: 'mealId',
+  userId: 'userId',
+  dateConsumed: 'dateConsumed',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -521,7 +530,8 @@ exports.Prisma.ModelName = {
   FoodItemBrand: 'FoodItemBrand',
   FoodItemCategory: 'FoodItemCategory',
   Meal: 'Meal',
-  MealFoodItem: 'MealFoodItem'
+  MealFoodItem: 'MealFoodItem',
+  UserMeal: 'UserMeal'
 };
 
 /**

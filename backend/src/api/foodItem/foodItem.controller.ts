@@ -7,6 +7,7 @@ export const getFoodItems = async (req: Request, res: Response) => {
   try {
     const filter = foodItemValidation.FoodItemQuerySchema.parse(req.query);
     const foodItems = await foodItemService.getAll(filter);
+    console.log("🚀 ~ getFoodItems ~ foodItems:", foodItems)
 
     res.status(200).json(foodItems);
   } catch (error) {
@@ -20,7 +21,7 @@ export const getFoodItems = async (req: Request, res: Response) => {
 
 export const getFoodItemById = async (req: Request, res: Response) => {
   try {
-    const { id } = foodItemValidation.FoodItemParamsSchema.parse(req.params);
+    const { id } = foodItemValidation.FoodItemIdParamsSchema.parse(req.params);
 
     const foodItem = await foodItemService.getById(id);
 
@@ -42,7 +43,8 @@ export const getFoodItemById = async (req: Request, res: Response) => {
 
 export const getFoodItemByBarcode = async (req: Request, res: Response) => {
   try {
-    const { barcode } = foodItemValidation.FoodItemParamsSchema.parse(
+    console.log("🚀 ~ getFoodItemByBarcode ~ barcode:",   req.params.barcode)
+    const { barcode } = foodItemValidation.FoodItemIdBarcodeSchema.parse(
       req.params
     );
 
@@ -89,7 +91,7 @@ export const createFoodItem = async (req: Request, res: Response) => {
 
 export const updateFoodItem = async (req: Request, res: Response) => {
   try {
-    const { id } = foodItemValidation.FoodItemParamsSchema.parse(req.params);
+    const { id } = foodItemValidation.FoodItemIdParamsSchema.parse(req.params);
     req.body.id = id;
 
     const validatedData = foodItemValidation
@@ -114,7 +116,7 @@ export const updateFoodItem = async (req: Request, res: Response) => {
 
 export const deleteFoodItem = async (req: Request, res: Response) => {
   try {
-    const { id } = foodItemValidation.FoodItemParamsSchema.parse(req.params);
+    const { id } = foodItemValidation.FoodItemIdParamsSchema.parse(req.params);
 
     await foodItemService.delete(id);
 

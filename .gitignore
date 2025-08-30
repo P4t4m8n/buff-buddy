@@ -5,3 +5,6 @@ backend/prisma/jsons/food.json
 
 backend/prisma/jsons/openfoodfacts-products.jsonl
 .gitignore
+backend/prisma/jsons/diet-products-1.json
+backend/prisma/jsons/diet-products.json
+backend/prisma/jsons/diet-errors.json

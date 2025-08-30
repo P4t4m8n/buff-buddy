@@ -138,6 +138,11 @@ export type Meal = $Result.DefaultSelection<Prisma.$MealPayload>
  * 
  */
 export type MealFoodItem = $Result.DefaultSelection<Prisma.$MealFoodItemPayload>
+/**
+ * Model UserMeal
+ * 
+ */
+export type UserMeal = $Result.DefaultSelection<Prisma.$UserMealPayload>
 
 /**
  * Enums
@@ -666,6 +671,16 @@ export class PrismaClient<
     * ```
     */
   get mealFoodItem(): Prisma.MealFoodItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userMeal`: Exposes CRUD operations for the **UserMeal** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserMeals
+    * const userMeals = await prisma.userMeal.findMany()
+    * ```
+    */
+  get userMeal(): Prisma.UserMealDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1130,7 +1145,8 @@ export namespace Prisma {
     FoodItemBrand: 'FoodItemBrand',
     FoodItemCategory: 'FoodItemCategory',
     Meal: 'Meal',
-    MealFoodItem: 'MealFoodItem'
+    MealFoodItem: 'MealFoodItem',
+    UserMeal: 'UserMeal'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1149,7 +1165,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "exercise" | "coreCardioSet" | "coreCardioSetCalorieTarget" | "coreCardioSetDistance" | "coreCardioSetAvgSpeed" | "coreCardioSetWorkoutTime" | "userCardioSet" | "coreStrengthSet" | "coreStrengthSetReps" | "coreStrengthSetWeight" | "userStrengthSet" | "program" | "programWorkout" | "workout" | "workoutExercise" | "userWorkoutExercise" | "userWorkout" | "foodItem" | "foodItemLabel" | "foodItemImg" | "foodItemBrand" | "foodItemCategory" | "meal" | "mealFoodItem"
+      modelProps: "user" | "exercise" | "coreCardioSet" | "coreCardioSetCalorieTarget" | "coreCardioSetDistance" | "coreCardioSetAvgSpeed" | "coreCardioSetWorkoutTime" | "userCardioSet" | "coreStrengthSet" | "coreStrengthSetReps" | "coreStrengthSetWeight" | "userStrengthSet" | "program" | "programWorkout" | "workout" | "workoutExercise" | "userWorkoutExercise" | "userWorkout" | "foodItem" | "foodItemLabel" | "foodItemImg" | "foodItemBrand" | "foodItemCategory" | "meal" | "mealFoodItem" | "userMeal"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3003,6 +3019,80 @@ export namespace Prisma {
           }
         }
       }
+      UserMeal: {
+        payload: Prisma.$UserMealPayload<ExtArgs>
+        fields: Prisma.UserMealFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserMealFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserMealFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealPayload>
+          }
+          findFirst: {
+            args: Prisma.UserMealFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserMealFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealPayload>
+          }
+          findMany: {
+            args: Prisma.UserMealFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealPayload>[]
+          }
+          create: {
+            args: Prisma.UserMealCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealPayload>
+          }
+          createMany: {
+            args: Prisma.UserMealCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserMealCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealPayload>[]
+          }
+          delete: {
+            args: Prisma.UserMealDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealPayload>
+          }
+          update: {
+            args: Prisma.UserMealUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserMealDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserMealUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserMealUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserMealUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealPayload>
+          }
+          aggregate: {
+            args: Prisma.UserMealAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserMeal>
+          }
+          groupBy: {
+            args: Prisma.UserMealGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserMealGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserMealCountArgs<ExtArgs>
+            result: $Utils.Optional<UserMealCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3120,6 +3210,7 @@ export namespace Prisma {
     foodItemCategory?: FoodItemCategoryOmit
     meal?: MealOmit
     mealFoodItem?: MealFoodItemOmit
+    userMeal?: UserMealOmit
   }
 
   /* Types for Logging */
@@ -3223,6 +3314,7 @@ export namespace Prisma {
     workouts: number
     userWorkout: number
     meals: number
+    userMeals: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3230,6 +3322,7 @@ export namespace Prisma {
     workouts?: boolean | UserCountOutputTypeCountWorkoutsArgs
     userWorkout?: boolean | UserCountOutputTypeCountUserWorkoutArgs
     meals?: boolean | UserCountOutputTypeCountMealsArgs
+    userMeals?: boolean | UserCountOutputTypeCountUserMealsArgs
   }
 
   // Custom InputTypes
@@ -3269,6 +3362,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountMealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MealWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUserMealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserMealWhereInput
   }
 
 
@@ -3749,10 +3849,12 @@ export namespace Prisma {
 
   export type MealCountOutputType = {
     mealFoodItems: number
+    userMeals: number
   }
 
   export type MealCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     mealFoodItems?: boolean | MealCountOutputTypeCountMealFoodItemsArgs
+    userMeals?: boolean | MealCountOutputTypeCountUserMealsArgs
   }
 
   // Custom InputTypes
@@ -3771,6 +3873,13 @@ export namespace Prisma {
    */
   export type MealCountOutputTypeCountMealFoodItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MealFoodItemWhereInput
+  }
+
+  /**
+   * MealCountOutputType without action
+   */
+  export type MealCountOutputTypeCountUserMealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserMealWhereInput
   }
 
 
@@ -3986,6 +4095,7 @@ export namespace Prisma {
     workouts?: boolean | User$workoutsArgs<ExtArgs>
     userWorkout?: boolean | User$userWorkoutArgs<ExtArgs>
     meals?: boolean | User$mealsArgs<ExtArgs>
+    userMeals?: boolean | User$userMealsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4034,6 +4144,7 @@ export namespace Prisma {
     workouts?: boolean | User$workoutsArgs<ExtArgs>
     userWorkout?: boolean | User$userWorkoutArgs<ExtArgs>
     meals?: boolean | User$mealsArgs<ExtArgs>
+    userMeals?: boolean | User$userMealsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4046,6 +4157,7 @@ export namespace Prisma {
       workouts: Prisma.$WorkoutPayload<ExtArgs>[]
       userWorkout: Prisma.$UserWorkoutPayload<ExtArgs>[]
       meals: Prisma.$MealPayload<ExtArgs>[]
+      userMeals: Prisma.$UserMealPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4456,6 +4568,7 @@ export namespace Prisma {
     workouts<T extends User$workoutsArgs<ExtArgs> = {}>(args?: Subset<T, User$workoutsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     userWorkout<T extends User$userWorkoutArgs<ExtArgs> = {}>(args?: Subset<T, User$userWorkoutArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserWorkoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     meals<T extends User$mealsArgs<ExtArgs> = {}>(args?: Subset<T, User$mealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userMeals<T extends User$userMealsArgs<ExtArgs> = {}>(args?: Subset<T, User$userMealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4976,6 +5089,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MealScalarFieldEnum | MealScalarFieldEnum[]
+  }
+
+  /**
+   * User.userMeals
+   */
+  export type User$userMealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMeal
+     */
+    select?: UserMealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMeal
+     */
+    omit?: UserMealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealInclude<ExtArgs> | null
+    where?: UserMealWhereInput
+    orderBy?: UserMealOrderByWithRelationInput | UserMealOrderByWithRelationInput[]
+    cursor?: UserMealWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserMealScalarFieldEnum | UserMealScalarFieldEnum[]
   }
 
   /**
@@ -30091,9 +30228,9 @@ export namespace Prisma {
   export type MealMinAggregateOutputType = {
     id: string | null
     name: string | null
-    date: Date | null
     mealType: $Enums.MealType | null
     ownerId: string | null
+    notes: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -30101,9 +30238,9 @@ export namespace Prisma {
   export type MealMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    date: Date | null
     mealType: $Enums.MealType | null
     ownerId: string | null
+    notes: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -30111,9 +30248,9 @@ export namespace Prisma {
   export type MealCountAggregateOutputType = {
     id: number
     name: number
-    date: number
     mealType: number
     ownerId: number
+    notes: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -30123,9 +30260,9 @@ export namespace Prisma {
   export type MealMinAggregateInputType = {
     id?: true
     name?: true
-    date?: true
     mealType?: true
     ownerId?: true
+    notes?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -30133,9 +30270,9 @@ export namespace Prisma {
   export type MealMaxAggregateInputType = {
     id?: true
     name?: true
-    date?: true
     mealType?: true
     ownerId?: true
+    notes?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -30143,9 +30280,9 @@ export namespace Prisma {
   export type MealCountAggregateInputType = {
     id?: true
     name?: true
-    date?: true
     mealType?: true
     ownerId?: true
+    notes?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -30226,9 +30363,9 @@ export namespace Prisma {
   export type MealGroupByOutputType = {
     id: string
     name: string | null
-    date: Date
     mealType: $Enums.MealType
     ownerId: string
+    notes: string | null
     createdAt: Date
     updatedAt: Date
     _count: MealCountAggregateOutputType | null
@@ -30253,22 +30390,23 @@ export namespace Prisma {
   export type MealSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    date?: boolean
     mealType?: boolean
     ownerId?: boolean
+    notes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     owner?: boolean | UserDefaultArgs<ExtArgs>
     mealFoodItems?: boolean | Meal$mealFoodItemsArgs<ExtArgs>
+    userMeals?: boolean | Meal$userMealsArgs<ExtArgs>
     _count?: boolean | MealCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["meal"]>
 
   export type MealSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    date?: boolean
     mealType?: boolean
     ownerId?: boolean
+    notes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     owner?: boolean | UserDefaultArgs<ExtArgs>
@@ -30277,9 +30415,9 @@ export namespace Prisma {
   export type MealSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    date?: boolean
     mealType?: boolean
     ownerId?: boolean
+    notes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     owner?: boolean | UserDefaultArgs<ExtArgs>
@@ -30288,17 +30426,18 @@ export namespace Prisma {
   export type MealSelectScalar = {
     id?: boolean
     name?: boolean
-    date?: boolean
     mealType?: boolean
     ownerId?: boolean
+    notes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type MealOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "date" | "mealType" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["meal"]>
+  export type MealOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "mealType" | "ownerId" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["meal"]>
   export type MealInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | UserDefaultArgs<ExtArgs>
     mealFoodItems?: boolean | Meal$mealFoodItemsArgs<ExtArgs>
+    userMeals?: boolean | Meal$userMealsArgs<ExtArgs>
     _count?: boolean | MealCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MealIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -30313,13 +30452,14 @@ export namespace Prisma {
     objects: {
       owner: Prisma.$UserPayload<ExtArgs>
       mealFoodItems: Prisma.$MealFoodItemPayload<ExtArgs>[]
+      userMeals: Prisma.$UserMealPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string | null
-      date: Date
       mealType: $Enums.MealType
       ownerId: string
+      notes: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["meal"]>
@@ -30718,6 +30858,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     mealFoodItems<T extends Meal$mealFoodItemsArgs<ExtArgs> = {}>(args?: Subset<T, Meal$mealFoodItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MealFoodItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userMeals<T extends Meal$userMealsArgs<ExtArgs> = {}>(args?: Subset<T, Meal$userMealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -30749,9 +30890,9 @@ export namespace Prisma {
   interface MealFieldRefs {
     readonly id: FieldRef<"Meal", 'String'>
     readonly name: FieldRef<"Meal", 'String'>
-    readonly date: FieldRef<"Meal", 'DateTime'>
     readonly mealType: FieldRef<"Meal", 'MealType'>
     readonly ownerId: FieldRef<"Meal", 'String'>
+    readonly notes: FieldRef<"Meal", 'String'>
     readonly createdAt: FieldRef<"Meal", 'DateTime'>
     readonly updatedAt: FieldRef<"Meal", 'DateTime'>
   }
@@ -31171,6 +31312,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MealFoodItemScalarFieldEnum | MealFoodItemScalarFieldEnum[]
+  }
+
+  /**
+   * Meal.userMeals
+   */
+  export type Meal$userMealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMeal
+     */
+    select?: UserMealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMeal
+     */
+    omit?: UserMealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealInclude<ExtArgs> | null
+    where?: UserMealWhereInput
+    orderBy?: UserMealOrderByWithRelationInput | UserMealOrderByWithRelationInput[]
+    cursor?: UserMealWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserMealScalarFieldEnum | UserMealScalarFieldEnum[]
   }
 
   /**
@@ -32306,6 +32471,1085 @@ export namespace Prisma {
 
 
   /**
+   * Model UserMeal
+   */
+
+  export type AggregateUserMeal = {
+    _count: UserMealCountAggregateOutputType | null
+    _min: UserMealMinAggregateOutputType | null
+    _max: UserMealMaxAggregateOutputType | null
+  }
+
+  export type UserMealMinAggregateOutputType = {
+    id: string | null
+    mealId: string | null
+    userId: string | null
+    dateConsumed: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserMealMaxAggregateOutputType = {
+    id: string | null
+    mealId: string | null
+    userId: string | null
+    dateConsumed: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserMealCountAggregateOutputType = {
+    id: number
+    mealId: number
+    userId: number
+    dateConsumed: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserMealMinAggregateInputType = {
+    id?: true
+    mealId?: true
+    userId?: true
+    dateConsumed?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserMealMaxAggregateInputType = {
+    id?: true
+    mealId?: true
+    userId?: true
+    dateConsumed?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserMealCountAggregateInputType = {
+    id?: true
+    mealId?: true
+    userId?: true
+    dateConsumed?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserMealAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserMeal to aggregate.
+     */
+    where?: UserMealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserMeals to fetch.
+     */
+    orderBy?: UserMealOrderByWithRelationInput | UserMealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserMealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserMeals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserMeals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserMeals
+    **/
+    _count?: true | UserMealCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserMealMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserMealMaxAggregateInputType
+  }
+
+  export type GetUserMealAggregateType<T extends UserMealAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserMeal]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserMeal[P]>
+      : GetScalarType<T[P], AggregateUserMeal[P]>
+  }
+
+
+
+
+  export type UserMealGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserMealWhereInput
+    orderBy?: UserMealOrderByWithAggregationInput | UserMealOrderByWithAggregationInput[]
+    by: UserMealScalarFieldEnum[] | UserMealScalarFieldEnum
+    having?: UserMealScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserMealCountAggregateInputType | true
+    _min?: UserMealMinAggregateInputType
+    _max?: UserMealMaxAggregateInputType
+  }
+
+  export type UserMealGroupByOutputType = {
+    id: string
+    mealId: string
+    userId: string
+    dateConsumed: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: UserMealCountAggregateOutputType | null
+    _min: UserMealMinAggregateOutputType | null
+    _max: UserMealMaxAggregateOutputType | null
+  }
+
+  type GetUserMealGroupByPayload<T extends UserMealGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserMealGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserMealGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserMealGroupByOutputType[P]>
+            : GetScalarType<T[P], UserMealGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserMealSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    mealId?: boolean
+    userId?: boolean
+    dateConsumed?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    meal?: boolean | MealDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userMeal"]>
+
+  export type UserMealSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    mealId?: boolean
+    userId?: boolean
+    dateConsumed?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    meal?: boolean | MealDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userMeal"]>
+
+  export type UserMealSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    mealId?: boolean
+    userId?: boolean
+    dateConsumed?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    meal?: boolean | MealDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userMeal"]>
+
+  export type UserMealSelectScalar = {
+    id?: boolean
+    mealId?: boolean
+    userId?: boolean
+    dateConsumed?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserMealOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "mealId" | "userId" | "dateConsumed" | "createdAt" | "updatedAt", ExtArgs["result"]["userMeal"]>
+  export type UserMealInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meal?: boolean | MealDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserMealIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meal?: boolean | MealDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserMealIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meal?: boolean | MealDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserMealPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserMeal"
+    objects: {
+      meal: Prisma.$MealPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      mealId: string
+      userId: string
+      dateConsumed: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userMeal"]>
+    composites: {}
+  }
+
+  type UserMealGetPayload<S extends boolean | null | undefined | UserMealDefaultArgs> = $Result.GetResult<Prisma.$UserMealPayload, S>
+
+  type UserMealCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserMealFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserMealCountAggregateInputType | true
+    }
+
+  export interface UserMealDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserMeal'], meta: { name: 'UserMeal' } }
+    /**
+     * Find zero or one UserMeal that matches the filter.
+     * @param {UserMealFindUniqueArgs} args - Arguments to find a UserMeal
+     * @example
+     * // Get one UserMeal
+     * const userMeal = await prisma.userMeal.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserMealFindUniqueArgs>(args: SelectSubset<T, UserMealFindUniqueArgs<ExtArgs>>): Prisma__UserMealClient<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserMeal that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserMealFindUniqueOrThrowArgs} args - Arguments to find a UserMeal
+     * @example
+     * // Get one UserMeal
+     * const userMeal = await prisma.userMeal.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserMealFindUniqueOrThrowArgs>(args: SelectSubset<T, UserMealFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserMealClient<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserMeal that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMealFindFirstArgs} args - Arguments to find a UserMeal
+     * @example
+     * // Get one UserMeal
+     * const userMeal = await prisma.userMeal.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserMealFindFirstArgs>(args?: SelectSubset<T, UserMealFindFirstArgs<ExtArgs>>): Prisma__UserMealClient<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserMeal that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMealFindFirstOrThrowArgs} args - Arguments to find a UserMeal
+     * @example
+     * // Get one UserMeal
+     * const userMeal = await prisma.userMeal.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserMealFindFirstOrThrowArgs>(args?: SelectSubset<T, UserMealFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserMealClient<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserMeals that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMealFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserMeals
+     * const userMeals = await prisma.userMeal.findMany()
+     * 
+     * // Get first 10 UserMeals
+     * const userMeals = await prisma.userMeal.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userMealWithIdOnly = await prisma.userMeal.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserMealFindManyArgs>(args?: SelectSubset<T, UserMealFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserMeal.
+     * @param {UserMealCreateArgs} args - Arguments to create a UserMeal.
+     * @example
+     * // Create one UserMeal
+     * const UserMeal = await prisma.userMeal.create({
+     *   data: {
+     *     // ... data to create a UserMeal
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserMealCreateArgs>(args: SelectSubset<T, UserMealCreateArgs<ExtArgs>>): Prisma__UserMealClient<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserMeals.
+     * @param {UserMealCreateManyArgs} args - Arguments to create many UserMeals.
+     * @example
+     * // Create many UserMeals
+     * const userMeal = await prisma.userMeal.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserMealCreateManyArgs>(args?: SelectSubset<T, UserMealCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserMeals and returns the data saved in the database.
+     * @param {UserMealCreateManyAndReturnArgs} args - Arguments to create many UserMeals.
+     * @example
+     * // Create many UserMeals
+     * const userMeal = await prisma.userMeal.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserMeals and only return the `id`
+     * const userMealWithIdOnly = await prisma.userMeal.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserMealCreateManyAndReturnArgs>(args?: SelectSubset<T, UserMealCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserMeal.
+     * @param {UserMealDeleteArgs} args - Arguments to delete one UserMeal.
+     * @example
+     * // Delete one UserMeal
+     * const UserMeal = await prisma.userMeal.delete({
+     *   where: {
+     *     // ... filter to delete one UserMeal
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserMealDeleteArgs>(args: SelectSubset<T, UserMealDeleteArgs<ExtArgs>>): Prisma__UserMealClient<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserMeal.
+     * @param {UserMealUpdateArgs} args - Arguments to update one UserMeal.
+     * @example
+     * // Update one UserMeal
+     * const userMeal = await prisma.userMeal.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserMealUpdateArgs>(args: SelectSubset<T, UserMealUpdateArgs<ExtArgs>>): Prisma__UserMealClient<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserMeals.
+     * @param {UserMealDeleteManyArgs} args - Arguments to filter UserMeals to delete.
+     * @example
+     * // Delete a few UserMeals
+     * const { count } = await prisma.userMeal.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserMealDeleteManyArgs>(args?: SelectSubset<T, UserMealDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserMeals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMealUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserMeals
+     * const userMeal = await prisma.userMeal.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserMealUpdateManyArgs>(args: SelectSubset<T, UserMealUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserMeals and returns the data updated in the database.
+     * @param {UserMealUpdateManyAndReturnArgs} args - Arguments to update many UserMeals.
+     * @example
+     * // Update many UserMeals
+     * const userMeal = await prisma.userMeal.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserMeals and only return the `id`
+     * const userMealWithIdOnly = await prisma.userMeal.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserMealUpdateManyAndReturnArgs>(args: SelectSubset<T, UserMealUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserMeal.
+     * @param {UserMealUpsertArgs} args - Arguments to update or create a UserMeal.
+     * @example
+     * // Update or create a UserMeal
+     * const userMeal = await prisma.userMeal.upsert({
+     *   create: {
+     *     // ... data to create a UserMeal
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserMeal we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserMealUpsertArgs>(args: SelectSubset<T, UserMealUpsertArgs<ExtArgs>>): Prisma__UserMealClient<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserMeals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMealCountArgs} args - Arguments to filter UserMeals to count.
+     * @example
+     * // Count the number of UserMeals
+     * const count = await prisma.userMeal.count({
+     *   where: {
+     *     // ... the filter for the UserMeals we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserMealCountArgs>(
+      args?: Subset<T, UserMealCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserMealCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserMeal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMealAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserMealAggregateArgs>(args: Subset<T, UserMealAggregateArgs>): Prisma.PrismaPromise<GetUserMealAggregateType<T>>
+
+    /**
+     * Group by UserMeal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMealGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserMealGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserMealGroupByArgs['orderBy'] }
+        : { orderBy?: UserMealGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserMealGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserMealGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserMeal model
+   */
+  readonly fields: UserMealFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserMeal.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserMealClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    meal<T extends MealDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MealDefaultArgs<ExtArgs>>): Prisma__MealClient<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserMeal model
+   */
+  interface UserMealFieldRefs {
+    readonly id: FieldRef<"UserMeal", 'String'>
+    readonly mealId: FieldRef<"UserMeal", 'String'>
+    readonly userId: FieldRef<"UserMeal", 'String'>
+    readonly dateConsumed: FieldRef<"UserMeal", 'DateTime'>
+    readonly createdAt: FieldRef<"UserMeal", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserMeal", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserMeal findUnique
+   */
+  export type UserMealFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMeal
+     */
+    select?: UserMealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMeal
+     */
+    omit?: UserMealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMeal to fetch.
+     */
+    where: UserMealWhereUniqueInput
+  }
+
+  /**
+   * UserMeal findUniqueOrThrow
+   */
+  export type UserMealFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMeal
+     */
+    select?: UserMealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMeal
+     */
+    omit?: UserMealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMeal to fetch.
+     */
+    where: UserMealWhereUniqueInput
+  }
+
+  /**
+   * UserMeal findFirst
+   */
+  export type UserMealFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMeal
+     */
+    select?: UserMealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMeal
+     */
+    omit?: UserMealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMeal to fetch.
+     */
+    where?: UserMealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserMeals to fetch.
+     */
+    orderBy?: UserMealOrderByWithRelationInput | UserMealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserMeals.
+     */
+    cursor?: UserMealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserMeals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserMeals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserMeals.
+     */
+    distinct?: UserMealScalarFieldEnum | UserMealScalarFieldEnum[]
+  }
+
+  /**
+   * UserMeal findFirstOrThrow
+   */
+  export type UserMealFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMeal
+     */
+    select?: UserMealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMeal
+     */
+    omit?: UserMealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMeal to fetch.
+     */
+    where?: UserMealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserMeals to fetch.
+     */
+    orderBy?: UserMealOrderByWithRelationInput | UserMealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserMeals.
+     */
+    cursor?: UserMealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserMeals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserMeals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserMeals.
+     */
+    distinct?: UserMealScalarFieldEnum | UserMealScalarFieldEnum[]
+  }
+
+  /**
+   * UserMeal findMany
+   */
+  export type UserMealFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMeal
+     */
+    select?: UserMealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMeal
+     */
+    omit?: UserMealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMeals to fetch.
+     */
+    where?: UserMealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserMeals to fetch.
+     */
+    orderBy?: UserMealOrderByWithRelationInput | UserMealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserMeals.
+     */
+    cursor?: UserMealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserMeals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserMeals.
+     */
+    skip?: number
+    distinct?: UserMealScalarFieldEnum | UserMealScalarFieldEnum[]
+  }
+
+  /**
+   * UserMeal create
+   */
+  export type UserMealCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMeal
+     */
+    select?: UserMealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMeal
+     */
+    omit?: UserMealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserMeal.
+     */
+    data: XOR<UserMealCreateInput, UserMealUncheckedCreateInput>
+  }
+
+  /**
+   * UserMeal createMany
+   */
+  export type UserMealCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserMeals.
+     */
+    data: UserMealCreateManyInput | UserMealCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserMeal createManyAndReturn
+   */
+  export type UserMealCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMeal
+     */
+    select?: UserMealSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMeal
+     */
+    omit?: UserMealOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserMeals.
+     */
+    data: UserMealCreateManyInput | UserMealCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserMeal update
+   */
+  export type UserMealUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMeal
+     */
+    select?: UserMealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMeal
+     */
+    omit?: UserMealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserMeal.
+     */
+    data: XOR<UserMealUpdateInput, UserMealUncheckedUpdateInput>
+    /**
+     * Choose, which UserMeal to update.
+     */
+    where: UserMealWhereUniqueInput
+  }
+
+  /**
+   * UserMeal updateMany
+   */
+  export type UserMealUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserMeals.
+     */
+    data: XOR<UserMealUpdateManyMutationInput, UserMealUncheckedUpdateManyInput>
+    /**
+     * Filter which UserMeals to update
+     */
+    where?: UserMealWhereInput
+    /**
+     * Limit how many UserMeals to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserMeal updateManyAndReturn
+   */
+  export type UserMealUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMeal
+     */
+    select?: UserMealSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMeal
+     */
+    omit?: UserMealOmit<ExtArgs> | null
+    /**
+     * The data used to update UserMeals.
+     */
+    data: XOR<UserMealUpdateManyMutationInput, UserMealUncheckedUpdateManyInput>
+    /**
+     * Filter which UserMeals to update
+     */
+    where?: UserMealWhereInput
+    /**
+     * Limit how many UserMeals to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserMeal upsert
+   */
+  export type UserMealUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMeal
+     */
+    select?: UserMealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMeal
+     */
+    omit?: UserMealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserMeal to update in case it exists.
+     */
+    where: UserMealWhereUniqueInput
+    /**
+     * In case the UserMeal found by the `where` argument doesn't exist, create a new UserMeal with this data.
+     */
+    create: XOR<UserMealCreateInput, UserMealUncheckedCreateInput>
+    /**
+     * In case the UserMeal was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserMealUpdateInput, UserMealUncheckedUpdateInput>
+  }
+
+  /**
+   * UserMeal delete
+   */
+  export type UserMealDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMeal
+     */
+    select?: UserMealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMeal
+     */
+    omit?: UserMealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealInclude<ExtArgs> | null
+    /**
+     * Filter which UserMeal to delete.
+     */
+    where: UserMealWhereUniqueInput
+  }
+
+  /**
+   * UserMeal deleteMany
+   */
+  export type UserMealDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserMeals to delete
+     */
+    where?: UserMealWhereInput
+    /**
+     * Limit how many UserMeals to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserMeal without action
+   */
+  export type UserMealDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMeal
+     */
+    select?: UserMealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMeal
+     */
+    omit?: UserMealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -32621,9 +33865,9 @@ export namespace Prisma {
   export const MealScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    date: 'date',
     mealType: 'mealType',
     ownerId: 'ownerId',
+    notes: 'notes',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -32641,6 +33885,18 @@ export namespace Prisma {
   };
 
   export type MealFoodItemScalarFieldEnum = (typeof MealFoodItemScalarFieldEnum)[keyof typeof MealFoodItemScalarFieldEnum]
+
+
+  export const UserMealScalarFieldEnum: {
+    id: 'id',
+    mealId: 'mealId',
+    userId: 'userId',
+    dateConsumed: 'dateConsumed',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserMealScalarFieldEnum = (typeof UserMealScalarFieldEnum)[keyof typeof UserMealScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -32826,6 +34082,7 @@ export namespace Prisma {
     workouts?: WorkoutListRelationFilter
     userWorkout?: UserWorkoutListRelationFilter
     meals?: MealListRelationFilter
+    userMeals?: UserMealListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -32843,6 +34100,7 @@ export namespace Prisma {
     workouts?: WorkoutOrderByRelationAggregateInput
     userWorkout?: UserWorkoutOrderByRelationAggregateInput
     meals?: MealOrderByRelationAggregateInput
+    userMeals?: UserMealOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -32863,6 +34121,7 @@ export namespace Prisma {
     workouts?: WorkoutListRelationFilter
     userWorkout?: UserWorkoutListRelationFilter
     meals?: MealListRelationFilter
+    userMeals?: UserMealListRelationFilter
   }, "id" | "email" | "googleId">
 
   export type UserOrderByWithAggregationInput = {
@@ -34283,15 +35542,15 @@ export namespace Prisma {
 
   export type FoodItemImgWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    foodItemId?: string
+    url?: string
     AND?: FoodItemImgWhereInput | FoodItemImgWhereInput[]
     OR?: FoodItemImgWhereInput[]
     NOT?: FoodItemImgWhereInput | FoodItemImgWhereInput[]
-    url?: StringFilter<"FoodItemImg"> | string
+    foodItemId?: StringFilter<"FoodItemImg"> | string
     createdAt?: DateTimeFilter<"FoodItemImg"> | Date | string
     updatedAt?: DateTimeFilter<"FoodItemImg"> | Date | string
     foodItem?: XOR<FoodItemScalarRelationFilter, FoodItemWhereInput>
-  }, "id" | "foodItemId">
+  }, "id" | "url">
 
   export type FoodItemImgOrderByWithAggregationInput = {
     id?: SortOrder
@@ -34421,25 +35680,27 @@ export namespace Prisma {
     NOT?: MealWhereInput | MealWhereInput[]
     id?: StringFilter<"Meal"> | string
     name?: StringNullableFilter<"Meal"> | string | null
-    date?: DateTimeFilter<"Meal"> | Date | string
     mealType?: EnumMealTypeFilter<"Meal"> | $Enums.MealType
     ownerId?: StringFilter<"Meal"> | string
+    notes?: StringNullableFilter<"Meal"> | string | null
     createdAt?: DateTimeFilter<"Meal"> | Date | string
     updatedAt?: DateTimeFilter<"Meal"> | Date | string
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
     mealFoodItems?: MealFoodItemListRelationFilter
+    userMeals?: UserMealListRelationFilter
   }
 
   export type MealOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
-    date?: SortOrder
     mealType?: SortOrder
     ownerId?: SortOrder
+    notes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     owner?: UserOrderByWithRelationInput
     mealFoodItems?: MealFoodItemOrderByRelationAggregateInput
+    userMeals?: UserMealOrderByRelationAggregateInput
   }
 
   export type MealWhereUniqueInput = Prisma.AtLeast<{
@@ -34448,21 +35709,22 @@ export namespace Prisma {
     OR?: MealWhereInput[]
     NOT?: MealWhereInput | MealWhereInput[]
     name?: StringNullableFilter<"Meal"> | string | null
-    date?: DateTimeFilter<"Meal"> | Date | string
     mealType?: EnumMealTypeFilter<"Meal"> | $Enums.MealType
     ownerId?: StringFilter<"Meal"> | string
+    notes?: StringNullableFilter<"Meal"> | string | null
     createdAt?: DateTimeFilter<"Meal"> | Date | string
     updatedAt?: DateTimeFilter<"Meal"> | Date | string
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
     mealFoodItems?: MealFoodItemListRelationFilter
+    userMeals?: UserMealListRelationFilter
   }, "id">
 
   export type MealOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
-    date?: SortOrder
     mealType?: SortOrder
     ownerId?: SortOrder
+    notes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: MealCountOrderByAggregateInput
@@ -34476,9 +35738,9 @@ export namespace Prisma {
     NOT?: MealScalarWhereWithAggregatesInput | MealScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Meal"> | string
     name?: StringNullableWithAggregatesFilter<"Meal"> | string | null
-    date?: DateTimeWithAggregatesFilter<"Meal"> | Date | string
     mealType?: EnumMealTypeWithAggregatesFilter<"Meal"> | $Enums.MealType
     ownerId?: StringWithAggregatesFilter<"Meal"> | string
+    notes?: StringNullableWithAggregatesFilter<"Meal"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Meal"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Meal"> | Date | string
   }
@@ -34548,6 +35810,69 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"MealFoodItem"> | Date | string
   }
 
+  export type UserMealWhereInput = {
+    AND?: UserMealWhereInput | UserMealWhereInput[]
+    OR?: UserMealWhereInput[]
+    NOT?: UserMealWhereInput | UserMealWhereInput[]
+    id?: StringFilter<"UserMeal"> | string
+    mealId?: StringFilter<"UserMeal"> | string
+    userId?: StringFilter<"UserMeal"> | string
+    dateConsumed?: DateTimeFilter<"UserMeal"> | Date | string
+    createdAt?: DateTimeFilter<"UserMeal"> | Date | string
+    updatedAt?: DateTimeFilter<"UserMeal"> | Date | string
+    meal?: XOR<MealScalarRelationFilter, MealWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserMealOrderByWithRelationInput = {
+    id?: SortOrder
+    mealId?: SortOrder
+    userId?: SortOrder
+    dateConsumed?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    meal?: MealOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserMealWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: UserMealWhereInput | UserMealWhereInput[]
+    OR?: UserMealWhereInput[]
+    NOT?: UserMealWhereInput | UserMealWhereInput[]
+    mealId?: StringFilter<"UserMeal"> | string
+    userId?: StringFilter<"UserMeal"> | string
+    dateConsumed?: DateTimeFilter<"UserMeal"> | Date | string
+    createdAt?: DateTimeFilter<"UserMeal"> | Date | string
+    updatedAt?: DateTimeFilter<"UserMeal"> | Date | string
+    meal?: XOR<MealScalarRelationFilter, MealWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type UserMealOrderByWithAggregationInput = {
+    id?: SortOrder
+    mealId?: SortOrder
+    userId?: SortOrder
+    dateConsumed?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserMealCountOrderByAggregateInput
+    _max?: UserMealMaxOrderByAggregateInput
+    _min?: UserMealMinOrderByAggregateInput
+  }
+
+  export type UserMealScalarWhereWithAggregatesInput = {
+    AND?: UserMealScalarWhereWithAggregatesInput | UserMealScalarWhereWithAggregatesInput[]
+    OR?: UserMealScalarWhereWithAggregatesInput[]
+    NOT?: UserMealScalarWhereWithAggregatesInput | UserMealScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserMeal"> | string
+    mealId?: StringWithAggregatesFilter<"UserMeal"> | string
+    userId?: StringWithAggregatesFilter<"UserMeal"> | string
+    dateConsumed?: DateTimeWithAggregatesFilter<"UserMeal"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"UserMeal"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserMeal"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -34563,6 +35888,7 @@ export namespace Prisma {
     workouts?: WorkoutCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
     meals?: MealCreateNestedManyWithoutOwnerInput
+    userMeals?: UserMealCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -34580,6 +35906,7 @@ export namespace Prisma {
     workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
     meals?: MealUncheckedCreateNestedManyWithoutOwnerInput
+    userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -34597,6 +35924,7 @@ export namespace Prisma {
     workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
     meals?: MealUpdateManyWithoutOwnerNestedInput
+    userMeals?: UserMealUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -34614,6 +35942,7 @@ export namespace Prisma {
     workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
+    userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -36254,53 +37583,57 @@ export namespace Prisma {
   export type MealCreateInput = {
     id?: string
     name?: string | null
-    date: Date | string
     mealType?: $Enums.MealType
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner: UserCreateNestedOneWithoutMealsInput
     mealFoodItems?: MealFoodItemCreateNestedManyWithoutMealInput
+    userMeals?: UserMealCreateNestedManyWithoutMealInput
   }
 
   export type MealUncheckedCreateInput = {
     id?: string
     name?: string | null
-    date: Date | string
     mealType?: $Enums.MealType
     ownerId: string
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     mealFoodItems?: MealFoodItemUncheckedCreateNestedManyWithoutMealInput
+    userMeals?: UserMealUncheckedCreateNestedManyWithoutMealInput
   }
 
   export type MealUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutMealsNestedInput
     mealFoodItems?: MealFoodItemUpdateManyWithoutMealNestedInput
+    userMeals?: UserMealUpdateManyWithoutMealNestedInput
   }
 
   export type MealUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
     ownerId?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mealFoodItems?: MealFoodItemUncheckedUpdateManyWithoutMealNestedInput
+    userMeals?: UserMealUncheckedUpdateManyWithoutMealNestedInput
   }
 
   export type MealCreateManyInput = {
     id?: string
     name?: string | null
-    date: Date | string
     mealType?: $Enums.MealType
     ownerId: string
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -36308,8 +37641,8 @@ export namespace Prisma {
   export type MealUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -36317,9 +37650,9 @@ export namespace Prisma {
   export type MealUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
     ownerId?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -36381,6 +37714,67 @@ export namespace Prisma {
     mealId?: StringFieldUpdateOperationsInput | string
     foodItemId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMealCreateInput = {
+    id?: string
+    dateConsumed?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    meal: MealCreateNestedOneWithoutUserMealsInput
+    user: UserCreateNestedOneWithoutUserMealsInput
+  }
+
+  export type UserMealUncheckedCreateInput = {
+    id?: string
+    mealId: string
+    userId: string
+    dateConsumed?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserMealUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meal?: MealUpdateOneRequiredWithoutUserMealsNestedInput
+    user?: UserUpdateOneRequiredWithoutUserMealsNestedInput
+  }
+
+  export type UserMealUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mealId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMealCreateManyInput = {
+    id?: string
+    mealId: string
+    userId: string
+    dateConsumed?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserMealUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMealUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mealId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -36455,6 +37849,12 @@ export namespace Prisma {
     none?: MealWhereInput
   }
 
+  export type UserMealListRelationFilter = {
+    every?: UserMealWhereInput
+    some?: UserMealWhereInput
+    none?: UserMealWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -36473,6 +37873,10 @@ export namespace Prisma {
   }
 
   export type MealOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserMealOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -37761,9 +39165,9 @@ export namespace Prisma {
   export type MealCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    date?: SortOrder
     mealType?: SortOrder
     ownerId?: SortOrder
+    notes?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -37771,9 +39175,9 @@ export namespace Prisma {
   export type MealMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    date?: SortOrder
     mealType?: SortOrder
     ownerId?: SortOrder
+    notes?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -37781,9 +39185,9 @@ export namespace Prisma {
   export type MealMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    date?: SortOrder
     mealType?: SortOrder
     ownerId?: SortOrder
+    notes?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -37838,6 +39242,33 @@ export namespace Prisma {
     quantity?: SortOrder
   }
 
+  export type UserMealCountOrderByAggregateInput = {
+    id?: SortOrder
+    mealId?: SortOrder
+    userId?: SortOrder
+    dateConsumed?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserMealMaxOrderByAggregateInput = {
+    id?: SortOrder
+    mealId?: SortOrder
+    userId?: SortOrder
+    dateConsumed?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserMealMinOrderByAggregateInput = {
+    id?: SortOrder
+    mealId?: SortOrder
+    userId?: SortOrder
+    dateConsumed?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type ProgramCreateNestedManyWithoutOwnerInput = {
     create?: XOR<ProgramCreateWithoutOwnerInput, ProgramUncheckedCreateWithoutOwnerInput> | ProgramCreateWithoutOwnerInput[] | ProgramUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: ProgramCreateOrConnectWithoutOwnerInput | ProgramCreateOrConnectWithoutOwnerInput[]
@@ -37866,6 +39297,13 @@ export namespace Prisma {
     connect?: MealWhereUniqueInput | MealWhereUniqueInput[]
   }
 
+  export type UserMealCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserMealCreateWithoutUserInput, UserMealUncheckedCreateWithoutUserInput> | UserMealCreateWithoutUserInput[] | UserMealUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserMealCreateOrConnectWithoutUserInput | UserMealCreateOrConnectWithoutUserInput[]
+    createMany?: UserMealCreateManyUserInputEnvelope
+    connect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+  }
+
   export type ProgramUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<ProgramCreateWithoutOwnerInput, ProgramUncheckedCreateWithoutOwnerInput> | ProgramCreateWithoutOwnerInput[] | ProgramUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: ProgramCreateOrConnectWithoutOwnerInput | ProgramCreateOrConnectWithoutOwnerInput[]
@@ -37892,6 +39330,13 @@ export namespace Prisma {
     connectOrCreate?: MealCreateOrConnectWithoutOwnerInput | MealCreateOrConnectWithoutOwnerInput[]
     createMany?: MealCreateManyOwnerInputEnvelope
     connect?: MealWhereUniqueInput | MealWhereUniqueInput[]
+  }
+
+  export type UserMealUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserMealCreateWithoutUserInput, UserMealUncheckedCreateWithoutUserInput> | UserMealCreateWithoutUserInput[] | UserMealUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserMealCreateOrConnectWithoutUserInput | UserMealCreateOrConnectWithoutUserInput[]
+    createMany?: UserMealCreateManyUserInputEnvelope
+    connect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -37966,6 +39411,20 @@ export namespace Prisma {
     deleteMany?: MealScalarWhereInput | MealScalarWhereInput[]
   }
 
+  export type UserMealUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserMealCreateWithoutUserInput, UserMealUncheckedCreateWithoutUserInput> | UserMealCreateWithoutUserInput[] | UserMealUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserMealCreateOrConnectWithoutUserInput | UserMealCreateOrConnectWithoutUserInput[]
+    upsert?: UserMealUpsertWithWhereUniqueWithoutUserInput | UserMealUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserMealCreateManyUserInputEnvelope
+    set?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+    disconnect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+    delete?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+    connect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+    update?: UserMealUpdateWithWhereUniqueWithoutUserInput | UserMealUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserMealUpdateManyWithWhereWithoutUserInput | UserMealUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserMealScalarWhereInput | UserMealScalarWhereInput[]
+  }
+
   export type ProgramUncheckedUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<ProgramCreateWithoutOwnerInput, ProgramUncheckedCreateWithoutOwnerInput> | ProgramCreateWithoutOwnerInput[] | ProgramUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: ProgramCreateOrConnectWithoutOwnerInput | ProgramCreateOrConnectWithoutOwnerInput[]
@@ -38020,6 +39479,20 @@ export namespace Prisma {
     update?: MealUpdateWithWhereUniqueWithoutOwnerInput | MealUpdateWithWhereUniqueWithoutOwnerInput[]
     updateMany?: MealUpdateManyWithWhereWithoutOwnerInput | MealUpdateManyWithWhereWithoutOwnerInput[]
     deleteMany?: MealScalarWhereInput | MealScalarWhereInput[]
+  }
+
+  export type UserMealUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserMealCreateWithoutUserInput, UserMealUncheckedCreateWithoutUserInput> | UserMealCreateWithoutUserInput[] | UserMealUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserMealCreateOrConnectWithoutUserInput | UserMealCreateOrConnectWithoutUserInput[]
+    upsert?: UserMealUpsertWithWhereUniqueWithoutUserInput | UserMealUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserMealCreateManyUserInputEnvelope
+    set?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+    disconnect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+    delete?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+    connect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+    update?: UserMealUpdateWithWhereUniqueWithoutUserInput | UserMealUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserMealUpdateManyWithWhereWithoutUserInput | UserMealUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserMealScalarWhereInput | UserMealScalarWhereInput[]
   }
 
   export type ExerciseCreateequipmentInput = {
@@ -39442,11 +40915,25 @@ export namespace Prisma {
     connect?: MealFoodItemWhereUniqueInput | MealFoodItemWhereUniqueInput[]
   }
 
+  export type UserMealCreateNestedManyWithoutMealInput = {
+    create?: XOR<UserMealCreateWithoutMealInput, UserMealUncheckedCreateWithoutMealInput> | UserMealCreateWithoutMealInput[] | UserMealUncheckedCreateWithoutMealInput[]
+    connectOrCreate?: UserMealCreateOrConnectWithoutMealInput | UserMealCreateOrConnectWithoutMealInput[]
+    createMany?: UserMealCreateManyMealInputEnvelope
+    connect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+  }
+
   export type MealFoodItemUncheckedCreateNestedManyWithoutMealInput = {
     create?: XOR<MealFoodItemCreateWithoutMealInput, MealFoodItemUncheckedCreateWithoutMealInput> | MealFoodItemCreateWithoutMealInput[] | MealFoodItemUncheckedCreateWithoutMealInput[]
     connectOrCreate?: MealFoodItemCreateOrConnectWithoutMealInput | MealFoodItemCreateOrConnectWithoutMealInput[]
     createMany?: MealFoodItemCreateManyMealInputEnvelope
     connect?: MealFoodItemWhereUniqueInput | MealFoodItemWhereUniqueInput[]
+  }
+
+  export type UserMealUncheckedCreateNestedManyWithoutMealInput = {
+    create?: XOR<UserMealCreateWithoutMealInput, UserMealUncheckedCreateWithoutMealInput> | UserMealCreateWithoutMealInput[] | UserMealUncheckedCreateWithoutMealInput[]
+    connectOrCreate?: UserMealCreateOrConnectWithoutMealInput | UserMealCreateOrConnectWithoutMealInput[]
+    createMany?: UserMealCreateManyMealInputEnvelope
+    connect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
   }
 
   export type EnumMealTypeFieldUpdateOperationsInput = {
@@ -39475,6 +40962,20 @@ export namespace Prisma {
     deleteMany?: MealFoodItemScalarWhereInput | MealFoodItemScalarWhereInput[]
   }
 
+  export type UserMealUpdateManyWithoutMealNestedInput = {
+    create?: XOR<UserMealCreateWithoutMealInput, UserMealUncheckedCreateWithoutMealInput> | UserMealCreateWithoutMealInput[] | UserMealUncheckedCreateWithoutMealInput[]
+    connectOrCreate?: UserMealCreateOrConnectWithoutMealInput | UserMealCreateOrConnectWithoutMealInput[]
+    upsert?: UserMealUpsertWithWhereUniqueWithoutMealInput | UserMealUpsertWithWhereUniqueWithoutMealInput[]
+    createMany?: UserMealCreateManyMealInputEnvelope
+    set?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+    disconnect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+    delete?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+    connect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+    update?: UserMealUpdateWithWhereUniqueWithoutMealInput | UserMealUpdateWithWhereUniqueWithoutMealInput[]
+    updateMany?: UserMealUpdateManyWithWhereWithoutMealInput | UserMealUpdateManyWithWhereWithoutMealInput[]
+    deleteMany?: UserMealScalarWhereInput | UserMealScalarWhereInput[]
+  }
+
   export type MealFoodItemUncheckedUpdateManyWithoutMealNestedInput = {
     create?: XOR<MealFoodItemCreateWithoutMealInput, MealFoodItemUncheckedCreateWithoutMealInput> | MealFoodItemCreateWithoutMealInput[] | MealFoodItemUncheckedCreateWithoutMealInput[]
     connectOrCreate?: MealFoodItemCreateOrConnectWithoutMealInput | MealFoodItemCreateOrConnectWithoutMealInput[]
@@ -39487,6 +40988,20 @@ export namespace Prisma {
     update?: MealFoodItemUpdateWithWhereUniqueWithoutMealInput | MealFoodItemUpdateWithWhereUniqueWithoutMealInput[]
     updateMany?: MealFoodItemUpdateManyWithWhereWithoutMealInput | MealFoodItemUpdateManyWithWhereWithoutMealInput[]
     deleteMany?: MealFoodItemScalarWhereInput | MealFoodItemScalarWhereInput[]
+  }
+
+  export type UserMealUncheckedUpdateManyWithoutMealNestedInput = {
+    create?: XOR<UserMealCreateWithoutMealInput, UserMealUncheckedCreateWithoutMealInput> | UserMealCreateWithoutMealInput[] | UserMealUncheckedCreateWithoutMealInput[]
+    connectOrCreate?: UserMealCreateOrConnectWithoutMealInput | UserMealCreateOrConnectWithoutMealInput[]
+    upsert?: UserMealUpsertWithWhereUniqueWithoutMealInput | UserMealUpsertWithWhereUniqueWithoutMealInput[]
+    createMany?: UserMealCreateManyMealInputEnvelope
+    set?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+    disconnect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+    delete?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+    connect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+    update?: UserMealUpdateWithWhereUniqueWithoutMealInput | UserMealUpdateWithWhereUniqueWithoutMealInput[]
+    updateMany?: UserMealUpdateManyWithWhereWithoutMealInput | UserMealUpdateManyWithWhereWithoutMealInput[]
+    deleteMany?: UserMealScalarWhereInput | UserMealScalarWhereInput[]
   }
 
   export type MealCreateNestedOneWithoutMealFoodItemsInput = {
@@ -39515,6 +41030,34 @@ export namespace Prisma {
     upsert?: FoodItemUpsertWithoutMealFoodItemInput
     connect?: FoodItemWhereUniqueInput
     update?: XOR<XOR<FoodItemUpdateToOneWithWhereWithoutMealFoodItemInput, FoodItemUpdateWithoutMealFoodItemInput>, FoodItemUncheckedUpdateWithoutMealFoodItemInput>
+  }
+
+  export type MealCreateNestedOneWithoutUserMealsInput = {
+    create?: XOR<MealCreateWithoutUserMealsInput, MealUncheckedCreateWithoutUserMealsInput>
+    connectOrCreate?: MealCreateOrConnectWithoutUserMealsInput
+    connect?: MealWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutUserMealsInput = {
+    create?: XOR<UserCreateWithoutUserMealsInput, UserUncheckedCreateWithoutUserMealsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserMealsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type MealUpdateOneRequiredWithoutUserMealsNestedInput = {
+    create?: XOR<MealCreateWithoutUserMealsInput, MealUncheckedCreateWithoutUserMealsInput>
+    connectOrCreate?: MealCreateOrConnectWithoutUserMealsInput
+    upsert?: MealUpsertWithoutUserMealsInput
+    connect?: MealWhereUniqueInput
+    update?: XOR<XOR<MealUpdateToOneWithWhereWithoutUserMealsInput, MealUpdateWithoutUserMealsInput>, MealUncheckedUpdateWithoutUserMealsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutUserMealsNestedInput = {
+    create?: XOR<UserCreateWithoutUserMealsInput, UserUncheckedCreateWithoutUserMealsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserMealsInput
+    upsert?: UserUpsertWithoutUserMealsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserMealsInput, UserUpdateWithoutUserMealsInput>, UserUncheckedUpdateWithoutUserMealsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -39869,21 +41412,23 @@ export namespace Prisma {
   export type MealCreateWithoutOwnerInput = {
     id?: string
     name?: string | null
-    date: Date | string
     mealType?: $Enums.MealType
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     mealFoodItems?: MealFoodItemCreateNestedManyWithoutMealInput
+    userMeals?: UserMealCreateNestedManyWithoutMealInput
   }
 
   export type MealUncheckedCreateWithoutOwnerInput = {
     id?: string
     name?: string | null
-    date: Date | string
     mealType?: $Enums.MealType
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     mealFoodItems?: MealFoodItemUncheckedCreateNestedManyWithoutMealInput
+    userMeals?: UserMealUncheckedCreateNestedManyWithoutMealInput
   }
 
   export type MealCreateOrConnectWithoutOwnerInput = {
@@ -39893,6 +41438,32 @@ export namespace Prisma {
 
   export type MealCreateManyOwnerInputEnvelope = {
     data: MealCreateManyOwnerInput | MealCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserMealCreateWithoutUserInput = {
+    id?: string
+    dateConsumed?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    meal: MealCreateNestedOneWithoutUserMealsInput
+  }
+
+  export type UserMealUncheckedCreateWithoutUserInput = {
+    id?: string
+    mealId: string
+    dateConsumed?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserMealCreateOrConnectWithoutUserInput = {
+    where: UserMealWhereUniqueInput
+    create: XOR<UserMealCreateWithoutUserInput, UserMealUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserMealCreateManyUserInputEnvelope = {
+    data: UserMealCreateManyUserInput | UserMealCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -40006,11 +41577,39 @@ export namespace Prisma {
     NOT?: MealScalarWhereInput | MealScalarWhereInput[]
     id?: StringFilter<"Meal"> | string
     name?: StringNullableFilter<"Meal"> | string | null
-    date?: DateTimeFilter<"Meal"> | Date | string
     mealType?: EnumMealTypeFilter<"Meal"> | $Enums.MealType
     ownerId?: StringFilter<"Meal"> | string
+    notes?: StringNullableFilter<"Meal"> | string | null
     createdAt?: DateTimeFilter<"Meal"> | Date | string
     updatedAt?: DateTimeFilter<"Meal"> | Date | string
+  }
+
+  export type UserMealUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserMealWhereUniqueInput
+    update: XOR<UserMealUpdateWithoutUserInput, UserMealUncheckedUpdateWithoutUserInput>
+    create: XOR<UserMealCreateWithoutUserInput, UserMealUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserMealUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserMealWhereUniqueInput
+    data: XOR<UserMealUpdateWithoutUserInput, UserMealUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserMealUpdateManyWithWhereWithoutUserInput = {
+    where: UserMealScalarWhereInput
+    data: XOR<UserMealUpdateManyMutationInput, UserMealUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserMealScalarWhereInput = {
+    AND?: UserMealScalarWhereInput | UserMealScalarWhereInput[]
+    OR?: UserMealScalarWhereInput[]
+    NOT?: UserMealScalarWhereInput | UserMealScalarWhereInput[]
+    id?: StringFilter<"UserMeal"> | string
+    mealId?: StringFilter<"UserMeal"> | string
+    userId?: StringFilter<"UserMeal"> | string
+    dateConsumed?: DateTimeFilter<"UserMeal"> | Date | string
+    createdAt?: DateTimeFilter<"UserMeal"> | Date | string
+    updatedAt?: DateTimeFilter<"UserMeal"> | Date | string
   }
 
   export type WorkoutExerciseCreateWithoutExerciseInput = {
@@ -41045,6 +42644,7 @@ export namespace Prisma {
     workouts?: WorkoutCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
     meals?: MealCreateNestedManyWithoutOwnerInput
+    userMeals?: UserMealCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProgramsInput = {
@@ -41061,6 +42661,7 @@ export namespace Prisma {
     workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
     meals?: MealUncheckedCreateNestedManyWithoutOwnerInput
+    userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProgramsInput = {
@@ -41137,6 +42738,7 @@ export namespace Prisma {
     workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
     meals?: MealUpdateManyWithoutOwnerNestedInput
+    userMeals?: UserMealUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProgramsInput = {
@@ -41153,6 +42755,7 @@ export namespace Prisma {
     workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
+    userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProgramCreateWithoutProgramWorkoutsInput = {
@@ -41301,6 +42904,7 @@ export namespace Prisma {
     programs?: ProgramCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
     meals?: MealCreateNestedManyWithoutOwnerInput
+    userMeals?: UserMealCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkoutsInput = {
@@ -41317,6 +42921,7 @@ export namespace Prisma {
     programs?: ProgramUncheckedCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
     meals?: MealUncheckedCreateNestedManyWithoutOwnerInput
+    userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkoutsInput = {
@@ -41437,6 +43042,7 @@ export namespace Prisma {
     programs?: ProgramUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
     meals?: MealUpdateManyWithoutOwnerNestedInput
+    userMeals?: UserMealUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkoutsInput = {
@@ -41453,6 +43059,7 @@ export namespace Prisma {
     programs?: ProgramUncheckedUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
+    userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkoutExerciseUpsertWithWhereUniqueWithoutWorkoutInput = {
@@ -42087,6 +43694,7 @@ export namespace Prisma {
     programs?: ProgramCreateNestedManyWithoutOwnerInput
     workouts?: WorkoutCreateNestedManyWithoutOwnerInput
     meals?: MealCreateNestedManyWithoutOwnerInput
+    userMeals?: UserMealCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUserWorkoutInput = {
@@ -42103,6 +43711,7 @@ export namespace Prisma {
     programs?: ProgramUncheckedCreateNestedManyWithoutOwnerInput
     workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
     meals?: MealUncheckedCreateNestedManyWithoutOwnerInput
+    userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUserWorkoutInput = {
@@ -42219,6 +43828,7 @@ export namespace Prisma {
     programs?: ProgramUpdateManyWithoutOwnerNestedInput
     workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
     meals?: MealUpdateManyWithoutOwnerNestedInput
+    userMeals?: UserMealUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUserWorkoutInput = {
@@ -42235,6 +43845,7 @@ export namespace Prisma {
     programs?: ProgramUncheckedUpdateManyWithoutOwnerNestedInput
     workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
+    userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserWorkoutExerciseUpsertWithWhereUniqueWithoutUserWorkoutInput = {
@@ -42904,6 +44515,7 @@ export namespace Prisma {
     programs?: ProgramCreateNestedManyWithoutOwnerInput
     workouts?: WorkoutCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
+    userMeals?: UserMealCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMealsInput = {
@@ -42920,6 +44532,7 @@ export namespace Prisma {
     programs?: ProgramUncheckedCreateNestedManyWithoutOwnerInput
     workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
+    userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMealsInput = {
@@ -42953,6 +44566,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserMealCreateWithoutMealInput = {
+    id?: string
+    dateConsumed?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutUserMealsInput
+  }
+
+  export type UserMealUncheckedCreateWithoutMealInput = {
+    id?: string
+    userId: string
+    dateConsumed?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserMealCreateOrConnectWithoutMealInput = {
+    where: UserMealWhereUniqueInput
+    create: XOR<UserMealCreateWithoutMealInput, UserMealUncheckedCreateWithoutMealInput>
+  }
+
+  export type UserMealCreateManyMealInputEnvelope = {
+    data: UserMealCreateManyMealInput | UserMealCreateManyMealInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutMealsInput = {
     update: XOR<UserUpdateWithoutMealsInput, UserUncheckedUpdateWithoutMealsInput>
     create: XOR<UserCreateWithoutMealsInput, UserUncheckedCreateWithoutMealsInput>
@@ -42978,6 +44617,7 @@ export namespace Prisma {
     programs?: ProgramUpdateManyWithoutOwnerNestedInput
     workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
+    userMeals?: UserMealUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMealsInput = {
@@ -42994,6 +44634,7 @@ export namespace Prisma {
     programs?: ProgramUncheckedUpdateManyWithoutOwnerNestedInput
     workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
+    userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MealFoodItemUpsertWithWhereUniqueWithoutMealInput = {
@@ -43012,24 +44653,42 @@ export namespace Prisma {
     data: XOR<MealFoodItemUpdateManyMutationInput, MealFoodItemUncheckedUpdateManyWithoutMealInput>
   }
 
+  export type UserMealUpsertWithWhereUniqueWithoutMealInput = {
+    where: UserMealWhereUniqueInput
+    update: XOR<UserMealUpdateWithoutMealInput, UserMealUncheckedUpdateWithoutMealInput>
+    create: XOR<UserMealCreateWithoutMealInput, UserMealUncheckedCreateWithoutMealInput>
+  }
+
+  export type UserMealUpdateWithWhereUniqueWithoutMealInput = {
+    where: UserMealWhereUniqueInput
+    data: XOR<UserMealUpdateWithoutMealInput, UserMealUncheckedUpdateWithoutMealInput>
+  }
+
+  export type UserMealUpdateManyWithWhereWithoutMealInput = {
+    where: UserMealScalarWhereInput
+    data: XOR<UserMealUpdateManyMutationInput, UserMealUncheckedUpdateManyWithoutMealInput>
+  }
+
   export type MealCreateWithoutMealFoodItemsInput = {
     id?: string
     name?: string | null
-    date: Date | string
     mealType?: $Enums.MealType
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner: UserCreateNestedOneWithoutMealsInput
+    userMeals?: UserMealCreateNestedManyWithoutMealInput
   }
 
   export type MealUncheckedCreateWithoutMealFoodItemsInput = {
     id?: string
     name?: string | null
-    date: Date | string
     mealType?: $Enums.MealType
     ownerId: string
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    userMeals?: UserMealUncheckedCreateNestedManyWithoutMealInput
   }
 
   export type MealCreateOrConnectWithoutMealFoodItemsInput = {
@@ -43100,21 +44759,23 @@ export namespace Prisma {
   export type MealUpdateWithoutMealFoodItemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutMealsNestedInput
+    userMeals?: UserMealUpdateManyWithoutMealNestedInput
   }
 
   export type MealUncheckedUpdateWithoutMealFoodItemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
     ownerId?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userMeals?: UserMealUncheckedUpdateManyWithoutMealNestedInput
   }
 
   export type FoodItemUpsertWithoutMealFoodItemInput = {
@@ -43172,6 +44833,150 @@ export namespace Prisma {
     images?: FoodItemImgUncheckedUpdateManyWithoutFoodItemNestedInput
   }
 
+  export type MealCreateWithoutUserMealsInput = {
+    id?: string
+    name?: string | null
+    mealType?: $Enums.MealType
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutMealsInput
+    mealFoodItems?: MealFoodItemCreateNestedManyWithoutMealInput
+  }
+
+  export type MealUncheckedCreateWithoutUserMealsInput = {
+    id?: string
+    name?: string | null
+    mealType?: $Enums.MealType
+    ownerId: string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    mealFoodItems?: MealFoodItemUncheckedCreateNestedManyWithoutMealInput
+  }
+
+  export type MealCreateOrConnectWithoutUserMealsInput = {
+    where: MealWhereUniqueInput
+    create: XOR<MealCreateWithoutUserMealsInput, MealUncheckedCreateWithoutUserMealsInput>
+  }
+
+  export type UserCreateWithoutUserMealsInput = {
+    id?: string
+    email: string
+    passwordHash?: string | null
+    googleId?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    imgUrl?: string | null
+    isAdmin?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    programs?: ProgramCreateNestedManyWithoutOwnerInput
+    workouts?: WorkoutCreateNestedManyWithoutOwnerInput
+    userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
+    meals?: MealCreateNestedManyWithoutOwnerInput
+  }
+
+  export type UserUncheckedCreateWithoutUserMealsInput = {
+    id?: string
+    email: string
+    passwordHash?: string | null
+    googleId?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    imgUrl?: string | null
+    isAdmin?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    programs?: ProgramUncheckedCreateNestedManyWithoutOwnerInput
+    workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
+    userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
+    meals?: MealUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type UserCreateOrConnectWithoutUserMealsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserMealsInput, UserUncheckedCreateWithoutUserMealsInput>
+  }
+
+  export type MealUpsertWithoutUserMealsInput = {
+    update: XOR<MealUpdateWithoutUserMealsInput, MealUncheckedUpdateWithoutUserMealsInput>
+    create: XOR<MealCreateWithoutUserMealsInput, MealUncheckedCreateWithoutUserMealsInput>
+    where?: MealWhereInput
+  }
+
+  export type MealUpdateToOneWithWhereWithoutUserMealsInput = {
+    where?: MealWhereInput
+    data: XOR<MealUpdateWithoutUserMealsInput, MealUncheckedUpdateWithoutUserMealsInput>
+  }
+
+  export type MealUpdateWithoutUserMealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutMealsNestedInput
+    mealFoodItems?: MealFoodItemUpdateManyWithoutMealNestedInput
+  }
+
+  export type MealUncheckedUpdateWithoutUserMealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
+    ownerId?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mealFoodItems?: MealFoodItemUncheckedUpdateManyWithoutMealNestedInput
+  }
+
+  export type UserUpsertWithoutUserMealsInput = {
+    update: XOR<UserUpdateWithoutUserMealsInput, UserUncheckedUpdateWithoutUserMealsInput>
+    create: XOR<UserCreateWithoutUserMealsInput, UserUncheckedCreateWithoutUserMealsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserMealsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserMealsInput, UserUncheckedUpdateWithoutUserMealsInput>
+  }
+
+  export type UserUpdateWithoutUserMealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    programs?: ProgramUpdateManyWithoutOwnerNestedInput
+    workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
+    userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
+    meals?: MealUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUserMealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    programs?: ProgramUncheckedUpdateManyWithoutOwnerNestedInput
+    workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
+    userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
+    meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
   export type ProgramCreateManyOwnerInput = {
     id?: string
     name: string
@@ -43203,8 +45008,16 @@ export namespace Prisma {
   export type MealCreateManyOwnerInput = {
     id?: string
     name?: string | null
-    date: Date | string
     mealType?: $Enums.MealType
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserMealCreateManyUserInput = {
+    id?: string
+    mealId: string
+    dateConsumed?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -43308,28 +45121,54 @@ export namespace Prisma {
   export type MealUpdateWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mealFoodItems?: MealFoodItemUpdateManyWithoutMealNestedInput
+    userMeals?: UserMealUpdateManyWithoutMealNestedInput
   }
 
   export type MealUncheckedUpdateWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mealFoodItems?: MealFoodItemUncheckedUpdateManyWithoutMealNestedInput
+    userMeals?: UserMealUncheckedUpdateManyWithoutMealNestedInput
   }
 
   export type MealUncheckedUpdateManyWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMealUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meal?: MealUpdateOneRequiredWithoutUserMealsNestedInput
+  }
+
+  export type UserMealUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mealId?: StringFieldUpdateOperationsInput | string
+    dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMealUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mealId?: StringFieldUpdateOperationsInput | string
+    dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -44210,6 +46049,14 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type UserMealCreateManyMealInput = {
+    id?: string
+    userId: string
+    dateConsumed?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type MealFoodItemUpdateWithoutMealInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -44230,6 +46077,30 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     foodItemId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMealUpdateWithoutMealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserMealsNestedInput
+  }
+
+  export type UserMealUncheckedUpdateWithoutMealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMealUncheckedUpdateManyWithoutMealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

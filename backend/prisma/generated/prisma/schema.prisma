@@ -162,6 +162,7 @@ model User {
   workouts     Workout[]
   userWorkout  UserWorkout[]
   meals        Meal[]
+  userMeals    UserMeal[]
   imgUrl       String?
   isAdmin      Boolean       @default(false)
   createdAt    DateTime      @default(now())
@@ -338,6 +339,15 @@ model Workout {
   userWorkouts     UserWorkout[]
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
+
+  /**
+   * Manually added to migration
+   * CREATE UNIQUE INDEX
+   * IF NOT EXISTS uniq_workout_name_template
+   * ON "Workout"
+   * (name)
+   * WHERE "isTemplate" = true AND name IS NOT NULL;
+   */
 }
 
 model WorkoutExercise {
@@ -412,8 +422,8 @@ model FoodItemLabel {
 
 model FoodItemImg {
   id         String   @id @default(cuid())
-  url        String
-  foodItemId String   @unique
+  url        String   @unique
+  foodItemId String
   foodItem   FoodItem @relation(fields: [foodItemId], references: [id], onDelete: Cascade)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -438,11 +448,12 @@ model FoodItemCategory {
 model Meal {
   id            String         @id @default(cuid())
   name          String?
-  date          DateTime
   mealType      MealType       @default(breakfast)
   ownerId       String
   owner         User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   mealFoodItems MealFoodItem[]
+  userMeals     UserMeal[]
+  notes         String?
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 }
@@ -456,4 +467,15 @@ model MealFoodItem {
   quantity   Int      @default(1) // in grams
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+}
+
+model UserMeal {
+  id           String   @id @default(cuid())
+  mealId       String
+  meal         Meal     @relation(fields: [mealId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dateConsumed DateTime @default(now())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }

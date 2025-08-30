@@ -9,6 +9,7 @@ import type {
   IProgramWorkoutEditDTO,
 } from "../../../../../shared/models/program.model";
 import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
+import { appUtil } from "../../../utils/app.util";
 
 export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO) => {
   const [selectedWorkout, setSelectedWorkout] =
@@ -31,8 +32,14 @@ export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO) => {
         ? [...(prev.daysOfWeek || []), fixedDay]
         : (prev.daysOfWeek || []).filter((day) => day !== fixedDay);
 
+      const crudOperation = appUtil.createOrUpdateCrud(
+        prev.id,
+        prev.crudOperation
+      );
+
       return {
         ...prev,
+        crudOperation,
         daysOfWeek: newDaysOfWeek,
       };
     });
@@ -65,7 +72,10 @@ export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO) => {
       setSelectedWorkout((prev) => {
         if (!prev) return null;
         if (!workout) return prev;
-        const updatedWorkout = workoutUtils.dtoToEditDto(workout);
+        const updatedWorkout = workoutUtils.dtoToEditDto({
+          dto: workout,
+          isEdit: false,
+        });
         return {
           ...prev,
           workout: updatedWorkout,

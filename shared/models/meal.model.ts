@@ -1,0 +1,28 @@
+import type { MealType } from "../../backend/prisma/generated/prisma";
+import type { IEntity } from "./entity.model";
+import type { IFoodItemDto } from "./foodItem.model";
+import type { IUserDTO } from "./user.model";
+
+interface IMealBase extends IEntity {
+  owner?: IUserDTO | null;
+  name?: string | null;
+  mealType: MealType;
+  notes?: string | null;
+}
+
+export interface IMealDTO extends IMealBase {
+  mealFoodItems: IMealFoodItemDTO[];
+}
+
+export interface IMealEditDTO extends IMealBase {
+  mealFoodItems?: IMealFoodItemEditDTO[];
+  ownerId?: string | null;
+}
+
+export interface IMealFoodItemDTO extends IEntity {
+  foodItem?: IFoodItemDto | null;
+  quantity?: number | null;
+}
+export interface IMealFoodItemEditDTO extends IMealFoodItemDTO {
+  foodItemId?: string | null;
+}

@@ -16,5 +16,5 @@ export default function AuthGuard({ children }: AuthProviderProps) {
 
   if (isLoading) return <Loader loaderType="screen" isFullScreen />;
 
-  return user ? <>{children}</> : <AuthPage />;
+  return <>{children}</> ;
 }

@@ -223,7 +223,7 @@ const conditionalWeightRefinement = (
 
 const numberValidation = ({
   minLength = 0,
-  maxLength = 100,
+  maxLength = 100000000,
   fieldName,
 }: IValidationProps) => {
   return z.coerce

@@ -23,7 +23,6 @@ export default function ProgramWorkoutEdit({
   handleProgramWorkouts,
   ...props
 }: ProgramWorkoutProps) {
-  console.log("🚀 ~ ProgramWorkoutEdit ~ handleProgramWorkouts:", handleProgramWorkouts)
   const {
     selectedWorkout,
     onDaysChange,

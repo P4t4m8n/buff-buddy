@@ -19,7 +19,6 @@ function ProgramWorkoutEditWeekList({
   handleProgramWorkouts,
   deleteProgramWorkout,
 }: IProgramWorkoutEditWeekListProps) {
-  console.log("Rendering ProgramWorkoutEditWeekList");
 
   const cleanedWorkouts =
     programWorkouts?.filter((ex) => ex.crudOperation !== "delete") || [];

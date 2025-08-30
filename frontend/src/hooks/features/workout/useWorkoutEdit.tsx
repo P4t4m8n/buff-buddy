@@ -34,7 +34,10 @@ export const useWorkoutEdit = ({
   useEffect(() => {
     const init = async () => {
       if (workout) {
-        const workoutToEdit = workoutUtils.dtoToEditDto(workout);
+        const workoutToEdit = workoutUtils.dtoToEditDto({
+          dto: workout,
+          isEdit: true,
+        });
         setWorkoutToEdit(workoutToEdit);
         return;
       }
@@ -50,7 +53,10 @@ export const useWorkoutEdit = ({
         if (!updateWorkout) {
           throw ClientError.create("Workout not found");
         }
-        const workoutToUpdate = workoutUtils.dtoToEditDto(updateWorkout);
+        const workoutToUpdate = workoutUtils.dtoToEditDto({
+          dto: updateWorkout,
+          isEdit: true,
+        });
         setWorkoutToEdit(workoutToUpdate);
       } catch (error) {
         handleError({ error });

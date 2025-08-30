@@ -19,7 +19,6 @@ function ProgramWorkoutEditPreview({
   deleteProgramWorkout,
   handleProgramWorkouts,
 }: IProgramWorkoutEditPreview) {
-  console.log("Rendering ProgramWorkoutEditPreview");
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();

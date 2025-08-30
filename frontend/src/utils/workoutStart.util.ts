@@ -11,7 +11,8 @@ export const workoutStartUtil = {
   workoutDTOToWorkoutStartDTO: (
     workoutDTO?: IWorkoutDTO | null,
     programId?: string,
-    lastUserWorkout?: IUserWorkoutDTO | null
+    lastUserWorkout?: IUserWorkoutDTO | null,
+    ownerId?: string 
   ): IUserWorkoutEditDTO => {
     return {
       id: appUtil.getTempId(),
@@ -24,6 +25,7 @@ export const workoutStartUtil = {
         notes: workoutDTO?.notes,
         owner: workoutDTO?.owner,
       },
+      ownerId: ownerId ,
       userWorkoutExercises: (workoutDTO?.workoutExercises ?? [])?.map((we) => {
         const item: IUserWorkoutExercisesEditDTO = {
           id: we.id,

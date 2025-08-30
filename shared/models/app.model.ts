@@ -23,3 +23,7 @@ export interface IDateValidationProps {
   endDate: string;
   fieldName: string;
 }
+
+export interface IToSanitize {
+  toSanitize: boolean;
+}

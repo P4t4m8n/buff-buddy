@@ -11,8 +11,10 @@ import WorkoutDetailsPage from "./pages/Workout/WorkoutDetailsPage";
 import WorkoutStartPage from "./pages/Workout/WorkoutStartPage";
 import WorkoutEditPage from "./pages/Workout/WorkoutEditPage";
 import WorkoutListPage from "./pages/Workout/WorkoutListPage";
-import DietPage from "./pages/DietPage";
+import DietPage from "./pages/Diet/DietPage";
 import ProgramEditPage from "./pages/Program/ProgramEditPage";
+import MealPage from "./pages/Meal/MealPage";
+import MealEditPage from "./pages/Meal/MealEditPage";
 
 export interface RouteConfig {
   path: string;
@@ -101,5 +103,15 @@ export const ROUTES: RouteConfig[] = [
   {
     path: "/diet",
     element: <DietPage />,
-  }
+  },
+  {
+    path: "/meals",
+    element: <MealPage />,
+    children: [
+      {
+        path: "/meals/edit",
+        element: <MealEditPage />,
+      },
+    ],
+  },
 ];

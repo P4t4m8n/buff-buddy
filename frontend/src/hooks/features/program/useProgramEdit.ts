@@ -110,7 +110,7 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
         };
       } else {
         programWorkouts[idx].crudOperation = "delete";
-        
+
         return {
           ...prev,
           programWorkouts,

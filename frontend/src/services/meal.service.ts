@@ -1,0 +1,49 @@
+import type { IMealDTO, IMealEditDTO } from "../../../shared/models/meal.model";
+import type { THttpPostResponse } from "../models/apiService.model";
+import { apiService } from "./api.service";
+import { ClientError } from "./ClientError.service";
+import { mealValidation } from "../../../shared/validations//meal.validations";
+
+const BASE_URL = "/meals";
+
+const get = async () => {
+  return await apiService.get<Array<IMealDTO>>(BASE_URL);
+};
+const getById = async (id?: string) => {
+  if (!id) throw ClientError.create("Meal ID is required", 400);
+  
+  return await apiService.get<IMealDTO>(`${BASE_URL}/${id}`);
+};
+const save = async (
+  dto: IMealEditDTO
+): Promise<THttpPostResponse<IMealDTO>> => {
+  if (!dto) throw ClientError.create("Meal data is required", 400);
+  const { id } = dto;
+
+  if (!id || id.startsWith("temp")) {
+    const validatedDTO = mealValidation
+      .createMealFactorySchema({ toSanitize: false })
+      .parse(dto);
+    return await apiService.post<THttpPostResponse<IMealDTO>>(
+      `${BASE_URL}/edit`,
+      validatedDTO
+    );
+  }
+  const validatedDTO = mealValidation
+    .updateMealFactorySchema({ toSanitize: false })
+    .parse(dto);
+  return await apiService.put<THttpPostResponse<IMealDTO>>(
+    `${BASE_URL}/edit/${dto.id}`,
+    validatedDTO
+  );
+};
+const remove = async (id: string) => {
+  return await apiService.delete(`${BASE_URL}/edit/${id}`);
+};
+
+export const mealService = {
+  get,
+  getById,
+  save,
+  remove,
+};
