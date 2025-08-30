@@ -30,7 +30,7 @@ export default function WorkoutEditPage() {
   };
 
   return (
-    <div className="h-main">
+    <div className="h-main grid-stack z-10">
       <WorkoutEdit
         workoutToEdit={workoutToEdit}
         isLoading={isLoading}

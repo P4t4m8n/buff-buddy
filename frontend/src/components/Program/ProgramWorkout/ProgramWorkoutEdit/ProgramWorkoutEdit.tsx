@@ -1,21 +1,21 @@
-import { useProgramWorkoutEdit } from "../../../hooks/features/program/useProgramWorkoutEdit";
+import { useProgramWorkoutEdit } from "../../../../hooks/features/program/useProgramWorkoutEdit";
 
-import WorkoutEditModel from "../../Workout/WorkoutEditModel";
+import WorkoutEditModel from "../../../Workout/WorkoutEditModel";
 import ProgramWorkoutEditSelected from "./ProgramWorkoutEditSelected";
 import ProgramWorkoutList from "./ProgramWorkoutList";
 
-import Button from "../../UI/Button";
-import GenericModel from "../../UI/GenericModel";
+import Button from "../../../UI/Button";
+import GenericModel from "../../../UI/GenericModel";
 
 import type {
   IProgramWorkoutDTO,
   IProgramWorkoutEditDTO,
-} from "../../../../../shared/models/program.model";
-import type { IModelProps } from "../../UI/GenericModel";
+} from "../../../../../../shared/models/program.model";
+import type { IModelProps } from "../../../UI/GenericModel";
 
 interface ProgramWorkoutProps extends IModelProps<HTMLDivElement> {
   programWorkout?: IProgramWorkoutDTO;
-  handleProgramWorkouts?: (workout: IProgramWorkoutEditDTO) => void;
+  handleProgramWorkouts: (workout: IProgramWorkoutEditDTO) => void;
 }
 
 export default function ProgramWorkoutEdit({
@@ -23,6 +23,7 @@ export default function ProgramWorkoutEdit({
   handleProgramWorkouts,
   ...props
 }: ProgramWorkoutProps) {
+  console.log("🚀 ~ ProgramWorkoutEdit ~ handleProgramWorkouts:", handleProgramWorkouts)
   const {
     selectedWorkout,
     onDaysChange,
@@ -36,7 +37,7 @@ export default function ProgramWorkoutEdit({
     e.preventDefault();
     e.stopPropagation();
 
-    if (selectedWorkout && handleProgramWorkouts) {
+    if (selectedWorkout) {
       handleProgramWorkouts(selectedWorkout);
     }
     if (handleModel) {

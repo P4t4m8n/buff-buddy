@@ -1,12 +1,12 @@
-import WorkoutEditModel from "../Workout/WorkoutEditModel";
+import WorkoutEditModel from "../../Workout/WorkoutEditModel";
 
-import GenericList from "../UI/GenericList";
-import GenericModel from "../UI/GenericModel";
-import GenericTags from "../UI/GenericTags";
-import IconStart from "../UI/Icons/IconStart";
-import LinkComponent from "../UI/Link";
+import GenericList from "../../UI/GenericList";
+import GenericModel from "../../UI/GenericModel";
+import GenericTags from "../../UI/GenericTags";
+import IconStart from "../../UI/Icons/IconStart";
+import LinkComponent from "../../UI/Link";
 
-import type { IProgramWorkoutDTO } from "../../../../shared/models/program.model";
+import type { IProgramWorkoutDTO } from "../../../../../shared/models/program.model";
 
 interface IProgramWorkoutPreviewProps {
   item: IProgramWorkoutDTO;

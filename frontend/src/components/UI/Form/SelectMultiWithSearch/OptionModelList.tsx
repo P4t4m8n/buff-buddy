@@ -25,13 +25,13 @@ export default function OptionModelList<T>({
   return (
     <div className={modelStyle}>
       <Input
-        className="border-b w-full h-full pb-1 "
+        className="border-b w-full h-full pb-1  "
         onChange={handleSearchChange}
         placeholder="Search by name"
       />
       <GenericList
         items={optionsList}
-        ulStyle="grid grid-rows-[repeat(auto-fill,2rem)] gap-2 h-full overflow-y-auto pb-4"
+        ulStyle="grid  gap-2 h-full overflow-y-auto pb-4"
         ItemComponent={OptionsModelListItem}
         getKey={(item) => filterBy(item)}
         itemComponentProps={{

@@ -1,14 +1,15 @@
-import { calendarUtil } from "../../../utils/calendar.util";
+import { calendarUtil } from "../../../../utils/calendar.util";
 
-import WorkoutEditModel from "../../Workout/WorkoutEditModel";
-import WorkoutTags from "../../Workout/WorkoutTags";
-import Button from "../../UI/Button";
-import CheckboxMulti from "../../UI/Form/CheckboxMulti";
-import Label from "../../UI/Form/Label";
-import GenericModel from "../../UI/GenericModel";
+import WorkoutEditModel from "../../../Workout/WorkoutEditModel";
+import WorkoutTags from "../../../Workout/WorkoutTags";
+import Button from "../../../UI/Button";
+import CheckboxMulti from "../../../UI/Form/CheckboxMulti";
+import Label from "../../../UI/Form/Label";
+import GenericModel from "../../../UI/GenericModel";
 
-import type { IProgramWorkoutDTO } from "../../../../../shared/models/program.model";
-import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
+import type { IProgramWorkoutDTO } from "../../../../../../shared/models/program.model";
+import type { IWorkoutDTO } from "../../../../../../shared/models/workout.model";
+import { toTitle } from "../../../../utils/toTitle";
 
 interface IProgramWorkoutEditSelectedProps {
   selectedProgramWorkout?: IProgramWorkoutDTO | null;
@@ -44,6 +45,7 @@ export default function ProgramWorkoutEditSelected({
   return (
     <div className="border p-2">
       <div className="p-2 border rounded grid gap-2">
+        <h4>{toTitle(workout?.name)}</h4>
         <WorkoutTags workoutExercises={workout?.workoutExercises} />
         <Button
           buttonStyle="save"

@@ -77,6 +77,7 @@ export default function WorkoutExerciseCoreStrengthSet({
         <div className="flex justify-between">
           <Input
             name={"hasWarmup-" + coreSetId}
+            id={"hasWarmup-" + coreSetId}
             type="checkbox"
             checked={hasWarmup}
             divStyle="flex items-center gap-2 flex-col-reverse"
@@ -87,6 +88,7 @@ export default function WorkoutExerciseCoreStrengthSet({
           </Input>
           <Input
             name={"isBodyWeight-" + coreSetId}
+            id={"isBodyWeight-" + coreSetId}
             type="checkbox"
             checked={isBodyWeight}
             divStyle="flex flex-col-reverse items-center gap-2"

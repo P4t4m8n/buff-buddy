@@ -235,10 +235,9 @@ const numberValidation = ({
     .max(maxLength, `${fieldName} cannot exceed ${maxLength}`);
 };
 
-export const DateSchema = z
-  .string()
-  .transform((val) => new Date(val))
-  .refine((date) => !isNaN(date.getTime()), "Invalid  date");
+export const DateSchema = z.coerce
+  .date()
+  .refine((date) => !isNaN(date.getTime()), "Invalid date");
 
 export const OrderSchema = z.coerce
   .number()

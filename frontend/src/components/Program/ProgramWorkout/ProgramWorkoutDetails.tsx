@@ -1,4 +1,4 @@
-import type { IProgramWorkoutDTO } from "../../../../shared/models/program.model";
+import type { IProgramWorkoutDTO } from "../../../../../shared/models/program.model";
 
 interface IProgramWorkoutDetailsProps {
   item: IProgramWorkoutDTO;

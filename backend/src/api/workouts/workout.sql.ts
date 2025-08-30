@@ -55,6 +55,7 @@ const getWorkoutCreate = (
   return {
     name: data?.name ?? data?.name,
     owner: { connect: { id: userId ?? undefined } },
+    isTemplate: data?.isTemplate ?? false,
     workoutExercises: {
       create: (data?.workoutExercises ?? []).map((we) =>
         workoutExerciseSQL.getWorkoutExerciseCreate(we)

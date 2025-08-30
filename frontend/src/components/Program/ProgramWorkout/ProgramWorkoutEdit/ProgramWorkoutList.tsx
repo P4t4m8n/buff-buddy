@@ -1,18 +1,18 @@
 import { useCallback, useMemo } from "react";
 
-import { useItemsPage } from "../../../hooks/shared/useItemsPage";
-import { useWorkoutStore } from "../../../store/workout.store";
+import { useItemsPage } from "../../../../hooks/shared/useItemsPage";
+import { useWorkoutStore } from "../../../../store/workout.store";
 
-import WorkoutPreview from "../../Workout/WorkoutPreview";
-import WorkoutFilter from "../../Workout/WorkoutFilter";
+import WorkoutPreview from "../../../Workout/WorkoutPreview";
+import WorkoutFilter from "../../../Workout/WorkoutFilter";
 
-import { INITIAL_WORKOUT_FILTER } from "../../../consts/filters.consts";
+import { INITIAL_WORKOUT_FILTER } from "../../../../consts/filters.consts";
 
-import Loader from "../../UI/loader/Loader";
-import GenericList from "../../UI/GenericList";
+import Loader from "../../../UI/loader/Loader";
+import GenericList from "../../../UI/GenericList";
 
-import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
-import type { IProgramWorkoutEditDTO } from "../../../../../shared/models/program.model";
+import type { IWorkoutDTO } from "../../../../../../shared/models/workout.model";
+import type { IProgramWorkoutEditDTO } from "../../../../../../shared/models/program.model";
 
 interface IProgramWorkoutListProps {
   selectedWorkout: IProgramWorkoutEditDTO | null;
@@ -27,7 +27,6 @@ export default function ProgramWorkoutList({
   selectedWorkout,
   onSelectProgramWorkout,
 }: IProgramWorkoutListProps) {
-  console.log("Rendering ProgramWorkoutList");
 
   const {
     filter: workoutsFilter,

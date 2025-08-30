@@ -31,13 +31,6 @@ export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO) => {
         ? [...(prev.daysOfWeek || []), fixedDay]
         : (prev.daysOfWeek || []).filter((day) => day !== fixedDay);
 
-      if (!newDaysOfWeek.length) {
-        return {
-          ...prev,
-          daysOfWeek: [],
-          crudOperation: "delete",
-        };
-      }
       return {
         ...prev,
         daysOfWeek: newDaysOfWeek,

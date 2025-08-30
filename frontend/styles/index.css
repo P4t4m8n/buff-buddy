@@ -56,7 +56,7 @@
   --shadow-border-b: 0 1px 0px -0px;
 
   --animate-rotation: rotation 1.6s linear infinite;
-  --animate-rotationBack: rotationBack .8s linear infinite;
+  --animate-rotationBack: rotationBack 0.8s linear infinite;
 
   @keyframes rotation {
     0% {
@@ -89,6 +89,15 @@
       var(--color-black-900)
     );
   }
+}
+@utility grid-stack {
+  grid-area: 1/1/-1/-1;
+}
+
+@utility flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Chrome, Safari, Edge, Opera */

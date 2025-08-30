@@ -1,35 +1,33 @@
-import { useParams } from "react-router";
+import { useProgramStore } from "../../../store/program.store";
 
-import { useProgramEdit } from "../../hooks/features/program/useProgramEdit";
-import { useProgramStore } from "../../store/program.store";
+import { calendarUtil } from "../../../utils/calendar.util";
 
-import { calendarUtil } from "../../utils/calendar.util";
+import { useProgramEdit } from "../../../hooks/features/program/useProgramEdit";
 
-import Label from "../../components/UI/Form/Label";
-import TextArea from "../../components/UI/Form/TextArea";
-import Button from "../../components/UI/Button";
-import DateInput from "../../components/UI/Form/DateInput/DateInput";
-import Loader from "../../components/UI/loader/Loader";
-import GenericModel from "../../components/UI/GenericModel";
-import GenericSaveButton from "../../components/UI/GenericSaveButton";
-import ProgramWorkoutEdit from "../../components/ProgramWorkout/ProgramWorkoutEdit/ProgramWorkoutEdit";
-import ProgramWorkoutEditWeekList from "../../components/ProgramWorkout/ProgramWorkoutEdit/ProgramWorkoutEditWeekList";
-import InputWithError from "../../components/UI/Form/InputWithError";
-import IsActiveInput from "../../components/UI/Form/IsActiveInput";
+import ProgramWorkoutEdit from "../ProgramWorkout/ProgramWorkoutEdit/ProgramWorkoutEdit";
+import ProgramWorkoutEditWeekList from "../ProgramWorkout/ProgramWorkoutEdit/ProgramWorkoutEditWeekList";
+
+import Label from "../../UI/Form/Label";
+import TextArea from "../../UI/Form/TextArea";
+import Button from "../../UI/Button";
+import DateInput from "../../UI/Form/DateInput/DateInput";
+import Loader from "../../UI/loader/Loader";
+import GenericModel from "../../UI/GenericModel";
+import GenericSaveButton from "../../UI/GenericSaveButton";
+import InputWithError from "../../UI/Form/InputWithError";
+import IsActiveInput from "../../UI/Form/IsActiveInput";
 
 export default function ProgramEdit() {
-  const { programId: programIdParams } = useParams<{ programId?: string }>();
-
   const {
     programToEdit,
     isLoading,
     errors,
     handleDateSelect,
     onSaveProgram,
+    handleInputChange,
     handleProgramWorkouts,
     navigate,
-    handleInputChange,
-  } = useProgramEdit(programIdParams);
+  } = useProgramEdit();
 
   if (isLoading || !programToEdit) {
     return <Loader loaderType="screen" />;
@@ -41,11 +39,13 @@ export default function ProgramEdit() {
     notes,
     startDate,
     endDate,
-    programWorkouts,
     isActive,
+    programWorkouts,
   } = programToEdit;
 
-  const headerText = programId ? `Edit Program: ${name}` : `Create New Program`;
+  const headerText = !programId?.startsWith("temp")
+    ? `Edit Program: `
+    : `Create New Program`;
 
   const dateRange = {
     start: calendarUtil.convertDate(startDate),
@@ -55,12 +55,12 @@ export default function ProgramEdit() {
   return (
     <form
       onSubmit={onSaveProgram}
-      className="h-main px-4 pt-4 grid grid-rows-[auto_1fr] gap-4"
+      className="w-full h-main grid-stack  pt-4 grid grid-rows-[auto_1fr] grid-cols gap-4 bg-black-900"
     >
       <header
         className={`grid grid-rows-[2rem_2.5rem_4.75rem_5rem_2.5rem_auto]
-                    lg:grid-rows-[2rem_4rem_6.5rem_auto] grid-cols-3
-                    lg:grid-cols-[1fr_1fr_8.5rem] lg:h-68 gap-4 justify-around items-center`}
+          lg:grid-rows-[2rem_4rem_6.5rem_auto] grid-cols-3
+          lg:grid-cols-[1fr_1fr_8.5rem] lg:h-68 gap-4 justify-around items-center px-4`}
       >
         <h2 className="text-2xl font-semibold col-span-full truncate">
           {headerText}
@@ -118,7 +118,7 @@ export default function ProgramEdit() {
         </TextArea>
         <div
           className="inline-flex lg:grid lg:grid-cols-2 items-center lg:justify-items-center gap-2 order-5
-                       w-full h-full lg:h-auto col-span-full lg-col-span-1 lg:col-start-3"
+          w-full h-full lg:h-auto col-span-full lg-col-span-1 lg:col-start-3"
         >
           <GenericModel
             Model={ProgramWorkoutEdit}
@@ -153,10 +153,7 @@ export default function ProgramEdit() {
           </span>
         )}
       </header>
-      <ProgramWorkoutEditWeekList
-        programWorkouts={programWorkouts ?? []}
-        handleProgramWorkouts={handleProgramWorkouts}
-      />
+      <ProgramWorkoutEditWeekList programWorkouts={programWorkouts} handleProgramWorkouts={handleProgramWorkouts} />
     </form>
   );
 }

@@ -218,12 +218,3 @@ export default function WorkoutExerciseEdit({
   );
 }
 
-// <li key={index} className="w-full h-full">
-//           <Button
-//             onClick={(e) => onClick(e, option)}
-//             className="w-full h-full flex cursor-pointer items-center justify-between"
-//           >
-//             <p>{toTitle(option)}</p>
-//             <IconPlus className=" h-8 aspect-square stroke-main-black" />
-//           </Button>
-//         </li>

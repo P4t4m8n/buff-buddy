@@ -14,14 +14,14 @@ export default function OptionsModelListItem<T>({
   filterBy,
 }: IOptionsModelListItemProps<T>) {
   return (
-    <li className="w-full h-full px-2">
+    <li className="w-full h-8 px-2">
       <Button
         onClick={(e) => handleOptionAdd(e, item)}
-        className="w-full h-full flex cursor-pointer"
+        className="w-full h-full flex items-center"
         type="button"
       >
         <p className="text-xs">{toTitle(filterBy(item))}</p>
-        <IconPlus className=" h-2 aspect-square stroke-main-orange ml-auto" />
+        <IconPlus className=" h-full aspect-square stroke-main-orange ml-auto" />
       </Button>
     </li>
   );

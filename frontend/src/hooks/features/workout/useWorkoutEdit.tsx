@@ -8,6 +8,7 @@ import type {
 import { workoutUtils } from "../../../utils/workout.util";
 import { useErrors } from "../../shared/useErrors";
 import { ClientError } from "../../../services/ClientError.service";
+import { formUtils } from "../../../utils/form.util";
 
 interface IUseWorkoutEditProps {
   workoutId?: string;
@@ -119,28 +120,7 @@ export const useWorkoutEdit = ({
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    e.stopPropagation();
-    const target = e.target as HTMLInputElement;
-    const { name, value, type, checked } = target;
-
-    let newVal: boolean | string | number | null;
-    switch (type) {
-      case "checkbox":
-        newVal = checked;
-        break;
-      case "number":
-        newVal = parseFloat(value);
-        break;
-      default:
-        newVal = value;
-        break;
-    }
-    if (workoutToEdit) {
-      setWorkoutToEdit({
-        ...workoutToEdit,
-        [name]: newVal,
-      });
-    }
+    formUtils.handleInputChange(e, setWorkoutToEdit);
   };
 
   const onSubmit = async () => {

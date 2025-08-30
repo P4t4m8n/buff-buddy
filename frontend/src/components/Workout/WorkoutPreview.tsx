@@ -9,7 +9,7 @@ type TActionRoute = "programEdit" | "workoutList";
 
 interface IWorkoutPreviewProps {
   item: IWorkoutDTO;
-  actionType?: TActionRoute | string; //INFO to lazy to import the type
+  actionType?: TActionRoute | string; //INFO too lazy to import the type
   onSelectProgramWorkout?: (
     e: React.MouseEvent<HTMLButtonElement>,
     workout?: IWorkoutDTO,

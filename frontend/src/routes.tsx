@@ -5,13 +5,14 @@ import ProgramPage from "./pages/Program/ProgramPage";
 import ExercisePage from "./pages/ExercisePage";
 import ProfilePage from "./pages/ProfilePage";
 import AdminPage from "./pages/AdminPage";
-import ProgramEdit from "./pages/Program/ProgramEdit";
+import ProgramEdit from "./components/Program/ProgramEdit/ProgramEdit";
 import ProgramDetails from "./pages/Program/ProgramDetails";
 import WorkoutPage from "./pages/Workout/WorkoutPage";
 import WorkoutDetailsPage from "./pages/Workout/WorkoutDetailsPage";
 import WorkoutStartPage from "./pages/Workout/WorkoutStartPage";
 import WorkoutEditPage from "./pages/Workout/WorkoutEditPage";
 import WorkoutListPage from "./pages/Workout/WorkoutListPage";
+import ProgramEditPage from "./pages/Program/ProgramEditPage";
 
 export interface RouteConfig {
   path: string;
@@ -35,11 +36,16 @@ export const ROUTES: RouteConfig[] = [
   {
     path: "/workouts",
     element: <WorkoutPage />,
-    children: [],
-  },
-  {
-    path: "/workouts/list",
-    element: <WorkoutListPage />,
+    children: [
+      {
+        path: "/workouts/workout-list",
+        element: <WorkoutListPage />,
+      },
+      {
+        path: "/workouts/edit",
+        element: <WorkoutEditPage />,
+      },
+    ],
   },
   {
     path: "/workouts/:workoutId",
@@ -51,36 +57,34 @@ export const ROUTES: RouteConfig[] = [
   },
 
   {
-    path: "/workouts/edit",
-    element: <WorkoutEditPage />,
-  },
-  {
     path: "/workouts/edit/:workoutId",
     element: <WorkoutEditPage />,
   },
   {
     path: "/programs",
     element: <ProgramPage />,
-  },
-
-  {
-    path: "/programs/edit",
-    element: <ProgramEdit />,
     children: [
       {
-        path: "workouts/edit",
-        element: <WorkoutEditPage />,
+        path: "/programs/edit",
+        element: <ProgramEditPage />,
+        children: [
+          {
+            path: "workouts/edit",
+            element: <WorkoutEditPage />,
+          },
+        ],
+      },
+      {
+        path: "/programs/edit/:programId",
+        element: <ProgramEdit />,
+      },
+      {
+        path: "/programs/:programId",
+        element: <ProgramDetails />,
       },
     ],
   },
-  {
-    path: "/programs/edit/:programId",
-    element: <ProgramEdit />,
-  },
-  {
-    path: "/programs/:programId",
-    element: <ProgramDetails />,
-  },
+
   {
     path: "/exercises",
     element: <ExercisePage />,

@@ -21,6 +21,7 @@ interface IProgramEditHook {
   handleInputChange: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
+  deleteProgramWorkout: (id: string) => void;
 }
 
 export const useProgramEdit = (id?: string): IProgramEditHook => {
@@ -76,7 +77,6 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
     }
   };
 
-  //TODO?? improve logic, specially change of order
   const handleProgramWorkouts = (programWorkout: IProgramWorkoutEditDTO) => {
     setProgramToEdit((prev) => {
       if (!prev) return null;
@@ -96,6 +96,28 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
     });
   };
 
+  const deleteProgramWorkout = (id: string) => {
+    setProgramToEdit((prev) => {
+      if (!prev) return null;
+      const programWorkouts = prev?.programWorkouts ?? [];
+      const idx = programWorkouts.findIndex((pw) => pw.id === id);
+      if (idx === -1) return prev;
+
+      if (id.startsWith("temp/")) {
+        return {
+          ...prev,
+          programWorkouts: programWorkouts.filter((pw) => pw.id !== id),
+        };
+      } else {
+        programWorkouts[idx].crudOperation = "delete";
+        return {
+          ...prev,
+          programWorkouts,
+        };
+      }
+    });
+  };
+
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -111,5 +133,6 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
     navigate,
     handleInputChange,
     handleProgramWorkouts,
+    deleteProgramWorkout,
   };
 };

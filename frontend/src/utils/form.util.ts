@@ -5,7 +5,6 @@ const handleInputChange = <T>(
   e.stopPropagation();
   const target = e.target as HTMLInputElement;
   const { name, value, type, checked } = target;
-  console.log("🚀 ~ handleInputChange ~ name:", name)
 
   let newVal: boolean | string | number | null;
   switch (type) {
