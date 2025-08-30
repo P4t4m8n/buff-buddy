@@ -5,7 +5,6 @@ import ProgramPage from "./pages/Program/ProgramPage";
 import ExercisePage from "./pages/ExercisePage";
 import ProfilePage from "./pages/ProfilePage";
 import AdminPage from "./pages/AdminPage";
-import ProgramEdit from "./components/Program/ProgramEdit/ProgramEdit";
 import ProgramDetails from "./pages/Program/ProgramDetails";
 import WorkoutPage from "./pages/Workout/WorkoutPage";
 import WorkoutDetailsPage from "./pages/Workout/WorkoutDetailsPage";
@@ -76,7 +75,7 @@ export const ROUTES: RouteConfig[] = [
       },
       {
         path: "/programs/edit/:programId",
-        element: <ProgramEdit />,
+        element: <ProgramEditPage />,
       },
       {
         path: "/programs/:programId",

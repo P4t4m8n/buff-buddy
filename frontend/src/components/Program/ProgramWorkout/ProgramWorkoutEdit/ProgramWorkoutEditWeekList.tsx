@@ -6,22 +6,23 @@ import type {
   TProgramWorkoutEditRecord,
 } from "../../../../../../shared/models/program.model";
 import ProgramWorkoutEditPreview from "./ProgramWorkoutEditPreview";
-import { memo, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 
 interface IProgramWorkoutEditWeekListProps {
   programWorkouts?: IProgramWorkoutEditDTO[];
   handleProgramWorkouts: (workout: IProgramWorkoutEditDTO) => void;
+  deleteProgramWorkout: (id?: string) => void;
 }
 
 function ProgramWorkoutEditWeekList({
   programWorkouts,
+  handleProgramWorkouts,
+  deleteProgramWorkout,
 }: IProgramWorkoutEditWeekListProps) {
   console.log("Rendering ProgramWorkoutEditWeekList");
 
-  const cleanedWorkouts = useMemo(
-    () => programWorkouts?.filter((ex) => ex.crudOperation !== "delete") || [],
-    [programWorkouts]
-  );
+  const cleanedWorkouts =
+    programWorkouts?.filter((ex) => ex.crudOperation !== "delete") || [];
 
   const groupWorkoutsByDay = (programWorkouts: IProgramWorkoutEditDTO[]) => {
     const peByDay: TProgramWorkoutEditRecord = {
@@ -48,6 +49,16 @@ function ProgramWorkoutEditWeekList({
     () => groupWorkoutsByDay(cleanedWorkouts),
     [cleanedWorkouts]
   );
+
+  const itemComponentProps = useMemo(
+    () => ({ handleProgramWorkouts, deleteProgramWorkout }),
+    []
+  );
+
+  const getKey = useCallback(
+    (item: IProgramWorkoutEditDTO) => item.id! + 1,
+    []
+  );
   return (
     <ul
       className="grid grid-rows-[repeat(7,10rem)] px-4 lg:grid-rows-1 grid-cols-1 lg:grid-cols-7
@@ -64,7 +75,8 @@ function ProgramWorkoutEditWeekList({
           <GenericList
             items={groupedWorkouts[day]}
             ItemComponent={ProgramWorkoutEditPreview}
-            getKey={(item) => item.id! + "1"}
+            itemComponentProps={itemComponentProps}
+            getKey={getKey}
             ulStyle=" flex lg:flex-col gap-2 h-[calc(100%-1.5rem)] "
           />
         </li>

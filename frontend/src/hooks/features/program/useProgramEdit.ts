@@ -21,7 +21,7 @@ interface IProgramEditHook {
   handleInputChange: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-  deleteProgramWorkout: (id: string) => void;
+  deleteProgramWorkout: (id?: string) => void;
 }
 
 export const useProgramEdit = (id?: string): IProgramEditHook => {
@@ -96,20 +96,21 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
     });
   };
 
-  const deleteProgramWorkout = (id: string) => {
+  const deleteProgramWorkout = (id?: string) => {
     setProgramToEdit((prev) => {
       if (!prev) return null;
       const programWorkouts = prev?.programWorkouts ?? [];
       const idx = programWorkouts.findIndex((pw) => pw.id === id);
       if (idx === -1) return prev;
 
-      if (id.startsWith("temp/")) {
+      if (id?.startsWith("temp/")) {
         return {
           ...prev,
           programWorkouts: programWorkouts.filter((pw) => pw.id !== id),
         };
       } else {
         programWorkouts[idx].crudOperation = "delete";
+        
         return {
           ...prev,
           programWorkouts,

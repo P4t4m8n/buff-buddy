@@ -7,6 +7,7 @@ import { calendarUtil } from "../../utils/calendar.util";
 
 import Loader from "../../components/UI/loader/Loader";
 import { useParams } from "react-router";
+import BackButton from "../../components/UI/BackButton";
 
 export default function ProgramDetails() {
   const { programId } = useParams<{ programId?: string }>();
@@ -33,8 +34,9 @@ export default function ProgramDetails() {
   const dates = calendarUtil.getFormatDateRange(startDate, endDate);
 
   return (
-    <section className="h-main p-4">
+    <section className="h-main p-4 grid-stack bg-black-900">
       <header>
+        <BackButton />
         <h2>{title}</h2>
         <span className="inline-flex gap-2">
           <h3>Dates:</h3>

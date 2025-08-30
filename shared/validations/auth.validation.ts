@@ -32,11 +32,7 @@ const ImageSchema = (sanitizer: (val: string) => string) => {
       if (!val) return undefined;
       return sanitizer(val);
     })
-    .transform((val) => val?.trim())
-    .refine((val) => {
-      const urlPattern = /\.(jpeg|jpg|gif|png|webp)$/i;
-      return urlPattern.test(val ?? "");
-    }, "Must be a valid image URL");
+    .transform((val) => val?.trim());
 };
 
 const PasswordSchema = (sanitizer: (val: string) => string) => {

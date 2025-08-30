@@ -112,7 +112,9 @@ export const updateProgram = async (req: Request, res: Response) => {
       data: program,
     });
   } catch (error) {
+    console.log("🚀 ~ updateProgram ~ error:", error)
     const err = AppError.handleResponse(error);
+    console.log("🚀 ~ updateProgram ~ err:", err)
     res.status(err.status || 500).json({
       message: err.message || "An unexpected error occurred",
       errors: err.errors || {},

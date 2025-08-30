@@ -54,6 +54,9 @@ export const programsService = {
     dto: TUpdateProgramInput,
     userId: string
   ): Promise<IProgram> => {
+    console.log("🚀 ~ userId:", userId)
+    console.log("🚀 ~ id:", id)
+    console.log("🚀 ~ dto:", dto)
     const programData = dbUtil.cleanData({
       name: dto.name,
       notes: dto.notes,
@@ -61,6 +64,7 @@ export const programsService = {
       startDate: dto.startDate,
       endDate: dto.endDate,
     });
+    console.log("🚀 ~ programData:", programData)
 
     const workoutsToCreate =
       dto.programWorkouts?.filter((wo) => wo.crudOperation === "create") ?? [];
