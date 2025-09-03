@@ -1,6 +1,12 @@
+import type { IFoodItemDto } from "../../../../shared/models/foodItem.model";
 
-export default function FoodItemPreview() {
-  return (
-    <div>FoodItemPreview</div>
-  )
+interface IFoodItemPreviewProps {
+  item: IFoodItemDto;
+}
+
+export default function FoodItemPreview({
+  item: foodItem,
+}: IFoodItemPreviewProps) {
+  console.log("🚀 ~ FoodItemPreview ~ foodItem:", foodItem);
+  return <li>{foodItem.name}</li>;
 }

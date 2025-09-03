@@ -12,7 +12,7 @@ import Input from "../UI/Form/Input";
 import YoutubeInput from "../UI/Form/YoutubeInput";
 import GenericSaveButton from "../UI/GenericSaveButton";
 import SelectMultiWithSearch from "../UI/Form/SelectMultiWithSearch/SelectMultiWithSearch";
-import SelectWithSearch from "../UI/Form/SelectWithSearch";
+import SelectWithSearch from "../UI/Form/SelectWithSearch/SelectWithSearch";
 import InputWithError from "../UI/Form/InputWithError";
 
 import ExerciseTypeSelectItem from "./ExerciseTypeSelectItem";

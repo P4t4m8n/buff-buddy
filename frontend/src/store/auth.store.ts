@@ -8,7 +8,8 @@ import type {
 
 interface IAuthStore {
   user: IAuthUserDTO | null;
-  isLoading: boolean;
+  isLoadingSession: boolean;
+  isLoadingAuth: boolean;
   loadSessionUser: () => Promise<void>;
   signIn: (dto: IAuthSignInDTO) => Promise<void>;
   signUp: (dto: IAuthSignUpDTO) => Promise<void>;
@@ -17,45 +18,46 @@ interface IAuthStore {
 
 export const useAuthStore = create<IAuthStore>((set) => ({
   user: null,
-  isLoading: true,
+  isLoadingSession: false,
+  isLoadingAuth: false,
 
   loadSessionUser: async () => {
     try {
-      set({ isLoading: true });
+      set({ isLoadingSession: true });
       const res = await authService.getSessionUser();
       set({ user: res.data });
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingSession: false });
     }
   },
 
   signIn: async (dto: IAuthSignInDTO) => {
     try {
-      set({ isLoading: true });
+      set({ isLoadingAuth: true });
       const user = await authService.signIn(dto);
       set({ user });
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingAuth: false });
     }
   },
 
   signUp: async (dto: IAuthSignUpDTO) => {
     try {
-      set({ isLoading: true });
+      set({ isLoadingAuth: true });
       const user = await authService.signUp(dto);
       set({ user });
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingAuth: false });
     }
   },
 
   signOut: async () => {
     try {
-      set({ isLoading: true });
+      set({ isLoadingAuth: true });
       await authService.signOut();
       set({ user: null });
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingAuth: false });
     }
   },
 }));

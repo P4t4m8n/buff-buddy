@@ -8,3 +8,7 @@ backend/prisma/jsons/openfoodfacts-products.jsonl
 backend/prisma/jsons/diet-products-1.json
 backend/prisma/jsons/diet-products.json
 backend/prisma/jsons/diet-errors.json
+backend/prisma/jsons/diet-products-2.json
+backend/cert/server.cert
+backend/cert/server.key
+diet-products.json

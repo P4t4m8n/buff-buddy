@@ -1,3 +1,5 @@
+import { forwardRef } from "react";
+
 /**
  * TextArea component that wraps a textarea element with an optional div style and children.
  *
@@ -11,11 +13,13 @@ interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   children?: React.ReactNode;
   divStyle?: string;
 }
-export default function TextArea({ children, divStyle, ...props }: Props) {
-  return (
+const TextArea = forwardRef<HTMLTextAreaElement, Props>(
+  ({ children, divStyle, ...props }, ref?) => (
     <div className={divStyle}>
-      <textarea {...props} />
+      <textarea ref={ref} {...props} />
       {children ? children : null}
     </div>
-  );
-}
+  )
+);
+
+export default TextArea;

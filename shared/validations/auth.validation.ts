@@ -38,25 +38,25 @@ const ImageSchema = (sanitizer: (val: string) => string) => {
 const PasswordSchema = (sanitizer: (val: string) => string) => {
   return z
     .string()
-    .min(8, "Password must be at least 8 characters")
+    .min(1, "Password must be at least 8 characters")
     .max(128, "Password must be less than 128 characters")
     .transform((val) => sanitizer(val))
-    .refine(
-      (val) => /(?=.*[a-z])/.test(val),
-      "Password must contain at least one lowercase letter"
-    )
-    .refine(
-      (val) => /(?=.*[A-Z])/.test(val),
-      "Password must contain at least one uppercase letter"
-    )
-    .refine(
-      (val) => /(?=.*\d)/.test(val),
-      "Password must contain at least one number"
-    )
-    .refine(
-      (val) => /(?=.*[@$!%*?&])/.test(val),
-      "Password must contain at least one special character (@$!%*?&)"
-    );
+    // .refine(
+    //   (val) => /(?=.*[a-z])/.test(val),
+    //   "Password must contain at least one lowercase letter"
+    // )
+    // .refine(
+    //   (val) => /(?=.*[A-Z])/.test(val),
+    //   "Password must contain at least one uppercase letter"
+    // )
+    // .refine(
+    //   (val) => /(?=.*\d)/.test(val),
+    //   "Password must contain at least one number"
+    // )
+    // .refine(
+    //   (val) => /(?=.*[@$!%*?&])/.test(val),
+    //   "Password must contain at least one special character (@$!%*?&)"
+    // );
 };
 
 const signUpFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {

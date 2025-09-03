@@ -6,6 +6,8 @@ import { AppError } from "../src/shared/services/Error.service";
 import fs from "fs";
 import { foodItemValidation } from "../../shared/validations/foodItem.validation";
 import { foodItemService } from "../src/api/foodItem/foodItem.service";
+import { prisma } from "./prisma";
+import { foodItemSQL } from "../src/api/foodItem/foodItem.sql";
 
 export const seedExercises = async () => {
   try {
@@ -185,35 +187,48 @@ export const seedExercises = async () => {
 };
 
 const seedFood = async () => {
-  const foodJson = fs.readFileSync(
-    path.join(__dirname, "jsons", "diet-products.json"),
-    "utf-8"
-  );
-  if (!foodJson) {
-    throw new Error("Failed to read food JSON file");
+  try {
+    const foodJson = fs.readFileSync(
+      path.join(__dirname, "jsons", "diet-products-2.json"),
+      "utf-8"
+    );
+    if (!foodJson) {
+      throw new Error("Failed to read food JSON file");
+    }
+    const foodData = JSON.parse(foodJson);
+
+    const foodPromises = foodData.map((foodItem: any) => {
+      let validatedData;
+      try {
+        validatedData = foodItemValidation
+          .createFoodItemFactorySchema({ toSanitize: false })
+          .parse(foodItem);
+      } catch (error) {
+        return Promise.reject();
+      }
+
+      return prisma.foodItem.upsert({
+        where: { name: validatedData.name },
+        update: { ...foodItemSQL.getFoodItemCreate(validatedData) },
+        create: { ...foodItemSQL.getFoodItemCreate(validatedData) },
+      });
+    });
+
+    const results = await Promise.allSettled(foodPromises);
+
+    const errors = results
+      .filter((result) => result.status === "rejected")
+      .map((result) => result);
+
+    fs.writeFileSync(
+      path.join(__dirname, "jsons", "diet-errors.json"),
+      JSON.stringify(errors, null, 2)
+    );
+
+    return errors;
+  } catch (error) {
+    console.log("🚀 ~ seedFood ~ error:", error);
   }
-  const foodData = JSON.parse(foodJson);
-
-  const foodPromises = foodData.map((foodItem: any) => {
-    const validatedData = foodItemValidation
-      .createFoodItemFactorySchema({ toSanitize: false })
-      .parse(foodItem);
-
-    return foodItemService.create(validatedData);
-  });
-
-  const results = await Promise.allSettled(foodPromises);
-
-  const errors = results
-    .filter((result) => result.status === "rejected")
-    .map((result) => result);
-
-  fs.writeFileSync(
-    path.join(__dirname, "jsons", "diet-errors.json"),
-    JSON.stringify(errors, null, 2)
-  );
-
-  return errors;
 };
 
 seedFood()

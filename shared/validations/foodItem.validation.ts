@@ -117,7 +117,7 @@ const updateFoodItemSchema = ({ toSanitize }: IToSanitize) => {
 
 const FoodItemQuerySchema = validationUtil.FilterSchema.extend({
   name: z.string().optional(),
-  barcode: z.string().min(2).max(100).optional(),
+  barcode: z.string().min(0).max(100).optional(),
   calories: z.number().min(0).optional(),
   protein: z.number().min(0).optional(),
 });

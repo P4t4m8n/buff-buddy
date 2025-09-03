@@ -142,14 +142,14 @@ const parseImage = (image: rawImage, code: string) => {
 
 function transformProduct(raw: RawProduct): DietTrackerProduct | null {
   // Skip products without essential data
-  if (!raw.code || !raw.product_name) {
+  if (!raw.code) {
     return null;
   }
 
   const { nutriments } = raw;
   const product: DietTrackerProduct = {
     code: raw.code,
-    name: raw.product_name,
+    name: raw.product_name ?? raw.code,
     brand: raw.brands || undefined,
 
     categories: cleanTags(raw.categories_tags),
@@ -289,10 +289,10 @@ async function processOpenFoodFactsData(
       await saveBatch(products, outputFilePath, false);
     }
 
-    console.log(`✅ Processing complete!`);
-    console.log(`📊 Total processed: ${processedCount}`);
-    console.log(`✨ Valid products: ${validProductsCount}`);
-    console.log(`💾 Saved to: ${outputFilePath}`);
+    console.info(`✅ Processing complete!`);
+    console.info(`📊 Total processed: ${processedCount}`);
+    console.info(`✨ Valid products: ${validProductsCount}`);
+    console.info(`💾 Saved to: ${outputFilePath}`);
   } catch (error) {
     console.error("❌ Error processing file:", error);
     throw error;
@@ -337,15 +337,15 @@ async function loadFoodData() {
   try {
     await processOpenFoodFactsData(
       "backend\\prisma\\jsons\\openfoodfacts-products.jsonl", // Input file
-      "backend\\prisma\\jsons\\diet-products-1.json", // Output file
+      "backend\\prisma\\jsons\\diet-products-2.json", // Output file
       {
-        countries: ["en:Palestinian territories"], // Optional: US products only
+        countries: ["en:israel"],
         batchSize: 5000, // Process in batches
       }
     );
 
     await finalizeOutputFile("./diet-products.json");
-    console.log("✅ Food data ready for Prisma!");
+    console.info("✅ Food data ready for Prisma!");
   } catch (error) {
     console.error("❌ Error:", error);
   }

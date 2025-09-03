@@ -24,7 +24,7 @@ export default function WorkoutStartUserStrengthSetsLast({
     return <span className=" col-span-full ">Warmup Set</span>;
   }
   return (
-    <div className="col-span-full grid grid-cols-subgrid test-color border-b border-dotted pb-2  gap-y-2 ">
+    <div className="col-span-full grid grid-cols-subgrid test-color border-b border-dotted pb-2  gap-y-1 ">
       <h6 className="col-span-full text-center underline underline-offset-2">
         Previous workout set Reps:
       </h6>
@@ -42,17 +42,17 @@ export default function WorkoutStartUserStrengthSetsLast({
         />
       ) : (
         <>
-          <span className="flex flex-col gap-1 text-center justify-between ">
+          <span className="flex flex-col gap-1 text-center ">
             <h5>Reps</h5>
             <p className=" leading-4">{lastReps}</p>
           </span>
-          <span className="flex flex-col gap-1 text-center justify-between">
+          <span className="flex flex-col gap-1 text-center">
             <h5>Weight</h5>
             <p className=" leading-4">{lastWeight}</p>
           </span>
         </>
       )}
-      <span className="flex flex-col items-center justify-between text-sm  ">
+      <span className="flex flex-col items-center  gap-1 text-sm  ">
         <h5>Joint Pain</h5>
         {lastJointPain ? (
           <IconCheckMark className="w-4 aspect-square fill-success-green" />
@@ -61,7 +61,7 @@ export default function WorkoutStartUserStrengthSetsLast({
         )}
       </span>
       <span className="flex flex-col gap-1 items-center   text-sm">
-        <h5 className="text-center">Muscle Failure</h5>
+        <h5 className="text-center">Failure</h5>
         {lastMuscleFailure ? (
           <IconCheckMark className="w-4 aspect-square fill-success-green" />
         ) : (

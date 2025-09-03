@@ -1,14 +1,16 @@
+import { memo } from "react";
 import { twMerge } from "tailwind-merge";
+
 import { useModel } from "../../hooks/shared/useModel";
 
 import WorkoutStartExerciseItemNotes from "./WorkoutStartExerciseItemNotes";
 import WorkoutStartExerciseCoreSet from "./WorkoutStartExerciseCoreSet";
 import WorkoutStartUserStrengthSets from "./WorkoutStartExerciseStrength/WorkoutStartUserStrengthSets";
 import WorkoutStartUserCardioSets from "./WorkoutStartExerciseCardio/WorkoutStartUserCardioSets";
+import WorkoutStartExerciseVideo from "./WorkoutStartExerciseVideo";
 
 import Button from "../UI/Button";
 import IconArrow from "../UI/Icons/IconArrow";
-import WorkoutStartExerciseVideo from "./WorkoutStartExerciseVideo";
 import GenericList from "../UI/GenericList";
 
 import type { IUserCardioSetEditDTO } from "../../../../shared/models/cardioSet.model";
@@ -16,16 +18,21 @@ import type { IUserStrengthSetEditDTO } from "../../../../shared/models/strength
 import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
 import type { TValidationError } from "../../models/errors.model";
 import type { IWorkoutStartExerciseItemProps } from "../../models/workoutStart.model";
+import WorkoutStartExerciseSkipEdit from "./WorkoutStartExerciseSkipEdit";
+import GenericModel from "../UI/GenericModel";
 
-export default function WorkoutStartExerciseItem(
-  props: IWorkoutStartExerciseItemProps
-) {
+function WorkoutStartExerciseItem(props: IWorkoutStartExerciseItemProps) {
   const { isOpen, handleModel } = useModel();
 
-  const { item, completeAllExerciseSets } = props;
+  const { item, completeAllExerciseSets, skipAllExerciseSets } = props;
 
   const { userWorkoutExercise, errors } = item;
-  const { id, exercise, notes } = userWorkoutExercise;
+  const {
+    id: userWorkoutExerciseId,
+    exercise,
+    notes,
+    skippedReason,
+  } = userWorkoutExercise;
   const { youtubeUrl, name: exerciseName, type } = exercise ?? {};
 
   const exerciseConfig = getExerciseConfig(type ?? "strength", props);
@@ -101,19 +108,27 @@ export default function WorkoutStartExerciseItem(
         />
 
         <div className="flex w-full gap-8 text-black">
-          <Button
-            className="opacity-50 cursor-not-allowed text-black "
-            buttonStyle="model"
-            disabled={true}
-            type="button"
-          >
-            Skip Exercise
-          </Button>
+          <GenericModel
+            Model={WorkoutStartExerciseSkipEdit}
+            modelProps={{
+              skippedReason,
+              handleUserSetSkip: skipAllExerciseSets,
+              userWorkoutExerciseId,
+            }}
+            buttonProps={{
+              className:
+                "text-black hover:text-black w-full col-span-2  text-black",
+              buttonStyle: "model",
+              type: "button",
+              children: "Skip",
+            }}
+          />
+
           <Button
             className="text-amber hover:text-black w-full"
             buttonStyle="model"
             type="button"
-            onClick={() => completeAllExerciseSets(id!)}
+            onClick={() => completeAllExerciseSets(userWorkoutExerciseId!)}
           >
             Complete All Sets
           </Button>
@@ -131,6 +146,10 @@ export default function WorkoutStartExerciseItem(
   );
 }
 
+export default memo(
+  WorkoutStartExerciseItem
+) as typeof WorkoutStartExerciseItem;
+
 const getExerciseConfig = (
   type: ExerciseType,
   props: IWorkoutStartExerciseItemProps
@@ -140,11 +159,17 @@ const getExerciseConfig = (
     handleUserStrengthSetsChange,
     handleUserCardioSetsChange,
     handleUserSet,
+    handleUserSetSkip,
   } = props;
 
   const { userWorkoutExercise, errors } = item ?? {};
-  const { coreStrengthSet, userStrengthSets, coreCardioSet, userCardioSets } =
-    userWorkoutExercise ?? {};
+  const {
+    id: userWorkoutExerciseId,
+    coreStrengthSet,
+    userStrengthSets,
+    coreCardioSet,
+    userCardioSets,
+  } = userWorkoutExercise ?? {};
   switch (type) {
     case "strength":
       return {
@@ -153,6 +178,8 @@ const getExerciseConfig = (
         userSetListProps: {
           handleUserStrengthSetsChange,
           handleUserSet,
+          handleUserSetSkip,
+          userWorkoutExerciseId,
           errors:
             errors?.userStrengthSets as TValidationError<IUserStrengthSetEditDTO>,
         },
@@ -182,6 +209,8 @@ const getExerciseConfig = (
         userSetListProps: {
           handleUserCardioSetsChange,
           handleUserSet,
+          handleUserSetSkip,
+          userWorkoutExerciseId,
           errors:
             errors?.userCardioSets as TValidationError<IUserCardioSetEditDTO>,
         },

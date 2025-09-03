@@ -100,9 +100,9 @@ export const updateProgram = async (req: Request, res: Response) => {
     }
 
     const validatedData = programValidation
-      .updateProgramFactorySchema({ toSanitize: true })
-      .parse(req.body);
-
+    .updateProgramFactorySchema({ toSanitize: true })
+    .parse(req.body);
+    
     const programData = await programsService.update(id, validatedData, userId);
 
     const program = programsUtils.buildDTO(programData);

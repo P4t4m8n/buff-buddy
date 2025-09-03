@@ -99,7 +99,7 @@ export default function ProgramEditPage() {
         />
         <IsActiveInput
           handleInputChange={handleInputChange}
-          isActive={isActive}
+          isActive={!!isActive}
           inputName="isActive"
         />
         <TextArea

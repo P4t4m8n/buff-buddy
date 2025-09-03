@@ -1,50 +1,25 @@
-import express, { Request, Response } from "express";
-import cookieParser from "cookie-parser";
+import express from "express";
 import http from "http";
-import cors from "cors";
-import path from "path";
 import dotenv from "dotenv";
-import { setupAsyncLocalStorage } from "./middlewares/localStorage.middleware";
-import { setupRoutes } from "./config/routes";
+
+import { setupMiddlewares } from "./setups/middlewares.setup";
+import { setupCors } from "./setups/cors.setup";
+import { setupRoutes } from "./setups/routes.setup";
 
 dotenv.config();
-export const app = express(); //INFO For Jest
-export const server = http.createServer(app); //TODO for adding sockets later, remove before deployment if not implemented
+export const app = express(); //INFO?? For Jest
+export const server = http.createServer(app);
 
-//Middlewares
-app.use(express.json());
+setupMiddlewares(app);
 
-//TODO?? build cookie parser and signed cookies, using library for now
-app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use(setupAsyncLocalStorage);
+setupCors(app);
 
-//CORS
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.resolve("public")));
-} else {
-  const corsOptions: cors.CorsOptions = {
-    origin: [
-      "http://127.0.0.1:5173",
-      "http://localhost:5173",
-      "https://localhost:5173",
-      "https://127.0.0.1:5173",
-    ],
-    credentials: true,
-  };
-  app.use(cors(corsOptions));
-}
+setupRoutes(app);
 
-//Routes
-const apiVersion = process.env.CURRENT_API_VERSION || "1";
-setupRoutes(app, apiVersion);
-// Catch-all route
-app.all("/{*any}", (req: Request, res: Response) => {
-  res.sendFile(path.resolve("public/index.html"));
-});
-const port = process.env.PORT || 3030;
+const port = Number(process.env.PORT) || 3030;
 
 if (process.env.NODE_ENV !== "test") {
-  server.listen(port, async () =>
-    console.info(`Server ready at: http://localhost:${port}`)
+  server.listen(port, "10.0.0.6", async () =>
+    console.info(`Server ready at: http://10.0.0.6:${port}`)
   );
 }

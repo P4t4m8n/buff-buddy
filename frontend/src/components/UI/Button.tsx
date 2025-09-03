@@ -1,12 +1,8 @@
 import { twMerge } from "tailwind-merge";
-import { BUTTON_LINK_STYLES } from "../../consts/styles";
-import type { TButtonLinkStyle } from "../../models/styles.model";
 
-export interface IButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children?: React.ReactNode;
-  buttonStyle?: TButtonLinkStyle | null;
-}
+import { BUTTON_LINK_STYLES } from "../../consts/styles";
+
+import type { IButtonProps } from "../../models/UI.model";
 
 export default function Button({
   children,

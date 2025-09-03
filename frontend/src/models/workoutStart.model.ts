@@ -16,4 +16,21 @@ export interface IWorkoutStartExerciseItemProps {
   ) => void;
   handleUserSet: (userSetId?: string, type?: ExerciseType) => void;
   completeAllExerciseSets: (id: string) => void;
+  skipAllExerciseSets: ({
+    userWorkoutExerciseId,
+    skippedReason,
+  }: Omit<IHandleUserSetSkipProps, "userSetId">) => void;
+
+  handleUserSetSkip: ({
+    userWorkoutExerciseId,
+    userSetId,
+    skippedReason,
+  }: IHandleUserSetSkipProps) => void;
+  userWorkoutExerciseId?: string;
+}
+
+export interface IHandleUserSetSkipProps {
+  userWorkoutExerciseId: string;
+  skippedReason: string;
+  userSetId?: string;
 }

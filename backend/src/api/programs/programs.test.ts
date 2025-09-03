@@ -240,6 +240,7 @@ describe("Programs API", () => {
 
   describe("PUT /api/v1/programs/edit/:id", () => {
     let programId: string;
+    let programData: IProgramEditDTO;
     beforeEach(async () => {
       const workout: IWorkoutEditDTO = {
         name: "Full Body Test Workout",
@@ -337,9 +338,34 @@ describe("Programs API", () => {
         .send(program);
 
       programId = res.body.data.id;
+      programData = res.body.data;
       createdProgramIds.push(programId);
     });
 
+    it("should update an existing programWorkout", async () => {
+      const updateData: IProgramEditDTO = {
+        programWorkouts: [
+          {
+            id: programData!.programWorkouts![0].id,
+            crudOperation: "update",
+            daysOfWeek: ["monday", "tuesday"],
+            workout: {
+              id: programData!.programWorkouts![0].workout!.id!,
+            },
+          },
+        ],
+      };
+      const res = await request(app)
+        .put(`/api/v1/programs/edit/${programId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      const resProgram: IProgramDTO = res.body.data;
+      expect(resProgram?.programWorkouts?.[0].daysOfWeek).toEqual(
+        expect.arrayContaining(["monday", "tuesday"])
+      );
+    });
     it("should update an existing program", async () => {
       const updateData: IProgramEditDTO = {
         name: "Updated Program Name",

@@ -1,9 +1,14 @@
 import React from "react";
-import { useModel } from "../../hooks/shared/useModel";
 import { createPortal } from "react-dom";
-import ModelOverlay from "./ModelOverlay";
-import Button, { type IButtonProps } from "./Button";
+
+import { useModel } from "../../hooks/shared/useModel";
+
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
+
+import ModelOverlay from "./ModelOverlay";
+import Button from "./Button";
+
+import type { IButtonProps } from "../../models/UI.model";
 import type { TIconMode } from "../../models/UI.model";
 
 export interface IModelProps<T extends HTMLElement> {

@@ -1,5 +1,5 @@
-import { IBaseFilter } from "./app.model";
-import { IEntity } from "./entity.model";
+import type { IBaseFilter } from "./app.model";
+import type { IEntity } from "./entity.model";
 
 interface IFoddItemBase extends IEntity {
   carbohydrates?: string;
@@ -17,15 +17,11 @@ export interface IFoodItemDto extends IFoddItemBase {
   calories: string;
   protein: string;
 }
-export interface IFoodItemEditDto extends IFoddItemBase {
-  name?: string;
-  barcode?: string;
-  calories?: string;
-  protein?: string;
-}
+export interface IFoodItemEditDto extends Partial<IFoodItemDto> {}
 
 export interface IFoodItemFilter extends IBaseFilter {
   name?: string | null;
   calories?: string | null;
   protein?: string | null;
+  barcode?: string | null;
 }

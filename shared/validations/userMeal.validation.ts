@@ -36,7 +36,7 @@ const UserMealIdParamsSchema = z.object({
   id: validationUtil.IDSchemaFactory({ toSanitize: false }),
 });
 
-export const mealValidation = {
+export const userMealValidation = {
   createUserMealFactorySchema,
   updateUserMealFactorySchema,
   UserMealQuerySchema,

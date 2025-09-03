@@ -5,7 +5,7 @@ import { toTitle } from "../../../../utils/toTitle";
 import WorkoutExerciseEditAddExercise from "./WorkoutExerciseEditAddExercise";
 import WorkoutExerciseCoreCardioSet from "./WorkoutExerciseCoreCardioSet";
 import WorkoutExerciseCoreStrengthSet from "./WorkoutExerciseCoreStrengthSet";
-import SelectWithSearch from "../../../UI/Form/SelectWithSearch";
+import SelectWithSearch from "../../../UI/Form/SelectWithSearch/SelectWithSearch";
 import WorkoutExerciseEditExerciseSelect from "./WorkoutExerciseEditExerciseSelect";
 
 import Label from "../../../UI/Form/Label";

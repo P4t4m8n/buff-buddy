@@ -43,9 +43,10 @@ const getFoodItemCreate = (
 
   if (dto.images?.length) {
     baseInput.images = {
-      createMany: {
-        data: (dto?.images ?? []).map((url) => ({ url })),
-      },
+      connectOrCreate: dto.images.map((url) => ({
+        where: { url },
+        create: { url, createdAt: new Date() },
+      })),
     };
   }
   if (dto.labels?.length) {

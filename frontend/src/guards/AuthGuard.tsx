@@ -1,6 +1,9 @@
 import { useEffect } from "react";
-import AuthPage from "../pages/AuthPage";
+
 import { useAuthStore } from "../store/auth.store";
+
+import AuthPage from "../pages/AuthPage";
+
 import Loader from "../components/UI/loader/Loader";
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -8,13 +11,14 @@ interface AuthProviderProps {
 export default function AuthGuard({ children }: AuthProviderProps) {
   const user = useAuthStore((state) => state.user);
   const loadSessionUser = useAuthStore((state) => state.loadSessionUser);
-  const isLoading = useAuthStore((state) => state.isLoading);
+  const isLoadingSession = useAuthStore((state) => state.isLoadingSession);
 
   useEffect(() => {
     loadSessionUser();
   }, [loadSessionUser]);
 
-  if (isLoading) return <Loader loaderType="screen" isFullScreen />;
+  if (isLoadingSession) return <Loader loaderType="screen" isFullScreen />;
 
-  return <>{children}</> ;
+  // return user ? <>{children}</> : <AuthPage />;
+  return <>{children}</> 
 }

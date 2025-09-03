@@ -1,36 +1,64 @@
+import { useRef } from "react";
+
 import Button from "../UI/Button";
 import Label from "../UI/Form/Label";
 import TextArea from "../UI/Form/TextArea";
 
 import type { IModelProps } from "../UI/GenericModel";
+import type { IHandleUserSetSkipProps } from "../../models/workoutStart.model";
 
 interface IWorkoutStartExerciseSkipEditProps
   extends IModelProps<HTMLDivElement> {
-  handleUserSetsChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  handleUserSetSkip: ({
+    userWorkoutExerciseId,
+    userSetId,
+    skippedReason,
+  }: IHandleUserSetSkipProps) => void;
   skippedReason?: string | null;
   userSetId?: string;
+  userWorkoutExerciseId?: string;
 }
 export default function WorkoutStartExerciseSkipEdit({
-  handleUserSetsChange,
+  handleUserSetSkip,
   skippedReason,
   userSetId,
+  userWorkoutExerciseId,
   ...modelProps
 }: IWorkoutStartExerciseSkipEditProps) {
   const { setIsOpen, modelRef } = modelProps;
+  const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const textAreaId = "skippedReason-" + userSetId;
 
   const onCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const event = {
-      target: {
-        value: "",
-        name: textAreaId,
-        id: textAreaId,
-      },
-      preventDefault: e.preventDefault,
-      stopPropagation: e.stopPropagation,
-    } as React.ChangeEvent<HTMLTextAreaElement>;
+    e.preventDefault();
+    e.stopPropagation();
 
-    handleUserSetsChange && handleUserSetsChange(event);
+    if (!setIsOpen) {
+      console.warn("setIsOpen is not defined, skipping close action");
+      return;
+    }
+    setIsOpen(false);
+  };
+
+  const onSave = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const { current } = textAreaRef;
+
+    if (!current || !userWorkoutExerciseId || !userSetId) {
+      console.warn("Skipped user exercise textarea props not defined"); //INFO Debugging
+      return;
+    }
+
+    const value = current.value;
+
+    handleUserSetSkip({
+      userWorkoutExerciseId,
+      skippedReason: value,
+      userSetId,
+    });
+
     if (!setIsOpen) {
       console.warn("setIsOpen is not defined, skipping close action");
       return;
@@ -45,8 +73,8 @@ export default function WorkoutStartExerciseSkipEdit({
                    max-w-96 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 border"
     >
       <TextArea
-        onChange={handleUserSetsChange}
-        value={skippedReason ?? ""}
+        ref={textAreaRef}
+        defaultValue={skippedReason ?? ""}
         name={textAreaId}
         id={textAreaId}
         rows={3}
@@ -73,9 +101,7 @@ export default function WorkoutStartExerciseSkipEdit({
         <Button
           buttonStyle="model"
           className="text-black px-2"
-          onClick={() => {
-            if (setIsOpen) setIsOpen(false);
-          }}
+          onClick={onSave}
         >
           Save
         </Button>

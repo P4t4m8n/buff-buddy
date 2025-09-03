@@ -7,7 +7,6 @@ export const getFoodItems = async (req: Request, res: Response) => {
   try {
     const filter = foodItemValidation.FoodItemQuerySchema.parse(req.query);
     const foodItems = await foodItemService.getAll(filter);
-    console.log("🚀 ~ getFoodItems ~ foodItems:", foodItems)
 
     res.status(200).json(foodItems);
   } catch (error) {
@@ -43,12 +42,14 @@ export const getFoodItemById = async (req: Request, res: Response) => {
 
 export const getFoodItemByBarcode = async (req: Request, res: Response) => {
   try {
-    console.log("🚀 ~ getFoodItemByBarcode ~ barcode:",   req.params.barcode)
+    console.log("********************************")
     const { barcode } = foodItemValidation.FoodItemIdBarcodeSchema.parse(
       req.params
     );
+    console.log("🚀 ~ getFoodItemByBarcode ~ barcode:", barcode)
 
     const foodItem = await foodItemService.getByBarCode(barcode);
+    console.log("🚀 ~ getFoodItemByBarcode ~ foodItem:", foodItem)
 
     if (!foodItem) {
       throw new AppError("Food item not found", 404);

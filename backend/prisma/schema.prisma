@@ -367,6 +367,7 @@ model WorkoutExercise {
 
 model UserWorkoutExercise {
   id                String            @id @default(cuid())
+  skippedReason        String?
   workoutExerciseId String
   workoutExercise   WorkoutExercise   @relation(fields: [workoutExerciseId], references: [id], onDelete: Cascade)
   userWorkoutId     String

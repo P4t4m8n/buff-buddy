@@ -1,26 +1,27 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import type { Html5QrcodeResult } from "html5-qrcode";
 import type { Html5QrcodeError } from "html5-qrcode/esm/core";
 
 interface IBarcodeScannerProps {
-  getBarcode: (barcode?: string | null) => void;
+  onGetBarcode: (barcode?: string | null) => void;
   getBarcodeError: (error: string) => void;
 }
 
 export default function BarcodeScanner({
-  getBarcode,
+  onGetBarcode,
   getBarcodeError,
 }: IBarcodeScannerProps) {
   const html5QrcodeScannerRef = useRef<Html5QrcodeScanner | null>(null);
-  const scannerRef = useRef<HTMLDivElement | null>(null);
+  
   const onScanSuccess = (
     decodedText: string,
     decodedResult: Html5QrcodeResult
   ) => {
-    console.log(`Code matched = ${decodedText}`, decodedResult);
+    console.log("🚀 ~ onScanSuccess ~ decodedResult:", decodedResult)
+    console.log("🚀 ~ onScanSuccess ~ decodedText:", decodedText)
     try {
-      getBarcode(decodedText);
+      onGetBarcode(decodedText);
     } catch (err) {
       console.error(err);
     }
@@ -35,16 +36,15 @@ export default function BarcodeScanner({
   };
 
   const onScanFailure = (errorMessage: string, error: Html5QrcodeError) => {
-    console.warn(`Code scan error = ${error}`);
+
     getBarcodeError(errorMessage);
   };
 
-  console.log(scannerRef.current?.id!);
   useEffect(() => {
     html5QrcodeScannerRef.current = new Html5QrcodeScanner(
       "reader",
-      { fps: 10, qrbox: { width: 250, height: 250 } },
-      false
+      { fps: 60, qrbox: { width: 320, height: 320 } },
+      true
     );
     html5QrcodeScannerRef.current.render(onScanSuccess, onScanFailure);
 

@@ -13,6 +13,7 @@ import type {
 import { useDateInput } from "../../../../hooks/features/calendar/useDateInput";
 import { DAY_OF_WEEK } from "../../../../../../shared/consts/app.consts";
 import { twMerge } from "tailwind-merge";
+import { calendarUtil } from "../../../../utils/calendar.util";
 
 interface DateInputProps {
   handleDateSelect: (range: IDateRange) => void;
@@ -22,7 +23,7 @@ interface DateInputProps {
   selectedRange?: IDateRange;
   errorRange?: {
     startDate?: string | Date | null;
-    endDate?: string;
+    endDate?: string | Date | null;
   } | null;
 }
 
@@ -76,6 +77,8 @@ export default function DateInput({
     "p-2 rounded w-full h-10 flex justify-between items-center cursor-pointer border",
     isError ? "border border-error-red text-error-red" : ""
   );
+  const fixedStartDate = calendarUtil.convertDate(selectedRange?.start);
+  const fixedEndDate = calendarUtil.convertDate(selectedRange?.end);
 
   return (
     <div className={divStyle} ref={modelRef}>
@@ -83,8 +86,8 @@ export default function DateInput({
       <Button onClick={handleModel} className={buttonStyle}>
         <DateInputDateDisplay
           mode={mode}
-          startDate={selectedRange?.start}
-          endDate={selectedRange?.end}
+          startDate={fixedStartDate}
+          endDate={fixedEndDate}
         />
         <IconCalendar
           className="bg-main-black rounded stroke-amber fill-none
@@ -102,7 +105,7 @@ export default function DateInput({
           <DateInputControl
             mode={mode}
             setMode={setMode}
-            startDate={selectedRange?.start}
+            startDate={fixedStartDate}
             clearSelection={clearSelection}
           />
 
@@ -125,8 +128,8 @@ export default function DateInput({
             mode={mode}
             currentDate={currentDate}
             handleDateClick={handleDateClick}
-            startDate={selectedRange?.start}
-            endDate={selectedRange?.end}
+            startDate={fixedStartDate}
+            endDate={fixedEndDate}
           />
           <Button
             className={`bg-inherit border-1 p-2 hover:bg-main-orange h-10

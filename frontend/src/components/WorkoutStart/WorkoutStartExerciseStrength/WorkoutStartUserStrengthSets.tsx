@@ -1,18 +1,20 @@
+import { twMerge } from "tailwind-merge";
+
+import { useErrors } from "../../../hooks/shared/useErrors";
+import { userStrengthSetsValidation } from "../../../../../shared/validations/userStrengthSet.validation";
+
 import WorkoutStartUserStrengthSetsLast from "./WorkoutStartUserStrengthSetsLast";
+import WorkoutStartExerciseSkipEdit from "../WorkoutStartExerciseSkipEdit";
 
 import Button from "../../UI/Button";
 import Input from "../../UI/Form/Input";
 import Label from "../../UI/Form/Label";
 import NumberInputWIthError from "../../UI/Form/NumberInputWIthError";
+import GenericModel from "../../UI/GenericModel";
 
 import type { IUserStrengthSetEditDTO } from "../../../../../shared/models/strengthSet.model";
 import type { TValidationError } from "../../../models/errors.model";
 import type { ExerciseType } from "../../../../../backend/prisma/generated/prisma";
-import { useErrors } from "../../../hooks/shared/useErrors";
-import { userStrengthSetsValidation } from "../../../../../shared/validations/userStrengthSet.validation";
-import { twMerge } from "tailwind-merge";
-import GenericModel from "../../UI/GenericModel";
-import WorkoutStartExerciseSkipEdit from "../WorkoutStartExerciseSkipEdit";
 
 interface INumberInput {
   name: string;
@@ -23,15 +25,27 @@ interface INumberInput {
 interface IWorkoutExerciseUserSetProps {
   item: IUserStrengthSetEditDTO;
   errors?: TValidationError<IUserStrengthSetEditDTO>;
+  userWorkoutExerciseId?: string;
   handleUserStrengthSetsChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   handleUserSet: (userSetId?: string, type?: ExerciseType) => void;
+  handleUserSetSkip: ({
+    userWorkoutExerciseId,
+    userSetId,
+    skippedReason,
+  }: {
+    userWorkoutExerciseId: string;
+    userSetId?: string;
+    skippedReason: string;
+  }) => void;
 }
 export default function WorkoutStartUserStrengthSets({
   item: userSet,
+  userWorkoutExerciseId,
   handleUserStrengthSetsChange,
   handleUserSet,
+  handleUserSetSkip,
   errors: serverErrors,
 }: IWorkoutExerciseUserSetProps) {
   const inputStyle = `rounded w-8 aspect-square  text-center border outline-none`;
@@ -101,7 +115,7 @@ export default function WorkoutStartUserStrengthSets({
         key={input.name}
         name={input.name}
         value={input.value}
-        divStyle={divStyle + " col-span-2"}
+        divStyle={divStyle + ""}
         className={inputStyle}
         min={1}
         onChange={handleUserStrengthSetsChange!}
@@ -135,7 +149,7 @@ export default function WorkoutStartUserStrengthSets({
   );
 
   return (
-    <div className="grid grid-cols-4 gap-x-2 grid-rows-[repeat(3,auto)] gap-y-3 justify-items-center content-between not-last:border-b-2 pb-2 items-center  ">
+    <div className="grid grid-cols-4 gap-x-2 grid-rows-[repeat(3,auto)] gap-y-3 justify-items-center content-between not-last:border-b-2 pb-2 ">
       <WorkoutStartUserStrengthSetsLast {...lastSet} isWarmup={isWarmup} />
       {numberInputs.map((input) => getNumberInput(input))}
       {checkboxInputs.map((input) => (
@@ -145,7 +159,7 @@ export default function WorkoutStartUserStrengthSets({
           id={input.name}
           type="checkbox"
           checked={!!input.value}
-          divStyle=" flex flex-col-reverse gap-1 justify-between text-center h-full col-span-2"
+          divStyle=" flex flex-col-reverse gap-1 text-center h-full justify-end "
           className=" cursor-pointer "
           onChange={handleUserStrengthSetsChange}
         >
@@ -158,7 +172,12 @@ export default function WorkoutStartUserStrengthSets({
        */}
       <GenericModel
         Model={WorkoutStartExerciseSkipEdit}
-        modelProps={{ handleUserStrengthSetsChange, skippedReason, userSetId }}
+        modelProps={{
+          skippedReason,
+          handleUserSetSkip,
+          userWorkoutExerciseId,
+          userSetId,
+        }}
         buttonProps={{
           className:
             "text-black hover:text-black w-full col-span-2  text-black",

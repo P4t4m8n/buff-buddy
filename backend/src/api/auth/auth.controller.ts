@@ -30,6 +30,7 @@ export const signUp = async (req: Request, res: Response) => {
 
 export const signIn = async (req: Request, res: Response) => {
   try {
+    console.log("*******************")
     const validateData = authValidation
       .signInFactorySchema({ toSanitize: true })
       .parse(req.body);
@@ -66,6 +67,8 @@ export const signOut = async (req: Request, res: Response) => {
 export const getSessionUser = async (_: Request, res: Response) => {
   try {
     const user = asyncLocalStorage.getStore()?.sessionUser;
+    console.log("🚀 ~ getSessionUser ~ user:", user)
+    console.log("🚀 ~ getSessionUser ~ user:", user)
     res.status(200).json({
       message: "User session retrieved successfully",
       data: user,

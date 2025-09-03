@@ -13,6 +13,7 @@ import { toTitle } from "../../../../utils/toTitle";
 
 interface IProgramWorkoutEditSelectedProps {
   selectedProgramWorkout?: IProgramWorkoutDTO | null;
+  parentRef?: React.RefObject<HTMLDivElement | null>;
   onDaysChange: (e: React.ChangeEvent) => void;
   saveToProgram: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onSelectProgramWorkout: (
@@ -20,15 +21,14 @@ interface IProgramWorkoutEditSelectedProps {
     workout?: IWorkoutDTO,
     isCopy?: boolean
   ) => void;
-  parentRef?: React.RefObject<HTMLDivElement | null>;
   handleSelectedWorkoutUpdate?: (workout: IWorkoutDTO | null) => void;
 }
 export default function ProgramWorkoutEditSelected({
   selectedProgramWorkout,
+  parentRef,
   onDaysChange,
   saveToProgram,
   onSelectProgramWorkout,
-  parentRef,
   handleSelectedWorkoutUpdate,
 }: IProgramWorkoutEditSelectedProps) {
   const options = calendarUtil.getShortWeekDays(true);

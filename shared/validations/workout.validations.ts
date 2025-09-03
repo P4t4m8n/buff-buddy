@@ -52,6 +52,7 @@ const updateWorkoutFactorySchema = ({
   toSanitize?: boolean;
 }) => {
   return createWorkoutFactorySchema({ toSanitize })
+    .partial()
     .extend({
       workoutExercises: z
         .array(
@@ -62,8 +63,8 @@ const updateWorkoutFactorySchema = ({
         .min(1, "At least one workout set is required")
         .max(50, "Maximum 50 workout sets allowed per workout")
         .optional(),
-    })
-    .partial();
+      id: validationUtil.IDSchemaFactory({ toSanitize }),
+    });
 };
 
 const WorkoutQuerySchema = z.object({

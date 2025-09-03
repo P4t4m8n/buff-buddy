@@ -63,47 +63,47 @@ export const programsService = {
     });
 
     const workoutsToCreate =
-      dto.programWorkouts?.filter((wo) => wo.crudOperation === "create") ?? [];
+      dto.programWorkouts?.filter((wo) => wo?.crudOperation === "create") ?? [];
 
     const workoutsToUpdate =
-      dto.programWorkouts?.filter((wo) => wo.crudOperation === "update") ?? [];
+      dto.programWorkouts?.filter((wo) => wo?.crudOperation === "update") ?? [];
 
     const workoutsToDelete =
-      dto.programWorkouts?.filter((wo) => wo.crudOperation === "delete") ?? [];
+      dto.programWorkouts?.filter((wo) => wo?.crudOperation === "delete") ?? [];
 
     return (await prisma.program.update({
       where: { id, ownerId: userId },
       data: {
         ...programData,
         programWorkouts: {
-          delete: workoutsToDelete.map((wo) => ({ id: wo.id! })),
+          delete: workoutsToDelete.map((wo) => ({ id: wo?.id! })),
           create: workoutsToCreate.map((wo) => ({
-            daysOfWeek: wo.daysOfWeek as DaysOfWeek[],
+            daysOfWeek: wo?.daysOfWeek as DaysOfWeek[],
             workout: {
               connectOrCreate: {
-                where: { id: wo.workout.id },
+                where: { id: wo?.workout?.id },
                 create: workoutSQL.getWorkoutCreate(
-                  wo.workout as TCreateWorkoutInput,
+                  wo?.workout as TCreateWorkoutInput,
                   userId
                 ),
               },
             },
           })),
-          // update: workoutsToUpdate.map((wo) => ({
-          //   where: { id: wo.id! },
-          //   data: {
-          //     daysOfWeek: wo.daysOfWeek as DaysOfWeek[],
-          //     workout: {
-          //       connectOrCreate: {
-          //         where: { id: wo.workout.id },
-          //         create: workoutSQL.getWorkoutCreate(
-          //           wo.workout as TCreateWorkoutInput,
-          //           userId
-          //         ),
-          //       },
-          //     },
-          //   },
-          // })),
+          update: workoutsToUpdate.map((wo) => ({
+            where: { id: wo?.id! },
+            data: {
+              daysOfWeek: wo?.daysOfWeek as DaysOfWeek[],
+              workout: {
+                connectOrCreate: {
+                  where: { id: wo?.workout?.id },
+                  create: workoutSQL.getWorkoutCreate(
+                    wo?.workout as TCreateWorkoutInput,
+                    userId
+                  ),
+                },
+              },
+            },
+          })),
         },
       },
       select: programsSQL.PROGRAM_SELECT,

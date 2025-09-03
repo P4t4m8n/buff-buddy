@@ -16,7 +16,10 @@ import type {
 export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(false);
 
-  const { signIn, signUp, isLoading } = useAuthStore();
+  const signIn = useAuthStore((state) => state.signIn);
+  const signUp = useAuthStore((state) => state.signUp);
+  const isLoading = useAuthStore((state) => state.isLoadingAuth);
+
   const { errors, handleError } = useErrors<IAuthSignInDTO | IAuthSignUpDTO>();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -28,6 +31,7 @@ export default function AuthPage() {
       const email = formData.get("email") as string;
       const password = formData.get("password") as string;
 
+ 
       if (isSignUp) {
         const firstName = formData.get("firstName") as string;
         const lastName = formData.get("lastName") as string;
@@ -109,7 +113,6 @@ export default function AuthPage() {
                   defaultValue={""}
                   className={`w-full h-10 peer outline-offset-0 pl-2 border-1 rounded`}
                   divStyle="  rounded h-full border-black outline-black"
-                  required={isSignUp}
                 >
                   <Label
                     isMoveUpEffect={true}
@@ -126,7 +129,6 @@ export default function AuthPage() {
                   placeholder=""
                   className={`w-full h-10 peer outline-offset-0 pl-2 border-1 rounded`}
                   divStyle="  rounded h-full border-black outline-black"
-                  required={isSignUp}
                 >
                   <Label
                     isMoveUpEffect={true}
@@ -145,7 +147,6 @@ export default function AuthPage() {
               placeholder=""
               className={`w-full h-10 peer outline-offset-0 pl-2 border-1 rounded`}
               divStyle="  rounded h-full border-black outline-black"
-              required
             >
               <Label
                 isMoveUpEffect={true}
@@ -162,7 +163,6 @@ export default function AuthPage() {
               placeholder=""
               className={`w-full h-10 peer outline-offset-0 pl-2 border-1 rounded`}
               divStyle="  rounded h-full border-black outline-black"
-              required
             >
               <Label
                 isMoveUpEffect={true}
@@ -180,7 +180,6 @@ export default function AuthPage() {
                 placeholder=""
                 className={`w-full h-10 peer outline-offset-0 pl-2 border-1 rounded`}
                 divStyle="  rounded h-full border-black outline-black"
-                required={isSignUp}
               >
                 <Label
                   isMoveUpEffect={true}
@@ -215,6 +214,7 @@ export default function AuthPage() {
             </p>
             <Button
               onClick={toggleMode}
+              type="button"
               className="text-orange-500 font-semibold ml-1 hover:text-orange-600 transition-colors"
             >
               {isSignUp ? "Sign in" : "Sign up"}

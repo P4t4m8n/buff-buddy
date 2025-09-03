@@ -29,6 +29,7 @@ export const userSetsUtil = {
       isCompleted: false,
       isMuscleFailure: false,
       isJointPain: false,
+      crudOperation: "create",
       isBodyWeight,
       order,
     };
@@ -60,7 +61,10 @@ export const userSetsUtil = {
   ): IUserStrengthSetEditDTO[] {
     const { numberOfSets = 1, hasWarmup, isBodyWeight, weight } = coreSet;
     const sortedLastSets =
-      lastUserSets?.sort((a, b) => (a?.order ?? 1) - (b?.order ?? 1)) ?? [];
+      lastUserSets
+        ?.filter((lus) => !lus.isWarmup)
+        .sort((a, b) => (a?.order ?? 1) - (b?.order ?? 1)) ?? [];
+
     const sets = Array.from({ length: numberOfSets }).map((_, idx) =>
       userSetsUtil.getEmptyStrength(idx + 1, sortedLastSets[idx], isBodyWeight)
     );

@@ -9,7 +9,7 @@ export interface IProgramBase extends IEntity {
   notes?: string | null;
   startDate?: Date | string | null;
   endDate?: Date | string | null;
-  isActive: boolean;
+  isActive?: boolean;
   owner?: Partial<IUserDTO>;
 }
 

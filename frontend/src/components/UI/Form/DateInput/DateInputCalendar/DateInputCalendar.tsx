@@ -60,8 +60,8 @@ export default function DateInputCalendar({
       const isToday = today === date.toDateString();
 
       const isSelected =
-        (startDate && dateString === startDate.toDateString()) ||
-        (endDate && dateString === endDate.toDateString());
+        (startDate && dateString === startDate?.toDateString()) ||
+        (endDate && dateString === endDate?.toDateString());
 
       const isInRange = isDateInRange(date);
       const isInHoverRange = isDateInHoverRange(date);

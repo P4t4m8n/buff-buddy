@@ -28,7 +28,7 @@ const updateProgramWorkoutFactorySchema = ({
   return BaseProgramWorkoutSchema.extend({
     workout: workoutValidation.updateWorkoutFactorySchema({ toSanitize }),
     id: validationUtil.IDSchemaFactory({ toSanitize }).optional(),
-  });
+  }).optional();
 };
 
 export const programWorkoutValidation = {

@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import type { IEntity } from "../../../shared/models/entity.model";
 import type { ICON_MODE } from "../consts/UI.const";
 import type { LABEL_POSITION } from "../consts/styles";
+import type { TButtonLinkStyle } from "./styles.model";
 
 export interface IAppNav {
   label: string;
@@ -31,3 +32,9 @@ export type TDebouncedFunction<F extends (...args: any[]) => any> = {
   cancel: () => void;
   flush: () => ReturnType<F> | undefined;
 };
+
+export interface IButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children?: React.ReactNode;
+  buttonStyle?: TButtonLinkStyle | null;
+}

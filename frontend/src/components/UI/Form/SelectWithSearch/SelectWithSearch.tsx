@@ -1,19 +1,19 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import { useSelect } from "../../../hooks/shared/useSelect";
+import { useSelect } from "../../../../hooks/shared/useSelect";
 
-import { appUtil } from "../../../utils/app.util";
+import { appUtil } from "../../../../utils/app.util";
 
-import Button from "../Button";
-import Input from "./Input";
-import IconArrow from "../Icons/IconArrow";
-import LabelWithError from "./LabelWithError";
+import Button from "../../Button";
+import Input from "../Input";
+import IconArrow from "../../Icons/IconArrow";
+import LabelWithError from "../LabelWithError";
 
 import type {
   ISelectAddComponentProps,
   ISelectItemComponentProps,
-} from "../../../models/select.model";
+} from "../../../../models/select.model";
 
 interface SelectWithSearchProps<T, P> {
   options: readonly T[];

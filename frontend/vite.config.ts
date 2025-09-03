@@ -7,6 +7,6 @@ import basicSsl from "@vitejs/plugin-basic-ssl";
 export default defineConfig({
   plugins: [react(), tailwindcss(), basicSsl()],
   server: {
-    https: true,
+    https: false,
   },
 });

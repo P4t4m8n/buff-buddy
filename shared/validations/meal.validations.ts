@@ -1,7 +1,7 @@
 import type { IToSanitize } from "../models/app.model";
 import { z } from "zod";
 import { validationUtil } from "./util.validation";
-import { MEAL_TYPE } from "../consts/app.consts";
+import { MEAL_TYPES } from "../consts/meal.consts";
 
 const createMealFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
@@ -11,7 +11,7 @@ const createMealFactorySchema = ({ toSanitize }: IToSanitize) => {
       maxLength: 255,
       toSanitize,
     }),
-    mealType: z.enum(MEAL_TYPE),
+    mealType: z.enum(MEAL_TYPES),
     ownerId: validationUtil.IDSchemaFactory({ toSanitize }).optional(),
     note: validationUtil
       .stringSchemaFactory({
@@ -33,7 +33,7 @@ const updateMealFactorySchema = ({ toSanitize }: IToSanitize) => {
 };
 
 const MealQuerySchema = validationUtil.FilterSchema.extend({
-  mealType: z.enum(MEAL_TYPE).optional(),
+  mealType: z.enum(MEAL_TYPES).optional(),
   ownerId: validationUtil.IDSchemaFactory({ toSanitize: false }).optional(),
   name: validationUtil
     .stringSchemaFactory({

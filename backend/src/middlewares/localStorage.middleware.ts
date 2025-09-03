@@ -3,9 +3,10 @@ import { AsyncLocalStorage } from "async_hooks";
 import { User } from "../../prisma/generated/prisma";
 import { authService } from "../api/auth/auth.service";
 import { COOKIE } from "../api/auth/auth.consts";
+import { AppError } from "../shared/services/Error.service";
 
 export interface IAsyncStorageData {
-  sessionUser?: Partial<User>;
+  sessionUser?: Partial<User> | null;
 }
 
 export const asyncLocalStorage = new AsyncLocalStorage<IAsyncStorageData>();
@@ -19,25 +20,29 @@ export async function setupAsyncLocalStorage(
 
   asyncLocalStorage.run(storage, async () => {
     try {
+      const alsStore = asyncLocalStorage.getStore();
+
+      if (!alsStore) {
+        throw AppError.create("No async local storage found");
+      }
+
+      alsStore.sessionUser = null;
+
       if (!req.cookies) {
         return;
       }
-      
+
       const { token } = req.cookies;
       if (typeof token !== "string") {
-        return;
+        throw AppError.create("Invalid token");
       }
 
       const user = await authService.validateToken(token);
 
       if (user) {
-        const alsStore = asyncLocalStorage.getStore();
-        if (alsStore) {
-          alsStore.sessionUser = user;
-        }
+        alsStore.sessionUser = user;
       }
     } catch (error) {
-      console.error("Error setting up async local storage:", error);
       res.clearCookie("token", COOKIE);
     } finally {
       next();

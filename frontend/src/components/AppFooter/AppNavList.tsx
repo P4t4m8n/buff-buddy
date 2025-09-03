@@ -7,6 +7,7 @@ import NavItem from "../UI/NavItem";
 import GenericList from "../UI/GenericList";
 
 import type { IAppNav } from "../../models/UI.model";
+import IconDiet from "../UI/Icons/IconDiet";
 
 export default function AppNavList() {
   const paths = [
@@ -19,6 +20,11 @@ export default function AppNavList() {
       label: "workouts",
       path: "/workouts",
       icon: <IconWorkout className="w-6 h-6 " />,
+    },
+    {
+      label: "diet",
+      path: "/diet",
+      icon: <IconDiet className="w-6 h-6 fill-main-orange " />,
     },
     {
       label: "programs",

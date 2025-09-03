@@ -45,7 +45,7 @@ export const useWorkoutStore = create<
   saveItem: async (workoutToSave: IWorkoutEditDTO) => {
     const currentId = workoutToSave.id;
     try {
-      set({ isLoading: true, isSavingId: workoutToSave.id });
+      set({  isSavingId: workoutToSave.id });
       const savedWorkout = await workoutService.save(workoutToSave);
       if (savedWorkout) {
         set((state) => {

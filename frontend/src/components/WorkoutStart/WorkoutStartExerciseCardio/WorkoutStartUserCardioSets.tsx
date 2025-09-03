@@ -16,12 +16,23 @@ interface IWorkoutStartUserCardioSetsProps {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   handleUserSet: (userSetId?: string, type?: ExerciseType) => void;
+  userWorkoutExerciseId?: string;
+  handleUserSetSkip: ({
+    userWorkoutExerciseId,
+    userSetId,
+    skippedReason,
+  }: {
+    userWorkoutExerciseId: string;
+    userSetId: string;
+    skippedReason: string;
+  }) => void;
 }
 export default function WorkoutStartUserCardioSets({
   item: userSet,
   errors,
   handleUserCardioSetsChange,
   handleUserSet,
+  handleUserSetSkip,
 }: IWorkoutStartUserCardioSetsProps) {
   const {
     id: userSetId,
@@ -96,6 +107,7 @@ export default function WorkoutStartUserCardioSets({
         Model={WorkoutStartExerciseSkipEdit}
         modelProps={{
           handleUserSetsChange: handleUserCardioSetsChange,
+          handleUserSetSkip,
           skippedReason,
           userSetId,
         }}
