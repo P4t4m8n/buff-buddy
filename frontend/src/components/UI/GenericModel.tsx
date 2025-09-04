@@ -8,14 +8,8 @@ import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
 import ModelOverlay from "./ModelOverlay";
 import Button from "./Button";
 
-import type { IButtonProps } from "../../models/UI.model";
+import type { IButtonProps, IModelProps } from "../../models/UI.model";
 import type { TIconMode } from "../../models/UI.model";
-
-export interface IModelProps<T extends HTMLElement> {
-  handleModel?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-  modelRef?: React.RefObject<T | null>;
-}
 
 interface IGenericModelProps<T extends HTMLElement, P> {
   Model: React.ComponentType<P & IModelProps<T>>;

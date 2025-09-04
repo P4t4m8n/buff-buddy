@@ -10,5 +10,6 @@ export default function useFoodItemsQuery(filter: IFoodItemFilter) {
     queryKey: ["foodItems"],
     filter,
     queryFn: () => foodItemService.get(filter),
+    enabled: !!filter.barcode || !!filter.name,
   });
 }

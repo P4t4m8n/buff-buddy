@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import BackButton from "../../components/UI/BackButton";
 import { mealService } from "../../services/meal.service";
-import type { IMealEditDTO } from "../../../../shared/models/meal.model";
-import { MealUtils } from "../../utils/meal.util";
+import type {
+  IMealEditDTO,
+  IMealFoodItemEditDTO,
+} from "../../../../shared/models/meal.model";
+import { mealUtil } from "../../utils/meal.util";
 import { useErrors } from "../../hooks/shared/useErrors";
 import Loader from "../../components/UI/loader/Loader";
 import InputWithError from "../../components/UI/Form/InputWithError";
@@ -29,7 +32,7 @@ export default function MealEditPage() {
 
   useEffect(() => {
     if (!mealIdParams) {
-      return setMealToEdit(MealUtils.getEmpty());
+      return setMealToEdit(mealUtil.getEmpty());
     }
 
     const loadMeal = async () => {
@@ -37,9 +40,9 @@ export default function MealEditPage() {
         setIsLoading(true);
         mealService.getById(mealIdParams).then((meal) => {
           if (!meal) {
-            return setMealToEdit(MealUtils.getEmpty());
+            return setMealToEdit(mealUtil.getEmpty());
           }
-          const mealEdit = MealUtils.dtoToEditDto(meal);
+          const mealEdit = mealUtil.dtoToEditDto(meal);
           setMealToEdit(mealEdit);
         });
       } catch (error) {
@@ -56,11 +59,21 @@ export default function MealEditPage() {
     setMealToEdit((prev) => (prev ? { ...prev, mealType } : prev));
   };
 
+  const handleMealFoodItem = (mealFoodItem: IMealFoodItemEditDTO) => {
+    console.log("🚀 ~ handleMealFoodItem ~ mealFoodItem:", mealFoodItem);
+  };
+
   if (isLoading || !mealToEdit) {
     return <Loader loaderType="screen" />;
   }
 
-  const { id: mealId, name: mealName, notes: mealNotes,mealType,mealFoodItems } = mealToEdit;
+  const {
+    id: mealId,
+    name: mealName,
+    notes: mealNotes,
+    mealType,
+    mealFoodItems,
+  } = mealToEdit;
 
   const headerText = !mealId?.startsWith("temp")
     ? `Edit Meal: `
@@ -135,13 +148,14 @@ export default function MealEditPage() {
         >
           <GenericModel
             Model={MealFoodItemEditModel}
-            modelProps={{}}
+            modelProps={{ handleMealFoodItem }}
             mode="create"
             buttonProps={{
               buttonStyle: "model",
               className: "mr-auto col-span-2 lg:w-full",
             }}
-            isOverlay={true}
+            isOverlay={false}
+            isPortal={true}
           />
 
           <Button

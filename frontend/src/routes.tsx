@@ -13,8 +13,8 @@ import WorkoutEditPage from "./pages/Workout/WorkoutEditPage";
 import WorkoutListPage from "./pages/Workout/WorkoutListPage";
 import DietPage from "./pages/Diet/DietPage";
 import ProgramEditPage from "./pages/Program/ProgramEditPage";
-import MealPage from "./pages/Diet/MealPage";
-import MealEditPage from "./pages/Diet/MealEditPage";
+import MealPage from "./pages/Meal/MealPage";
+import MealEditPage from "./pages/Meal/MealEditPage";
 
 export interface RouteConfig {
   path: string;
@@ -98,26 +98,21 @@ export const ROUTES: RouteConfig[] = [
   {
     path: "/admin",
     element: <AdminPage />,
-    children: [],
   },
   {
     path: "/diet",
     element: <DietPage />,
-    children: [
-      {
-        path: "meals",
-        element: <MealPage />,
-        children: [
-          {
-            path: "edit",
-            element: <MealEditPage />,
-          },
-          {
-            path: "edit/:mealIdParams",
-            element: <MealEditPage />,
-          },
-        ],
-      },
-    ],
+  },
+  {
+    path: "/meals",
+    element: <MealPage />,
+  },
+  {
+    path: "/meals/edit",
+    element: <MealEditPage />,
+  },
+  {
+    path: "/meals/:mealIdParams",
+    element: <MealEditPage />,
   },
 ];

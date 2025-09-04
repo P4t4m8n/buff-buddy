@@ -1,6 +1,6 @@
 import type { IMealEditDTO } from "../../../shared/models/meal.model";
 import { appUtil } from "./app.util";
-import { MealFoodItemUtil } from "./mealFoodItem.util";
+import { mealFoodItemUtil } from "./mealFoodItem.util";
 
 const getEmpty = (): IMealEditDTO => ({
   id: appUtil.getTempId(),
@@ -14,10 +14,10 @@ const dtoToEditDto = (dto: IMealEditDTO): IMealEditDTO => ({
   ...dto,
   ownerId: dto.owner?.id || null,
   mealFoodItems:
-    dto.mealFoodItems?.map((mfi) => MealFoodItemUtil.dtoToEditDto(mfi)) || [],
+    dto.mealFoodItems?.map((mfi) =>mealFoodItemUtil.dtoToEditDto(mfi)) || [],
 });
 
-export const MealUtils = {
+export const mealUtil = {
   getEmpty,
   dtoToEditDto,
 };

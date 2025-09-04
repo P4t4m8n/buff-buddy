@@ -38,3 +38,9 @@ export interface IButtonProps
   children?: React.ReactNode;
   buttonStyle?: TButtonLinkStyle | null;
 }
+
+export interface IModelProps<T extends HTMLElement> {
+  handleModel?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  modelRef?: React.RefObject<T | null>;
+}

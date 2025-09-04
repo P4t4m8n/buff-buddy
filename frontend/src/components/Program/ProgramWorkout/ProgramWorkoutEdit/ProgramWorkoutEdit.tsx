@@ -11,7 +11,7 @@ import type {
   IProgramWorkoutDTO,
   IProgramWorkoutEditDTO,
 } from "../../../../../../shared/models/program.model";
-import type { IModelProps } from "../../../UI/GenericModel";
+import type { IModelProps } from "../../../../models/UI.model";
 
 interface ProgramWorkoutProps extends IModelProps<HTMLDivElement> {
   programWorkout?: IProgramWorkoutDTO;

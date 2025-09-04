@@ -1,5 +1,5 @@
 import type { IBaseFilter } from "./app.model";
-import type { IEntity } from "./entity.model";
+import type { IEntity, IEntityDates } from "./entity.model";
 
 interface IFoddItemBase extends IEntity {
   carbohydrates?: string;
@@ -8,7 +8,9 @@ interface IFoddItemBase extends IEntity {
   sugar?: string;
   sodium?: string;
   cholesterol?: string;
-  imgUrl?: string;
+  images?: IFoodItemImgDto[];
+  labels?: IFoodItemLabelDto[];
+  brand?: IFoodItemBrandDto;
 }
 
 export interface IFoodItemDto extends IFoddItemBase {
@@ -24,4 +26,16 @@ export interface IFoodItemFilter extends IBaseFilter {
   calories?: string | null;
   protein?: string | null;
   barcode?: string | null;
+}
+
+export interface IFoodItemImgDto extends IEntity, IEntityDates {
+  foodItemId: string;
+  url: string;
+}
+
+export interface IFoodItemBrandDto extends IEntity, IEntityDates {
+  name: string;
+}
+export interface IFoodItemLabelDto extends IEntity, IEntityDates {
+  name: string;
 }

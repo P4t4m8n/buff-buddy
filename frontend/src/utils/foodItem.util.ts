@@ -8,7 +8,7 @@ const getEmpty = (): IFoodItemEditDto => {
     sugar: "",
     sodium: "",
     cholesterol: "",
-    imgUrl: "",
+    images: [],
     name: "",
     barcode: "",
     calories: "",

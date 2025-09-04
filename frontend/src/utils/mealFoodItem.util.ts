@@ -16,7 +16,7 @@ const dtoToEditDto = (dto: IMealFoodItemDTO): IMealFoodItemEditDTO => ({
   quantity: dto.quantity || null,
 });
 
-export const MealFoodItemUtil = {
+export const mealFoodItemUtil = {
   getEmpty,
   dtoToEditDto,
 };
