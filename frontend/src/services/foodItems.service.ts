@@ -1,18 +1,50 @@
 import type {
   IFoodItemDto,
+  IFoodItemEditDto,
   IFoodItemFilter,
 } from "../../../shared/models/foodItem.model";
 
 import { foodItemValidation } from "../../../shared/validations/foodItem.validation";
+import type { THttpPostResponse } from "../models/apiService.model";
 import { apiService } from "./api.service";
+import { ClientError } from "./ClientError.service";
 
 const BASE_URL = "/food-items";
 
-const get = async (filter: IFoodItemFilter) => {
+const get = async (filter?: IFoodItemFilter | null) => {
   const validateFilter = foodItemValidation.FoodItemQuerySchema.parse(filter);
   return await apiService.get<IFoodItemDto[]>(`${BASE_URL}`, validateFilter);
 };
 
+const getById = async (id?: string) => {
+  return await apiService.get<IFoodItemDto>(`${BASE_URL}/${id}`);
+};
+
+const save = async (
+  dto?: IFoodItemEditDto
+): Promise<THttpPostResponse<IFoodItemDto>> => {
+  if (!dto) throw ClientError.create("Food item data is required", 400);
+
+  if (!dto?.id || dto.id.startsWith("temp")) {
+    const validateDto = foodItemValidation
+      .createFoodItemFactorySchema({ toSanitize: false })
+      .parse(dto);
+    return await apiService.post<THttpPostResponse<IFoodItemDto>>(
+      `${BASE_URL}/edit`,
+      validateDto
+    );
+  }
+  const validateDto = foodItemValidation
+    .updateFoodItemSchema({ toSanitize: false })
+    .parse(dto);
+  return await apiService.put<THttpPostResponse<IFoodItemDto>>(
+    `${BASE_URL}/edit/${dto.id}`,
+    validateDto
+  );
+};
+
 export const foodItemService = {
   get,
+  getById,
+  save,
 };

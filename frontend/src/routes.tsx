@@ -15,6 +15,7 @@ import DietPage from "./pages/Diet/DietPage";
 import ProgramEditPage from "./pages/Program/ProgramEditPage";
 import MealPage from "./pages/Meal/MealPage";
 import MealEditPage from "./pages/Meal/MealEditPage";
+import FoodItemEditPage from "./pages/FoodItem/FoodItemEditPage";
 
 export interface RouteConfig {
   path: string;
@@ -114,5 +115,13 @@ export const ROUTES: RouteConfig[] = [
   {
     path: "/meals/:mealIdParams",
     element: <MealEditPage />,
+  },
+  {
+    path: "/foodItem/edit",
+    element: <FoodItemEditPage />,
+  },
+  {
+    path: "/foodItem/edit/:foodItemId",
+    element: <FoodItemEditPage />,
   },
 ];

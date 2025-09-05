@@ -1,38 +1,27 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import { useFoodItemMutationKeyStore } from "../../store/foodItemMutationKey.store";
-import type {
-  IFoodItemDto,
-  IFoodItemEditDto,
-} from "../../../../shared/models/foodItem.model";
-import useFoodItemIdQuery from "../../hooks/queryHooks/useFoodItemIdQuery";
-import { useErrors } from "../../hooks/shared/useErrors";
-import { useMutation } from "@tanstack/react-query";
+import type { IFoodItemEditDto } from "../../../../shared/models/foodItem.model";
 import { foodItemService } from "../../services/foodItems.service";
-import { queryClient } from "../../lib/queryClient";
 import { foodItemUtil } from "../../utils/foodItem.util";
-import Loader from "../UI/loader/Loader";
-import InputWithError from "../UI/Form/InputWithError";
-import GenericList from "../UI/GenericList";
-import NutritionEditNumber from "./NutritionEditNumber";
-import Button from "../UI/Button";
+import useFoodItemIdQuery from "../../hooks/queryHooks/useFoodItemIdQuery";
+import Loader from "../../components/UI/loader/Loader";
+import InputWithError from "../../components/UI/Form/InputWithError";
+import { useErrors } from "../../hooks/shared/useErrors";
+import BackButton from "../../components/UI/BackButton";
 import { formUtil } from "../../utils/form.util";
-import type { IModelProps } from "../../models/UI.model";
-import { usePageBack } from "../../hooks/shared/usePageBack";
-import IconArrow from "../UI/Icons/IconArrow";
+import GenericList from "../../components/UI/GenericList";
+import NutritionEditNumber from "../../components/FoodItem/NutritionEditNumber";
+import Button from "../../components/UI/Button";
+import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "../../lib/queryClient";
 
-interface IFoodItemEditProps extends IModelProps<HTMLFormElement> {
-  foodItemId?: string;
-}
-export default function FoodItemEdit({
-  foodItemId,
-  ...props
-}: IFoodItemEditProps) {
+export default function FoodItemEditPage() {
+  const { foodItemId } = useParams<{ foodItemId?: string }>();
   const getKey = useFoodItemMutationKeyStore((store) => store.getMutationKey);
   const [foodItemToEdit, setFoodItemToEdit] = useState<IFoodItemEditDto | null>(
     null
   );
-  const { handleModel, setIsOpen, modelRef } = props;
-  const { onBack } = usePageBack();
 
   const { data, isLoading } = useFoodItemIdQuery(foodItemId);
   const { errors } = useErrors<IFoodItemEditDto>();
@@ -40,10 +29,7 @@ export default function FoodItemEdit({
   const mutation = useMutation({
     mutationFn: (dto: IFoodItemEditDto) => foodItemService.save(dto),
     onSuccess({ data }) {
-      queryClient.setQueryData<IFoodItemDto[]>(getKey(), (old) => [
-        ...(old ?? []),
-        data,
-      ]);
+      queryClient.setQueryData(["foodItems", getKey()], data);
     },
     onError(error) {
       console.error(error);
@@ -84,25 +70,14 @@ export default function FoodItemEdit({
     const key = getKey();
 
     mutation.mutate(foodItemToEdit);
-    if (setIsOpen) setIsOpen(false);
-    else onBack();
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     formUtil.handleInputChange(e, setFoodItemToEdit);
   };
   return (
-    <form
-      onSubmit={onSubmit}
-      ref={modelRef}
-      className="h-main self-start flex flex-col w-full p-4 gap-8 bg-black-900"
-    >
-      <Button
-        className="border-main-orange border rounded-full w-10 aspect-auto -rotate-90"
-        onClick={handleModel ?? onBack}
-      >
-        <IconArrow className="w-full aspect-square fill-main-orange" />
-      </Button>
+    <form onSubmit={onSubmit} className="h-main flex flex-col w-full p-4 gap-8">
+      <BackButton />
 
       <InputWithError
         inputProps={{

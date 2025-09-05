@@ -1,25 +1,29 @@
 import type { IBaseFilter } from "./app.model";
 import type { IEntity, IEntityDates } from "./entity.model";
 
-interface IFoddItemBase extends IEntity {
+interface IFoddItemBase extends IEntity, IEntityDates {
   carbohydrates?: string;
   fats?: string;
   fiber?: string;
   sugar?: string;
   sodium?: string;
   cholesterol?: string;
+  name?: string;
+  barcode?: string;
+  calories?: string;
+  protein?: string;
+}
+
+export interface IFoodItemDto extends IFoddItemBase {
   images?: IFoodItemImgDto[];
   labels?: IFoodItemLabelDto[];
   brand?: IFoodItemBrandDto;
 }
-
-export interface IFoodItemDto extends IFoddItemBase {
-  name: string;
-  barcode: string;
-  calories: string;
-  protein: string;
+export interface IFoodItemEditDto extends Partial<IFoddItemBase> {
+  brand?: string;
+  labels?: string[];
+  images?: string[];
 }
-export interface IFoodItemEditDto extends Partial<IFoodItemDto> {}
 
 export interface IFoodItemFilter extends IBaseFilter {
   name?: string | null;

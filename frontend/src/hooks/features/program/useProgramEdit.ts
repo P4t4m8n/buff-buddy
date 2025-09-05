@@ -8,7 +8,7 @@ import { useProgramStore } from "../../../store/program.store";
 import { useNavigate } from "react-router";
 import { programUtils } from "../../../utils/program.util";
 import { useErrors } from "../../shared/useErrors";
-import { formUtils } from "../../../utils/form.util";
+import { formUtil } from "../../../utils/form.util";
 
 interface IProgramEditHook {
   programToEdit: IProgramEditDTO | null;
@@ -122,7 +122,7 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    formUtils.handleInputChange(e, setProgramToEdit);
+    formUtil.handleInputChange(e, setProgramToEdit);
   };
 
   return {

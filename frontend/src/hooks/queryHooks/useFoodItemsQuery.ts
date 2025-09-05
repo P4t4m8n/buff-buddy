@@ -7,8 +7,7 @@ import useQueryHook from "./useQueryHook";
 
 export default function useFoodItemsQuery(filter: IFoodItemFilter) {
   return useQueryHook<IFoodItemDto, IFoodItemFilter>({
-    queryKey: ["foodItems"],
-    filter,
+    queryKey: ["foodItems", filter],
     queryFn: () => foodItemService.get(filter),
     enabled: !!filter.barcode || !!filter.name,
   });

@@ -5,7 +5,7 @@ import { ZodError } from "zod";
 import type { TErrors } from "../../models/errors.model";
 import ToastError from "../../components/UI/Toast/ToastError";
 
-export function useErrors<T extends object>() {
+export const useErrors = <T extends object>() => {
   const [errors, setErrors] = useState<TErrors<T> | null>(null);
 
   const clearErrors = useCallback(() => {
@@ -65,4 +65,4 @@ export function useErrors<T extends object>() {
     clearErrors,
     handleError,
   };
-}
+};

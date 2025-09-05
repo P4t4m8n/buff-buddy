@@ -28,8 +28,7 @@ export default function BarcodeScanner({
         fps: 10,
         qrbox: { width: 320, height: 320 },
       },
-      (decodedText: string, decodedResult: Html5QrcodeResult) => {
-        console.log("🚀 ~ BarcodeScanner ~ decodedText:", decodedText);
+      (decodedText: string, _: Html5QrcodeResult) => {
         getBarcode(decodedText);
         if (!!setIsOpen) setIsOpen(false);
       },

@@ -2,12 +2,11 @@ import { useWorkoutEdit } from "../../hooks/features/workout/useWorkoutEdit";
 
 import WorkoutEdit from "./WorkoutEdit";
 
-import type { IModelProps } from "../UI/GenericModel";
-
 import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
 } from "../../../../shared/models/workout.model";
+import type { IModelProps } from "../../models/UI.model";
 
 interface WorkoutCreateProps extends IModelProps<HTMLFormElement> {
   workout?: IWorkoutDTO | IWorkoutEditDTO;

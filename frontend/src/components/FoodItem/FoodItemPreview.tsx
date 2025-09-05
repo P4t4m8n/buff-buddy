@@ -12,17 +12,17 @@ export default function FoodItemPreview({
   item: foodItem,
   onSelectFoodItem,
 }: IFoodItemPreviewProps) {
-  console.log("🚀 ~ FoodItemPreview ~ foodItem:", foodItem);
 
   const { name, images, brand, id: foodItemId } = foodItem;
-  const img = images?.[0].url ?? "";
+
+  const img = images?.[0]?.url ?? "/images/placeholder.webp";
   const brandName = brand?.name ?? "";
   return (
-    <li>
+    <li className="grid grid-cols-[3rem_calc(100%-3.5rem)] grid-rows-[1.5rem_1.5rem_auto] gap-x-2 bg-black-300 p-2 rounded">
+      <img className=" row-span-2 aspect-square h-full rounded"  src={img}/>
       <h3>{name}</h3>
       <p>{brandName}</p>
-      <img src={img}></img>
-      <div className=" flex items-center gap-3 ">
+      <div className=" flex items-center gap-3 col-span-2 pt-4 ">
         <LinkComponent to={`${foodItemId}`} className="mr-auto">
           <Button buttonStyle="model">{ModelButtonIcon("details")}</Button>
         </LinkComponent>

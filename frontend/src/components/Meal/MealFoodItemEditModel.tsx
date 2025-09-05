@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import type { IMealFoodItemEditDTO } from "../../../../shared/models/meal.model";
 
-import { useErrors } from "../../hooks/shared/useErrors";
+import FoodItemsIndex from "../FoodItem/FoodItemsIndex";
 
-import FoodItemsList from "../FoodItem/FoodItemsList";
 import NumberInputWIthError from "../UI/Form/NumberInputWIthError";
-import { formUtils } from "../../utils/form.util";
-import { mealFoodItemUtil } from "../../utils/mealFoodItem.util";
 import Loader from "../UI/loader/Loader";
+
+import { formUtil } from "../../utils/form.util";
+import { mealFoodItemUtil } from "../../utils/mealFoodItem.util";
+
+import type { IMealFoodItemEditDTO } from "../../../../shared/models/meal.model";
 import type { IModelProps } from "../../models/UI.model";
 import type { IFoodItemDto } from "../../../../shared/models/foodItem.model";
 
@@ -32,10 +33,6 @@ export default function MealFoodItemEditModel({
     setFoodIItemToEdit(_mealFoodItem);
   }, [mealFoodItem]);
 
-  const { handleError, errors } = useErrors<IMealFoodItemEditDTO>();
-  console.log("🚀 ~ MealFoodItemEditModel ~ handleError:", handleError);
-  console.log("🚀 ~ MealFoodItemEditModel ~ errors:", errors);
-
   if (!foodItemToEdit) {
     return <Loader />;
   }
@@ -47,8 +44,6 @@ export default function MealFoodItemEditModel({
       foodItem,
       foodItemId: foodItem.id,
     }));
-    console.log("🚀 ~ onSelectFoodItem ~ e:", e);
-    console.log("🚀 ~ handleFoodItem ~ foodItem:", foodItem);
   };
 
   const { id: foodItemToEditId, foodItem } = foodItemToEdit;
@@ -64,11 +59,11 @@ export default function MealFoodItemEditModel({
             label="quantity"
             name="quantity"
             inputId={foodItemToEditId}
-            onChange={(e) => formUtils.handleInputChange(e, setFoodIItemToEdit)}
+            onChange={(e) => formUtil.handleInputChange(e, setFoodIItemToEdit)}
           />
         </div>
       ) : null}
-      <FoodItemsList onSelectFoodItem={onSelectFoodItem} />
+      <FoodItemsIndex onSelectFoodItem={onSelectFoodItem} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 
-export function usePageBack() {
+export const usePageBack = () => {
   const navigate = useNavigate();
 
   const onBack = (e?: React.MouseEvent) => {
@@ -9,4 +9,4 @@ export function usePageBack() {
   };
 
   return { onBack };
-}
+};

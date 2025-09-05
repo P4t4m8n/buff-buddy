@@ -8,7 +8,7 @@ import type {
 import { workoutUtils } from "../../../utils/workout.util";
 import { useErrors } from "../../shared/useErrors";
 import { ClientError } from "../../../services/ClientError.service";
-import { formUtils } from "../../../utils/form.util";
+import { formUtil} from "../../../utils/form.util";
 
 interface IUseWorkoutEditProps {
   workoutId?: string;
@@ -126,7 +126,7 @@ export const useWorkoutEdit = ({
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    formUtils.handleInputChange(e, setWorkoutToEdit);
+    formUtil.handleInputChange(e, setWorkoutToEdit);
   };
 
   const onSubmit = async () => {

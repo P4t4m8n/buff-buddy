@@ -3,10 +3,7 @@ import LinkComponent from "../../components/UI/Link";
 
 export default function MealPage() {
   // const { isPending, isError, data: meals, error } = useMealsQuery();
-  // console.log("🚀 ~ MealPage ~ isPending:", isPending);
-  // console.log("🚀 ~ MealPage ~ isError:", isError);
-  // console.log("🚀 ~ MealPage ~ error:", error);
-  // console.log("🚀 ~ MealPage ~ meals:", meals);
+
   return (
     <div className=" h-main grid grid-stack ">
       <header className="p-mobile md:p-desktop shadow-border-b ">

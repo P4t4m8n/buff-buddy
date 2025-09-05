@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useErrors } from "../shared/useErrors";
 
 interface IUseQueryProps<T, F> {
-  queryKey: string[];
-  filter?: F;
+  queryKey: (string | F | null | undefined)[];
+
   enabled?: boolean;
   queryFn: () => Promise<T[]>;
 }
@@ -11,21 +11,20 @@ interface IUseQueryProps<T, F> {
 export default function useQueryHook<T extends object, F extends object>({
   queryKey,
   queryFn,
-  filter,
   enabled,
 }: IUseQueryProps<T, F>) {
   const { handleError } = useErrors<T>();
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: [...queryKey, filter],
+  const { isPending, isError, data, error, status, isLoading } = useQuery({
+    queryKey: queryKey,
     queryFn,
     enabled,
+    staleTime: 1000 * 60 * 60 * 24 * 7, // 7 days
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-    throwOnError: (error, query) => {
-      console.log("🚀 ~ useQueryHook ~ query:", query);
+    throwOnError: (error, _) => {
       handleError({ error });
       return true;
     },
   });
-  return { isPending, isError, data, error };
+  return { isPending, isError, data, error, status, isLoading };
 }

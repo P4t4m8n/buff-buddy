@@ -10,7 +10,7 @@ import { mealUtil } from "../../utils/meal.util";
 import { useErrors } from "../../hooks/shared/useErrors";
 import Loader from "../../components/UI/loader/Loader";
 import InputWithError from "../../components/UI/Form/InputWithError";
-import { formUtils } from "../../utils/form.util";
+import { formUtil } from "../../utils/form.util";
 import TextArea from "../../components/UI/Form/TextArea";
 import Label from "../../components/UI/Form/Label";
 import GenericModel from "../../components/UI/GenericModel";
@@ -60,7 +60,6 @@ export default function MealEditPage() {
   };
 
   const handleMealFoodItem = (mealFoodItem: IMealFoodItemEditDTO) => {
-    console.log("🚀 ~ handleMealFoodItem ~ mealFoodItem:", mealFoodItem);
   };
 
   if (isLoading || !mealToEdit) {
@@ -98,7 +97,7 @@ export default function MealEditPage() {
               name: "name",
               id: "name-" + mealId,
               placeholder: "",
-              onChange: (e) => formUtils.handleInputChange(e, setMealToEdit),
+              onChange: (e) => formUtil.handleInputChange(e, setMealToEdit),
               className: "h-10 pl-2",
             }}
             labelProps={{
@@ -111,7 +110,7 @@ export default function MealEditPage() {
           />
 
           <TextArea
-            onChange={(e) => formUtils.handleInputChange(e, setMealToEdit)}
+            onChange={(e) => formUtil.handleInputChange(e, setMealToEdit)}
             value={mealNotes ?? ""}
             name="notes"
             id={"notes-" + mealId}

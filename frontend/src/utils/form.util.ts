@@ -28,6 +28,6 @@ const handleInputChange = <T>(
   });
 };
 
-export const formUtils = {
+export const formUtil = {
   handleInputChange,
 };

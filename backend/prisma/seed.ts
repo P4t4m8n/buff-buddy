@@ -227,7 +227,7 @@ const seedFood = async () => {
 
     return errors;
   } catch (error) {
-    console.log("🚀 ~ seedFood ~ error:", error);
+    console.error("🚀 ~ seedFood ~ error:", error);
   }
 };
 

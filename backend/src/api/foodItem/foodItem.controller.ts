@@ -42,14 +42,11 @@ export const getFoodItemById = async (req: Request, res: Response) => {
 
 export const getFoodItemByBarcode = async (req: Request, res: Response) => {
   try {
-    console.log("********************************")
     const { barcode } = foodItemValidation.FoodItemIdBarcodeSchema.parse(
       req.params
     );
-    console.log("🚀 ~ getFoodItemByBarcode ~ barcode:", barcode)
 
     const foodItem = await foodItemService.getByBarCode(barcode);
-    console.log("🚀 ~ getFoodItemByBarcode ~ foodItem:", foodItem)
 
     if (!foodItem) {
       throw new AppError("Food item not found", 404);

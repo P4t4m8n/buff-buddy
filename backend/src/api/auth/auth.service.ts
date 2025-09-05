@@ -120,7 +120,6 @@ export const authService = {
   },
 
   validateToken: async (token: string) => {
-    console.log("🚀 ~ token:", token)
     if (!token) {
       return null;
     }
@@ -134,7 +133,6 @@ export const authService = {
       userId: string;
       isAdmin: boolean;
     };
-    console.log("🚀 ~ decoded:", decoded)
     const user = await prisma.user.findUnique({
       where: { id: decoded.userId },
       select: { id: true, firstName: true, lastName: true, isAdmin: true },
