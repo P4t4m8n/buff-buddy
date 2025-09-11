@@ -3,7 +3,7 @@ import type {
   IWorkoutFilter,
   IWorkoutDTO,
 } from "../../../shared/models/workout.model";
-import type { THttpPostResponse } from "../models/apiService.model";
+import type { THttpResponse } from "../models/apiService.model";
 import { workoutValidation } from "../../../shared/validations/workout.validations";
 import { apiService } from "./api.service";
 
@@ -27,7 +27,7 @@ export const workoutService = {
         .createWorkoutFactorySchema({ toSanitize: false })
         .parse(dto);
 
-      const { data } = await apiService.post<THttpPostResponse<IWorkoutDTO>>(
+      const { data } = await apiService.post<THttpResponse<IWorkoutDTO>>(
         `${this.rootPath}/edit`,
         validatedDTO
       );
@@ -38,7 +38,7 @@ export const workoutService = {
       .updateWorkoutFactorySchema({ toSanitize: false })
       .parse(dto);
 
-    const { data } = await apiService.put<THttpPostResponse<IWorkoutDTO>>(
+    const { data } = await apiService.put<THttpResponse<IWorkoutDTO>>(
       `${this.rootPath}/edit/${dto.id}`,
       validatedDTO
     );

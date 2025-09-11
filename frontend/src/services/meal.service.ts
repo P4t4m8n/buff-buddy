@@ -1,5 +1,5 @@
 import type { IMealDTO, IMealEditDTO } from "../../../shared/models/meal.model";
-import type { THttpPostResponse } from "../models/apiService.model";
+import type { THttpResponse } from "../models/apiService.model";
 import { apiService } from "./api.service";
 import { ClientError } from "./ClientError.service";
 import { mealValidation } from "../../../shared/validations//meal.validations";
@@ -16,7 +16,7 @@ const getById = async (id?: string) => {
 };
 const save = async (
   dto: IMealEditDTO
-): Promise<THttpPostResponse<IMealDTO>> => {
+): Promise<THttpResponse<IMealDTO>> => {
   if (!dto) throw ClientError.create("Meal data is required", 400);
   const { id } = dto;
 
@@ -24,7 +24,7 @@ const save = async (
     const validatedDTO = mealValidation
       .createMealFactorySchema({ toSanitize: false })
       .parse(dto);
-    return await apiService.post<THttpPostResponse<IMealDTO>>(
+    return await apiService.post<THttpResponse<IMealDTO>>(
       `${BASE_URL}/edit`,
       validatedDTO
     );
@@ -32,7 +32,7 @@ const save = async (
   const validatedDTO = mealValidation
     .updateMealFactorySchema({ toSanitize: false })
     .parse(dto);
-  return await apiService.put<THttpPostResponse<IMealDTO>>(
+  return await apiService.put<THttpResponse<IMealDTO>>(
     `${BASE_URL}/edit/${dto.id}`,
     validatedDTO
   );

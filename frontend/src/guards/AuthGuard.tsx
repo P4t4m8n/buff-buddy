@@ -15,10 +15,10 @@ export default function AuthGuard({ children }: AuthProviderProps) {
 
   useEffect(() => {
     loadSessionUser();
-  }, [loadSessionUser]);
+  }, []);
 
   if (isLoadingSession) return <Loader loaderType="screen" isFullScreen />;
 
-  // return user ? <>{children}</> : <AuthPage />;
-  return <>{children}</> 
+  return user ? <>{children}</> : <AuthPage />;
+  // return <>{children}</>
 }

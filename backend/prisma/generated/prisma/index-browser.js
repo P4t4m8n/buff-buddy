@@ -289,6 +289,7 @@ exports.Prisma.WorkoutExerciseScalarFieldEnum = {
 
 exports.Prisma.UserWorkoutExerciseScalarFieldEnum = {
   id: 'id',
+  skippedReason: 'skippedReason',
   workoutExerciseId: 'workoutExerciseId',
   userWorkoutId: 'userWorkoutId'
 };

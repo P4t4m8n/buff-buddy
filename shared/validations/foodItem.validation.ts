@@ -2,17 +2,50 @@ import { z } from "zod";
 
 import { validationUtil } from "./util.validation";
 import type { IToSanitize } from "../models/app.model";
+import { TFoodItemInfo } from "../models/foodItem.model";
+
+const createFoodItemInfoFactorySchema = ({
+  toSanitize,
+  foodInfo,
+}: IToSanitize & { foodInfo: TFoodItemInfo }) => {
+  return z.object({
+    name: validationUtil
+      .stringSchemaFactory({
+        fieldName: `${foodInfo}  name`,
+        maxLength: 255,
+        toSanitize,
+      })
+      .default("Unknown"),
+    crudOperation: validationUtil.CrudOperationSchema,
+  });
+};
+const updateFoodItemInfoFactorySchema = ({ toSanitize }: IToSanitize) => {
+  return z
+    .object({
+      name: validationUtil
+        .stringSchemaFactory({
+          fieldName: "Food  name",
+          minLength: 1,
+          maxLength: 255,
+          toSanitize,
+        })
+        .optional(),
+      crudOperation: validationUtil.CrudOperationSchema,
+    })
+    .optional();
+};
 
 const createFoodItemFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
     name: validationUtil.stringSchemaFactory({
-      fieldName: "Food  name",
+      fieldName: "Food name",
       minLength: 1,
       maxLength: 255,
       toSanitize,
     }),
     barcode: validationUtil.stringSchemaFactory({
       fieldName: "Food barcode",
+      minLength: 1,
       toSanitize,
     }),
     servingSize: validationUtil
@@ -92,26 +125,51 @@ const createFoodItemFactorySchema = ({ toSanitize }: IToSanitize) => {
         maxLength: 1000000,
       })
       .optional(),
-    brand: validationUtil
-      .stringSchemaFactory({
-        fieldName: "Food brand",
-        minLength: 0,
-        maxLength: 1000000,
-        toSanitize,
-      })
-      .optional()
-      .default("Unknown"),
-    categories: z.array(z.string()).min(0).optional(),
-    labels: z.array(z.string()).min(0).optional(),
+    brand: z.preprocess(
+      (val) => {
+        if (Array.isArray(val) && val.length === 0) {
+          return [{ name: "Unknown" }];
+        }
+        return val;
+      },
+      z
+        .array(
+          createFoodItemInfoFactorySchema({
+            toSanitize,
+            foodInfo: "brand",
+          })
+        )
+        .optional()
+    ),
+    categories: z
+      .array(
+        createFoodItemInfoFactorySchema({ toSanitize, foodInfo: "categories" })
+      )
+      .optional(),
+    labels: z
+      .array(
+        createFoodItemInfoFactorySchema({ toSanitize, foodInfo: "labels" })
+      )
+      .optional(),
     images: z.array(z.string().url()).min(0).optional(),
   });
 };
 
-const updateFoodItemSchema = ({ toSanitize }: IToSanitize) => {
+const updateFoodItemFactorySchema = ({ toSanitize }: IToSanitize) => {
   return createFoodItemFactorySchema({ toSanitize })
     .partial()
     .extend({
       id: validationUtil.IDSchemaFactory({ toSanitize }),
+      brand: z
+        .array(updateFoodItemInfoFactorySchema({ toSanitize }))
+        .optional()
+        .default([{ name: "Unknown" }]),
+      categories: z
+        .array(updateFoodItemInfoFactorySchema({ toSanitize }))
+        .optional(),
+      labels: z
+        .array(updateFoodItemInfoFactorySchema({ toSanitize }))
+        .optional(),
     });
 };
 
@@ -131,7 +189,7 @@ const FoodItemIdBarcodeSchema = z.object({
 
 export const foodItemValidation = {
   createFoodItemFactorySchema,
-  updateFoodItemSchema,
+  updateFoodItemFactorySchema,
   FoodItemQuerySchema,
   FoodItemIdBarcodeSchema,
   FoodItemIdParamsSchema,
@@ -142,7 +200,7 @@ export type TCreateFoodItemInput = z.infer<
 >;
 
 export type TUpdateFoodItemInput = z.infer<
-  ReturnType<typeof updateFoodItemSchema>
+  ReturnType<typeof updateFoodItemFactorySchema>
 >;
 
 export type TFoodItemQuery = z.infer<typeof FoodItemQuerySchema>;

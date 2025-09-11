@@ -3,7 +3,7 @@ import type {
   IProgramFilter,
   IProgramEditDTO,
 } from "../../../shared/models/program.model";
-import type { THttpPostResponse } from "../models/apiService.model";
+import type { THttpResponse } from "../models/apiService.model";
 import { programValidation } from "../../../shared/validations/program.validations";
 
 import { apiService } from "./api.service";
@@ -20,7 +20,7 @@ export const programService = {
     return await apiService.get<IProgramDTO>(`${this.rootPath}/${id}`);
   },
 
-  async save(dto: IProgramEditDTO): Promise<THttpPostResponse<IProgramDTO>> {
+  async save(dto: IProgramEditDTO): Promise<THttpResponse<IProgramDTO>> {
     if (!dto) throw ClientError.create("Program data is required", 400);
     const { id } = dto;
 
@@ -28,7 +28,7 @@ export const programService = {
       const validatedDTO = programValidation
         .createProgramFactorySchema({ toSanitize: false })
         .parse(dto);
-      return await apiService.post<THttpPostResponse<IProgramDTO>>(
+      return await apiService.post<THttpResponse<IProgramDTO>>(
         `${this.rootPath}/edit`,
         validatedDTO
       );
@@ -36,7 +36,7 @@ export const programService = {
     const validatedDTO = programValidation
       .updateProgramFactorySchema({ toSanitize: false })
       .parse(dto);
-    return await apiService.put<THttpPostResponse<IProgramDTO>>(
+    return await apiService.put<THttpResponse<IProgramDTO>>(
       `${this.rootPath}/edit/${dto.id}`,
       validatedDTO
     );

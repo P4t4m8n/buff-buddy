@@ -151,7 +151,7 @@ export default function MealEditPage() {
             mode="create"
             buttonProps={{
               buttonStyle: "model",
-              className: "mr-auto col-span-2 lg:w-full",
+              className: "w-6 h-6",
             }}
             isOverlay={false}
             isPortal={true}

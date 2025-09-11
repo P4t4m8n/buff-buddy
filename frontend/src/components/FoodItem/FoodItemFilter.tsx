@@ -46,12 +46,13 @@ function FoodItemFilterMemo({
           getBarcodeError={getBarcodeError}
         />
         <Input
-          type="number"
+          type="string"
           name="barcode"
           id={"barcode" + barcode}
           className=" w-full bg-black-300 h-full rounded"
           divStyle="w-full h-full"
-          defaultValue={barcode ?? ""}
+          value={barcode ?? ""}
+          onChange={onChange}
         ></Input>
       </div>
     </form>

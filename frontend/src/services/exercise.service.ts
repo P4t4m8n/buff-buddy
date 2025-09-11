@@ -7,7 +7,7 @@ import type {
   IExerciseDTO,
   IExerciseFilter,
 } from "../../../shared/models/exercise.model";
-import type { THttpPostResponse } from "../models/apiService.model";
+import type { THttpResponse } from "../models/apiService.model";
 
 export const exerciseService = {
   rootPath: "/exercises",
@@ -23,7 +23,7 @@ export const exerciseService = {
     return await apiService.get<IExerciseDTO>(`${this.rootPath}/${id}`);
   },
 
-  async save(dto: IExerciseDTO): Promise<THttpPostResponse<IExerciseDTO>> {
+  async save(dto: IExerciseDTO): Promise<THttpResponse<IExerciseDTO>> {
     if (!dto) throw ClientError.create("Exercise data is required", 400);
 
     if (!dto.id || dto.id.startsWith("temp")) {
@@ -32,7 +32,7 @@ export const exerciseService = {
           toSanitize: false,
         })
         .parse(dto);
-      return await apiService.post<THttpPostResponse<IExerciseDTO>>(
+      return await apiService.post<THttpResponse<IExerciseDTO>>(
         `${this.rootPath}/edit`,
         validatedDTO
       );
@@ -43,7 +43,7 @@ export const exerciseService = {
         toSanitize: false,
       })
       .parse(dto);
-    return await apiService.put<THttpPostResponse<IExerciseDTO>>(
+    return await apiService.put<THttpResponse<IExerciseDTO>>(
       `${this.rootPath}/edit/${dto.id}`,
       validatedDTO
     );

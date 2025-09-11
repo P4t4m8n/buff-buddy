@@ -10,9 +10,9 @@ dotenv.config();
 export const app = express(); //INFO?? For Jest
 export const server = http.createServer(app);
 
+setupCors(app);
 setupMiddlewares(app);
 
-setupCors(app);
 
 setupRoutes(app);
 

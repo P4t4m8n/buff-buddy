@@ -15,7 +15,6 @@
     "migrate": "npm run migrate --workspace=backend",
     "gen": "npm run gen --workspace=backend"
   },
-  "devDependencies": {
-    "html5-qrcode": "^2.3.8"
-  }
+  "devDependencies": {},
+  "dependencies": {}
 }

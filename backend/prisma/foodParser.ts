@@ -156,7 +156,6 @@ function transformProduct(raw: RawProduct): DietTrackerProduct | null {
     mainCategory: raw.main_category || undefined,
 
     servingSize: safeParseNumber(raw.serving_size),
-    quantity: raw.quantity || undefined,
 
     // Convert kJ to kcal if kcal not available (1 kcal = 4.184 kJ)
     energy:

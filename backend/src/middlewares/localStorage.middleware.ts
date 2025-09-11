@@ -28,13 +28,17 @@ export async function setupAsyncLocalStorage(
 
       alsStore.sessionUser = null;
 
+      if (req.method === "OPTIONS") {
+        return;
+      }
+
       if (!req.cookies) {
         return;
       }
 
       const { token } = req.cookies;
-      if (typeof token !== "string") {
-        throw AppError.create("Invalid token");
+      if (!token || typeof token !== "string") {
+        return;
       }
 
       const user = await authService.validateToken(token);

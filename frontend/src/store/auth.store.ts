@@ -16,13 +16,14 @@ interface IAuthStore {
   signOut: () => Promise<void>;
 }
 
-export const useAuthStore = create<IAuthStore>((set) => ({
+export const useAuthStore = create<IAuthStore>((set, get) => ({
   user: null,
   isLoadingSession: false,
   isLoadingAuth: false,
 
   loadSessionUser: async () => {
     try {
+      if (get().user) return;
       set({ isLoadingSession: true });
       const res = await authService.getSessionUser();
       set({ user: res.data });
@@ -34,7 +35,7 @@ export const useAuthStore = create<IAuthStore>((set) => ({
   signIn: async (dto: IAuthSignInDTO) => {
     try {
       set({ isLoadingAuth: true });
-      const user = await authService.signIn(dto);
+      const { data: user } = await authService.signIn(dto);
       set({ user });
     } finally {
       set({ isLoadingAuth: false });
@@ -44,7 +45,7 @@ export const useAuthStore = create<IAuthStore>((set) => ({
   signUp: async (dto: IAuthSignUpDTO) => {
     try {
       set({ isLoadingAuth: true });
-      const user = await authService.signUp(dto);
+      const { data: user } = await authService.signUp(dto);
       set({ user });
     } finally {
       set({ isLoadingAuth: false });

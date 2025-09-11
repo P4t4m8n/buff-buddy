@@ -12,7 +12,7 @@ import Loader from "../UI/loader/Loader";
 import { useFoodItemMutationKeyStore } from "../../store/foodItemMutationKey.store";
 import FoodItemFilter from "./FoodItemFilter";
 import GenericModel from "../UI/GenericModel";
-import FoodItemEdit from "./FoodItemEdit";
+import FoodItemEdit from "./FoodItemEdit/FoodItemEdit";
 
 const INITIAL_FILTER = {
   skip: 0,
@@ -58,12 +58,16 @@ export default function FoodItemsIndex({
         onBarcodeSet={onBarcodeSet}
         filter={filter}
       />
-      <div>
+      <div className="flex items-center gap-4">
         <p>didn't find one? add</p>
         <GenericModel
           isOverlay={true}
           Model={FoodItemEdit}
-          buttonProps={{ buttonStyle: "model" }}
+          mode="create"
+          buttonProps={{
+            buttonStyle: "model",
+            className: " h-6 aspect-square fill-black stroke-black",
+          }}
         />
       </div>
 
@@ -75,7 +79,7 @@ export default function FoodItemsIndex({
           ItemComponent={FoodItemPreview}
           itemComponentProps={{ onSelectFoodItem }}
           getKey={(item) => item?.id ?? ""}
-          ulStyle="grid gap-4 overflow-y-auto "
+          ulStyle="flex flex-col gap-4 overflow-y-auto "
         />
       )}
     </div>

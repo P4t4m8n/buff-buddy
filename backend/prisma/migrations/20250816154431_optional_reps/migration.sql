@@ -1,4 +1,0 @@
--- AlterTable
-ALTER TABLE "public"."UserStrengthSet" ALTER COLUMN "reps" DROP NOT NULL,
-ALTER COLUMN "reps" DROP DEFAULT,
-ALTER COLUMN "weight" DROP DEFAULT;

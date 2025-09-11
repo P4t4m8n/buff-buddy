@@ -18,7 +18,7 @@ export default function BarcodeScanner({
 }: IBarcodeScannerProps) {
   const scannerRef = useRef<Html5Qrcode | null>(null);
 
-  const { handleModel, setIsOpen } = props;
+  const { handleModel, setIsOpen, modelRef } = props;
 
   useEffect(() => {
     scannerRef.current = new Html5Qrcode("reader");
@@ -38,12 +38,18 @@ export default function BarcodeScanner({
     );
 
     return () => {
-      scannerRef.current?.stop().catch(() => {});
+      //INFO: Match the library errors 0 is Unknown, 1 is not started, above that means the reader runs at least ones
+      const state = scannerRef?.current?.getState() ?? 0;
+      if (state > 1) {
+        scannerRef?.current?.stop().catch((err) => {
+          console.error(err);
+        });
+      }
       scannerRef.current = null;
     };
   }, []);
   return (
-    <div className="bg-black-300">
+    <div ref={modelRef} className="bg-black-300">
       <div
         id="reader"
         className="barcode-scanner grid items-center justify-center justify-items-center w-screen aspect-video"

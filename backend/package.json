@@ -34,7 +34,7 @@
     "globals": "^16.3.0",
     "jest": "^30.0.3",
     "nodemon": "^3.1.9",
-    "prisma": "^6.10.1",
+    "prisma": "^6.16.0",
     "supertest": "^7.1.1",
     "ts-jest": "^29.4.0",
     "ts-node": "^10.9.2",
@@ -43,7 +43,7 @@
     "typescript-eslint": "^8.37.0"
   },
   "dependencies": {
-    "@prisma/client": "^6.10.1",
+    "@prisma/client": "^6.16.0",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",

@@ -93,7 +93,7 @@ export const updateFoodItem = async (req: Request, res: Response) => {
     req.body.id = id;
 
     const validatedData = foodItemValidation
-      .updateFoodItemSchema({
+      .updateFoodItemFactorySchema({
         toSanitize: true,
       })
       .parse(req.body);

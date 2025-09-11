@@ -22341,18 +22341,21 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseMinAggregateOutputType = {
     id: string | null
+    skippedReason: string | null
     workoutExerciseId: string | null
     userWorkoutId: string | null
   }
 
   export type UserWorkoutExerciseMaxAggregateOutputType = {
     id: string | null
+    skippedReason: string | null
     workoutExerciseId: string | null
     userWorkoutId: string | null
   }
 
   export type UserWorkoutExerciseCountAggregateOutputType = {
     id: number
+    skippedReason: number
     workoutExerciseId: number
     userWorkoutId: number
     _all: number
@@ -22361,18 +22364,21 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseMinAggregateInputType = {
     id?: true
+    skippedReason?: true
     workoutExerciseId?: true
     userWorkoutId?: true
   }
 
   export type UserWorkoutExerciseMaxAggregateInputType = {
     id?: true
+    skippedReason?: true
     workoutExerciseId?: true
     userWorkoutId?: true
   }
 
   export type UserWorkoutExerciseCountAggregateInputType = {
     id?: true
+    skippedReason?: true
     workoutExerciseId?: true
     userWorkoutId?: true
     _all?: true
@@ -22452,6 +22458,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseGroupByOutputType = {
     id: string
+    skippedReason: string | null
     workoutExerciseId: string
     userWorkoutId: string
     _count: UserWorkoutExerciseCountAggregateOutputType | null
@@ -22475,6 +22482,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    skippedReason?: boolean
     workoutExerciseId?: boolean
     userWorkoutId?: boolean
     workoutExercise?: boolean | WorkoutExerciseDefaultArgs<ExtArgs>
@@ -22486,6 +22494,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    skippedReason?: boolean
     workoutExerciseId?: boolean
     userWorkoutId?: boolean
     workoutExercise?: boolean | WorkoutExerciseDefaultArgs<ExtArgs>
@@ -22494,6 +22503,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    skippedReason?: boolean
     workoutExerciseId?: boolean
     userWorkoutId?: boolean
     workoutExercise?: boolean | WorkoutExerciseDefaultArgs<ExtArgs>
@@ -22502,11 +22512,12 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseSelectScalar = {
     id?: boolean
+    skippedReason?: boolean
     workoutExerciseId?: boolean
     userWorkoutId?: boolean
   }
 
-  export type UserWorkoutExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workoutExerciseId" | "userWorkoutId", ExtArgs["result"]["userWorkoutExercise"]>
+  export type UserWorkoutExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "skippedReason" | "workoutExerciseId" | "userWorkoutId", ExtArgs["result"]["userWorkoutExercise"]>
   export type UserWorkoutExerciseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workoutExercise?: boolean | WorkoutExerciseDefaultArgs<ExtArgs>
     userWorkout?: boolean | UserWorkoutDefaultArgs<ExtArgs>
@@ -22533,6 +22544,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      skippedReason: string | null
       workoutExerciseId: string
       userWorkoutId: string
     }, ExtArgs["result"]["userWorkoutExercise"]>
@@ -22963,6 +22975,7 @@ export namespace Prisma {
    */
   interface UserWorkoutExerciseFieldRefs {
     readonly id: FieldRef<"UserWorkoutExercise", 'String'>
+    readonly skippedReason: FieldRef<"UserWorkoutExercise", 'String'>
     readonly workoutExerciseId: FieldRef<"UserWorkoutExercise", 'String'>
     readonly userWorkoutId: FieldRef<"UserWorkoutExercise", 'String'>
   }
@@ -33780,6 +33793,7 @@ export namespace Prisma {
 
   export const UserWorkoutExerciseScalarFieldEnum: {
     id: 'id',
+    skippedReason: 'skippedReason',
     workoutExerciseId: 'workoutExerciseId',
     userWorkoutId: 'userWorkoutId'
   };
@@ -35227,6 +35241,7 @@ export namespace Prisma {
     OR?: UserWorkoutExerciseWhereInput[]
     NOT?: UserWorkoutExerciseWhereInput | UserWorkoutExerciseWhereInput[]
     id?: StringFilter<"UserWorkoutExercise"> | string
+    skippedReason?: StringNullableFilter<"UserWorkoutExercise"> | string | null
     workoutExerciseId?: StringFilter<"UserWorkoutExercise"> | string
     userWorkoutId?: StringFilter<"UserWorkoutExercise"> | string
     workoutExercise?: XOR<WorkoutExerciseScalarRelationFilter, WorkoutExerciseWhereInput>
@@ -35237,6 +35252,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseOrderByWithRelationInput = {
     id?: SortOrder
+    skippedReason?: SortOrderInput | SortOrder
     workoutExerciseId?: SortOrder
     userWorkoutId?: SortOrder
     workoutExercise?: WorkoutExerciseOrderByWithRelationInput
@@ -35250,6 +35266,7 @@ export namespace Prisma {
     AND?: UserWorkoutExerciseWhereInput | UserWorkoutExerciseWhereInput[]
     OR?: UserWorkoutExerciseWhereInput[]
     NOT?: UserWorkoutExerciseWhereInput | UserWorkoutExerciseWhereInput[]
+    skippedReason?: StringNullableFilter<"UserWorkoutExercise"> | string | null
     workoutExerciseId?: StringFilter<"UserWorkoutExercise"> | string
     userWorkoutId?: StringFilter<"UserWorkoutExercise"> | string
     workoutExercise?: XOR<WorkoutExerciseScalarRelationFilter, WorkoutExerciseWhereInput>
@@ -35260,6 +35277,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseOrderByWithAggregationInput = {
     id?: SortOrder
+    skippedReason?: SortOrderInput | SortOrder
     workoutExerciseId?: SortOrder
     userWorkoutId?: SortOrder
     _count?: UserWorkoutExerciseCountOrderByAggregateInput
@@ -35272,6 +35290,7 @@ export namespace Prisma {
     OR?: UserWorkoutExerciseScalarWhereWithAggregatesInput[]
     NOT?: UserWorkoutExerciseScalarWhereWithAggregatesInput | UserWorkoutExerciseScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"UserWorkoutExercise"> | string
+    skippedReason?: StringNullableWithAggregatesFilter<"UserWorkoutExercise"> | string | null
     workoutExerciseId?: StringWithAggregatesFilter<"UserWorkoutExercise"> | string
     userWorkoutId?: StringWithAggregatesFilter<"UserWorkoutExercise"> | string
   }
@@ -37108,6 +37127,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseCreateInput = {
     id?: string
+    skippedReason?: string | null
     workoutExercise: WorkoutExerciseCreateNestedOneWithoutUserWorkoutExercisesInput
     userWorkout: UserWorkoutCreateNestedOneWithoutUserWorkoutExercisesInput
     userStrengthSet?: UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput
@@ -37116,6 +37136,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseUncheckedCreateInput = {
     id?: string
+    skippedReason?: string | null
     workoutExerciseId: string
     userWorkoutId: string
     userStrengthSet?: UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
@@ -37124,6 +37145,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExercise?: WorkoutExerciseUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
     userWorkout?: UserWorkoutUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
     userStrengthSet?: UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput
@@ -37132,6 +37154,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExerciseId?: StringFieldUpdateOperationsInput | string
     userWorkoutId?: StringFieldUpdateOperationsInput | string
     userStrengthSet?: UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
@@ -37140,16 +37163,19 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseCreateManyInput = {
     id?: string
+    skippedReason?: string | null
     workoutExerciseId: string
     userWorkoutId: string
   }
 
   export type UserWorkoutExerciseUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserWorkoutExerciseUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExerciseId?: StringFieldUpdateOperationsInput | string
     userWorkoutId?: StringFieldUpdateOperationsInput | string
   }
@@ -38847,18 +38873,21 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseCountOrderByAggregateInput = {
     id?: SortOrder
+    skippedReason?: SortOrder
     workoutExerciseId?: SortOrder
     userWorkoutId?: SortOrder
   }
 
   export type UserWorkoutExerciseMaxOrderByAggregateInput = {
     id?: SortOrder
+    skippedReason?: SortOrder
     workoutExerciseId?: SortOrder
     userWorkoutId?: SortOrder
   }
 
   export type UserWorkoutExerciseMinOrderByAggregateInput = {
     id?: SortOrder
+    skippedReason?: SortOrder
     workoutExerciseId?: SortOrder
     userWorkoutId?: SortOrder
   }
@@ -42201,6 +42230,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseCreateWithoutUserCardioSetInput = {
     id?: string
+    skippedReason?: string | null
     workoutExercise: WorkoutExerciseCreateNestedOneWithoutUserWorkoutExercisesInput
     userWorkout: UserWorkoutCreateNestedOneWithoutUserWorkoutExercisesInput
     userStrengthSet?: UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput
@@ -42208,6 +42238,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseUncheckedCreateWithoutUserCardioSetInput = {
     id?: string
+    skippedReason?: string | null
     workoutExerciseId: string
     userWorkoutId: string
     userStrengthSet?: UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
@@ -42231,6 +42262,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseUpdateWithoutUserCardioSetInput = {
     id?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExercise?: WorkoutExerciseUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
     userWorkout?: UserWorkoutUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
     userStrengthSet?: UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput
@@ -42238,6 +42270,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseUncheckedUpdateWithoutUserCardioSetInput = {
     id?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExerciseId?: StringFieldUpdateOperationsInput | string
     userWorkoutId?: StringFieldUpdateOperationsInput | string
     userStrengthSet?: UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
@@ -42534,6 +42567,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseCreateWithoutUserStrengthSetInput = {
     id?: string
+    skippedReason?: string | null
     workoutExercise: WorkoutExerciseCreateNestedOneWithoutUserWorkoutExercisesInput
     userWorkout: UserWorkoutCreateNestedOneWithoutUserWorkoutExercisesInput
     userCardioSet?: UserCardioSetCreateNestedManyWithoutUserWorkoutExerciseInput
@@ -42541,6 +42575,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseUncheckedCreateWithoutUserStrengthSetInput = {
     id?: string
+    skippedReason?: string | null
     workoutExerciseId: string
     userWorkoutId: string
     userCardioSet?: UserCardioSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
@@ -42564,6 +42599,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseUpdateWithoutUserStrengthSetInput = {
     id?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExercise?: WorkoutExerciseUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
     userWorkout?: UserWorkoutUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
     userCardioSet?: UserCardioSetUpdateManyWithoutUserWorkoutExerciseNestedInput
@@ -42571,6 +42607,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseUncheckedUpdateWithoutUserStrengthSetInput = {
     id?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExerciseId?: StringFieldUpdateOperationsInput | string
     userWorkoutId?: StringFieldUpdateOperationsInput | string
     userCardioSet?: UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
@@ -43226,6 +43263,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseCreateWithoutWorkoutExerciseInput = {
     id?: string
+    skippedReason?: string | null
     userWorkout: UserWorkoutCreateNestedOneWithoutUserWorkoutExercisesInput
     userStrengthSet?: UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput
     userCardioSet?: UserCardioSetCreateNestedManyWithoutUserWorkoutExerciseInput
@@ -43233,6 +43271,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseUncheckedCreateWithoutWorkoutExerciseInput = {
     id?: string
+    skippedReason?: string | null
     userWorkoutId: string
     userStrengthSet?: UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
     userCardioSet?: UserCardioSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
@@ -43407,6 +43446,7 @@ export namespace Prisma {
     OR?: UserWorkoutExerciseScalarWhereInput[]
     NOT?: UserWorkoutExerciseScalarWhereInput | UserWorkoutExerciseScalarWhereInput[]
     id?: StringFilter<"UserWorkoutExercise"> | string
+    skippedReason?: StringNullableFilter<"UserWorkoutExercise"> | string | null
     workoutExerciseId?: StringFilter<"UserWorkoutExercise"> | string
     userWorkoutId?: StringFilter<"UserWorkoutExercise"> | string
   }
@@ -43721,6 +43761,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseCreateWithoutUserWorkoutInput = {
     id?: string
+    skippedReason?: string | null
     workoutExercise: WorkoutExerciseCreateNestedOneWithoutUserWorkoutExercisesInput
     userStrengthSet?: UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput
     userCardioSet?: UserCardioSetCreateNestedManyWithoutUserWorkoutExerciseInput
@@ -43728,6 +43769,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseUncheckedCreateWithoutUserWorkoutInput = {
     id?: string
+    skippedReason?: string | null
     workoutExerciseId: string
     userStrengthSet?: UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
     userCardioSet?: UserCardioSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
@@ -45563,11 +45605,13 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseCreateManyWorkoutExerciseInput = {
     id?: string
+    skippedReason?: string | null
     userWorkoutId: string
   }
 
   export type UserWorkoutExerciseUpdateWithoutWorkoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     userWorkout?: UserWorkoutUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
     userStrengthSet?: UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput
     userCardioSet?: UserCardioSetUpdateManyWithoutUserWorkoutExerciseNestedInput
@@ -45575,6 +45619,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseUncheckedUpdateWithoutWorkoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     userWorkoutId?: StringFieldUpdateOperationsInput | string
     userStrengthSet?: UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
     userCardioSet?: UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
@@ -45582,6 +45627,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseUncheckedUpdateManyWithoutWorkoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     userWorkoutId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -45711,11 +45757,13 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseCreateManyUserWorkoutInput = {
     id?: string
+    skippedReason?: string | null
     workoutExerciseId: string
   }
 
   export type UserWorkoutExerciseUpdateWithoutUserWorkoutInput = {
     id?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExercise?: WorkoutExerciseUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
     userStrengthSet?: UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput
     userCardioSet?: UserCardioSetUpdateManyWithoutUserWorkoutExerciseNestedInput
@@ -45723,6 +45771,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseUncheckedUpdateWithoutUserWorkoutInput = {
     id?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExerciseId?: StringFieldUpdateOperationsInput | string
     userStrengthSet?: UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
     userCardioSet?: UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
@@ -45730,6 +45779,7 @@ export namespace Prisma {
 
   export type UserWorkoutExerciseUncheckedUpdateManyWithoutUserWorkoutInput = {
     id?: StringFieldUpdateOperationsInput | string
+    skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExerciseId?: StringFieldUpdateOperationsInput | string
   }
 

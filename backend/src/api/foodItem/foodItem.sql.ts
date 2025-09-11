@@ -51,7 +51,7 @@ const getFoodItemCreate = (
   }
   if (dto.labels?.length) {
     baseInput.labels = {
-      connectOrCreate: (dto?.labels ?? []).map((name) => ({
+      connectOrCreate: (dto?.labels ?? []).map(({ name }) => ({
         where: { name },
         create: { name, createdAt: new Date() },
       })),
@@ -61,15 +61,15 @@ const getFoodItemCreate = (
   if (dto.brand) {
     baseInput.brand = {
       connectOrCreate: {
-        where: { name: dto.brand },
-        create: { name: dto.brand, createdAt: new Date() },
+        where: { name: dto.brand[0].name },
+        create: { name: dto.brand[0].name, createdAt: new Date() },
       },
     };
   }
 
   if (dto.categories?.length) {
     baseInput.categories = {
-      connectOrCreate: (dto?.categories ?? []).map((name) => ({
+      connectOrCreate: (dto?.categories ?? []).map(({ name }) => ({
         where: { name },
         create: { name, createdAt: new Date() },
       })),
