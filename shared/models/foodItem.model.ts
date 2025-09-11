@@ -9,6 +9,7 @@ interface IFoddItemBase extends IEntity, IEntityDates {
   sugar?: string | number;
   sodium?: string | number;
   cholesterol?: string | number;
+  saturatedFat?: string | number;
   calories?: string | number;
   protein?: string | number;
   barcode?: string | number;
@@ -30,7 +31,7 @@ export interface IFoodItemEditDto extends Partial<IFoddItemBase> {
   images?: string[];
   categories?: IFoodItemCategoryEditDto[];
   allergens?: IFoodItemAllergensEditDto[];
-  ingredients: IFoodItemIngredientsEditDto[];
+  ingredients?: IFoodItemIngredientsEditDto[];
 }
 
 export interface IFoodItemFilter extends IBaseFilter {

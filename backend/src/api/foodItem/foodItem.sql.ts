@@ -1,3 +1,4 @@
+import { IFoodItemInfoEditBase } from "../../../../shared/models/foodItem.model";
 import {
   TCreateFoodItemInput,
   TUpdateFoodItemInput,
@@ -28,12 +29,14 @@ const FOOD_ITEM_SQL: Prisma.FoodItemSelect = {
 const getFoodItemCreate = (
   dto: TCreateFoodItemInput
 ): Prisma.FoodItemCreateInput => {
+  console.log("🚀 ~ getFoodItemCreate ~ dto:", dto);
   const baseInput: Prisma.FoodItemCreateInput = {
     name: dto.name,
     barcode: dto.barcode,
     calories: dto.calories,
     proteins: dto.proteins,
     carbohydrates: dto.carbohydrates ?? 0,
+    saturatedFat: dto.saturatedFat,
     fat: dto.fat,
     fiber: dto.fiber,
     sugars: dto.sugars,
@@ -76,13 +79,99 @@ const getFoodItemCreate = (
     };
   }
 
+  console.log("🚀 ~ getFoodItemCreate ~ baseInput:", baseInput);
   return baseInput;
+};
+
+const handleFoodItemInfoUpdate = (
+  baseInput: Prisma.FoodItemUpdateInput,
+  key: "labels" | "categories",
+  infos?: Array<IFoodItemInfoEditBase | undefined> | undefined
+) => {
+  const infoToConnect = infos?.filter(
+    (info) => info?.crudOperation === "create"
+  );
+  const infoToDisconnect = infos?.filter(
+    (info) => info?.crudOperation === "delete"
+  );
+  console.log(
+    "🚀 ~ handleFoodItemInfoUpdate ~ infoToDisconnect:",
+    infoToDisconnect
+  );
+
+  //TODO:Theoretically name must exist, maybe add name validation also here?
+  if (infoToConnect?.length) {
+    baseInput[key] = {
+      connectOrCreate: infoToConnect.map((info) => ({
+        where: { name: info?.name! },
+        create: { name: info?.name!, createdAt: new Date() },
+      })),
+    };
+  }
+
+  if (infoToDisconnect?.length) {
+    baseInput[key] = {
+      disconnect: infoToDisconnect.map((info) => ({
+        name: info?.name!,
+      })),
+    };
+  }
 };
 
 const getFoodItemUpdate = (
   dto: TUpdateFoodItemInput
 ): Prisma.FoodItemUpdateInput => {
-  return dbUtil.cleanData({ ...dto }) as Prisma.FoodItemUpdateInput;
+  const baseInput: Prisma.FoodItemUpdateInput = dbUtil.cleanData({
+    name: dto.name,
+    barcode: dto.barcode,
+    calories: dto.calories,
+    proteins: dto.proteins,
+    carbohydrates: dto.carbohydrates ?? 0,
+    fat: dto.fat,
+    fiber: dto.fiber,
+    sugars: dto.sugars,
+    salt: dto.salt,
+    cholesterol: dto.cholesterol,
+    saturatedFat: dto.saturatedFat,
+  });
+
+  if (dto.images?.length) {
+    baseInput.images = {
+      connectOrCreate: dto.images.map((url) => ({
+        where: { url },
+        create: { url, createdAt: new Date() },
+      })),
+    };
+  }
+
+  handleFoodItemInfoUpdate(baseInput, "labels", dto?.labels);
+  handleFoodItemInfoUpdate(baseInput, "categories", dto?.categories);
+
+  const brandToDisconnect = dto?.brand?.filter(
+    (label) => label?.crudOperation === "delete"
+  );
+  const brandToConnect = dto?.brand?.filter(
+    (label) => label?.crudOperation === "create"
+  );
+
+  if (brandToConnect?.length) {
+    baseInput.brand = {
+      connectOrCreate: {
+        where: { name: brandToConnect[0]?.name! },
+        create: { name: brandToConnect[0]?.name!, createdAt: new Date() },
+      },
+    };
+  }
+
+  if (brandToDisconnect?.length) {
+    baseInput.brand = {
+      disconnect: {
+        name: brandToDisconnect[0]?.name!,
+      },
+    };
+  }
+
+  return baseInput;
 };
 
 export const foodItemSQL = {

@@ -17,7 +17,7 @@ interface IFoodItemInfoProps {
   removeItem: (name: TFoodItemInfo, infoName: string) => void;
 }
 
-function FoodItemInfoMemo({
+function FoodItemEditInfoMemo({
   name,
   foodItemToEditId,
   items,
@@ -46,8 +46,8 @@ function FoodItemInfoMemo({
   const filteredItems =
     items?.filter((item) => item.crudOperation !== "delete") ?? [];
   return (
-    <div className="h-20 min-h-20 grid">
-      <div className="flex gap-4">
+    <div className="h-20 grid w-full">
+      <div className="flex gap-4 items-center  w-full">
         <InputWithError
           inputProps={{
             type: "text",
@@ -58,15 +58,19 @@ function FoodItemInfoMemo({
             className: "h-10 pl-2",
             onChange,
           }}
-          divStyle=""
+          divStyle="w-full"
           labelProps={{
             htmlFor: inputId,
             children: `Add ${toTitle(name)}`,
             isMoveUpEffect: true,
           }}
         />
-        <Button buttonStyle="save" onClick={onAdd}>
-          <IconPlus className="aspect-square w-6 fill-main-orange stroke-main-orange" />
+        <Button
+          buttonStyle="save"
+          className="p-1 w-10 h-10 flex flex-center"
+          onClick={onAdd}
+        >
+          <IconPlus className="aspect-square  fill-main-orange stroke-main-orange" />
         </Button>
       </div>
       <GenericTags<IFoodItemInfoEditBase>
@@ -79,4 +83,4 @@ function FoodItemInfoMemo({
   );
 }
 
-export default memo(FoodItemInfoMemo);
+export default memo(FoodItemEditInfoMemo);

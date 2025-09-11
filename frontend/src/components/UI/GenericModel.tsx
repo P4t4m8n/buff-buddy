@@ -30,6 +30,7 @@ export default function GenericModel<T extends HTMLElement, P>({
   isOverlay = true,
 }: IGenericModelProps<T, P>) {
   const { isOpen, modelRef, setIsOpen, handleModel } = useModel<T>();
+  console.log("🚀 ~ GenericModel ~ isOpen:", isOpen)
 
   const getModel = () => {
     const props: P & IModelProps<T> = {

@@ -14,6 +14,7 @@ const getEmpty = (): IFoodItemEditDto => {
     sugar: 0,
     sodium: 0,
     cholesterol: 0,
+    saturatedFat: 0,
     name: "",
     barcode: "",
     calories: 0,

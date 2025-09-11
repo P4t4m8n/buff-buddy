@@ -16,7 +16,7 @@ import FoodItemEdit from "./FoodItemEdit/FoodItemEdit";
 
 const INITIAL_FILTER = {
   skip: 0,
-  take: 10,
+  take: 1000000,
   barcode: "",
   name: "",
 };
@@ -61,7 +61,7 @@ export default function FoodItemsIndex({
       <div className="flex items-center gap-4">
         <p>didn't find one? add</p>
         <GenericModel
-          isOverlay={true}
+          isOverlay={false}
           Model={FoodItemEdit}
           mode="create"
           buttonProps={{

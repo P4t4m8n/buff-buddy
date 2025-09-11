@@ -38,7 +38,7 @@ const save = async (
     );
   }
   const validateDto = foodItemValidation
-    .updateFoodItemSchema({ toSanitize: false })
+    .updateFoodItemFactorySchema({ toSanitize: false })
     .parse(dto);
   return await apiService.put<THttpResponse<IFoodItemDto>>(
     `${BASE_URL}/edit/${dto.id}`,

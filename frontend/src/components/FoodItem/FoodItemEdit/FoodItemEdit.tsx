@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFoodItemMutationKeyStore } from "../../../store/foodItemMutationKey.store";
 import type {
+  IFoodItemBrandEditDto,
   IFoodItemDto,
   IFoodItemEditDto,
   IFoodItemInfoEditBase,
@@ -21,9 +22,9 @@ import { formUtil } from "../../../utils/form.util";
 import type { IModelProps } from "../../../models/UI.model";
 import { usePageBack } from "../../../hooks/shared/usePageBack";
 import IconArrow from "../../UI/Icons/IconArrow";
-import GenericTags from "../../UI/GenericTags";
-import FoodItemInfo from "./FoodItemInfo";
-import { foodItemValidation } from "../../../../../shared/validations/foodItem.validation";
+import FoodItemEditInfo from "./FoodItemEditInfo";
+import { toTitle } from "../../../utils/toTitle";
+import FoodItemEditBrand from "./FoodItemBrand/FoodItemEditBrand";
 
 interface IFoodItemEditProps extends IModelProps<HTMLFormElement> {
   foodItemId?: string;
@@ -36,7 +37,8 @@ export default function FoodItemEdit({
   const [foodItemToEdit, setFoodItemToEdit] = useState<IFoodItemEditDto | null>(
     null
   );
-  const { handleModel, setIsOpen, modelRef } = props;
+  console.log("🚀 ~ FoodItemEdit ~ foodItemToEdit:", foodItemToEdit);
+  const { handleModel, setIsOpen, modelRef, } = props;
   const { onBack } = usePageBack();
 
   const { data, isLoading } = useFoodItemIdQuery(foodItemId);
@@ -45,10 +47,18 @@ export default function FoodItemEdit({
   const mutation = useMutation({
     mutationFn: (dto: IFoodItemEditDto) => foodItemService.save(dto),
     onSuccess({ data }) {
-      queryClient.setQueryData<IFoodItemDto[]>(getKey(), (old) => [
-        ...(old ?? []),
-        data,
-      ]);
+      //INFO: Update the list base on the cache key
+      queryClient.setQueryData<IFoodItemDto[]>(getKey(), (old) => {
+        const idx =
+          old?.findIndex((oldFoodItem) => oldFoodItem.name === data.name) ?? -1;
+        if (idx < 0) return [...(old ?? []), data];
+        return [...(old?.toSpliced(idx, 1, data) ?? [])];
+      });
+      //INFO: Update the EDIT and Details route
+      queryClient.setQueryData<IFoodItemDto>(
+        ["foodItemId", data.id],
+        (old) => ({ ...old, ...data })
+      );
     },
     onError(error) {
       handleError({ error, emitToToast: true });
@@ -70,28 +80,19 @@ export default function FoodItemEdit({
   if (isLoading || !foodItemToEdit) return <Loader />;
 
   const {
-    images,
-    labels,
-    barcode,
-    brand,
-    name,
-    categories,
     id: foodItemToEditId,
+    barcode,
+    name,
+    brand,
+    labels,
+    categories,
+    images,
+    ...rest
   } = foodItemToEdit;
+  console.log("🚀 ~ FoodItemEdit ~ categories:", categories);
 
-  const filterKeys = [
-    "images",
-    "labels",
-    "brand",
-    "name",
-    "id",
-    "barcode",
-    "categories",
-  ];
-
-  const numberInputs: [string, string | number | unknown][] = Object.entries(
-    foodItemToEdit
-  ).filter(([key, _]) => !filterKeys.includes(key));
+  const numberInputs: [string, string | number | unknown][] =
+    Object.entries(rest);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -102,6 +103,7 @@ export default function FoodItemEdit({
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
     formUtil.handleInputChange(e, setFoodItemToEdit);
   };
 
@@ -148,11 +150,33 @@ export default function FoodItemEdit({
       };
     });
   };
+
+  const handleEditBrand = (name: string) => {
+    setFoodItemToEdit((prev) => {
+      if (!prev) return prev;
+
+      const brand: IFoodItemBrandEditDto[] =
+        prev.brand
+          ?.filter((b) => b.crudOperation !== "create")
+          .map((b) =>
+            b.crudOperation !== "delete" ? { ...b, crudOperation: "delete" } : b
+          ) ?? [];
+
+      const newBrand = foodItemUtil.getEmptyInfo();
+      newBrand.name = name;
+      brand.push(newBrand);
+
+      return {
+        ...prev,
+        brand,
+      };
+    });
+  };
   return (
     <form
       onSubmit={onSubmit}
       ref={modelRef}
-      className="h-main self-start flex flex-col w-full p-4 gap-12 bg-black-900"
+      className="h-main fixed inset-0 z-50 flex flex-col w-full p-4 gap-4 bg-black-900"
     >
       <Button
         className="border-main-orange border rounded-full w-10 aspect-auto -rotate-90"
@@ -167,7 +191,7 @@ export default function FoodItemEdit({
           name: "name",
           id: "name" + foodItemToEditId,
           placeholder: "",
-          value: name,
+          value: toTitle(name),
           className: "h-10 pl-2 ",
           onChange: onChange,
         }}
@@ -198,10 +222,18 @@ export default function FoodItemEdit({
         }}
         error={errors?.barcode}
       />
+      <FoodItemEditBrand brand={brand} handleEditBrand={handleEditBrand} />
 
-      <FoodItemInfo
+      <FoodItemEditInfo
         name="labels"
         items={labels}
+        foodItemToEditId={foodItemToEditId}
+        addItem={addItemInfo}
+        removeItem={removeItemInfo}
+      />
+      <FoodItemEditInfo
+        name="categories"
+        items={categories}
         foodItemToEditId={foodItemToEditId}
         addItem={addItemInfo}
         removeItem={removeItemInfo}
@@ -217,9 +249,8 @@ export default function FoodItemEdit({
 
       <Button
         type="submit"
-        className={`bg-inherit border-1 flex-center  hover:bg-main-orange h-fit w-full
-                                   hover:text-white rounded transition-all duration-300
-                                   hover:cursor-pointer  `}
+        className={`bg-inherit border-1 flex-center hover:bg-main-orange h-fit w-full px-2 py-1
+                  hover:text-white rounded transition-all duration-300 mt-auto  `}
       >
         {false ? <Loader loaderType="spinner" /> : "Save"}
       </Button>
