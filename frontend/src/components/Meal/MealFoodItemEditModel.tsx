@@ -11,6 +11,9 @@ import { mealFoodItemUtil } from "../../utils/mealFoodItem.util";
 import type { IMealFoodItemEditDTO } from "../../../../shared/models/meal.model";
 import type { IModelProps } from "../../models/UI.model";
 import type { IFoodItemDto } from "../../../../shared/models/foodItem.model";
+import FoodItemPreview from "../FoodItem/FoodItemPreview";
+import Button from "../UI/Button";
+import IconArrow from "../UI/Icons/IconArrow";
 
 interface IMealFoodItemsEditProps extends IModelProps<HTMLDivElement> {
   mealFoodItem?: IMealFoodItemEditDTO;
@@ -19,16 +22,17 @@ interface IMealFoodItemsEditProps extends IModelProps<HTMLDivElement> {
 
 export default function MealFoodItemEditModel({
   mealFoodItem,
+  handleMealFoodItem,
   ...props
 }: IMealFoodItemsEditProps) {
   const [foodItemToEdit, setFoodIItemToEdit] =
     useState<IMealFoodItemEditDTO | null>(null);
 
-  const {} = props;
+  const { setIsOpen, handleModel } = props;
 
   useEffect(() => {
     const _mealFoodItem = mealFoodItem
-      ? mealFoodItem
+      ? mealFoodItemUtil.dtoToEditDto(mealFoodItem)
       : mealFoodItemUtil.getEmpty();
     setFoodIItemToEdit(_mealFoodItem);
   }, [mealFoodItem]);
@@ -46,6 +50,23 @@ export default function MealFoodItemEditModel({
     }));
   };
 
+  const onDeselectFoodItem = (e: React.MouseEvent, _: IFoodItemDto) => {
+    e.preventDefault();
+
+    setFoodIItemToEdit((prev) => ({
+      ...prev,
+      foodItem: null,
+      foodItemId: null,
+    }));
+  };
+
+  const OnSaveToMeal = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!foodItemToEdit) return;
+    handleMealFoodItem(foodItemToEdit);
+    if (setIsOpen) setIsOpen(false);
+  };
+
   const { id: foodItemToEditId, foodItem } = foodItemToEdit;
 
   return (
@@ -53,17 +74,37 @@ export default function MealFoodItemEditModel({
       className="bg-black-500 p-4 rounded h-main
                     fixed inset-0 z-40 border text-main-orange"
     >
+      <Button
+        className="border-main-orange border rounded-full w-10 aspect-auto -rotate-90"
+        onClick={handleModel}
+      >
+        <IconArrow className="w-full aspect-square fill-main-orange" />
+      </Button>
       {foodItem ? (
-        <div>
+        <div className="flex flex-col gap-4">
           <NumberInputWIthError
             label="quantity"
             name="quantity"
             inputId={foodItemToEditId}
             onChange={(e) => formUtil.handleInputChange(e, setFoodIItemToEdit)}
           />
+          <FoodItemPreview
+            item={foodItem}
+            onSelectFoodItem={onDeselectFoodItem}
+            isSelect={false}
+          />
+          <Button
+            buttonStyle="save"
+            type="button"
+            className="w-full"
+            onClick={OnSaveToMeal}
+          >
+            Save to Meal
+          </Button>
         </div>
-      ) : null}
-      <FoodItemsIndex onSelectFoodItem={onSelectFoodItem} />
+      ) : (
+        <FoodItemsIndex onSelectFoodItem={onSelectFoodItem} />
+      )}
     </div>
   );
 }

@@ -1,10 +1,11 @@
 import { useState } from "react";
-import type { IModelProps } from "../../../../models/UI.model";
-import InputWithError from "../../../UI/Form/InputWithError";
+
 import { toTitle } from "../../../../utils/toTitle";
-import { formUtil } from "../../../../utils/form.util";
+
+import InputWithError from "../../../UI/Form/InputWithError";
 import Button from "../../../UI/Button";
 
+import type { IModelProps } from "../../../../models/UI.model";
 interface IFoodItemEditBrandProps extends IModelProps<HTMLDivElement> {
   handleEditBrand: (name: string) => void;
 }
@@ -51,7 +52,12 @@ export default function FoodItemEditBrandModel({
       <Button buttonStyle="warning" onClick={handleModel}>
         Cancel
       </Button>
-      <Button buttonStyle="save" type="button" className="place-self-end" onClick={onSave}>
+      <Button
+        buttonStyle="save"
+        type="button"
+        className="place-self-end"
+        onClick={onSave}
+      >
         Save
       </Button>
     </div>

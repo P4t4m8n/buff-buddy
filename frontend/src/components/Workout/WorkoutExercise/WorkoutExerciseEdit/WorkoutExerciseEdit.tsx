@@ -15,7 +15,7 @@ import Loader from "../../../UI/loader/Loader";
 
 import type { ExerciseType } from "../../../../../../backend/prisma/generated/prisma";
 import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
-import type { IModelProps } from "../../../UI/GenericModel";
+import type { IModelProps } from "../../../../models/UI.model";
 import type { ICoreStrengthSetEditDTO } from "../../../../../../shared/models/strengthSet.model";
 import { workoutExerciseValidation } from "../../../../../../shared/validations/workoutExercise.validations";
 import InputWithError from "../../../UI/Form/InputWithError";

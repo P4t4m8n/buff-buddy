@@ -20,10 +20,13 @@ import SelectWithSearch from "../../components/UI/Form/SelectWithSearch/SelectWi
 import { MEAL_TYPES } from "../../../../shared/consts/meal.consts";
 import GenericSelectItem from "../../components/UI/Form/SelectWithSearch/GenericSelectItem";
 import type { MealType } from "../../../../backend/prisma/generated/prisma";
+import GenericList from "../../components/UI/GenericList";
+import MealFoodItemPreview from "../../components/Meal/MealFoodItemPreview";
 
 export default function MealEditPage() {
   const { mealId: mealIdParams } = useParams<{ mealId: string }>();
   const [mealToEdit, setMealToEdit] = useState<IMealEditDTO | null>(null);
+  console.log("🚀 ~ MealEditPage ~ mealToEdit:", mealToEdit);
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -60,6 +63,58 @@ export default function MealEditPage() {
   };
 
   const handleMealFoodItem = (mealFoodItem: IMealFoodItemEditDTO) => {
+    setMealToEdit((prev) => {
+      if (!prev) return prev;
+
+      const mealFoodItems = prev.mealFoodItems ?? [];
+
+      const idx =
+        mealFoodItems?.findIndex(
+          (mfi) => mfi.foodItem?.name === mealFoodItem.foodItem?.name
+        ) ?? -1;
+
+      if (idx < 0)
+        return {
+          ...prev,
+          mealFoodItems: [...mealFoodItems, mealFoodItem],
+        };
+
+      return {
+        ...prev,
+        mealFoodItems: mealFoodItems.toSpliced(1, idx, mealFoodItem),
+      };
+    });
+  };
+
+  const removeMealFoodItem = (mealFoodItemId?: string) => {
+    if (!mealFoodItemId) return;
+    setMealToEdit((prev) => {
+      if (!prev) return prev;
+
+      const mealFoodItems = prev.mealFoodItems ?? [];
+
+      const idx =
+        mealFoodItems?.findIndex((mfi) => mfi.id === mealFoodItemId) ?? -1;
+
+      if (idx < 0) return prev;
+
+      const mealFoodItem = mealFoodItems[idx];
+
+      if (mealFoodItem.id?.startsWith("temp"))
+        return {
+          ...prev,
+          mealFoodItems: mealFoodItems.toSpliced(1, idx),
+        };
+
+      const itemToDelete: IMealFoodItemEditDTO = {
+        ...mealFoodItem,
+        crudOperation: "delete",
+      };
+      return {
+        ...prev,
+        mealFoodItems: mealFoodItems.toSpliced(1, idx, itemToDelete),
+      };
+    });
   };
 
   if (isLoading || !mealToEdit) {
@@ -77,6 +132,9 @@ export default function MealEditPage() {
   const headerText = !mealId?.startsWith("temp")
     ? `Edit Meal: `
     : `Create New Meal`;
+
+  const cleanMealFoodItems =
+    mealFoodItems?.filter((m) => m.crudOperation !== "delete") ?? [];
 
   return (
     <div className="grid-stack bg-black-900 p-4 h-main">
@@ -177,6 +235,12 @@ export default function MealEditPage() {
             {isLoading ? <Loader loaderType="spinner" /> : "Save"}
           </Button>
         </div>
+        <GenericList
+          items={cleanMealFoodItems}
+          ItemComponent={MealFoodItemPreview}
+          itemComponentProps={{ removeMealFoodItem, handleMealFoodItem }}
+          getKey={(item) => item.id ?? ""}
+        />
       </form>
     </div>
   );

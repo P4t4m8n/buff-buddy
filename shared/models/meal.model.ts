@@ -1,4 +1,5 @@
 import type { MealType } from "../../backend/prisma/generated/prisma";
+import type { TCrudOperation } from "./app.model";
 import type { IEntity } from "./entity.model";
 import type { IFoodItemDto } from "./foodItem.model";
 import type { IUserDTO } from "./user.model";
@@ -25,4 +26,5 @@ export interface IMealFoodItemDTO extends IEntity {
 }
 export interface IMealFoodItemEditDTO extends IMealFoodItemDTO {
   foodItemId?: string | null;
+  crudOperation?: TCrudOperation;
 }
