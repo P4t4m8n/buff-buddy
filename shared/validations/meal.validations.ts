@@ -1,7 +1,32 @@
-import type { IToSanitize } from "../models/app.model";
 import { z } from "zod";
+
 import { validationUtil } from "./util.validation";
+
 import { MEAL_TYPES } from "../consts/meal.consts";
+
+import type { IToSanitize } from "../models/app.model";
+
+const createMealFoodItemFactorySchema = ({ toSanitize }: IToSanitize) => {
+  return z.object({
+    crudOperation: z
+      .optional(validationUtil.CrudOperationEnumSchema)
+      .default("read"),
+    quantity: validationUtil.numberValidation({
+      fieldName: "quantity",
+      minLength: 0.1,
+      maxLength: 10000,
+    }),
+    foodItemId: validationUtil.IDSchemaFactory({ toSanitize }),
+  });
+};
+
+const updateMealFoodItemFactorySchema = ({ toSanitize }: IToSanitize) => {
+  return createMealFoodItemFactorySchema({ toSanitize })
+    .partial()
+    .extend({
+      id: validationUtil.IDSchemaFactory({ toSanitize }),
+    });
+};
 
 const createMealFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
@@ -12,7 +37,7 @@ const createMealFactorySchema = ({ toSanitize }: IToSanitize) => {
       toSanitize,
     }),
     mealType: z.enum(MEAL_TYPES),
-    ownerId: validationUtil.IDSchemaFactory({ toSanitize }).optional(),
+    ownerId: validationUtil.IDSchemaFactory({ toSanitize }),
     note: validationUtil
       .stringSchemaFactory({
         fieldName: "Meal note",
@@ -21,6 +46,9 @@ const createMealFactorySchema = ({ toSanitize }: IToSanitize) => {
         toSanitize,
       })
       .optional(),
+    mealFoodItems: z
+      .array(createMealFoodItemFactorySchema({ toSanitize }))
+      .min(1, "At least one food item is required"),
   });
 };
 
@@ -29,6 +57,9 @@ const updateMealFactorySchema = ({ toSanitize }: IToSanitize) => {
     .partial()
     .extend({
       id: validationUtil.IDSchemaFactory({ toSanitize }),
+      mealFoodItems: z
+        .array(updateMealFoodItemFactorySchema({ toSanitize }))
+        .optional(),
     });
 };
 

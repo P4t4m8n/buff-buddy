@@ -9,14 +9,17 @@ const BASE_URL = "/meals";
 const get = async () => {
   return await apiService.get<Array<IMealDTO>>(BASE_URL);
 };
-const getById = async (id?: string) => {
+const getById = async (id?: string): Promise<IMealDTO> => {
   if (!id) throw ClientError.create("Meal ID is required", 400);
+
+  const { data } = await apiService.get<THttpResponse<IMealDTO>>(
+    `${BASE_URL}/${id}`
+  );
   
-  return await apiService.get<IMealDTO>(`${BASE_URL}/${id}`);
+  return data;
 };
-const save = async (
-  dto: IMealEditDTO
-): Promise<THttpResponse<IMealDTO>> => {
+const save = async (dto: IMealEditDTO): Promise<THttpResponse<IMealDTO>> => {
+  console.log("🚀 ~ save ~ dto:", dto);
   if (!dto) throw ClientError.create("Meal data is required", 400);
   const { id } = dto;
 

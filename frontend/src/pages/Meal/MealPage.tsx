@@ -1,12 +1,13 @@
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
+
+import MealList from "../../components/Meal/MealList";
+
 import LinkComponent from "../../components/UI/Link";
 
 export default function MealPage() {
-  // const { isPending, isError, data: meals, error } = useMealsQuery();
-
   return (
-    <div className=" h-main grid grid-stack ">
-      <header className="p-mobile md:p-desktop shadow-border-b ">
+    <div className=" h-main flex flex-col gap-4 ">
+      <header className="p-mobile shadow-border-b">
         <span className="text-center">
           <h2 className="text-3xl font-bold text-main-black ">Your Meals</h2>
           <p className="text-gray-300 text-lg">
@@ -17,6 +18,9 @@ export default function MealPage() {
           {ModelButtonIcon("edit")}
         </LinkComponent>
       </header>
+      <div className="p-mobile grid gap-4 overflow-y-auto">
+        <MealList />
+      </div>
     </div>
   );
 }

@@ -134,7 +134,7 @@ export const deleteWorkout = async (req: Request, res: Response) => {
       throw new AppError("User not authenticated", 401);
     }
 
-    const deleted = await workoutsService.delete(id);
+    const deleted = await workoutsService.remove(id);
 
     if (!deleted) {
       throw new AppError("Workout not found", 404);

@@ -37,8 +37,7 @@ export default function FoodItemEdit({
   const [foodItemToEdit, setFoodItemToEdit] = useState<IFoodItemEditDto | null>(
     null
   );
-  console.log("🚀 ~ FoodItemEdit ~ foodItemToEdit:", foodItemToEdit);
-  const { handleModel, setIsOpen, modelRef, } = props;
+  const { handleModel, setIsOpen, modelRef } = props;
   const { onBack } = usePageBack();
 
   const { data, isLoading } = useFoodItemIdQuery(foodItemId);
@@ -65,6 +64,8 @@ export default function FoodItemEdit({
     },
   });
 
+  const { status } = mutation;
+
   useEffect(() => {
     const init = async () => {
       const foodItem =
@@ -89,13 +90,13 @@ export default function FoodItemEdit({
     images,
     ...rest
   } = foodItemToEdit;
-  console.log("🚀 ~ FoodItemEdit ~ categories:", categories);
 
   const numberInputs: [string, string | number | unknown][] =
     Object.entries(rest);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
 
     await mutation.mutateAsync(foodItemToEdit);
     if (setIsOpen) setIsOpen(false);
@@ -103,7 +104,7 @@ export default function FoodItemEdit({
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     formUtil.handleInputChange(e, setFoodItemToEdit);
   };
 
@@ -191,7 +192,7 @@ export default function FoodItemEdit({
           name: "name",
           id: "name" + foodItemToEditId,
           placeholder: "",
-          value: toTitle(name),
+          value: name,
           className: "h-10 pl-2 ",
           onChange: onChange,
         }}
@@ -210,7 +211,7 @@ export default function FoodItemEdit({
           name: "barcode",
           id: "barcode" + foodItemToEditId,
           placeholder: "",
-          value: barcode,
+          value: barcode ?? "",
           className: "h-10 pl-2",
           onChange: onChange,
         }}

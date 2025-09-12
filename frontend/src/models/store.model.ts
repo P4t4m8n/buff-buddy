@@ -18,7 +18,7 @@ export interface IStoreBase<T, E, F>
   isSavingId: string | null; //Loading state for the currently edited item to prevent render or blocking of other items
 }
 
-export interface IFoodItemMutationKeyStore<F> {
+export interface IItemMutationKeyStore<F> {
   mutationKey: (string | F | null | undefined)[];
   setMutationKey: (key: (string | F | null | undefined)[]) => void;
   getMutationKey: () => (string | F | null | undefined)[];

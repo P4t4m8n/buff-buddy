@@ -3,6 +3,6 @@ export interface IEntity {
 }
 
 export interface IEntityDates {
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
 }

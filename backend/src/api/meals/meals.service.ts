@@ -1,10 +1,17 @@
-import type { TMealQuery } from "../../../../shared/validations/meal.validations";
-import { Prisma } from "../../../prisma/generated/prisma";
-import { mealsUtil } from "./meals.util";
 import { prisma } from "../../../prisma/prisma";
-import { userSQL } from "../users/users.sql";
 
-const getAll = async ({ filter }: { filter: TMealQuery }) => {
+import { mealsUtil } from "./meals.util";
+import { mealsSQL } from "./meals.sql";
+
+import type { IMealDTO } from "../../../../shared/models/meal.model";
+import type {
+  TCreateMealInput,
+  TUpdateMealInput,
+  TMealQuery,
+} from "../../../../shared/validations/meal.validations";
+import type { Meal } from "../../../prisma/generated/prisma";
+
+const get = async ({ filter }: { filter: TMealQuery }) => {
   const where = mealsUtil.buildWhereClause(filter);
 
   const take = filter.take ?? 100;
@@ -14,28 +21,42 @@ const getAll = async ({ filter }: { filter: TMealQuery }) => {
     where,
     take,
     skip,
-    select: {
-      id: true,
-      name: true,
-      notes: true,
-      owner: { select: userSQL.SMALL_USER_SELECT },
-    },
+    select: mealsSQL.MEALS_SELECT,
   });
 };
 
 const getById = async (mealId: string) => {
-  return prisma.meal.findUnique({
+  return await prisma.meal.findUnique({
     where: { id: mealId },
-    select: {
-      id: true,
-      name: true,
-      notes: true,
-      owner: { select: userSQL.SMALL_USER_SELECT },
-    },
+    select: mealsSQL.MEALS_SELECT,
+  });
+};
+
+const create = async (dto: TCreateMealInput): Promise<IMealDTO> => {
+  return await prisma.meal.create({
+    data: mealsSQL.getMealCreate(dto),
+    select: mealsSQL.MEALS_SELECT,
+  });
+};
+
+const update = async (dto: TUpdateMealInput): Promise<IMealDTO> => {
+  return await prisma.meal.update({
+    where: { id: dto.id },
+    data: mealsSQL.getMealUpdate(dto),
+    select: mealsSQL.MEALS_SELECT,
+  });
+};
+
+const remove = async (mealId: string): Promise<Meal> => {
+  return await prisma.meal.delete({
+    where: { id: mealId },
   });
 };
 
 export const mealsService = {
-  getAll,
+  get,
   getById,
+  create,
+  update,
+  remove,
 };

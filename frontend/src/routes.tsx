@@ -113,6 +113,10 @@ export const ROUTES: RouteConfig[] = [
     element: <MealEditPage />,
   },
   {
+    path: "/meals/edit/:mealId",
+    element: <MealEditPage />,
+  },
+  {
     path: "/meals/:mealIdParams",
     element: <MealEditPage />,
   },

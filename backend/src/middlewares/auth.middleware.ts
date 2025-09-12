@@ -1,19 +1,24 @@
 import { Request, Response, NextFunction } from "express";
 import { asyncLocalStorage } from "./localStorage.middleware";
+import { AppError } from "../shared/services/Error.service";
 
-export async function requireAuth(
-  req: Request,
+export const requireAuth = async (
+  _: Request,
   res: Response,
   next: NextFunction
-): Promise<void> {
+): Promise<void> => {
   const store = asyncLocalStorage.getStore();
   if (!store?.sessionUser) {
-    res.status(401).send("Not Authenticated");
+    const err = AppError.create("Not Authenticated", 401);
+
+    res.status(err.status || 500).json({
+      message: err.message || "An unexpected error occurred",
+    });
     return;
   }
 
   next();
-}
+};
 
 export async function requireAdmin(
   req: Request,

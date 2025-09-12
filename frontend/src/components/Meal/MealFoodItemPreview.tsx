@@ -5,7 +5,7 @@ import type {
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
 import Button from "../UI/Button";
 import GenericModel from "../UI/GenericModel";
-import MealFoodItemEditModel from "./MealFoodItemEditModel";
+import MealFoodItemEditModel from "./MealEdit/MealFoodItemEditModel";
 
 interface IMealFoodItemPreviewProps {
   item: IMealFoodItemDTO | IMealFoodItemEditDTO;

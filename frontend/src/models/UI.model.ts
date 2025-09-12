@@ -10,11 +10,6 @@ export interface IAppNav {
   icon?: ReactNode;
 }
 
-export interface IBaseFilter {
-  skip?: number;
-  page?: number;
-}
-
 export interface IBaseNameAndId extends IEntity {
   name?: string;
 }

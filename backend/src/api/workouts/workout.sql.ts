@@ -77,7 +77,8 @@ const getWorkoutUpdate = (
     workoutExercises?.filter((we) => we.crudOperation === "update") ?? [];
   const exercisesToDelete =
     workoutExercises?.filter((we) => we.crudOperation === "delete") ?? [];
-  const x: Prisma.WorkoutUpdateInput = {
+    
+  return {
     id: workoutData.id,
     ...dbUtil.cleanData({
       notes: workoutData.notes,
@@ -95,7 +96,6 @@ const getWorkoutUpdate = (
       })),
     },
   };
-  return x;
 };
 
 export const workoutSQL = {

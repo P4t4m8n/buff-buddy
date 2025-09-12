@@ -29,7 +29,6 @@ const FOOD_ITEM_SQL: Prisma.FoodItemSelect = {
 const getFoodItemCreate = (
   dto: TCreateFoodItemInput
 ): Prisma.FoodItemCreateInput => {
-  console.log("🚀 ~ getFoodItemCreate ~ dto:", dto);
   const baseInput: Prisma.FoodItemCreateInput = {
     name: dto.name,
     barcode: dto.barcode,
@@ -79,7 +78,6 @@ const getFoodItemCreate = (
     };
   }
 
-  console.log("🚀 ~ getFoodItemCreate ~ baseInput:", baseInput);
   return baseInput;
 };
 
@@ -94,10 +92,7 @@ const handleFoodItemInfoUpdate = (
   const infoToDisconnect = infos?.filter(
     (info) => info?.crudOperation === "delete"
   );
-  console.log(
-    "🚀 ~ handleFoodItemInfoUpdate ~ infoToDisconnect:",
-    infoToDisconnect
-  );
+
 
   //TODO:Theoretically name must exist, maybe add name validation also here?
   if (infoToConnect?.length) {

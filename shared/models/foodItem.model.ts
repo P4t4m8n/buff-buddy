@@ -3,23 +3,23 @@ import type { IBaseFilter, TCrudOperation } from "./app.model";
 import type { IEntity, IEntityDates } from "./entity.model";
 
 interface IFoddItemBase extends IEntity, IEntityDates {
-  carbohydrates?: string | number;
-  fats?: string | number;
-  fiber?: string | number;
-  sugar?: string | number;
-  sodium?: string | number;
-  cholesterol?: string | number;
-  saturatedFat?: string | number;
-  calories?: string | number;
-  protein?: string | number;
-  barcode?: string | number;
+  carbohydrates?: string | number | null;
+  fats?: string | number | null;
+  fiber?: string | number | null;
+  sugar?: string | number | null;
+  sodium?: string | number | null;
+  cholesterol?: string | number | null;
+  saturatedFat?: string | number | null;
+  calories?: string | number | null;
+  protein?: string | number | null;
+  barcode?: string | number | null;
   name?: string;
 }
 
 export interface IFoodItemDto extends IFoddItemBase {
   images?: IFoodItemImgDto[];
   labels?: IFoodItemLabelDto[];
-  brand?: IFoodItemBrandDto;
+  brand?: IFoodItemBrandDto | null;
   categories: IFoodItemCategoryDto[];
 }
 /*

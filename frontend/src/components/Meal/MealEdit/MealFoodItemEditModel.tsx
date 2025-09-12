@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 
-import FoodItemsIndex from "../FoodItem/FoodItemsIndex";
+import FoodItemsIndex from "../../FoodItem/FoodItemsIndex";
 
-import NumberInputWIthError from "../UI/Form/NumberInputWIthError";
-import Loader from "../UI/loader/Loader";
+import NumberInputWIthError from "../../UI/Form/NumberInputWIthError";
+import Loader from "../../UI/loader/Loader";
 
-import { formUtil } from "../../utils/form.util";
-import { mealFoodItemUtil } from "../../utils/mealFoodItem.util";
+import { formUtil } from "../../../utils/form.util";
+import { mealFoodItemUtil } from "../../../utils/mealFoodItem.util";
 
-import type { IMealFoodItemEditDTO } from "../../../../shared/models/meal.model";
-import type { IModelProps } from "../../models/UI.model";
-import type { IFoodItemDto } from "../../../../shared/models/foodItem.model";
-import FoodItemPreview from "../FoodItem/FoodItemPreview";
-import Button from "../UI/Button";
-import IconArrow from "../UI/Icons/IconArrow";
+import type { IMealFoodItemEditDTO } from "../../../../../shared/models/meal.model";
+import type { IModelProps } from "../../../models/UI.model";
+import type { IFoodItemDto } from "../../../../../shared/models/foodItem.model";
+import FoodItemPreview from "../../FoodItem/FoodItemPreview";
+import Button from "../../UI/Button";
+import IconArrow from "../../UI/Icons/IconArrow";
 
 interface IMealFoodItemsEditProps extends IModelProps<HTMLDivElement> {
   mealFoodItem?: IMealFoodItemEditDTO;

@@ -1,4 +1,5 @@
 import { DAY_OF_WEEK, MONTHS, CRUD_OPERATIONS } from "../consts/app.consts";
+import type { IEntity, IEntityDates } from "./entity.model";
 
 export interface IBaseFilter {
   skip?: number;
@@ -26,4 +27,12 @@ export interface IDateValidationProps {
 
 export interface IToSanitize {
   toSanitize: boolean;
+}
+
+export interface IItemImage extends IEntity, IEntityDates {
+  url?: string | null;
+  publicId?: string | null;
+  description?: string | null;
+  isPrimary?: boolean | null;
+  altText?: string | null;
 }

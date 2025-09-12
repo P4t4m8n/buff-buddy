@@ -51,7 +51,7 @@ export default function FoodItemsIndex({
   };
 
   return (
-    <div className="h-full grid grid-rows-[auto_auto_1fr] gap-y-4">
+    <div className="h-full grid grid-rows-[10rem_2.5rem_calc(100%-17.5rem)] gap-y-4">
       <FoodItemFilter
         getBarcodeError={getBarcodeError}
         onChange={onChange}
@@ -79,7 +79,7 @@ export default function FoodItemsIndex({
           ItemComponent={FoodItemPreview}
           itemComponentProps={{ onSelectFoodItem }}
           getKey={(item) => item?.id ?? ""}
-          ulStyle="flex flex-col gap-4 overflow-y-auto "
+          ulStyle="flex flex-col gap-4 overflow-y-auto max-h-full "
         />
       )}
     </div>
