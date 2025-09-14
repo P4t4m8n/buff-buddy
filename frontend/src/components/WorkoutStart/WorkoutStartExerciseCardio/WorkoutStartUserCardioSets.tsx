@@ -23,7 +23,7 @@ interface IWorkoutStartUserCardioSetsProps {
     skippedReason,
   }: {
     userWorkoutExerciseId: string;
-    userSetId: string;
+    userSetId?: string;
     skippedReason: string;
   }) => void;
 }

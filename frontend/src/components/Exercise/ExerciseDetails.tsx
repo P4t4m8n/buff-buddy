@@ -1,7 +1,7 @@
 import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
 import { toTitle } from "../../utils/toTitle";
 import Button from "../UI/Button";
-import type { IModelProps } from "../UI/GenericModel";
+import type { IModelProps } from "../../models/UI.model";
 import YoutubePlayer from "../UI/YoutubePlayer";
 
 interface ExerciseDetailsProps extends IModelProps<HTMLDivElement> {

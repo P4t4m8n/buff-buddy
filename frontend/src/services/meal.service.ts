@@ -19,7 +19,6 @@ const getById = async (id?: string): Promise<IMealDTO> => {
   return data;
 };
 const save = async (dto: IMealEditDTO): Promise<THttpResponse<IMealDTO>> => {
-  console.log("🚀 ~ save ~ dto:", dto);
   if (!dto) throw ClientError.create("Meal data is required", 400);
   const { id } = dto;
 

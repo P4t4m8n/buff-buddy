@@ -41,25 +41,20 @@ interface IMealEditProps {
 export default function MealEdit({ mealIdParams }: IMealEditProps) {
   const [mealToEdit, setMealToEdit] = useState<IMealEditDTO | null>(null);
 
-  const { data, isLoading,error:queryError } = useQueryIdHook({
+  const { data, isLoading } = useQueryIdHook({
     id: mealIdParams,
     queryKey: QUERY_KEYS.MEAL_ID_QUERY_KEY,
     queryFn: mealService.getById,
   });
-  console.log("🚀 ~ MealEdit ~ data:", data)
 
   const ownerId = useAuthStore((store) => store.user?.id);
 
-  const { error, errors, mutateAsync } = useItemMutation<
-    IMealEditDTO,
-    IMealDTO
-  >({
+  const { errors, mutateAsync } = useItemMutation<IMealEditDTO, IMealDTO>({
     listKey: [QUERY_KEYS.MEALS_QUERY_KEY],
     itemIdKey: [QUERY_KEYS.MEAL_ID_QUERY_KEY, mealIdParams ?? ""],
     saveFn: mealService.save,
     filterFn: (oldItem, savedItem) => oldItem.id === savedItem.id,
   });
-  console.log("🚀 ~ MealEdit ~ error:", queryError)
 
   const { onBack } = usePageBack();
 

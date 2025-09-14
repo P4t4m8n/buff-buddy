@@ -25,7 +25,6 @@ export default function MealList() {
     mutationKeyStore: mealMutationKeyStore,
     baseKey: "meals",
   });
-  console.log("🚀 ~ MealList ~ data:", data);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     formUtil.handleInputChange<IMealFilter>(e, setFilter);

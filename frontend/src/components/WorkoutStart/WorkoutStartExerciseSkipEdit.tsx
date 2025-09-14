@@ -4,7 +4,7 @@ import Button from "../UI/Button";
 import Label from "../UI/Form/Label";
 import TextArea from "../UI/Form/TextArea";
 
-import type { IModelProps } from "../UI/GenericModel";
+import type { IModelProps } from "../../models/UI.model";
 import type { IHandleUserSetSkipProps } from "../../models/workoutStart.model";
 
 interface IWorkoutStartExerciseSkipEditProps

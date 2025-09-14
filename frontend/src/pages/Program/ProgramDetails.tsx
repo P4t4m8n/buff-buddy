@@ -46,7 +46,7 @@ export default function ProgramDetails() {
           <h3>Notes:</h3>
           <p>{notes || "No notes available."}</p>
         </span>
-        <ActiveButtonIcon isActive={isActive} />
+        <ActiveButtonIcon isActive={!!isActive} />
       </header>
     </section>
   );

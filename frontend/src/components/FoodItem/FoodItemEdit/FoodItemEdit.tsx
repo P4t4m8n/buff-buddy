@@ -23,7 +23,6 @@ import type { IModelProps } from "../../../models/UI.model";
 import { usePageBack } from "../../../hooks/shared/usePageBack";
 import IconArrow from "../../UI/Icons/IconArrow";
 import FoodItemEditInfo from "./FoodItemEditInfo";
-import { toTitle } from "../../../utils/toTitle";
 import FoodItemEditBrand from "./FoodItemBrand/FoodItemEditBrand";
 
 interface IFoodItemEditProps extends IModelProps<HTMLFormElement> {
@@ -63,8 +62,6 @@ export default function FoodItemEdit({
       handleError({ error, emitToToast: true });
     },
   });
-
-  const { status } = mutation;
 
   useEffect(() => {
     const init = async () => {

@@ -18,7 +18,6 @@ const handleInputChange = <T>(
       newVal = value;
       break;
     }
-    console.log("🚀 ~ handleInputChange ~ newVal:", newVal)
 
   setStateToEdit((prev) => {
     if (!prev) return null;
