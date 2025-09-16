@@ -2,7 +2,7 @@ import type {
   IUserCardioSetDTO,
   IUserCardioSetEditDTO,
 } from "./cardioSet.model";
-import type { IEntity } from "./entity.model";
+import type { IEntity, IEntityDates } from "./entity.model";
 import type { IProgramDTO } from "./program.model";
 import type {
   IUserStrengthSetDTO,
@@ -11,7 +11,7 @@ import type {
 import type { IUserDTO } from "./user.model";
 import type { IWorkoutDTO, IWorkoutExerciseDTO } from "./workout.model";
 
-interface IUserWorkoutBase extends IEntity {
+interface IUserWorkoutBase extends IEntity, IEntityDates {
   dateCompleted?: Date | null | string;
 }
 
@@ -24,11 +24,8 @@ export interface IUserWorkoutDTO extends IUserWorkoutBase {
 
 export interface IUserWorkoutEditDTO extends IUserWorkoutBase {
   ownerId?: string;
-  programId?: string | null;
   workout?: IWorkoutDTO | null;
-  workoutId?: string | null;
   userWorkoutExercises: IUserWorkoutExercisesEditDTO[];
-  lastUserWorkout?: IUserWorkoutDTO | null;
 }
 
 export interface IUserWorkoutExercisesDTO extends IWorkoutExerciseDTO {

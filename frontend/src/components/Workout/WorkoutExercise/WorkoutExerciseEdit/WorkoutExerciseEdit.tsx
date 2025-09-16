@@ -1,13 +1,15 @@
 import { useWorkoutExerciseEdit } from "../../../../hooks/features/program/useWorkoutExerciseEdit";
 import { useErrors } from "../../../../hooks/shared/useErrors";
 import { toTitle } from "../../../../utils/toTitle";
+import { workoutExerciseValidation } from "../../../../../../shared/validations/workoutExercise.validations";
 
 import WorkoutExerciseEditAddExercise from "./WorkoutExerciseEditAddExercise";
 import WorkoutExerciseCoreCardioSet from "./WorkoutExerciseCoreCardioSet";
 import WorkoutExerciseCoreStrengthSet from "./WorkoutExerciseCoreStrengthSet";
-import SelectWithSearch from "../../../UI/Form/SelectWithSearch/SelectWithSearch";
 import WorkoutExerciseEditExerciseSelect from "./WorkoutExerciseEditExerciseSelect";
 
+import SelectWithSearch from "../../../UI/Form/SelectWithSearch/SelectWithSearch";
+import InputWithError from "../../../UI/Form/InputWithError";
 import Label from "../../../UI/Form/Label";
 import TextArea from "../../../UI/Form/TextArea";
 import Button from "../../../UI/Button";
@@ -17,8 +19,6 @@ import type { ExerciseType } from "../../../../../../backend/prisma/generated/pr
 import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
 import type { IModelProps } from "../../../../models/UI.model";
 import type { ICoreStrengthSetEditDTO } from "../../../../../../shared/models/strengthSet.model";
-import { workoutExerciseValidation } from "../../../../../../shared/validations/workoutExercise.validations";
-import InputWithError from "../../../UI/Form/InputWithError";
 import type { TValidationError } from "../../../../models/errors.model";
 import type { ICoreCardioSetEditDTO } from "../../../../../../shared/models/cardioSet.model";
 
@@ -195,7 +195,7 @@ export default function WorkoutExerciseEdit({
         />
       </div>
 
-      {isExercise ? workoutExerciseType(exercise?.type) : null}
+      {/* {isExercise ? workoutExerciseType(exercise?.type) : null} */}
       <div className="col-span-full w-full flex justify-between px-4 pb-4 mt-auto">
         <Button buttonStyle="warning" onClick={onCancel}>
           Cancel

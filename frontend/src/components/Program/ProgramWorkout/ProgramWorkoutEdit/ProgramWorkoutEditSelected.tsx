@@ -1,15 +1,23 @@
 import { calendarUtil } from "../../../../utils/calendar.util";
+import { toTitle } from "../../../../utils/toTitle";
 
 import WorkoutEditModel from "../../../Workout/WorkoutEditModel";
 import WorkoutTags from "../../../Workout/WorkoutTags";
+
 import Button from "../../../UI/Button";
 import CheckboxMulti from "../../../UI/Form/CheckboxMulti";
 import Label from "../../../UI/Form/Label";
 import GenericModel from "../../../UI/GenericModel";
+import SelectWithSearch from "../../../UI/Form/SelectWithSearch/SelectWithSearch";
+import GenericSelectItem from "../../../UI/Form/SelectWithSearch/GenericSelectItem";
+
+import {
+  LEVELS,
+  WORKOUT_GOAL,
+} from "../../../../../../shared/consts/program.consts";
 
 import type { IProgramWorkoutDTO } from "../../../../../../shared/models/program.model";
 import type { IWorkoutDTO } from "../../../../../../shared/models/workout.model";
-import { toTitle } from "../../../../utils/toTitle";
 
 interface IProgramWorkoutEditSelectedProps {
   selectedProgramWorkout?: IProgramWorkoutDTO | null;
@@ -22,6 +30,10 @@ interface IProgramWorkoutEditSelectedProps {
     isCopy?: boolean
   ) => void;
   handleSelectedWorkoutUpdate?: (workout: IWorkoutDTO | null) => void;
+  handleWorkoutPlannerInfo: (
+    option: string,
+    inputName?: "level" | "workoutGoal"
+  ) => void;
 }
 export default function ProgramWorkoutEditSelected({
   selectedProgramWorkout,
@@ -30,6 +42,7 @@ export default function ProgramWorkoutEditSelected({
   saveToProgram,
   onSelectProgramWorkout,
   handleSelectedWorkoutUpdate,
+  handleWorkoutPlannerInfo,
 }: IProgramWorkoutEditSelectedProps) {
   const options = calendarUtil.getShortWeekDays(true);
 
@@ -41,9 +54,9 @@ export default function ProgramWorkoutEditSelected({
     return <p className="text-center">No workout selected</p>;
   }
 
-  const { workout } = selectedProgramWorkout;
+  const { workout, level, workoutGoal } = selectedProgramWorkout;
   return (
-    <div className="border p-2">
+    <div className=" flex flex-col gap-4 h-full">
       <div className="p-2 border rounded grid gap-2">
         <h4>{toTitle(workout?.name)}</h4>
         <WorkoutTags workoutExercises={workout?.workoutExercises} />
@@ -52,7 +65,7 @@ export default function ProgramWorkoutEditSelected({
           className="w-full"
           onClick={onSelectProgramWorkout}
         >
-          Cancel
+          Remove
         </Button>
         <GenericModel
           Model={WorkoutEditModel}
@@ -73,6 +86,24 @@ export default function ProgramWorkoutEditSelected({
           onChange={onDaysChange}
         />
       </div>
+      <SelectWithSearch
+        options={WORKOUT_GOAL}
+        handleSelect={handleWorkoutPlannerInfo}
+        SelectedComponent={<p>{workoutGoal ?? "Pick a goal"}</p>}
+        filterBy={(item) => item}
+        SelectItemComponent={(props) => (
+          <GenericSelectItem {...props} inputName="workoutGoal" />
+        )}
+      />
+      <SelectWithSearch
+        options={LEVELS}
+        handleSelect={handleWorkoutPlannerInfo}
+        SelectedComponent={<p>{level ?? "Pick a level"}</p>}
+        filterBy={(item) => item}
+        SelectItemComponent={(props) => (
+          <GenericSelectItem {...props} inputName="level" />
+        )}
+      />
       <Button
         className={`bg-inherit border-1 w-full hover:bg-main-orange h-10 min-h-10 mt-auto
                   hover:text-white rounded transition-all duration-300

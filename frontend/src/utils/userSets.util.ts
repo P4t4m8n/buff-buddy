@@ -17,7 +17,6 @@ export const userSetsUtil = {
   ): IUserStrengthSetEditDTO => {
     return {
       id: appUtil.getTempId("temp"),
-      reps: null,
       lastSet: {
         lastReps: lastUserSets?.reps ?? null,
         lastWeight: lastUserSets?.weight ?? null,
@@ -25,6 +24,7 @@ export const userSetsUtil = {
         lastIsMuscleFailure: lastUserSets?.isMuscleFailure ?? false,
         lastIsJointPain: lastUserSets?.isJointPain ?? false,
       },
+      reps: null,
       weight: null,
       isCompleted: false,
       isMuscleFailure: false,

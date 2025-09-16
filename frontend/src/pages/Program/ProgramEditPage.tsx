@@ -16,7 +16,7 @@ import Loader from "../../components/UI/loader/Loader";
 import GenericModel from "../../components/UI/GenericModel";
 import GenericSaveButton from "../../components/UI/GenericSaveButton";
 import InputWithError from "../../components/UI/Form/InputWithError";
-import IsActiveInput from "../../components/UI/Form/IsActiveInput";
+import SwitchInput from "../../components/UI/Form/SwitchInput";
 
 export default function ProgramEditPage() {
   const { programId: programIdParams } = useParams<{ programId?: string }>();
@@ -97,7 +97,7 @@ export default function ProgramEditPage() {
             endDate: errors?.endDate,
           }}
         />
-        <IsActiveInput
+        <SwitchInput
           handleInputChange={handleInputChange}
           isActive={!!isActive}
           inputName="isActive"

@@ -7,6 +7,7 @@ import { userCardioSetsSQL } from "../userSets/userCardioSets/userCardioSets.sql
 import { userStrengthSetsSQL } from "../userSets/userStrengthSets/userStrengthSets.sql";
 import { workoutSQL } from "../workouts/workout.sql";
 import type { TCreateUserWorkoutInput } from "../../../../shared/validations/userWorkout.validations";
+import { DefaultArgs } from "../../../prisma/generated/prisma/runtime/library";
 
 const USER_WORKOUT_EXERCISE_SELECT: Prisma.UserWorkoutExerciseSelect = {
   id: true,
@@ -34,7 +35,7 @@ const USER_WORKOUT_EXERCISE_SELECT: Prisma.UserWorkoutExerciseSelect = {
   },
 };
 
-const USER_WORKOUT_SELECT: Prisma.UserWorkoutSelect = {
+const USER_WORKOUT_SELECT = {
   id: true,
   dateCompleted: true,
   program: {
@@ -58,7 +59,14 @@ const USER_WORKOUT_SELECT: Prisma.UserWorkoutSelect = {
     select: {
       id: true,
       workoutExercise: {
-        select: workoutSQL.WORKOUT_EXERCISE_SELECT,
+        select: {
+          id: true,
+          order: true,
+          notes: true,
+          exercise: {
+            select: exerciseSQL.EXERCISE_SELECT,
+          },
+        },
       },
       userCardioSet: {
         select: userCardioSetsSQL.CORE_CARDIO_SET_SELECT,

@@ -28,6 +28,7 @@ export default function ProgramWorkoutEdit({
     onDaysChange,
     onSelectProgramWorkout,
     handleSelectedWorkoutUpdate,
+    handleWorkoutPlannerInfo
   } = useProgramWorkoutEdit(programWorkout);
 
   const { modelRef, handleModel } = props;
@@ -49,31 +50,36 @@ export default function ProgramWorkoutEdit({
       ref={modelRef}
       className="h-main fixed inset-0 bg-black-500 p-2 z-10 flex flex-col gap-4"
     >
-      <header className={""}>
-        <h3 className="text-center">Pick a workout</h3>
-        <ProgramWorkoutEditSelected
-          selectedProgramWorkout={selectedWorkout}
-          onDaysChange={onDaysChange}
-          saveToProgram={saveToProgram}
-          onSelectProgramWorkout={onSelectProgramWorkout}
-          parentRef={modelRef}
-          handleSelectedWorkoutUpdate={handleSelectedWorkoutUpdate}
-        />
-      </header>
+      <h3 className="text-center">Pick a workout</h3>
+      <div className="h-full">
+        {selectedWorkout ? (
+          <ProgramWorkoutEditSelected
+            selectedProgramWorkout={selectedWorkout}
+            onDaysChange={onDaysChange}
+            saveToProgram={saveToProgram}
+            onSelectProgramWorkout={onSelectProgramWorkout}
+            parentRef={modelRef}
+            handleSelectedWorkoutUpdate={handleSelectedWorkoutUpdate}
+            handleWorkoutPlannerInfo={handleWorkoutPlannerInfo}
+          />
+        ) : (
+          <>
+            <GenericModel
+              Model={WorkoutEditModel}
+              mode="create"
+              buttonProps={{ buttonStyle: "model" }}
+              isOverlay={false}
+              isPortal={true}
+              parentRef={modelRef}
+            />
 
-      <GenericModel
-        Model={WorkoutEditModel}
-        mode="create"
-        buttonProps={{ buttonStyle: "model" }}
-        isOverlay={false}
-        isPortal={true}
-        parentRef={modelRef}
-      />
-
-      <ProgramWorkoutList
-        selectedWorkout={selectedWorkout}
-        onSelectProgramWorkout={onSelectProgramWorkout}
-      />
+            <ProgramWorkoutList
+              selectedWorkout={selectedWorkout}
+              onSelectProgramWorkout={onSelectProgramWorkout}
+            />
+          </>
+        )}
+      </div>
 
       <Button
         onClick={handleModel}

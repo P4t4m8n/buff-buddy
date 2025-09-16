@@ -1,10 +1,13 @@
 import { z } from "zod";
 import { validationUtil } from "./util.validation";
 import { workoutValidation } from "./workout.validations";
+import { LEVELS, WORKOUT_GOAL } from "../consts/program.consts";
 
 const BaseProgramWorkoutSchema = z.object({
   daysOfWeek: validationUtil.DaysOfWeekSchema.optional(),
   crudOperation: validationUtil.CrudOperationSchema,
+  level: z.enum(LEVELS).default("beginner"),
+  workoutGoal: z.enum(WORKOUT_GOAL).default("hypertrophy"),
 });
 
 const createProgramWorkoutFactorySchema = ({

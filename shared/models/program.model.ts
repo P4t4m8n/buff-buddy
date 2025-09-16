@@ -33,6 +33,8 @@ export type TProgramWorkoutEditRecord = Record<
 interface IProgramWorkoutBase extends IEntity {
   daysOfWeek: DaysOfWeek[];
   programId?: string;
+  level?: string | null;
+  workoutGoal?: string | null;
 }
 export interface IProgramWorkoutDTO extends IProgramWorkoutBase {
   workout?: IWorkoutDTO;

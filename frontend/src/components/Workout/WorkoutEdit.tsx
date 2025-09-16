@@ -15,7 +15,7 @@ import type {
   IWorkoutExerciseEditDTO,
 } from "../../../../shared/models/workout.model";
 import type { TErrors } from "../../models/errors.model";
-import IsActiveInput from "../UI/Form/IsActiveInput";
+import SwitchInput from "../UI/Form/SwitchInput";
 
 interface IWorkoutEditProps {
   workoutToEdit?: IWorkoutEditDTO | null;
@@ -109,7 +109,7 @@ export default function WorkoutEdit({
       <header className="flex flex-col gap-2 w-full">
         <div>
           <h3 className="text-2xl">Edit Workout</h3>
-          <IsActiveInput
+          <SwitchInput
             handleInputChange={handleInputChange}
             isActive={!!isTemplate}
             inputName="isTemplate"

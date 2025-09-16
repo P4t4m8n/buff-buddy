@@ -1,6 +1,6 @@
 import React from "react";
 
-import IsActiveInput from "../UI/Form/IsActiveInput";
+import SwitchInput from "../UI/Form/SwitchInput";
 
 import type { IWorkoutFilter } from "../../../../shared/models/workout.model";
 
@@ -40,7 +40,7 @@ function WorkoutFilterMemo({
   };
   return (
     <div className="flex flex-wrap gap-3 items-end p-2">
-      <IsActiveInput
+      <SwitchInput
         handleInputChange={handleChange}
         isActive={!!isTemplate}
         inputName="isTemplate"

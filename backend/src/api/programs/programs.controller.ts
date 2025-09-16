@@ -3,7 +3,7 @@ import { AppError } from "../../shared/services/Error.service";
 import { programsService } from "./programs.service";
 
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
-import { programsUtils } from "./programs.utils";
+import { programsUtils } from "./programs.util";
 import { programValidation } from "../../../../shared/validations/program.validations";
 
 export const getPrograms = async (req: Request, res: Response) => {

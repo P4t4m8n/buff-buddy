@@ -88,10 +88,17 @@ const createWorkoutExerciseFactorySchema = ({
 }: {
   toSanitize?: boolean;
 }) => {
-  return workoutExerciseFactorySchema({ toSanitize }).superRefine(
-    exerciseTypeSetRefinement
-  );
+  return workoutExerciseFactorySchema({ toSanitize });
 };
+// const createWorkoutExerciseFactorySchema = ({
+//   toSanitize,
+// }: {
+//   toSanitize?: boolean;
+// }) => {
+//   return workoutExerciseFactorySchema({ toSanitize }).superRefine(
+//     exerciseTypeSetRefinement
+//   );
+// };
 
 const updateWorkoutExerciseFactorySchema = ({
   toSanitize,

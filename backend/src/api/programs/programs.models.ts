@@ -27,9 +27,13 @@ export interface IProgram extends IProgramBase {
     firstName: string | null;
     lastName: string | null;
   } | null;
-  programWorkouts: {
-    id: string;
-    daysOfWeek: DaysOfWeek[];
-    workout: IWorkout;
-  }[];
+  programWorkouts: IProgramWorkout[];
+}
+
+export interface IProgramWorkout {
+  id: string;
+  daysOfWeek: DaysOfWeek[];
+  workout: IWorkout;
+  level: string;
+  workoutGoal: string;
 }

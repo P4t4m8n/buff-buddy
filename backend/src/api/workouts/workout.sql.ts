@@ -21,15 +21,9 @@ const WORKOUT_EXERCISE_SELECT: Prisma.WorkoutExerciseSelect = {
   exercise: {
     select: exerciseSQL.EXERCISE_SELECT,
   },
-  coreCardioSet: {
-    select: coreCardioSetsSQL.CORE_CARDIO_SET_SELECT,
-  },
-  coreStrengthSet: {
-    select: coreStrengthSetsSQL.CORE_STRENGTH_SET_SELECT,
-  },
 };
 
-const WORKOUT_SELECT: Prisma.WorkoutSelect = {
+const WORKOUT_SELECT = {
   id: true,
   name: true,
   notes: true,
@@ -38,7 +32,14 @@ const WORKOUT_SELECT: Prisma.WorkoutSelect = {
     select: userSQL.SMALL_USER_SELECT,
   },
   workoutExercises: {
-    select: WORKOUT_EXERCISE_SELECT,
+    select: {
+      id: true,
+      order: true,
+      notes: true,
+      exercise: {
+        select: exerciseSQL.EXERCISE_SELECT,
+      },
+    },
   },
 };
 
@@ -77,7 +78,7 @@ const getWorkoutUpdate = (
     workoutExercises?.filter((we) => we.crudOperation === "update") ?? [];
   const exercisesToDelete =
     workoutExercises?.filter((we) => we.crudOperation === "delete") ?? [];
-    
+
   return {
     id: workoutData.id,
     ...dbUtil.cleanData({

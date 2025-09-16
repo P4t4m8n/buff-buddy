@@ -16,6 +16,7 @@ export interface ICoreStrengthSetEditDTO extends ICoreStrengthSetDTO {
 
 export interface IUserStrengthSetDTO extends IEntity {
   lastSet?: IUserStrengthLastSet | null;
+  goalSet?: IUserStrengthSetDTO | null;
   reps?: number | null; // Actual number of repetitions performed
   weight?: number | null; // Actual weight lifted in kg
   isWarmup?: boolean; // Indicates if the set was a warmup set

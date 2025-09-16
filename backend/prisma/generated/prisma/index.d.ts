@@ -346,13 +346,6 @@ export class PrismaClient<
    */
   $disconnect(): $Utils.JsPromise<void>;
 
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
-  $use(cb: Prisma.Middleware): void
-
 /**
    * Executes a prepared raw query and returns the number of affected rows.
    * @example
@@ -739,8 +732,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.13.0
-   * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
+   * Prisma Client JS version: 6.16.0
+   * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
    */
   export type PrismaVersion = {
     client: string
@@ -3169,6 +3162,10 @@ export namespace Prisma {
       isolationLevel?: Prisma.TransactionIsolationLevel
     }
     /**
+     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
+     */
+    adapter?: runtime.SqlDriverAdapterFactory | null
+    /**
      * Global configuration for omitting model fields by default.
      * 
      * @example
@@ -3268,25 +3265,6 @@ export namespace Prisma {
     | 'runCommandRaw'
     | 'findRaw'
     | 'groupBy'
-
-  /**
-   * These options are being passed into the middleware as "params"
-   */
-  export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
-
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
-  export type Middleware<T = any> = (
-    params: MiddlewareParams,
-    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
 
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
@@ -3626,13 +3604,13 @@ export namespace Prisma {
    */
 
   export type UserWorkoutExerciseCountOutputType = {
-    userStrengthSet: number
-    userCardioSet: number
+    userStrengthSets: number
+    userCardioSets: number
   }
 
   export type UserWorkoutExerciseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    userStrengthSet?: boolean | UserWorkoutExerciseCountOutputTypeCountUserStrengthSetArgs
-    userCardioSet?: boolean | UserWorkoutExerciseCountOutputTypeCountUserCardioSetArgs
+    userStrengthSets?: boolean | UserWorkoutExerciseCountOutputTypeCountUserStrengthSetsArgs
+    userCardioSets?: boolean | UserWorkoutExerciseCountOutputTypeCountUserCardioSetsArgs
   }
 
   // Custom InputTypes
@@ -3649,14 +3627,14 @@ export namespace Prisma {
   /**
    * UserWorkoutExerciseCountOutputType without action
    */
-  export type UserWorkoutExerciseCountOutputTypeCountUserStrengthSetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserWorkoutExerciseCountOutputTypeCountUserStrengthSetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserStrengthSetWhereInput
   }
 
   /**
    * UserWorkoutExerciseCountOutputType without action
    */
-  export type UserWorkoutExerciseCountOutputTypeCountUserCardioSetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserWorkoutExerciseCountOutputTypeCountUserCardioSetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserCardioSetWhereInput
   }
 
@@ -6274,7 +6252,6 @@ export namespace Prisma {
     id: string | null
     warmupTime: number | null
     avgHeartRate: number | null
-    workoutExerciseId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6283,7 +6260,6 @@ export namespace Prisma {
     id: string | null
     warmupTime: number | null
     avgHeartRate: number | null
-    workoutExerciseId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6292,7 +6268,6 @@ export namespace Prisma {
     id: number
     warmupTime: number
     avgHeartRate: number
-    workoutExerciseId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -6313,7 +6288,6 @@ export namespace Prisma {
     id?: true
     warmupTime?: true
     avgHeartRate?: true
-    workoutExerciseId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6322,7 +6296,6 @@ export namespace Prisma {
     id?: true
     warmupTime?: true
     avgHeartRate?: true
-    workoutExerciseId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6331,7 +6304,6 @@ export namespace Prisma {
     id?: true
     warmupTime?: true
     avgHeartRate?: true
-    workoutExerciseId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -6427,7 +6399,6 @@ export namespace Prisma {
     id: string
     warmupTime: number | null
     avgHeartRate: number | null
-    workoutExerciseId: string | null
     createdAt: Date
     updatedAt: Date
     _count: CoreCardioSetCountAggregateOutputType | null
@@ -6455,10 +6426,8 @@ export namespace Prisma {
     id?: boolean
     warmupTime?: boolean
     avgHeartRate?: boolean
-    workoutExerciseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    workoutExercise?: boolean | CoreCardioSet$workoutExerciseArgs<ExtArgs>
     workTime?: boolean | CoreCardioSet$workTimeArgs<ExtArgs>
     avgSpeed?: boolean | CoreCardioSet$avgSpeedArgs<ExtArgs>
     distance?: boolean | CoreCardioSet$distanceArgs<ExtArgs>
@@ -6470,51 +6439,40 @@ export namespace Prisma {
     id?: boolean
     warmupTime?: boolean
     avgHeartRate?: boolean
-    workoutExerciseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    workoutExercise?: boolean | CoreCardioSet$workoutExerciseArgs<ExtArgs>
   }, ExtArgs["result"]["coreCardioSet"]>
 
   export type CoreCardioSetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     warmupTime?: boolean
     avgHeartRate?: boolean
-    workoutExerciseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    workoutExercise?: boolean | CoreCardioSet$workoutExerciseArgs<ExtArgs>
   }, ExtArgs["result"]["coreCardioSet"]>
 
   export type CoreCardioSetSelectScalar = {
     id?: boolean
     warmupTime?: boolean
     avgHeartRate?: boolean
-    workoutExerciseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CoreCardioSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "warmupTime" | "avgHeartRate" | "workoutExerciseId" | "createdAt" | "updatedAt", ExtArgs["result"]["coreCardioSet"]>
+  export type CoreCardioSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "warmupTime" | "avgHeartRate" | "createdAt" | "updatedAt", ExtArgs["result"]["coreCardioSet"]>
   export type CoreCardioSetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    workoutExercise?: boolean | CoreCardioSet$workoutExerciseArgs<ExtArgs>
     workTime?: boolean | CoreCardioSet$workTimeArgs<ExtArgs>
     avgSpeed?: boolean | CoreCardioSet$avgSpeedArgs<ExtArgs>
     distance?: boolean | CoreCardioSet$distanceArgs<ExtArgs>
     calorieTarget?: boolean | CoreCardioSet$calorieTargetArgs<ExtArgs>
     _count?: boolean | CoreCardioSetCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type CoreCardioSetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    workoutExercise?: boolean | CoreCardioSet$workoutExerciseArgs<ExtArgs>
-  }
-  export type CoreCardioSetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    workoutExercise?: boolean | CoreCardioSet$workoutExerciseArgs<ExtArgs>
-  }
+  export type CoreCardioSetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CoreCardioSetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $CoreCardioSetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "CoreCardioSet"
     objects: {
-      workoutExercise: Prisma.$WorkoutExercisePayload<ExtArgs> | null
       workTime: Prisma.$CoreCardioSetWorkoutTimePayload<ExtArgs>[]
       avgSpeed: Prisma.$CoreCardioSetAvgSpeedPayload<ExtArgs>[]
       distance: Prisma.$CoreCardioSetDistancePayload<ExtArgs>[]
@@ -6524,7 +6482,6 @@ export namespace Prisma {
       id: string
       warmupTime: number | null
       avgHeartRate: number | null
-      workoutExerciseId: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["coreCardioSet"]>
@@ -6921,7 +6878,6 @@ export namespace Prisma {
    */
   export interface Prisma__CoreCardioSetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    workoutExercise<T extends CoreCardioSet$workoutExerciseArgs<ExtArgs> = {}>(args?: Subset<T, CoreCardioSet$workoutExerciseArgs<ExtArgs>>): Prisma__WorkoutExerciseClient<$Result.GetResult<Prisma.$WorkoutExercisePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     workTime<T extends CoreCardioSet$workTimeArgs<ExtArgs> = {}>(args?: Subset<T, CoreCardioSet$workTimeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetWorkoutTimePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     avgSpeed<T extends CoreCardioSet$avgSpeedArgs<ExtArgs> = {}>(args?: Subset<T, CoreCardioSet$avgSpeedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetAvgSpeedPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     distance<T extends CoreCardioSet$distanceArgs<ExtArgs> = {}>(args?: Subset<T, CoreCardioSet$distanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreCardioSetDistancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -6958,7 +6914,6 @@ export namespace Prisma {
     readonly id: FieldRef<"CoreCardioSet", 'String'>
     readonly warmupTime: FieldRef<"CoreCardioSet", 'Int'>
     readonly avgHeartRate: FieldRef<"CoreCardioSet", 'Int'>
-    readonly workoutExerciseId: FieldRef<"CoreCardioSet", 'String'>
     readonly createdAt: FieldRef<"CoreCardioSet", 'DateTime'>
     readonly updatedAt: FieldRef<"CoreCardioSet", 'DateTime'>
   }
@@ -7210,10 +7165,6 @@ export namespace Prisma {
      */
     data: CoreCardioSetCreateManyInput | CoreCardioSetCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreCardioSetIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7284,10 +7235,6 @@ export namespace Prisma {
      * Limit how many CoreCardioSets to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreCardioSetIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7354,25 +7301,6 @@ export namespace Prisma {
      * Limit how many CoreCardioSets to delete.
      */
     limit?: number
-  }
-
-  /**
-   * CoreCardioSet.workoutExercise
-   */
-  export type CoreCardioSet$workoutExerciseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkoutExercise
-     */
-    select?: WorkoutExerciseSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkoutExercise
-     */
-    omit?: WorkoutExerciseOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkoutExerciseInclude<ExtArgs> | null
-    where?: WorkoutExerciseWhereInput
   }
 
   /**
@@ -13105,7 +13033,6 @@ export namespace Prisma {
     restTime: number | null
     numberOfSets: number | null
     hasWarmup: boolean | null
-    workoutExerciseId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -13115,7 +13042,6 @@ export namespace Prisma {
     restTime: number | null
     numberOfSets: number | null
     hasWarmup: boolean | null
-    workoutExerciseId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -13125,7 +13051,6 @@ export namespace Prisma {
     restTime: number
     numberOfSets: number
     hasWarmup: number
-    workoutExerciseId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -13147,7 +13072,6 @@ export namespace Prisma {
     restTime?: true
     numberOfSets?: true
     hasWarmup?: true
-    workoutExerciseId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -13157,7 +13081,6 @@ export namespace Prisma {
     restTime?: true
     numberOfSets?: true
     hasWarmup?: true
-    workoutExerciseId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -13167,7 +13090,6 @@ export namespace Prisma {
     restTime?: true
     numberOfSets?: true
     hasWarmup?: true
-    workoutExerciseId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -13264,7 +13186,6 @@ export namespace Prisma {
     restTime: number
     numberOfSets: number
     hasWarmup: boolean
-    workoutExerciseId: string | null
     createdAt: Date
     updatedAt: Date
     _count: CoreStrengthSetCountAggregateOutputType | null
@@ -13293,10 +13214,8 @@ export namespace Prisma {
     restTime?: boolean
     numberOfSets?: boolean
     hasWarmup?: boolean
-    workoutExerciseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    workoutExercise?: boolean | CoreStrengthSet$workoutExerciseArgs<ExtArgs>
     reps?: boolean | CoreStrengthSet$repsArgs<ExtArgs>
     weight?: boolean | CoreStrengthSet$weightArgs<ExtArgs>
     _count?: boolean | CoreStrengthSetCountOutputTypeDefaultArgs<ExtArgs>
@@ -13307,10 +13226,8 @@ export namespace Prisma {
     restTime?: boolean
     numberOfSets?: boolean
     hasWarmup?: boolean
-    workoutExerciseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    workoutExercise?: boolean | CoreStrengthSet$workoutExerciseArgs<ExtArgs>
   }, ExtArgs["result"]["coreStrengthSet"]>
 
   export type CoreStrengthSetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13318,10 +13235,8 @@ export namespace Prisma {
     restTime?: boolean
     numberOfSets?: boolean
     hasWarmup?: boolean
-    workoutExerciseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    workoutExercise?: boolean | CoreStrengthSet$workoutExerciseArgs<ExtArgs>
   }, ExtArgs["result"]["coreStrengthSet"]>
 
   export type CoreStrengthSetSelectScalar = {
@@ -13329,29 +13244,22 @@ export namespace Prisma {
     restTime?: boolean
     numberOfSets?: boolean
     hasWarmup?: boolean
-    workoutExerciseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CoreStrengthSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "restTime" | "numberOfSets" | "hasWarmup" | "workoutExerciseId" | "createdAt" | "updatedAt", ExtArgs["result"]["coreStrengthSet"]>
+  export type CoreStrengthSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "restTime" | "numberOfSets" | "hasWarmup" | "createdAt" | "updatedAt", ExtArgs["result"]["coreStrengthSet"]>
   export type CoreStrengthSetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    workoutExercise?: boolean | CoreStrengthSet$workoutExerciseArgs<ExtArgs>
     reps?: boolean | CoreStrengthSet$repsArgs<ExtArgs>
     weight?: boolean | CoreStrengthSet$weightArgs<ExtArgs>
     _count?: boolean | CoreStrengthSetCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type CoreStrengthSetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    workoutExercise?: boolean | CoreStrengthSet$workoutExerciseArgs<ExtArgs>
-  }
-  export type CoreStrengthSetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    workoutExercise?: boolean | CoreStrengthSet$workoutExerciseArgs<ExtArgs>
-  }
+  export type CoreStrengthSetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CoreStrengthSetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $CoreStrengthSetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "CoreStrengthSet"
     objects: {
-      workoutExercise: Prisma.$WorkoutExercisePayload<ExtArgs> | null
       reps: Prisma.$CoreStrengthSetRepsPayload<ExtArgs>[]
       weight: Prisma.$CoreStrengthSetWeightPayload<ExtArgs>[]
     }
@@ -13360,7 +13268,6 @@ export namespace Prisma {
       restTime: number
       numberOfSets: number
       hasWarmup: boolean
-      workoutExerciseId: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["coreStrengthSet"]>
@@ -13757,7 +13664,6 @@ export namespace Prisma {
    */
   export interface Prisma__CoreStrengthSetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    workoutExercise<T extends CoreStrengthSet$workoutExerciseArgs<ExtArgs> = {}>(args?: Subset<T, CoreStrengthSet$workoutExerciseArgs<ExtArgs>>): Prisma__WorkoutExerciseClient<$Result.GetResult<Prisma.$WorkoutExercisePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     reps<T extends CoreStrengthSet$repsArgs<ExtArgs> = {}>(args?: Subset<T, CoreStrengthSet$repsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreStrengthSetRepsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     weight<T extends CoreStrengthSet$weightArgs<ExtArgs> = {}>(args?: Subset<T, CoreStrengthSet$weightArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoreStrengthSetWeightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -13793,7 +13699,6 @@ export namespace Prisma {
     readonly restTime: FieldRef<"CoreStrengthSet", 'Int'>
     readonly numberOfSets: FieldRef<"CoreStrengthSet", 'Int'>
     readonly hasWarmup: FieldRef<"CoreStrengthSet", 'Boolean'>
-    readonly workoutExerciseId: FieldRef<"CoreStrengthSet", 'String'>
     readonly createdAt: FieldRef<"CoreStrengthSet", 'DateTime'>
     readonly updatedAt: FieldRef<"CoreStrengthSet", 'DateTime'>
   }
@@ -14045,10 +13950,6 @@ export namespace Prisma {
      */
     data: CoreStrengthSetCreateManyInput | CoreStrengthSetCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreStrengthSetIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -14119,10 +14020,6 @@ export namespace Prisma {
      * Limit how many CoreStrengthSets to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreStrengthSetIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -14189,25 +14086,6 @@ export namespace Prisma {
      * Limit how many CoreStrengthSets to delete.
      */
     limit?: number
-  }
-
-  /**
-   * CoreStrengthSet.workoutExercise
-   */
-  export type CoreStrengthSet$workoutExerciseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkoutExercise
-     */
-    select?: WorkoutExerciseSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkoutExercise
-     */
-    omit?: WorkoutExerciseOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkoutExerciseInclude<ExtArgs> | null
-    where?: WorkoutExerciseWhereInput
   }
 
   /**
@@ -18877,6 +18755,8 @@ export namespace Prisma {
     id: string | null
     programId: string | null
     workoutId: string | null
+    level: string | null
+    workoutGoal: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -18885,6 +18765,8 @@ export namespace Prisma {
     id: string | null
     programId: string | null
     workoutId: string | null
+    level: string | null
+    workoutGoal: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -18893,6 +18775,8 @@ export namespace Prisma {
     id: number
     programId: number
     workoutId: number
+    level: number
+    workoutGoal: number
     daysOfWeek: number
     createdAt: number
     updatedAt: number
@@ -18904,6 +18788,8 @@ export namespace Prisma {
     id?: true
     programId?: true
     workoutId?: true
+    level?: true
+    workoutGoal?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -18912,6 +18798,8 @@ export namespace Prisma {
     id?: true
     programId?: true
     workoutId?: true
+    level?: true
+    workoutGoal?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -18920,6 +18808,8 @@ export namespace Prisma {
     id?: true
     programId?: true
     workoutId?: true
+    level?: true
+    workoutGoal?: true
     daysOfWeek?: true
     createdAt?: true
     updatedAt?: true
@@ -19002,6 +18892,8 @@ export namespace Prisma {
     id: string
     programId: string
     workoutId: string
+    level: string
+    workoutGoal: string
     daysOfWeek: $Enums.DaysOfWeek[]
     createdAt: Date
     updatedAt: Date
@@ -19028,6 +18920,8 @@ export namespace Prisma {
     id?: boolean
     programId?: boolean
     workoutId?: boolean
+    level?: boolean
+    workoutGoal?: boolean
     daysOfWeek?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -19039,6 +18933,8 @@ export namespace Prisma {
     id?: boolean
     programId?: boolean
     workoutId?: boolean
+    level?: boolean
+    workoutGoal?: boolean
     daysOfWeek?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -19050,6 +18946,8 @@ export namespace Prisma {
     id?: boolean
     programId?: boolean
     workoutId?: boolean
+    level?: boolean
+    workoutGoal?: boolean
     daysOfWeek?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -19061,12 +18959,14 @@ export namespace Prisma {
     id?: boolean
     programId?: boolean
     workoutId?: boolean
+    level?: boolean
+    workoutGoal?: boolean
     daysOfWeek?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProgramWorkoutOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "programId" | "workoutId" | "daysOfWeek" | "createdAt" | "updatedAt", ExtArgs["result"]["programWorkout"]>
+  export type ProgramWorkoutOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "programId" | "workoutId" | "level" | "workoutGoal" | "daysOfWeek" | "createdAt" | "updatedAt", ExtArgs["result"]["programWorkout"]>
   export type ProgramWorkoutInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     program?: boolean | ProgramDefaultArgs<ExtArgs>
     workout?: boolean | WorkoutDefaultArgs<ExtArgs>
@@ -19090,6 +18990,8 @@ export namespace Prisma {
       id: string
       programId: string
       workoutId: string
+      level: string
+      workoutGoal: string
       daysOfWeek: $Enums.DaysOfWeek[]
       createdAt: Date
       updatedAt: Date
@@ -19521,6 +19423,8 @@ export namespace Prisma {
     readonly id: FieldRef<"ProgramWorkout", 'String'>
     readonly programId: FieldRef<"ProgramWorkout", 'String'>
     readonly workoutId: FieldRef<"ProgramWorkout", 'String'>
+    readonly level: FieldRef<"ProgramWorkout", 'String'>
+    readonly workoutGoal: FieldRef<"ProgramWorkout", 'String'>
     readonly daysOfWeek: FieldRef<"ProgramWorkout", 'DaysOfWeek[]'>
     readonly createdAt: FieldRef<"ProgramWorkout", 'DateTime'>
     readonly updatedAt: FieldRef<"ProgramWorkout", 'DateTime'>
@@ -21151,6 +21055,8 @@ export namespace Prisma {
     id: string | null
     order: number | null
     notes: string | null
+    hasWarmup: boolean | null
+    isBodyWeight: boolean | null
     exerciseId: string | null
     workoutId: string | null
     createdAt: Date | null
@@ -21161,6 +21067,8 @@ export namespace Prisma {
     id: string | null
     order: number | null
     notes: string | null
+    hasWarmup: boolean | null
+    isBodyWeight: boolean | null
     exerciseId: string | null
     workoutId: string | null
     createdAt: Date | null
@@ -21171,6 +21079,8 @@ export namespace Prisma {
     id: number
     order: number
     notes: number
+    hasWarmup: number
+    isBodyWeight: number
     exerciseId: number
     workoutId: number
     createdAt: number
@@ -21191,6 +21101,8 @@ export namespace Prisma {
     id?: true
     order?: true
     notes?: true
+    hasWarmup?: true
+    isBodyWeight?: true
     exerciseId?: true
     workoutId?: true
     createdAt?: true
@@ -21201,6 +21113,8 @@ export namespace Prisma {
     id?: true
     order?: true
     notes?: true
+    hasWarmup?: true
+    isBodyWeight?: true
     exerciseId?: true
     workoutId?: true
     createdAt?: true
@@ -21211,6 +21125,8 @@ export namespace Prisma {
     id?: true
     order?: true
     notes?: true
+    hasWarmup?: true
+    isBodyWeight?: true
     exerciseId?: true
     workoutId?: true
     createdAt?: true
@@ -21308,6 +21224,8 @@ export namespace Prisma {
     id: string
     order: number
     notes: string | null
+    hasWarmup: boolean
+    isBodyWeight: boolean
     exerciseId: string
     workoutId: string
     createdAt: Date
@@ -21337,12 +21255,12 @@ export namespace Prisma {
     id?: boolean
     order?: boolean
     notes?: boolean
+    hasWarmup?: boolean
+    isBodyWeight?: boolean
     exerciseId?: boolean
     workoutId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    coreStrengthSet?: boolean | WorkoutExercise$coreStrengthSetArgs<ExtArgs>
-    coreCardioSet?: boolean | WorkoutExercise$coreCardioSetArgs<ExtArgs>
     exercise?: boolean | ExerciseDefaultArgs<ExtArgs>
     workout?: boolean | WorkoutDefaultArgs<ExtArgs>
     userWorkoutExercises?: boolean | WorkoutExercise$userWorkoutExercisesArgs<ExtArgs>
@@ -21353,6 +21271,8 @@ export namespace Prisma {
     id?: boolean
     order?: boolean
     notes?: boolean
+    hasWarmup?: boolean
+    isBodyWeight?: boolean
     exerciseId?: boolean
     workoutId?: boolean
     createdAt?: boolean
@@ -21365,6 +21285,8 @@ export namespace Prisma {
     id?: boolean
     order?: boolean
     notes?: boolean
+    hasWarmup?: boolean
+    isBodyWeight?: boolean
     exerciseId?: boolean
     workoutId?: boolean
     createdAt?: boolean
@@ -21377,16 +21299,16 @@ export namespace Prisma {
     id?: boolean
     order?: boolean
     notes?: boolean
+    hasWarmup?: boolean
+    isBodyWeight?: boolean
     exerciseId?: boolean
     workoutId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type WorkoutExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order" | "notes" | "exerciseId" | "workoutId" | "createdAt" | "updatedAt", ExtArgs["result"]["workoutExercise"]>
+  export type WorkoutExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order" | "notes" | "hasWarmup" | "isBodyWeight" | "exerciseId" | "workoutId" | "createdAt" | "updatedAt", ExtArgs["result"]["workoutExercise"]>
   export type WorkoutExerciseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    coreStrengthSet?: boolean | WorkoutExercise$coreStrengthSetArgs<ExtArgs>
-    coreCardioSet?: boolean | WorkoutExercise$coreCardioSetArgs<ExtArgs>
     exercise?: boolean | ExerciseDefaultArgs<ExtArgs>
     workout?: boolean | WorkoutDefaultArgs<ExtArgs>
     userWorkoutExercises?: boolean | WorkoutExercise$userWorkoutExercisesArgs<ExtArgs>
@@ -21404,8 +21326,6 @@ export namespace Prisma {
   export type $WorkoutExercisePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "WorkoutExercise"
     objects: {
-      coreStrengthSet: Prisma.$CoreStrengthSetPayload<ExtArgs> | null
-      coreCardioSet: Prisma.$CoreCardioSetPayload<ExtArgs> | null
       exercise: Prisma.$ExercisePayload<ExtArgs>
       workout: Prisma.$WorkoutPayload<ExtArgs>
       userWorkoutExercises: Prisma.$UserWorkoutExercisePayload<ExtArgs>[]
@@ -21414,6 +21334,8 @@ export namespace Prisma {
       id: string
       order: number
       notes: string | null
+      hasWarmup: boolean
+      isBodyWeight: boolean
       exerciseId: string
       workoutId: string
       createdAt: Date
@@ -21812,8 +21734,6 @@ export namespace Prisma {
    */
   export interface Prisma__WorkoutExerciseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    coreStrengthSet<T extends WorkoutExercise$coreStrengthSetArgs<ExtArgs> = {}>(args?: Subset<T, WorkoutExercise$coreStrengthSetArgs<ExtArgs>>): Prisma__CoreStrengthSetClient<$Result.GetResult<Prisma.$CoreStrengthSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    coreCardioSet<T extends WorkoutExercise$coreCardioSetArgs<ExtArgs> = {}>(args?: Subset<T, WorkoutExercise$coreCardioSetArgs<ExtArgs>>): Prisma__CoreCardioSetClient<$Result.GetResult<Prisma.$CoreCardioSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     exercise<T extends ExerciseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ExerciseDefaultArgs<ExtArgs>>): Prisma__ExerciseClient<$Result.GetResult<Prisma.$ExercisePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     workout<T extends WorkoutDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkoutDefaultArgs<ExtArgs>>): Prisma__WorkoutClient<$Result.GetResult<Prisma.$WorkoutPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     userWorkoutExercises<T extends WorkoutExercise$userWorkoutExercisesArgs<ExtArgs> = {}>(args?: Subset<T, WorkoutExercise$userWorkoutExercisesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserWorkoutExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -21849,6 +21769,8 @@ export namespace Prisma {
     readonly id: FieldRef<"WorkoutExercise", 'String'>
     readonly order: FieldRef<"WorkoutExercise", 'Int'>
     readonly notes: FieldRef<"WorkoutExercise", 'String'>
+    readonly hasWarmup: FieldRef<"WorkoutExercise", 'Boolean'>
+    readonly isBodyWeight: FieldRef<"WorkoutExercise", 'Boolean'>
     readonly exerciseId: FieldRef<"WorkoutExercise", 'String'>
     readonly workoutId: FieldRef<"WorkoutExercise", 'String'>
     readonly createdAt: FieldRef<"WorkoutExercise", 'DateTime'>
@@ -22249,44 +22171,6 @@ export namespace Prisma {
   }
 
   /**
-   * WorkoutExercise.coreStrengthSet
-   */
-  export type WorkoutExercise$coreStrengthSetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreStrengthSet
-     */
-    select?: CoreStrengthSetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CoreStrengthSet
-     */
-    omit?: CoreStrengthSetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreStrengthSetInclude<ExtArgs> | null
-    where?: CoreStrengthSetWhereInput
-  }
-
-  /**
-   * WorkoutExercise.coreCardioSet
-   */
-  export type WorkoutExercise$coreCardioSetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CoreCardioSet
-     */
-    select?: CoreCardioSetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CoreCardioSet
-     */
-    omit?: CoreCardioSetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoreCardioSetInclude<ExtArgs> | null
-    where?: CoreCardioSetWhereInput
-  }
-
-  /**
    * WorkoutExercise.userWorkoutExercises
    */
   export type WorkoutExercise$userWorkoutExercisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -22487,8 +22371,8 @@ export namespace Prisma {
     userWorkoutId?: boolean
     workoutExercise?: boolean | WorkoutExerciseDefaultArgs<ExtArgs>
     userWorkout?: boolean | UserWorkoutDefaultArgs<ExtArgs>
-    userStrengthSet?: boolean | UserWorkoutExercise$userStrengthSetArgs<ExtArgs>
-    userCardioSet?: boolean | UserWorkoutExercise$userCardioSetArgs<ExtArgs>
+    userStrengthSets?: boolean | UserWorkoutExercise$userStrengthSetsArgs<ExtArgs>
+    userCardioSets?: boolean | UserWorkoutExercise$userCardioSetsArgs<ExtArgs>
     _count?: boolean | UserWorkoutExerciseCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userWorkoutExercise"]>
 
@@ -22521,8 +22405,8 @@ export namespace Prisma {
   export type UserWorkoutExerciseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workoutExercise?: boolean | WorkoutExerciseDefaultArgs<ExtArgs>
     userWorkout?: boolean | UserWorkoutDefaultArgs<ExtArgs>
-    userStrengthSet?: boolean | UserWorkoutExercise$userStrengthSetArgs<ExtArgs>
-    userCardioSet?: boolean | UserWorkoutExercise$userCardioSetArgs<ExtArgs>
+    userStrengthSets?: boolean | UserWorkoutExercise$userStrengthSetsArgs<ExtArgs>
+    userCardioSets?: boolean | UserWorkoutExercise$userCardioSetsArgs<ExtArgs>
     _count?: boolean | UserWorkoutExerciseCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserWorkoutExerciseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -22539,8 +22423,8 @@ export namespace Prisma {
     objects: {
       workoutExercise: Prisma.$WorkoutExercisePayload<ExtArgs>
       userWorkout: Prisma.$UserWorkoutPayload<ExtArgs>
-      userStrengthSet: Prisma.$UserStrengthSetPayload<ExtArgs>[]
-      userCardioSet: Prisma.$UserCardioSetPayload<ExtArgs>[]
+      userStrengthSets: Prisma.$UserStrengthSetPayload<ExtArgs>[]
+      userCardioSets: Prisma.$UserCardioSetPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -22943,8 +22827,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workoutExercise<T extends WorkoutExerciseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkoutExerciseDefaultArgs<ExtArgs>>): Prisma__WorkoutExerciseClient<$Result.GetResult<Prisma.$WorkoutExercisePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     userWorkout<T extends UserWorkoutDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserWorkoutDefaultArgs<ExtArgs>>): Prisma__UserWorkoutClient<$Result.GetResult<Prisma.$UserWorkoutPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    userStrengthSet<T extends UserWorkoutExercise$userStrengthSetArgs<ExtArgs> = {}>(args?: Subset<T, UserWorkoutExercise$userStrengthSetArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStrengthSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    userCardioSet<T extends UserWorkoutExercise$userCardioSetArgs<ExtArgs> = {}>(args?: Subset<T, UserWorkoutExercise$userCardioSetArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserCardioSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userStrengthSets<T extends UserWorkoutExercise$userStrengthSetsArgs<ExtArgs> = {}>(args?: Subset<T, UserWorkoutExercise$userStrengthSetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStrengthSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userCardioSets<T extends UserWorkoutExercise$userCardioSetsArgs<ExtArgs> = {}>(args?: Subset<T, UserWorkoutExercise$userCardioSetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserCardioSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -23374,9 +23258,9 @@ export namespace Prisma {
   }
 
   /**
-   * UserWorkoutExercise.userStrengthSet
+   * UserWorkoutExercise.userStrengthSets
    */
-  export type UserWorkoutExercise$userStrengthSetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserWorkoutExercise$userStrengthSetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the UserStrengthSet
      */
@@ -23398,9 +23282,9 @@ export namespace Prisma {
   }
 
   /**
-   * UserWorkoutExercise.userCardioSet
+   * UserWorkoutExercise.userCardioSets
    */
-  export type UserWorkoutExercise$userCardioSetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserWorkoutExercise$userCardioSetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the UserCardioSet
      */
@@ -33611,7 +33495,6 @@ export namespace Prisma {
     id: 'id',
     warmupTime: 'warmupTime',
     avgHeartRate: 'avgHeartRate',
-    workoutExerciseId: 'workoutExerciseId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -33687,7 +33570,6 @@ export namespace Prisma {
     restTime: 'restTime',
     numberOfSets: 'numberOfSets',
     hasWarmup: 'hasWarmup',
-    workoutExerciseId: 'workoutExerciseId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -33757,6 +33639,8 @@ export namespace Prisma {
     id: 'id',
     programId: 'programId',
     workoutId: 'workoutId',
+    level: 'level',
+    workoutGoal: 'workoutGoal',
     daysOfWeek: 'daysOfWeek',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -33782,6 +33666,8 @@ export namespace Prisma {
     id: 'id',
     order: 'order',
     notes: 'notes',
+    hasWarmup: 'hasWarmup',
+    isBodyWeight: 'isBodyWeight',
     exerciseId: 'exerciseId',
     workoutId: 'workoutId',
     createdAt: 'createdAt',
@@ -34252,10 +34138,8 @@ export namespace Prisma {
     id?: StringFilter<"CoreCardioSet"> | string
     warmupTime?: IntNullableFilter<"CoreCardioSet"> | number | null
     avgHeartRate?: IntNullableFilter<"CoreCardioSet"> | number | null
-    workoutExerciseId?: StringNullableFilter<"CoreCardioSet"> | string | null
     createdAt?: DateTimeFilter<"CoreCardioSet"> | Date | string
     updatedAt?: DateTimeFilter<"CoreCardioSet"> | Date | string
-    workoutExercise?: XOR<WorkoutExerciseNullableScalarRelationFilter, WorkoutExerciseWhereInput> | null
     workTime?: CoreCardioSetWorkoutTimeListRelationFilter
     avgSpeed?: CoreCardioSetAvgSpeedListRelationFilter
     distance?: CoreCardioSetDistanceListRelationFilter
@@ -34266,10 +34150,8 @@ export namespace Prisma {
     id?: SortOrder
     warmupTime?: SortOrderInput | SortOrder
     avgHeartRate?: SortOrderInput | SortOrder
-    workoutExerciseId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    workoutExercise?: WorkoutExerciseOrderByWithRelationInput
     workTime?: CoreCardioSetWorkoutTimeOrderByRelationAggregateInput
     avgSpeed?: CoreCardioSetAvgSpeedOrderByRelationAggregateInput
     distance?: CoreCardioSetDistanceOrderByRelationAggregateInput
@@ -34278,7 +34160,6 @@ export namespace Prisma {
 
   export type CoreCardioSetWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    workoutExerciseId?: string
     AND?: CoreCardioSetWhereInput | CoreCardioSetWhereInput[]
     OR?: CoreCardioSetWhereInput[]
     NOT?: CoreCardioSetWhereInput | CoreCardioSetWhereInput[]
@@ -34286,18 +34167,16 @@ export namespace Prisma {
     avgHeartRate?: IntNullableFilter<"CoreCardioSet"> | number | null
     createdAt?: DateTimeFilter<"CoreCardioSet"> | Date | string
     updatedAt?: DateTimeFilter<"CoreCardioSet"> | Date | string
-    workoutExercise?: XOR<WorkoutExerciseNullableScalarRelationFilter, WorkoutExerciseWhereInput> | null
     workTime?: CoreCardioSetWorkoutTimeListRelationFilter
     avgSpeed?: CoreCardioSetAvgSpeedListRelationFilter
     distance?: CoreCardioSetDistanceListRelationFilter
     calorieTarget?: CoreCardioSetCalorieTargetListRelationFilter
-  }, "id" | "workoutExerciseId">
+  }, "id">
 
   export type CoreCardioSetOrderByWithAggregationInput = {
     id?: SortOrder
     warmupTime?: SortOrderInput | SortOrder
     avgHeartRate?: SortOrderInput | SortOrder
-    workoutExerciseId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CoreCardioSetCountOrderByAggregateInput
@@ -34314,7 +34193,6 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"CoreCardioSet"> | string
     warmupTime?: IntNullableWithAggregatesFilter<"CoreCardioSet"> | number | null
     avgHeartRate?: IntNullableWithAggregatesFilter<"CoreCardioSet"> | number | null
-    workoutExerciseId?: StringNullableWithAggregatesFilter<"CoreCardioSet"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"CoreCardioSet"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"CoreCardioSet"> | Date | string
   }
@@ -34652,10 +34530,8 @@ export namespace Prisma {
     restTime?: IntFilter<"CoreStrengthSet"> | number
     numberOfSets?: IntFilter<"CoreStrengthSet"> | number
     hasWarmup?: BoolFilter<"CoreStrengthSet"> | boolean
-    workoutExerciseId?: StringNullableFilter<"CoreStrengthSet"> | string | null
     createdAt?: DateTimeFilter<"CoreStrengthSet"> | Date | string
     updatedAt?: DateTimeFilter<"CoreStrengthSet"> | Date | string
-    workoutExercise?: XOR<WorkoutExerciseNullableScalarRelationFilter, WorkoutExerciseWhereInput> | null
     reps?: CoreStrengthSetRepsListRelationFilter
     weight?: CoreStrengthSetWeightListRelationFilter
   }
@@ -34665,17 +34541,14 @@ export namespace Prisma {
     restTime?: SortOrder
     numberOfSets?: SortOrder
     hasWarmup?: SortOrder
-    workoutExerciseId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    workoutExercise?: WorkoutExerciseOrderByWithRelationInput
     reps?: CoreStrengthSetRepsOrderByRelationAggregateInput
     weight?: CoreStrengthSetWeightOrderByRelationAggregateInput
   }
 
   export type CoreStrengthSetWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    workoutExerciseId?: string
     AND?: CoreStrengthSetWhereInput | CoreStrengthSetWhereInput[]
     OR?: CoreStrengthSetWhereInput[]
     NOT?: CoreStrengthSetWhereInput | CoreStrengthSetWhereInput[]
@@ -34684,17 +34557,15 @@ export namespace Prisma {
     hasWarmup?: BoolFilter<"CoreStrengthSet"> | boolean
     createdAt?: DateTimeFilter<"CoreStrengthSet"> | Date | string
     updatedAt?: DateTimeFilter<"CoreStrengthSet"> | Date | string
-    workoutExercise?: XOR<WorkoutExerciseNullableScalarRelationFilter, WorkoutExerciseWhereInput> | null
     reps?: CoreStrengthSetRepsListRelationFilter
     weight?: CoreStrengthSetWeightListRelationFilter
-  }, "id" | "workoutExerciseId">
+  }, "id">
 
   export type CoreStrengthSetOrderByWithAggregationInput = {
     id?: SortOrder
     restTime?: SortOrder
     numberOfSets?: SortOrder
     hasWarmup?: SortOrder
-    workoutExerciseId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CoreStrengthSetCountOrderByAggregateInput
@@ -34712,7 +34583,6 @@ export namespace Prisma {
     restTime?: IntWithAggregatesFilter<"CoreStrengthSet"> | number
     numberOfSets?: IntWithAggregatesFilter<"CoreStrengthSet"> | number
     hasWarmup?: BoolWithAggregatesFilter<"CoreStrengthSet"> | boolean
-    workoutExerciseId?: StringNullableWithAggregatesFilter<"CoreStrengthSet"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"CoreStrengthSet"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"CoreStrengthSet"> | Date | string
   }
@@ -35026,6 +34896,8 @@ export namespace Prisma {
     id?: StringFilter<"ProgramWorkout"> | string
     programId?: StringFilter<"ProgramWorkout"> | string
     workoutId?: StringFilter<"ProgramWorkout"> | string
+    level?: StringFilter<"ProgramWorkout"> | string
+    workoutGoal?: StringFilter<"ProgramWorkout"> | string
     daysOfWeek?: EnumDaysOfWeekNullableListFilter<"ProgramWorkout">
     createdAt?: DateTimeFilter<"ProgramWorkout"> | Date | string
     updatedAt?: DateTimeFilter<"ProgramWorkout"> | Date | string
@@ -35037,6 +34909,8 @@ export namespace Prisma {
     id?: SortOrder
     programId?: SortOrder
     workoutId?: SortOrder
+    level?: SortOrder
+    workoutGoal?: SortOrder
     daysOfWeek?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -35052,6 +34926,8 @@ export namespace Prisma {
     NOT?: ProgramWorkoutWhereInput | ProgramWorkoutWhereInput[]
     programId?: StringFilter<"ProgramWorkout"> | string
     workoutId?: StringFilter<"ProgramWorkout"> | string
+    level?: StringFilter<"ProgramWorkout"> | string
+    workoutGoal?: StringFilter<"ProgramWorkout"> | string
     daysOfWeek?: EnumDaysOfWeekNullableListFilter<"ProgramWorkout">
     createdAt?: DateTimeFilter<"ProgramWorkout"> | Date | string
     updatedAt?: DateTimeFilter<"ProgramWorkout"> | Date | string
@@ -35063,6 +34939,8 @@ export namespace Prisma {
     id?: SortOrder
     programId?: SortOrder
     workoutId?: SortOrder
+    level?: SortOrder
+    workoutGoal?: SortOrder
     daysOfWeek?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -35078,6 +34956,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"ProgramWorkout"> | string
     programId?: StringWithAggregatesFilter<"ProgramWorkout"> | string
     workoutId?: StringWithAggregatesFilter<"ProgramWorkout"> | string
+    level?: StringWithAggregatesFilter<"ProgramWorkout"> | string
+    workoutGoal?: StringWithAggregatesFilter<"ProgramWorkout"> | string
     daysOfWeek?: EnumDaysOfWeekNullableListFilter<"ProgramWorkout">
     createdAt?: DateTimeWithAggregatesFilter<"ProgramWorkout"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ProgramWorkout"> | Date | string
@@ -35164,12 +35044,12 @@ export namespace Prisma {
     id?: StringFilter<"WorkoutExercise"> | string
     order?: IntFilter<"WorkoutExercise"> | number
     notes?: StringNullableFilter<"WorkoutExercise"> | string | null
+    hasWarmup?: BoolFilter<"WorkoutExercise"> | boolean
+    isBodyWeight?: BoolFilter<"WorkoutExercise"> | boolean
     exerciseId?: StringFilter<"WorkoutExercise"> | string
     workoutId?: StringFilter<"WorkoutExercise"> | string
     createdAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
     updatedAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
-    coreStrengthSet?: XOR<CoreStrengthSetNullableScalarRelationFilter, CoreStrengthSetWhereInput> | null
-    coreCardioSet?: XOR<CoreCardioSetNullableScalarRelationFilter, CoreCardioSetWhereInput> | null
     exercise?: XOR<ExerciseScalarRelationFilter, ExerciseWhereInput>
     workout?: XOR<WorkoutScalarRelationFilter, WorkoutWhereInput>
     userWorkoutExercises?: UserWorkoutExerciseListRelationFilter
@@ -35179,12 +35059,12 @@ export namespace Prisma {
     id?: SortOrder
     order?: SortOrder
     notes?: SortOrderInput | SortOrder
+    hasWarmup?: SortOrder
+    isBodyWeight?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    coreStrengthSet?: CoreStrengthSetOrderByWithRelationInput
-    coreCardioSet?: CoreCardioSetOrderByWithRelationInput
     exercise?: ExerciseOrderByWithRelationInput
     workout?: WorkoutOrderByWithRelationInput
     userWorkoutExercises?: UserWorkoutExerciseOrderByRelationAggregateInput
@@ -35197,12 +35077,12 @@ export namespace Prisma {
     NOT?: WorkoutExerciseWhereInput | WorkoutExerciseWhereInput[]
     order?: IntFilter<"WorkoutExercise"> | number
     notes?: StringNullableFilter<"WorkoutExercise"> | string | null
+    hasWarmup?: BoolFilter<"WorkoutExercise"> | boolean
+    isBodyWeight?: BoolFilter<"WorkoutExercise"> | boolean
     exerciseId?: StringFilter<"WorkoutExercise"> | string
     workoutId?: StringFilter<"WorkoutExercise"> | string
     createdAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
     updatedAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
-    coreStrengthSet?: XOR<CoreStrengthSetNullableScalarRelationFilter, CoreStrengthSetWhereInput> | null
-    coreCardioSet?: XOR<CoreCardioSetNullableScalarRelationFilter, CoreCardioSetWhereInput> | null
     exercise?: XOR<ExerciseScalarRelationFilter, ExerciseWhereInput>
     workout?: XOR<WorkoutScalarRelationFilter, WorkoutWhereInput>
     userWorkoutExercises?: UserWorkoutExerciseListRelationFilter
@@ -35212,6 +35092,8 @@ export namespace Prisma {
     id?: SortOrder
     order?: SortOrder
     notes?: SortOrderInput | SortOrder
+    hasWarmup?: SortOrder
+    isBodyWeight?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
     createdAt?: SortOrder
@@ -35230,6 +35112,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"WorkoutExercise"> | string
     order?: IntWithAggregatesFilter<"WorkoutExercise"> | number
     notes?: StringNullableWithAggregatesFilter<"WorkoutExercise"> | string | null
+    hasWarmup?: BoolWithAggregatesFilter<"WorkoutExercise"> | boolean
+    isBodyWeight?: BoolWithAggregatesFilter<"WorkoutExercise"> | boolean
     exerciseId?: StringWithAggregatesFilter<"WorkoutExercise"> | string
     workoutId?: StringWithAggregatesFilter<"WorkoutExercise"> | string
     createdAt?: DateTimeWithAggregatesFilter<"WorkoutExercise"> | Date | string
@@ -35246,8 +35130,8 @@ export namespace Prisma {
     userWorkoutId?: StringFilter<"UserWorkoutExercise"> | string
     workoutExercise?: XOR<WorkoutExerciseScalarRelationFilter, WorkoutExerciseWhereInput>
     userWorkout?: XOR<UserWorkoutScalarRelationFilter, UserWorkoutWhereInput>
-    userStrengthSet?: UserStrengthSetListRelationFilter
-    userCardioSet?: UserCardioSetListRelationFilter
+    userStrengthSets?: UserStrengthSetListRelationFilter
+    userCardioSets?: UserCardioSetListRelationFilter
   }
 
   export type UserWorkoutExerciseOrderByWithRelationInput = {
@@ -35257,8 +35141,8 @@ export namespace Prisma {
     userWorkoutId?: SortOrder
     workoutExercise?: WorkoutExerciseOrderByWithRelationInput
     userWorkout?: UserWorkoutOrderByWithRelationInput
-    userStrengthSet?: UserStrengthSetOrderByRelationAggregateInput
-    userCardioSet?: UserCardioSetOrderByRelationAggregateInput
+    userStrengthSets?: UserStrengthSetOrderByRelationAggregateInput
+    userCardioSets?: UserCardioSetOrderByRelationAggregateInput
   }
 
   export type UserWorkoutExerciseWhereUniqueInput = Prisma.AtLeast<{
@@ -35271,8 +35155,8 @@ export namespace Prisma {
     userWorkoutId?: StringFilter<"UserWorkoutExercise"> | string
     workoutExercise?: XOR<WorkoutExerciseScalarRelationFilter, WorkoutExerciseWhereInput>
     userWorkout?: XOR<UserWorkoutScalarRelationFilter, UserWorkoutWhereInput>
-    userStrengthSet?: UserStrengthSetListRelationFilter
-    userCardioSet?: UserCardioSetListRelationFilter
+    userStrengthSets?: UserStrengthSetListRelationFilter
+    userCardioSets?: UserCardioSetListRelationFilter
   }, "id">
 
   export type UserWorkoutExerciseOrderByWithAggregationInput = {
@@ -36097,7 +35981,6 @@ export namespace Prisma {
     avgHeartRate?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    workoutExercise?: WorkoutExerciseCreateNestedOneWithoutCoreCardioSetInput
     workTime?: CoreCardioSetWorkoutTimeCreateNestedManyWithoutCoreCardioSetInput
     avgSpeed?: CoreCardioSetAvgSpeedCreateNestedManyWithoutCoreCardioSetInput
     distance?: CoreCardioSetDistanceCreateNestedManyWithoutCoreCardioSetInput
@@ -36108,7 +35991,6 @@ export namespace Prisma {
     id?: string
     warmupTime?: number | null
     avgHeartRate?: number | null
-    workoutExerciseId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workTime?: CoreCardioSetWorkoutTimeUncheckedCreateNestedManyWithoutCoreCardioSetInput
@@ -36123,7 +36005,6 @@ export namespace Prisma {
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workoutExercise?: WorkoutExerciseUpdateOneWithoutCoreCardioSetNestedInput
     workTime?: CoreCardioSetWorkoutTimeUpdateManyWithoutCoreCardioSetNestedInput
     avgSpeed?: CoreCardioSetAvgSpeedUpdateManyWithoutCoreCardioSetNestedInput
     distance?: CoreCardioSetDistanceUpdateManyWithoutCoreCardioSetNestedInput
@@ -36134,7 +36015,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
-    workoutExerciseId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workTime?: CoreCardioSetWorkoutTimeUncheckedUpdateManyWithoutCoreCardioSetNestedInput
@@ -36147,7 +36027,6 @@ export namespace Prisma {
     id?: string
     warmupTime?: number | null
     avgHeartRate?: number | null
-    workoutExerciseId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -36164,7 +36043,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
-    workoutExerciseId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -36402,7 +36280,7 @@ export namespace Prisma {
     skippedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userWorkoutExercise: UserWorkoutExerciseCreateNestedOneWithoutUserCardioSetInput
+    userWorkoutExercise: UserWorkoutExerciseCreateNestedOneWithoutUserCardioSetsInput
   }
 
   export type UserCardioSetUncheckedCreateInput = {
@@ -36434,7 +36312,7 @@ export namespace Prisma {
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userWorkoutExercise?: UserWorkoutExerciseUpdateOneRequiredWithoutUserCardioSetNestedInput
+    userWorkoutExercise?: UserWorkoutExerciseUpdateOneRequiredWithoutUserCardioSetsNestedInput
   }
 
   export type UserCardioSetUncheckedUpdateInput = {
@@ -36507,7 +36385,6 @@ export namespace Prisma {
     hasWarmup?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    workoutExercise?: WorkoutExerciseCreateNestedOneWithoutCoreStrengthSetInput
     reps?: CoreStrengthSetRepsCreateNestedManyWithoutCoreStrengthSetInput
     weight?: CoreStrengthSetWeightCreateNestedManyWithoutCoreStrengthSetInput
   }
@@ -36517,7 +36394,6 @@ export namespace Prisma {
     restTime?: number
     numberOfSets?: number
     hasWarmup?: boolean
-    workoutExerciseId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reps?: CoreStrengthSetRepsUncheckedCreateNestedManyWithoutCoreStrengthSetInput
@@ -36531,7 +36407,6 @@ export namespace Prisma {
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workoutExercise?: WorkoutExerciseUpdateOneWithoutCoreStrengthSetNestedInput
     reps?: CoreStrengthSetRepsUpdateManyWithoutCoreStrengthSetNestedInput
     weight?: CoreStrengthSetWeightUpdateManyWithoutCoreStrengthSetNestedInput
   }
@@ -36541,7 +36416,6 @@ export namespace Prisma {
     restTime?: IntFieldUpdateOperationsInput | number
     numberOfSets?: IntFieldUpdateOperationsInput | number
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
-    workoutExerciseId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reps?: CoreStrengthSetRepsUncheckedUpdateManyWithoutCoreStrengthSetNestedInput
@@ -36553,7 +36427,6 @@ export namespace Prisma {
     restTime?: number
     numberOfSets?: number
     hasWarmup?: boolean
-    workoutExerciseId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -36572,7 +36445,6 @@ export namespace Prisma {
     restTime?: IntFieldUpdateOperationsInput | number
     numberOfSets?: IntFieldUpdateOperationsInput | number
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
-    workoutExerciseId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -36708,7 +36580,7 @@ export namespace Prisma {
     skippedReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userWorkoutExercise: UserWorkoutExerciseCreateNestedOneWithoutUserStrengthSetInput
+    userWorkoutExercise: UserWorkoutExerciseCreateNestedOneWithoutUserStrengthSetsInput
   }
 
   export type UserStrengthSetUncheckedCreateInput = {
@@ -36742,7 +36614,7 @@ export namespace Prisma {
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userWorkoutExercise?: UserWorkoutExerciseUpdateOneRequiredWithoutUserStrengthSetNestedInput
+    userWorkoutExercise?: UserWorkoutExerciseUpdateOneRequiredWithoutUserStrengthSetsNestedInput
   }
 
   export type UserStrengthSetUncheckedUpdateInput = {
@@ -36905,6 +36777,8 @@ export namespace Prisma {
 
   export type ProgramWorkoutCreateInput = {
     id?: string
+    level?: string
+    workoutGoal?: string
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -36916,6 +36790,8 @@ export namespace Prisma {
     id?: string
     programId: string
     workoutId: string
+    level?: string
+    workoutGoal?: string
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -36923,6 +36799,8 @@ export namespace Prisma {
 
   export type ProgramWorkoutUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    workoutGoal?: StringFieldUpdateOperationsInput | string
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36934,6 +36812,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     programId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    workoutGoal?: StringFieldUpdateOperationsInput | string
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36943,6 +36823,8 @@ export namespace Prisma {
     id?: string
     programId: string
     workoutId: string
+    level?: string
+    workoutGoal?: string
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -36950,6 +36832,8 @@ export namespace Prisma {
 
   export type ProgramWorkoutUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    workoutGoal?: StringFieldUpdateOperationsInput | string
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36959,6 +36843,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     programId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    workoutGoal?: StringFieldUpdateOperationsInput | string
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37049,10 +36935,10 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
+    hasWarmup?: boolean
+    isBodyWeight?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    coreStrengthSet?: CoreStrengthSetCreateNestedOneWithoutWorkoutExerciseInput
-    coreCardioSet?: CoreCardioSetCreateNestedOneWithoutWorkoutExerciseInput
     exercise: ExerciseCreateNestedOneWithoutWorkoutExercisesInput
     workout: WorkoutCreateNestedOneWithoutWorkoutExercisesInput
     userWorkoutExercises?: UserWorkoutExerciseCreateNestedManyWithoutWorkoutExerciseInput
@@ -37062,12 +36948,12 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
+    hasWarmup?: boolean
+    isBodyWeight?: boolean
     exerciseId: string
     workoutId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    coreStrengthSet?: CoreStrengthSetUncheckedCreateNestedOneWithoutWorkoutExerciseInput
-    coreCardioSet?: CoreCardioSetUncheckedCreateNestedOneWithoutWorkoutExerciseInput
     userWorkoutExercises?: UserWorkoutExerciseUncheckedCreateNestedManyWithoutWorkoutExerciseInput
   }
 
@@ -37075,10 +36961,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreStrengthSet?: CoreStrengthSetUpdateOneWithoutWorkoutExerciseNestedInput
-    coreCardioSet?: CoreCardioSetUpdateOneWithoutWorkoutExerciseNestedInput
     exercise?: ExerciseUpdateOneRequiredWithoutWorkoutExercisesNestedInput
     workout?: WorkoutUpdateOneRequiredWithoutWorkoutExercisesNestedInput
     userWorkoutExercises?: UserWorkoutExerciseUpdateManyWithoutWorkoutExerciseNestedInput
@@ -37088,12 +36974,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreStrengthSet?: CoreStrengthSetUncheckedUpdateOneWithoutWorkoutExerciseNestedInput
-    coreCardioSet?: CoreCardioSetUncheckedUpdateOneWithoutWorkoutExerciseNestedInput
     userWorkoutExercises?: UserWorkoutExerciseUncheckedUpdateManyWithoutWorkoutExerciseNestedInput
   }
 
@@ -37101,6 +36987,8 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
+    hasWarmup?: boolean
+    isBodyWeight?: boolean
     exerciseId: string
     workoutId: string
     createdAt?: Date | string
@@ -37111,6 +36999,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -37119,6 +37009,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37130,8 +37022,8 @@ export namespace Prisma {
     skippedReason?: string | null
     workoutExercise: WorkoutExerciseCreateNestedOneWithoutUserWorkoutExercisesInput
     userWorkout: UserWorkoutCreateNestedOneWithoutUserWorkoutExercisesInput
-    userStrengthSet?: UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput
-    userCardioSet?: UserCardioSetCreateNestedManyWithoutUserWorkoutExerciseInput
+    userStrengthSets?: UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput
+    userCardioSets?: UserCardioSetCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
   export type UserWorkoutExerciseUncheckedCreateInput = {
@@ -37139,8 +37031,8 @@ export namespace Prisma {
     skippedReason?: string | null
     workoutExerciseId: string
     userWorkoutId: string
-    userStrengthSet?: UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
-    userCardioSet?: UserCardioSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
+    userStrengthSets?: UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
+    userCardioSets?: UserCardioSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
   export type UserWorkoutExerciseUpdateInput = {
@@ -37148,8 +37040,8 @@ export namespace Prisma {
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExercise?: WorkoutExerciseUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
     userWorkout?: UserWorkoutUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
-    userStrengthSet?: UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput
-    userCardioSet?: UserCardioSetUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userStrengthSets?: UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userCardioSets?: UserCardioSetUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
   export type UserWorkoutExerciseUncheckedUpdateInput = {
@@ -37157,8 +37049,8 @@ export namespace Prisma {
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExerciseId?: StringFieldUpdateOperationsInput | string
     userWorkoutId?: StringFieldUpdateOperationsInput | string
-    userStrengthSet?: UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
-    userCardioSet?: UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userStrengthSets?: UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userCardioSets?: UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
   export type UserWorkoutExerciseCreateManyInput = {
@@ -38089,11 +37981,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type WorkoutExerciseNullableScalarRelationFilter = {
-    is?: WorkoutExerciseWhereInput | null
-    isNot?: WorkoutExerciseWhereInput | null
-  }
-
   export type CoreCardioSetWorkoutTimeListRelationFilter = {
     every?: CoreCardioSetWorkoutTimeWhereInput
     some?: CoreCardioSetWorkoutTimeWhereInput
@@ -38138,7 +38025,6 @@ export namespace Prisma {
     id?: SortOrder
     warmupTime?: SortOrder
     avgHeartRate?: SortOrder
-    workoutExerciseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -38152,7 +38038,6 @@ export namespace Prisma {
     id?: SortOrder
     warmupTime?: SortOrder
     avgHeartRate?: SortOrder
-    workoutExerciseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -38161,7 +38046,6 @@ export namespace Prisma {
     id?: SortOrder
     warmupTime?: SortOrder
     avgHeartRate?: SortOrder
-    workoutExerciseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -38472,7 +38356,6 @@ export namespace Prisma {
     restTime?: SortOrder
     numberOfSets?: SortOrder
     hasWarmup?: SortOrder
-    workoutExerciseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -38487,7 +38370,6 @@ export namespace Prisma {
     restTime?: SortOrder
     numberOfSets?: SortOrder
     hasWarmup?: SortOrder
-    workoutExerciseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -38497,7 +38379,6 @@ export namespace Prisma {
     restTime?: SortOrder
     numberOfSets?: SortOrder
     hasWarmup?: SortOrder
-    workoutExerciseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -38722,6 +38603,8 @@ export namespace Prisma {
     id?: SortOrder
     programId?: SortOrder
     workoutId?: SortOrder
+    level?: SortOrder
+    workoutGoal?: SortOrder
     daysOfWeek?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -38731,6 +38614,8 @@ export namespace Prisma {
     id?: SortOrder
     programId?: SortOrder
     workoutId?: SortOrder
+    level?: SortOrder
+    workoutGoal?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -38739,6 +38624,8 @@ export namespace Prisma {
     id?: SortOrder
     programId?: SortOrder
     workoutId?: SortOrder
+    level?: SortOrder
+    workoutGoal?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -38778,16 +38665,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type CoreStrengthSetNullableScalarRelationFilter = {
-    is?: CoreStrengthSetWhereInput | null
-    isNot?: CoreStrengthSetWhereInput | null
-  }
-
-  export type CoreCardioSetNullableScalarRelationFilter = {
-    is?: CoreCardioSetWhereInput | null
-    isNot?: CoreCardioSetWhereInput | null
-  }
-
   export type ExerciseScalarRelationFilter = {
     is?: ExerciseWhereInput
     isNot?: ExerciseWhereInput
@@ -38807,6 +38684,8 @@ export namespace Prisma {
     id?: SortOrder
     order?: SortOrder
     notes?: SortOrder
+    hasWarmup?: SortOrder
+    isBodyWeight?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
     createdAt?: SortOrder
@@ -38821,6 +38700,8 @@ export namespace Prisma {
     id?: SortOrder
     order?: SortOrder
     notes?: SortOrder
+    hasWarmup?: SortOrder
+    isBodyWeight?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
     createdAt?: SortOrder
@@ -38831,6 +38712,8 @@ export namespace Prisma {
     id?: SortOrder
     order?: SortOrder
     notes?: SortOrder
+    hasWarmup?: SortOrder
+    isBodyWeight?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
     createdAt?: SortOrder
@@ -39588,12 +39471,6 @@ export namespace Prisma {
     deleteMany?: WorkoutExerciseScalarWhereInput | WorkoutExerciseScalarWhereInput[]
   }
 
-  export type WorkoutExerciseCreateNestedOneWithoutCoreCardioSetInput = {
-    create?: XOR<WorkoutExerciseCreateWithoutCoreCardioSetInput, WorkoutExerciseUncheckedCreateWithoutCoreCardioSetInput>
-    connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutCoreCardioSetInput
-    connect?: WorkoutExerciseWhereUniqueInput
-  }
-
   export type CoreCardioSetWorkoutTimeCreateNestedManyWithoutCoreCardioSetInput = {
     create?: XOR<CoreCardioSetWorkoutTimeCreateWithoutCoreCardioSetInput, CoreCardioSetWorkoutTimeUncheckedCreateWithoutCoreCardioSetInput> | CoreCardioSetWorkoutTimeCreateWithoutCoreCardioSetInput[] | CoreCardioSetWorkoutTimeUncheckedCreateWithoutCoreCardioSetInput[]
     connectOrCreate?: CoreCardioSetWorkoutTimeCreateOrConnectWithoutCoreCardioSetInput | CoreCardioSetWorkoutTimeCreateOrConnectWithoutCoreCardioSetInput[]
@@ -39656,16 +39533,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type WorkoutExerciseUpdateOneWithoutCoreCardioSetNestedInput = {
-    create?: XOR<WorkoutExerciseCreateWithoutCoreCardioSetInput, WorkoutExerciseUncheckedCreateWithoutCoreCardioSetInput>
-    connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutCoreCardioSetInput
-    upsert?: WorkoutExerciseUpsertWithoutCoreCardioSetInput
-    disconnect?: WorkoutExerciseWhereInput | boolean
-    delete?: WorkoutExerciseWhereInput | boolean
-    connect?: WorkoutExerciseWhereUniqueInput
-    update?: XOR<XOR<WorkoutExerciseUpdateToOneWithWhereWithoutCoreCardioSetInput, WorkoutExerciseUpdateWithoutCoreCardioSetInput>, WorkoutExerciseUncheckedUpdateWithoutCoreCardioSetInput>
   }
 
   export type CoreCardioSetWorkoutTimeUpdateManyWithoutCoreCardioSetNestedInput = {
@@ -39844,9 +39711,9 @@ export namespace Prisma {
     update?: XOR<XOR<CoreCardioSetUpdateToOneWithWhereWithoutWorkTimeInput, CoreCardioSetUpdateWithoutWorkTimeInput>, CoreCardioSetUncheckedUpdateWithoutWorkTimeInput>
   }
 
-  export type UserWorkoutExerciseCreateNestedOneWithoutUserCardioSetInput = {
-    create?: XOR<UserWorkoutExerciseCreateWithoutUserCardioSetInput, UserWorkoutExerciseUncheckedCreateWithoutUserCardioSetInput>
-    connectOrCreate?: UserWorkoutExerciseCreateOrConnectWithoutUserCardioSetInput
+  export type UserWorkoutExerciseCreateNestedOneWithoutUserCardioSetsInput = {
+    create?: XOR<UserWorkoutExerciseCreateWithoutUserCardioSetsInput, UserWorkoutExerciseUncheckedCreateWithoutUserCardioSetsInput>
+    connectOrCreate?: UserWorkoutExerciseCreateOrConnectWithoutUserCardioSetsInput
     connect?: UserWorkoutExerciseWhereUniqueInput
   }
 
@@ -39858,18 +39725,12 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type UserWorkoutExerciseUpdateOneRequiredWithoutUserCardioSetNestedInput = {
-    create?: XOR<UserWorkoutExerciseCreateWithoutUserCardioSetInput, UserWorkoutExerciseUncheckedCreateWithoutUserCardioSetInput>
-    connectOrCreate?: UserWorkoutExerciseCreateOrConnectWithoutUserCardioSetInput
-    upsert?: UserWorkoutExerciseUpsertWithoutUserCardioSetInput
+  export type UserWorkoutExerciseUpdateOneRequiredWithoutUserCardioSetsNestedInput = {
+    create?: XOR<UserWorkoutExerciseCreateWithoutUserCardioSetsInput, UserWorkoutExerciseUncheckedCreateWithoutUserCardioSetsInput>
+    connectOrCreate?: UserWorkoutExerciseCreateOrConnectWithoutUserCardioSetsInput
+    upsert?: UserWorkoutExerciseUpsertWithoutUserCardioSetsInput
     connect?: UserWorkoutExerciseWhereUniqueInput
-    update?: XOR<XOR<UserWorkoutExerciseUpdateToOneWithWhereWithoutUserCardioSetInput, UserWorkoutExerciseUpdateWithoutUserCardioSetInput>, UserWorkoutExerciseUncheckedUpdateWithoutUserCardioSetInput>
-  }
-
-  export type WorkoutExerciseCreateNestedOneWithoutCoreStrengthSetInput = {
-    create?: XOR<WorkoutExerciseCreateWithoutCoreStrengthSetInput, WorkoutExerciseUncheckedCreateWithoutCoreStrengthSetInput>
-    connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutCoreStrengthSetInput
-    connect?: WorkoutExerciseWhereUniqueInput
+    update?: XOR<XOR<UserWorkoutExerciseUpdateToOneWithWhereWithoutUserCardioSetsInput, UserWorkoutExerciseUpdateWithoutUserCardioSetsInput>, UserWorkoutExerciseUncheckedUpdateWithoutUserCardioSetsInput>
   }
 
   export type CoreStrengthSetRepsCreateNestedManyWithoutCoreStrengthSetInput = {
@@ -39898,16 +39759,6 @@ export namespace Prisma {
     connectOrCreate?: CoreStrengthSetWeightCreateOrConnectWithoutCoreStrengthSetInput | CoreStrengthSetWeightCreateOrConnectWithoutCoreStrengthSetInput[]
     createMany?: CoreStrengthSetWeightCreateManyCoreStrengthSetInputEnvelope
     connect?: CoreStrengthSetWeightWhereUniqueInput | CoreStrengthSetWeightWhereUniqueInput[]
-  }
-
-  export type WorkoutExerciseUpdateOneWithoutCoreStrengthSetNestedInput = {
-    create?: XOR<WorkoutExerciseCreateWithoutCoreStrengthSetInput, WorkoutExerciseUncheckedCreateWithoutCoreStrengthSetInput>
-    connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutCoreStrengthSetInput
-    upsert?: WorkoutExerciseUpsertWithoutCoreStrengthSetInput
-    disconnect?: WorkoutExerciseWhereInput | boolean
-    delete?: WorkoutExerciseWhereInput | boolean
-    connect?: WorkoutExerciseWhereUniqueInput
-    update?: XOR<XOR<WorkoutExerciseUpdateToOneWithWhereWithoutCoreStrengthSetInput, WorkoutExerciseUpdateWithoutCoreStrengthSetInput>, WorkoutExerciseUncheckedUpdateWithoutCoreStrengthSetInput>
   }
 
   export type CoreStrengthSetRepsUpdateManyWithoutCoreStrengthSetNestedInput = {
@@ -39994,18 +39845,18 @@ export namespace Prisma {
     update?: XOR<XOR<CoreStrengthSetUpdateToOneWithWhereWithoutWeightInput, CoreStrengthSetUpdateWithoutWeightInput>, CoreStrengthSetUncheckedUpdateWithoutWeightInput>
   }
 
-  export type UserWorkoutExerciseCreateNestedOneWithoutUserStrengthSetInput = {
-    create?: XOR<UserWorkoutExerciseCreateWithoutUserStrengthSetInput, UserWorkoutExerciseUncheckedCreateWithoutUserStrengthSetInput>
-    connectOrCreate?: UserWorkoutExerciseCreateOrConnectWithoutUserStrengthSetInput
+  export type UserWorkoutExerciseCreateNestedOneWithoutUserStrengthSetsInput = {
+    create?: XOR<UserWorkoutExerciseCreateWithoutUserStrengthSetsInput, UserWorkoutExerciseUncheckedCreateWithoutUserStrengthSetsInput>
+    connectOrCreate?: UserWorkoutExerciseCreateOrConnectWithoutUserStrengthSetsInput
     connect?: UserWorkoutExerciseWhereUniqueInput
   }
 
-  export type UserWorkoutExerciseUpdateOneRequiredWithoutUserStrengthSetNestedInput = {
-    create?: XOR<UserWorkoutExerciseCreateWithoutUserStrengthSetInput, UserWorkoutExerciseUncheckedCreateWithoutUserStrengthSetInput>
-    connectOrCreate?: UserWorkoutExerciseCreateOrConnectWithoutUserStrengthSetInput
-    upsert?: UserWorkoutExerciseUpsertWithoutUserStrengthSetInput
+  export type UserWorkoutExerciseUpdateOneRequiredWithoutUserStrengthSetsNestedInput = {
+    create?: XOR<UserWorkoutExerciseCreateWithoutUserStrengthSetsInput, UserWorkoutExerciseUncheckedCreateWithoutUserStrengthSetsInput>
+    connectOrCreate?: UserWorkoutExerciseCreateOrConnectWithoutUserStrengthSetsInput
+    upsert?: UserWorkoutExerciseUpsertWithoutUserStrengthSetsInput
     connect?: UserWorkoutExerciseWhereUniqueInput
-    update?: XOR<XOR<UserWorkoutExerciseUpdateToOneWithWhereWithoutUserStrengthSetInput, UserWorkoutExerciseUpdateWithoutUserStrengthSetInput>, UserWorkoutExerciseUncheckedUpdateWithoutUserStrengthSetInput>
+    update?: XOR<XOR<UserWorkoutExerciseUpdateToOneWithWhereWithoutUserStrengthSetsInput, UserWorkoutExerciseUpdateWithoutUserStrengthSetsInput>, UserWorkoutExerciseUncheckedUpdateWithoutUserStrengthSetsInput>
   }
 
   export type ProgramWorkoutCreateNestedManyWithoutProgramInput = {
@@ -40285,18 +40136,6 @@ export namespace Prisma {
     deleteMany?: UserWorkoutScalarWhereInput | UserWorkoutScalarWhereInput[]
   }
 
-  export type CoreStrengthSetCreateNestedOneWithoutWorkoutExerciseInput = {
-    create?: XOR<CoreStrengthSetCreateWithoutWorkoutExerciseInput, CoreStrengthSetUncheckedCreateWithoutWorkoutExerciseInput>
-    connectOrCreate?: CoreStrengthSetCreateOrConnectWithoutWorkoutExerciseInput
-    connect?: CoreStrengthSetWhereUniqueInput
-  }
-
-  export type CoreCardioSetCreateNestedOneWithoutWorkoutExerciseInput = {
-    create?: XOR<CoreCardioSetCreateWithoutWorkoutExerciseInput, CoreCardioSetUncheckedCreateWithoutWorkoutExerciseInput>
-    connectOrCreate?: CoreCardioSetCreateOrConnectWithoutWorkoutExerciseInput
-    connect?: CoreCardioSetWhereUniqueInput
-  }
-
   export type ExerciseCreateNestedOneWithoutWorkoutExercisesInput = {
     create?: XOR<ExerciseCreateWithoutWorkoutExercisesInput, ExerciseUncheckedCreateWithoutWorkoutExercisesInput>
     connectOrCreate?: ExerciseCreateOrConnectWithoutWorkoutExercisesInput
@@ -40316,43 +40155,11 @@ export namespace Prisma {
     connect?: UserWorkoutExerciseWhereUniqueInput | UserWorkoutExerciseWhereUniqueInput[]
   }
 
-  export type CoreStrengthSetUncheckedCreateNestedOneWithoutWorkoutExerciseInput = {
-    create?: XOR<CoreStrengthSetCreateWithoutWorkoutExerciseInput, CoreStrengthSetUncheckedCreateWithoutWorkoutExerciseInput>
-    connectOrCreate?: CoreStrengthSetCreateOrConnectWithoutWorkoutExerciseInput
-    connect?: CoreStrengthSetWhereUniqueInput
-  }
-
-  export type CoreCardioSetUncheckedCreateNestedOneWithoutWorkoutExerciseInput = {
-    create?: XOR<CoreCardioSetCreateWithoutWorkoutExerciseInput, CoreCardioSetUncheckedCreateWithoutWorkoutExerciseInput>
-    connectOrCreate?: CoreCardioSetCreateOrConnectWithoutWorkoutExerciseInput
-    connect?: CoreCardioSetWhereUniqueInput
-  }
-
   export type UserWorkoutExerciseUncheckedCreateNestedManyWithoutWorkoutExerciseInput = {
     create?: XOR<UserWorkoutExerciseCreateWithoutWorkoutExerciseInput, UserWorkoutExerciseUncheckedCreateWithoutWorkoutExerciseInput> | UserWorkoutExerciseCreateWithoutWorkoutExerciseInput[] | UserWorkoutExerciseUncheckedCreateWithoutWorkoutExerciseInput[]
     connectOrCreate?: UserWorkoutExerciseCreateOrConnectWithoutWorkoutExerciseInput | UserWorkoutExerciseCreateOrConnectWithoutWorkoutExerciseInput[]
     createMany?: UserWorkoutExerciseCreateManyWorkoutExerciseInputEnvelope
     connect?: UserWorkoutExerciseWhereUniqueInput | UserWorkoutExerciseWhereUniqueInput[]
-  }
-
-  export type CoreStrengthSetUpdateOneWithoutWorkoutExerciseNestedInput = {
-    create?: XOR<CoreStrengthSetCreateWithoutWorkoutExerciseInput, CoreStrengthSetUncheckedCreateWithoutWorkoutExerciseInput>
-    connectOrCreate?: CoreStrengthSetCreateOrConnectWithoutWorkoutExerciseInput
-    upsert?: CoreStrengthSetUpsertWithoutWorkoutExerciseInput
-    disconnect?: CoreStrengthSetWhereInput | boolean
-    delete?: CoreStrengthSetWhereInput | boolean
-    connect?: CoreStrengthSetWhereUniqueInput
-    update?: XOR<XOR<CoreStrengthSetUpdateToOneWithWhereWithoutWorkoutExerciseInput, CoreStrengthSetUpdateWithoutWorkoutExerciseInput>, CoreStrengthSetUncheckedUpdateWithoutWorkoutExerciseInput>
-  }
-
-  export type CoreCardioSetUpdateOneWithoutWorkoutExerciseNestedInput = {
-    create?: XOR<CoreCardioSetCreateWithoutWorkoutExerciseInput, CoreCardioSetUncheckedCreateWithoutWorkoutExerciseInput>
-    connectOrCreate?: CoreCardioSetCreateOrConnectWithoutWorkoutExerciseInput
-    upsert?: CoreCardioSetUpsertWithoutWorkoutExerciseInput
-    disconnect?: CoreCardioSetWhereInput | boolean
-    delete?: CoreCardioSetWhereInput | boolean
-    connect?: CoreCardioSetWhereUniqueInput
-    update?: XOR<XOR<CoreCardioSetUpdateToOneWithWhereWithoutWorkoutExerciseInput, CoreCardioSetUpdateWithoutWorkoutExerciseInput>, CoreCardioSetUncheckedUpdateWithoutWorkoutExerciseInput>
   }
 
   export type ExerciseUpdateOneRequiredWithoutWorkoutExercisesNestedInput = {
@@ -40383,26 +40190,6 @@ export namespace Prisma {
     update?: UserWorkoutExerciseUpdateWithWhereUniqueWithoutWorkoutExerciseInput | UserWorkoutExerciseUpdateWithWhereUniqueWithoutWorkoutExerciseInput[]
     updateMany?: UserWorkoutExerciseUpdateManyWithWhereWithoutWorkoutExerciseInput | UserWorkoutExerciseUpdateManyWithWhereWithoutWorkoutExerciseInput[]
     deleteMany?: UserWorkoutExerciseScalarWhereInput | UserWorkoutExerciseScalarWhereInput[]
-  }
-
-  export type CoreStrengthSetUncheckedUpdateOneWithoutWorkoutExerciseNestedInput = {
-    create?: XOR<CoreStrengthSetCreateWithoutWorkoutExerciseInput, CoreStrengthSetUncheckedCreateWithoutWorkoutExerciseInput>
-    connectOrCreate?: CoreStrengthSetCreateOrConnectWithoutWorkoutExerciseInput
-    upsert?: CoreStrengthSetUpsertWithoutWorkoutExerciseInput
-    disconnect?: CoreStrengthSetWhereInput | boolean
-    delete?: CoreStrengthSetWhereInput | boolean
-    connect?: CoreStrengthSetWhereUniqueInput
-    update?: XOR<XOR<CoreStrengthSetUpdateToOneWithWhereWithoutWorkoutExerciseInput, CoreStrengthSetUpdateWithoutWorkoutExerciseInput>, CoreStrengthSetUncheckedUpdateWithoutWorkoutExerciseInput>
-  }
-
-  export type CoreCardioSetUncheckedUpdateOneWithoutWorkoutExerciseNestedInput = {
-    create?: XOR<CoreCardioSetCreateWithoutWorkoutExerciseInput, CoreCardioSetUncheckedCreateWithoutWorkoutExerciseInput>
-    connectOrCreate?: CoreCardioSetCreateOrConnectWithoutWorkoutExerciseInput
-    upsert?: CoreCardioSetUpsertWithoutWorkoutExerciseInput
-    disconnect?: CoreCardioSetWhereInput | boolean
-    delete?: CoreCardioSetWhereInput | boolean
-    connect?: CoreCardioSetWhereUniqueInput
-    update?: XOR<XOR<CoreCardioSetUpdateToOneWithWhereWithoutWorkoutExerciseInput, CoreCardioSetUpdateWithoutWorkoutExerciseInput>, CoreCardioSetUncheckedUpdateWithoutWorkoutExerciseInput>
   }
 
   export type UserWorkoutExerciseUncheckedUpdateManyWithoutWorkoutExerciseNestedInput = {
@@ -41645,10 +41432,10 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
+    hasWarmup?: boolean
+    isBodyWeight?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    coreStrengthSet?: CoreStrengthSetCreateNestedOneWithoutWorkoutExerciseInput
-    coreCardioSet?: CoreCardioSetCreateNestedOneWithoutWorkoutExerciseInput
     workout: WorkoutCreateNestedOneWithoutWorkoutExercisesInput
     userWorkoutExercises?: UserWorkoutExerciseCreateNestedManyWithoutWorkoutExerciseInput
   }
@@ -41657,11 +41444,11 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
+    hasWarmup?: boolean
+    isBodyWeight?: boolean
     workoutId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    coreStrengthSet?: CoreStrengthSetUncheckedCreateNestedOneWithoutWorkoutExerciseInput
-    coreCardioSet?: CoreCardioSetUncheckedCreateNestedOneWithoutWorkoutExerciseInput
     userWorkoutExercises?: UserWorkoutExerciseUncheckedCreateNestedManyWithoutWorkoutExerciseInput
   }
 
@@ -41698,39 +41485,12 @@ export namespace Prisma {
     id?: StringFilter<"WorkoutExercise"> | string
     order?: IntFilter<"WorkoutExercise"> | number
     notes?: StringNullableFilter<"WorkoutExercise"> | string | null
+    hasWarmup?: BoolFilter<"WorkoutExercise"> | boolean
+    isBodyWeight?: BoolFilter<"WorkoutExercise"> | boolean
     exerciseId?: StringFilter<"WorkoutExercise"> | string
     workoutId?: StringFilter<"WorkoutExercise"> | string
     createdAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
     updatedAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
-  }
-
-  export type WorkoutExerciseCreateWithoutCoreCardioSetInput = {
-    id?: string
-    order?: number
-    notes?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    coreStrengthSet?: CoreStrengthSetCreateNestedOneWithoutWorkoutExerciseInput
-    exercise: ExerciseCreateNestedOneWithoutWorkoutExercisesInput
-    workout: WorkoutCreateNestedOneWithoutWorkoutExercisesInput
-    userWorkoutExercises?: UserWorkoutExerciseCreateNestedManyWithoutWorkoutExerciseInput
-  }
-
-  export type WorkoutExerciseUncheckedCreateWithoutCoreCardioSetInput = {
-    id?: string
-    order?: number
-    notes?: string | null
-    exerciseId: string
-    workoutId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    coreStrengthSet?: CoreStrengthSetUncheckedCreateNestedOneWithoutWorkoutExerciseInput
-    userWorkoutExercises?: UserWorkoutExerciseUncheckedCreateNestedManyWithoutWorkoutExerciseInput
-  }
-
-  export type WorkoutExerciseCreateOrConnectWithoutCoreCardioSetInput = {
-    where: WorkoutExerciseWhereUniqueInput
-    create: XOR<WorkoutExerciseCreateWithoutCoreCardioSetInput, WorkoutExerciseUncheckedCreateWithoutCoreCardioSetInput>
   }
 
   export type CoreCardioSetWorkoutTimeCreateWithoutCoreCardioSetInput = {
@@ -41827,41 +41587,6 @@ export namespace Prisma {
   export type CoreCardioSetCalorieTargetCreateManyCoreCardioSetInputEnvelope = {
     data: CoreCardioSetCalorieTargetCreateManyCoreCardioSetInput | CoreCardioSetCalorieTargetCreateManyCoreCardioSetInput[]
     skipDuplicates?: boolean
-  }
-
-  export type WorkoutExerciseUpsertWithoutCoreCardioSetInput = {
-    update: XOR<WorkoutExerciseUpdateWithoutCoreCardioSetInput, WorkoutExerciseUncheckedUpdateWithoutCoreCardioSetInput>
-    create: XOR<WorkoutExerciseCreateWithoutCoreCardioSetInput, WorkoutExerciseUncheckedCreateWithoutCoreCardioSetInput>
-    where?: WorkoutExerciseWhereInput
-  }
-
-  export type WorkoutExerciseUpdateToOneWithWhereWithoutCoreCardioSetInput = {
-    where?: WorkoutExerciseWhereInput
-    data: XOR<WorkoutExerciseUpdateWithoutCoreCardioSetInput, WorkoutExerciseUncheckedUpdateWithoutCoreCardioSetInput>
-  }
-
-  export type WorkoutExerciseUpdateWithoutCoreCardioSetInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreStrengthSet?: CoreStrengthSetUpdateOneWithoutWorkoutExerciseNestedInput
-    exercise?: ExerciseUpdateOneRequiredWithoutWorkoutExercisesNestedInput
-    workout?: WorkoutUpdateOneRequiredWithoutWorkoutExercisesNestedInput
-    userWorkoutExercises?: UserWorkoutExerciseUpdateManyWithoutWorkoutExerciseNestedInput
-  }
-
-  export type WorkoutExerciseUncheckedUpdateWithoutCoreCardioSetInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    exerciseId?: StringFieldUpdateOperationsInput | string
-    workoutId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreStrengthSet?: CoreStrengthSetUncheckedUpdateOneWithoutWorkoutExerciseNestedInput
-    userWorkoutExercises?: UserWorkoutExerciseUncheckedUpdateManyWithoutWorkoutExerciseNestedInput
   }
 
   export type CoreCardioSetWorkoutTimeUpsertWithWhereUniqueWithoutCoreCardioSetInput = {
@@ -41978,7 +41703,6 @@ export namespace Prisma {
     avgHeartRate?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    workoutExercise?: WorkoutExerciseCreateNestedOneWithoutCoreCardioSetInput
     workTime?: CoreCardioSetWorkoutTimeCreateNestedManyWithoutCoreCardioSetInput
     avgSpeed?: CoreCardioSetAvgSpeedCreateNestedManyWithoutCoreCardioSetInput
     distance?: CoreCardioSetDistanceCreateNestedManyWithoutCoreCardioSetInput
@@ -41988,7 +41712,6 @@ export namespace Prisma {
     id?: string
     warmupTime?: number | null
     avgHeartRate?: number | null
-    workoutExerciseId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workTime?: CoreCardioSetWorkoutTimeUncheckedCreateNestedManyWithoutCoreCardioSetInput
@@ -42018,7 +41741,6 @@ export namespace Prisma {
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workoutExercise?: WorkoutExerciseUpdateOneWithoutCoreCardioSetNestedInput
     workTime?: CoreCardioSetWorkoutTimeUpdateManyWithoutCoreCardioSetNestedInput
     avgSpeed?: CoreCardioSetAvgSpeedUpdateManyWithoutCoreCardioSetNestedInput
     distance?: CoreCardioSetDistanceUpdateManyWithoutCoreCardioSetNestedInput
@@ -42028,7 +41750,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
-    workoutExerciseId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workTime?: CoreCardioSetWorkoutTimeUncheckedUpdateManyWithoutCoreCardioSetNestedInput
@@ -42042,7 +41763,6 @@ export namespace Prisma {
     avgHeartRate?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    workoutExercise?: WorkoutExerciseCreateNestedOneWithoutCoreCardioSetInput
     workTime?: CoreCardioSetWorkoutTimeCreateNestedManyWithoutCoreCardioSetInput
     avgSpeed?: CoreCardioSetAvgSpeedCreateNestedManyWithoutCoreCardioSetInput
     calorieTarget?: CoreCardioSetCalorieTargetCreateNestedManyWithoutCoreCardioSetInput
@@ -42052,7 +41772,6 @@ export namespace Prisma {
     id?: string
     warmupTime?: number | null
     avgHeartRate?: number | null
-    workoutExerciseId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workTime?: CoreCardioSetWorkoutTimeUncheckedCreateNestedManyWithoutCoreCardioSetInput
@@ -42082,7 +41801,6 @@ export namespace Prisma {
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workoutExercise?: WorkoutExerciseUpdateOneWithoutCoreCardioSetNestedInput
     workTime?: CoreCardioSetWorkoutTimeUpdateManyWithoutCoreCardioSetNestedInput
     avgSpeed?: CoreCardioSetAvgSpeedUpdateManyWithoutCoreCardioSetNestedInput
     calorieTarget?: CoreCardioSetCalorieTargetUpdateManyWithoutCoreCardioSetNestedInput
@@ -42092,7 +41810,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
-    workoutExerciseId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workTime?: CoreCardioSetWorkoutTimeUncheckedUpdateManyWithoutCoreCardioSetNestedInput
@@ -42106,7 +41823,6 @@ export namespace Prisma {
     avgHeartRate?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    workoutExercise?: WorkoutExerciseCreateNestedOneWithoutCoreCardioSetInput
     workTime?: CoreCardioSetWorkoutTimeCreateNestedManyWithoutCoreCardioSetInput
     distance?: CoreCardioSetDistanceCreateNestedManyWithoutCoreCardioSetInput
     calorieTarget?: CoreCardioSetCalorieTargetCreateNestedManyWithoutCoreCardioSetInput
@@ -42116,7 +41832,6 @@ export namespace Prisma {
     id?: string
     warmupTime?: number | null
     avgHeartRate?: number | null
-    workoutExerciseId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workTime?: CoreCardioSetWorkoutTimeUncheckedCreateNestedManyWithoutCoreCardioSetInput
@@ -42146,7 +41861,6 @@ export namespace Prisma {
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workoutExercise?: WorkoutExerciseUpdateOneWithoutCoreCardioSetNestedInput
     workTime?: CoreCardioSetWorkoutTimeUpdateManyWithoutCoreCardioSetNestedInput
     distance?: CoreCardioSetDistanceUpdateManyWithoutCoreCardioSetNestedInput
     calorieTarget?: CoreCardioSetCalorieTargetUpdateManyWithoutCoreCardioSetNestedInput
@@ -42156,7 +41870,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
-    workoutExerciseId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workTime?: CoreCardioSetWorkoutTimeUncheckedUpdateManyWithoutCoreCardioSetNestedInput
@@ -42170,7 +41883,6 @@ export namespace Prisma {
     avgHeartRate?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    workoutExercise?: WorkoutExerciseCreateNestedOneWithoutCoreCardioSetInput
     avgSpeed?: CoreCardioSetAvgSpeedCreateNestedManyWithoutCoreCardioSetInput
     distance?: CoreCardioSetDistanceCreateNestedManyWithoutCoreCardioSetInput
     calorieTarget?: CoreCardioSetCalorieTargetCreateNestedManyWithoutCoreCardioSetInput
@@ -42180,7 +41892,6 @@ export namespace Prisma {
     id?: string
     warmupTime?: number | null
     avgHeartRate?: number | null
-    workoutExerciseId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     avgSpeed?: CoreCardioSetAvgSpeedUncheckedCreateNestedManyWithoutCoreCardioSetInput
@@ -42210,7 +41921,6 @@ export namespace Prisma {
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workoutExercise?: WorkoutExerciseUpdateOneWithoutCoreCardioSetNestedInput
     avgSpeed?: CoreCardioSetAvgSpeedUpdateManyWithoutCoreCardioSetNestedInput
     distance?: CoreCardioSetDistanceUpdateManyWithoutCoreCardioSetNestedInput
     calorieTarget?: CoreCardioSetCalorieTargetUpdateManyWithoutCoreCardioSetNestedInput
@@ -42220,7 +41930,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
     avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
-    workoutExerciseId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     avgSpeed?: CoreCardioSetAvgSpeedUncheckedUpdateManyWithoutCoreCardioSetNestedInput
@@ -42228,81 +41937,52 @@ export namespace Prisma {
     calorieTarget?: CoreCardioSetCalorieTargetUncheckedUpdateManyWithoutCoreCardioSetNestedInput
   }
 
-  export type UserWorkoutExerciseCreateWithoutUserCardioSetInput = {
+  export type UserWorkoutExerciseCreateWithoutUserCardioSetsInput = {
     id?: string
     skippedReason?: string | null
     workoutExercise: WorkoutExerciseCreateNestedOneWithoutUserWorkoutExercisesInput
     userWorkout: UserWorkoutCreateNestedOneWithoutUserWorkoutExercisesInput
-    userStrengthSet?: UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput
+    userStrengthSets?: UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
-  export type UserWorkoutExerciseUncheckedCreateWithoutUserCardioSetInput = {
+  export type UserWorkoutExerciseUncheckedCreateWithoutUserCardioSetsInput = {
     id?: string
     skippedReason?: string | null
     workoutExerciseId: string
     userWorkoutId: string
-    userStrengthSet?: UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
+    userStrengthSets?: UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
-  export type UserWorkoutExerciseCreateOrConnectWithoutUserCardioSetInput = {
+  export type UserWorkoutExerciseCreateOrConnectWithoutUserCardioSetsInput = {
     where: UserWorkoutExerciseWhereUniqueInput
-    create: XOR<UserWorkoutExerciseCreateWithoutUserCardioSetInput, UserWorkoutExerciseUncheckedCreateWithoutUserCardioSetInput>
+    create: XOR<UserWorkoutExerciseCreateWithoutUserCardioSetsInput, UserWorkoutExerciseUncheckedCreateWithoutUserCardioSetsInput>
   }
 
-  export type UserWorkoutExerciseUpsertWithoutUserCardioSetInput = {
-    update: XOR<UserWorkoutExerciseUpdateWithoutUserCardioSetInput, UserWorkoutExerciseUncheckedUpdateWithoutUserCardioSetInput>
-    create: XOR<UserWorkoutExerciseCreateWithoutUserCardioSetInput, UserWorkoutExerciseUncheckedCreateWithoutUserCardioSetInput>
+  export type UserWorkoutExerciseUpsertWithoutUserCardioSetsInput = {
+    update: XOR<UserWorkoutExerciseUpdateWithoutUserCardioSetsInput, UserWorkoutExerciseUncheckedUpdateWithoutUserCardioSetsInput>
+    create: XOR<UserWorkoutExerciseCreateWithoutUserCardioSetsInput, UserWorkoutExerciseUncheckedCreateWithoutUserCardioSetsInput>
     where?: UserWorkoutExerciseWhereInput
   }
 
-  export type UserWorkoutExerciseUpdateToOneWithWhereWithoutUserCardioSetInput = {
+  export type UserWorkoutExerciseUpdateToOneWithWhereWithoutUserCardioSetsInput = {
     where?: UserWorkoutExerciseWhereInput
-    data: XOR<UserWorkoutExerciseUpdateWithoutUserCardioSetInput, UserWorkoutExerciseUncheckedUpdateWithoutUserCardioSetInput>
+    data: XOR<UserWorkoutExerciseUpdateWithoutUserCardioSetsInput, UserWorkoutExerciseUncheckedUpdateWithoutUserCardioSetsInput>
   }
 
-  export type UserWorkoutExerciseUpdateWithoutUserCardioSetInput = {
+  export type UserWorkoutExerciseUpdateWithoutUserCardioSetsInput = {
     id?: StringFieldUpdateOperationsInput | string
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExercise?: WorkoutExerciseUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
     userWorkout?: UserWorkoutUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
-    userStrengthSet?: UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userStrengthSets?: UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
-  export type UserWorkoutExerciseUncheckedUpdateWithoutUserCardioSetInput = {
+  export type UserWorkoutExerciseUncheckedUpdateWithoutUserCardioSetsInput = {
     id?: StringFieldUpdateOperationsInput | string
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExerciseId?: StringFieldUpdateOperationsInput | string
     userWorkoutId?: StringFieldUpdateOperationsInput | string
-    userStrengthSet?: UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
-  }
-
-  export type WorkoutExerciseCreateWithoutCoreStrengthSetInput = {
-    id?: string
-    order?: number
-    notes?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    coreCardioSet?: CoreCardioSetCreateNestedOneWithoutWorkoutExerciseInput
-    exercise: ExerciseCreateNestedOneWithoutWorkoutExercisesInput
-    workout: WorkoutCreateNestedOneWithoutWorkoutExercisesInput
-    userWorkoutExercises?: UserWorkoutExerciseCreateNestedManyWithoutWorkoutExerciseInput
-  }
-
-  export type WorkoutExerciseUncheckedCreateWithoutCoreStrengthSetInput = {
-    id?: string
-    order?: number
-    notes?: string | null
-    exerciseId: string
-    workoutId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    coreCardioSet?: CoreCardioSetUncheckedCreateNestedOneWithoutWorkoutExerciseInput
-    userWorkoutExercises?: UserWorkoutExerciseUncheckedCreateNestedManyWithoutWorkoutExerciseInput
-  }
-
-  export type WorkoutExerciseCreateOrConnectWithoutCoreStrengthSetInput = {
-    where: WorkoutExerciseWhereUniqueInput
-    create: XOR<WorkoutExerciseCreateWithoutCoreStrengthSetInput, WorkoutExerciseUncheckedCreateWithoutCoreStrengthSetInput>
+    userStrengthSets?: UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
   export type CoreStrengthSetRepsCreateWithoutCoreStrengthSetInput = {
@@ -42353,41 +42033,6 @@ export namespace Prisma {
   export type CoreStrengthSetWeightCreateManyCoreStrengthSetInputEnvelope = {
     data: CoreStrengthSetWeightCreateManyCoreStrengthSetInput | CoreStrengthSetWeightCreateManyCoreStrengthSetInput[]
     skipDuplicates?: boolean
-  }
-
-  export type WorkoutExerciseUpsertWithoutCoreStrengthSetInput = {
-    update: XOR<WorkoutExerciseUpdateWithoutCoreStrengthSetInput, WorkoutExerciseUncheckedUpdateWithoutCoreStrengthSetInput>
-    create: XOR<WorkoutExerciseCreateWithoutCoreStrengthSetInput, WorkoutExerciseUncheckedCreateWithoutCoreStrengthSetInput>
-    where?: WorkoutExerciseWhereInput
-  }
-
-  export type WorkoutExerciseUpdateToOneWithWhereWithoutCoreStrengthSetInput = {
-    where?: WorkoutExerciseWhereInput
-    data: XOR<WorkoutExerciseUpdateWithoutCoreStrengthSetInput, WorkoutExerciseUncheckedUpdateWithoutCoreStrengthSetInput>
-  }
-
-  export type WorkoutExerciseUpdateWithoutCoreStrengthSetInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreCardioSet?: CoreCardioSetUpdateOneWithoutWorkoutExerciseNestedInput
-    exercise?: ExerciseUpdateOneRequiredWithoutWorkoutExercisesNestedInput
-    workout?: WorkoutUpdateOneRequiredWithoutWorkoutExercisesNestedInput
-    userWorkoutExercises?: UserWorkoutExerciseUpdateManyWithoutWorkoutExerciseNestedInput
-  }
-
-  export type WorkoutExerciseUncheckedUpdateWithoutCoreStrengthSetInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    exerciseId?: StringFieldUpdateOperationsInput | string
-    workoutId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreCardioSet?: CoreCardioSetUncheckedUpdateOneWithoutWorkoutExerciseNestedInput
-    userWorkoutExercises?: UserWorkoutExerciseUncheckedUpdateManyWithoutWorkoutExerciseNestedInput
   }
 
   export type CoreStrengthSetRepsUpsertWithWhereUniqueWithoutCoreStrengthSetInput = {
@@ -42452,7 +42097,6 @@ export namespace Prisma {
     hasWarmup?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    workoutExercise?: WorkoutExerciseCreateNestedOneWithoutCoreStrengthSetInput
     weight?: CoreStrengthSetWeightCreateNestedManyWithoutCoreStrengthSetInput
   }
 
@@ -42461,7 +42105,6 @@ export namespace Prisma {
     restTime?: number
     numberOfSets?: number
     hasWarmup?: boolean
-    workoutExerciseId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     weight?: CoreStrengthSetWeightUncheckedCreateNestedManyWithoutCoreStrengthSetInput
@@ -42490,7 +42133,6 @@ export namespace Prisma {
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workoutExercise?: WorkoutExerciseUpdateOneWithoutCoreStrengthSetNestedInput
     weight?: CoreStrengthSetWeightUpdateManyWithoutCoreStrengthSetNestedInput
   }
 
@@ -42499,7 +42141,6 @@ export namespace Prisma {
     restTime?: IntFieldUpdateOperationsInput | number
     numberOfSets?: IntFieldUpdateOperationsInput | number
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
-    workoutExerciseId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     weight?: CoreStrengthSetWeightUncheckedUpdateManyWithoutCoreStrengthSetNestedInput
@@ -42512,7 +42153,6 @@ export namespace Prisma {
     hasWarmup?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    workoutExercise?: WorkoutExerciseCreateNestedOneWithoutCoreStrengthSetInput
     reps?: CoreStrengthSetRepsCreateNestedManyWithoutCoreStrengthSetInput
   }
 
@@ -42521,7 +42161,6 @@ export namespace Prisma {
     restTime?: number
     numberOfSets?: number
     hasWarmup?: boolean
-    workoutExerciseId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reps?: CoreStrengthSetRepsUncheckedCreateNestedManyWithoutCoreStrengthSetInput
@@ -42550,7 +42189,6 @@ export namespace Prisma {
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workoutExercise?: WorkoutExerciseUpdateOneWithoutCoreStrengthSetNestedInput
     reps?: CoreStrengthSetRepsUpdateManyWithoutCoreStrengthSetNestedInput
   }
 
@@ -42559,62 +42197,63 @@ export namespace Prisma {
     restTime?: IntFieldUpdateOperationsInput | number
     numberOfSets?: IntFieldUpdateOperationsInput | number
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
-    workoutExerciseId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reps?: CoreStrengthSetRepsUncheckedUpdateManyWithoutCoreStrengthSetNestedInput
   }
 
-  export type UserWorkoutExerciseCreateWithoutUserStrengthSetInput = {
+  export type UserWorkoutExerciseCreateWithoutUserStrengthSetsInput = {
     id?: string
     skippedReason?: string | null
     workoutExercise: WorkoutExerciseCreateNestedOneWithoutUserWorkoutExercisesInput
     userWorkout: UserWorkoutCreateNestedOneWithoutUserWorkoutExercisesInput
-    userCardioSet?: UserCardioSetCreateNestedManyWithoutUserWorkoutExerciseInput
+    userCardioSets?: UserCardioSetCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
-  export type UserWorkoutExerciseUncheckedCreateWithoutUserStrengthSetInput = {
+  export type UserWorkoutExerciseUncheckedCreateWithoutUserStrengthSetsInput = {
     id?: string
     skippedReason?: string | null
     workoutExerciseId: string
     userWorkoutId: string
-    userCardioSet?: UserCardioSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
+    userCardioSets?: UserCardioSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
-  export type UserWorkoutExerciseCreateOrConnectWithoutUserStrengthSetInput = {
+  export type UserWorkoutExerciseCreateOrConnectWithoutUserStrengthSetsInput = {
     where: UserWorkoutExerciseWhereUniqueInput
-    create: XOR<UserWorkoutExerciseCreateWithoutUserStrengthSetInput, UserWorkoutExerciseUncheckedCreateWithoutUserStrengthSetInput>
+    create: XOR<UserWorkoutExerciseCreateWithoutUserStrengthSetsInput, UserWorkoutExerciseUncheckedCreateWithoutUserStrengthSetsInput>
   }
 
-  export type UserWorkoutExerciseUpsertWithoutUserStrengthSetInput = {
-    update: XOR<UserWorkoutExerciseUpdateWithoutUserStrengthSetInput, UserWorkoutExerciseUncheckedUpdateWithoutUserStrengthSetInput>
-    create: XOR<UserWorkoutExerciseCreateWithoutUserStrengthSetInput, UserWorkoutExerciseUncheckedCreateWithoutUserStrengthSetInput>
+  export type UserWorkoutExerciseUpsertWithoutUserStrengthSetsInput = {
+    update: XOR<UserWorkoutExerciseUpdateWithoutUserStrengthSetsInput, UserWorkoutExerciseUncheckedUpdateWithoutUserStrengthSetsInput>
+    create: XOR<UserWorkoutExerciseCreateWithoutUserStrengthSetsInput, UserWorkoutExerciseUncheckedCreateWithoutUserStrengthSetsInput>
     where?: UserWorkoutExerciseWhereInput
   }
 
-  export type UserWorkoutExerciseUpdateToOneWithWhereWithoutUserStrengthSetInput = {
+  export type UserWorkoutExerciseUpdateToOneWithWhereWithoutUserStrengthSetsInput = {
     where?: UserWorkoutExerciseWhereInput
-    data: XOR<UserWorkoutExerciseUpdateWithoutUserStrengthSetInput, UserWorkoutExerciseUncheckedUpdateWithoutUserStrengthSetInput>
+    data: XOR<UserWorkoutExerciseUpdateWithoutUserStrengthSetsInput, UserWorkoutExerciseUncheckedUpdateWithoutUserStrengthSetsInput>
   }
 
-  export type UserWorkoutExerciseUpdateWithoutUserStrengthSetInput = {
+  export type UserWorkoutExerciseUpdateWithoutUserStrengthSetsInput = {
     id?: StringFieldUpdateOperationsInput | string
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExercise?: WorkoutExerciseUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
     userWorkout?: UserWorkoutUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
-    userCardioSet?: UserCardioSetUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userCardioSets?: UserCardioSetUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
-  export type UserWorkoutExerciseUncheckedUpdateWithoutUserStrengthSetInput = {
+  export type UserWorkoutExerciseUncheckedUpdateWithoutUserStrengthSetsInput = {
     id?: StringFieldUpdateOperationsInput | string
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExerciseId?: StringFieldUpdateOperationsInput | string
     userWorkoutId?: StringFieldUpdateOperationsInput | string
-    userCardioSet?: UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userCardioSets?: UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
   export type ProgramWorkoutCreateWithoutProgramInput = {
     id?: string
+    level?: string
+    workoutGoal?: string
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -42624,6 +42263,8 @@ export namespace Prisma {
   export type ProgramWorkoutUncheckedCreateWithoutProgramInput = {
     id?: string
     workoutId: string
+    level?: string
+    workoutGoal?: string
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -42729,6 +42370,8 @@ export namespace Prisma {
     id?: StringFilter<"ProgramWorkout"> | string
     programId?: StringFilter<"ProgramWorkout"> | string
     workoutId?: StringFilter<"ProgramWorkout"> | string
+    level?: StringFilter<"ProgramWorkout"> | string
+    workoutGoal?: StringFilter<"ProgramWorkout"> | string
     daysOfWeek?: EnumDaysOfWeekNullableListFilter<"ProgramWorkout">
     createdAt?: DateTimeFilter<"ProgramWorkout"> | Date | string
     updatedAt?: DateTimeFilter<"ProgramWorkout"> | Date | string
@@ -42970,10 +42613,10 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
+    hasWarmup?: boolean
+    isBodyWeight?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    coreStrengthSet?: CoreStrengthSetCreateNestedOneWithoutWorkoutExerciseInput
-    coreCardioSet?: CoreCardioSetCreateNestedOneWithoutWorkoutExerciseInput
     exercise: ExerciseCreateNestedOneWithoutWorkoutExercisesInput
     userWorkoutExercises?: UserWorkoutExerciseCreateNestedManyWithoutWorkoutExerciseInput
   }
@@ -42982,11 +42625,11 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
+    hasWarmup?: boolean
+    isBodyWeight?: boolean
     exerciseId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    coreStrengthSet?: CoreStrengthSetUncheckedCreateNestedOneWithoutWorkoutExerciseInput
-    coreCardioSet?: CoreCardioSetUncheckedCreateNestedOneWithoutWorkoutExerciseInput
     userWorkoutExercises?: UserWorkoutExerciseUncheckedCreateNestedManyWithoutWorkoutExerciseInput
   }
 
@@ -43002,6 +42645,8 @@ export namespace Prisma {
 
   export type ProgramWorkoutCreateWithoutWorkoutInput = {
     id?: string
+    level?: string
+    workoutGoal?: string
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -43011,6 +42656,8 @@ export namespace Prisma {
   export type ProgramWorkoutUncheckedCreateWithoutWorkoutInput = {
     id?: string
     programId: string
+    level?: string
+    workoutGoal?: string
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -43147,62 +42794,6 @@ export namespace Prisma {
     data: XOR<UserWorkoutUpdateManyMutationInput, UserWorkoutUncheckedUpdateManyWithoutWorkoutInput>
   }
 
-  export type CoreStrengthSetCreateWithoutWorkoutExerciseInput = {
-    id?: string
-    restTime?: number
-    numberOfSets?: number
-    hasWarmup?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    reps?: CoreStrengthSetRepsCreateNestedManyWithoutCoreStrengthSetInput
-    weight?: CoreStrengthSetWeightCreateNestedManyWithoutCoreStrengthSetInput
-  }
-
-  export type CoreStrengthSetUncheckedCreateWithoutWorkoutExerciseInput = {
-    id?: string
-    restTime?: number
-    numberOfSets?: number
-    hasWarmup?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    reps?: CoreStrengthSetRepsUncheckedCreateNestedManyWithoutCoreStrengthSetInput
-    weight?: CoreStrengthSetWeightUncheckedCreateNestedManyWithoutCoreStrengthSetInput
-  }
-
-  export type CoreStrengthSetCreateOrConnectWithoutWorkoutExerciseInput = {
-    where: CoreStrengthSetWhereUniqueInput
-    create: XOR<CoreStrengthSetCreateWithoutWorkoutExerciseInput, CoreStrengthSetUncheckedCreateWithoutWorkoutExerciseInput>
-  }
-
-  export type CoreCardioSetCreateWithoutWorkoutExerciseInput = {
-    id?: string
-    warmupTime?: number | null
-    avgHeartRate?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    workTime?: CoreCardioSetWorkoutTimeCreateNestedManyWithoutCoreCardioSetInput
-    avgSpeed?: CoreCardioSetAvgSpeedCreateNestedManyWithoutCoreCardioSetInput
-    distance?: CoreCardioSetDistanceCreateNestedManyWithoutCoreCardioSetInput
-    calorieTarget?: CoreCardioSetCalorieTargetCreateNestedManyWithoutCoreCardioSetInput
-  }
-
-  export type CoreCardioSetUncheckedCreateWithoutWorkoutExerciseInput = {
-    id?: string
-    warmupTime?: number | null
-    avgHeartRate?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    workTime?: CoreCardioSetWorkoutTimeUncheckedCreateNestedManyWithoutCoreCardioSetInput
-    avgSpeed?: CoreCardioSetAvgSpeedUncheckedCreateNestedManyWithoutCoreCardioSetInput
-    distance?: CoreCardioSetDistanceUncheckedCreateNestedManyWithoutCoreCardioSetInput
-    calorieTarget?: CoreCardioSetCalorieTargetUncheckedCreateNestedManyWithoutCoreCardioSetInput
-  }
-
-  export type CoreCardioSetCreateOrConnectWithoutWorkoutExerciseInput = {
-    where: CoreCardioSetWhereUniqueInput
-    create: XOR<CoreCardioSetCreateWithoutWorkoutExerciseInput, CoreCardioSetUncheckedCreateWithoutWorkoutExerciseInput>
-  }
-
   export type ExerciseCreateWithoutWorkoutExercisesInput = {
     id?: string
     name: string
@@ -43265,16 +42856,16 @@ export namespace Prisma {
     id?: string
     skippedReason?: string | null
     userWorkout: UserWorkoutCreateNestedOneWithoutUserWorkoutExercisesInput
-    userStrengthSet?: UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput
-    userCardioSet?: UserCardioSetCreateNestedManyWithoutUserWorkoutExerciseInput
+    userStrengthSets?: UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput
+    userCardioSets?: UserCardioSetCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
   export type UserWorkoutExerciseUncheckedCreateWithoutWorkoutExerciseInput = {
     id?: string
     skippedReason?: string | null
     userWorkoutId: string
-    userStrengthSet?: UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
-    userCardioSet?: UserCardioSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
+    userStrengthSets?: UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
+    userCardioSets?: UserCardioSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
   export type UserWorkoutExerciseCreateOrConnectWithoutWorkoutExerciseInput = {
@@ -43285,74 +42876,6 @@ export namespace Prisma {
   export type UserWorkoutExerciseCreateManyWorkoutExerciseInputEnvelope = {
     data: UserWorkoutExerciseCreateManyWorkoutExerciseInput | UserWorkoutExerciseCreateManyWorkoutExerciseInput[]
     skipDuplicates?: boolean
-  }
-
-  export type CoreStrengthSetUpsertWithoutWorkoutExerciseInput = {
-    update: XOR<CoreStrengthSetUpdateWithoutWorkoutExerciseInput, CoreStrengthSetUncheckedUpdateWithoutWorkoutExerciseInput>
-    create: XOR<CoreStrengthSetCreateWithoutWorkoutExerciseInput, CoreStrengthSetUncheckedCreateWithoutWorkoutExerciseInput>
-    where?: CoreStrengthSetWhereInput
-  }
-
-  export type CoreStrengthSetUpdateToOneWithWhereWithoutWorkoutExerciseInput = {
-    where?: CoreStrengthSetWhereInput
-    data: XOR<CoreStrengthSetUpdateWithoutWorkoutExerciseInput, CoreStrengthSetUncheckedUpdateWithoutWorkoutExerciseInput>
-  }
-
-  export type CoreStrengthSetUpdateWithoutWorkoutExerciseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    restTime?: IntFieldUpdateOperationsInput | number
-    numberOfSets?: IntFieldUpdateOperationsInput | number
-    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reps?: CoreStrengthSetRepsUpdateManyWithoutCoreStrengthSetNestedInput
-    weight?: CoreStrengthSetWeightUpdateManyWithoutCoreStrengthSetNestedInput
-  }
-
-  export type CoreStrengthSetUncheckedUpdateWithoutWorkoutExerciseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    restTime?: IntFieldUpdateOperationsInput | number
-    numberOfSets?: IntFieldUpdateOperationsInput | number
-    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reps?: CoreStrengthSetRepsUncheckedUpdateManyWithoutCoreStrengthSetNestedInput
-    weight?: CoreStrengthSetWeightUncheckedUpdateManyWithoutCoreStrengthSetNestedInput
-  }
-
-  export type CoreCardioSetUpsertWithoutWorkoutExerciseInput = {
-    update: XOR<CoreCardioSetUpdateWithoutWorkoutExerciseInput, CoreCardioSetUncheckedUpdateWithoutWorkoutExerciseInput>
-    create: XOR<CoreCardioSetCreateWithoutWorkoutExerciseInput, CoreCardioSetUncheckedCreateWithoutWorkoutExerciseInput>
-    where?: CoreCardioSetWhereInput
-  }
-
-  export type CoreCardioSetUpdateToOneWithWhereWithoutWorkoutExerciseInput = {
-    where?: CoreCardioSetWhereInput
-    data: XOR<CoreCardioSetUpdateWithoutWorkoutExerciseInput, CoreCardioSetUncheckedUpdateWithoutWorkoutExerciseInput>
-  }
-
-  export type CoreCardioSetUpdateWithoutWorkoutExerciseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
-    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workTime?: CoreCardioSetWorkoutTimeUpdateManyWithoutCoreCardioSetNestedInput
-    avgSpeed?: CoreCardioSetAvgSpeedUpdateManyWithoutCoreCardioSetNestedInput
-    distance?: CoreCardioSetDistanceUpdateManyWithoutCoreCardioSetNestedInput
-    calorieTarget?: CoreCardioSetCalorieTargetUpdateManyWithoutCoreCardioSetNestedInput
-  }
-
-  export type CoreCardioSetUncheckedUpdateWithoutWorkoutExerciseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    warmupTime?: NullableIntFieldUpdateOperationsInput | number | null
-    avgHeartRate?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workTime?: CoreCardioSetWorkoutTimeUncheckedUpdateManyWithoutCoreCardioSetNestedInput
-    avgSpeed?: CoreCardioSetAvgSpeedUncheckedUpdateManyWithoutCoreCardioSetNestedInput
-    distance?: CoreCardioSetDistanceUncheckedUpdateManyWithoutCoreCardioSetNestedInput
-    calorieTarget?: CoreCardioSetCalorieTargetUncheckedUpdateManyWithoutCoreCardioSetNestedInput
   }
 
   export type ExerciseUpsertWithoutWorkoutExercisesInput = {
@@ -43455,10 +42978,10 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
+    hasWarmup?: boolean
+    isBodyWeight?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    coreStrengthSet?: CoreStrengthSetCreateNestedOneWithoutWorkoutExerciseInput
-    coreCardioSet?: CoreCardioSetCreateNestedOneWithoutWorkoutExerciseInput
     exercise: ExerciseCreateNestedOneWithoutWorkoutExercisesInput
     workout: WorkoutCreateNestedOneWithoutWorkoutExercisesInput
   }
@@ -43467,12 +42990,12 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
+    hasWarmup?: boolean
+    isBodyWeight?: boolean
     exerciseId: string
     workoutId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    coreStrengthSet?: CoreStrengthSetUncheckedCreateNestedOneWithoutWorkoutExerciseInput
-    coreCardioSet?: CoreCardioSetUncheckedCreateNestedOneWithoutWorkoutExerciseInput
   }
 
   export type WorkoutExerciseCreateOrConnectWithoutUserWorkoutExercisesInput = {
@@ -43600,10 +43123,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreStrengthSet?: CoreStrengthSetUpdateOneWithoutWorkoutExerciseNestedInput
-    coreCardioSet?: CoreCardioSetUpdateOneWithoutWorkoutExerciseNestedInput
     exercise?: ExerciseUpdateOneRequiredWithoutWorkoutExercisesNestedInput
     workout?: WorkoutUpdateOneRequiredWithoutWorkoutExercisesNestedInput
   }
@@ -43612,12 +43135,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreStrengthSet?: CoreStrengthSetUncheckedUpdateOneWithoutWorkoutExerciseNestedInput
-    coreCardioSet?: CoreCardioSetUncheckedUpdateOneWithoutWorkoutExerciseNestedInput
   }
 
   export type UserWorkoutUpsertWithoutUserWorkoutExercisesInput = {
@@ -43763,16 +43286,16 @@ export namespace Prisma {
     id?: string
     skippedReason?: string | null
     workoutExercise: WorkoutExerciseCreateNestedOneWithoutUserWorkoutExercisesInput
-    userStrengthSet?: UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput
-    userCardioSet?: UserCardioSetCreateNestedManyWithoutUserWorkoutExerciseInput
+    userStrengthSets?: UserStrengthSetCreateNestedManyWithoutUserWorkoutExerciseInput
+    userCardioSets?: UserCardioSetCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
   export type UserWorkoutExerciseUncheckedCreateWithoutUserWorkoutInput = {
     id?: string
     skippedReason?: string | null
     workoutExerciseId: string
-    userStrengthSet?: UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
-    userCardioSet?: UserCardioSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
+    userStrengthSets?: UserStrengthSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
+    userCardioSets?: UserCardioSetUncheckedCreateNestedManyWithoutUserWorkoutExerciseInput
   }
 
   export type UserWorkoutExerciseCreateOrConnectWithoutUserWorkoutInput = {
@@ -45219,6 +44742,8 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
+    hasWarmup?: boolean
+    isBodyWeight?: boolean
     workoutId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -45228,10 +44753,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreStrengthSet?: CoreStrengthSetUpdateOneWithoutWorkoutExerciseNestedInput
-    coreCardioSet?: CoreCardioSetUpdateOneWithoutWorkoutExerciseNestedInput
     workout?: WorkoutUpdateOneRequiredWithoutWorkoutExercisesNestedInput
     userWorkoutExercises?: UserWorkoutExerciseUpdateManyWithoutWorkoutExerciseNestedInput
   }
@@ -45240,11 +44765,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     workoutId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreStrengthSet?: CoreStrengthSetUncheckedUpdateOneWithoutWorkoutExerciseNestedInput
-    coreCardioSet?: CoreCardioSetUncheckedUpdateOneWithoutWorkoutExerciseNestedInput
     userWorkoutExercises?: UserWorkoutExerciseUncheckedUpdateManyWithoutWorkoutExerciseNestedInput
   }
 
@@ -45252,6 +44777,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     workoutId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45432,6 +44959,8 @@ export namespace Prisma {
   export type ProgramWorkoutCreateManyProgramInput = {
     id?: string
     workoutId: string
+    level?: string
+    workoutGoal?: string
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -45447,6 +44976,8 @@ export namespace Prisma {
 
   export type ProgramWorkoutUpdateWithoutProgramInput = {
     id?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    workoutGoal?: StringFieldUpdateOperationsInput | string
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45456,6 +44987,8 @@ export namespace Prisma {
   export type ProgramWorkoutUncheckedUpdateWithoutProgramInput = {
     id?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    workoutGoal?: StringFieldUpdateOperationsInput | string
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45464,6 +44997,8 @@ export namespace Prisma {
   export type ProgramWorkoutUncheckedUpdateManyWithoutProgramInput = {
     id?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    workoutGoal?: StringFieldUpdateOperationsInput | string
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45499,6 +45034,8 @@ export namespace Prisma {
     id?: string
     order?: number
     notes?: string | null
+    hasWarmup?: boolean
+    isBodyWeight?: boolean
     exerciseId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -45507,6 +45044,8 @@ export namespace Prisma {
   export type ProgramWorkoutCreateManyWorkoutInput = {
     id?: string
     programId: string
+    level?: string
+    workoutGoal?: string
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -45524,10 +45063,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreStrengthSet?: CoreStrengthSetUpdateOneWithoutWorkoutExerciseNestedInput
-    coreCardioSet?: CoreCardioSetUpdateOneWithoutWorkoutExerciseNestedInput
     exercise?: ExerciseUpdateOneRequiredWithoutWorkoutExercisesNestedInput
     userWorkoutExercises?: UserWorkoutExerciseUpdateManyWithoutWorkoutExerciseNestedInput
   }
@@ -45536,11 +45075,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     exerciseId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    coreStrengthSet?: CoreStrengthSetUncheckedUpdateOneWithoutWorkoutExerciseNestedInput
-    coreCardioSet?: CoreCardioSetUncheckedUpdateOneWithoutWorkoutExerciseNestedInput
     userWorkoutExercises?: UserWorkoutExerciseUncheckedUpdateManyWithoutWorkoutExerciseNestedInput
   }
 
@@ -45548,6 +45087,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    hasWarmup?: BoolFieldUpdateOperationsInput | boolean
+    isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     exerciseId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45555,6 +45096,8 @@ export namespace Prisma {
 
   export type ProgramWorkoutUpdateWithoutWorkoutInput = {
     id?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    workoutGoal?: StringFieldUpdateOperationsInput | string
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45564,6 +45107,8 @@ export namespace Prisma {
   export type ProgramWorkoutUncheckedUpdateWithoutWorkoutInput = {
     id?: StringFieldUpdateOperationsInput | string
     programId?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    workoutGoal?: StringFieldUpdateOperationsInput | string
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45572,6 +45117,8 @@ export namespace Prisma {
   export type ProgramWorkoutUncheckedUpdateManyWithoutWorkoutInput = {
     id?: StringFieldUpdateOperationsInput | string
     programId?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    workoutGoal?: StringFieldUpdateOperationsInput | string
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45613,16 +45160,16 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     userWorkout?: UserWorkoutUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
-    userStrengthSet?: UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput
-    userCardioSet?: UserCardioSetUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userStrengthSets?: UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userCardioSets?: UserCardioSetUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
   export type UserWorkoutExerciseUncheckedUpdateWithoutWorkoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     userWorkoutId?: StringFieldUpdateOperationsInput | string
-    userStrengthSet?: UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
-    userCardioSet?: UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userStrengthSets?: UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userCardioSets?: UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
   export type UserWorkoutExerciseUncheckedUpdateManyWithoutWorkoutExerciseInput = {
@@ -45765,16 +45312,16 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExercise?: WorkoutExerciseUpdateOneRequiredWithoutUserWorkoutExercisesNestedInput
-    userStrengthSet?: UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput
-    userCardioSet?: UserCardioSetUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userStrengthSets?: UserStrengthSetUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userCardioSets?: UserCardioSetUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
   export type UserWorkoutExerciseUncheckedUpdateWithoutUserWorkoutInput = {
     id?: StringFieldUpdateOperationsInput | string
     skippedReason?: NullableStringFieldUpdateOperationsInput | string | null
     workoutExerciseId?: StringFieldUpdateOperationsInput | string
-    userStrengthSet?: UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
-    userCardioSet?: UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userStrengthSets?: UserStrengthSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
+    userCardioSets?: UserCardioSetUncheckedUpdateManyWithoutUserWorkoutExerciseNestedInput
   }
 
   export type UserWorkoutExerciseUncheckedUpdateManyWithoutUserWorkoutInput = {

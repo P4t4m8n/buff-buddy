@@ -8,4 +8,5 @@ export interface IUserStrengthSet {
   isJointPain: boolean;
   isBodyWeight: boolean;
   skippedReason?: string | null;
+  order?: number | null;
 }

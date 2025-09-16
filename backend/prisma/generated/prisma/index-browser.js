@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.13.0
- * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
+ * Prisma Client JS version: 6.16.0
+ * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
  */
 Prisma.prismaVersion = {
-  client: "6.13.0",
-  engine: "361e86d0ea4987e9f53a565309b3eed797a6bcbd"
+  client: "6.16.0",
+  engine: "1c57fdcd7e44b29b9313256c76699e91c3ac3c43"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -149,7 +149,6 @@ exports.Prisma.CoreCardioSetScalarFieldEnum = {
   id: 'id',
   warmupTime: 'warmupTime',
   avgHeartRate: 'avgHeartRate',
-  workoutExerciseId: 'workoutExerciseId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -207,7 +206,6 @@ exports.Prisma.CoreStrengthSetScalarFieldEnum = {
   restTime: 'restTime',
   numberOfSets: 'numberOfSets',
   hasWarmup: 'hasWarmup',
-  workoutExerciseId: 'workoutExerciseId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -262,6 +260,8 @@ exports.Prisma.ProgramWorkoutScalarFieldEnum = {
   id: 'id',
   programId: 'programId',
   workoutId: 'workoutId',
+  level: 'level',
+  workoutGoal: 'workoutGoal',
   daysOfWeek: 'daysOfWeek',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -281,6 +281,8 @@ exports.Prisma.WorkoutExerciseScalarFieldEnum = {
   id: 'id',
   order: 'order',
   notes: 'notes',
+  hasWarmup: 'hasWarmup',
+  isBodyWeight: 'isBodyWeight',
   exerciseId: 'exerciseId',
   workoutId: 'workoutId',
   createdAt: 'createdAt',

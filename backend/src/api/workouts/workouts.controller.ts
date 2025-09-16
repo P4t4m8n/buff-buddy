@@ -3,7 +3,7 @@ import { AppError } from "../../shared/services/Error.service";
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
 import { workoutsService } from "./workouts.service";
 import { workoutValidation } from "../../../../shared/validations/workout.validations";
-import { workoutUtils } from "./workout.utils";
+import { workoutUtils } from "./workout.util";
 
 export const getWorkouts = async (req: Request, res: Response) => {
   try {

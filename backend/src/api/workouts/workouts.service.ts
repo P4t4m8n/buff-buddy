@@ -1,7 +1,7 @@
 import { Prisma, Workout } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
 
-import { workoutUtils } from "./workout.utils";
+import { workoutUtils } from "./workout.util";
 
 import { workoutSQL } from "./workout.sql";
 

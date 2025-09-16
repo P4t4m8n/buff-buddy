@@ -41,7 +41,7 @@ export const createUserWorkout = async (req: Request, res: Response) => {
   }
 };
 
-export const getLastWorkout = async (req: Request, res: Response) => {
+export const getLastWorkouts = async (req: Request, res: Response) => {
   try {
     const { workoutId } = req.params;
 
@@ -55,22 +55,24 @@ export const getLastWorkout = async (req: Request, res: Response) => {
       throw new AppError("User not authenticated", 401);
     }
 
-    const userWorkout = await userWorkoutService.getLastUserWorkout(
+    const userWorkouts = await userWorkoutService.getLastUserWorkouts(
       workoutId,
       userId
     );
 
-    if (!userWorkout) {
+    if (!userWorkouts) {
       return res.status(404).json({
         message: "No workout found for the given ID",
       });
     }
 
-    const userWorkoutDTO = userWorkoutsUtils.buildDTO(userWorkout);
+    const userWorkoutsDTOs = userWorkouts.map((uw) =>
+      userWorkoutsUtils.buildDTO(uw)
+    );
 
     res.status(200).json({
       message: "Last User-Workout retrieved successfully",
-      data: userWorkoutDTO,
+      data: userWorkoutsDTOs,
     });
   } catch (error) {
     const err = AppError.handleResponse(error);

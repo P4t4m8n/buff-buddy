@@ -9,6 +9,8 @@ import type { TCreateProgramWorkoutInput } from "../../../../shared/validations/
 const PROGRAM_WORKOUTS_SELECT: Prisma.ProgramWorkoutSelect = {
   id: true,
   daysOfWeek: true,
+  level: true,
+  workoutGoal: true,
   workout: {
     select: workoutSQL.WORKOUT_SELECT,
   },
@@ -72,6 +74,8 @@ const getProgramWorkoutCreate = (
 
   return {
     daysOfWeek: dto.daysOfWeek as DaysOfWeek[],
+    level: dto.level,
+    workoutGoal: dto.workoutGoal,
     workout:
       dto.workout?.id && !dto.workout.id.startsWith("temp/")
         ? { connect: { id: dto.workout.id } }

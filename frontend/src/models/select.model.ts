@@ -1,6 +1,7 @@
 export interface ISelectItemComponentProps<T> {
   item: T;
-  onClick: (e: React.MouseEvent, item: T) => void;
+  inputName?: string | null;
+  onClick: (e: React.MouseEvent, item: T, inputName?: string | null) => void;
 }
 
 export interface ISelectAddComponentProps {
