@@ -19,7 +19,7 @@ setupRoutes(app);
 const port = Number(process.env.PORT) || 3030;
 
 if (process.env.NODE_ENV !== "test") {
-  server.listen(port, "10.0.0.6", async () =>
-    console.info(`Server ready at: http://10.0.0.6:${port}`)
+  server.listen(port,  async () =>
+    console.info(`Server ready at: http://10.0.0.4:${port}`)
   );
 }
