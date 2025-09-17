@@ -1,4 +1,4 @@
-import { IUser } from "./users.model";
+import type { IUser } from "./users.model";
 
 const toSmallDTO = (user?: IUser | null) => ({
   id: user?.id,

@@ -1,14 +1,14 @@
-import type {
-  IUserCardioSetDTO,
-  IUserCardioSetEditDTO,
-} from "./cardioSet.model";
 import type { IEntity, IEntityDates } from "./entity.model";
 import type { IProgramDTO } from "./program.model";
+import type { IUserDTO } from "./user.model";
 import type {
   IUserStrengthSetDTO,
   IUserStrengthSetEditDTO,
-} from "./strengthSet.model";
-import type { IUserDTO } from "./user.model";
+} from "./userStrengthSet.model";
+import type {
+  IUserCardioSetDTO,
+  IUserCardioSetEditDTO,
+} from "./userCardioSet.model";
 import type { IWorkoutDTO, IWorkoutExerciseDTO } from "./workout.model";
 
 interface IUserWorkoutBase extends IEntity, IEntityDates {

@@ -1,6 +1,7 @@
-import { Request, Response, NextFunction } from "express";
 import { asyncLocalStorage } from "./localStorage.middleware";
 import { AppError } from "../shared/services/Error.service";
+
+import type { Request, Response, NextFunction } from "express";
 
 export const requireAuth = async (
   _: Request,

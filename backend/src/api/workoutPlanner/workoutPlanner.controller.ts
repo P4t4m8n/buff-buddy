@@ -1,8 +1,10 @@
-import type { Request, Response } from "express";
 import { AppError } from "../../shared/services/Error.service";
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
+
 import { userWorkoutService } from "../userWorkouts/userWorkouts.service";
 import { programsService } from "../programs/programs.service";
+
+import type { Request, Response } from "express";
 
 export const workoutStart = async (req: Request, res: Response) => {
   try {
@@ -32,8 +34,8 @@ export const workoutStart = async (req: Request, res: Response) => {
         message: "No Program Workout found for the given ID",
       });
     }
-    console.log("🚀 ~ workoutStart ~ programWorkout:", programWorkout);
-    console.log("🚀 ~ workoutStart ~ userWorkouts:", userWorkouts);
+    console.log("workoutStart ~ programWorkout:", programWorkout);
+    console.log("workoutStart ~ userWorkouts:", userWorkouts);
     res.status(200);
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);

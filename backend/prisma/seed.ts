@@ -32,7 +32,7 @@ export const seedExercises = async () => {
     return "Exercises seeded successfully";
   } catch (error) {
     const err = AppError.handleResponse(error);
-    console.error("🚀 ~ seedExercises ~ err:", err);
+    console.error(" ~ seedExercises ~ err:", err);
   }
 };
 
@@ -152,7 +152,7 @@ const seedFood = async () => {
 
     return errors;
   } catch (error) {
-    console.error("🚀 ~ seedFood ~ error:", error);
+    console.error(" ~ seedFood ~ error:", error);
   }
 };
 checkFoodITems();

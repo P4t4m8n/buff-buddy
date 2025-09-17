@@ -1,6 +1,8 @@
 import { prisma } from "../../../prisma/prisma";
-import { IUserWorkout } from "./userWorkouts.model";
+
 import { userWorkoutSql } from "./userWorkout.sql";
+
+import type { IUserWorkout } from "./userWorkouts.model";
 import type { TCreateUserWorkoutInput } from "../../../../shared/validations/userWorkout.validations";
 
 const getLastUserWorkouts = async (

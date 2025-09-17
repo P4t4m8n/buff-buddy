@@ -1,20 +1,30 @@
-import { DaysOfWeek, Prisma, Program } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
-import { dbUtil } from "../../shared/utils/db.util";
+
 import { workoutSQL } from "../workouts/workout.sql";
 import { programsSQL } from "./program.sql";
 
-import { IProgram, IProgramFilter, IProgramWorkout } from "./programs.models";
+import { dbUtil } from "../../shared/utils/db.util";
+import { programsUtil } from "./programs.util";
+
+import type {
+  IProgram,
+  IProgramFilter,
+  IProgramWorkout,
+} from "./programs.models";
 import type { TCreateWorkoutInput } from "../../../../shared/validations/workout.validations";
 import type {
   TCreateProgramInput,
   TUpdateProgramInput,
 } from "../../../../shared/validations/program.validations";
-import { programsUtil } from "./programs.util";
+import type {
+  DaysOfWeek,
+  Prisma,
+  Program,
+} from "../../../prisma/generated/prisma";
 
 //TODO?? move to raw SQL for performance due to junction tables and reorganize of structure data
 
-const getAll = async (
+const get = async (
   filter: IProgramFilter,
   userId: string
 ): Promise<IProgram[]> => {
@@ -34,6 +44,7 @@ const getAll = async (
     select: programsSQL.PROGRAM_SELECT,
   })) as unknown as IProgram[];
 };
+
 const getById = async (
   id: string,
   userId: string
@@ -53,7 +64,6 @@ const create = async (
     select: programsSQL.PROGRAM_SELECT,
   })) as unknown as IProgram;
 };
-
 //TODO?? moving to raw sql in the end, so lazy solution for now
 const update = async (
   id: string,
@@ -121,6 +131,7 @@ const remove = async (id: string): Promise<Program> => {
     where: { id },
   });
 };
+
 const getProgramWorkout = async (
   workoutId: string
 ): Promise<IProgramWorkout | null> => {
@@ -131,7 +142,7 @@ const getProgramWorkout = async (
 };
 
 export const programsService = {
-  getAll,
+  get,
   getById,
   create,
   update,

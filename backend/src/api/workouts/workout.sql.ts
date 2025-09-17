@@ -1,15 +1,12 @@
-import { Prisma } from "../../../prisma/generated/prisma";
-
 import { dbUtil } from "../../shared/utils/db.util";
 
-import { coreCardioSetsSQL } from "../coreSets/coreCardioSets/coreCardioSets.sql";
-import { coreStrengthSetsSQL } from "../coreSets/coreStrengthSets/coreStrengthSets.sql";
 import { exerciseSQL } from "../exercises/exercise.sql";
 import { userSQL } from "../users/users.sql";
 import { workoutExerciseSQL } from "../workoutExercise/workoutExercise.sql";
 
+import type { Prisma } from "../../../prisma/generated/prisma";
 import type { TCreateWorkoutExerciseInput } from "../../../../shared/validations/workoutExercise.validations";
-import {
+import type {
   TCreateWorkoutInput,
   TUpdateWorkoutInput,
 } from "../../../../shared/validations/workout.validations";
@@ -58,8 +55,11 @@ const getWorkoutCreate = (
     owner: { connect: { id: userId ?? undefined } },
     isTemplate: data?.isTemplate ?? false,
     workoutExercises: {
-      create: (data?.workoutExercises ?? []).map((we) =>
-        workoutExerciseSQL.getWorkoutExerciseCreate(we)
+      create: (data?.workoutExercises ?? []).map(
+        (we) =>
+          workoutExerciseSQL.getWorkoutExerciseCreate(
+            we
+          ) as Prisma.WorkoutExerciseCreateInput
       ),
     },
   };
@@ -88,8 +88,11 @@ const getWorkoutUpdate = (
     }),
     workoutExercises: {
       deleteMany: exercisesToDelete.map((we) => ({ id: we.id! })),
-      create: exercisesToCreate.map((we) =>
-        workoutExerciseSQL.getWorkoutExerciseCreate(we)
+      create: exercisesToCreate.map(
+        (we) =>
+          workoutExerciseSQL.getWorkoutExerciseCreate(
+            we
+          ) as Prisma.WorkoutExerciseCreateInput
       ),
       update: exercisesToUpdate.map((we) => ({
         where: { id: we.id! },

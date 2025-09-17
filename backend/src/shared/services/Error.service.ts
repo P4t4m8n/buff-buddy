@@ -1,5 +1,5 @@
 import { ZodError } from "zod";
-import { Prisma } from "../../../prisma/generated/prisma";
+import  { Prisma } from "../../../prisma/generated/prisma";
 
 export class AppError extends Error {
   public readonly status: number;

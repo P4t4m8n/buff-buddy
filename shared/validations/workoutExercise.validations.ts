@@ -1,8 +1,6 @@
 import { z } from "zod";
 import { validationUtil } from "./util.validation";
 import { exerciseValidation } from "./exercise.validation";
-import { coreStrengthSetsValidation } from "./coreStrengthSet.validation";
-import { coreCardioSetsValidation } from "./coreCardioSet.validation";
 
 const exerciseTypeSetRefinement = (
   data: {
@@ -72,10 +70,8 @@ const workoutExerciseFactorySchema = ({
       type: exerciseValidation.ExerciseTypeSchema,
     }),
     isActive: z.coerce.boolean().default(true),
-    coreStrengthSet:
-      coreStrengthSetsValidation.CreateCoreStrengthSetSchema.optional(),
-    coreCardioSet:
-      coreCardioSetsValidation.CreateCoreCardioSetSchema.optional(),
+    hasWarmUp: validationUtil.BooleanSchema,
+    isBodyWeight:validationUtil.BooleanSchema,
     crudOperation: z
       .optional(validationUtil.CrudOperationEnumSchema)
       .default("read"),
@@ -90,30 +86,13 @@ const createWorkoutExerciseFactorySchema = ({
 }) => {
   return workoutExerciseFactorySchema({ toSanitize });
 };
-// const createWorkoutExerciseFactorySchema = ({
-//   toSanitize,
-// }: {
-//   toSanitize?: boolean;
-// }) => {
-//   return workoutExerciseFactorySchema({ toSanitize }).superRefine(
-//     exerciseTypeSetRefinement
-//   );
-// };
 
 const updateWorkoutExerciseFactorySchema = ({
   toSanitize,
 }: {
   toSanitize?: boolean;
 }) => {
-  return workoutExerciseFactorySchema({ toSanitize })
-    .partial()
-    .extend({
-      coreStrengthSet:
-        coreStrengthSetsValidation.UpdateCoreStrengthSetSchema.optional(),
-      coreCardioSet:
-        coreCardioSetsValidation.UpdateCoreCardioSetSchema.optional(),
-    })
-    .superRefine(exerciseTypeSetRefinement);
+  return workoutExerciseFactorySchema({ toSanitize }).partial();
 };
 
 const WorkoutExerciseParamsSchema = z.object({

@@ -1,11 +1,14 @@
-import { Request, Response } from "express";
-
 import { authService } from "./auth.service";
 import { AppError } from "../../shared/services/Error.service";
-import { COOKIE } from "./auth.consts";
+
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
-import { TGoogleUserResponse } from "./auth.model";
+
 import { authValidation } from "../../../../shared/validations/auth.validation";
+
+import { COOKIE } from "./auth.consts";
+
+import type { TGoogleUserResponse } from "./auth.model";
+import type { Request, Response } from "express";
 
 export const signUp = async (req: Request, res: Response) => {
   try {
@@ -20,10 +23,10 @@ export const signUp = async (req: Request, res: Response) => {
       data: user,
     });
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };
@@ -41,10 +44,10 @@ export const signIn = async (req: Request, res: Response) => {
       data: user,
     });
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };
@@ -55,10 +58,10 @@ export const signOut = async (req: Request, res: Response) => {
       message: "User signed out successfully",
     });
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };
@@ -72,26 +75,28 @@ export const getSessionUser = async (_: Request, res: Response) => {
       data: user,
     });
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };
 
-export const googleRedirect = async (_: Request, res: Response) => {
-  const clientId = process.env.GOOGLE_CLIENT_ID;
-  const redirectUri = process.env.GOOGLE_REDIRECT_URI;
+//DELETE, dont know if it being used. keep it as a comment till sure. commented at 9.17.25
 
-  if (!clientId || !redirectUri) {
-    throw AppError.create("Google OAuth credentials are not set", 500);
-  }
+// export const googleRedirect = async (_: Request, res: Response) => {
+//   const clientId = process.env.GOOGLE_CLIENT_ID;
+//   const redirectUri = process.env.GOOGLE_REDIRECT_URI;
 
-  const googleAuthURL = `https://accounts.google.com/o/oauth2/v2/auth
-  ?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email%20profile`;
-  res.redirect(googleAuthURL);
-};
+//   if (!clientId || !redirectUri) {
+//     throw AppError.create("Google OAuth credentials are not set", 500);
+//   }
+
+//   const googleAuthURL = `https://accounts.google.com/o/oauth2/v2/auth
+//   ?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email%20profile`;
+//   res.redirect(googleAuthURL);
+// };
 
 export const googleCallback = async (req: Request, res: Response) => {
   try {
@@ -123,10 +128,10 @@ export const googleCallback = async (req: Request, res: Response) => {
 
     res.cookie("token", token, COOKIE).redirect(frontendUrl);
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };
@@ -146,10 +151,10 @@ export const deleteUser = async (req: Request, res: Response) => {
       message: "User deleted successfully",
     });
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };
@@ -209,6 +214,6 @@ const getGoogleUserInfo = async (
   if (!userInfoResponse.ok) {
     throw AppError.create("Failed to fetch user info from Google", 500);
   }
-  const userInfo = (await userInfoResponse.json()) as TGoogleUserResponse;
-  return userInfo;
+  const userInfo = await userInfoResponse.json();
+  return userInfo as TGoogleUserResponse;
 };

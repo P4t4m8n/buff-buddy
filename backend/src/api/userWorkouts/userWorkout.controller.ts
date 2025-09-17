@@ -1,14 +1,12 @@
-import { Request, Response } from "express";
-
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
 
 import { AppError } from "../../shared/services/Error.service";
-
-import { userWorkoutValidation } from "../../.././../shared/validations/userWorkout.validations";
-
 import { userWorkoutService } from "./userWorkouts.service";
 
+import { userWorkoutValidation } from "../../.././../shared/validations/userWorkout.validations";
 import { userWorkoutsUtils } from "./userWorkouts.util";
+
+import type { Request, Response } from "express";
 
 export const createUserWorkout = async (req: Request, res: Response) => {
   try {
@@ -33,10 +31,10 @@ export const createUserWorkout = async (req: Request, res: Response) => {
       data: userWorkoutDTO,
     });
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };
@@ -75,10 +73,10 @@ export const getLastWorkouts = async (req: Request, res: Response) => {
       data: userWorkoutsDTOs,
     });
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };

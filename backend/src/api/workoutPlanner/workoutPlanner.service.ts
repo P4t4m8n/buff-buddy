@@ -1,15 +1,16 @@
-import { IUserStrengthSetEditDTO } from "../../../../shared/models/strengthSet.model";
-import {
+import { workoutUtil } from "../workouts/workout.util";
+import { getTempId } from "../../../../shared/utils/getTempId";
+
+import type { IUserStrengthSetEditDTO } from "../../../../shared/models/userStrengthSet.model";
+import type {
   IUserWorkoutEditDTO,
   IUserWorkoutExercisesEditDTO,
 } from "../../../../shared/models/userWorkout";
-import { getTempId } from "../../../../shared/utils/getTempId";
-import { IProgramWorkout } from "../programs/programs.models";
-import { IUserCardioSet } from "../userSets/userCardioSets/userCardioSets.model";
-import { IUserStrengthSet } from "../userSets/userStrengthSets/userStrengthSets.model";
-import { IUserWorkout } from "../userWorkouts/userWorkouts.model";
-import { workoutUtil } from "../workouts/workout.util";
-import { IWorkoutExercise } from "../workouts/workouts.models";
+import type { IProgramWorkout } from "../programs/programs.models";
+import type { IUserCardioSet } from "../userSets/userCardioSets/userCardioSets.model";
+import type { IUserStrengthSet } from "../userSets/userStrengthSets/userStrengthSets.model";
+import type { IUserWorkout } from "../userWorkouts/userWorkouts.model";
+import type { IWorkoutExercise } from "../workouts/workouts.models";
 
 const BASE_MINIMUM_WEIGHT = 0.5; //kg
 const BASE_REPS_AMOUNT = 10;

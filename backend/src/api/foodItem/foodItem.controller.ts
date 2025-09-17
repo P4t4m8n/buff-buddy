@@ -1,19 +1,21 @@
-import { Request, Response } from "express";
 import { AppError } from "../../shared/services/Error.service";
-import { foodItemValidation } from "../../../../shared/validations/foodItem.validation";
 import { foodItemService } from "./foodItem.service";
+
+import { foodItemValidation } from "../../../../shared/validations/foodItem.validation";
+
+import type { Request, Response } from "express";
 
 export const getFoodItems = async (req: Request, res: Response) => {
   try {
     const filter = foodItemValidation.FoodItemQuerySchema.parse(req.query);
-    const foodItems = await foodItemService.getAll(filter);
+    const foodItems = await foodItemService.get(filter);
 
     res.status(200).json(foodItems);
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };
@@ -32,10 +34,10 @@ export const getFoodItemById = async (req: Request, res: Response) => {
       data: foodItem,
     });
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };
@@ -56,10 +58,10 @@ export const getFoodItemByBarcode = async (req: Request, res: Response) => {
       data: foodItem,
     });
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };
@@ -79,10 +81,10 @@ export const createFoodItem = async (req: Request, res: Response) => {
       data: foodItem,
     });
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };
@@ -104,10 +106,10 @@ export const updateFoodItem = async (req: Request, res: Response) => {
       data: foodItem,
     });
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };
@@ -116,16 +118,16 @@ export const deleteFoodItem = async (req: Request, res: Response) => {
   try {
     const { id } = foodItemValidation.FoodItemIdParamsSchema.parse(req.params);
 
-    await foodItemService.delete(id);
+    await foodItemService.remove(id);
 
     res.status(200).json({
       message: "Food item deleted successfully",
     });
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };

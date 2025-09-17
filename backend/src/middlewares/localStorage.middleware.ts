@@ -1,9 +1,12 @@
-import { Request, Response, NextFunction } from "express";
 import { AsyncLocalStorage } from "async_hooks";
-import { User } from "../../prisma/generated/prisma";
+
 import { authService } from "../api/auth/auth.service";
-import { COOKIE } from "../api/auth/auth.consts";
 import { AppError } from "../shared/services/Error.service";
+
+import { COOKIE } from "../api/auth/auth.consts";
+
+import type { User } from "../../prisma/generated/prisma";
+import type { Request, Response, NextFunction } from "express";
 
 export interface IAsyncStorageData {
   sessionUser?: Partial<User> | null;

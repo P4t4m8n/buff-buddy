@@ -87,8 +87,8 @@ export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO) => {
 
   const handleWorkoutPlannerInfo = useCallback(
     (option: string, inputName?: "level" | "workoutGoal") => {
-      console.log("🚀 ~ useProgramWorkoutEdit ~ inputName:", inputName)
-      console.log("🚀 ~ useProgramWorkoutEdit ~ option:", option)
+      console.log(" useProgramWorkoutEdit ~ inputName:", inputName)
+      console.log(" useProgramWorkoutEdit ~ option:", option)
       setSelectedWorkout((prev) => {
         if (!prev) return null;
 

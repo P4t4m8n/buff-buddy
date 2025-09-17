@@ -1,10 +1,9 @@
-import { Prisma, Workout } from "../../../prisma/generated/prisma";
 import { prisma } from "../../../prisma/prisma";
 
-import { workoutUtils } from "./workout.util";
-
+import { workoutUtil } from "./workout.util";
 import { workoutSQL } from "./workout.sql";
 
+import type { Prisma, Workout } from "../../../prisma/generated/prisma";
 import type { IWorkout } from "./workouts.models";
 import type {
   TCreateWorkoutInput,
@@ -16,7 +15,7 @@ const get = async (
   filter: TWorkoutQuery,
   userId: string
 ): Promise<IWorkout[]> => {
-  const where: Prisma.WorkoutWhereInput = workoutUtils.buildWhereClause(
+  const where: Prisma.WorkoutWhereInput = workoutUtil.buildWhereClause(
     filter,
     userId
   );

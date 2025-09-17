@@ -145,46 +145,6 @@ exports.Prisma.ExerciseScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.CoreCardioSetScalarFieldEnum = {
-  id: 'id',
-  warmupTime: 'warmupTime',
-  avgHeartRate: 'avgHeartRate',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.CoreCardioSetCalorieTargetScalarFieldEnum = {
-  id: 'id',
-  coreCardioSetId: 'coreCardioSetId',
-  calorieTarget: 'calorieTarget',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.CoreCardioSetDistanceScalarFieldEnum = {
-  id: 'id',
-  coreCardioSetId: 'coreCardioSetId',
-  distance: 'distance',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.CoreCardioSetAvgSpeedScalarFieldEnum = {
-  id: 'id',
-  coreCardioSetId: 'coreCardioSetId',
-  avgSpeed: 'avgSpeed',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.CoreCardioSetWorkoutTimeScalarFieldEnum = {
-  id: 'id',
-  coreCardioSetId: 'coreCardioSetId',
-  workTime: 'workTime',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.UserCardioSetScalarFieldEnum = {
   id: 'id',
   warmupTime: 'warmupTime',
@@ -197,32 +157,6 @@ exports.Prisma.UserCardioSetScalarFieldEnum = {
   caloriesBurned: 'caloriesBurned',
   userWorkoutExerciseId: 'userWorkoutExerciseId',
   skippedReason: 'skippedReason',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.CoreStrengthSetScalarFieldEnum = {
-  id: 'id',
-  restTime: 'restTime',
-  numberOfSets: 'numberOfSets',
-  hasWarmup: 'hasWarmup',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.CoreStrengthSetRepsScalarFieldEnum = {
-  id: 'id',
-  coreStrengthSetId: 'coreStrengthSetId',
-  reps: 'reps',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.CoreStrengthSetWeightScalarFieldEnum = {
-  id: 'id',
-  coreStrengthSetId: 'coreStrengthSetId',
-  isBodyWeight: 'isBodyWeight',
-  weight: 'weight',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -511,15 +445,7 @@ exports.MealType = exports.$Enums.MealType = {
 exports.Prisma.ModelName = {
   User: 'User',
   Exercise: 'Exercise',
-  CoreCardioSet: 'CoreCardioSet',
-  CoreCardioSetCalorieTarget: 'CoreCardioSetCalorieTarget',
-  CoreCardioSetDistance: 'CoreCardioSetDistance',
-  CoreCardioSetAvgSpeed: 'CoreCardioSetAvgSpeed',
-  CoreCardioSetWorkoutTime: 'CoreCardioSetWorkoutTime',
   UserCardioSet: 'UserCardioSet',
-  CoreStrengthSet: 'CoreStrengthSet',
-  CoreStrengthSetReps: 'CoreStrengthSetReps',
-  CoreStrengthSetWeight: 'CoreStrengthSetWeight',
   UserStrengthSet: 'UserStrengthSet',
   Program: 'Program',
   ProgramWorkout: 'ProgramWorkout',

@@ -1,20 +1,7 @@
 import type { TCrudOperation } from "./app.model";
-import type { IEntity } from "./entity.model";
+import type { IEntity, IEntityDates } from "./entity.model";
 
-export interface ICoreStrengthSetDTO extends IEntity {
-  reps?: number | null; // Target number of repetitions for the set
-  weight?: number | null; // Weight lifted in kg
-  numberOfSets?: number; // Total number of sets in the exercise
-  isBodyWeight?: boolean; // Indicates if the set is bodyweight only
-  restTime?: number | null; // Rest time in seconds before the next set
-  hasWarmup?: boolean; // Indicates if the set was a warmup set
-}
-export interface ICoreStrengthSetEditDTO extends ICoreStrengthSetDTO {
-  crudOperation?: TCrudOperation;
-  workoutExerciseId?: string; // Foreign key to ProgramExercise
-}
-
-export interface IUserStrengthSetDTO extends IEntity {
+export interface IUserStrengthSetDTO extends IEntity, IEntityDates {
   lastSet?: IUserStrengthLastSet | null;
   goalSet?: IUserStrengthSetDTO | null;
   reps?: number | null; // Actual number of repetitions performed
@@ -24,7 +11,7 @@ export interface IUserStrengthSetDTO extends IEntity {
   isMuscleFailure?: boolean | null; // Indicates if the set was a muscle failure
   isJointPain?: boolean | null; // Indicates if the set was a joint part
   isBodyWeight?: boolean; // Indicates if the set was bodyweight only
-  order?: number;
+  order?: number|null;
   skippedReason?: string | null;
 }
 

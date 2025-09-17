@@ -1,4 +1,4 @@
-import { DaysOfWeek } from "../../backend/prisma/generated/prisma";
+import type { DaysOfWeek } from "../../backend/prisma/generated/prisma";
 import type { IBaseFilter, TCrudOperation, TDayOfWeek } from "./app.model";
 import type { IEntity } from "./entity.model";
 import type { IUserDTO } from "./user.model";

@@ -1,10 +1,11 @@
-import { IFoodItemInfoEditBase } from "../../../../shared/models/foodItem.model";
-import {
+import { dbUtil } from "../../shared/utils/db.util";
+
+import type { IFoodItemInfoEditBase } from "../../../../shared/models/foodItem.model";
+import type {
   TCreateFoodItemInput,
   TUpdateFoodItemInput,
 } from "../../../../shared/validations/foodItem.validation";
-import { Prisma } from "../../../prisma/generated/prisma";
-import { dbUtil } from "../../shared/utils/db.util";
+import type { Prisma } from "../../../prisma/generated/prisma";
 
 const FOOD_ITEM_SQL: Prisma.FoodItemSelect = {
   id: true,
@@ -92,7 +93,6 @@ const handleFoodItemInfoUpdate = (
   const infoToDisconnect = infos?.filter(
     (info) => info?.crudOperation === "delete"
   );
-
 
   //TODO:Theoretically name must exist, maybe add name validation also here?
   if (infoToConnect?.length) {

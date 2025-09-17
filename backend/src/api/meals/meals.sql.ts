@@ -1,11 +1,13 @@
-import {
+import { dbUtil } from "../../shared/utils/db.util";
+
+import { foodItemSQL } from "../foodItem/foodItem.sql";
+import { userSQL } from "../users/users.sql";
+
+import type {
   TCreateMealInput,
   TUpdateMealInput,
 } from "../../../../shared/validations/meal.validations";
-import { Prisma } from "../../../prisma/generated/prisma";
-import { dbUtil } from "../../shared/utils/db.util";
-import { foodItemSQL } from "../foodItem/foodItem.sql";
-import { userSQL } from "../users/users.sql";
+import type { Prisma } from "../../../prisma/generated/prisma";
 
 const MEALS_SELECT: Prisma.MealSelect = {
   id: true,

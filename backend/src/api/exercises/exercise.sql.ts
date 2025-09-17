@@ -1,4 +1,4 @@
-import { Prisma } from "../../../prisma/generated/prisma";
+import type { Prisma } from "../../../prisma/generated/prisma";
 
 interface ExerciseSQL {
   EXERCISE_SELECT: Prisma.ExerciseSelect;

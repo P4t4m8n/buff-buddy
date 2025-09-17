@@ -1,10 +1,8 @@
-import {
-  IWorkoutDTO,
-  IWorkoutFilter,
-} from "../../../../shared/models/workout.model";
-import { Prisma } from "../../../prisma/generated/prisma";
 import { workoutExerciseUtils } from "../workoutExercise/workoutExercise.util";
-import { IWorkout } from "./workouts.models";
+
+import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
+import type { Prisma } from "../../../prisma/generated/prisma";
+import type { IWorkout } from "./workouts.models";
 import type { TWorkoutQuery } from "../../../../shared/validations/workout.validations";
 
 const buildWhereClause = (

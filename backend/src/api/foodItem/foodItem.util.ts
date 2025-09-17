@@ -1,5 +1,5 @@
-import { TFoodItemQuery } from "../../../../shared/validations/foodItem.validation";
-import { Prisma } from "../../../prisma/generated/prisma";
+import type { TFoodItemQuery } from "../../../../shared/validations/foodItem.validation";
+import type { Prisma } from "../../../prisma/generated/prisma";
 
 export const foodItemUtil = {
   buildWhereClause(filter: TFoodItemQuery): Prisma.FoodItemWhereInput {

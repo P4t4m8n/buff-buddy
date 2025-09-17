@@ -216,8 +216,8 @@ async function processOpenFoodFactsData(
   let validProductsCount = 0;
   const products: DietTrackerProduct[] = [];
 
-  console.info(`🚀 Starting to process ${inputFilePath}`);
-  console.info(`📊 Filters:  maxProducts=${maxProducts}`);
+  console.info(` Starting to process ${inputFilePath}`);
+  console.info(` Filters:  maxProducts=${maxProducts}`);
 
   const fileStream = fs.createReadStream(inputFilePath);
   const rl = readline.createInterface({
@@ -288,12 +288,12 @@ async function processOpenFoodFactsData(
       await saveBatch(products, outputFilePath, false);
     }
 
-    console.info(`✅ Processing complete!`);
-    console.info(`📊 Total processed: ${processedCount}`);
-    console.info(`✨ Valid products: ${validProductsCount}`);
-    console.info(`💾 Saved to: ${outputFilePath}`);
+    console.info(` Processing complete!`);
+    console.info(` Total processed: ${processedCount}`);
+    console.info(` Valid products: ${validProductsCount}`);
+    console.info(` Saved to: ${outputFilePath}`);
   } catch (error) {
-    console.error("❌ Error processing file:", error);
+    console.error(" Error processing file:", error);
     throw error;
   } finally {
     rl.close();
@@ -344,9 +344,9 @@ async function loadFoodData() {
     );
 
     await finalizeOutputFile("./diet-products.json");
-    console.info("✅ Food data ready for Prisma!");
+    console.info("Food data ready for Prisma!");
   } catch (error) {
-    console.error("❌ Error:", error);
+    console.error(" Error:", error);
   }
 }
 

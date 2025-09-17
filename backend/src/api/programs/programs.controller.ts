@@ -1,10 +1,11 @@
-import { Request, Response } from "express";
 import { AppError } from "../../shared/services/Error.service";
 import { programsService } from "./programs.service";
 
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
-import { programsUtils } from "./programs.util";
+import { programsUtil } from "./programs.util";
 import { programValidation } from "../../../../shared/validations/program.validations";
+
+import type { Request, Response } from "express";
 
 export const getPrograms = async (req: Request, res: Response) => {
   try {
@@ -16,16 +17,16 @@ export const getPrograms = async (req: Request, res: Response) => {
       throw new AppError("User not authenticated", 401);
     }
 
-    const programsData = await programsService.getAll(filter, userId!);
+    const programsData = await programsService.get(filter, userId!);
 
-    const programs = programsUtils.buildDTOArr(programsData);
+    const programs = programsUtil.buildDTOArr(programsData);
 
     res.status(200).json(programs);
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };
@@ -45,14 +46,14 @@ export const getProgramById = async (req: Request, res: Response) => {
       throw new AppError("Program not found", 404);
     }
 
-    const program = programsUtils.buildDTO(programData);
+    const program = programsUtil.buildDTO(programData);
 
     res.status(200).json(program);
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };
@@ -74,17 +75,17 @@ export const createProgram = async (req: Request, res: Response) => {
 
     const programData = await programsService.create(validatedData, userId);
 
-    const program = programsUtils.buildDTO(programData);
+    const program = programsUtil.buildDTO(programData);
 
     res.status(201).json({
       message: "Program created successfully",
       data: program,
     });
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };
@@ -100,22 +101,22 @@ export const updateProgram = async (req: Request, res: Response) => {
     }
 
     const validatedData = programValidation
-    .updateProgramFactorySchema({ toSanitize: true })
-    .parse(req.body);
-    
+      .updateProgramFactorySchema({ toSanitize: true })
+      .parse(req.body);
+
     const programData = await programsService.update(id, validatedData, userId);
 
-    const program = programsUtils.buildDTO(programData);
+    const program = programsUtil.buildDTO(programData);
 
     res.status(200).json({
       message: "Program updated successfully",
       data: program,
     });
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };
@@ -124,17 +125,17 @@ export const deleteProgram = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const program = await programsService.delete(id);
+    const program = await programsService.remove(id);
 
     res.status(200).json({
       message: "Program deleted successfully",
       data: program,
     });
   } catch (error) {
-    const err = AppError.handleResponse(error);
-    res.status(err.status || 500).json({
-      message: err.message || "An unexpected error occurred",
-      errors: err.errors || {},
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
     });
   }
 };

@@ -1,8 +1,9 @@
-import { IProgramDTO } from "../../../../shared/models/program.model";
-import { Prisma } from "../../../prisma/generated/prisma";
 import { userUtil } from "../users/user.util";
 import { workoutUtil } from "../workouts/workout.util";
-import { IProgram, IProgramFilter } from "./programs.models";
+
+import type { IProgramDTO } from "../../../../shared/models/program.model";
+import type { Prisma } from "../../../prisma/generated/prisma";
+import type { IProgram, IProgramFilter } from "./programs.models";
 
 const buildWhereClause = (
   filter: IProgramFilter,

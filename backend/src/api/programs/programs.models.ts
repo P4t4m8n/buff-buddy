@@ -1,6 +1,6 @@
-import { IBaseFilter } from "../../../../shared/models/app.model";
-import { DaysOfWeek } from "../../../prisma/generated/prisma";
-import { IWorkout } from "../workouts/workouts.models";
+import type { IBaseFilter } from "../../../../shared/models/app.model";
+import type { DaysOfWeek } from "../../../prisma/generated/prisma";
+import type { IWorkout } from "../workouts/workouts.models";
 
 export interface IProgramFilter extends IBaseFilter {
   name?: string;

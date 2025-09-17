@@ -1,4 +1,4 @@
-import { Prisma } from "../../../../prisma/generated/prisma";
+import type { Prisma } from "../../../../prisma/generated/prisma";
 import type { TCreateUserCardioSetInput } from "../../../../../shared/validations/userCardioSet.validation";
 
 const getCreateUserCardioSet = (

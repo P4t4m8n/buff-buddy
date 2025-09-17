@@ -1,8 +1,7 @@
-import { DaysOfWeek, Prisma } from "../../../prisma/generated/prisma";
-import { coreCardioSetsSQL } from "../coreSets/coreCardioSets/coreCardioSets.sql";
-import { coreStrengthSetsSQL } from "../coreSets/coreStrengthSets/coreStrengthSets.sql";
 import { userSQL } from "../users/users.sql";
 import { workoutSQL } from "../workouts/workout.sql";
+
+import type { DaysOfWeek, Prisma } from "../../../prisma/generated/prisma";
 import type { TCreateProgramInput } from "../../../../shared/validations/program.validations";
 import type { TCreateProgramWorkoutInput } from "../../../../shared/validations/programWorkout.validations";
 
@@ -58,16 +57,6 @@ const getProgramWorkoutCreate = (
             id: we.exerciseData?.id,
           },
         },
-        coreCardioSet: we.coreCardioSet
-          ? {
-              create: coreCardioSetsSQL.getCreateCoreSets(we.coreCardioSet),
-            }
-          : undefined,
-        coreStrengthSet: we.coreStrengthSet
-          ? {
-              create: coreStrengthSetsSQL.getCreateCoreSets(we.coreStrengthSet),
-            }
-          : undefined,
       })),
     },
   };

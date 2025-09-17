@@ -1,7 +1,5 @@
-import { IExerciseDTO } from "../../../../shared/models/exercise.model";
-import { IExercise } from "../exercises/exercises.models";
-
-import { IUser } from "../users/users.model";
+import type { IExercise } from "../exercises/exercises.models";
+import type { IUser } from "../users/users.model";
 
 export interface IWorkoutExercise {
   id: string;

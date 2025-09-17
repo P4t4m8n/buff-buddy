@@ -1,9 +1,8 @@
-import {
+import type {
   ExerciseEquipment,
   ExerciseMuscle,
   ExerciseType,
 } from "../../../prisma/generated/prisma";
-
 
 export interface IExercise {
   id: string;

@@ -1,18 +1,12 @@
-import {
+import type {
   DaysOfWeek,
   ExerciseType,
 } from "../../backend/prisma/generated/prisma";
-
 import type { IUserDTO } from "./user.model";
 import type { IExerciseDTO } from "./exercise.model";
-import type {
-  ICoreStrengthSetDTO,
-  ICoreStrengthSetEditDTO,
-} from "./strengthSet.model";
 import type { IEntity, IEntityDates } from "./entity.model";
 import type { IBaseFilter, TCrudOperation } from "./app.model";
 import type { IProgramDTO } from "./program.model";
-import type { ICoreCardioSetEditDTO } from "./cardioSet.model";
 
 interface IWorkoutBase extends IEntity, IEntityDates {
   name?: string | null;
@@ -32,7 +26,6 @@ export interface IWorkoutExerciseDTO extends IEntity, IEntityDates {
   exercise?: IExerciseDTO;
   hasWarmUp?: boolean;
   isBodyWeight?: boolean;
-
 }
 
 export interface IWorkoutEditDTO extends IWorkoutBase {
@@ -45,8 +38,6 @@ export interface IWorkoutEditDTO extends IWorkoutBase {
 export interface IWorkoutExerciseEditDTO extends IEntity {
   order?: number;
   notes?: string | null;
-  coreStrengthSet?: ICoreStrengthSetEditDTO;
-  coreCardioSet?: ICoreCardioSetEditDTO;
   exerciseData: {
     id: string;
     type: ExerciseType;

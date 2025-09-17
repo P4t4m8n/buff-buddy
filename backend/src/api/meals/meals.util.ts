@@ -1,9 +1,7 @@
-import { TMealQuery } from "../../../../shared/validations/meal.validations";
-import { MealType, Prisma } from "../../../prisma/generated/prisma";
+import type { TMealQuery } from "../../../../shared/validations/meal.validations";
+import type { MealType, Prisma } from "../../../prisma/generated/prisma";
 
-const buildWhereClause = (
-  filter: TMealQuery,
-): Prisma.MealWhereInput => {
+const buildWhereClause = (filter: TMealQuery): Prisma.MealWhereInput => {
   const where: Prisma.MealWhereInput = {};
 
   if (filter.name) {

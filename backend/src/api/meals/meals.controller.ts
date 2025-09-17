@@ -1,5 +1,3 @@
-import { Request, Response } from "express";
-
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
 
 import { mealsService } from "./meals.service";
@@ -7,6 +5,8 @@ import { AppError } from "../../shared/services/Error.service";
 
 import { mealValidation } from "../../../../shared/validations/meal.validations";
 import { validationUtil } from "../../../../shared/validations/util.validation";
+
+import type { Request, Response } from "express";
 
 export const getMeals = async (req: Request, res: Response) => {
   try {
