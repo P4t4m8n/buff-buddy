@@ -44,6 +44,8 @@ export interface IWorkoutExerciseEditDTO extends IEntity {
   } | null; //For backend relationship
   exercise?: IExerciseDTO; //Exists only on the front to show the exercise details
   crudOperation?: TCrudOperation;
+  hasWarmUp?: boolean;
+  isBodyWeight?: boolean;
 }
 
 export interface IWorkoutExerciseEditSet {

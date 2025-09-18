@@ -2,11 +2,7 @@ import React, { useEffect } from "react";
 
 import { useWorkoutStore } from "../../../store/workout.store";
 import { useErrors } from "../../shared/useErrors";
-import { useAuthStore } from "../../../store/auth.store";
 
-import { workoutStartUtil } from "../../../utils/workoutStart.util";
-
-import { workoutStartService } from "../../../services/userWorkout.service";
 import { localStorageService } from "../../../services/localStorage.service";
 
 import type {
@@ -14,10 +10,10 @@ import type {
   IUserWorkoutEditDTO,
 } from "../../../../../shared/models/userWorkout";
 import type { IDateRange } from "../../../models/calendar.model";
-import type { IUserStrengthSetDTO } from "../../../../../shared/models/strengthSet.model";
-import type { IUserCardioSetDTO } from "../../../../../shared/models/cardioSet.model";
 import type { ExerciseType } from "../../../../../backend/prisma/generated/prisma";
 import type { IHandleUserSetSkipProps } from "../../../models/workoutStart.model";
+import { workoutStartService } from "../../../services/workoutStart.service";
+import { userWorkoutService } from "../../../services/userWorkout.service";
 
 interface IUseWorkoutStartProps {
   workoutId?: string;
@@ -34,31 +30,13 @@ export const useWorkoutStart = ({
     React.useState<IUserWorkoutEditDTO | null>(null);
   const { errors, handleError, clearErrors } = useErrors<IUserWorkoutDTO>();
 
-  const getById = useWorkoutStore((state) => state.getById);
-
   const isLoadingId = useWorkoutStore(
     (state) => state.isLoadingId === workoutId
   );
 
-  const userId = useAuthStore((state) => state.user?.id);
-
   const loadWorkoutStart = async () => {
-    const workout = await getById(workoutId);
-    let lastUserWorkout;
-    try {
-      lastUserWorkout = (await workoutStartService.getLastWorkout(workoutId))
-        .data;
-    } catch (error) {
-      lastUserWorkout = null;
-    }
-
-    const userWorkout = workoutStartUtil.workoutDTOToWorkoutStartDTO(
-      workout,
-      programId,
-      lastUserWorkout,
-      userId
-    );
-    setWorkoutStart(userWorkout);
+    const _workoutStart = await workoutStartService.getWorkoutStart(workoutId);
+    setWorkoutStart(_workoutStart);
     return;
   };
   useEffect(() => {
@@ -74,8 +52,11 @@ export const useWorkoutStart = ({
           return;
         }
 
-        if (localStorageWorkout.workoutId !== workoutId) {
-          console.warn("Workout ID mismatch:", localStorageWorkout.workoutId);
+        if (localStorageWorkout?.workout?.id !== workoutId) {
+          console.warn(
+            "Workout ID mismatch:",
+            localStorageWorkout?.workout?.id
+          );
           await loadWorkoutStart();
           return;
         }
@@ -94,7 +75,7 @@ export const useWorkoutStart = ({
       clearErrors();
       e.preventDefault();
       e.stopPropagation();
-      await workoutStartService.save(workoutStart);
+      await userWorkoutService.save(workoutStart);
       localStorageService.storeSessionData("workoutStart");
       onBack();
     } catch (error) {
@@ -121,7 +102,7 @@ export const useWorkoutStart = ({
     const target = e.target as HTMLInputElement;
     const { name, value, type, checked } = target;
 
-    const [key, id] = name.split("-") as [keyof IUserStrengthSetDTO, string];
+    const [key, id] = name.split("-") as [string, string];
 
     setWorkoutStart((prev) => {
       if (!prev) return null;
@@ -134,15 +115,17 @@ export const useWorkoutStart = ({
         //INFO: if Index exists userStrengthSets is guaranteed to be defined
         const tempUserSet = we.userStrengthSets![idx];
 
+        //TS IS FUN
         switch (type) {
           case "checkbox":
-            tempUserSet[key] = checked as any; //TODO?? I have no idea how to solve this type error;;
+            (tempUserSet as any)[key as keyof typeof tempUserSet] = checked;
             break;
           case "number":
-            tempUserSet[key] = parseFloat(value) as any; //TODO?? I have no idea how to solve this type error;
+            (tempUserSet as any)[key as keyof typeof tempUserSet] =
+              parseFloat(value);
             break;
           default:
-            tempUserSet[key] = value as any; //TODO?? I have no idea how to solve this type error;
+            (tempUserSet as any)[key as keyof typeof tempUserSet] = value;
             break;
         }
 
@@ -173,7 +156,7 @@ export const useWorkoutStart = ({
     e.stopPropagation();
     const target = e.target as HTMLInputElement;
     const { name, value, type, checked } = target;
-    const [key, id] = name.split("-") as [keyof IUserCardioSetDTO, string];
+    const [key, id] = name.split("-") as [string, string];
 
     setWorkoutStart((prev) => {
       if (!prev) return null;
@@ -185,13 +168,14 @@ export const useWorkoutStart = ({
         const tempUserSet = we.userCardioSets![idx]; //INFO: if Index exists userCardioSets is guaranteed to be defined
         switch (type) {
           case "checkbox":
-            tempUserSet[key] = checked as any; //TODO?? I have no idea how to solve this type error;;
+            (tempUserSet as any)[key as keyof typeof tempUserSet] = checked;
             break;
           case "number":
-            tempUserSet[key] = parseFloat(value) as any; //TODO?? I have no idea how to solve this type error;
+            (tempUserSet as any)[key as keyof typeof tempUserSet] =
+              parseFloat(value);
             break;
           default:
-            tempUserSet[key] = value as any; //TODO?? I have no idea how to solve this type error;
+            (tempUserSet as any)[key as keyof typeof tempUserSet] = value;
             break;
         }
 
@@ -364,17 +348,13 @@ export const useWorkoutStart = ({
         if (we.id !== userWorkoutExerciseId) return we;
         const userStrengthSets = we.userStrengthSets?.map((uss) => ({
           ...uss,
-          reps: we.coreStrengthSet?.reps,
-          weight: we.coreStrengthSet?.weight,
+          reps: we.userStrengthSets?.[0]?.goalSet?.reps ?? 10,
+          weight: we.userStrengthSets?.[0]?.goalSet?.weight ?? 10,
           isCompleted: true,
         }));
         const userCardioSets = we.userCardioSets?.map((ucs) => ({
           ...ucs,
-          workTime: we.coreCardioSet?.workTime,
-          avgHeartRate: we.coreCardioSet?.avgHeartRate,
-          avgSpeed: we.coreCardioSet?.avgSpeed,
-          caloriesBurned: we.coreCardioSet?.calorieTarget,
-          distance: we.coreCardioSet?.distance,
+
           isCompleted: true,
           order: ucs.order ?? 1,
         }));

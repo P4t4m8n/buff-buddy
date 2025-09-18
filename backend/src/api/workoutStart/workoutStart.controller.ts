@@ -5,10 +5,15 @@ import { userWorkoutService } from "../userWorkouts/userWorkouts.service";
 import { programsService } from "../programs/programs.service";
 
 import type { Request, Response } from "express";
+import { workoutPlannerService } from "./workoutStart.service";
+import { validationUtil } from "../../../../shared/validations/util.validation";
 
 export const workoutStart = async (req: Request, res: Response) => {
   try {
     const { workoutId } = req.params;
+    const validatedWorkoutId = validationUtil
+      .IDSchemaFactory({ toSanitize: true })
+      .parse(workoutId);
 
     if (!workoutId) {
       throw new AppError("Workout ID is required", 400);
@@ -24,19 +29,21 @@ export const workoutStart = async (req: Request, res: Response) => {
       userWorkoutService.getLastUserWorkouts(workoutId, userId),
       programsService.getProgramWorkout(workoutId),
     ]);
-    if (!userWorkouts) {
-      return res.status(404).json({
-        message: "No workout found for the given ID",
-      });
-    }
+
     if (!programWorkout) {
       return res.status(404).json({
         message: "No Program Workout found for the given ID",
       });
     }
-    console.log("workoutStart ~ programWorkout:", programWorkout);
-    console.log("workoutStart ~ userWorkouts:", userWorkouts);
-    res.status(200);
+
+    const plannedUserWorkout = workoutPlannerService.createUserWorkoutPlan({
+      userWorkouts,
+      programWorkout,
+    });
+    res.status(200).json({
+      message: "Workout start was successfully planed",
+      data: plannedUserWorkout,
+    });
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);
     res.status(status).json({

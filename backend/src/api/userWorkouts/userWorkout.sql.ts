@@ -59,10 +59,10 @@ const USER_WORKOUT_SELECT = {
           },
         },
       },
-      userCardioSet: {
+      userCardioSets: {
         select: userCardioSetsSQL.CORE_CARDIO_SET_SELECT,
       },
-      userStrengthSet: {
+      userStrengthSets: {
         select: userStrengthSetsSQL.CORE_STRENGTH_SET_SELECT,
       },
     },

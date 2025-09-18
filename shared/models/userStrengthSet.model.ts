@@ -3,7 +3,10 @@ import type { IEntity, IEntityDates } from "./entity.model";
 
 export interface IUserStrengthSetDTO extends IEntity, IEntityDates {
   lastSet?: IUserStrengthLastSet | null;
-  goalSet?: IUserStrengthSetDTO | null;
+  goalSet?: {
+    reps: number | null;
+    weight: number | null;
+  } | null;
   reps?: number | null; // Actual number of repetitions performed
   weight?: number | null; // Actual weight lifted in kg
   isWarmup?: boolean; // Indicates if the set was a warmup set
@@ -11,7 +14,7 @@ export interface IUserStrengthSetDTO extends IEntity, IEntityDates {
   isMuscleFailure?: boolean | null; // Indicates if the set was a muscle failure
   isJointPain?: boolean | null; // Indicates if the set was a joint part
   isBodyWeight?: boolean; // Indicates if the set was bodyweight only
-  order?: number|null;
+  order?: number | null;
   skippedReason?: string | null;
 }
 
@@ -24,7 +27,6 @@ interface IUserStrengthLastSet {
 }
 
 export interface IUserStrengthSetEditDTO extends IUserStrengthSetDTO {
-  coreSetId?: string; // Foreign key to CoreSet
   programExerciseId?: string;
   crudOperation?: TCrudOperation;
   order?: number;

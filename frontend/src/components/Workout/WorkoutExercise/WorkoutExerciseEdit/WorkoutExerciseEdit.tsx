@@ -4,8 +4,6 @@ import { toTitle } from "../../../../utils/toTitle";
 import { workoutExerciseValidation } from "../../../../../../shared/validations/workoutExercise.validations";
 
 import WorkoutExerciseEditAddExercise from "./WorkoutExerciseEditAddExercise";
-import WorkoutExerciseCoreCardioSet from "./WorkoutExerciseCoreCardioSet";
-import WorkoutExerciseCoreStrengthSet from "./WorkoutExerciseCoreStrengthSet";
 import WorkoutExerciseEditExerciseSelect from "./WorkoutExerciseEditExerciseSelect";
 
 import SelectWithSearch from "../../../UI/Form/SelectWithSearch/SelectWithSearch";
@@ -15,12 +13,9 @@ import TextArea from "../../../UI/Form/TextArea";
 import Button from "../../../UI/Button";
 import Loader from "../../../UI/loader/Loader";
 
-import type { ExerciseType } from "../../../../../../backend/prisma/generated/prisma";
 import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
 import type { IModelProps } from "../../../../models/UI.model";
-import type { ICoreStrengthSetEditDTO } from "../../../../../../shared/models/strengthSet.model";
-import type { TValidationError } from "../../../../models/errors.model";
-import type { ICoreCardioSetEditDTO } from "../../../../../../shared/models/cardioSet.model";
+import YoutubePlayer from "../../../UI/YoutubePlayer";
 
 interface WorkoutExerciseEditProps extends IModelProps<HTMLDivElement> {
   workoutExercise?: IWorkoutExerciseEditDTO;
@@ -36,15 +31,11 @@ export default function WorkoutExerciseEdit({
   const {
     handleSelectExercise,
     handleInputChange,
-    handleCoreStrengthSetChange,
-    handleCoreCardioSetChange,
     workoutExerciseToEdit,
     exercises,
     resetWorkoutExerciseToEdit,
   } = useWorkoutExerciseEdit(workoutExercise, workoutExerciseLength);
 
-  // const { errors: coreSetsErrors } = useErrors<ICoreStrengthSetDTO>();
-  // const { errors: coreCardioSetsErrors } = useErrors<ICoreCardioSetEditDTO>();
   const { errors: workoutExerciseErrors, handleError } =
     useErrors<IWorkoutExerciseEditDTO>();
 
@@ -104,37 +95,15 @@ export default function WorkoutExerciseEdit({
 
   if (!workoutExerciseToEdit) return <Loader />;
 
-  const { order, notes, exercise, coreStrengthSet, coreCardioSet } =
-    workoutExerciseToEdit;
+  const {
+    order,
+    notes,
+    exercise,
+    isBodyWeight,
+    hasWarmUp,
+    id: WorkoutExerciseId,
+  } = workoutExerciseToEdit;
 
-  const workoutExerciseType = (type?: ExerciseType | null) => {
-    switch (type) {
-      case "cardio":
-        return (
-          <WorkoutExerciseCoreCardioSet
-            coreCardioSet={coreCardioSet}
-            handleChange={handleCoreCardioSetChange}
-            errors={
-              workoutExerciseErrors?.coreCardioSet as unknown as TValidationError<ICoreCardioSetEditDTO>
-            }
-          />
-        );
-      case "strength":
-        return (
-          <WorkoutExerciseCoreStrengthSet
-            coreSet={coreStrengthSet}
-            handleChange={handleCoreStrengthSetChange}
-            errors={
-              workoutExerciseErrors?.coreStrengthSet as unknown as TValidationError<ICoreStrengthSetEditDTO>
-            }
-          />
-        );
-      default:
-        return null;
-    }
-  };
-
-  const isExercise = !!exercise?.id;
   return (
     <div
       ref={modelRef}
@@ -181,6 +150,7 @@ export default function WorkoutExerciseEdit({
             </Label>
           ) : null}
         </TextArea>
+
         <SelectWithSearch
           options={exercises}
           SelectedComponent={
@@ -193,9 +163,58 @@ export default function WorkoutExerciseEdit({
           filterBy={(option) => option.name!}
           error={workoutExerciseErrors?.exerciseData}
         />
+        <div className=" col-span-full grid grid-cols-2 gap-4">
+          <InputWithError
+            divStyle=""
+            inputProps={{
+              name: "hasWarmUp",
+              type: "checkbox",
+              checked: !!hasWarmUp,
+              className: " ",
+              id: "hasWarmUp-" + WorkoutExerciseId,
+              onChange: handleInputChange,
+            }}
+            labelProps={{
+              labelPosition: "input",
+              className: "",
+              htmlFor: "hasWarmUp-" + WorkoutExerciseId,
+              children: "Warm up?:",
+            }}
+            error={workoutExerciseErrors?.hasWarmUp}
+          />
+          <InputWithError
+            divStyle=""
+            inputProps={{
+              name: "isBodyWeight",
+              type: "checkbox",
+              checked: !!isBodyWeight,
+              className: " ",
+              id: "isBodyWeight-" + WorkoutExerciseId,
+              onChange: handleInputChange,
+            }}
+            labelProps={{
+              labelPosition: "input",
+              className: "",
+              htmlFor: "isBodyWeight-" + WorkoutExerciseId,
+              children: "Body Wight?:",
+            }}
+            error={workoutExerciseErrors?.isBodyWeight}
+          />
+        </div>
       </div>
+      {exercise ? (
+        <div
+          className="bg-black-500 border p-4 grid gap-4 rounded w-[calc(100%-1rem)]
+      "
+        >
+          <h3>{toTitle(exercise.name)}</h3>
+          <YoutubePlayer youtubeUrl={exercise.youtubeUrl!} />
+          <p>{toTitle(exercise.muscles?.join(", "))}</p>
+          <p>{toTitle(exercise.equipment?.join(", "))}</p>
+          <p>{toTitle(exercise.type)}</p>
+        </div>
+      ) : null}
 
-      {/* {isExercise ? workoutExerciseType(exercise?.type) : null} */}
       <div className="col-span-full w-full flex justify-between px-4 pb-4 mt-auto">
         <Button buttonStyle="warning" onClick={onCancel}>
           Cancel
@@ -217,4 +236,3 @@ export default function WorkoutExerciseEdit({
     </div>
   );
 }
-

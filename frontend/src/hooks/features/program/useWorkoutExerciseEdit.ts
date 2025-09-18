@@ -1,12 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useExerciseStore } from "../../../store/exercise.store";
 
 import { workoutExerciseUtils } from "../../../utils/workoutExercises.util";
-import { coreCardioSetUtil } from "../../../utils/coreCardioSet";
-import { coreStrengthSetUtil } from "../../../utils/coreStrengthSet.util";
 
 import type { IWorkoutExerciseEditDTO } from "../../../../../shared/models/workout.model";
 import type { IExerciseDTO } from "../../../../../shared/models/exercise.model";
+import { formUtil } from "../../../utils/form.util";
 
 interface IWorkoutExerciseEditHook {
   setWorkoutExerciseToEdit: React.Dispatch<
@@ -14,9 +13,9 @@ interface IWorkoutExerciseEditHook {
   >;
   handleSelectExercise: (exercise: IExerciseDTO) => void;
   filterExercises: (searchValue: string) => IExerciseDTO[];
-  handleInputChange: (e: React.ChangeEvent) => void;
-  handleCoreStrengthSetChange: (e: React.ChangeEvent) => void;
-  handleCoreCardioSetChange: (e: React.ChangeEvent) => void;
+  handleInputChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   resetWorkoutExerciseToEdit: () => void;
   workoutExerciseToEdit: IWorkoutExerciseEditDTO | null;
   exercises: IExerciseDTO[];
@@ -34,7 +33,6 @@ export const useWorkoutExerciseEdit = (
   useEffect(() => {
     resetWorkoutExerciseToEdit();
     loadExercises();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSelectExercise = (exercise: IExerciseDTO) => {
@@ -48,11 +46,7 @@ export const useWorkoutExerciseEdit = (
         },
         exercise: exercise,
       };
-      if (exercise.type === "strength") {
-        tempPrev.coreStrengthSet = coreStrengthSetUtil.getEmpty();
-      } else if (exercise.type === "cardio") {
-        tempPrev.coreCardioSet = coreCardioSetUtil.getEmpty();
-      }
+
       return tempPrev;
     });
   };
@@ -64,54 +58,11 @@ export const useWorkoutExerciseEdit = (
     );
   };
 
-  const handleInputChange = (e: React.ChangeEvent) => {
-    const target = e.target as HTMLInputElement;
-    const { name, value, type } = target;
-
-    setWorkoutExerciseToEdit((prev) => {
-      if (!prev) return null;
-      return type === "number"
-        ? { ...prev, [name]: parseInt(value, 10) }
-        : { ...prev, [name]: value };
-    });
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    formUtil.handleInputChange(e, setWorkoutExerciseToEdit);
   };
-
-  const handleCoreStrengthSetChange = useCallback((e: React.ChangeEvent) => {
-    const target = e.target as HTMLInputElement;
-    const { name, value, type, checked } = target;
-
-    const key = name.split("-")[0];
-
-    setWorkoutExerciseToEdit((prev) => {
-      if (!prev) return null;
-      const updatedCoreSet = {
-        ...prev.coreStrengthSet,
-        weight: key === "isBodyWeight" ? 0 : prev?.coreStrengthSet?.weight ?? 1,
-        [key]: type === "checkbox" ? checked : parseFloat(value),
-      };
-      return {
-        ...prev,
-        coreStrengthSet: updatedCoreSet,
-      };
-    });
-  }, []);
-
-  const handleCoreCardioSetChange = useCallback((e: React.ChangeEvent) => {
-    const target = e.target as HTMLInputElement;
-    const { name, value, type, checked } = target;
-    const key = name.split("-")[0];
-    setWorkoutExerciseToEdit((prev) => {
-      if (!prev) return null;
-      const updatedCoreCardioSet = {
-        ...prev.coreCardioSet,
-        [key]: type === "checkbox" ? checked : parseFloat(value),
-      };
-      return {
-        ...prev,
-        coreCardioSet: updatedCoreCardioSet,
-      };
-    });
-  }, []);
 
   const resetWorkoutExerciseToEdit = () => {
     setWorkoutExerciseToEdit(
@@ -126,8 +77,6 @@ export const useWorkoutExerciseEdit = (
     handleSelectExercise,
     filterExercises,
     handleInputChange,
-    handleCoreStrengthSetChange,
-    handleCoreCardioSetChange,
     resetWorkoutExerciseToEdit,
     workoutExerciseToEdit,
     exercises,

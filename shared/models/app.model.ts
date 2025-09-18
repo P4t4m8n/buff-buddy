@@ -17,6 +17,7 @@ export interface IValidationProps {
   maxLength?: number;
   fieldName?: string;
   toSanitize?: boolean;
+  toLowerCase?: boolean;
 }
 
 export interface IDateValidationProps {

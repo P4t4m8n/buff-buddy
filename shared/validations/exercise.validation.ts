@@ -27,6 +27,7 @@ const YoutubeURLSchema = (toSanitize?: boolean) => {
       minLength: 1,
       maxLength: 255,
       toSanitize,
+      toLowerCase: false,
     })
     .transform((url) => {
       // Normalize YouTube URL format

@@ -10,6 +10,7 @@ import { foodItemRoutes } from "../api/foodItem/foodItem.route";
 import { mealsRoutes } from "../api/meals/meals.routes";
 
 import type { Express, Response } from "express";
+import { workoutPlannerRoutes } from "../api/workoutStart/workoutStart.routes";
 
 const ROUTES = [
   "auth",
@@ -19,6 +20,7 @@ const ROUTES = [
   "user-workouts",
   "food-items",
   "meals",
+  "workout-start",
 ] as const;
 
 type RouteName = (typeof ROUTES)[number];
@@ -31,6 +33,7 @@ const routesMap = new Map<RouteName, Router>([
   ["user-workouts", userWorkoutsRoutes],
   ["food-items", foodItemRoutes],
   ["meals", mealsRoutes],
+  ["workout-start", workoutPlannerRoutes],
 ]);
 
 const apiVersion = process.env.CURRENT_API_VERSION || "1";

@@ -6,27 +6,20 @@ import type { THttpResponse } from "../models/apiService.model";
 import { userWorkoutValidation } from "../../../shared/validations/userWorkout.validations";
 import { apiService } from "./api.service";
 
-export const workoutStartService = {
-  rootPath: "/user-workouts",
+const ROOT_PATH = "user-workouts";
 
-  async save(
-    dto?: IUserWorkoutEditDTO|null
-  ): Promise<THttpResponse<IUserWorkoutDTO>> {
-    const validatedDTO = userWorkoutValidation
-      .createUserWorkoutFactorySchema({ toSanitize: false })
-      .parse(dto);
-      
+const save = async (
+  dto?: IUserWorkoutEditDTO | null
+): Promise<THttpResponse<IUserWorkoutDTO>> => {
+  const validatedDTO = userWorkoutValidation
+    .createUserWorkoutFactorySchema({ toSanitize: false })
+    .parse(dto);
 
-    return await apiService.post<THttpResponse<IUserWorkoutDTO>>(
-      `${this.rootPath}`,
-      validatedDTO
-    );
-  },
-  async getLastWorkout(
-    workoutId?: string
-  ): Promise<THttpResponse<IUserWorkoutDTO | null>> {
-    return await apiService.get<THttpResponse<IUserWorkoutDTO | null>>(
-      `${this.rootPath}/${workoutId}/last/`
-    );
-  },
+  return await apiService.post<THttpResponse<IUserWorkoutDTO>>(
+    `${ROOT_PATH}`,
+    validatedDTO
+  );
+};
+export const userWorkoutService = {
+  save,
 };

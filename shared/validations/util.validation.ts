@@ -33,6 +33,7 @@ const stringSchemaFactory = ({
   maxLength = 100,
   fieldName,
   toSanitize = false,
+  toLowerCase = false,
 }: IValidationProps): ZodType<string> => {
   const sanitizer = createSanitizer(toSanitize);
   return z
@@ -43,7 +44,7 @@ const stringSchemaFactory = ({
     .transform((val) => sanitizer(val))
     .transform((val) => val.trim())
     .transform((val) => val.replace(/\s+/g, " "))
-    .transform((val) => val.toLowerCase())
+    .transform((val) => (toLowerCase ? val.toLowerCase() : val))
     .refine(
       (val) => val.length >= (minLength ?? 0),
       `${fieldName} must be at least ${minLength} characters long`

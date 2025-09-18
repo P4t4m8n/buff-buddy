@@ -1,5 +1,5 @@
-import { userCardioSetsUtils } from "../userSets/userCardioSets/userCardioSets.util";
-import { userStrengthSetsUtils } from "../userSets/userStrengthSets/userStrengthSets.util";
+import { userCardioSetsUtil } from "../userSets/userCardioSets/userCardioSets.util";
+import { userStrengthSetsUtil } from "../userSets/userStrengthSets/userStrengthSets.util";
 import { workoutExerciseUtils } from "../workoutExercise/workoutExercise.util";
 
 import type { IUserWorkout } from "./userWorkouts.model";
@@ -26,10 +26,10 @@ const buildDTO = (data: IUserWorkout): IUserWorkoutDTO => {
         ...workoutExerciseUtils.buildDTO(uw.workoutExercise),
       };
       const userStrengthSets = uw?.userStrengthSets?.map((us) =>
-        userStrengthSetsUtils.buildDTO(us)
+        userStrengthSetsUtil.buildDTO(us)
       );
       const userCardioSets = uw?.userCardioSets?.map((uc) =>
-        userCardioSetsUtils.buildDTO(uc)
+        userCardioSetsUtil.buildDTO(uc)
       );
 
       if (userStrengthSets) uwe.userStrengthSets = userStrengthSets;
