@@ -30,8 +30,14 @@ const create = async (dto: TCreateUserWorkoutInput): Promise<IUserWorkout> => {
     select: userWorkoutSql.USER_WORKOUT_SELECT,
   })) as unknown as IUserWorkout;
 };
+const remove = async (id: string) => {
+  return await prisma.userWorkout.delete({
+    where: { id },
+  });
+};
 
 export const userWorkoutService = {
   getLastUserWorkouts,
   create,
+  remove,
 };

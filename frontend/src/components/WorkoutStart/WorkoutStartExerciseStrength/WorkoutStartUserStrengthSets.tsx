@@ -9,49 +9,22 @@ import WorkoutStartExerciseSkipEdit from "../WorkoutStartExerciseSkipEdit";
 import Button from "../../UI/Button";
 import Input from "../../UI/Form/Input";
 import Label from "../../UI/Form/Label";
-import NumberInputWIthError from "../../UI/Form/NumberInputWIthError";
 import GenericModel from "../../UI/GenericModel";
 
-import type { IUserStrengthSetEditDTO } from "../../../../../shared/models/strengthSet.model";
-import type { TValidationError } from "../../../models/errors.model";
-import type { ExerciseType } from "../../../../../backend/prisma/generated/prisma";
+import type { IUserStrengthSetEditDTO } from "../../../../../shared/models/userStrengthSet.model";
+import type { TWorkoutStartUserSetsProps } from "../../../models/workoutStart.model";
+import GenericList from "../../UI/GenericList";
+import WorkoutStartUserStrengthSetsInput from "./WorkoutStartUserStrengthSetsInput";
 
-interface INumberInput {
-  name: string;
-  value: string | number;
-  label: string;
-  error?: string;
-}
-interface IWorkoutExerciseUserSetProps {
-  item: IUserStrengthSetEditDTO;
-  errors?: TValidationError<IUserStrengthSetEditDTO>;
-  userWorkoutExerciseId?: string;
-  handleUserStrengthSetsChange?: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  handleUserSet: (userSetId?: string, type?: ExerciseType) => void;
-  handleUserSetSkip: ({
-    userWorkoutExerciseId,
-    userSetId,
-    skippedReason,
-  }: {
-    userWorkoutExerciseId: string;
-    userSetId?: string;
-    skippedReason: string;
-  }) => void;
-}
 export default function WorkoutStartUserStrengthSets({
   item: userSet,
   userWorkoutExerciseId,
-  handleUserStrengthSetsChange,
+  handleUserSetsChange,
   handleUserSet,
   handleUserSetSkip,
   errors: serverErrors,
-}: IWorkoutExerciseUserSetProps) {
-  const inputStyle = `rounded w-8 aspect-square  text-center border outline-none`;
-  const divStyle =
-    "inline-flex flex-col-reverse gap-1 items-center  h-full justify-between text-center";
-
+}: TWorkoutStartUserSetsProps<IUserStrengthSetEditDTO>) {
+  console.log("🚀 ~ WorkoutStartUserStrengthSets ~ item:", userSet)
   const {
     id: userSetId,
     reps,
@@ -63,6 +36,7 @@ export default function WorkoutStartUserStrengthSets({
     isWarmup,
     lastSet,
     skippedReason,
+    goalSet,
   } = userSet;
 
   const { errors, handleError, clearErrors } =
@@ -73,58 +47,37 @@ export default function WorkoutStartUserStrengthSets({
     ...errors,
   };
 
+  const setType = "userStrengthSets";
+
   const numberInputs = [
     {
-      name: `reps-${userSetId}`,
+      name: `${setType}-reps-${userSetId}`,
       value: reps || "",
       label: "Reps",
       error: combinedErrors?.reps,
+      goal: goalSet?.reps,
     },
     {
-      name: `weight-${userSetId}`,
+      name: `${setType}-weight-${userSetId}`,
       value: isBodyWeight ? "BW" : weight ?? "",
       label: "Weight",
       error: combinedErrors?.weight,
+      goal: goalSet?.weight,
     },
   ];
 
   const checkboxInputs = [
     {
-      name: `isJointPain-${userSetId}`,
+      name: `${setType}-isJointPain-${userSetId}`,
       value: isJointPain,
       label: "Joint Pain",
     },
     {
-      name: `isMuscleFailure-${userSetId}`,
+      name: `${setType}-isMuscleFailure-${userSetId}`,
       value: isMuscleFailure,
       label: "Muscle Failure",
     },
   ];
-
-  const getNumberInput = (input: INumberInput) => {
-    if (input.value === "BW") {
-      return (
-        <div key={input.label} className={divStyle}>
-          <p className={inputStyle}>{input.value}</p>
-          <h5>{input.label}</h5>
-        </div>
-      );
-    }
-    return (
-      <NumberInputWIthError
-        key={input.name}
-        name={input.name}
-        value={input.value}
-        divStyle={divStyle + ""}
-        className={inputStyle}
-        min={1}
-        onChange={handleUserStrengthSetsChange!}
-        inputId={userSetId}
-        error={input.error}
-        label={input.label}
-      />
-    );
-  };
 
   const onComplete = () => {
     try {
@@ -139,19 +92,22 @@ export default function WorkoutStartUserStrengthSets({
     }
   };
 
-  const completeButtonStyleBase = "col-span-2 w-full text-black";
-
-  const completeButtonStyleComplete = isCompleted ? "bg-success-green" : "";
-
   const completeButtonStyle = twMerge(
-    completeButtonStyleBase,
-    completeButtonStyleComplete
+    "col-span-2 w-full text-black",
+    isCompleted ? "bg-success-green" : ""
   );
 
   return (
     <div className="grid grid-cols-4 gap-x-2 grid-rows-[repeat(3,auto)] gap-y-3 justify-items-center content-between not-last:border-b-2 pb-2 ">
       <WorkoutStartUserStrengthSetsLast {...lastSet} isWarmup={isWarmup} />
-      {numberInputs.map((input) => getNumberInput(input))}
+
+      <GenericList
+        items={numberInputs}
+        ItemComponent={WorkoutStartUserStrengthSetsInput}
+        getKey={(item) => item.name}
+        itemComponentProps={{ handleUserSetsChange, userSetId }}
+        ulStyle="flex w-full col-span-2"
+      />
       {checkboxInputs.map((input) => (
         <Input
           key={input.name}
@@ -161,7 +117,7 @@ export default function WorkoutStartUserStrengthSets({
           checked={!!input.value}
           divStyle=" flex flex-col-reverse gap-1 text-center h-full justify-end "
           className=" cursor-pointer "
-          onChange={handleUserStrengthSetsChange}
+          onChange={handleUserSetsChange}
         >
           <Label htmlFor={input.name}>{input.label}</Label>
         </Input>

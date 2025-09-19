@@ -36,4 +36,5 @@ export interface IProgramWorkout {
   workout: IWorkout;
   level: string;
   workoutGoal: string;
+  programId?: string;
 }

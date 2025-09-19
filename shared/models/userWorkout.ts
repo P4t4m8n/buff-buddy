@@ -25,6 +25,8 @@ export interface IUserWorkoutDTO extends IUserWorkoutBase {
 export interface IUserWorkoutEditDTO extends IUserWorkoutBase {
   ownerId?: string;
   workout?: IWorkoutDTO | null;
+  workoutId?: string;
+  programId?: string;
   userWorkoutExercises: IUserWorkoutExercisesEditDTO[];
 }
 

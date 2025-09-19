@@ -4,27 +4,27 @@ import { twMerge } from "tailwind-merge";
 import { useModel } from "../../hooks/shared/useModel";
 
 import WorkoutStartExerciseItemNotes from "./WorkoutStartExerciseItemNotes";
-import WorkoutStartExerciseCoreSet from "./WorkoutStartExerciseCoreSet";
 import WorkoutStartUserStrengthSets from "./WorkoutStartExerciseStrength/WorkoutStartUserStrengthSets";
 import WorkoutStartUserCardioSets from "./WorkoutStartExerciseCardio/WorkoutStartUserCardioSets";
 import WorkoutStartExerciseVideo from "./WorkoutStartExerciseVideo";
+import WorkoutStartExerciseSkipEdit from "./WorkoutStartExerciseSkipEdit";
 
+import GenericModel from "../UI/GenericModel";
 import Button from "../UI/Button";
 import IconArrow from "../UI/Icons/IconArrow";
 import GenericList from "../UI/GenericList";
 
-import type { IUserCardioSetEditDTO } from "../../../../shared/models/cardioSet.model";
-import type { IUserStrengthSetEditDTO } from "../../../../shared/models/strengthSet.model";
+import type { IUserCardioSetEditDTO } from "../../../../shared/models/userCardioSet.model";
+import type { IUserStrengthSetEditDTO } from "../../../../shared/models/userStrengthSet.model";
 import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
 import type { TValidationError } from "../../models/errors.model";
 import type { IWorkoutStartExerciseItemProps } from "../../models/workoutStart.model";
-import WorkoutStartExerciseSkipEdit from "./WorkoutStartExerciseSkipEdit";
-import GenericModel from "../UI/GenericModel";
 
 function WorkoutStartExerciseItem(props: IWorkoutStartExerciseItemProps) {
   const { isOpen, handleModel } = useModel();
 
-  const { item, completeAllExerciseSets, skipAllExerciseSets } = props;
+  const { item, completeAllExerciseSets, skipAllExerciseSets, ...restProps } =
+    props;
 
   const { userWorkoutExercise, errors } = item;
   const {
@@ -85,24 +85,15 @@ function WorkoutStartExerciseItem(props: IWorkoutStartExerciseItemProps) {
 
         {notes && <WorkoutStartExerciseItemNotes notes={notes} />}
 
-        {/* 
-         // ? INFO: Render core set component based on exercise type
-        */}
-        <WorkoutStartExerciseCoreSet items={exerciseConfig?.coreSetItems} />
-
-        {/**
-         // ? INFO Render user sets list based on exercise type
-         */}
-        <GenericList<
-          IUserCardioSetEditDTO | IUserStrengthSetEditDTO,
-          typeof exerciseConfig.userSetListProps
-        >
+        <GenericList<IUserCardioSetEditDTO | IUserStrengthSetEditDTO, any>
           items={exerciseConfig?.userSetListData ?? []}
           ItemComponent={exerciseConfig.userSetListComponent}
-          itemComponentProps={(_, index) => ({
-            ...(exerciseConfig.userSetListProps as typeof exerciseConfig.userSetListProps),
-            errors: (exerciseConfig.userSetListProps as any)?.errors?.[index],
-          })}
+          itemComponentProps={{
+            ...restProps,
+            userWorkoutExerciseId,
+            errors:
+              errors?.userStrengthSets as TValidationError<IUserStrengthSetEditDTO>,
+          }}
           getKey={(item) => item.id!}
           ulStyle="h-full flex flex-col gap-2"
         />
@@ -154,76 +145,25 @@ const getExerciseConfig = (
   type: ExerciseType,
   props: IWorkoutStartExerciseItemProps
 ) => {
-  const {
-    item,
-    handleUserStrengthSetsChange,
-    handleUserCardioSetsChange,
-    handleUserSet,
-    handleUserSetSkip,
-  } = props;
+  const { item } = props;
 
-  const { userWorkoutExercise, errors } = item ?? {};
-  const {
-    id: userWorkoutExerciseId,
-    coreStrengthSet,
-    userStrengthSets,
-    coreCardioSet,
-    userCardioSets,
-  } = userWorkoutExercise ?? {};
+  const { userWorkoutExercise } = item ?? {};
+  const { userStrengthSets, userCardioSets } = userWorkoutExercise ?? {};
   switch (type) {
     case "strength":
       return {
-        numberOfSets: coreStrengthSet?.numberOfSets,
+        numberOfSets: userStrengthSets?.length,
         userSetListComponent: WorkoutStartUserStrengthSets,
-        userSetListProps: {
-          handleUserStrengthSetsChange,
-          handleUserSet,
-          handleUserSetSkip,
-          userWorkoutExerciseId,
-          errors:
-            errors?.userStrengthSets as TValidationError<IUserStrengthSetEditDTO>,
-        },
         userSetListData: userStrengthSets,
         isFinished: userStrengthSets?.every((set) => set?.isCompleted),
-        coreSetItems: [
-          {
-            name: "Goal Reps",
-            value: coreStrengthSet?.reps || "",
-          },
-          {
-            name: "Goal Weight per Set",
-            value: coreStrengthSet?.isBodyWeight
-              ? "BW"
-              : coreStrengthSet?.weight ?? "",
-          },
-          {
-            name: "Rest Time",
-            value: coreStrengthSet?.restTime || "",
-          },
-        ],
       };
     case "cardio":
       return {
         numberOfSets: 1, //INFO: Cardio is typically one long set
         userSetListComponent: WorkoutStartUserCardioSets,
-        userSetListProps: {
-          handleUserCardioSetsChange,
-          handleUserSet,
-          handleUserSetSkip,
-          userWorkoutExerciseId,
-          errors:
-            errors?.userCardioSets as TValidationError<IUserCardioSetEditDTO>,
-        },
+
         userSetListData: userCardioSets,
         isFinished: userCardioSets?.every((set) => set?.isCompleted),
-        coreSetItems: [
-          { name: "Work Time", value: coreCardioSet?.workTime || "" },
-          { name: "Warmup Time", value: coreCardioSet?.warmupTime || "" },
-          { name: "Calorie Target", value: coreCardioSet?.calorieTarget || "" },
-          { name: "Distance", value: coreCardioSet?.distance || "" },
-          { name: "Avg Speed", value: coreCardioSet?.avgSpeed || "" },
-          { name: "Avg Heart Rate", value: coreCardioSet?.avgHeartRate || "" },
-        ],
       };
     default:
       return null;

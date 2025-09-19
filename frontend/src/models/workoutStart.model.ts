@@ -8,12 +8,10 @@ export interface IWorkoutStartExerciseItemProps {
     errors?: TValidationError<IUserWorkoutExercisesEditDTO>;
   };
 
-  handleUserStrengthSetsChange?: (
+  handleUserSetsChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-  handleUserCardioSetsChange?: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
+
   handleUserSet: (userSetId?: string, type?: ExerciseType) => void;
   completeAllExerciseSets: (id: string) => void;
   skipAllExerciseSets: ({
@@ -29,6 +27,12 @@ export interface IWorkoutStartExerciseItemProps {
   userWorkoutExerciseId?: string;
 }
 
+export type TItemProps = Omit<IWorkoutStartExerciseItemProps, "item">;
+
+export type TWorkoutStartUserSetsProps<T> = TItemProps & {
+  item: T;
+  errors?: TValidationError<T>;
+};
 export interface IHandleUserSetSkipProps {
   userWorkoutExerciseId: string;
   skippedReason: string;

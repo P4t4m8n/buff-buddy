@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
-import { useWorkoutStore } from "../../../store/workout.store";
 import { useErrors } from "../../shared/useErrors";
 
 import { localStorageService } from "../../../services/localStorage.service";
+import { workoutStartService } from "../../../services/workoutStart.service";
+import { userWorkoutService } from "../../../services/userWorkout.service";
 
 import type {
   IUserWorkoutDTO,
@@ -12,8 +13,6 @@ import type {
 import type { IDateRange } from "../../../models/calendar.model";
 import type { ExerciseType } from "../../../../../backend/prisma/generated/prisma";
 import type { IHandleUserSetSkipProps } from "../../../models/workoutStart.model";
-import { workoutStartService } from "../../../services/workoutStart.service";
-import { userWorkoutService } from "../../../services/userWorkout.service";
 
 interface IUseWorkoutStartProps {
   workoutId?: string;
@@ -30,18 +29,19 @@ export const useWorkoutStart = ({
     React.useState<IUserWorkoutEditDTO | null>(null);
   const { errors, handleError, clearErrors } = useErrors<IUserWorkoutDTO>();
 
-  const isLoadingId = useWorkoutStore(
-    (state) => state.isLoadingId === workoutId
-  );
+  const [isLoading, setIsLoading] = useState(false);
 
   const loadWorkoutStart = async () => {
     const _workoutStart = await workoutStartService.getWorkoutStart(workoutId);
     setWorkoutStart(_workoutStart);
     return;
   };
+
   useEffect(() => {
     const init = async () => {
       try {
+        setIsLoading(true);
+
         const localStorageWorkout =
           localStorageService.getSessionData<IUserWorkoutEditDTO>(
             "workoutStart"
@@ -64,22 +64,25 @@ export const useWorkoutStart = ({
         setWorkoutStart(localStorageWorkout);
       } catch (error) {
         handleError({ error, emitToToast: true });
+      } finally {
+        setIsLoading(false);
       }
     };
 
     init();
-  }, [workoutId, programId]);
+  }, [workoutId,programId]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       clearErrors();
       e.preventDefault();
       e.stopPropagation();
+      console.log("🚀 ~ onSubmit ~ workoutStart:", workoutStart);
       await userWorkoutService.save(workoutStart);
       localStorageService.storeSessionData("workoutStart");
       onBack();
     } catch (error) {
-      handleError({ error });
+      handleError({ error, emitToToast: true });
     }
   };
 
@@ -95,109 +98,61 @@ export const useWorkoutStart = ({
     });
   };
 
-  const handleUserStrengthSetsChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    e.stopPropagation();
-    const target = e.target as HTMLInputElement;
-    const { name, value, type, checked } = target;
+  const handleUserSetsChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      e.stopPropagation();
+      const target = e.target as HTMLInputElement;
+      const { name, value, type, checked } = target;
 
-    const [key, id] = name.split("-") as [string, string];
+      const [setType = "userStrengthSets", key, id] = name.split("-") as [
+        "userStrengthSets" | "userCardioSets",
+        string,
+        string
+      ];
 
-    setWorkoutStart((prev) => {
-      if (!prev) return null;
-      const workoutExercises = prev.userWorkoutExercises.map((we) => {
-        //INFO: In case userStrengthSets is undefined, we assume no sets exist
-        const idx = we.userStrengthSets?.findIndex((us) => us.id === id) ?? -1;
-        if (idx < 0) {
-          return we;
-        }
-        //INFO: if Index exists userStrengthSets is guaranteed to be defined
-        const tempUserSet = we.userStrengthSets![idx];
+      setWorkoutStart((prev) => {
+        if (!prev) return null;
+        const workoutExercises = prev.userWorkoutExercises.map((we) => {
+          //INFO: In case userSets is undefined, we assume no sets exist
+          const idx = we[setType]?.findIndex((us) => us.id === id) ?? -1;
+          if (idx < 0) {
+            return we;
+          }
+          //INFO: if Index exists userSets is guaranteed to be defined
+          const tempUserSet = we[setType]![idx];
 
-        //TS IS FUN
-        switch (type) {
-          case "checkbox":
-            (tempUserSet as any)[key as keyof typeof tempUserSet] = checked;
-            break;
-          case "number":
-            (tempUserSet as any)[key as keyof typeof tempUserSet] =
-              parseFloat(value);
-            break;
-          default:
-            (tempUserSet as any)[key as keyof typeof tempUserSet] = value;
-            break;
-        }
+          //TS IS FUN
+          switch (type) {
+            case "checkbox":
+              (tempUserSet as any)[key as keyof typeof tempUserSet] = checked;
+              break;
+            case "number":
+              (tempUserSet as any)[key as keyof typeof tempUserSet] =
+                parseFloat(value);
+              break;
+            default:
+              (tempUserSet as any)[key as keyof typeof tempUserSet] = value;
+              break;
+          }
 
-        //INFO: if we got here, userStrengthSets is guaranteed to be defined
-        const userStrengthSets = we.userStrengthSets!.toSpliced(
-          idx,
-          1,
-          tempUserSet
-        );
-        return {
-          ...we,
-          userStrengthSets,
+          //INFO: if we got here, userSets is guaranteed to be defined
+          const userSets = we[setType]!.toSpliced(idx, 1, tempUserSet);
+          return {
+            ...we,
+            [setType]: userSets,
+          };
+        });
+
+        const returnObj = {
+          ...prev,
+          workoutExercises,
         };
+        localStorageService.storeSessionData("workoutStart", returnObj);
+        return returnObj;
       });
-
-      const returnObj = {
-        ...prev,
-        workoutExercises,
-      };
-      localStorageService.storeSessionData("workoutStart", returnObj);
-      return returnObj;
-    });
-  };
-
-  const handleUserCardioSetsChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    e.stopPropagation();
-    const target = e.target as HTMLInputElement;
-    const { name, value, type, checked } = target;
-    const [key, id] = name.split("-") as [string, string];
-
-    setWorkoutStart((prev) => {
-      if (!prev) return null;
-      const workoutExercises = prev.userWorkoutExercises.map((we) => {
-        const idx = we.userCardioSets?.findIndex((us) => us.id === id) ?? -1; //INFO: In case userCardioSets is undefined, we assume no sets exist
-        if (idx < 0) {
-          return we;
-        }
-        const tempUserSet = we.userCardioSets![idx]; //INFO: if Index exists userCardioSets is guaranteed to be defined
-        switch (type) {
-          case "checkbox":
-            (tempUserSet as any)[key as keyof typeof tempUserSet] = checked;
-            break;
-          case "number":
-            (tempUserSet as any)[key as keyof typeof tempUserSet] =
-              parseFloat(value);
-            break;
-          default:
-            (tempUserSet as any)[key as keyof typeof tempUserSet] = value;
-            break;
-        }
-
-        const userCardioSets = we.userCardioSets!.toSpliced(
-          idx,
-          1,
-          tempUserSet
-        ); //INFO: if we got here, userCardioSets is guaranteed to be defined
-        return {
-          ...we,
-          userCardioSets,
-        };
-      });
-
-      const returnObj = {
-        ...prev,
-        workoutExercises,
-      };
-      localStorageService.storeSessionData("workoutStart", returnObj);
-      return returnObj;
-    });
-  };
+    },
+    []
+  );
 
   const handleUserSetSkip = ({
     userWorkoutExerciseId,
@@ -218,56 +173,28 @@ export const useWorkoutStart = ({
       }
 
       const type = userWorkoutExercise.exercise?.type;
-      let idx;
-      let updatedUserWorkoutExercises;
-      switch (type) {
-        case "strength":
-          idx =
-            userWorkoutExercise.userStrengthSets?.findIndex(
-              (us) => us.id === userSetId
-            ) ?? -1;
-          if (idx < 0) {
-            handleError({
-              error: "User strength set not found",
-              emitToToast: true,
-            });
-            return prev;
-          }
-          //INFO?? if we got here variables must be defined
-          userWorkoutExercise!.userStrengthSets![idx].skippedReason =
-            skippedReason;
-          updatedUserWorkoutExercises = prev?.userWorkoutExercises.map(
-            (uwe) => uwe
-          );
-          return {
-            ...prev,
-            userWorkoutExercises: updatedUserWorkoutExercises ?? [],
-          };
-        case "cardio":
-          idx =
-            userWorkoutExercise.userCardioSets?.findIndex(
-              (us) => us.id === userSetId
-            ) ?? -1;
-          if (idx < 0) {
-            handleError({
-              error: "User cardio set not found",
-              emitToToast: true,
-            });
-            return prev;
-          }
-          //INFO?? if we got here variables must be defined
-          userWorkoutExercise!.userCardioSets![idx].skippedReason =
-            skippedReason;
-          updatedUserWorkoutExercises = prev?.userWorkoutExercises.map(
-            (uwe) => uwe
-          );
-          return {
-            ...prev,
-            userWorkoutExercises: updatedUserWorkoutExercises ?? [],
-          };
-        default:
-          return prev;
+      const setType =
+        type === "strength" ? "userStrengthSets" : "userCardioSets";
+
+      const idx =
+        userWorkoutExercise[setType]?.findIndex((us) => us.id === userSetId) ??
+        -1;
+      if (idx < 0) {
+        handleError({
+          error: "User  set not found",
+          emitToToast: true,
+        });
+        return prev;
       }
+      //INFO?? if we got here variables must be defined
+      userWorkoutExercise[setType]![idx].skippedReason = skippedReason;
+      const updatedUserWorkoutExercises = prev?.userWorkoutExercises.map(
+        (uwe) => uwe
+      );
+      return {
+        ...prev,
+        userWorkoutExercises: updatedUserWorkoutExercises ?? [],
+      };
     });
   };
 
@@ -417,11 +344,10 @@ export const useWorkoutStart = ({
   return {
     errors,
     workoutStart,
-    isLoadingId,
+    isLoading,
     onSubmit,
     handleDateSelect,
-    handleUserStrengthSetsChange,
-    handleUserCardioSetsChange,
+    handleUserSetsChange,
     handleUserSet,
     completeAllExerciseSets,
     skipAllExerciseSets,

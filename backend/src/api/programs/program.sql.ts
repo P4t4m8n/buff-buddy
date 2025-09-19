@@ -13,6 +13,7 @@ const PROGRAM_WORKOUTS_SELECT: Prisma.ProgramWorkoutSelect = {
   workout: {
     select: workoutSQL.WORKOUT_SELECT,
   },
+  programId: true,
 };
 
 const SMALL_PROGRAM_SELECT: Prisma.ProgramSelect = {

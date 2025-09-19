@@ -12,7 +12,7 @@ import Loader from "../../components/UI/loader/Loader";
 import DateInput from "../../components/UI/Form/DateInput/DateInput";
 
 export default function WorkoutStartPage() {
-  const { programId, workoutId } = useParams<{
+  const { workoutId } = useParams<{
     programId?: string;
     workoutId?: string;
   }>();
@@ -22,18 +22,18 @@ export default function WorkoutStartPage() {
   const {
     errors,
     workoutStart,
-    isLoadingId,
+    isLoading,
     onSubmit,
     handleDateSelect,
-    handleUserStrengthSetsChange,
-    handleUserCardioSetsChange,
+    handleUserSetsChange,
     handleUserSet,
     completeAllExerciseSets,
     skipAllExerciseSets,
     handleUserSetSkip,
-  } = useWorkoutStart({ workoutId, programId, onBack });
+  } = useWorkoutStart({ workoutId, onBack });
+  console.log("🚀 ~ WorkoutStartPage ~ errors:", errors);
 
-  if (isLoadingId) {
+  if (isLoading) {
     return <Loader loaderType="screen" />;
   }
 
@@ -41,8 +41,7 @@ export default function WorkoutStartPage() {
   const { name } = workout ?? {};
 
   const listItemProps = {
-    handleUserStrengthSetsChange,
-    handleUserCardioSetsChange,
+    handleUserSetsChange,
     handleUserSet,
     completeAllExerciseSets,
     skipAllExerciseSets,
@@ -52,7 +51,7 @@ export default function WorkoutStartPage() {
   return (
     <form
       onSubmit={onSubmit}
-      className=" h-main overflow-y-auto  grid grid-cols-1 grid-rows-[5.5rem_1fr_2.5rem]
+      className="h-main overflow-y-auto grid grid-cols-1 grid-rows-[5.5rem_1fr_2.5rem]
        gap-4 bg-black-800 pt-mobile"
     >
       <div className="px-mobile">

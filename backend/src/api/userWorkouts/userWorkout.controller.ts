@@ -80,3 +80,14 @@ export const getLastWorkouts = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const deleteUserWorkout = async (req: Request, res: Response) => {
+  try {
+  } catch (error) {
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
+    });
+  }
+};

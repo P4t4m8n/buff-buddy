@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 
 import WorkoutStartExerciseItem from "./WorkoutStartExerciseItem";
 
@@ -9,33 +9,12 @@ import type {
   IUserWorkoutExercisesEditDTO,
 } from "../../../../shared/models/userWorkout";
 import type { TErrors, TValidationError } from "../../models/errors.model";
-import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
-import type { IHandleUserSetSkipProps } from "../../models/workoutStart.model";
-
-interface IItemProps {
-  handleUserStrengthSetsChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  handleUserCardioSetsChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  handleUserSet: (userSetId?: string, type?: ExerciseType) => void;
-  completeAllExerciseSets: (userWorkoutExerciseId: string) => void;
-  skipAllExerciseSets: ({
-    userWorkoutExerciseId,
-    skippedReason,
-  }: Omit<IHandleUserSetSkipProps, "userSetId">) => void;
-  handleUserSetSkip: ({
-    userWorkoutExerciseId,
-    userSetId,
-    skippedReason,
-  }: IHandleUserSetSkipProps) => void;
-}
+import type { TItemProps } from "../../models/workoutStart.model";
 
 interface IWorkoutStartExerciseListProps {
   userWorkoutExercises: IUserWorkoutExercisesEditDTO[];
   errors: TErrors<IUserWorkoutDTO> | null;
-  itemProps: IItemProps;
+  itemProps: TItemProps;
 }
 export default function WorkoutStartExerciseList({
   userWorkoutExercises,
@@ -55,12 +34,13 @@ export default function WorkoutStartExerciseList({
         .sort(
           (a, b) => a.userWorkoutExercise.order! - b.userWorkoutExercise.order!
         ) ?? [],
-    [userWorkoutExercises,errors]
+    [userWorkoutExercises, errors]
   );
 
   const listItemProps = useMemo(() => {
-    return {...itemProps};
+    return { ...itemProps };
   }, [itemProps]);
+
   return (
     <GenericList
       items={sortedWorkoutExercises}

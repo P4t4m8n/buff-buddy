@@ -20,11 +20,13 @@ const BASE_SETS_AMOUNT = 3;
 const createUserWorkoutPlan = ({
   programWorkout,
   userWorkouts,
+  ownerId,
 }: {
   programWorkout: IProgramWorkout;
   userWorkouts?: IUserWorkout[];
+  ownerId?: string;
 }): IUserWorkoutEditDTO => {
-  const { workout, workoutGoal, level } = programWorkout;
+  const { workout, workoutGoal, level, programId } = programWorkout;
 
   const userWorkoutExercises =
     workout?.workoutExercises?.map((workoutExercise) =>
@@ -39,6 +41,9 @@ const createUserWorkoutPlan = ({
   return {
     userWorkoutExercises,
     dateCompleted: new Date(),
+    programId,
+    ownerId,
+    workoutId: workout.id,
     workout: workoutUtil.buildDTO(workout),
   };
 };
@@ -146,7 +151,6 @@ const _createUserStrengthSet = ({
         : goalWeight
         ? goalWeight
         : BASE_MINIMUM_WEIGHT,
-      isBodyWeight,
     },
     id: getTempId(),
     reps: null,

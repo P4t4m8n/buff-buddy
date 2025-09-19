@@ -96,12 +96,12 @@ const getCreateUserWork = (
             id: we.workoutExerciseId,
           },
         },
-        userStrengthSet: {
+        userStrengthSets: {
           create: we.userStrengthSets?.map((us) =>
             userStrengthSetsSQL.getCreateUserStrengthSet(us)
           ),
         },
-        userCardioSet: {
+        userCardioSets: {
           create: we.userCardioSets?.map((uc) =>
             userCardioSetsSQL.getCreateUserCardioSet(uc)
           ),
