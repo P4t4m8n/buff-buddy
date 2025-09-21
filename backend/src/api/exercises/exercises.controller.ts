@@ -78,10 +78,12 @@ export const updateExercise = async (req: Request, res: Response) => {
     const exercise = await exerciseService.update(id, validatedData);
 
     res.status(200).json({
+      message: "Exercise updated successfully",
       data: exercise,
     });
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);
+
     res.status(status).json({
       message,
       errors,

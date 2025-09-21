@@ -6,7 +6,7 @@ import { IAuthSignUpDTO } from "../../../../shared/models/auth.model";
 describe("Exercises API", () => {
   let authToken: string;
   let testUserId: string;
-  const createdExerciseIds: string[] = [];
+  const testExercises: IExerciseDTO[] = [];
 
   beforeAll(async () => {
     const userCredentials: IAuthSignUpDTO = {
@@ -41,10 +41,13 @@ describe("Exercises API", () => {
       expect(res.status).toBe(201);
       const exercise: IExerciseDTO = res.body.data;
       expect(res.body.message).toBe("Exercise created successfully");
+      testExercises.push(exercise);
       expect(exercise).toHaveProperty("id");
-      createdExerciseIds.push(res.body.data.id);
+      testExercises.push(res.body.data.id);
 
-      expect(exercise.name).toBe(newExercise.name?.toLowerCase());
+      expect(exercise.name?.toLowerCase()).toBe(
+        newExercise.name?.toLowerCase()
+      );
       expect(exercise.youtubeUrl).toBe(newExercise.youtubeUrl);
       expect(exercise.type).toBe(newExercise.type);
       expect(exercise.equipment).toEqual(
@@ -54,6 +57,7 @@ describe("Exercises API", () => {
         expect.arrayContaining(newExercise?.muscles ?? [])
       );
     });
+
     it("should reject exercise with invalid youtubeUrl ", async () => {
       const invalidExercise = {
         name: "Invalid Data Exercise",
@@ -71,7 +75,9 @@ describe("Exercises API", () => {
       expect(res.status).toBe(400);
       expect(res.body).toHaveProperty("errors");
       expect(res.body.errors.youtubeUrl).toBeDefined();
+      expect(res.body.errors.youtubeUrl).toBe("Must be a valid URL");
     });
+
     it("should reject exercise with missing required fields", async () => {
       const incompleteExercise = {
         name: "Incomplete Exercise",
@@ -86,10 +92,13 @@ describe("Exercises API", () => {
       expect(res.status).toBe(400);
       expect(res.body).toHaveProperty("errors");
       expect(res.body.errors.youtubeUrl).toMatch("Youtube url is required.");
-      expect(res.body.errors.type).toMatch("Type is required.");
+      expect(res.body.errors.type).toMatch(
+        "Invalid type type only strength, cardio, flexibility, miscellaneous are allowed"
+      );
       expect(res.body.errors.equipment).toMatch("Equipment is required.");
       expect(res.body.errors.muscles).toMatch("Muscles are required.");
     });
+
     it("should reject exercise with missing required type", async () => {
       const incompleteExercise = {
         name: "Incomplete Type Exercise",
@@ -105,9 +114,12 @@ describe("Exercises API", () => {
         .send(incompleteExercise);
 
       expect(res.status).toBe(400);
-      expect(res.body).toHaveProperty("errors");
       expect(res.body.errors.type).toBeDefined();
+      expect(res.body.errors.type).toMatch(
+        "Invalid type type only strength, cardio, flexibility, miscellaneous are allowed"
+      );
     });
+
     it("should reject exercise with missing required muscles", async () => {
       const incompleteExercise = {
         name: "Incomplete Muscles Exercise",
@@ -123,14 +135,23 @@ describe("Exercises API", () => {
         .send(incompleteExercise);
 
       expect(res.status).toBe(400);
-      expect(res.body).toHaveProperty("errors");
+      expect(res.body.message).toBeDefined();
+      expect(res.body.message).toMatch("Validation failed");
+
+      expect(res.body.errors).toBeDefined();
+      expect(res.body.errors["muscles.0"]).toBeDefined();
+      expect(res.body.errors["muscles.1"]).toBeDefined();
+
+      expect(res.body.errors["muscles.0"]).toMatch("Invalid muscles type");
+      expect(res.body.errors["muscles.1"]).toMatch("Invalid muscles type");
     });
+
     it("should reject exercise with missing required equipment", async () => {
       const incompleteExercise = {
         name: "Incomplete Muscles Exercise",
         youtubeUrl: "https://www.youtube.com/watch?v=test12345",
         type: "strength",
-        equipment: ["wall"],
+        equipment: ["wall", "BomB"],
         muscles: ["glutes"],
       };
 
@@ -140,34 +161,194 @@ describe("Exercises API", () => {
         .send(incompleteExercise);
 
       expect(res.status).toBe(400);
+
+      expect(res.body.message).toBeDefined();
+      expect(res.body.message).toMatch("Validation failed");
+
+      expect(res.body.errors).toBeDefined();
+      expect(res.body.errors["equipment.0"]).toBeDefined();
+      expect(res.body.errors["equipment.1"]).toBeDefined();
+
+      expect(res.body.errors["equipment.0"]).toMatch("Invalid equipment type");
+      expect(res.body.errors["equipment.1"]).toMatch("Invalid equipment type");
+    });
+
+    it("should reject exercise with missing credentials", async () => {
+      const newExercise: IExerciseDTO = {
+        name: "Testable Bench Press",
+        youtubeUrl: "https://www.youtube.com/watch?v=test12345",
+        type: "strength",
+        equipment: ["barbell"],
+        muscles: ["chest", "triceps"],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/exercises/edit")
+        .send(newExercise);
+
+      expect(res.status).toBe(401);
+    });
+
+    it("should sanitize HTML tags from exercise name", async () => {
+      const exerciseWithHtml: IExerciseDTO = {
+        name: "<script>alert('xss')</script>Malicious <b>Bench</b> Press",
+        youtubeUrl: "https://www.youtube.com/watch?v=test12345",
+        type: "strength",
+        equipment: ["barbell"],
+        muscles: ["chest", "triceps"],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/exercises/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(exerciseWithHtml);
+
+      expect(res.status).toBe(201);
+      const exercise: IExerciseDTO = res.body.data;
+      testExercises.push(res.body.data);
+
+      // Should strip all HTML tags and normalize whitespace
+      expect(exercise.name).toBe("malicious bench press");
+      // Should not contain any HTML tags
+      expect(exercise.name).not.toMatch(/<[^>]*>/);
+    });
+
+    it("should sanitize HTML tags from exercise name", async () => {
+      const exerciseWithHtmlNotes: IExerciseDTO = {
+        name: '<p>This is a <strong>great</strong> exercise!</p><script>alert("hack")</script>',
+        youtubeUrl: "https://www.youtube.com/watch?v=test12345",
+        type: "strength",
+        equipment: ["barbell"],
+        muscles: ["chest", "triceps"],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/exercises/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(exerciseWithHtmlNotes);
+
+      expect(res.status).toBe(201);
+      const exercise: IExerciseDTO = res.body.data;
+      testExercises.push(res.body.data);
+
+      // Should strip all HTML tags
+      expect(exercise.name).toBe("this is a great exercise!");
+      // Should not contain any HTML tags
+      expect(exercise.name).not.toMatch(/<[^>]*>/);
+    });
+
+    it("should handle multiple whitespace characters in exercise name", async () => {
+      const exerciseWithWhitespace: IExerciseDTO = {
+        name: "   Spaced    Out     Exercise   ",
+        youtubeUrl: "https://www.youtube.com/watch?v=test12345",
+        type: "strength",
+        equipment: ["barbell"],
+        muscles: ["chest", "triceps"],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/exercises/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(exerciseWithWhitespace);
+
+      expect(res.status).toBe(201);
+      const exercise: IExerciseDTO = res.body.data;
+      testExercises.push(res.body.data);
+
+      // Should trim and collapse whitespace
+      expect(exercise.name).toBe("spaced out exercise");
+    });
+
+    it("should sanitize dangerous HTML attributes onerror", async () => {
+      const exerciseWithDangerousHtml: IExerciseDTO = {
+        name: '<img src="x" onerror="alert(1)">Dangerous Exercise',
+        youtubeUrl: "https://www.youtube.com/watch?v=test12345",
+        type: "strength",
+        equipment: ["barbell"],
+        muscles: ["chest", "triceps"],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/exercises/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(exerciseWithDangerousHtml);
+
+      expect(res.status).toBe(201);
+      const exercise: IExerciseDTO = res.body.data;
+      testExercises.push(res.body.data);
+
+      // Should completely strip dangerous HTML
+      expect(exercise.name).toBe("dangerous exercise");
+
+      // Should not contain any HTML tags or attributes
+      expect(exercise.name).not.toMatch(/<[^>]*>/);
+      expect(exercise.name).not.toContain("onerror");
+    });
+
+    it("should sanitize dangerous HTML attributes onclick", async () => {
+      const exerciseWithDangerousHtml: IExerciseDTO = {
+        name: '<div onclick="steal()">Click me</div> Dangerous Exercise',
+        youtubeUrl: "https://www.youtube.com/watch?v=test12345",
+        type: "strength",
+        equipment: ["barbell"],
+        muscles: ["chest", "triceps"],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/exercises/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(exerciseWithDangerousHtml);
+
+      expect(res.status).toBe(201);
+      const exercise: IExerciseDTO = res.body.data;
+      testExercises.push(res.body.data);
+
+      // Should completely strip dangerous HTML
+      expect(exercise.name).toBe("click me dangerous exercise");
+
+      // Should not contain any HTML tags or attributes
+      expect(exercise.name).not.toMatch(/<[^>]*>/);
+      expect(exercise.name).not.toContain("onclick");
+    });
+
+    it("should handle empty strings after sanitization", async () => {
+      const exerciseWithOnlyHtml: IExerciseDTO = {
+        name: "<script></script><style></style>",
+        youtubeUrl: "https://www.youtube.com/watch?v=test12345",
+        type: "strength",
+        equipment: ["barbell"],
+        muscles: ["chest", "triceps"],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/exercises/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(exerciseWithOnlyHtml);
+
+      // Should fail validation because name becomes empty after sanitization
+      expect(res.status).toBe(400);
       expect(res.body).toHaveProperty("errors");
+      expect(res.body.errors.name).toMatch(
+        "Exercise name must be at least 1 characters long"
+      );
     });
   });
 
   describe("GET /api/v1/exercises", () => {
-    beforeAll(async () => {
-      const exercise: IExerciseDTO = {
-        name: "Filter Test Pull-up",
-        youtubeUrl: "https://www.youtube.com/watch?v=filtertest",
-        type: "strength",
-        equipment: ["adjustable_bench"],
-        muscles: ["adductors", "biceps"],
-      };
-      const res = await request(app)
-        .post("/api/v1/exercises/edit")
-        .set("Cookie", `token=${authToken}`)
-        .send(exercise);
-      createdExerciseIds.push(res.body.data.id);
-    });
-
     it("should return all exercises", async () => {
-      const res = await request(app).get("/api/v1/exercises");
+      const res = await request(app)
+        .get("/api/v1/exercises")
+        .set("Cookie", `token=${authToken}`);
+      const exercisesRes = res.body;
       expect(res.status).toBe(200);
-      expect(Array.isArray(res.body)).toBe(true);
+      expect(Array.isArray(exercisesRes)).toBe(true);
+      expect(exercisesRes).toHaveLength(6);
     });
 
     it("should filter exercises by name", async () => {
-      const res = await request(app).get("/api/v1/exercises?name=Pull-up");
+      const res = await request(app)
+        .get("/api/v1/exercises?name=Pull-up")
+        .set("Cookie", `token=${authToken}`);
       expect(res.status).toBe(200);
       expect(
         res.body.every((e: IExerciseDTO) => e.name?.includes("pull-up"))
@@ -175,7 +356,9 @@ describe("Exercises API", () => {
     });
 
     it("should filter exercises by muscle", async () => {
-      const res = await request(app).get("/api/v1/exercises?muscles=biceps");
+      const res = await request(app)
+        .get("/api/v1/exercises?muscles=biceps")
+        .set("Cookie", `token=${authToken}`);
       expect(res.status).toBe(200);
       expect(
         res.body.every((e: IExerciseDTO) => e.muscles?.includes("biceps"))
@@ -183,14 +366,16 @@ describe("Exercises API", () => {
     });
 
     it("should support pagination", async () => {
-      const res = await request(app).get("/api/v1/exercises?skip=1&take=5");
+      const res = await request(app)
+        .get("/api/v1/exercises?skip=1&take=5")
+        .set("Cookie", `token=${authToken}`);
       expect(res.status).toBe(200);
       expect(res.body.length).toBeLessThanOrEqual(5);
     });
   });
 
   describe("GET /api/v1/exercises/:id", () => {
-    let exerciseId: string;
+    let exerciseRes: IExerciseDTO;
     const exercise: IExerciseDTO = {
       name: "Get By ID Test",
       youtubeUrl: "https://www.youtube.com/watch?v=getbyidtest",
@@ -203,15 +388,17 @@ describe("Exercises API", () => {
         .post("/api/v1/exercises/edit")
         .set("Cookie", `token=${authToken}`)
         .send(exercise);
-      exerciseId = res.body.data.id;
+      exerciseRes = res.body.data;
 
-      createdExerciseIds.push(exerciseId);
+      testExercises.push(exerciseRes);
     });
 
     it("should get a single exercise by its ID", async () => {
-      const res = await request(app).get(`/api/v1/exercises/${exerciseId}`);
+      const res = await request(app)
+        .get(`/api/v1/exercises/${exerciseRes.id}`)
+        .set("Cookie", `token=${authToken}`);
       expect(res.status).toBe(200);
-      expect(res.body.data.id).toBe(exerciseId);
+      expect(res.body.data.id).toBe(exerciseRes.id);
       expect(res.body.data.name).toBe("get by id test");
       expect(res.body.data.youtubeUrl).toBe(exercise.youtubeUrl);
       expect(res.body.data.type).toBe("cardio");
@@ -224,51 +411,297 @@ describe("Exercises API", () => {
     });
 
     it("should return 404 for a non-existent exercise ID", async () => {
-      const res = await request(app).get("/api/v1/exercises/non-existent-id");
+      const res = await request(app)
+        .get("/api/v1/exercises/non-existent-id")
+        .set("Cookie", `token=${authToken}`);
       expect(res.status).toBe(404);
     });
   });
 
   describe("PUT /api/v1/exercises/edit/:id", () => {
     let exerciseId: string;
-    const exercise: IExerciseDTO = {
+    const baseExercise: IExerciseDTO = {
       name: "Exercise To Update",
       youtubeUrl: "https://www.youtube.com/watch?v=tobeupdatedTest",
       type: "strength",
       equipment: ["dumbbell"],
       muscles: ["adductors"],
     };
+
     beforeEach(async () => {
       const res = await request(app)
         .post("/api/v1/exercises/edit")
         .set("Cookie", `token=${authToken}`)
-        .send(exercise);
+        .send(baseExercise);
       exerciseId = res.body.data.id;
-      createdExerciseIds.push(exerciseId);
+    });
+    afterEach(async () => {
+      if (!exerciseId) return;
+      await request(app)
+        .delete(`/api/v1/exercises/${exerciseId}`)
+        .set("Cookie", `token=${authToken}`);
     });
 
-    it("should update an existing exercise", async () => {
+    it("should update exercise name successfully", async () => {
       const updateData: Partial<IExerciseDTO> = {
         name: "Updated Exercise Name",
-        muscles: ["hip_flexors", "triceps"],
       };
+
       const res = await request(app)
         .put(`/api/v1/exercises/edit/${exerciseId}`)
         .set("Cookie", `token=${authToken}`)
         .send(updateData);
 
-      expect(res.body.data.name).toBe(updateData.name?.toLowerCase());
+      expect(res.status).toBe(200);
+      expect(res.body.message).toBe("Exercise updated successfully");
+      expect(res.body.data.name).toBe("updated exercise name");
+      expect(res.body.data.id).toBe(exerciseId);
+    });
+
+    it("should update exercise muscles successfully", async () => {
+      const updateData: Partial<IExerciseDTO> = {
+        muscles: ["hip_flexors", "triceps"],
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/exercises/edit/${exerciseId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
       expect(res.body.data.muscles).toEqual(
-        expect.arrayContaining(updateData?.muscles ?? [])
+        expect.arrayContaining(updateData.muscles ?? [])
+      );
+      expect(res.body.data.name).toBe(baseExercise.name?.toLowerCase());
+      expect(res.body.data.type).toBe(baseExercise.type);
+    });
+
+    it("should update exercise equipment successfully", async () => {
+      const updateData: Partial<IExerciseDTO> = {
+        equipment: ["barbell", "adjustable_bench"],
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/exercises/edit/${exerciseId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.equipment).toEqual(
+        expect.arrayContaining(updateData.equipment ?? [])
+      );
+      expect(res.body.data.name).toBe(baseExercise.name?.toLowerCase());
+      expect(res.body.data.muscles).toEqual(
+        expect.arrayContaining(baseExercise.muscles ?? [])
       );
     });
 
+    it("should update exercise type successfully", async () => {
+      const updateData: Partial<IExerciseDTO> = {
+        type: "cardio",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/exercises/edit/${exerciseId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.type).toBe("cardio");
+      expect(res.body.data.name).toBe(baseExercise.name?.toLowerCase());
+      expect(res.body.data.equipment).toEqual(
+        expect.arrayContaining(baseExercise.equipment ?? [])
+      );
+    });
+
+    it("should update exercise YouTube URL successfully", async () => {
+      const updateData: Partial<IExerciseDTO> = {
+        youtubeUrl: "https://www.youtube.com/watch?v=newvideo123",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/exercises/edit/${exerciseId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.youtubeUrl).toBe(updateData.youtubeUrl);
+      expect(res.body.data.name).toBe(baseExercise.name?.toLowerCase());
+      expect(res.body.data.type).toBe(baseExercise.type);
+    });
+
+    it("should update multiple fields at once", async () => {
+      const updateData: Partial<IExerciseDTO> = {
+        name: "Completely Updated Exercise",
+        type: "flexibility",
+        muscles: ["hamstrings", "calves"],
+        equipment: ["yoga_mat"],
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/exercises/edit/${exerciseId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.name).toBe("completely updated exercise");
+      expect(res.body.data.type).toBe("flexibility");
+      expect(res.body.data.muscles).toEqual(
+        expect.arrayContaining(updateData.muscles ?? [])
+      );
+      expect(res.body.data.equipment).toEqual(
+        expect.arrayContaining(updateData.equipment ?? [])
+      );
+    });
+
+    it("should sanitize HTML in updated exercise name", async () => {
+      const updateData: Partial<IExerciseDTO> = {
+        name: "<script>alert('hack')</script>Updated <b>Exercise</b>",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/exercises/edit/${exerciseId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.name).toBe("updated exercise");
+      expect(res.body.data.name).not.toMatch(/<[^>]*>/);
+    });
+
+    it("should reject update with invalid YouTube URL", async () => {
+      const updateData: Partial<IExerciseDTO> = {
+        youtubeUrl: "not-a-valid-url",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/exercises/edit/${exerciseId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(400);
+      expect(res.body).toHaveProperty("errors");
+      expect(res.body.errors.youtubeUrl).toBe("Must be a valid URL");
+    });
+
+    it("should reject update with invalid exercise type", async () => {
+      const updateData = {
+        type: "invalid-type",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/exercises/edit/${exerciseId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors.type).toMatch(
+        "Invalid type type only strength, cardio, flexibility, miscellaneous are allowed"
+      );
+    });
+
+    it("should reject update with invalid muscles", async () => {
+      const updateData = {
+        muscles: ["invalid-muscle", "another-invalid"],
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/exercises/edit/${exerciseId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors["muscles.0"]).toMatch("Invalid muscles type");
+      expect(res.body.errors["muscles.1"]).toMatch("Invalid muscles type");
+    });
+
+    it("should reject update with invalid equipment", async () => {
+      const updateData = {
+        equipment: ["invalid-equipment", "another-invalid"],
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/exercises/edit/${exerciseId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors["equipment.0"]).toMatch("Invalid equipment type");
+      expect(res.body.errors["equipment.1"]).toMatch("Invalid equipment type");
+    });
+
+    it("should normalize YouTube URLs on update", async () => {
+      const updateData: Partial<IExerciseDTO> = {
+        youtubeUrl: "https://youtu.be/newvideo456",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/exercises/edit/${exerciseId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.youtubeUrl).toBe(
+        "https://www.youtube.com/watch?v=newvideo456"
+      );
+    });
+
+    it("should handle whitespace normalization on update", async () => {
+      const updateData: Partial<IExerciseDTO> = {
+        name: "   Updated    Exercise   Name   ",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/exercises/edit/${exerciseId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.name).toBe("updated exercise name");
+    });
+
     it("should return 400 for updating a non-existent exercise", async () => {
+      const updateData: Partial<IExerciseDTO> = {
+        name: "This will fail",
+      };
+
       const res = await request(app)
         .put("/api/v1/exercises/edit/non-existent-id")
         .set("Cookie", `token=${authToken}`)
-        .send({ name: "This will fail" });
+        .send(updateData);
+
+      expect(res.status).toBe(404);
+      expect(res.body.message).toMatch(
+        "Exercise - No record was found for an update"
+      );
+    });
+
+    it("should reject update with missing credentials", async () => {
+      const updateData: Partial<IExerciseDTO> = {
+        name: "This will fail without auth",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/exercises/edit/${exerciseId}`)
+        .send(updateData);
+
+      expect(res.status).toBe(401);
+    });
+
+    it("should reject update with empty name after sanitization", async () => {
+      const updateData: Partial<IExerciseDTO> = {
+        name: "<script></script><style></style>",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/exercises/edit/${exerciseId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
       expect(res.status).toBe(400);
+      expect(res.body.errors.name).toMatch(
+        "Exercise name must be at least 1 characters long"
+      );
     });
   });
 
@@ -293,7 +726,9 @@ describe("Exercises API", () => {
       expect(deleteRes.status).toBe(200);
       expect(deleteRes.body.message).toBe("Exercise deleted successfully");
 
-      const getRes = await request(app).get(`/api/v1/exercises/${exerciseId}`);
+      const getRes = await request(app)
+        .get(`/api/v1/exercises/${exerciseId}`)
+        .set("Cookie", `token=${authToken}`);
       expect(getRes.status).toBe(404);
     });
 
@@ -301,12 +736,13 @@ describe("Exercises API", () => {
       const res = await request(app)
         .delete("/api/v1/exercises/non-existent-id")
         .set("Cookie", `token=${authToken}`);
-      expect(res.status).toBe(400);
+      expect(res.status).toBe(404);
     });
   });
 
   afterAll(async () => {
-    for (const id of createdExerciseIds) {
+    for (const { id } of testExercises) {
+      if (!id) return;
       await request(app)
         .delete(`/api/v1/exercises/${id}`)
         .set("Cookie", `token=${authToken}`)
