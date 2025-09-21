@@ -1,5 +1,13 @@
 import type { IBaseFilter } from "../../../../shared/models/app.model";
-import type { DaysOfWeek } from "../../../prisma/generated/prisma";
+import {
+  TWorkoutGoal,
+  TWorkoutLevel,
+} from "../../../../shared/models/program.model";
+import type {
+  DaysOfWeek,
+  WorkoutGoal,
+  WorkoutLevel,
+} from "../../../prisma/generated/prisma";
 import type { IWorkout } from "../workouts/workouts.models";
 
 export interface IProgramFilter extends IBaseFilter {
@@ -33,8 +41,8 @@ export interface IProgram extends IProgramBase {
 export interface IProgramWorkout {
   id: string;
   daysOfWeek: DaysOfWeek[];
-  workout: IWorkout;
-  level: string;
-  workoutGoal: string;
+  workout: IWorkout | null;
+  level: WorkoutLevel;
+  workoutGoal: WorkoutGoal;
   programId?: string;
 }

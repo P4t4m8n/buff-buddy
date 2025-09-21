@@ -30,7 +30,7 @@ const buildDTO = (program: IProgram | null): IProgramDTO => ({
   owner: userUtil.toSmallDTO(program?.owner),
   programWorkouts: (program?.programWorkouts ?? []).map((pw) => ({
     ...pw,
-    workout: workoutUtil.buildDTO(pw.workout),
+    workout: workoutUtil.buildDTO(pw.workout!),
   })),
 });
 

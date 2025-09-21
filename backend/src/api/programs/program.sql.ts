@@ -2,8 +2,13 @@ import { userSQL } from "../users/users.sql";
 import { workoutSQL } from "../workouts/workout.sql";
 
 import type { DaysOfWeek, Prisma } from "../../../prisma/generated/prisma";
-import type { TCreateProgramInput } from "../../../../shared/validations/program.validations";
+import type {
+  TCreateProgramInput,
+  TUpdateProgramInput,
+} from "../../../../shared/validations/program.validations";
 import type { TCreateProgramWorkoutInput } from "../../../../shared/validations/programWorkout.validations";
+import { dbUtil } from "../../shared/utils/db.util";
+import { TCreateWorkoutInput } from "../../../../shared/validations/workout.validations";
 
 const PROGRAM_WORKOUTS_SELECT: Prisma.ProgramWorkoutSelect = {
   id: true,
@@ -23,12 +28,12 @@ const SMALL_PROGRAM_SELECT: Prisma.ProgramSelect = {
   isActive: true,
   startDate: true,
   endDate: true,
-};
-const PROGRAM_SELECT: Prisma.ProgramSelect = {
-  ...SMALL_PROGRAM_SELECT,
   ownerId: true,
   createdAt: true,
   updatedAt: true,
+};
+const PROGRAM_SELECT = {
+  ...SMALL_PROGRAM_SELECT,
   owner: {
     select: userSQL.SMALL_USER_SELECT,
   },
@@ -94,9 +99,69 @@ const getProgramCreate = (
   };
 };
 
+const getProgramUpdate = ({
+  dto,
+  userId,
+}: {
+  dto: TUpdateProgramInput;
+  userId: string;
+}) => {
+  const programData = dbUtil.cleanData({
+    name: dto.name,
+    notes: dto.notes,
+    isActive: dto.isActive,
+    startDate: dto.startDate,
+    endDate: dto.endDate,
+  });
+
+  const workoutsToCreate =
+    dto.programWorkouts?.filter((wo) => wo?.crudOperation === "create") ?? [];
+
+  const workoutsToUpdate =
+    dto.programWorkouts?.filter((wo) => wo?.crudOperation === "update") ?? [];
+
+  const workoutsToDelete =
+    dto.programWorkouts?.filter((wo) => wo?.crudOperation === "delete") ?? [];
+  return {
+    ...programData,
+    programWorkouts: {
+      delete: workoutsToDelete.map((wo) => ({ id: wo?.id })),
+
+      create: workoutsToCreate.map((wo) => ({
+        daysOfWeek: wo?.daysOfWeek as DaysOfWeek[],
+        workout: {
+          connectOrCreate: {
+            where: { id: wo?.workout?.id },
+            create: workoutSQL.getWorkoutCreate(
+              wo?.workout as TCreateWorkoutInput,
+              userId
+            ),
+          },
+        },
+      })),
+      update: workoutsToUpdate.map((wo) => ({
+        where: { id: wo?.id! },
+        data: {
+          daysOfWeek: wo?.daysOfWeek as DaysOfWeek[],
+          workout: {
+            connectOrCreate: {
+              where: { id: wo?.workout?.id },
+              create: workoutSQL.getWorkoutCreate(
+                wo?.workout as TCreateWorkoutInput,
+                userId
+              ),
+            },
+          },
+        },
+      })),
+    },
+  };
+};
+
 export const programsSQL = {
   SMALL_PROGRAM_SELECT,
   PROGRAM_SELECT,
   PROGRAM_WORKOUTS_SELECT,
   getProgramCreate,
+  getProgramUpdate,
 };
