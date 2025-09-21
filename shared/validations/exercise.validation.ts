@@ -7,17 +7,32 @@ import {
   EXERCISE_MUSCLES,
   EXERCISE_TYPES,
 } from "../consts/exercise.consts";
+import { TExerciseInfo } from "../models/exercise.model";
+
+/*
+ * INFO: In case the enums arr is not long return
+ * the allowed type otherwise just return invalid
+ * to prevent error UI to be to big and confusing
+ */
+const getExerciseEnumError = (
+  enumArr: readonly string[],
+  type: TExerciseInfo
+): string => {
+  return enumArr.length <= 4
+    ? `Invalid ${type} type only ${enumArr.join(", ")} are allowed`
+    : `Invalid ${type} type`;
+};
 
 const ExerciseMuscleSchema = z.enum(EXERCISE_MUSCLES, {
-  required_error: "Muscles are required.",
+  message: getExerciseEnumError(EXERCISE_MUSCLES, "muscles"),
 });
 
 const ExerciseEquipmentSchema = z.enum(EXERCISE_EQUIPMENT, {
-  required_error: "Equipment is required.",
+  message: getExerciseEnumError(EXERCISE_EQUIPMENT, "equipment"),
 });
 
 const ExerciseTypeSchema = z.enum(EXERCISE_TYPES, {
-  required_error: "Type is required.",
+  message: getExerciseEnumError(EXERCISE_TYPES, "type"),
 });
 
 const YoutubeURLSchema = (toSanitize?: boolean) => {

@@ -1,5 +1,5 @@
 import { ZodError } from "zod";
-import  { Prisma } from "../../../prisma/generated/prisma";
+import { Prisma } from "../../../prisma/generated/prisma";
 
 export class AppError extends Error {
   public readonly status: number;
@@ -40,7 +40,6 @@ export class AppError extends Error {
       isOperational,
       validationErrors
     );
-    console.error(newError);
     return newError;
   }
 
@@ -65,19 +64,35 @@ export class AppError extends Error {
     }
     // Handle Prisma errors
     else if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      //Unique constraint failed
-      if (error.code === "P2002") {
-        returnError.status = 409;
-        returnError.message = "A record with this value already exists.";
-        returnError.validationErrors = {};
-        if (Array.isArray(error.meta?.target)) {
-          for (const field of error.meta.target) {
-            returnError.validationErrors[field] = "This value must be unique.";
+      const { code } = error;
+      switch (code) {
+        //Unique constraint failed
+        case "P2002": {
+          returnError.status = 409;
+          returnError.message = "A record with this value already exists.";
+          returnError.validationErrors = {};
+          if (Array.isArray(error.meta?.target)) {
+            for (const field of error.meta.target) {
+              returnError.validationErrors[field] =
+                "This value must be unique.";
+            }
           }
+          break;
         }
-      } else {
-        returnError.status = 400;
-        returnError.message = error.message || "Database error";
+        //No record was found for an update
+
+        case "P2025": {
+          returnError.status = 404;
+          returnError.message = `${error?.meta?.modelName ?? "Model"} - ${
+            error?.meta?.cause ?? ""
+          }`;
+          break;
+        }
+        default: {
+          returnError.status = 400;
+          returnError.message = error.message || "Database error";
+          break;
+        }
       }
     }
     // Handle custom AppError

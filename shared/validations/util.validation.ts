@@ -33,7 +33,7 @@ const stringSchemaFactory = ({
   maxLength = 100,
   fieldName,
   toSanitize = false,
-  toLowerCase = false,
+  toLowerCase = true,
 }: IValidationProps): ZodType<string> => {
   const sanitizer = createSanitizer(toSanitize);
   return z

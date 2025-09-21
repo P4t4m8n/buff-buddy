@@ -99,7 +99,7 @@ export default function WorkoutEdit({
     });
   };
 
-  const workoutExerciseLength = (cleanedWorkoutExercises?.length || 0) + 1;
+  const workoutExerciseLength = (cleanedWorkoutExercises?.length ?? 0) + 1;
   return (
     <form
       onSubmit={onSubmit}

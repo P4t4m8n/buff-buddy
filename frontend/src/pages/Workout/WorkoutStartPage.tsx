@@ -31,7 +31,6 @@ export default function WorkoutStartPage() {
     skipAllExerciseSets,
     handleUserSetSkip,
   } = useWorkoutStart({ workoutId, onBack });
-  console.log("🚀 ~ WorkoutStartPage ~ errors:", errors);
 
   if (isLoading) {
     return <Loader loaderType="screen" />;

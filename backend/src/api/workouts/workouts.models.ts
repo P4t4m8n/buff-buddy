@@ -8,6 +8,7 @@ export interface IWorkoutExercise {
   exercise: IExercise;
   hasWarmUp?: boolean;
   isBodyWeight?: boolean;
+  restTime?: number | null;
 }
 
 export interface IWorkoutBase {

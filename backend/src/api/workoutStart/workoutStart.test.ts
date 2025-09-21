@@ -10,11 +10,17 @@ import {
   IWorkoutDTO,
   IWorkoutEditDTO,
 } from "../../../../shared/models/workout.model";
+import {
+  IUserWorkoutDTO,
+  IUserWorkoutEditDTO,
+} from "../../../../shared/models/userWorkout";
 
 describe("WorkoutPlanner API", () => {
   const testWorkouts: IWorkoutDTO[] = [];
-  const testExercises: IExerciseDTO[] = [];
+  const testCardioExercises: IExerciseDTO[] = [];
+  const testStrengthExercises: IExerciseDTO[] = [];
   const testPrograms: IProgramDTO[] = [];
+  const testUserWorkouts: IUserWorkoutDTO[] = [];
   let testUserId: string;
   let authToken: string;
 
@@ -32,14 +38,7 @@ describe("WorkoutPlanner API", () => {
     testUserId = userRes.body.data.id;
     authToken = userRes.headers["set-cookie"][0].split(";")[0].split("=")[1];
 
-    const exercises: IExerciseDTO[] = [
-      {
-        name: "cardio 1",
-        youtubeUrl: "https://www.youtube.com/watch?v=_l3ySVKYVJ8",
-        type: "cardio",
-        equipment: ["cable_machine"],
-        muscles: ["chest", "triceps", "abductors"],
-      },
+    const strengthExercises: IExerciseDTO[] = [
       {
         name: "strength 1",
         youtubeUrl: "https://www.youtube.com/watch?v=Dy28eq2PjcM",
@@ -55,21 +54,45 @@ describe("WorkoutPlanner API", () => {
         muscles: ["biceps", "forearms"],
       },
       {
-        name: "cardio 2",
-        youtubeUrl: "https://www.youtube.com/watch?v=pSHjTRCQxIw",
-        type: "cardio",
-        equipment: ["air_bike"],
-        muscles: ["triceps", "abs", "rotator_cuff"],
+        name: "strength 3",
+        youtubeUrl: "https://www.youtube.com/watch?v=Dy28vbdq2PjcM",
+        type: "strength",
+        equipment: ["barbell"],
+        muscles: ["quads", "glutes", "hamstrings", "lower_back"],
+      },
+      {
+        name: "strength 4",
+        youtubeUrl: "https://www.youtube.com/watch?v=ykJmrZ5gfdv0Oo",
+        type: "strength",
+        equipment: ["dumbbell"],
+        muscles: ["biceps", "forearms"],
       },
     ];
 
-    for (const exercise of exercises) {
+    // const cardioExercises: IExerciseDTO[] = [
+    //   {
+    //     name: "cardio 1",
+    //     youtubeUrl: "https://www.youtube.com/watch?v=_l3ySVKYVJ8",
+    //     type: "cardio",
+    //     equipment: ["cable_machine"],
+    //     muscles: ["chest", "triceps", "abductors"],
+    //   },
+    //   {
+    //     name: "cardio 2",
+    //     youtubeUrl: "https://www.youtube.com/watch?v=pSHjTRCQxIw",
+    //     type: "cardio",
+    //     equipment: ["air_bike"],
+    //     muscles: ["triceps", "abs", "rotator_cuff"],
+    //   },
+    // ];
+
+    for (const exercise of strengthExercises) {
       const exerciseRes = await request(app)
         .post("/api/v1/exercises/edit")
         .set("Cookie", `token=${authToken}`)
         .send(exercise);
       if (exerciseRes.body.data.id) {
-        testExercises.push(exerciseRes.body.data);
+        testStrengthExercises.push(exerciseRes.body.data);
       }
     }
 
@@ -83,107 +106,107 @@ describe("WorkoutPlanner API", () => {
             order: 1,
             notes: "First exercise 1",
             exerciseData: {
-              type: testExercises[0].type ?? "strength",
-              id: testExercises[0].id!,
+              type: testStrengthExercises[0].type ?? "strength",
+              id: testStrengthExercises[0].id!,
             },
             crudOperation: "create",
             isBodyWeight: true,
-            hasWarmUp: true,
+            hasWarmup: true,
           },
-          {
-            order: 2,
-            notes: "2nd exercise 1",
-            exerciseData: {
-              type: testExercises[1].type ?? "strength",
-              id: testExercises[1].id!,
-            },
-            crudOperation: "create",
-          },
+          // {
+          //   order: 2,
+          //   notes: "2nd exercise 1",
+          //   exerciseData: {
+          //     type: testStrengthExercises[1].type ?? "strength",
+          //     id: testStrengthExercises[1].id!,
+          //   },
+          //   crudOperation: "create",
+          // },
         ],
       },
-      {
-        name: "Full Body Test Workout 2 ",
-        notes: "A workout for testing purposes.",
-        crudOperation: "create",
-        workoutExercises: [
-          {
-            order: 1,
-            notes: "First exercise 2",
-            exerciseData: {
-              type: testExercises[3].type!,
-              id: testExercises[3].id!,
-            },
-            crudOperation: "create",
-          },
-          {
-            order: 2,
-            notes: "2nd exercise 2",
-            exerciseData: {
-              type: testExercises[1].type!,
-              id: testExercises[1].id!,
-            },
-            crudOperation: "create",
-            isBodyWeight: true,
-            hasWarmUp: true,
-          },
-        ],
-      },
-      {
-        name: "Full Body Test Workout 3",
-        notes: "A workout for testing purposes.",
-        crudOperation: "create",
-        workoutExercises: [
-          {
-            order: 1,
-            notes: "First exercise 4",
-            exerciseData: {
-              type: testExercises[3].type!,
-              id: testExercises[3].id!,
-            },
-            crudOperation: "create",
-            isBodyWeight: true,
-            hasWarmUp: true,
-          },
-          {
-            order: 2,
-            notes: "2nd exercise 3",
-            exerciseData: {
-              type: testExercises[2].type!,
-              id: testExercises[2].id!,
-            },
-            crudOperation: "create",
-            isBodyWeight: true,
-            hasWarmUp: true,
-          },
-        ],
-      },
-      {
-        name: "Full Body Test Workout 4",
-        notes: "A workout for testing purposes.",
-        crudOperation: "create",
-        workoutExercises: [
-          {
-            order: 1,
-            notes: "First exercise",
-            exerciseData: {
-              type: testExercises[0].type!,
-              id: testExercises[0].id!,
-            },
-            crudOperation: "create",
-            isBodyWeight: true,
-            hasWarmUp: true,
-          },
-          {
-            order: 2,
-            notes: "2nd exercise 4",
-            exerciseData: {
-              type: testExercises[2].type!,
-              id: testExercises[2].id!,
-            },
-            crudOperation: "create",
-          },
-        ],
-      },
+      // {
+      //   name: "Full Body Test Workout 2 ",
+      //   notes: "A workout for testing purposes.",
+      //   crudOperation: "create",
+      //   workoutExercises: [
+      //     {
+      //       order: 1,
+      //       notes: "First exercise 2",
+      //       exerciseData: {
+      //         type: testStrengthExercises[3].type!,
+      //         id: testStrengthExercises[3].id!,
+      //       },
+      //       crudOperation: "create",
+      //     },
+      //     {
+      //       order: 2,
+      //       notes: "2nd exercise 2",
+      //       exerciseData: {
+      //         type: testStrengthExercises[1].type!,
+      //         id: testStrengthExercises[1].id!,
+      //       },
+      //       crudOperation: "create",
+      //       isBodyWeight: true,
+      //       hasWarmup: true,
+      //     },
+      //   ],
+      // },
+      // {
+      //   name: "Full Body Test Workout 3",
+      //   notes: "A workout for testing purposes.",
+      //   crudOperation: "create",
+      //   workoutExercises: [
+      //     {
+      //       order: 1,
+      //       notes: "First exercise 4",
+      //       exerciseData: {
+      //         type: testStrengthExercises[3].type!,
+      //         id: testStrengthExercises[3].id!,
+      //       },
+      //       crudOperation: "create",
+      //       isBodyWeight: true,
+      //       hasWarmup: true,
+      //     },
+      //     {
+      //       order: 2,
+      //       notes: "2nd exercise 3",
+      //       exerciseData: {
+      //         type: testStrengthExercises[2].type!,
+      //         id: testStrengthExercises[2].id!,
+      //       },
+      //       crudOperation: "create",
+      //       isBodyWeight: true,
+      //       hasWarmup: true,
+      //     },
+      //   ],
+      // },
+      // {
+      //   name: "Full Body Test Workout 4",
+      //   notes: "A workout for testing purposes.",
+      //   crudOperation: "create",
+      //   workoutExercises: [
+      //     {
+      //       order: 1,
+      //       notes: "First exercise",
+      //       exerciseData: {
+      //         type: testStrengthExercises[0].type!,
+      //         id: testStrengthExercises[0].id!,
+      //       },
+      //       crudOperation: "create",
+      //       isBodyWeight: true,
+      //       hasWarmup: true,
+      //     },
+      //     {
+      //       order: 2,
+      //       notes: "2nd exercise 4",
+      //       exerciseData: {
+      //         type: testStrengthExercises[2].type!,
+      //         id: testStrengthExercises[2].id!,
+      //       },
+      //       crudOperation: "create",
+      //     },
+      //   ],
+      // },
     ];
 
     for (const workout of workouts) {
@@ -211,33 +234,33 @@ describe("WorkoutPlanner API", () => {
           level: "beginner",
           workoutGoal: "hypertrophy",
         },
-        {
-          daysOfWeek: ["monday", "friday"],
-          crudOperation: "create",
-          workout: {
-            id: testWorkouts[1].id,
-          },
-          level: "beginner",
-          workoutGoal: "hypertrophy",
-        },
-        {
-          daysOfWeek: ["monday", "friday"],
-          crudOperation: "create",
-          workout: {
-            id: testWorkouts[2].id,
-          },
-          level: "beginner",
-          workoutGoal: "hypertrophy",
-        },
-        {
-          daysOfWeek: ["monday", "friday"],
-          crudOperation: "create",
-          workout: {
-            id: testWorkouts[3].id,
-          },
-          level: "beginner",
-          workoutGoal: "hypertrophy",
-        },
+        // {
+        //   daysOfWeek: ["monday", "friday"],
+        //   crudOperation: "create",
+        //   workout: {
+        //     id: testWorkouts[1].id,
+        //   },
+        //   level: "beginner",
+        //   workoutGoal: "hypertrophy",
+        // },
+        // {
+        //   daysOfWeek: ["monday", "friday"],
+        //   crudOperation: "create",
+        //   workout: {
+        //     id: testWorkouts[2].id,
+        //   },
+        //   level: "beginner",
+        //   workoutGoal: "hypertrophy",
+        // },
+        // {
+        //   daysOfWeek: ["monday", "friday"],
+        //   crudOperation: "create",
+        //   workout: {
+        //     id: testWorkouts[3].id,
+        //   },
+        //   level: "beginner",
+        //   workoutGoal: "hypertrophy",
+        // },
       ],
     };
 
@@ -247,6 +270,220 @@ describe("WorkoutPlanner API", () => {
       .send(newProgram);
 
     testPrograms.push(programRes.body.data);
+
+    const userWorkouts: IUserWorkoutEditDTO[] = [
+      {
+        dateCompleted: new Date(9 / 17 / 25),
+        ownerId: testUserId,
+        workoutId: testPrograms?.[0]?.programWorkouts?.[0]?.workout?.id,
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            workoutExerciseId:
+              testPrograms?.[0]?.programWorkouts?.[0]?.workout
+                ?.workoutExercises?.[0].id! ?? "",
+            userStrengthSets: [
+              {
+                reps: 15,
+                weight: 5,
+                crudOperation: "create",
+                order: 1,
+              },
+              {
+                reps: 15,
+                weight: 5,
+                crudOperation: "create",
+                order: 2,
+              },
+              {
+                reps: 3,
+                weight: 5,
+                crudOperation: "create",
+                order: 3,
+              },
+            ],
+          },
+        ],
+      },
+    ];
+    // const userWorkouts: IUserWorkoutEditDTO[] = [
+    //   {
+    //     dateCompleted: new Date(9 / 17 / 25),
+    //     ownerId: testUserId,
+    //     workoutId: testPrograms?.[0]?.programWorkouts?.[0]?.workout?.id,
+    //     programId: testPrograms[0].id,
+    //     userWorkoutExercises: [
+    //       {
+    //         workoutExerciseId:
+    //           testWorkouts?.[0].workoutExercises?.[0].id! ?? "",
+    //         userStrengthSets: [
+    //           {
+    //             reps: 5,
+    //             weight: 5,
+    //             crudOperation: "create",
+    //             order: 1,
+    //           },
+    //           {
+    //             reps: 4,
+    //             weight: 5,
+    //             crudOperation: "create",
+    //             order: 2,
+    //           },
+    //           {
+    //             reps: 3,
+    //             weight: 5,
+    //             crudOperation: "create",
+    //             order: 3,
+    //           },
+    //         ],
+    //       },
+    //       {
+    //         workoutExerciseId:
+    //           testWorkouts?.[0].workoutExercises?.[1].id! ?? "",
+    //         userStrengthSets: [
+    //           {
+    //             reps: 9,
+    //             weight: 1,
+    //             crudOperation: "create",
+    //             order: 1,
+    //           },
+    //           {
+    //             reps: 8,
+    //             weight: 1,
+    //             crudOperation: "create",
+    //             order: 2,
+    //           },
+    //           {
+    //             reps: 7,
+    //             weight: 1,
+    //             crudOperation: "create",
+    //             order: 3,
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     dateCompleted: new Date(9 / 18 / 25),
+    //     ownerId: testUserId,
+    //     workoutId: testPrograms?.[0]?.programWorkouts?.[0]?.workout?.id,
+    //     programId: testPrograms[0].id,
+    //     userWorkoutExercises: [
+    //       {
+    //         workoutExerciseId:
+    //           testWorkouts?.[0].workoutExercises?.[0].id! ?? "",
+    //         userStrengthSets: [
+    //           {
+    //             reps: 6,
+    //             weight: 5,
+    //             crudOperation: "create",
+    //             order: 1,
+    //           },
+    //           {
+    //             reps: 5,
+    //             weight: 5,
+    //             crudOperation: "create",
+    //             order: 2,
+    //           },
+    //           {
+    //             reps: 4,
+    //             weight: 5,
+    //             crudOperation: "create",
+    //             order: 3,
+    //           },
+    //         ],
+    //       },
+    //       {
+    //         workoutExerciseId:
+    //           testWorkouts?.[0].workoutExercises?.[1].id! ?? "",
+    //         userStrengthSets: [
+    //           {
+    //             reps: 9,
+    //             weight: 1,
+    //             crudOperation: "create",
+    //             order: 1,
+    //           },
+    //           {
+    //             reps: 8,
+    //             weight: 1,
+    //             crudOperation: "create",
+    //             order: 2,
+    //           },
+    //           {
+    //             reps: 7,
+    //             weight: 1,
+    //             crudOperation: "create",
+    //             order: 3,
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     dateCompleted: new Date(9 / 19 / 25),
+    //     ownerId: testUserId,
+    //     workoutId: testPrograms?.[0]?.programWorkouts?.[0]?.workout?.id,
+    //     programId: testPrograms[0].id,
+    //     userWorkoutExercises: [
+    //       {
+    //         workoutExerciseId:
+    //           testWorkouts?.[0].workoutExercises?.[0].id! ?? "",
+    //         userStrengthSets: [
+    //           {
+    //             reps: 8,
+    //             weight: 5,
+    //             crudOperation: "create",
+    //             order: 1,
+    //           },
+    //           {
+    //             reps: 7,
+    //             weight: 5,
+    //             crudOperation: "create",
+    //             order: 2,
+    //           },
+    //           {
+    //             reps: 7,
+    //             weight: 5,
+    //             crudOperation: "create",
+    //             order: 3,
+    //           },
+    //         ],
+    //       },
+    //       {
+    //         workoutExerciseId:
+    //           testWorkouts?.[0].workoutExercises?.[1].id! ?? "",
+    //         userStrengthSets: [
+    //           {
+    //             reps: 10,
+    //             weight: 1,
+    //             crudOperation: "create",
+    //             order: 1,
+    //           },
+    //           {
+    //             reps: 8,
+    //             weight: 1,
+    //             crudOperation: "create",
+    //             order: 2,
+    //           },
+    //           {
+    //             reps: 8,
+    //             weight: 1,
+    //             crudOperation: "create",
+    //             order: 3,
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //   },
+    // ];
+    for (const usw of userWorkouts) {
+      const userWorkoutRes = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(usw);
+      const workoutData: IUserWorkoutDTO = userWorkoutRes.body.data;
+      testUserWorkouts.push(workoutData);
+    }
   });
 
   describe("GET /api/v1/workout-start/:workoutId", () => {
@@ -261,46 +498,57 @@ describe("WorkoutPlanner API", () => {
     });
   });
 
-//   afterAll(async () => {
-//     if (testWorkouts.length > 0) {
-//       for (const { id } of testWorkouts) {
-//         await request(app)
-//           .delete(`/api/v1/workouts/${id}`)
-//           .set("Cookie", `token=${authToken}`)
-//           .catch((err) => {
-//             console.error(err);
-//           });
-//       }
-//     }
-//     if (testExercises.length > 0) {
-//       for (const exercise of testExercises) {
-//         await request(app)
-//           .delete(`/api/v1/exercises/${exercise.id}`)
-//           .set("Cookie", `token=${authToken}`)
-//           .catch((err) => {
-//             console.error(err);
-//           });
-//       }
-//     }
+  afterAll(async () => {
+    if (testPrograms.length > 0) {
+      for (const id of testPrograms) {
+        await request(app)
+          .delete(`/api/v1/programs/${id}`)
+          .set("Cookie", `token=${authToken}`)
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+    }
 
-//     if (testPrograms.length > 0) {
-//       for (const id of testPrograms) {
-//         await request(app)
-//           .delete(`/api/v1/programs/${id}`)
-//           .set("Cookie", `token=${authToken}`)
-//           .catch((err) => {
-//             console.error(err);
-//           });
-//       }
-//     }
+    if (testWorkouts.length > 0) {
+      for (const { id } of testWorkouts) {
+        await request(app)
+          .delete(`/api/v1/workouts/${id}`)
+          .set("Cookie", `token=${authToken}`)
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+    }
+    if (testStrengthExercises.length > 0) {
+      for (const exercise of testStrengthExercises) {
+        await request(app)
+          .delete(`/api/v1/exercises/${exercise.id}`)
+          .set("Cookie", `token=${authToken}`)
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+    }
 
-//     if (testUserId) {
-//       await request(app)
-//         .delete(`/api/v1/auth/delete-user/${testUserId}`)
-//         .set("Cookie", `token=${authToken}`)
-//         .catch((err) => {
-//           console.error(err);
-//         });
-//     }
-//   });
+    if (testUserWorkouts.length > 0) {
+      for (const id of testUserWorkouts) {
+        await request(app)
+          .delete(`/api/v1/user-workout/${id}`)
+          .set("Cookie", `token=${authToken}`)
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+    }
+
+    if (testUserId) {
+      await request(app)
+        .delete(`/api/v1/auth/delete-user/${testUserId}`)
+        .set("Cookie", `token=${authToken}`)
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  });
 });

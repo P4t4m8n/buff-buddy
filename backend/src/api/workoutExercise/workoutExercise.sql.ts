@@ -14,17 +14,22 @@ const getWorkoutExerciseCreate = (
     order: dto?.order || 1,
     notes: dto?.notes,
     exercise: { connect: { id: dto?.exerciseData?.id } },
+    isBodyWeight: dto?.isBodyWeight,
+    hasWarmup: dto?.hasWarmup,
+    
   };
 };
 
 const getWorkoutExerciseUpdate = (
-  data: TUpdateWorkoutExerciseInput
+  dto: TUpdateWorkoutExerciseInput
 ): Prisma.WorkoutExerciseUpdateInput => {
   return {
     ...dbUtil.cleanData({
-      order: data.order ?? undefined,
-      notes: data.notes,
-      exercise: { connect: { id: data.exerciseData?.id } },
+      isBodyWeight: dto.isBodyWeight,
+      hasWarmup: dto.hasWarmup,
+      order: dto.order ?? undefined,
+      notes: dto.notes,
+      exercise: { connect: { id: dto.exerciseData?.id } },
     }),
   };
 };

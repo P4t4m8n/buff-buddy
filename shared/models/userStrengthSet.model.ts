@@ -3,10 +3,7 @@ import type { IEntity, IEntityDates } from "./entity.model";
 
 export interface IUserStrengthSetDTO extends IEntity, IEntityDates {
   lastSet?: IUserStrengthLastSet | null;
-  goalSet?: {
-    reps: number | null;
-    weight: number | null;
-  } | null;
+  goalSet?: IGoalSet | null;
   reps?: number | null; // Actual number of repetitions performed
   weight?: number | null; // Actual weight lifted in kg
   isWarmup?: boolean; // Indicates if the set was a warmup set
@@ -29,6 +26,11 @@ interface IUserStrengthLastSet {
 export interface IUserStrengthSetEditDTO extends IUserStrengthSetDTO {
   programExerciseId?: string;
   crudOperation?: TCrudOperation;
-  order?: number;
+  order?: number|null;
   isWarmup?: boolean; // A warmup set is not saved in the db so this use is only temp for front UI
+}
+
+export interface IGoalSet {
+  reps?: number | null;
+  weight?: number | null;
 }

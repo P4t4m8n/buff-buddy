@@ -15,12 +15,14 @@ const WORKOUT_EXERCISE_SELECT: Prisma.WorkoutExerciseSelect = {
   id: true,
   order: true,
   notes: true,
+  createdAt: true,
+  updatedAt: true,
   exercise: {
     select: exerciseSQL.EXERCISE_SELECT,
   },
 };
 
-const WORKOUT_SELECT = {
+const WORKOUT_SELECT: Prisma.WorkoutSelect = {
   id: true,
   name: true,
   notes: true,
@@ -33,6 +35,8 @@ const WORKOUT_SELECT = {
       id: true,
       order: true,
       notes: true,
+      hasWarmup: true,
+      isBodyWeight: true,
       exercise: {
         select: exerciseSQL.EXERCISE_SELECT,
       },

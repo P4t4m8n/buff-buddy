@@ -70,7 +70,7 @@ const workoutExerciseFactorySchema = ({
       type: exerciseValidation.ExerciseTypeSchema,
     }),
     isActive: z.coerce.boolean().default(true),
-    hasWarmUp: validationUtil.BooleanSchema,
+    hasWarmup: validationUtil.BooleanSchema,
     isBodyWeight:validationUtil.BooleanSchema,
     crudOperation: z
       .optional(validationUtil.CrudOperationEnumSchema)

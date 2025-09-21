@@ -77,7 +77,6 @@ export const useWorkoutStart = ({
       clearErrors();
       e.preventDefault();
       e.stopPropagation();
-      console.log("🚀 ~ onSubmit ~ workoutStart:", workoutStart);
       await userWorkoutService.save(workoutStart);
       localStorageService.storeSessionData("workoutStart");
       onBack();

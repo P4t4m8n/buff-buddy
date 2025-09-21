@@ -37,7 +37,11 @@ const createWorkoutFactorySchema = ({
       .array(
         workoutExerciseValidation.createWorkoutExerciseFactorySchema({
           toSanitize,
-        })
+        }),
+        {
+          invalid_type_error: "",
+          required_error: "Workout need at least one exercise.",
+        }
       )
       .min(1, "At least one workout set is required")
       .max(50, "Maximum 50 workout sets allowed per workout"),

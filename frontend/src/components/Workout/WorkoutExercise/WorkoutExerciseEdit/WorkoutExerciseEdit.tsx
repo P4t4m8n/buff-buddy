@@ -80,7 +80,7 @@ export default function WorkoutExerciseEdit({
     const peToRemove: IWorkoutExerciseEditDTO = {
       ...workoutExerciseToEdit!,
       crudOperation: "delete",
-      order: workoutExerciseLength ?? Infinity,
+      order:null,
     };
     handleWorkoutExercises(peToRemove);
     if (setIsOpen) setIsOpen(false);
@@ -100,7 +100,7 @@ export default function WorkoutExerciseEdit({
     notes,
     exercise,
     isBodyWeight,
-    hasWarmUp,
+    hasWarmup,
     id: WorkoutExerciseId,
   } = workoutExerciseToEdit;
 
@@ -167,9 +167,9 @@ export default function WorkoutExerciseEdit({
           <InputWithError
             divStyle=""
             inputProps={{
-              name: "hasWarmUp",
+              name: "hasWarmup",
               type: "checkbox",
-              checked: !!hasWarmUp,
+              checked: !!hasWarmup,
               className: " ",
               id: "hasWarmUp-" + WorkoutExerciseId,
               onChange: handleInputChange,
@@ -177,10 +177,10 @@ export default function WorkoutExerciseEdit({
             labelProps={{
               labelPosition: "input",
               className: "",
-              htmlFor: "hasWarmUp-" + WorkoutExerciseId,
+              htmlFor: "hasWarmup-" + WorkoutExerciseId,
               children: "Warm up?:",
             }}
-            error={workoutExerciseErrors?.hasWarmUp}
+            error={workoutExerciseErrors?.hasWarmup}
           />
           <InputWithError
             divStyle=""

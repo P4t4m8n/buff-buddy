@@ -34,26 +34,15 @@ export const workoutUtils = {
           order: we.order,
           notes: we.notes || "",
           exercise: we.exercise,
+          isBodyWeight: we.isBodyWeight,
+          hasWarmup: we.hasWarmup,
           crudOperation: isCopy ? "create" : isEdit ? "update" : "read",
           exerciseData: {
             id: we?.exercise?.id!,
             type: we?.exercise?.type!,
           },
         };
-        const exerciseType = we?.exercise?.type;
-        if (exerciseType === "cardio") {
-          workoutExerciseEdit.coreCardioSet = {
-            ...we.coreCardioSet,
-            crudOperation: isCopy ? "create" : isEdit ? "update" : "read",
-            workoutExerciseId: workoutExerciseId,
-          };
-        } else if (exerciseType === "strength") {
-          workoutExerciseEdit.coreStrengthSet = {
-            ...we.coreStrengthSet,
-            crudOperation: isCopy ? "create" : isEdit ? "update" : "read",
-            workoutExerciseId: workoutExerciseId,
-          };
-        }
+
         return workoutExerciseEdit;
       }),
     };

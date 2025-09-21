@@ -24,8 +24,9 @@ export interface IWorkoutExerciseDTO extends IEntity, IEntityDates {
   order?: number;
   notes?: string | null;
   exercise?: IExerciseDTO;
-  hasWarmUp?: boolean;
+  hasWarmup?: boolean;
   isBodyWeight?: boolean;
+  restTime?: number | null;
 }
 
 export interface IWorkoutEditDTO extends IWorkoutBase {
@@ -36,7 +37,7 @@ export interface IWorkoutEditDTO extends IWorkoutBase {
 }
 
 export interface IWorkoutExerciseEditDTO extends IEntity {
-  order?: number;
+  order?: number | null;
   notes?: string | null;
   exerciseData: {
     id: string;
@@ -44,8 +45,9 @@ export interface IWorkoutExerciseEditDTO extends IEntity {
   } | null; //For backend relationship
   exercise?: IExerciseDTO; //Exists only on the front to show the exercise details
   crudOperation?: TCrudOperation;
-  hasWarmUp?: boolean;
+  hasWarmup?: boolean;
   isBodyWeight?: boolean;
+  restTime?: number;
 }
 
 export interface IWorkoutExerciseEditSet {

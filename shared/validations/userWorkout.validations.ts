@@ -59,11 +59,11 @@ const createUserWorkoutFactorySchema = ({
   toSanitize?: boolean;
 }) => {
   return z.object({
-    id: validationUtil.IDSchemaFactory({ toSanitize: false }).optional(),
-    dateCompleted: validationUtil.DateSchema,
-    programId: validationUtil.IDSchemaFactory({ toSanitize: false }),
-    workoutId: validationUtil.IDSchemaFactory({ toSanitize: false }),
-    ownerId: validationUtil.IDSchemaFactory({ toSanitize: false }),
+    id: validationUtil.IDSchemaFactory({ toSanitize }).optional(),
+    dateCompleted: validationUtil.DateSchema.default(new Date()),
+    programId: validationUtil.IDSchemaFactory({ toSanitize }),
+    workoutId: validationUtil.IDSchemaFactory({ toSanitize }),
+    ownerId: validationUtil.IDSchemaFactory({ toSanitize }).optional(), //INFO: validation and sanitation done manually in the middleware and controller
     userWorkoutExercises: z.array(
       createUserWorkoutExerciseFactorySchema({ toSanitize })
     ),

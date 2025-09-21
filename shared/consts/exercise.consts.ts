@@ -1,4 +1,4 @@
-export const EXERCISE_INFO = ["types", "equipment", "muscles"] as const;
+export const EXERCISE_INFO = ["type", "equipment", "muscles"] as const;
 
 export const EXERCISE_MUSCLES = [
   // Chest

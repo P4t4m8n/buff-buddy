@@ -1,21 +1,55 @@
 import { workoutUtil } from "../workouts/workout.util";
 import { getTempId } from "../../../../shared/utils/getTempId";
 
-import type { IUserStrengthSetEditDTO } from "../../../../shared/models/userStrengthSet.model";
+import type {
+  IGoalSet,
+  IUserStrengthSetEditDTO,
+} from "../../../../shared/models/userStrengthSet.model";
 import type {
   IUserWorkoutEditDTO,
   IUserWorkoutExercisesEditDTO,
 } from "../../../../shared/models/userWorkout";
 import type { IProgramWorkout } from "../programs/programs.models";
-import type { IUserCardioSet } from "../userSets/userCardioSets/userCardioSets.model";
-import type { IUserStrengthSet } from "../userSets/userStrengthSets/userStrengthSets.model";
 import type { IUserWorkout } from "../userWorkouts/userWorkouts.model";
-import type { IWorkoutExercise } from "../workouts/workouts.models";
+import {
+  TWorkoutGoal,
+  TWorkoutLevel,
+} from "../../../../shared/models/program.model";
+import { AppError } from "../../shared/services/Error.service";
+import { IUserStrengthSet } from "../userSets/userStrengthSets/userStrengthSets.model";
 
-const BASE_MINIMUM_WEIGHT = 0.5; //kg
-const BASE_REPS_AMOUNT = 10;
-const BASE_MAX_REPS = 15;
-const BASE_SETS_AMOUNT = 3;
+type TWorkoutGoalData = {
+  minReps: number;
+  maxReps: number;
+  minSets: number;
+  maxSets: number;
+  minRestTime: number;
+  maxRestTime: number;
+};
+type TWorkoutLevelData = {
+  minWeight: number;
+  weightJump: number;
+};
+
+type TWorkoutGoals = Record<TWorkoutGoal, TWorkoutGoalData>;
+type TWorkoutLevels = Record<TWorkoutLevel, TWorkoutLevelData>;
+
+const workoutGoals: TWorkoutGoals = {
+  hypertrophy: {
+    minReps: 8,
+    maxReps: 15,
+    minSets: 3,
+    maxSets: 3,
+    minRestTime: 30,
+    maxRestTime: 120,
+  },
+};
+const workoutLevels: TWorkoutLevels = {
+  beginner: {
+    minWeight: 0.5,
+    weightJump: 0.5,
+  },
+};
 
 const createUserWorkoutPlan = ({
   programWorkout,
@@ -26,17 +60,48 @@ const createUserWorkoutPlan = ({
   userWorkouts?: IUserWorkout[];
   ownerId?: string;
 }): IUserWorkoutEditDTO => {
-  const { workout, workoutGoal, level, programId } = programWorkout;
+  const {
+    workout,
+    workoutGoal = "hypertrophy",
+    level,
+    programId,
+  } = programWorkout;
 
-  const userWorkoutExercises =
-    workout?.workoutExercises?.map((workoutExercise) =>
-      _createUserWorkoutExercise({
-        workoutExercise,
+  if (!workout) {
+    throw AppError.create("Unexpected no workout");
+  }
+  const { workoutExercises } = workout;
+
+  const workoutGoalData = workoutGoals[workoutGoal];
+  const workoutLevelData = workoutLevels[level];
+
+  const userWorkoutExercises: IUserWorkoutExercisesEditDTO[] =
+    workoutExercises?.map((workoutExercise) => {
+      const {
+        hasWarmUp,
+        isBodyWeight,
+        id: workoutExerciseId,
+      } = workoutExercise;
+
+      if (!userWorkouts || !userWorkouts.length) {
+        return _getDefaultUserWorkoutExercise({
+          hasWarmUp,
+          isBodyWeight,
+          workoutExerciseId,
+          workoutLevelData,
+          workoutGoalData,
+        });
+      }
+
+      return _getPlanedUserWorkoutExercise({
+        hasWarmUp,
+        isBodyWeight,
+        workoutExerciseId,
         userWorkouts,
-        workoutGoal,
-        level,
-      })
-    ) ?? [];
+        workoutLevelData,
+        workoutGoalData,
+      });
+    }) ?? [];
 
   return {
     userWorkoutExercises,
@@ -48,111 +113,27 @@ const createUserWorkoutPlan = ({
   };
 };
 
-const _createUserWorkoutExercise = ({
-  workoutExercise,
-  userWorkouts,
-  workoutGoal,
-  level,
-}: {
-  workoutExercise: IWorkoutExercise;
-  userWorkouts?: IUserWorkout[];
-  workoutGoal: string | null | undefined;
-  level: string | null | undefined;
-}): IUserWorkoutExercisesEditDTO => {
-  const {
-    exercise,
-    hasWarmUp,
-    isBodyWeight,
-    order,
-    notes,
-    id: workoutExerciseId,
-  } = workoutExercise;
-
-  const { id: exerciseId, type } = exercise ?? {};
-
-  const item: IUserWorkoutExercisesEditDTO = {
-    id: getTempId(),
-    order,
-    notes,
-    exercise,
-    workoutExerciseId: workoutExerciseId!,
-  };
-
-  const lastWorkouts = _getLastWorkoutExercises(userWorkouts, exerciseId);
-  let sets: IUserStrengthSetEditDTO[] = [];
-  switch (type) {
-    case "strength": {
-      sets = _getCreateUserStrengthSetWorkoutGoal({
-        lastWorkouts,
-        hasWarmUp,
-        isBodyWeight,
-      });
-      item.userStrengthSets = sets;
-    }
-    default:
-      sets = [];
-  }
-
-  return item;
-};
-
-const _getLastWorkoutExercises = (
-  userWorkouts?: IUserWorkout[],
-  exerciseId?: string
-) => {
-  return userWorkouts
-    ?.map((uw) =>
-      uw.userWorkoutExercises
-        ?.filter((uwe) => uwe.workoutExercise.exercise?.id === exerciseId)
-        .map((uwe) => ({
-          ...uwe,
-          dateCompleted: uw.dateCompleted ?? null,
-        }))
-    )
-    .flat()
-    .sort(
-      (a, b) =>
-        new Date(a.dateCompleted!).getTime() -
-        new Date(b.dateCompleted!).getTime()
-    );
-};
-
-const _getUserLastSet = (lastSet: IUserStrengthSet | null | undefined) => {
-  return !lastSet
-    ? null
-    : {
-        lastIsJointPain: lastSet?.isJointPain,
-        lastReps: lastSet?.reps,
-        lastSkippedReason: lastSet?.skippedReason,
-        lastWeight: lastSet?.weight,
-        lastIsMuscleFailure: lastSet?.isMuscleFailure,
-      };
-};
-
-const _createUserStrengthSet = ({
-  isBodyWeight,
-  lastSet,
+const _getEmptyStrength = ({
   order,
-  goalReps,
-  goalWeight,
+  goalSet,
+  lastUserSet,
+  isBodyWeight,
 }: {
-  isBodyWeight?: boolean | undefined;
-  lastSet?: IUserStrengthSet | null | undefined;
-  order?: number;
-  goalReps?: number;
-  goalWeight?: number | null;
+  order: number;
+  goalSet: IGoalSet;
+  lastUserSet?: IUserStrengthSetEditDTO;
+  isBodyWeight?: boolean;
 }): IUserStrengthSetEditDTO => {
   return {
-    lastSet: _getUserLastSet(lastSet),
-    goalSet: {
-      reps: goalReps ? goalReps : BASE_REPS_AMOUNT,
-      weight: isBodyWeight
-        ? null
-        : goalWeight
-        ? goalWeight
-        : BASE_MINIMUM_WEIGHT,
+    id: getTempId("temp"),
+    lastSet: {
+      lastReps: lastUserSet?.reps ?? null,
+      lastWeight: lastUserSet?.weight ?? null,
+      lastSkippedReason: lastUserSet?.skippedReason ?? null,
+      lastIsMuscleFailure: lastUserSet?.isMuscleFailure ?? false,
+      lastIsJointPain: lastUserSet?.isJointPain ?? false,
     },
-    id: getTempId(),
+    goalSet,
     reps: null,
     weight: null,
     isCompleted: false,
@@ -160,136 +141,26 @@ const _createUserStrengthSet = ({
     isJointPain: false,
     crudOperation: "create",
     isBodyWeight,
-    order: order,
+    order,
   };
 };
 
-const _getCreateUserStrengthSetWorkoutGoal = ({
-  lastWorkouts,
-  hasWarmUp,
+//TODO??Hardcoded at the moment improve later
+const _getStrengthWarmupSet = ({
   isBodyWeight,
+  weight,
 }: {
-  lastWorkouts:
-    | {
-        dateCompleted: Date | null;
-        id: string;
-        workoutExercise: IWorkoutExercise;
-        userStrengthSet?: IUserStrengthSet[] | null;
-        userCardioSet?: IUserCardioSet[] | null;
-      }[]
-    | undefined;
-  hasWarmUp: boolean | undefined;
-  isBodyWeight?: boolean | undefined;
-}) => {
-  let sets: IUserStrengthSetEditDTO[] = [];
-  if (!lastWorkouts || !lastWorkouts.length) {
-    sets = Array.from({
-      length: BASE_SETS_AMOUNT,
-    }).map((_, idx) =>
-      _createUserStrengthSet({ isBodyWeight, order: idx + 1 })
-    );
-  } else {
-    const lastWorkout = lastWorkouts[0];
-    sets = _planStrengthSet({ lastWorkouts, isBodyWeight }) ?? [];
-  }
-
-  if (hasWarmUp) {
-    const warmupSet = _getStrengthWarmupSet(
-      !!isBodyWeight,
-      BASE_MINIMUM_WEIGHT,
-      BASE_REPS_AMOUNT
-    );
-
-    warmupSet.isWarmup = true;
-    sets.unshift(warmupSet);
-  }
-
-  return sets;
-};
-
-const _planStrengthSet = ({
-  lastWorkouts,
-  isBodyWeight,
-}: {
-  lastWorkouts: {
-    dateCompleted: Date | null;
-    id: string;
-    workoutExercise: IWorkoutExercise;
-    userStrengthSets?: IUserStrengthSet[] | null;
-    userCardioSets?: IUserCardioSet[] | null;
-  }[];
-  isBodyWeight?: boolean | undefined;
-}) => {
-  const lastWorkout = lastWorkouts[0];
-
-  let isCompleteSets =
-    lastWorkout.userStrengthSets?.every(
-      (set) => (set?.reps ?? 0) >= BASE_MAX_REPS
-    ) ?? false;
-
-  if (!isCompleteSets) {
-    return Array.from({
-      length: BASE_SETS_AMOUNT,
-    }).map((_, idx) => {
-      const filteredSets = lastWorkouts
-        .filter((w) =>
-          w.userStrengthSets?.filter((uss) => uss.order === idx + 1)
-        )
-        .map((w) => w.userStrengthSets)
-        .flat();
-
-      const lastReps = filteredSets.map((s) => s?.reps);
-      const lastWeight = filteredSets[0]?.weight;
-      const lastRep = lastReps[0] ?? 1;
-      let goalReps;
-      const lastRepsLength = lastReps.length;
-
-      switch (true) {
-        case lastRepsLength > 2:
-          const sum =
-            lastReps.reduce((acc, val) => (acc ?? 0) + (val ?? 0), 0) ?? 0;
-          const isToIncrease =
-            sum / lastRep === lastRepsLength && lastRep < BASE_MAX_REPS;
-
-          goalReps = isToIncrease ? lastRep + 1 : lastRep ?? 0;
-
-          break;
-
-        case lastRepsLength > 0:
-          goalReps = lastReps[0] ?? BASE_REPS_AMOUNT;
-          break;
-
-        default:
-          goalReps = BASE_REPS_AMOUNT;
-          break;
-      }
-
-      const lastSet = filteredSets[0];
-
-      return _createUserStrengthSet({
-        isBodyWeight,
-        order: idx + 1,
-        lastSet,
-        goalReps,
-        goalWeight: lastWeight,
-      });
-    });
-  }
-};
-
-const _getStrengthWarmupSet = (
-  isBodyWeight: boolean,
-  weight: number | null,
-  reps: number | null
-): IUserStrengthSetEditDTO => {
+  isBodyWeight?: boolean;
+  weight?: number | null;
+}): IUserStrengthSetEditDTO => {
   const warmupWeight = isBodyWeight
     ? null
     : weight
     ? Math.round((weight ?? 0) * 0.35)
     : null;
   return {
-    id: getTempId(),
-    reps: reps,
+    id: getTempId("temp/warmup"),
+    reps: 10,
     weight: warmupWeight,
     isCompleted: false,
     isMuscleFailure: false,
@@ -297,5 +168,176 @@ const _getStrengthWarmupSet = (
     isBodyWeight,
     order: 0, // Warmup set is always the first set
   };
+};
+
+const _getDefaultUserWorkoutExercise = ({
+  isBodyWeight = false,
+  hasWarmUp = true,
+  workoutExerciseId,
+  workoutGoalData,
+  workoutLevelData,
+}: {
+  workoutExerciseId: string;
+  isBodyWeight?: boolean;
+  hasWarmUp?: boolean;
+  workoutGoalData: TWorkoutGoalData;
+  workoutLevelData: TWorkoutLevelData;
+}): IUserWorkoutExercisesEditDTO => {
+  const { minReps, maxReps, minSets, maxSets, minRestTime, maxRestTime } =
+    workoutGoalData;
+  const { minWeight } = workoutLevelData;
+  const userStrengthSets = Array.from({ length: minSets }).map((_, idx) => {
+    let goalSet: IGoalSet = {
+      reps: minReps,
+      weight: isBodyWeight ? 0 : minWeight,
+    };
+    return _getEmptyStrength({
+      order: idx + 1,
+      goalSet,
+      isBodyWeight,
+    });
+  });
+
+  if (hasWarmUp) {
+    userStrengthSets.push(
+      _getStrengthWarmupSet({
+        isBodyWeight,
+        weight: minWeight,
+      })
+    );
+  }
+  return {
+    userStrengthSets,
+    workoutExerciseId,
+  };
+};
+
+const _getPlanedUserWorkoutExercise = ({
+  isBodyWeight = false,
+  hasWarmUp = true,
+  workoutExerciseId,
+  userWorkouts,
+  workoutGoalData,
+  workoutLevelData,
+}: {
+  workoutExerciseId: string;
+  isBodyWeight?: boolean;
+  hasWarmUp?: boolean;
+  userWorkouts: IUserWorkout[];
+  workoutGoalData: TWorkoutGoalData;
+  workoutLevelData: TWorkoutLevelData;
+}): IUserWorkoutExercisesEditDTO => {
+  const lastUserWorkouts = userWorkouts
+    ?.map((userWorkout) => {
+      return userWorkout.userWorkoutExercises
+        .filter(
+          (userWorkoutExercise) =>
+            userWorkoutExercise.workoutExercise.id === workoutExerciseId
+        )
+        .map((x) => ({ ...x, dateCompleted: userWorkout.dateCompleted }));
+    })
+    .flat()
+    .sort((a, b) => {
+      const aTime = a.dateCompleted ? new Date(a.dateCompleted).getTime() : 0;
+      const bTime = b.dateCompleted ? new Date(b.dateCompleted).getTime() : 0;
+      return aTime - bTime;
+    });
+
+  const isComplete = lastUserWorkouts?.every((luw) =>
+    luw.userStrengthSets?.every((uss) => uss.reps >= workoutGoalData.maxReps)
+  );
+
+  const lastSetArr = lastUserWorkouts![0].userStrengthSets!.sort(
+    (a, b) => (a.order ?? 1) - (b.order ?? 0)
+  );
+  if (isComplete) {
+    //Handle weight increase
+    return {
+      workoutExerciseId,
+      userStrengthSets: _handleWeightIncrease({
+        isBodyWeight,
+        hasWarmUp,
+        lastSet: lastSetArr[lastSetArr.length - 1],
+        workoutGoalData,
+        workoutLevelData,
+      }),
+    };
+  }
+
+  const userStrengthSets = Array.from({ length: workoutGoalData.minSets }).map(
+    (_, idx) => {
+      const lastSet = lastSetArr[idx];
+
+      const lastWeight = lastSet.weight;
+      const lastRep = lastSet.reps;
+      let goalSet: IGoalSet = {
+        reps:
+          lastRep >= workoutGoalData.maxReps
+            ? workoutGoalData.maxReps
+            : lastRep + 1,
+        weight: lastWeight ?? 0,
+      };
+      return _getEmptyStrength({
+        order: idx + 1,
+        goalSet,
+        lastUserSet: lastSet,
+        isBodyWeight,
+      });
+    }
+  );
+
+  if (hasWarmUp) {
+    userStrengthSets.push(
+      _getStrengthWarmupSet({
+        isBodyWeight,
+        weight: lastSetArr[lastSetArr.length - 1].weight,
+      })
+    );
+  }
+  return {
+    userStrengthSets,
+    workoutExerciseId,
+  };
+};
+
+const _handleWeightIncrease = ({
+  isBodyWeight = false,
+  hasWarmUp = true,
+  workoutGoalData,
+  workoutLevelData,
+  lastSet,
+}: {
+  isBodyWeight?: boolean;
+  hasWarmUp?: boolean;
+  workoutGoalData: TWorkoutGoalData;
+  workoutLevelData: TWorkoutLevelData;
+  lastSet: IUserStrengthSet;
+}): IUserStrengthSetEditDTO[] => {
+  const { minReps, minSets } = workoutGoalData;
+  const { weightJump } = workoutLevelData;
+  const userStrengthSets = Array.from({ length: minSets }).map((_, idx) => {
+    const newWeight = (lastSet.weight ?? 0) + weightJump;
+
+    let goalSet: IGoalSet = {
+      reps: minReps,
+      weight: newWeight,
+    };
+    return _getEmptyStrength({
+      order: idx + 1,
+      goalSet,
+      lastUserSet: lastSet,
+      isBodyWeight,
+    });
+  });
+
+  if (hasWarmUp) {
+    userStrengthSets.push(
+      _getStrengthWarmupSet({
+        isBodyWeight,
+        weight: (lastSet.weight ?? 0) + weightJump,
+      })
+    );
+  }
+  return userStrengthSets;
 };
 export const workoutPlannerService = { createUserWorkoutPlan };

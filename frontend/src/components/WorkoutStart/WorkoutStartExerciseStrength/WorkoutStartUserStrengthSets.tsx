@@ -24,7 +24,6 @@ export default function WorkoutStartUserStrengthSets({
   handleUserSetSkip,
   errors: serverErrors,
 }: TWorkoutStartUserSetsProps<IUserStrengthSetEditDTO>) {
-  console.log("🚀 ~ WorkoutStartUserStrengthSets ~ item:", userSet)
   const {
     id: userSetId,
     reps,

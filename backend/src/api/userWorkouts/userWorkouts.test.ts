@@ -14,41 +14,11 @@ import {
   IProgramDTO,
   IProgramEditDTO,
 } from "../../../../shared/models/program.model";
-import { IUserStrengthSetEditDTO } from "../../../../shared/models/userStrengthSet.model";
-import { IUserCardioSetEditDTO } from "../../../../shared/models/userCardioSet.model";
-
-const getRandomUserStrengthSet = (): IUserStrengthSetEditDTO => {
-  const isBodyWeight = Math.random() < 0.5;
-  return {
-    reps: Math.floor(Math.random() * 15) + 1,
-    weight: isBodyWeight ? 0 : Math.floor(Math.random() * 100) + 1,
-    isWarmup: Math.random() < 0.5,
-    isCompleted: Math.random() < 0.8,
-    isMuscleFailure: Math.random() < 0.3,
-    isJointPain: Math.random() < 0.2,
-    isBodyWeight: isBodyWeight,
-    crudOperation: "create",
-    order: Math.floor(Math.random() * 10) + 1,
-  };
-};
-
-const getRandomUserCardioSet = (): IUserCardioSetEditDTO => {
-  return {
-    workTime: Math.floor(Math.random() * 300) + 60, // Random work time between 60 and 360 seconds
-    avgHeartRate: Math.floor(Math.random() * 50) + 120, // Random average heart rate between 120 and 170 bpm
-    avgSpeed: Math.floor(Math.random() * 10) + 1, // Random average speed in km/h
-    distance: Math.floor(Math.random() * 5000) + 1000, // Random distance between 1000 and 6000 meters
-    caloriesBurned: Math.floor(Math.random() * 500) + 100, // Random calories burned between 100 and 600
-    isCompleted: Math.random() < 0.8, // Randomly set completion status
-    skippedReason: Math.random() < 0.2 ? "Skipped for rest" : null, // Randomly assign a skipped reason
-    order: Math.floor(Math.random() * 10) + 1,
-    crudOperation: "create",
-  };
-};
 
 describe("UserWorkout API", () => {
   const testWorkouts: IWorkoutDTO[] = [];
-  const testExercises: IExerciseDTO[] = [];
+  const testCardioExercises: IExerciseDTO[] = [];
+  const testStrengthExercises: IExerciseDTO[] = [];
   const testUserWorkouts: IUserWorkoutDTO[] = [];
   const testPrograms: IProgramDTO[] = [];
   let testUserId: string;
@@ -68,14 +38,7 @@ describe("UserWorkout API", () => {
     testUserId = userRes.body.data.id;
     authToken = userRes.headers["set-cookie"][0].split(";")[0].split("=")[1];
 
-    const exercises: IExerciseDTO[] = [
-      {
-        name: "cardio 1",
-        youtubeUrl: "https://www.youtube.com/watch?v=_l3ySVKYVJ8",
-        type: "cardio",
-        equipment: ["cable_machine"],
-        muscles: ["chest", "triceps", "abductors"],
-      },
+    const strengthExercises: IExerciseDTO[] = [
       {
         name: "strength 1",
         youtubeUrl: "https://www.youtube.com/watch?v=Dy28eq2PjcM",
@@ -91,21 +54,45 @@ describe("UserWorkout API", () => {
         muscles: ["biceps", "forearms"],
       },
       {
-        name: "cardio 2",
-        youtubeUrl: "https://www.youtube.com/watch?v=pSHjTRCQxIw",
-        type: "cardio",
-        equipment: ["air_bike"],
-        muscles: ["triceps", "abs", "rotator_cuff"],
+        name: "strength 3",
+        youtubeUrl: "https://www.youtube.com/watch?v=Dy28vbdq2PjcM",
+        type: "strength",
+        equipment: ["barbell"],
+        muscles: ["quads", "glutes", "hamstrings", "lower_back"],
+      },
+      {
+        name: "strength 4",
+        youtubeUrl: "https://www.youtube.com/watch?v=ykJmrZ5gfdv0Oo",
+        type: "strength",
+        equipment: ["dumbbell"],
+        muscles: ["biceps", "forearms"],
       },
     ];
 
-    for (const exercise of exercises) {
+    // const cardioExercises: IExerciseDTO[] = [
+    //   {
+    //     name: "cardio 1",
+    //     youtubeUrl: "https://www.youtube.com/watch?v=_l3ySVKYVJ8",
+    //     type: "cardio",
+    //     equipment: ["cable_machine"],
+    //     muscles: ["chest", "triceps", "abductors"],
+    //   },
+    //   {
+    //     name: "cardio 2",
+    //     youtubeUrl: "https://www.youtube.com/watch?v=pSHjTRCQxIw",
+    //     type: "cardio",
+    //     equipment: ["air_bike"],
+    //     muscles: ["triceps", "abs", "rotator_cuff"],
+    //   },
+    // ];
+
+    for (const exercise of strengthExercises) {
       const exerciseRes = await request(app)
         .post("/api/v1/exercises/edit")
         .set("Cookie", `token=${authToken}`)
         .send(exercise);
       if (exerciseRes.body.data.id) {
-        testExercises.push(exerciseRes.body.data);
+        testStrengthExercises.push(exerciseRes.body.data);
       }
     }
 
@@ -119,19 +106,19 @@ describe("UserWorkout API", () => {
             order: 1,
             notes: "First exercise 1",
             exerciseData: {
-              type: testExercises[0].type ?? "strength",
-              id: testExercises[0].id!,
+              type: testStrengthExercises[0].type ?? "strength",
+              id: testStrengthExercises[0].id!,
             },
             crudOperation: "create",
             isBodyWeight: true,
-            hasWarmUp: true,
+            hasWarmup: true,
           },
           {
             order: 2,
             notes: "2nd exercise 1",
             exerciseData: {
-              type: testExercises[1].type ?? "strength",
-              id: testExercises[1].id!,
+              type: testStrengthExercises[1].type ?? "strength",
+              id: testStrengthExercises[1].id!,
             },
             crudOperation: "create",
           },
@@ -146,8 +133,8 @@ describe("UserWorkout API", () => {
             order: 1,
             notes: "First exercise 2",
             exerciseData: {
-              type: testExercises[3].type!,
-              id: testExercises[3].id!,
+              type: testStrengthExercises[3].type!,
+              id: testStrengthExercises[3].id!,
             },
             crudOperation: "create",
           },
@@ -155,12 +142,12 @@ describe("UserWorkout API", () => {
             order: 2,
             notes: "2nd exercise 2",
             exerciseData: {
-              type: testExercises[1].type!,
-              id: testExercises[1].id!,
+              type: testStrengthExercises[1].type!,
+              id: testStrengthExercises[1].id!,
             },
             crudOperation: "create",
             isBodyWeight: true,
-            hasWarmUp: true,
+            hasWarmup: true,
           },
         ],
       },
@@ -173,23 +160,23 @@ describe("UserWorkout API", () => {
             order: 1,
             notes: "First exercise 4",
             exerciseData: {
-              type: testExercises[3].type!,
-              id: testExercises[3].id!,
+              type: testStrengthExercises[3].type!,
+              id: testStrengthExercises[3].id!,
             },
             crudOperation: "create",
             isBodyWeight: true,
-            hasWarmUp: true,
+            hasWarmup: true,
           },
           {
             order: 2,
             notes: "2nd exercise 3",
             exerciseData: {
-              type: testExercises[2].type!,
-              id: testExercises[2].id!,
+              type: testStrengthExercises[2].type!,
+              id: testStrengthExercises[2].id!,
             },
             crudOperation: "create",
             isBodyWeight: true,
-            hasWarmUp: true,
+            hasWarmup: true,
           },
         ],
       },
@@ -202,19 +189,19 @@ describe("UserWorkout API", () => {
             order: 1,
             notes: "First exercise",
             exerciseData: {
-              type: testExercises[0].type!,
-              id: testExercises[0].id!,
+              type: testStrengthExercises[0].type!,
+              id: testStrengthExercises[0].id!,
             },
             crudOperation: "create",
             isBodyWeight: true,
-            hasWarmUp: true,
+            hasWarmup: true,
           },
           {
             order: 2,
             notes: "2nd exercise 4",
             exerciseData: {
-              type: testExercises[2].type!,
-              id: testExercises[2].id!,
+              type: testStrengthExercises[2].type!,
+              id: testStrengthExercises[2].id!,
             },
             crudOperation: "create",
           },
@@ -283,31 +270,124 @@ describe("UserWorkout API", () => {
       .send(newProgram);
 
     testPrograms.push(programRes.body.data);
+
+    const userWorkouts: IUserWorkoutEditDTO[] = [
+      {
+        ownerId: testUserId,
+        workoutId: testWorkouts[0].id,
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            workoutExerciseId:
+              testWorkouts?.[0].workoutExercises?.[0].id! ?? "",
+            userStrengthSets: [
+              {
+                reps: 5,
+                weight: 5,
+                crudOperation: "create",
+                order: 1,
+              },
+              {
+                reps: 4,
+                weight: 5,
+                crudOperation: "create",
+                order: 2,
+              },
+              {
+                reps: 3,
+                weight: 5,
+                crudOperation: "create",
+                order: 3,
+              },
+            ],
+          },
+          {
+            workoutExerciseId:
+              testWorkouts?.[0].workoutExercises?.[1].id! ?? "",
+            userStrengthSets: [
+              {
+                reps: 9,
+                weight: 1,
+                crudOperation: "create",
+                order: 1,
+              },
+              {
+                reps: 8,
+                weight: 1,
+                crudOperation: "create",
+                order: 2,
+              },
+              {
+                reps: 7,
+                weight: 1,
+                crudOperation: "create",
+                order: 3,
+              },
+            ],
+          },
+        ],
+      },
+    ];
   });
 
   describe("POST /api/v1/user-workouts", () => {
     it("Should create a new user workout successfully", async () => {
       const userWorkoutData: IUserWorkoutEditDTO = {
-        dateCompleted: new Date(),
-        programId: testPrograms[0].id,
         ownerId: testUserId,
-        workoutId: testWorkouts[0]!.id,
-        userWorkoutExercises: testWorkouts[0]!.workoutExercises!.map((we) => {
-          const workoutExercise: IUserWorkoutExercisesEditDTO = {
-            workoutExerciseId: we.id!,
-          };
-          if (we.exercise?.type === "cardio") {
-            workoutExercise.userCardioSets = Array.from({ length: 1 }, () => {
-              return getRandomUserCardioSet();
-            });
-          } else {
-            workoutExercise.userStrengthSets = Array.from(
-              { length: workoutExercise?.userStrengthSets?.length ?? 3 },
-              () => getRandomUserStrengthSet()
-            );
-          }
-          return workoutExercise;
-        }),
+        workoutId: testWorkouts[0].id,
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            hasWarmup: true,
+            isBodyWeight: true,
+            workoutExerciseId:
+              testWorkouts?.[0].workoutExercises?.[0].id! ?? "",
+            userStrengthSets: [
+              {
+                reps: 5,
+                weight: 5,
+                crudOperation: "create",
+                order: 1,
+              },
+              {
+                reps: 4,
+                weight: 5,
+                crudOperation: "create",
+                order: 2,
+              },
+              {
+                reps: 3,
+                weight: 5,
+                crudOperation: "create",
+                order: 3,
+              },
+            ],
+          },
+          {
+            workoutExerciseId:
+              testWorkouts?.[0].workoutExercises?.[1].id! ?? "",
+            userStrengthSets: [
+              {
+                reps: 9,
+                weight: 1,
+                crudOperation: "create",
+                order: 1,
+              },
+              {
+                reps: 8,
+                weight: 1,
+                crudOperation: "create",
+                order: 2,
+              },
+              {
+                reps: 7,
+                weight: 1,
+                crudOperation: "create",
+                order: 3,
+              },
+            ],
+          },
+        ],
       };
 
       const res = await request(app)
@@ -315,10 +395,17 @@ describe("UserWorkout API", () => {
         .set("Cookie", `token=${authToken}`)
         .send(userWorkoutData);
 
-      const workoutRes: IUserWorkoutDTO = res.body.data;
-      console.log("🚀 ~ res.body:", res.body);
-      console.log("🚀 ~ workoutRes:", workoutRes);
       expect(res.status).toBe(201);
+      expect(res.body.message).toBe("User-Workout created successfully");
+
+      const workoutRes: IUserWorkoutDTO = res.body.data;
+      expect(workoutRes).toBeDefined();
+
+      expect(workoutRes).toHaveProperty("id");
+      expect(workoutRes?.program?.id).toBe(testPrograms[0].id);
+      expect(workoutRes.owner?.id).toBe(testUserId);
+      expect(workoutRes.workout?.id).toBe(testWorkouts[0].id);
+
       testUserWorkouts.push(workoutRes);
     });
 
@@ -543,26 +630,31 @@ describe("UserWorkout API", () => {
           });
       }
     }
-    if (testExercises.length > 0) {
-      for (const exercise of testExercises) {
-        await request(app)
-          .delete(`/api/v1/exercises/${exercise.id}`)
-          .set("Cookie", `token=${authToken}`)
-          .catch((err) => {
-            console.error(err);
-          });
-      }
+
+    for (const exercise of testStrengthExercises) {
+      await request(app)
+        .delete(`/api/v1/exercises/${exercise.id}`)
+        .set("Cookie", `token=${authToken}`)
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+    for (const exercise of testCardioExercises) {
+      await request(app)
+        .delete(`/api/v1/exercises/${exercise.id}`)
+        .set("Cookie", `token=${authToken}`)
+        .catch((err) => {
+          console.error(err);
+        });
     }
 
-    if (testPrograms.length > 0) {
-      for (const id of testPrograms) {
-        await request(app)
-          .delete(`/api/v1/programs/${id}`)
-          .set("Cookie", `token=${authToken}`)
-          .catch((err) => {
-            console.error(err);
-          });
-      }
+    for (const id of testPrograms) {
+      await request(app)
+        .delete(`/api/v1/programs/${id}`)
+        .set("Cookie", `token=${authToken}`)
+        .catch((err) => {
+          console.error(err);
+        });
     }
 
     if (testUserWorkouts.length > 0) {
