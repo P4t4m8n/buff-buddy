@@ -1,40 +1,27 @@
 import { prisma } from "../../../prisma/prisma";
-import bcrypt from "bcrypt";
 
+import { authUtil } from "./auth.util";
 import { AppError } from "../../shared/services/Error.service";
+
+import { authSQL } from "./auth.sql";
+import { userSQL } from "../users/users.sql";
 
 import type {
   TSignUpInput,
   TSignInInput,
   TGoogleOAuthInput,
 } from "../../../../shared/validations/auth.validation";
-import { authUtil } from "./auth.util";
+import type { IUser } from "../users/users.model";
+import type { TAuthRecordResponse } from "./auth.model";
 
-const signUp = async (dto: TSignUpInput | TGoogleOAuthInput) => {
-  const { email, firstName, lastName } = dto;
-  const saltRounds = parseInt(process.env.SALT_ROUNDS || "10", 10);
-
-  let passwordHash = null;
-  let googleId = null;
-  if ("password" in dto) {
-    passwordHash = await bcrypt.hash(dto.password, saltRounds);
-  } else if ("googleId" in dto) {
-    googleId = dto.googleId;
-  }
-
+const signUp = async (
+  dto: TSignUpInput | TGoogleOAuthInput
+): Promise<TAuthRecordResponse<IUser>> => {
+  const authRecord = await authUtil.getAuthRecord(dto);
+  const data = authSQL.getAuthCreate(authRecord);
   const user = await prisma.user.create({
-    data: {
-      email: email,
-      firstName: firstName,
-      lastName: lastName,
-      passwordHash: passwordHash,
-      googleId: googleId,
-    },
-    select: {
-      id: true,
-      firstName: true,
-      lastName: true,
-    },
+    data: data,
+    select: userSQL.SMALL_USER_SELECT,
   });
 
   if (!user) {
@@ -46,7 +33,9 @@ const signUp = async (dto: TSignUpInput | TGoogleOAuthInput) => {
     token,
   };
 };
-const signIn = async (dto: TSignInInput | TGoogleOAuthInput) => {
+const signIn = async (
+  dto: TSignInInput | TGoogleOAuthInput
+): Promise<TAuthRecordResponse<IUser>> => {
   const { email } = dto;
 
   const user = await prisma.user.findUnique({
@@ -54,11 +43,8 @@ const signIn = async (dto: TSignInInput | TGoogleOAuthInput) => {
       email: email,
     },
     select: {
-      id: true,
-      firstName: true,
-      lastName: true,
-      passwordHash: true,
-      googleId: true,
+      ...userSQL.SMALL_USER_SELECT,
+      ...authSQL.PASSWORD_AUTH_SELECT,
     },
   });
 
@@ -66,12 +52,13 @@ const signIn = async (dto: TSignInInput | TGoogleOAuthInput) => {
     throw AppError.create("Bad Request", 409);
   }
 
-  let match = false;
-  if ("password" in dto && user?.passwordHash) {
-    match = await bcrypt.compare(dto?.password, user?.passwordHash || "");
-  } else if ("googleId" in dto && user?.googleId) {
-    match = user.googleId === dto.googleId;
-  }
+  const match = authUtil.verifyCredentials({
+    password: (dto as TSignInInput)?.password ?? null,
+    passwordHash: user?.passwordHash,
+    googleId: (dto as TGoogleOAuthInput)?.googleId ?? null,
+    userGoogleId: user.googleId,
+  });
+
   if (!match) {
     throw AppError.create("Bad Request", 400);
   }
@@ -87,24 +74,19 @@ const signIn = async (dto: TSignInInput | TGoogleOAuthInput) => {
     token,
   };
 };
-const signInWithGoogle = async (dto: TGoogleOAuthInput) => {
-  const { email, firstName, lastName, googleId } = dto;
+
+const signInWithGoogle = async (
+  dto: TGoogleOAuthInput
+): Promise<TAuthRecordResponse<IUser>> => {
+  const { email, googleId } = dto;
+  const authRecord = await authUtil.getAuthRecord(dto);
+  const data = authSQL.getAuthCreate(authRecord);
 
   const user = await prisma.user.upsert({
     where: { email: email },
     update: { googleId: googleId },
-    create: {
-      email: email,
-      firstName: firstName,
-      lastName: lastName,
-      googleId: googleId,
-      imgUrl: dto.imgUrl,
-    },
-    select: {
-      id: true,
-      firstName: true,
-      lastName: true,
-    },
+    create: data,
+    select: userSQL.SMALL_USER_SELECT,
   });
 
   if (!user) {
@@ -123,31 +105,16 @@ const validateToken = async (token: string) => {
   }
 
   const decoded = authUtil.decodeToken(token);
-  const user = await prisma.user.findUnique({
+
+  return await prisma.user.findUnique({
     where: { id: decoded.userId },
-    select: { id: true, firstName: true, lastName: true, isAdmin: true },
+    select: userSQL.SMALL_USER_SELECT,
   });
-
-  if (!user) {
-    throw AppError.create("User not found", 404);
-  }
-
-  return {
-    ...user,
-    isAdmin: user.isAdmin,
-  };
 };
 const deleteUser = async (userId: string) => {
-  const user = await prisma.user.delete({
+  await prisma.user.delete({
     where: { id: userId },
-    select: { id: true, firstName: true, lastName: true },
   });
-
-  if (!user) {
-    throw AppError.create("User not found", 404);
-  }
-
-  return user;
 };
 export const authService = {
   signIn,
