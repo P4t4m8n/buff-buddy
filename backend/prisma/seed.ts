@@ -155,15 +155,15 @@ const seedFood = async () => {
     console.error(" ~ seedFood ~ error:", error);
   }
 };
-checkFoodITems();
+// checkFoodITems();
 // fixRawData();
 // seedFood()
 //   .then((result) => {})
 //   .catch((error) => {
 //     console.error("Error seeding exercises:", error);
 //   });
-// seedExercises()
-//   .then((result) => {})
-//   .catch((error) => {
-//     console.error("Error seeding exercises:", error);
-//   });
+seedExercises()
+  .then((result) => {})
+  .catch((error) => {
+    console.error("Error seeding exercises:", error);
+  });

@@ -217,6 +217,7 @@ exports.Prisma.WorkoutExerciseScalarFieldEnum = {
   notes: 'notes',
   hasWarmup: 'hasWarmup',
   isBodyWeight: 'isBodyWeight',
+  restTime: 'restTime',
   exerciseId: 'exerciseId',
   workoutId: 'workoutId',
   createdAt: 'createdAt',
@@ -423,6 +424,14 @@ exports.ExerciseMuscle = exports.$Enums.ExerciseMuscle = {
   abductors: 'abductors',
   rotator_cuff: 'rotator_cuff',
   serratus_anterior: 'serratus_anterior'
+};
+
+exports.WorkoutLevel = exports.$Enums.WorkoutLevel = {
+  beginner: 'beginner'
+};
+
+exports.WorkoutGoal = exports.$Enums.WorkoutGoal = {
+  hypertrophy: 'hypertrophy'
 };
 
 exports.DaysOfWeek = exports.$Enums.DaysOfWeek = {

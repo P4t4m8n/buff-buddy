@@ -151,6 +151,14 @@ enum MealType {
   snack
 }
 
+enum WorkoutGoal {
+  hypertrophy
+}
+
+enum WorkoutLevel {
+  beginner
+}
+
 model User {
   id           String        @id @default(cuid())
   email        String        @unique
@@ -238,8 +246,8 @@ model ProgramWorkout {
   program     Program      @relation(fields: [programId], references: [id], onDelete: Cascade)
   workoutId   String
   workout     Workout      @relation(fields: [workoutId], references: [id], onDelete: Cascade)
-  level       String       @default("beginner") //Planer algorithm will use this to suggest appropriate workouts
-  workoutGoal String       @default("hypertrophy") //Planer algorithm will use this to suggest appropriate workouts
+  level       WorkoutLevel @default(beginner) //Planer algorithm will use this to suggest appropriate workouts
+  workoutGoal WorkoutGoal  @default(hypertrophy) //Planer algorithm will use this to suggest appropriate workouts
   daysOfWeek  DaysOfWeek[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
@@ -276,6 +284,7 @@ model WorkoutExercise {
   notes                String?
   hasWarmup            Boolean               @default(false)
   isBodyWeight         Boolean               @default(false)
+  restTime             Int                   @default(60)
   exerciseId           String
   exercise             Exercise              @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
   workoutId            String

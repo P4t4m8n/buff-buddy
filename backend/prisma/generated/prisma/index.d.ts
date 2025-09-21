@@ -235,6 +235,20 @@ export const MealType: {
 
 export type MealType = (typeof MealType)[keyof typeof MealType]
 
+
+export const WorkoutGoal: {
+  hypertrophy: 'hypertrophy'
+};
+
+export type WorkoutGoal = (typeof WorkoutGoal)[keyof typeof WorkoutGoal]
+
+
+export const WorkoutLevel: {
+  beginner: 'beginner'
+};
+
+export type WorkoutLevel = (typeof WorkoutLevel)[keyof typeof WorkoutLevel]
+
 }
 
 export type ExerciseMuscle = $Enums.ExerciseMuscle
@@ -256,6 +270,14 @@ export const DaysOfWeek: typeof $Enums.DaysOfWeek
 export type MealType = $Enums.MealType
 
 export const MealType: typeof $Enums.MealType
+
+export type WorkoutGoal = $Enums.WorkoutGoal
+
+export const WorkoutGoal: typeof $Enums.WorkoutGoal
+
+export type WorkoutLevel = $Enums.WorkoutLevel
+
+export const WorkoutLevel: typeof $Enums.WorkoutLevel
 
 /**
  * ##  Prisma Client ʲˢ
@@ -9023,8 +9045,8 @@ export namespace Prisma {
     id: string | null
     programId: string | null
     workoutId: string | null
-    level: string | null
-    workoutGoal: string | null
+    level: $Enums.WorkoutLevel | null
+    workoutGoal: $Enums.WorkoutGoal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9033,8 +9055,8 @@ export namespace Prisma {
     id: string | null
     programId: string | null
     workoutId: string | null
-    level: string | null
-    workoutGoal: string | null
+    level: $Enums.WorkoutLevel | null
+    workoutGoal: $Enums.WorkoutGoal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9160,8 +9182,8 @@ export namespace Prisma {
     id: string
     programId: string
     workoutId: string
-    level: string
-    workoutGoal: string
+    level: $Enums.WorkoutLevel
+    workoutGoal: $Enums.WorkoutGoal
     daysOfWeek: $Enums.DaysOfWeek[]
     createdAt: Date
     updatedAt: Date
@@ -9258,8 +9280,8 @@ export namespace Prisma {
       id: string
       programId: string
       workoutId: string
-      level: string
-      workoutGoal: string
+      level: $Enums.WorkoutLevel
+      workoutGoal: $Enums.WorkoutGoal
       daysOfWeek: $Enums.DaysOfWeek[]
       createdAt: Date
       updatedAt: Date
@@ -9691,8 +9713,8 @@ export namespace Prisma {
     readonly id: FieldRef<"ProgramWorkout", 'String'>
     readonly programId: FieldRef<"ProgramWorkout", 'String'>
     readonly workoutId: FieldRef<"ProgramWorkout", 'String'>
-    readonly level: FieldRef<"ProgramWorkout", 'String'>
-    readonly workoutGoal: FieldRef<"ProgramWorkout", 'String'>
+    readonly level: FieldRef<"ProgramWorkout", 'WorkoutLevel'>
+    readonly workoutGoal: FieldRef<"ProgramWorkout", 'WorkoutGoal'>
     readonly daysOfWeek: FieldRef<"ProgramWorkout", 'DaysOfWeek[]'>
     readonly createdAt: FieldRef<"ProgramWorkout", 'DateTime'>
     readonly updatedAt: FieldRef<"ProgramWorkout", 'DateTime'>
@@ -11313,10 +11335,12 @@ export namespace Prisma {
 
   export type WorkoutExerciseAvgAggregateOutputType = {
     order: number | null
+    restTime: number | null
   }
 
   export type WorkoutExerciseSumAggregateOutputType = {
     order: number | null
+    restTime: number | null
   }
 
   export type WorkoutExerciseMinAggregateOutputType = {
@@ -11325,6 +11349,7 @@ export namespace Prisma {
     notes: string | null
     hasWarmup: boolean | null
     isBodyWeight: boolean | null
+    restTime: number | null
     exerciseId: string | null
     workoutId: string | null
     createdAt: Date | null
@@ -11337,6 +11362,7 @@ export namespace Prisma {
     notes: string | null
     hasWarmup: boolean | null
     isBodyWeight: boolean | null
+    restTime: number | null
     exerciseId: string | null
     workoutId: string | null
     createdAt: Date | null
@@ -11349,6 +11375,7 @@ export namespace Prisma {
     notes: number
     hasWarmup: number
     isBodyWeight: number
+    restTime: number
     exerciseId: number
     workoutId: number
     createdAt: number
@@ -11359,10 +11386,12 @@ export namespace Prisma {
 
   export type WorkoutExerciseAvgAggregateInputType = {
     order?: true
+    restTime?: true
   }
 
   export type WorkoutExerciseSumAggregateInputType = {
     order?: true
+    restTime?: true
   }
 
   export type WorkoutExerciseMinAggregateInputType = {
@@ -11371,6 +11400,7 @@ export namespace Prisma {
     notes?: true
     hasWarmup?: true
     isBodyWeight?: true
+    restTime?: true
     exerciseId?: true
     workoutId?: true
     createdAt?: true
@@ -11383,6 +11413,7 @@ export namespace Prisma {
     notes?: true
     hasWarmup?: true
     isBodyWeight?: true
+    restTime?: true
     exerciseId?: true
     workoutId?: true
     createdAt?: true
@@ -11395,6 +11426,7 @@ export namespace Prisma {
     notes?: true
     hasWarmup?: true
     isBodyWeight?: true
+    restTime?: true
     exerciseId?: true
     workoutId?: true
     createdAt?: true
@@ -11494,6 +11526,7 @@ export namespace Prisma {
     notes: string | null
     hasWarmup: boolean
     isBodyWeight: boolean
+    restTime: number
     exerciseId: string
     workoutId: string
     createdAt: Date
@@ -11525,6 +11558,7 @@ export namespace Prisma {
     notes?: boolean
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    restTime?: boolean
     exerciseId?: boolean
     workoutId?: boolean
     createdAt?: boolean
@@ -11541,6 +11575,7 @@ export namespace Prisma {
     notes?: boolean
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    restTime?: boolean
     exerciseId?: boolean
     workoutId?: boolean
     createdAt?: boolean
@@ -11555,6 +11590,7 @@ export namespace Prisma {
     notes?: boolean
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    restTime?: boolean
     exerciseId?: boolean
     workoutId?: boolean
     createdAt?: boolean
@@ -11569,13 +11605,14 @@ export namespace Prisma {
     notes?: boolean
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    restTime?: boolean
     exerciseId?: boolean
     workoutId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type WorkoutExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order" | "notes" | "hasWarmup" | "isBodyWeight" | "exerciseId" | "workoutId" | "createdAt" | "updatedAt", ExtArgs["result"]["workoutExercise"]>
+  export type WorkoutExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order" | "notes" | "hasWarmup" | "isBodyWeight" | "restTime" | "exerciseId" | "workoutId" | "createdAt" | "updatedAt", ExtArgs["result"]["workoutExercise"]>
   export type WorkoutExerciseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     exercise?: boolean | ExerciseDefaultArgs<ExtArgs>
     workout?: boolean | WorkoutDefaultArgs<ExtArgs>
@@ -11604,6 +11641,7 @@ export namespace Prisma {
       notes: string | null
       hasWarmup: boolean
       isBodyWeight: boolean
+      restTime: number
       exerciseId: string
       workoutId: string
       createdAt: Date
@@ -12039,6 +12077,7 @@ export namespace Prisma {
     readonly notes: FieldRef<"WorkoutExercise", 'String'>
     readonly hasWarmup: FieldRef<"WorkoutExercise", 'Boolean'>
     readonly isBodyWeight: FieldRef<"WorkoutExercise", 'Boolean'>
+    readonly restTime: FieldRef<"WorkoutExercise", 'Int'>
     readonly exerciseId: FieldRef<"WorkoutExercise", 'String'>
     readonly workoutId: FieldRef<"WorkoutExercise", 'String'>
     readonly createdAt: FieldRef<"WorkoutExercise", 'DateTime'>
@@ -23846,6 +23885,7 @@ export namespace Prisma {
     notes: 'notes',
     hasWarmup: 'hasWarmup',
     isBodyWeight: 'isBodyWeight',
+    restTime: 'restTime',
     exerciseId: 'exerciseId',
     workoutId: 'workoutId',
     createdAt: 'createdAt',
@@ -24108,6 +24148,34 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'WorkoutLevel'
+   */
+  export type EnumWorkoutLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WorkoutLevel'>
+    
+
+
+  /**
+   * Reference to a field of type 'WorkoutLevel[]'
+   */
+  export type ListEnumWorkoutLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WorkoutLevel[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'WorkoutGoal'
+   */
+  export type EnumWorkoutGoalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WorkoutGoal'>
+    
+
+
+  /**
+   * Reference to a field of type 'WorkoutGoal[]'
+   */
+  export type ListEnumWorkoutGoalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WorkoutGoal[]'>
     
 
 
@@ -24596,8 +24664,8 @@ export namespace Prisma {
     id?: StringFilter<"ProgramWorkout"> | string
     programId?: StringFilter<"ProgramWorkout"> | string
     workoutId?: StringFilter<"ProgramWorkout"> | string
-    level?: StringFilter<"ProgramWorkout"> | string
-    workoutGoal?: StringFilter<"ProgramWorkout"> | string
+    level?: EnumWorkoutLevelFilter<"ProgramWorkout"> | $Enums.WorkoutLevel
+    workoutGoal?: EnumWorkoutGoalFilter<"ProgramWorkout"> | $Enums.WorkoutGoal
     daysOfWeek?: EnumDaysOfWeekNullableListFilter<"ProgramWorkout">
     createdAt?: DateTimeFilter<"ProgramWorkout"> | Date | string
     updatedAt?: DateTimeFilter<"ProgramWorkout"> | Date | string
@@ -24626,8 +24694,8 @@ export namespace Prisma {
     NOT?: ProgramWorkoutWhereInput | ProgramWorkoutWhereInput[]
     programId?: StringFilter<"ProgramWorkout"> | string
     workoutId?: StringFilter<"ProgramWorkout"> | string
-    level?: StringFilter<"ProgramWorkout"> | string
-    workoutGoal?: StringFilter<"ProgramWorkout"> | string
+    level?: EnumWorkoutLevelFilter<"ProgramWorkout"> | $Enums.WorkoutLevel
+    workoutGoal?: EnumWorkoutGoalFilter<"ProgramWorkout"> | $Enums.WorkoutGoal
     daysOfWeek?: EnumDaysOfWeekNullableListFilter<"ProgramWorkout">
     createdAt?: DateTimeFilter<"ProgramWorkout"> | Date | string
     updatedAt?: DateTimeFilter<"ProgramWorkout"> | Date | string
@@ -24656,8 +24724,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"ProgramWorkout"> | string
     programId?: StringWithAggregatesFilter<"ProgramWorkout"> | string
     workoutId?: StringWithAggregatesFilter<"ProgramWorkout"> | string
-    level?: StringWithAggregatesFilter<"ProgramWorkout"> | string
-    workoutGoal?: StringWithAggregatesFilter<"ProgramWorkout"> | string
+    level?: EnumWorkoutLevelWithAggregatesFilter<"ProgramWorkout"> | $Enums.WorkoutLevel
+    workoutGoal?: EnumWorkoutGoalWithAggregatesFilter<"ProgramWorkout"> | $Enums.WorkoutGoal
     daysOfWeek?: EnumDaysOfWeekNullableListFilter<"ProgramWorkout">
     createdAt?: DateTimeWithAggregatesFilter<"ProgramWorkout"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ProgramWorkout"> | Date | string
@@ -24746,6 +24814,7 @@ export namespace Prisma {
     notes?: StringNullableFilter<"WorkoutExercise"> | string | null
     hasWarmup?: BoolFilter<"WorkoutExercise"> | boolean
     isBodyWeight?: BoolFilter<"WorkoutExercise"> | boolean
+    restTime?: IntFilter<"WorkoutExercise"> | number
     exerciseId?: StringFilter<"WorkoutExercise"> | string
     workoutId?: StringFilter<"WorkoutExercise"> | string
     createdAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
@@ -24761,6 +24830,7 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     hasWarmup?: SortOrder
     isBodyWeight?: SortOrder
+    restTime?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
     createdAt?: SortOrder
@@ -24779,6 +24849,7 @@ export namespace Prisma {
     notes?: StringNullableFilter<"WorkoutExercise"> | string | null
     hasWarmup?: BoolFilter<"WorkoutExercise"> | boolean
     isBodyWeight?: BoolFilter<"WorkoutExercise"> | boolean
+    restTime?: IntFilter<"WorkoutExercise"> | number
     exerciseId?: StringFilter<"WorkoutExercise"> | string
     workoutId?: StringFilter<"WorkoutExercise"> | string
     createdAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
@@ -24794,6 +24865,7 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     hasWarmup?: SortOrder
     isBodyWeight?: SortOrder
+    restTime?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
     createdAt?: SortOrder
@@ -24814,6 +24886,7 @@ export namespace Prisma {
     notes?: StringNullableWithAggregatesFilter<"WorkoutExercise"> | string | null
     hasWarmup?: BoolWithAggregatesFilter<"WorkoutExercise"> | boolean
     isBodyWeight?: BoolWithAggregatesFilter<"WorkoutExercise"> | boolean
+    restTime?: IntWithAggregatesFilter<"WorkoutExercise"> | number
     exerciseId?: StringWithAggregatesFilter<"WorkoutExercise"> | string
     workoutId?: StringWithAggregatesFilter<"WorkoutExercise"> | string
     createdAt?: DateTimeWithAggregatesFilter<"WorkoutExercise"> | Date | string
@@ -25997,8 +26070,8 @@ export namespace Prisma {
 
   export type ProgramWorkoutCreateInput = {
     id?: string
-    level?: string
-    workoutGoal?: string
+    level?: $Enums.WorkoutLevel
+    workoutGoal?: $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -26010,8 +26083,8 @@ export namespace Prisma {
     id?: string
     programId: string
     workoutId: string
-    level?: string
-    workoutGoal?: string
+    level?: $Enums.WorkoutLevel
+    workoutGoal?: $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -26019,8 +26092,8 @@ export namespace Prisma {
 
   export type ProgramWorkoutUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    level?: StringFieldUpdateOperationsInput | string
-    workoutGoal?: StringFieldUpdateOperationsInput | string
+    level?: EnumWorkoutLevelFieldUpdateOperationsInput | $Enums.WorkoutLevel
+    workoutGoal?: EnumWorkoutGoalFieldUpdateOperationsInput | $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26032,8 +26105,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     programId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
-    level?: StringFieldUpdateOperationsInput | string
-    workoutGoal?: StringFieldUpdateOperationsInput | string
+    level?: EnumWorkoutLevelFieldUpdateOperationsInput | $Enums.WorkoutLevel
+    workoutGoal?: EnumWorkoutGoalFieldUpdateOperationsInput | $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26043,8 +26116,8 @@ export namespace Prisma {
     id?: string
     programId: string
     workoutId: string
-    level?: string
-    workoutGoal?: string
+    level?: $Enums.WorkoutLevel
+    workoutGoal?: $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -26052,8 +26125,8 @@ export namespace Prisma {
 
   export type ProgramWorkoutUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    level?: StringFieldUpdateOperationsInput | string
-    workoutGoal?: StringFieldUpdateOperationsInput | string
+    level?: EnumWorkoutLevelFieldUpdateOperationsInput | $Enums.WorkoutLevel
+    workoutGoal?: EnumWorkoutGoalFieldUpdateOperationsInput | $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26063,8 +26136,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     programId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
-    level?: StringFieldUpdateOperationsInput | string
-    workoutGoal?: StringFieldUpdateOperationsInput | string
+    level?: EnumWorkoutLevelFieldUpdateOperationsInput | $Enums.WorkoutLevel
+    workoutGoal?: EnumWorkoutGoalFieldUpdateOperationsInput | $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26157,6 +26230,7 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    restTime?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     exercise: ExerciseCreateNestedOneWithoutWorkoutExercisesInput
@@ -26170,6 +26244,7 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    restTime?: number
     exerciseId: string
     workoutId: string
     createdAt?: Date | string
@@ -26183,6 +26258,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    restTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     exercise?: ExerciseUpdateOneRequiredWithoutWorkoutExercisesNestedInput
@@ -26196,6 +26272,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    restTime?: IntFieldUpdateOperationsInput | number
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26209,6 +26286,7 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    restTime?: number
     exerciseId: string
     workoutId: string
     createdAt?: Date | string
@@ -26221,6 +26299,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    restTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -26231,6 +26310,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    restTime?: IntFieldUpdateOperationsInput | number
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27460,6 +27540,20 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type EnumWorkoutLevelFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkoutLevel | EnumWorkoutLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.WorkoutLevel[] | ListEnumWorkoutLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WorkoutLevel[] | ListEnumWorkoutLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumWorkoutLevelFilter<$PrismaModel> | $Enums.WorkoutLevel
+  }
+
+  export type EnumWorkoutGoalFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkoutGoal | EnumWorkoutGoalFieldRefInput<$PrismaModel>
+    in?: $Enums.WorkoutGoal[] | ListEnumWorkoutGoalFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WorkoutGoal[] | ListEnumWorkoutGoalFieldRefInput<$PrismaModel>
+    not?: NestedEnumWorkoutGoalFilter<$PrismaModel> | $Enums.WorkoutGoal
+  }
+
   export type EnumDaysOfWeekNullableListFilter<$PrismaModel = never> = {
     equals?: $Enums.DaysOfWeek[] | ListEnumDaysOfWeekFieldRefInput<$PrismaModel> | null
     has?: $Enums.DaysOfWeek | EnumDaysOfWeekFieldRefInput<$PrismaModel> | null
@@ -27512,6 +27606,26 @@ export namespace Prisma {
     workoutGoal?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumWorkoutLevelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkoutLevel | EnumWorkoutLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.WorkoutLevel[] | ListEnumWorkoutLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WorkoutLevel[] | ListEnumWorkoutLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumWorkoutLevelWithAggregatesFilter<$PrismaModel> | $Enums.WorkoutLevel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWorkoutLevelFilter<$PrismaModel>
+    _max?: NestedEnumWorkoutLevelFilter<$PrismaModel>
+  }
+
+  export type EnumWorkoutGoalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkoutGoal | EnumWorkoutGoalFieldRefInput<$PrismaModel>
+    in?: $Enums.WorkoutGoal[] | ListEnumWorkoutGoalFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WorkoutGoal[] | ListEnumWorkoutGoalFieldRefInput<$PrismaModel>
+    not?: NestedEnumWorkoutGoalWithAggregatesFilter<$PrismaModel> | $Enums.WorkoutGoal
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWorkoutGoalFilter<$PrismaModel>
+    _max?: NestedEnumWorkoutGoalFilter<$PrismaModel>
   }
 
   export type UserNullableScalarRelationFilter = {
@@ -27570,6 +27684,7 @@ export namespace Prisma {
     notes?: SortOrder
     hasWarmup?: SortOrder
     isBodyWeight?: SortOrder
+    restTime?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
     createdAt?: SortOrder
@@ -27578,6 +27693,7 @@ export namespace Prisma {
 
   export type WorkoutExerciseAvgOrderByAggregateInput = {
     order?: SortOrder
+    restTime?: SortOrder
   }
 
   export type WorkoutExerciseMaxOrderByAggregateInput = {
@@ -27586,6 +27702,7 @@ export namespace Prisma {
     notes?: SortOrder
     hasWarmup?: SortOrder
     isBodyWeight?: SortOrder
+    restTime?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
     createdAt?: SortOrder
@@ -27598,6 +27715,7 @@ export namespace Prisma {
     notes?: SortOrder
     hasWarmup?: SortOrder
     isBodyWeight?: SortOrder
+    restTime?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
     createdAt?: SortOrder
@@ -27606,6 +27724,7 @@ export namespace Prisma {
 
   export type WorkoutExerciseSumOrderByAggregateInput = {
     order?: SortOrder
+    restTime?: SortOrder
   }
 
   export type WorkoutExerciseScalarRelationFilter = {
@@ -28519,6 +28638,14 @@ export namespace Prisma {
     create?: XOR<WorkoutCreateWithoutProgramWorkoutsInput, WorkoutUncheckedCreateWithoutProgramWorkoutsInput>
     connectOrCreate?: WorkoutCreateOrConnectWithoutProgramWorkoutsInput
     connect?: WorkoutWhereUniqueInput
+  }
+
+  export type EnumWorkoutLevelFieldUpdateOperationsInput = {
+    set?: $Enums.WorkoutLevel
+  }
+
+  export type EnumWorkoutGoalFieldUpdateOperationsInput = {
+    set?: $Enums.WorkoutGoal
   }
 
   export type ProgramWorkoutUpdatedaysOfWeekInput = {
@@ -29633,6 +29760,40 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedEnumWorkoutLevelFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkoutLevel | EnumWorkoutLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.WorkoutLevel[] | ListEnumWorkoutLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WorkoutLevel[] | ListEnumWorkoutLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumWorkoutLevelFilter<$PrismaModel> | $Enums.WorkoutLevel
+  }
+
+  export type NestedEnumWorkoutGoalFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkoutGoal | EnumWorkoutGoalFieldRefInput<$PrismaModel>
+    in?: $Enums.WorkoutGoal[] | ListEnumWorkoutGoalFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WorkoutGoal[] | ListEnumWorkoutGoalFieldRefInput<$PrismaModel>
+    not?: NestedEnumWorkoutGoalFilter<$PrismaModel> | $Enums.WorkoutGoal
+  }
+
+  export type NestedEnumWorkoutLevelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkoutLevel | EnumWorkoutLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.WorkoutLevel[] | ListEnumWorkoutLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WorkoutLevel[] | ListEnumWorkoutLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumWorkoutLevelWithAggregatesFilter<$PrismaModel> | $Enums.WorkoutLevel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWorkoutLevelFilter<$PrismaModel>
+    _max?: NestedEnumWorkoutLevelFilter<$PrismaModel>
+  }
+
+  export type NestedEnumWorkoutGoalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkoutGoal | EnumWorkoutGoalFieldRefInput<$PrismaModel>
+    in?: $Enums.WorkoutGoal[] | ListEnumWorkoutGoalFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WorkoutGoal[] | ListEnumWorkoutGoalFieldRefInput<$PrismaModel>
+    not?: NestedEnumWorkoutGoalWithAggregatesFilter<$PrismaModel> | $Enums.WorkoutGoal
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWorkoutGoalFilter<$PrismaModel>
+    _max?: NestedEnumWorkoutGoalFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -29982,6 +30143,7 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    restTime?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     workout: WorkoutCreateNestedOneWithoutWorkoutExercisesInput
@@ -29994,6 +30156,7 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    restTime?: number
     workoutId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -30035,6 +30198,7 @@ export namespace Prisma {
     notes?: StringNullableFilter<"WorkoutExercise"> | string | null
     hasWarmup?: BoolFilter<"WorkoutExercise"> | boolean
     isBodyWeight?: BoolFilter<"WorkoutExercise"> | boolean
+    restTime?: IntFilter<"WorkoutExercise"> | number
     exerciseId?: StringFilter<"WorkoutExercise"> | string
     workoutId?: StringFilter<"WorkoutExercise"> | string
     createdAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
@@ -30139,8 +30303,8 @@ export namespace Prisma {
 
   export type ProgramWorkoutCreateWithoutProgramInput = {
     id?: string
-    level?: string
-    workoutGoal?: string
+    level?: $Enums.WorkoutLevel
+    workoutGoal?: $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -30150,8 +30314,8 @@ export namespace Prisma {
   export type ProgramWorkoutUncheckedCreateWithoutProgramInput = {
     id?: string
     workoutId: string
-    level?: string
-    workoutGoal?: string
+    level?: $Enums.WorkoutLevel
+    workoutGoal?: $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -30257,8 +30421,8 @@ export namespace Prisma {
     id?: StringFilter<"ProgramWorkout"> | string
     programId?: StringFilter<"ProgramWorkout"> | string
     workoutId?: StringFilter<"ProgramWorkout"> | string
-    level?: StringFilter<"ProgramWorkout"> | string
-    workoutGoal?: StringFilter<"ProgramWorkout"> | string
+    level?: EnumWorkoutLevelFilter<"ProgramWorkout"> | $Enums.WorkoutLevel
+    workoutGoal?: EnumWorkoutGoalFilter<"ProgramWorkout"> | $Enums.WorkoutGoal
     daysOfWeek?: EnumDaysOfWeekNullableListFilter<"ProgramWorkout">
     createdAt?: DateTimeFilter<"ProgramWorkout"> | Date | string
     updatedAt?: DateTimeFilter<"ProgramWorkout"> | Date | string
@@ -30502,6 +30666,7 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    restTime?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     exercise: ExerciseCreateNestedOneWithoutWorkoutExercisesInput
@@ -30514,6 +30679,7 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    restTime?: number
     exerciseId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -30532,8 +30698,8 @@ export namespace Prisma {
 
   export type ProgramWorkoutCreateWithoutWorkoutInput = {
     id?: string
-    level?: string
-    workoutGoal?: string
+    level?: $Enums.WorkoutLevel
+    workoutGoal?: $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -30543,8 +30709,8 @@ export namespace Prisma {
   export type ProgramWorkoutUncheckedCreateWithoutWorkoutInput = {
     id?: string
     programId: string
-    level?: string
-    workoutGoal?: string
+    level?: $Enums.WorkoutLevel
+    workoutGoal?: $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -30867,6 +31033,7 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    restTime?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     exercise: ExerciseCreateNestedOneWithoutWorkoutExercisesInput
@@ -30879,6 +31046,7 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    restTime?: number
     exerciseId: string
     workoutId: string
     createdAt?: Date | string
@@ -31012,6 +31180,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    restTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     exercise?: ExerciseUpdateOneRequiredWithoutWorkoutExercisesNestedInput
@@ -31024,6 +31193,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    restTime?: IntFieldUpdateOperationsInput | number
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32631,6 +32801,7 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    restTime?: number
     workoutId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32642,6 +32813,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    restTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workout?: WorkoutUpdateOneRequiredWithoutWorkoutExercisesNestedInput
@@ -32654,6 +32826,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    restTime?: IntFieldUpdateOperationsInput | number
     workoutId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32666,6 +32839,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    restTime?: IntFieldUpdateOperationsInput | number
     workoutId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32674,8 +32848,8 @@ export namespace Prisma {
   export type ProgramWorkoutCreateManyProgramInput = {
     id?: string
     workoutId: string
-    level?: string
-    workoutGoal?: string
+    level?: $Enums.WorkoutLevel
+    workoutGoal?: $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32691,8 +32865,8 @@ export namespace Prisma {
 
   export type ProgramWorkoutUpdateWithoutProgramInput = {
     id?: StringFieldUpdateOperationsInput | string
-    level?: StringFieldUpdateOperationsInput | string
-    workoutGoal?: StringFieldUpdateOperationsInput | string
+    level?: EnumWorkoutLevelFieldUpdateOperationsInput | $Enums.WorkoutLevel
+    workoutGoal?: EnumWorkoutGoalFieldUpdateOperationsInput | $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32702,8 +32876,8 @@ export namespace Prisma {
   export type ProgramWorkoutUncheckedUpdateWithoutProgramInput = {
     id?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
-    level?: StringFieldUpdateOperationsInput | string
-    workoutGoal?: StringFieldUpdateOperationsInput | string
+    level?: EnumWorkoutLevelFieldUpdateOperationsInput | $Enums.WorkoutLevel
+    workoutGoal?: EnumWorkoutGoalFieldUpdateOperationsInput | $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32712,8 +32886,8 @@ export namespace Prisma {
   export type ProgramWorkoutUncheckedUpdateManyWithoutProgramInput = {
     id?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
-    level?: StringFieldUpdateOperationsInput | string
-    workoutGoal?: StringFieldUpdateOperationsInput | string
+    level?: EnumWorkoutLevelFieldUpdateOperationsInput | $Enums.WorkoutLevel
+    workoutGoal?: EnumWorkoutGoalFieldUpdateOperationsInput | $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32751,6 +32925,7 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    restTime?: number
     exerciseId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32759,8 +32934,8 @@ export namespace Prisma {
   export type ProgramWorkoutCreateManyWorkoutInput = {
     id?: string
     programId: string
-    level?: string
-    workoutGoal?: string
+    level?: $Enums.WorkoutLevel
+    workoutGoal?: $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutCreatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32780,6 +32955,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    restTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     exercise?: ExerciseUpdateOneRequiredWithoutWorkoutExercisesNestedInput
@@ -32792,6 +32968,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    restTime?: IntFieldUpdateOperationsInput | number
     exerciseId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32804,6 +32981,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    restTime?: IntFieldUpdateOperationsInput | number
     exerciseId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32811,8 +32989,8 @@ export namespace Prisma {
 
   export type ProgramWorkoutUpdateWithoutWorkoutInput = {
     id?: StringFieldUpdateOperationsInput | string
-    level?: StringFieldUpdateOperationsInput | string
-    workoutGoal?: StringFieldUpdateOperationsInput | string
+    level?: EnumWorkoutLevelFieldUpdateOperationsInput | $Enums.WorkoutLevel
+    workoutGoal?: EnumWorkoutGoalFieldUpdateOperationsInput | $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32822,8 +33000,8 @@ export namespace Prisma {
   export type ProgramWorkoutUncheckedUpdateWithoutWorkoutInput = {
     id?: StringFieldUpdateOperationsInput | string
     programId?: StringFieldUpdateOperationsInput | string
-    level?: StringFieldUpdateOperationsInput | string
-    workoutGoal?: StringFieldUpdateOperationsInput | string
+    level?: EnumWorkoutLevelFieldUpdateOperationsInput | $Enums.WorkoutLevel
+    workoutGoal?: EnumWorkoutGoalFieldUpdateOperationsInput | $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32832,8 +33010,8 @@ export namespace Prisma {
   export type ProgramWorkoutUncheckedUpdateManyWithoutWorkoutInput = {
     id?: StringFieldUpdateOperationsInput | string
     programId?: StringFieldUpdateOperationsInput | string
-    level?: StringFieldUpdateOperationsInput | string
-    workoutGoal?: StringFieldUpdateOperationsInput | string
+    level?: EnumWorkoutLevelFieldUpdateOperationsInput | $Enums.WorkoutLevel
+    workoutGoal?: EnumWorkoutGoalFieldUpdateOperationsInput | $Enums.WorkoutGoal
     daysOfWeek?: ProgramWorkoutUpdatedaysOfWeekInput | $Enums.DaysOfWeek[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
