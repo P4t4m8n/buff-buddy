@@ -23,12 +23,12 @@ const get = async (
   const take = filter.take ? parseInt(filter.take.toString()) : 20;
   const skip = filter.skip && filter.skip > 1 ? (filter.skip - 1) * take : 0;
 
-  return (await prisma.workout.findMany({
+  return await prisma.workout.findMany({
     where,
     skip,
     take,
     select: workoutSQL.WORKOUT_SELECT,
-  })) as unknown as Promise<IWorkout[]>;
+  });
 };
 const getById = async (
   id: string,
@@ -37,23 +37,23 @@ const getById = async (
   return prisma.workout.findUnique({
     where: { id, ownerId: userId },
     select: workoutSQL.WORKOUT_SELECT,
-  }) as unknown as Promise<IWorkout>;
+  });
 };
 const create = async (dto: TCreateWorkoutInput): Promise<IWorkout> => {
   return prisma.workout.create({
     data: workoutSQL.getWorkoutCreate(dto, dto?.ownerId),
     select: workoutSQL.WORKOUT_SELECT,
-  }) as unknown as Promise<IWorkout>;
+  });
 };
 const update = async (
   id: string,
   dto: TUpdateWorkoutInput
 ): Promise<IWorkout> => {
-  return (await prisma.workout.update({
+  return await prisma.workout.update({
     where: { id },
     data: workoutSQL.getWorkoutUpdate(dto),
     select: workoutSQL.WORKOUT_SELECT,
-  })) as unknown as Promise<IWorkout>;
+  });
 };
 const remove = async (id: string): Promise<Workout> => {
   return prisma.workout.delete({

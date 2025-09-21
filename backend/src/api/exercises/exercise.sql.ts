@@ -4,13 +4,14 @@ interface ExerciseSQL {
   EXERCISE_SELECT: Prisma.ExerciseSelect;
 }
 
+const EXERCISE_SELECT = {
+  id: true,
+  name: true,
+  youtubeUrl: true,
+  type: true,
+  equipment: true,
+  muscles: true,
+};
 export const exerciseSQL: ExerciseSQL = {
-  EXERCISE_SELECT: {
-    id: true,
-    name: true,
-    youtubeUrl: true,
-    type: true,
-    equipment: true,
-    muscles: true,
-  },
+  EXERCISE_SELECT,
 };

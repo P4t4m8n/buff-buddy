@@ -21,4 +21,5 @@ export interface IWorkoutBase {
 export interface IWorkout extends IWorkoutBase {
   owner?: IUser | null;
   workoutExercises?: IWorkoutExercise[] | null;
+  notes?: string | null;
 }

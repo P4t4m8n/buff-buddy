@@ -1,32 +1,34 @@
 import request from "supertest";
+
 import { app } from "../../server";
-import {
+
+import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
   IWorkoutExerciseDTO,
 } from "../../../../shared/models/workout.model";
-import { IExerciseDTO } from "../../../../shared/models/exercise.model";
-import { ExerciseType } from "../../../prisma/generated/prisma";
+import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
+import type { ExerciseType } from "../../../prisma/generated/prisma";
+import type { IAuthSignUpDTO } from "../../../../shared/models/auth.model";
 
 describe("Workouts API", () => {
-  let testExercises: IExerciseDTO[] = [];
+  const testExercises: IExerciseDTO[] = [];
   let authToken: string;
   let testUserId: string;
-  const createdWorkoutIds: string[] = [];
+  const testWorkouts: IWorkoutDTO[] = [];
 
   beforeAll(async () => {
-    const userCredentials = {
-      email: `testuser-${Date.now()}@example.com`,
+    const userCredentials: IAuthSignUpDTO = {
+      email: `test-workout-user-${Date.now()}@example.com`,
       password: "Password123!",
       confirmPassword: "Password123!",
-      firstName: "Test User",
-      lastName: "API",
+      firstName: "Workout",
+      lastName: "Tester",
     };
     const userRes = await request(app)
       .post("/api/v1/auth/sign-up")
       .send(userCredentials);
     testUserId = userRes.body.data.id;
-
     authToken = userRes.headers["set-cookie"][0].split(";")[0].split("=")[1];
 
     const exercises: IExerciseDTO[] = [
@@ -72,7 +74,7 @@ describe("Workouts API", () => {
   describe("POST /api/v1/workouts/edit", () => {
     it("should create a new workout successfully", async () => {
       const newWorkout: IWorkoutEditDTO = {
-        name: "full body test workout",
+        name: "Full Body Test Workout",
         notes: "A workout for testing purposes.",
         crudOperation: "create",
         workoutExercises: [
@@ -107,7 +109,7 @@ describe("Workouts API", () => {
       expect(workout?.workoutExercises?.[0]?.isBodyWeight).toBe(true);
       expect(workout?.workoutExercises?.[0]?.hasWarmup).toBe(true);
 
-      createdWorkoutIds.push(workout.id!);
+      testWorkouts.push(workout);
     });
 
     it("should reject workout with missing required fields", async () => {
@@ -118,27 +120,24 @@ describe("Workouts API", () => {
 
       expect(res.status).toBe(400);
       expect(res.body.errors).toBeDefined();
-
-      const errors = res.body.errors;
-
-      expect(errors.name).toBeDefined();
-      expect(errors.name).toBe("Workout name is required.");
-      expect(errors.workoutExercises).toBeDefined();
-      expect(errors.workoutExercises).toBe(
+      expect(res.body.errors.name).toBe("Workout name is required.");
+      expect(res.body.errors.workoutExercises).toBe(
         "Workout need at least one exercise."
       );
     });
 
-    it("should reject workout with invalid workoutExercises", async () => {
+    it("should reject workout with invalid exercise type", async () => {
       const invalidWorkout: Partial<IWorkoutEditDTO> = {
-        name: "Invalid workoutExercises Workout",
+        name: "Invalid Type Workout",
+        crudOperation: "create",
         workoutExercises: [
           {
             order: 1,
             exerciseData: {
-              type: "WRONG TYPE" as ExerciseType,
-              id: "alert(hi)",
+              type: "WRONG_TYPE" as ExerciseType,
+              id: testExercises[0].id!,
             },
+            crudOperation: "create",
           },
         ],
       };
@@ -150,210 +149,601 @@ describe("Workouts API", () => {
 
       expect(res.status).toBe(400);
       expect(res.body.errors).toBeDefined();
-
-      const errors = res.body.errors;
-      const typeError = errors["workoutExercises.0.exerciseData.type"];
-      expect(typeError).toBeDefined();
-      expect(typeError).toBe(
+      expect(res.body.errors["workoutExercises.0.exerciseData.type"]).toMatch(
         "Invalid type type only strength, cardio, flexibility, miscellaneous are allowed"
+      );
+    });
+
+    it("should reject workout with invalid exercise ID", async () => {
+      const invalidWorkout: Partial<IWorkoutEditDTO> = {
+        name: "Invalid ID Workout",
+        crudOperation: "create",
+        workoutExercises: [
+          {
+            order: 1,
+            exerciseData: {
+              type: testExercises[0].type!,
+              id: "invalid-exercise-id",
+            },
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/workouts/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(invalidWorkout);
+
+      expect(res.status).toBe(404);
+      expect(res.body.message).toContain(
+        "One or more referenced records not found"
+      );
+    });
+
+    it("should reject workout with invalid order", async () => {
+      const invalidWorkout: Partial<IWorkoutEditDTO> = {
+        name: "Invalid Order Workout",
+        crudOperation: "create",
+        workoutExercises: [
+          {
+            order: 0, // Invalid order (must be >= 1)
+            exerciseData: {
+              type: testExercises[0].type!,
+              id: testExercises[0].id!,
+            },
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/workouts/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(invalidWorkout);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors["workoutExercises.0.order"]).toMatch(
+        "Order must be at least 1"
+      );
+    });
+
+    it("should reject workout with order too high", async () => {
+      const invalidWorkout: Partial<IWorkoutEditDTO> = {
+        name: "High Order Workout",
+        crudOperation: "create",
+        workoutExercises: [
+          {
+            order: 101, // Invalid order (must be <= 100)
+            exerciseData: {
+              type: testExercises[0].type!,
+              id: testExercises[0].id!,
+            },
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/workouts/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(invalidWorkout);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors["workoutExercises.0.order"]).toMatch(
+        "Order cannot exceed 100"
+      );
+    });
+
+    it("should reject workout with too many exercises", async () => {
+      const workoutExercises = Array.from({ length: 51 }, (_, i) => ({
+        order: i + 1,
+        exerciseData: {
+          type: testExercises[0].type!,
+          id: testExercises[0].id!,
+        },
+        crudOperation: "create" as const,
+      }));
+
+      const invalidWorkout: Partial<IWorkoutEditDTO> = {
+        name: "Too Many Exercises Workout",
+        crudOperation: "create",
+        workoutExercises,
+      };
+
+      const res = await request(app)
+        .post("/api/v1/workouts/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(invalidWorkout);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors.workoutExercises).toMatch(
+        "Maximum 50 workout sets allowed per workout"
+      );
+    });
+
+    it("should sanitize HTML in workout name", async () => {
+      const workoutWithHtml: IWorkoutEditDTO = {
+        name: "<script>alert('xss')</script>Malicious <b>Workout</b>",
+        crudOperation: "create",
+        workoutExercises: [
+          {
+            order: 1,
+            exerciseData: {
+              type: testExercises[0].type!,
+              id: testExercises[0].id!,
+            },
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/workouts/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(workoutWithHtml);
+
+      expect(res.status).toBe(201);
+      const workout: IWorkoutDTO = res.body.data;
+      testWorkouts.push(workout);
+
+      expect(workout.name).toBe("malicious workout");
+      expect(workout.name).not.toMatch(/<[^>]*>/);
+    });
+
+    it("should sanitize HTML in workout notes", async () => {
+      const workoutWithHtmlNotes: IWorkoutEditDTO = {
+        name: "Test Workout",
+        notes:
+          '<p>This is a <strong>great</strong> workout!</p><script>alert("hack")</script>',
+        crudOperation: "create",
+        workoutExercises: [
+          {
+            order: 1,
+            exerciseData: {
+              type: testExercises[0].type!,
+              id: testExercises[0].id!,
+            },
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/workouts/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(workoutWithHtmlNotes);
+
+      expect(res.status).toBe(201);
+      const workout: IWorkoutDTO = res.body.data;
+      testWorkouts.push(workout);
+
+      expect(workout.notes).toBe("this is a great workout!");
+      expect(workout.notes).not.toMatch(/<[^>]*>/);
+    });
+
+    it("should handle whitespace normalization in workout name", async () => {
+      const workoutWithWhitespace: IWorkoutEditDTO = {
+        name: "   Spaced    Out     Workout   ",
+        crudOperation: "create",
+        workoutExercises: [
+          {
+            order: 1,
+            exerciseData: {
+              type: testExercises[0].type!,
+              id: testExercises[0].id!,
+            },
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/workouts/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(workoutWithWhitespace);
+
+      expect(res.status).toBe(201);
+      const workout: IWorkoutDTO = res.body.data;
+      testWorkouts.push(workout);
+
+      expect(workout.name).toBe("spaced out workout");
+    });
+
+    it("should handle empty string after sanitization", async () => {
+      const workoutWithOnlyHtml: IWorkoutEditDTO = {
+        name: "<script></script><style></style>",
+        crudOperation: "create",
+        workoutExercises: [
+          {
+            order: 1,
+            exerciseData: {
+              type: testExercises[0].type!,
+              id: testExercises[0].id!,
+            },
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/workouts/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(workoutWithOnlyHtml);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors.name).toMatch(
+        "Workout name must be at least 1 characters long"
+      );
+    });
+
+    it("should reject workout with missing credentials", async () => {
+      const newWorkout: IWorkoutEditDTO = {
+        name: "Unauthorized Workout",
+        crudOperation: "create",
+        workoutExercises: [
+          {
+            order: 1,
+            exerciseData: {
+              type: testExercises[0].type!,
+              id: testExercises[0].id!,
+            },
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/workouts/edit")
+        .send(newWorkout);
+
+      expect(res.status).toBe(401);
+    });
+  });
+
+  describe("GET /api/v1/workouts", () => {
+    it("should return a list of workouts", async () => {
+      const res = await request(app)
+        .get("/api/v1/workouts")
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(200);
+      expect(Array.isArray(res.body)).toBe(true);
+    });
+
+    it("should filter workouts by name", async () => {
+      const res = await request(app)
+        .get("/api/v1/workouts?exerciseName=cardio")
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(200);
+      expect(Array.isArray(res.body)).toBe(true);
+    });
+
+    it("should filter workouts by template status", async () => {
+      const res = await request(app)
+        .get("/api/v1/workouts?isTemplate=false")
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(200);
+      expect(Array.isArray(res.body)).toBe(true);
+    });
+
+    it("should support pagination", async () => {
+      const res = await request(app)
+        .get("/api/v1/workouts?skip=0&take=5")
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.length).toBeLessThanOrEqual(5);
+    });
+  });
+
+  describe("GET /api/v1/workouts/:id", () => {
+    let workoutId: string;
+
+    beforeAll(async () => {
+      const workout: IWorkoutEditDTO = {
+        name: "Workout To Get",
+        notes: "A workout for getting by ID.",
+        crudOperation: "create",
+        workoutExercises: [
+          {
+            order: 1,
+            exerciseData: {
+              type: testExercises[0].type!,
+              id: testExercises[0].id!,
+            },
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/workouts/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(workout);
+
+      workoutId = res.body.data.id;
+      testWorkouts.push(res.body.data);
+    });
+
+    it("should get a single workout by its ID", async () => {
+      const res = await request(app)
+        .get(`/api/v1/workouts/${workoutId}`)
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.id || res.body.data.id).toBe(workoutId);
+      expect((res.body.name || res.body.data.name).toLowerCase()).toBe(
+        "workout to get"
+      );
+    });
+
+    it("should return 404 for a non-existent workout ID", async () => {
+      const res = await request(app)
+        .get("/api/v1/workouts/non-existent-id")
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(404);
+    });
+  });
+
+  describe("PUT /api/v1/workouts/edit/:id", () => {
+    let workoutId: string;
+    let originalWorkoutExercises: IWorkoutExerciseDTO[];
+
+    beforeEach(async () => {
+      const workout: IWorkoutEditDTO = {
+        name: "Workout To Update",
+        notes: "A workout for updating purposes.",
+        crudOperation: "create",
+        workoutExercises: [
+          {
+            order: 1,
+            notes: "Initial exercise str",
+            exerciseData: {
+              type: testExercises[1].type!,
+              id: testExercises[1].id!,
+            },
+            crudOperation: "create",
+          },
+          {
+            order: 2,
+            notes: "Initial exercise car",
+            exerciseData: {
+              type: testExercises[0].type!,
+              id: testExercises[0].id!,
+            },
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/workouts/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(workout);
+
+      workoutId = res.body.data.id;
+      originalWorkoutExercises = res.body.data.workoutExercises;
+      testWorkouts.push(res.body.data);
+    });
+
+    it("should update workout name successfully", async () => {
+      const updateData: IWorkoutEditDTO = {
+        name: "Updated Workout Name",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/workouts/edit/${workoutId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.message).toBe("Workout updated successfully");
+      expect(res.body.data.name).toBe("updated workout name");
+    });
+
+    it("should update workout notes successfully", async () => {
+      const updateData: IWorkoutEditDTO = {
+        notes: "Updated workout notes",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/workouts/edit/${workoutId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.notes).toBe("updated workout notes");
+    });
+
+    it("should update workout template status", async () => {
+      const updateData: IWorkoutEditDTO = {
+        isTemplate: true,
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/workouts/edit/${workoutId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.isTemplate).toBe(true);
+    });
+
+    it("should perform CRUD operations on workoutExercises", async () => {
+      const strengthExercise = originalWorkoutExercises.find(
+        (e) => e.notes === "initial exercise str"
+      );
+      const cardioExercise = originalWorkoutExercises.find(
+        (e) => e.notes === "initial exercise car"
+      );
+
+      const updateData: IWorkoutEditDTO = {
+        workoutExercises: [
+          {
+            id: strengthExercise?.id,
+            notes: "Updated strength exercise",
+            crudOperation: "update",
+            order: 3,
+            exerciseData: {
+              id: testExercises[1].id!,
+              type: testExercises[1].type!,
+            },
+          },
+          {
+            id: cardioExercise?.id!,
+            notes: "Updated cardio exercise",
+            crudOperation: "update",
+            order: 1,
+            exerciseData: {
+              id: testExercises[0].id!,
+              type: testExercises[0].type!,
+            },
+          },
+          {
+            notes: "New exercise",
+            crudOperation: "create",
+            order: 2,
+            exerciseData: {
+              id: testExercises[2].id!,
+              type: testExercises[2].type!,
+            },
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/workouts/edit/${workoutId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.workoutExercises).toHaveLength(3);
+    });
+
+    it("should sanitize HTML in updated workout name", async () => {
+      const updateData: IWorkoutEditDTO = {
+        name: "<script>alert('hack')</script>Updated <b>Workout</b>",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/workouts/edit/${workoutId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.name).toBe("updated workout");
+      expect(res.body.data.name).not.toMatch(/<[^>]*>/);
+    });
+
+    it("should handle whitespace normalization on update", async () => {
+      const updateData: IWorkoutEditDTO = {
+        name: "   Updated    Workout   Name   ",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/workouts/edit/${workoutId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.name).toBe("updated workout name");
+    });
+
+    it("should return 404 for updating a non-existent workout", async () => {
+      const updateData: IWorkoutEditDTO = {
+        name: "This will fail",
+      };
+
+      const res = await request(app)
+        .put("/api/v1/workouts/edit/non-existent-id")
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(404);
+    });
+
+    it("should reject update with missing credentials", async () => {
+      const updateData: IWorkoutEditDTO = {
+        name: "This will fail without auth",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/workouts/edit/${workoutId}`)
+        .send(updateData);
+
+      expect(res.status).toBe(401);
+    });
+
+    it("should reject update with empty name after sanitization", async () => {
+      const updateData: IWorkoutEditDTO = {
+        name: "<script></script><style></style>",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/workouts/edit/${workoutId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors.name).toMatch(
+        "Workout name must be at least 1 characters long"
       );
     });
   });
 
-  // describe("GET /api/v1/workouts", () => {
-  //   it("should return a paginated list of workouts", async () => {
-  //     const res = await request(app)
-  //       .get("/api/v1/workouts?page=1&take=5")
-  //       .set("Cookie", `token=${authToken}`);
-  //     expect(res.status).toBe(200);
-  //     expect(Array.isArray(res.body)).toBe(true);
-  //     expect(res.body.length).toBeLessThanOrEqual(5);
-  //   });
-  // });
+  describe("DELETE /api/v1/workouts/:id", () => {
+    it("should delete an existing workout", async () => {
+      const workout: IWorkoutEditDTO = {
+        name: "Workout To Be Deleted",
+        crudOperation: "create",
+        workoutExercises: [
+          {
+            order: 1,
+            exerciseData: {
+              type: testExercises[0].type!,
+              id: testExercises[0].id!,
+            },
+            crudOperation: "create",
+          },
+        ],
+      };
 
-  // describe("GET /api/v1/workouts/:id", () => {
-  //   it("should get a workout by its id with all nested data", async () => {
-  //     const res = await request(app)
-  //       .get(`/api/v1/workouts/${createdWorkoutIds[0]}`)
-  //       .set("Cookie", `token=${authToken}`);
-  //     expect(res.status).toBe(200);
-  //     const workout: IWorkoutDTO = res.body;
-  //     expect(workout.id).toBe(createdWorkoutIds[0]);
-  //     expect(workout.name).toBe("full body test workout");
-  //     expect(workout.workoutExercises).toHaveLength(1);
-  //   });
+      const res = await request(app)
+        .post("/api/v1/workouts/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(workout);
 
-  //   it("should return 404 for a non-existent workout id", async () => {
-  //     const res = await request(app)
-  //       .get("/api/v1/workouts/non-existent-id")
-  //       .set("Cookie", `token=${authToken}`);
-  //     expect(res.status).toBe(404);
-  //   });
-  // });
+      const workoutIdToDelete = res.body.data.id;
 
-  // describe("PUT /api/v1/workouts/edit/:id", () => {
-  //   let workoutToUpdateId: string;
-  //   let originalWorkoutExercises: IWorkoutExerciseDTO[];
+      const deleteRes = await request(app)
+        .delete(`/api/v1/workouts/${workoutIdToDelete}`)
+        .set("Cookie", `token=${authToken}`);
 
-  //   beforeEach(async () => {
-  //     const workout: IWorkoutEditDTO = {
-  //       name: "Workout to be Updated",
-  //       notes: "A workout for updating purposes.",
-  //       crudOperation: "create",
-  //       workoutExercises: [
-  //         {
-  //           crudOperation: "create",
-  //           order: 1,
-  //           notes: "Initial exercise str",
-  //           exerciseData: {
-  //             type: testExercises[1].type!,
-  //             id: testExercises[1].id!,
-  //           },
-  //         },
-  //         {
-  //           crudOperation: "create",
-  //           order: 1,
-  //           notes: "Initial exercise car",
-  //           exerciseData: {
-  //             type: testExercises[0].type!,
-  //             id: testExercises[0].id!,
-  //           },
-  //         },
-  //       ],
-  //     };
+      expect(deleteRes.status).toBe(200);
+      expect(deleteRes.body.message).toBe("Workout deleted successfully");
 
-  //     const workoutRes = await request(app)
-  //       .post("/api/v1/workouts/edit")
-  //       .set("Cookie", `token=${authToken}`)
-  //       .send(workout);
-  //     workoutToUpdateId = workoutRes.body.data.id;
-  //     originalWorkoutExercises = workoutRes.body.data.workoutExercises;
+      const getRes = await request(app)
+        .get(`/api/v1/workouts/${workoutIdToDelete}`)
+        .set("Cookie", `token=${authToken}`);
 
-  //     createdWorkoutIds.push(workoutToUpdateId);
-  //   });
+      expect(getRes.status).toBe(404);
+    });
 
-  //   it("should update top-level fields of a workout", async () => {
-  //     const updateFields: IWorkoutEditDTO = {
-  //       name: "Updated Workout Name",
-  //       notes: "Updated notes.",
-  //     };
-  //     const res = await request(app)
-  //       .put(`/api/v1/workouts/edit/${workoutToUpdateId}`)
-  //       .set("Cookie", `token=${authToken}`)
-  //       .send(updateFields);
+    it("should return 404 for deleting a non-existent workout", async () => {
+      const res = await request(app)
+        .delete("/api/v1/workouts/non-existent-id")
+        .set("Cookie", `token=${authToken}`);
 
-  //     expect(res.status).toBe(200);
-  //     expect(res.body.data.name).toBe(updateFields.name?.toLowerCase());
-  //     expect(res.body.data.notes).toBe(updateFields.notes?.toLowerCase());
-  //   });
-
-  //   it("should perform CRUD operations on workout and nested workoutExercises and coreStrengthSets", async () => {
-  //     const x = originalWorkoutExercises.find(
-  //       (e) => e.notes === "initial exercise str"
-  //     );
-  //     const y = originalWorkoutExercises.find(
-  //       (e) => e.notes === "initial exercise car"
-  //     );
-  //     const updatePayload: IWorkoutEditDTO = {
-  //       workoutExercises: [
-  //         {
-  //           id: x?.id,
-  //           notes: "Updated CRUD str",
-  //           crudOperation: "update",
-  //           order: 2,
-  //           exerciseData: {
-  //             id: testExercises[1].id!,
-  //             type: testExercises[1].type!,
-  //           },
-  //         },
-  //         {
-  //           id: y?.id!,
-  //           notes: "Updated CRUD car",
-  //           crudOperation: "update",
-  //           order: 2,
-  //           exerciseData: {
-  //             id: testExercises[0].id!,
-  //             type: testExercises[0].type!,
-  //           },
-  //         },
-  //         {
-  //           notes: "create exercise notes",
-  //           crudOperation: "create",
-  //           order: 2,
-  //           exerciseData: {
-  //             id: testExercises[2].id!,
-  //             type: testExercises[2].type!,
-  //           },
-  //         },
-  //       ],
-  //     };
-
-  //     const res = await request(app)
-  //       .put(`/api/v1/workouts/edit/${workoutToUpdateId}`)
-  //       .set("Cookie", `token=${authToken}`)
-  //       .send(updatePayload);
-
-  //     expect(res.status).toBe(200);
-  //     const updatedWorkout = res.body.data as IWorkoutDTO;
-
-  //     expect(updatedWorkout.id).toBe(workoutToUpdateId);
-  //   });
-
-  //   it("should return 400 for updating a non-existent workout", async () => {
-  //     const res = await request(app)
-  //       .put("/api/v1/workouts/edit/non-existent-id")
-  //       .set("Cookie", `token=${authToken}`)
-  //       .send({ name: "Doesn't matter" });
-  //     expect(res.status).toBe(400);
-  //   });
-  // });
-
-  // describe("DELETE /api/v1/workouts/:id", () => {
-  //   it("should delete an existing workout", async () => {
-  //     const workoutToDelete: IWorkoutEditDTO = {
-  //       name: "Workout to be Deleted",
-  //       crudOperation: "create",
-  //       workoutExercises: [
-  //         {
-  //           order: 1,
-  //           crudOperation: "create",
-  //           exerciseData: {
-  //             id: testExercises[1].id!,
-  //             type: testExercises[1].type!,
-  //           },
-  //         },
-  //       ],
-  //     };
-
-  //     const workoutRes = await request(app)
-  //       .post("/api/v1/workouts/edit")
-  //       .set("Cookie", `token=${authToken}`)
-  //       .send(workoutToDelete);
-
-  //     const workoutId = workoutRes.body.data.id;
-
-  //     const deleteRes = await request(app)
-  //       .delete(`/api/v1/workouts/${workoutId}`)
-  //       .set("Cookie", `token=${authToken}`);
-  //     expect(deleteRes.status).toBe(200);
-  //     expect(deleteRes.body.message).toBe("Workout deleted successfully");
-
-  //     const getRes = await request(app)
-  //       .get(`/api/v1/workouts/${workoutId}`)
-  //       .set("Cookie", `token=${authToken}`);
-  //     expect(getRes.status).toBe(404);
-  //   });
-
-  //   it("should return 400 for deleting a non-existent workout", async () => {
-  //     const res = await request(app)
-  //       .delete("/api/v1/workouts/non-existent-id")
-  //       .set("Cookie", `token=${authToken}`);
-  //     expect(res.status).toBe(400);
-  //   });
-  // });
+      expect(res.status).toBe(404);
+    });
+  });
 
   afterAll(async () => {
-    for (const id of createdWorkoutIds) {
+    for (const { id } of testWorkouts) {
       await request(app)
         .delete(`/api/v1/workouts/${id}`)
         .set("Cookie", `token=${authToken}`)

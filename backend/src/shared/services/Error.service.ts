@@ -83,9 +83,7 @@ export class AppError extends Error {
 
         case "P2025": {
           returnError.status = 404;
-          returnError.message = `${error?.meta?.modelName ?? "Model"} - ${
-            error?.meta?.cause ?? ""
-          }`;
+          returnError.message = "One or more referenced records not found";
           break;
         }
         default: {

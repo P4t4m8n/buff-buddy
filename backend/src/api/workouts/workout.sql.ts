@@ -22,7 +22,7 @@ const WORKOUT_EXERCISE_SELECT: Prisma.WorkoutExerciseSelect = {
   },
 };
 
-const WORKOUT_SELECT: Prisma.WorkoutSelect = {
+const WORKOUT_SELECT = {
   id: true,
   name: true,
   notes: true,
@@ -57,6 +57,7 @@ const getWorkoutCreate = (
   return {
     name: data?.name ?? data?.name,
     owner: { connect: { id: userId ?? undefined } },
+    notes: data?.notes,
     isTemplate: data?.isTemplate ?? false,
     workoutExercises: {
       create: (data?.workoutExercises ?? []).map(

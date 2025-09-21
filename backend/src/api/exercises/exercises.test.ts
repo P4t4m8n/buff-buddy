@@ -668,7 +668,7 @@ describe("Exercises API", () => {
 
       expect(res.status).toBe(404);
       expect(res.body.message).toMatch(
-        "Exercise - No record was found for an update"
+        "One or more referenced records not found"
       );
     });
 

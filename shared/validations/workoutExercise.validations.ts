@@ -68,6 +68,7 @@ const workoutExerciseFactorySchema = ({
     exerciseData: z.object({
       id: validationUtil.IDSchemaFactory({ toSanitize }),
       type: exerciseValidation.ExerciseTypeSchema,
+      
     }),
     isActive: z.coerce.boolean().default(true),
     hasWarmup: validationUtil.BooleanSchema,
