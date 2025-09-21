@@ -6,7 +6,7 @@ import { WORKOUT_LEVELS, WORKOUT_GOALS } from "../consts/program.consts";
 const BaseProgramWorkoutSchema = z.object({
   daysOfWeek: validationUtil.DaysOfWeekSchema.optional(),
   crudOperation: validationUtil.CrudOperationSchema,
-  level: z.enum(WORKOUT_LEVELS).default("beginner"),
+  workoutLevel: z.enum(WORKOUT_LEVELS).default("beginner"),
   workoutGoal: z.enum(WORKOUT_GOALS).default("hypertrophy"),
 });
 

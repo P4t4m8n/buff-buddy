@@ -1,4 +1,7 @@
 import { Router } from "express";
+
+import { requireAuth } from "../../middlewares/auth.middleware";
+
 import {
   createProgram,
   deleteProgram,
@@ -7,12 +10,13 @@ import {
   updateProgram,
 } from "./programs.controller";
 
+
 export const programsRoutes = Router();
 
-programsRoutes.get("/", getPrograms);
-programsRoutes.get("/:id", getProgramById);
+programsRoutes.get("/", requireAuth, getPrograms);
+programsRoutes.get("/:id", requireAuth, getProgramById);
 
-programsRoutes.post("/edit", createProgram);
-programsRoutes.put("/edit/:id", updateProgram);
+programsRoutes.post("/edit", requireAuth, createProgram);
+programsRoutes.put("/edit/:id", requireAuth, updateProgram);
 
-programsRoutes.delete("/:id", deleteProgram);
+programsRoutes.delete("/:id", requireAuth, deleteProgram);

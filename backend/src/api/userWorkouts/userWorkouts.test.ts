@@ -231,7 +231,7 @@ describe("UserWorkout API", () => {
           workout: {
             id: testWorkouts[0].id,
           },
-          level: "beginner",
+          workoutLevel: "beginner",
           workoutGoal: "hypertrophy",
         },
         {
@@ -240,7 +240,7 @@ describe("UserWorkout API", () => {
           workout: {
             id: testWorkouts[1].id,
           },
-          level: "beginner",
+          workoutLevel: "beginner",
           workoutGoal: "hypertrophy",
         },
         {
@@ -249,7 +249,7 @@ describe("UserWorkout API", () => {
           workout: {
             id: testWorkouts[2].id,
           },
-          level: "beginner",
+          workoutLevel: "beginner",
           workoutGoal: "hypertrophy",
         },
         {
@@ -258,7 +258,7 @@ describe("UserWorkout API", () => {
           workout: {
             id: testWorkouts[3].id,
           },
-          level: "beginner",
+          workoutLevel: "beginner",
           workoutGoal: "hypertrophy",
         },
       ],

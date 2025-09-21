@@ -71,11 +71,11 @@ const updateProgramFactorySchema = ({
     .partial()
     .refine(
       (data) =>
-      {return  data?.endDate && data?.startDate && data?.endDate > data?.startDate,
+        !data?.endDate || !data?.startDate || data.endDate > data.startDate,
       {
         message: "End date must be after start date",
         path: ["endDate"],
-      }}
+      }
     );
 };
 

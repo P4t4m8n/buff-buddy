@@ -229,6 +229,7 @@ describe("Exercises API", () => {
     });
   });
 
+  
   describe("PUT /api/v1/exercises/edit/:id", () => {
     let exerciseId: string;
     const exercise: IExerciseDTO = {

@@ -194,7 +194,7 @@ exports.Prisma.ProgramWorkoutScalarFieldEnum = {
   id: 'id',
   programId: 'programId',
   workoutId: 'workoutId',
-  level: 'level',
+  workoutLevel: 'workoutLevel',
   workoutGoal: 'workoutGoal',
   daysOfWeek: 'daysOfWeek',
   createdAt: 'createdAt',

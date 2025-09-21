@@ -231,7 +231,7 @@ describe("WorkoutPlanner API", () => {
           workout: {
             id: testWorkouts[0].id,
           },
-          level: "beginner",
+          workoutLevel: "beginner",
           workoutGoal: "hypertrophy",
         },
         // {

@@ -63,7 +63,7 @@ const createUserWorkoutPlan = ({
   const {
     workout,
     workoutGoal = "hypertrophy",
-    level,
+    workoutLevel,
     programId,
   } = programWorkout;
 
@@ -73,7 +73,7 @@ const createUserWorkoutPlan = ({
   const { workoutExercises } = workout;
 
   const workoutGoalData = workoutGoals[workoutGoal];
-  const workoutLevelData = workoutLevels[level];
+  const workoutLevelData = workoutLevels[workoutLevel];
 
   const userWorkoutExercises: IUserWorkoutExercisesEditDTO[] =
     workoutExercises?.map((workoutExercise) => {

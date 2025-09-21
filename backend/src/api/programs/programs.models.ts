@@ -42,7 +42,7 @@ export interface IProgramWorkout {
   id: string;
   daysOfWeek: DaysOfWeek[];
   workout: IWorkout | null;
-  level: WorkoutLevel;
+  workoutLevel: WorkoutLevel;
   workoutGoal: WorkoutGoal;
   programId?: string;
 }

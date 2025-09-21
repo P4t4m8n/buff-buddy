@@ -21,7 +21,10 @@ export const getPrograms = async (req: Request, res: Response) => {
 
     const programs = programsUtil.buildDTOArr(programsData);
 
-    res.status(200).json(programs);
+    res.status(200).json({
+      message: "Program successfully found",
+      data: programs,
+    });
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);
     res.status(status).json({
@@ -48,7 +51,10 @@ export const getProgramById = async (req: Request, res: Response) => {
 
     const program = programsUtil.buildDTO(programData);
 
-    res.status(200).json(program);
+    res.status(200).json({
+      message: "Program successfully found",
+      data: program,
+    });
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);
     res.status(status).json({

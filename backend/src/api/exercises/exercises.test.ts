@@ -43,7 +43,7 @@ describe("Exercises API", () => {
       expect(res.body.message).toBe("Exercise created successfully");
       testExercises.push(exercise);
       expect(exercise).toHaveProperty("id");
-      testExercises.push(res.body.data.id);
+      testExercises.push(exercise);
 
       expect(exercise.name?.toLowerCase()).toBe(
         newExercise.name?.toLowerCase()
@@ -205,11 +205,9 @@ describe("Exercises API", () => {
 
       expect(res.status).toBe(201);
       const exercise: IExerciseDTO = res.body.data;
-      testExercises.push(res.body.data);
+      testExercises.push(exercise);
 
-      // Should strip all HTML tags and normalize whitespace
       expect(exercise.name).toBe("malicious bench press");
-      // Should not contain any HTML tags
       expect(exercise.name).not.toMatch(/<[^>]*>/);
     });
 
@@ -231,9 +229,7 @@ describe("Exercises API", () => {
       const exercise: IExerciseDTO = res.body.data;
       testExercises.push(res.body.data);
 
-      // Should strip all HTML tags
       expect(exercise.name).toBe("this is a great exercise!");
-      // Should not contain any HTML tags
       expect(exercise.name).not.toMatch(/<[^>]*>/);
     });
 
@@ -742,7 +738,7 @@ describe("Exercises API", () => {
 
   afterAll(async () => {
     for (const { id } of testExercises) {
-      if (!id) return;
+      if (!id) continue;
       await request(app)
         .delete(`/api/v1/exercises/${id}`)
         .set("Cookie", `token=${authToken}`)

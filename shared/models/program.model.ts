@@ -1,4 +1,8 @@
-import type { DaysOfWeek } from "../../backend/prisma/generated/prisma";
+import type {
+  DaysOfWeek,
+  WorkoutGoal,
+  WorkoutLevel,
+} from "../../backend/prisma/generated/prisma";
 import { WORKOUT_GOALS, WORKOUT_LEVELS } from "../consts/program.consts";
 import type { IBaseFilter, TCrudOperation, TDayOfWeek } from "./app.model";
 import type { IEntity } from "./entity.model";
@@ -34,8 +38,8 @@ export type TProgramWorkoutEditRecord = Record<
 interface IProgramWorkoutBase extends IEntity {
   daysOfWeek: DaysOfWeek[];
   programId?: string;
-  level?: string | null;
-  workoutGoal?: string | null;
+  workoutLevel?: WorkoutLevel | null;
+  workoutGoal?: WorkoutGoal | null;
 }
 export interface IProgramWorkoutDTO extends IProgramWorkoutBase {
   workout?: IWorkoutDTO;

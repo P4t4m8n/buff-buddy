@@ -241,16 +241,16 @@ model Program {
 }
 
 model ProgramWorkout {
-  id          String       @id @default(cuid())
-  programId   String
-  program     Program      @relation(fields: [programId], references: [id], onDelete: Cascade)
-  workoutId   String
-  workout     Workout      @relation(fields: [workoutId], references: [id], onDelete: Cascade)
-  level       WorkoutLevel @default(beginner) //Planer algorithm will use this to suggest appropriate workouts
-  workoutGoal WorkoutGoal  @default(hypertrophy) //Planer algorithm will use this to suggest appropriate workouts
-  daysOfWeek  DaysOfWeek[]
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  id           String       @id @default(cuid())
+  programId    String
+  program      Program      @relation(fields: [programId], references: [id], onDelete: Cascade)
+  workoutId    String
+  workout      Workout      @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  workoutLevel WorkoutLevel @default(beginner) //Planer algorithm will use this to suggest appropriate workouts
+  workoutGoal  WorkoutGoal  @default(hypertrophy) //Planer algorithm will use this to suggest appropriate workouts
+  daysOfWeek   DaysOfWeek[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 
   @@unique([programId, workoutId])
 }

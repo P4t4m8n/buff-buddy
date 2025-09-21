@@ -6,14 +6,17 @@ import {
 } from "../../../../shared/models/program.model";
 import { IAuthSignUpDTO } from "../../../../shared/models/auth.model";
 import { IExerciseDTO } from "../../../../shared/models/exercise.model";
-import { IWorkoutEditDTO } from "../../../../shared/models/workout.model";
+import {
+  IWorkoutDTO,
+  IWorkoutEditDTO,
+} from "../../../../shared/models/workout.model";
 
 describe("Programs API", () => {
   let authToken: string;
   let testUserId: string;
-  let testWorkoutId: string;
-  let testExercises: IExerciseDTO[] = [];
-  const createdProgramIds: string[] = [];
+  const testWorkouts: IWorkoutDTO[] = [];
+  const testExercises: IExerciseDTO[] = [];
+  const testPrograms: IProgramDTO[] = [];
 
   beforeAll(async () => {
     const userCredentials: IAuthSignUpDTO = {
@@ -81,15 +84,7 @@ describe("Programs API", () => {
             id: testExercises[0].id!,
           },
           crudOperation: "create",
-          coreCardioSet: {
-            warmupTime: 60 * 10, // 10 minutes
-            workTime: 60 * 20, // 20 minutes
-            avgHeartRate: 120,
-            avgSpeed: 8,
-            distance: 5,
-            calorieTarget: 300,
-            crudOperation: "create",
-          },
+          hasWarmup: true,
         },
       ],
     };
@@ -98,7 +93,7 @@ describe("Programs API", () => {
       .post("/api/v1/workouts/edit")
       .set("Cookie", `token=${authToken}`)
       .send(workout);
-    testWorkoutId = workoutRes.body.data.id;
+    testWorkouts.push(workoutRes.body.data);
   });
 
   describe("POST /api/v1/programs/edit", () => {
@@ -112,9 +107,11 @@ describe("Programs API", () => {
         programWorkouts: [
           {
             daysOfWeek: ["monday", "friday"],
+            workoutGoal: "hypertrophy",
+            workoutLevel: "beginner",
             crudOperation: "create",
             workout: {
-              id: testWorkoutId,
+              id: testWorkouts[0].id,
             },
           },
         ],
@@ -131,12 +128,14 @@ describe("Programs API", () => {
       expect(program.id).toBeDefined();
       expect(program.name).toBe(newProgram.name?.toLowerCase());
       expect(program.programWorkouts).toHaveLength(1);
-      expect(program?.programWorkouts?.[0]?.workout?.id).toBe(testWorkoutId);
+      expect(program?.programWorkouts?.[0]?.workout?.id).toBe(
+        testWorkouts[0].id
+      );
       expect(program?.programWorkouts?.[0]?.daysOfWeek).toEqual([
         "monday",
         "friday",
       ]);
-      createdProgramIds.push(program.id!);
+      testPrograms.push(program);
     });
 
     it("should reject program if end date is before start date", async () => {
@@ -148,10 +147,12 @@ describe("Programs API", () => {
         programWorkouts: [
           {
             workout: {
-              id: testWorkoutId,
+              id: testWorkouts[0].id,
             },
             daysOfWeek: ["monday"],
             crudOperation: "create",
+            workoutGoal: "hypertrophy",
+            workoutLevel: "beginner",
           },
         ],
       };
@@ -175,17 +176,260 @@ describe("Programs API", () => {
 
       expect(res.status).toBe(400);
       expect(res.body).toHaveProperty("errors");
+      expect(res.body.errors.startDate).toBeDefined();
+      expect(res.body.errors.endDate).toBeDefined();
+      expect(res.body.errors.programWorkouts).toBeDefined();
+    });
+
+    it("should reject program with invalid workout goal", async () => {
+      const invalidProgram = {
+        name: "Invalid Goal Program",
+        startDate: "2025-08-01",
+        endDate: "2025-10-31",
+        programWorkouts: [
+          {
+            workout: { id: testWorkouts[0].id },
+            daysOfWeek: ["monday"],
+            workoutGoal: "invalid-goal",
+            workoutLevel: "beginner",
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/programs/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(invalidProgram);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors["programWorkouts.0.workoutGoal"]).toBeDefined();
+      expect(res.body.errors["programWorkouts.0.workoutGoal"]).toMatch(
+        "Invalid enum value. Expected 'hypertrophy', received 'invalid-goal"
+      );
+    });
+
+    it("should reject program with invalid level", async () => {
+      const invalidProgram = {
+        name: "Invalid Level Program",
+        startDate: "2025-08-01",
+        endDate: "2025-10-31",
+        programWorkouts: [
+          {
+            workout: { id: testWorkouts[0].id },
+            daysOfWeek: ["monday"],
+            workoutGoal: "hypertrophy",
+            workoutLevel: "invalid-level",
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/programs/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(invalidProgram);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors["programWorkouts.0.workoutLevel"]).toBeDefined();
+      expect(res.body.errors["programWorkouts.0.workoutLevel"]).toMatch(
+        "Invalid enum value. Expected 'beginner', received 'invalid-level'"
+      );
+    });
+
+    it("should reject program with invalid days of week", async () => {
+      const invalidProgram = {
+        name: "Invalid Days Program",
+        startDate: "2025-08-01",
+        endDate: "2025-10-31",
+        programWorkouts: [
+          {
+            workout: { id: testWorkouts[0].id },
+            daysOfWeek: ["invalid-day", "another-invalid"],
+            workoutGoal: "hypertrophy",
+            workoutLevel: "beginner",
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/programs/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(invalidProgram);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors["programWorkouts.0.daysOfWeek.0"]).toBeDefined();
+      expect(res.body.errors["programWorkouts.0.daysOfWeek.1"]).toBeDefined();
+    });
+
+    it("should reject program with no program workouts", async () => {
+      const invalidProgram = {
+        name: "No Workouts Program",
+        startDate: "2025-08-01",
+        endDate: "2025-10-31",
+        programWorkouts: [],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/programs/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(invalidProgram);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors.programWorkouts).toMatch(
+        "At least one exercise is required"
+      );
+    });
+
+    it("should sanitize HTML in program name", async () => {
+      const programWithHtml: IProgramEditDTO = {
+        name: "<script>alert('xss')</script>Malicious <b>Program</b>",
+        startDate: "2025-08-01",
+        endDate: "2025-10-31",
+        programWorkouts: [
+          {
+            workout: { id: testWorkouts[0].id },
+            daysOfWeek: ["monday"],
+            workoutGoal: "hypertrophy",
+            workoutLevel: "beginner",
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/programs/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(programWithHtml);
+
+      expect(res.status).toBe(201);
+      const program: IProgramDTO = res.body.data;
+      testPrograms.push(program);
+
+      expect(program.name).toBe("malicious program");
+      expect(program.name).not.toMatch(/<[^>]*>/);
+    });
+
+    it("should sanitize HTML in program notes", async () => {
+      const programWithHtmlNotes: IProgramEditDTO = {
+        name: "Test Program",
+        notes:
+          '<p>This is a <strong>great</strong> program!</p><script>alert("hack")</script>',
+        startDate: "2025-08-01",
+        endDate: "2025-10-31",
+        programWorkouts: [
+          {
+            workout: { id: testWorkouts[0].id },
+            daysOfWeek: ["monday"],
+            workoutGoal: "hypertrophy",
+            workoutLevel: "beginner",
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/programs/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(programWithHtmlNotes);
+
+      expect(res.status).toBe(201);
+      const program: IProgramDTO = res.body.data;
+      testPrograms.push(program);
+
+      expect(program.notes).toBe("this is a great program!");
+      expect(program.notes).not.toMatch(/<[^>]*>/);
+    });
+
+    it("should handle whitespace normalization in program name", async () => {
+      const programWithWhitespace: IProgramEditDTO = {
+        name: "   Spaced    Out     Program   ",
+        startDate: "2025-08-01",
+        endDate: "2025-10-31",
+        programWorkouts: [
+          {
+            workout: { id: testWorkouts[0].id },
+            daysOfWeek: ["monday"],
+            workoutGoal: "hypertrophy",
+            workoutLevel: "beginner",
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/programs/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(programWithWhitespace);
+
+      expect(res.status).toBe(201);
+      const program: IProgramDTO = res.body.data;
+      testPrograms.push(program);
+
+      expect(program.name).toBe("spaced out program");
+    });
+
+    it("should handle empty string after sanitization", async () => {
+      const programWithOnlyHtml: IProgramEditDTO = {
+        name: "<script></script><style></style>",
+        startDate: "2025-08-01",
+        endDate: "2025-10-31",
+        programWorkouts: [
+          {
+            workout: { id: testWorkouts[0].id },
+            daysOfWeek: ["monday"],
+            workoutGoal: "hypertrophy",
+            workoutLevel: "beginner",
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/programs/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(programWithOnlyHtml);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors.name).toMatch(
+        "Program name must be at least 1 characters long"
+      );
+    });
+
+    it("should reject program with missing credentials", async () => {
+      const newProgram: IProgramEditDTO = {
+        name: "Unauthorized Program",
+        startDate: "2025-08-01",
+        endDate: "2025-10-31",
+        programWorkouts: [
+          {
+            workout: { id: testWorkouts[0].id },
+            daysOfWeek: ["monday"],
+            workoutGoal: "hypertrophy",
+            workoutLevel: "beginner",
+            crudOperation: "create",
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/programs/edit")
+        .send(newProgram);
+
+      expect(res.status).toBe(401);
     });
   });
 
   describe("GET /api/v1/programs", () => {
+    beforeAll(async () => {});
     it("should return a list of programs", async () => {
       const res = await request(app)
         .get("/api/v1/programs")
         .set("Cookie", `token=${authToken}`);
 
       expect(res.status).toBe(200);
-      expect(Array.isArray(res.body)).toBe(true);
+      expect(Array.isArray(res.body.data)).toBe(true);
     });
 
     it("should filter programs by name", async () => {
@@ -195,13 +439,36 @@ describe("Programs API", () => {
 
       expect(res.status).toBe(200);
       expect(
-        res.body.every((p: IProgramDTO) => (p?.name || "").includes("lifting"))
+        res.body.data.every((p: IProgramDTO) =>
+          (p?.name || "").includes("lifting")
+        )
       ).toBe(true);
+    });
+
+    it("should filter programs by active status", async () => {
+      const res = await request(app)
+        .get("/api/v1/programs?isActive=true")
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.every((p: IProgramDTO) => p.isActive === true)).toBe(
+        true
+      );
+    });
+
+    it("should support pagination", async () => {
+      const res = await request(app)
+        .get("/api/v1/programs?skip=1&page=1")
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(200);
+      expect(Array.isArray(res.body.data)).toBe(true);
     });
   });
 
   describe("GET /api/v1/programs/:id", () => {
     let programId: string;
+
     beforeAll(async () => {
       const program: IProgramEditDTO = {
         name: "Program To Get",
@@ -209,15 +476,23 @@ describe("Programs API", () => {
         endDate: "2025-02-01",
         isActive: true,
         programWorkouts: [
-          { workout: { id: testWorkoutId }, daysOfWeek: ["saturday"] },
+          {
+            workout: { id: testWorkouts[0].id },
+            daysOfWeek: ["saturday"],
+            workoutGoal: "hypertrophy",
+            workoutLevel: "beginner",
+            crudOperation: "create",
+          },
         ],
       };
+
       const res = await request(app)
         .post("/api/v1/programs/edit")
         .set("Cookie", `token=${authToken}`)
         .send(program);
+
       programId = res.body.data.id;
-      createdProgramIds.push(programId);
+      testPrograms.push(res.body.data);
     });
 
     it("should get a single program by its ID", async () => {
@@ -226,99 +501,24 @@ describe("Programs API", () => {
         .set("Cookie", `token=${authToken}`);
 
       expect(res.status).toBe(200);
-      expect(res.body.id).toBe(programId);
-      expect(res.body.name).toBe("program to get");
+      expect(res.body.data.id).toBe(programId);
+      expect(res.body.data.name).toBe("program to get");
     });
 
     it("should return 404 for a non-existent program ID", async () => {
       const res = await request(app)
         .get("/api/v1/programs/non-existent-id")
         .set("Cookie", `token=${authToken}`);
+
       expect(res.status).toBe(404);
     });
   });
 
   describe("PUT /api/v1/programs/edit/:id", () => {
     let programId: string;
-    let programData: IProgramEditDTO;
+    let programData: IProgramDTO;
+
     beforeEach(async () => {
-      const workout: IWorkoutEditDTO = {
-        name: "Full Body Test Workout",
-        notes: "A workout for testing purposes.",
-        crudOperation: "create",
-        workoutExercises: [
-          {
-            order: 1,
-            notes: "First exercise",
-            exerciseData: {
-              id: testExercises[0].id!,
-              type: testExercises[0].type!,
-            },
-            crudOperation: "create",
-            coreCardioSet: {
-              warmupTime: 60 * 10, // 10 minutes
-              workTime: 60 * 20, // 20 minutes
-              avgHeartRate: 120,
-              avgSpeed: 8,
-              distance: 5,
-              calorieTarget: 300,
-              crudOperation: "create",
-            },
-          },
-          {
-            order: 2,
-            notes: "Second exercise",
-            exerciseData: {
-              id: testExercises[1].id!,
-              type: testExercises[1].type!,
-            },
-            crudOperation: "create",
-            coreStrengthSet: {
-              reps: 10,
-              weight: 70,
-              restTime: 90,
-              numberOfSets: 4,
-              hasWarmup: false,
-              crudOperation: "create",
-            },
-          },
-          {
-            order: 3,
-            notes: "Third exercise",
-            exerciseData: {
-              id: testExercises[2].id!,
-              type: testExercises[2].type!,
-            },
-            crudOperation: "create",
-            coreStrengthSet: {
-              reps: 15,
-              weight: 20,
-              restTime: 45,
-              numberOfSets: 2,
-              hasWarmup: true,
-              crudOperation: "create",
-            },
-          },
-          {
-            order: 4,
-            notes: "Fourth exercise",
-            exerciseData: {
-              id: testExercises[3].id!,
-              type: testExercises[3].type!,
-            },
-            crudOperation: "create",
-            coreCardioSet: {
-              warmupTime: 60 * 5, // 5 minutes
-              workTime: 60 * 15, // 15 minutes
-              avgHeartRate: 130,
-              avgSpeed: 7,
-              distance: 3,
-              calorieTarget: 200,
-              crudOperation: "create",
-            },
-          },
-        ],
-      };
       const program: IProgramEditDTO = {
         name: "Program To Update",
         startDate: "2025-03-01",
@@ -326,12 +526,17 @@ describe("Programs API", () => {
         isActive: true,
         programWorkouts: [
           {
-            workout: workout,
+            workout: {
+              id: testWorkouts[0].id,
+            },
             crudOperation: "create",
             daysOfWeek: ["tuesday"],
+            workoutGoal: "hypertrophy",
+            workoutLevel: "beginner",
           },
         ],
       };
+
       const res = await request(app)
         .post("/api/v1/programs/edit")
         .set("Cookie", `token=${authToken}`)
@@ -339,7 +544,68 @@ describe("Programs API", () => {
 
       programId = res.body.data.id;
       programData = res.body.data;
-      createdProgramIds.push(programId);
+      testPrograms.push(res.body.data);
+    });
+
+    it("should update program name successfully", async () => {
+      const updateData: IProgramEditDTO = {
+        name: "Updated Program Name",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/programs/edit/${programId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.message).toBe("Program updated successfully");
+      expect(res.body.data.name).toBe("updated program name");
+    });
+
+    it("should update program notes successfully", async () => {
+      const updateData: IProgramEditDTO = {
+        notes: "This program has been updated.",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/programs/edit/${programId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.notes).toBe("this program has been updated.");
+    });
+
+    it("should update program active status successfully", async () => {
+      const updateData: IProgramEditDTO = {
+        isActive: false,
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/programs/edit/${programId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.isActive).toBe(false);
+    });
+
+    it("should update program dates successfully", async () => {
+      const updateData: IProgramEditDTO = {
+        startDate: "2025-05-01",
+        endDate: "2025-06-01",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/programs/edit/${programId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      const programRes = res.body.data as IProgramDTO;
+
+      expect(res.status).toBe(200);
+      expect(programRes.startDate).toContain("2025-05-01");
+      expect(programRes.endDate).toContain("2025-06-01");
     });
 
     it("should update an existing programWorkout", async () => {
@@ -355,6 +621,7 @@ describe("Programs API", () => {
           },
         ],
       };
+
       const res = await request(app)
         .put(`/api/v1/programs/edit/${programId}`)
         .set("Cookie", `token=${authToken}`)
@@ -366,22 +633,76 @@ describe("Programs API", () => {
         expect.arrayContaining(["monday", "tuesday"])
       );
     });
-    it("should update an existing program", async () => {
+
+    it("should sanitize HTML in updated program name", async () => {
       const updateData: IProgramEditDTO = {
-        name: "Updated Program Name",
-        notes: "This program has been updated.",
-        isActive: false,
-        startDate: "2025-03-01",
-        endDate: "2025-04-01",
+        name: "<script>alert('hack')</script>Updated <b>Program</b>",
       };
+
       const res = await request(app)
         .put(`/api/v1/programs/edit/${programId}`)
         .set("Cookie", `token=${authToken}`)
         .send(updateData);
 
       expect(res.status).toBe(200);
-      expect(res.body.data.name).toBe(updateData.name?.toLowerCase());
-      expect(res.body.data.notes).toBe(updateData.notes?.toLowerCase());
+      expect(res.body.data.name).toBe("updated program");
+      expect(res.body.data.name).not.toMatch(/<[^>]*>/);
+    });
+
+    it("should reject update with invalid date range", async () => {
+      const updateData: IProgramEditDTO = {
+        startDate: "2025-10-31",
+        endDate: "2025-08-01",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/programs/edit/${programId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors.endDate).toContain(
+        "End date must be after start date"
+      );
+    });
+
+    it("should handle whitespace normalization on update", async () => {
+      const updateData: IProgramEditDTO = {
+        name: "   Updated    Program   Name   ",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/programs/edit/${programId}`)
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.name).toBe("updated program name");
+    });
+
+    it("should return 404 for updating a non-existent program", async () => {
+      const updateData: IProgramEditDTO = {
+        name: "This will fail",
+      };
+
+      const res = await request(app)
+        .put("/api/v1/programs/edit/non-existent-id")
+        .set("Cookie", `token=${authToken}`)
+        .send(updateData);
+
+      expect(res.status).toBe(404);
+    });
+
+    it("should reject update with missing credentials", async () => {
+      const updateData: IProgramEditDTO = {
+        name: "This will fail without auth",
+      };
+
+      const res = await request(app)
+        .put(`/api/v1/programs/edit/${programId}`)
+        .send(updateData);
+
+      expect(res.status).toBe(401);
     });
   });
 
@@ -393,31 +714,48 @@ describe("Programs API", () => {
         endDate: "2025-06-01",
         isActive: false,
         programWorkouts: [
-          { workout: { id: testWorkoutId }, daysOfWeek: ["wednesday"] },
+          {
+            workout: { id: testWorkouts[0].id },
+            daysOfWeek: ["wednesday"],
+            workoutGoal: "hypertrophy",
+            workoutLevel: "beginner",
+            crudOperation: "create",
+          },
         ],
       };
+
       const res = await request(app)
         .post("/api/v1/programs/edit")
         .set("Cookie", `token=${authToken}`)
         .send(program);
+
       const programIdToDelete = res.body.data.id;
 
       const deleteRes = await request(app)
         .delete(`/api/v1/programs/${programIdToDelete}`)
         .set("Cookie", `token=${authToken}`);
+
       expect(deleteRes.status).toBe(200);
       expect(deleteRes.body.message).toBe("Program deleted successfully");
 
       const getRes = await request(app)
         .get(`/api/v1/programs/${programIdToDelete}`)
         .set("Cookie", `token=${authToken}`);
+
       expect(getRes.status).toBe(404);
     });
-  });
 
+    it("should return 404 for deleting a non-existent program", async () => {
+      const res = await request(app)
+        .delete("/api/v1/programs/non-existent-id")
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(404);
+    });
+  });
   afterAll(async () => {
-    // The user deletion will cascade and delete programs, but we can be explicit
-    for (const id of createdProgramIds) {
+    for (const { id } of testPrograms) {
+      if (!id) continue;
       await request(app)
         .delete(`/api/v1/programs/${id}`)
         .set("Cookie", `token=${authToken}`)
@@ -426,10 +764,10 @@ describe("Programs API", () => {
         });
     }
 
-    if (testExercises.length > 0) {
-      for (const exercise of testExercises) {
+    if (testWorkouts.length > 0) {
+      for (const { id } of testWorkouts) {
         await request(app)
-          .delete(`/api/v1/exercises/${exercise.id}`)
+          .delete(`/api/v1/workouts/${id}`)
           .set("Cookie", `token=${authToken}`)
 
           .catch((err) => {
@@ -437,6 +775,19 @@ describe("Programs API", () => {
           });
       }
     }
+
+    if (testExercises.length > 0) {
+      for (const { id } of testExercises) {
+        await request(app)
+          .delete(`/api/v1/exercises/${id}`)
+          .set("Cookie", `token=${authToken}`)
+
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+    }
+
     if (testUserId) {
       await request(app)
         .delete(`/api/v1/auth/delete-user/${testUserId}`)
