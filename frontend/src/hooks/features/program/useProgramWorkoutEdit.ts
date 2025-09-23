@@ -2,14 +2,14 @@ import { useCallback, useEffect, useState } from "react";
 
 import { programWorkoutUtil } from "../../../utils/programWorkout.util";
 import { calendarUtil } from "../../../utils/calendar.util";
-import { workoutUtils } from "../../../utils/workout.util";
+import { workoutUtil } from "../../../utils/workout.util";
+import { appUtil } from "../../../utils/app.util";
 
 import type {
   IProgramWorkoutDTO,
   IProgramWorkoutEditDTO,
 } from "../../../../../shared/models/program.model";
 import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
-import { appUtil } from "../../../utils/app.util";
 
 export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO) => {
   const [selectedWorkout, setSelectedWorkout] =
@@ -72,7 +72,7 @@ export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO) => {
       setSelectedWorkout((prev) => {
         if (!prev) return null;
         if (!workout) return prev;
-        const updatedWorkout = workoutUtils.dtoToEditDto({
+        const updatedWorkout = workoutUtil.dtoToEditDto({
           dto: workout,
           isEdit: false,
         });

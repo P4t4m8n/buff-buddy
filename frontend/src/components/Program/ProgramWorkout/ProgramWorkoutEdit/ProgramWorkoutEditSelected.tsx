@@ -12,8 +12,8 @@ import SelectWithSearch from "../../../UI/Form/SelectWithSearch/SelectWithSearch
 import GenericSelectItem from "../../../UI/Form/SelectWithSearch/GenericSelectItem";
 
 import {
-  LEVELS,
-  WORKOUT_GOAL,
+  WORKOUT_LEVELS,
+  WORKOUT_GOALS,
 } from "../../../../../../shared/consts/program.consts";
 
 import type { IProgramWorkoutDTO } from "../../../../../../shared/models/program.model";
@@ -54,7 +54,7 @@ export default function ProgramWorkoutEditSelected({
     return <p className="text-center">No workout selected</p>;
   }
 
-  const { workout, level, workoutGoal } = selectedProgramWorkout;
+  const { workout, workoutLevel, workoutGoal } = selectedProgramWorkout;
   return (
     <div className=" flex flex-col gap-4 h-full">
       <div className="p-2 border rounded grid gap-2">
@@ -87,7 +87,7 @@ export default function ProgramWorkoutEditSelected({
         />
       </div>
       <SelectWithSearch
-        options={WORKOUT_GOAL}
+        options={WORKOUT_GOALS}
         handleSelect={handleWorkoutPlannerInfo}
         SelectedComponent={<p>{workoutGoal ?? "Pick a goal"}</p>}
         filterBy={(item) => item}
@@ -96,9 +96,9 @@ export default function ProgramWorkoutEditSelected({
         )}
       />
       <SelectWithSearch
-        options={LEVELS}
+        options={WORKOUT_LEVELS}
         handleSelect={handleWorkoutPlannerInfo}
-        SelectedComponent={<p>{level ?? "Pick a level"}</p>}
+        SelectedComponent={<p>{workoutLevel ?? "Pick a level"}</p>}
         filterBy={(item) => item}
         SelectItemComponent={(props) => (
           <GenericSelectItem {...props} inputName="level" />

@@ -3,7 +3,7 @@ import type {
   IProgramEditDTO,
 } from "../../../shared/models/program.model";
 import { appUtil } from "./app.util";
-import { workoutUtils } from "./workout.util";
+import { workoutUtil } from "./workout.util";
 
 export const programUtils = {
   isProgramActive: ({ startDate, endDate }: Partial<IProgramDTO>) => {
@@ -32,7 +32,7 @@ export const programUtils = {
       programWorkouts:
         dto.programWorkouts?.map((pw) => ({
           id: pw.id,
-          workout: workoutUtils.dtoToEditDto({
+          workout: workoutUtil.dtoToEditDto({
             dto: pw.workout,
             isEdit: false,
           }),

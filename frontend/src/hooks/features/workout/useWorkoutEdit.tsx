@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
+
 import { useWorkoutStore } from "../../../store/workout.store";
+
+import { ClientError } from "../../../services/ClientError.service";
+
+import { useErrors } from "../../shared/useErrors";
+import { workoutUtil } from "../../../utils/workout.util";
+import { formUtil } from "../../../utils/form.util";
+
 import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
   IWorkoutExerciseEditDTO,
 } from "../../../../../shared/models/workout.model";
-import { workoutUtils } from "../../../utils/workout.util";
-import { useErrors } from "../../shared/useErrors";
-import { ClientError } from "../../../services/ClientError.service";
-import { formUtil} from "../../../utils/form.util";
 
 interface IUseWorkoutEditProps {
   workoutId?: string;
-  workout?: IWorkoutDTO | IWorkoutEditDTO;
+  workout?: IWorkoutDTO;
 }
 
 export const useWorkoutEdit = ({
@@ -34,7 +38,7 @@ export const useWorkoutEdit = ({
   useEffect(() => {
     const init = async () => {
       if (workout) {
-        const workoutToEdit = workoutUtils.dtoToEditDto({
+        const workoutToEdit = workoutUtil.dtoToEditDto({
           dto: workout,
           isEdit: true,
         });
@@ -43,7 +47,7 @@ export const useWorkoutEdit = ({
       }
 
       if (!workoutId) {
-        const newWorkout = workoutUtils.getEmpty();
+        const newWorkout = workoutUtil.getEmpty();
         setWorkoutToEdit(newWorkout);
         return;
       }
@@ -53,7 +57,7 @@ export const useWorkoutEdit = ({
         if (!updateWorkout) {
           throw ClientError.create("Workout not found");
         }
-        const workoutToUpdate = workoutUtils.dtoToEditDto({
+        const workoutToUpdate = workoutUtil.dtoToEditDto({
           dto: updateWorkout,
           isEdit: true,
         });
@@ -66,39 +70,44 @@ export const useWorkoutEdit = ({
     init();
   }, []);
 
-  //TODO?? improve logic, specially change of order
   const handleWorkoutExercises = (workoutExercise: IWorkoutExerciseEditDTO) => {
     setWorkoutToEdit((prev) => {
       if (!prev) return null;
       const workoutExercises = prev?.workoutExercises ?? [];
+      const updatedWorkoutExercises = [...workoutExercises];
 
-      const idx = prev?.workoutExercises?.findIndex(
+      const idx = updatedWorkoutExercises?.findIndex(
         (ex) => ex.id === workoutExercise.id
       );
 
-      // Check if this a new item and its not an update of a new item
+      const orderIdx =
+        updatedWorkoutExercises?.findIndex(
+          (we) => we.order === workoutExercise.order
+        ) ?? -1;
+
+      const x = orderIdx < 0 ? updatedWorkoutExercises.length : orderIdx;
+
       if (
         (idx === undefined || idx === -1) &&
         workoutExercise?.crudOperation === "create"
       ) {
+        updatedWorkoutExercises?.splice(x, 0, workoutExercise);
+
         return {
           ...prev,
-          workoutExercises: sortAndMapWorkoutExercises([
-            workoutExercise,
-            ...workoutExercises,
-          ]),
+          workoutExercises: sortAndMapWorkoutExercises(updatedWorkoutExercises),
         };
       }
 
       if (idx === undefined || idx === -1) {
         return prev;
       }
+      const [removedItem] = updatedWorkoutExercises.splice(idx, 1);
+      updatedWorkoutExercises?.splice(x, 0, removedItem);
 
       return {
         ...prev,
-        workoutExercises: sortAndMapWorkoutExercises(
-          workoutExercises.toSpliced(idx!, 1, workoutExercise)
-        ),
+        workoutExercises: sortAndMapWorkoutExercises(updatedWorkoutExercises),
       };
     });
   };
@@ -106,21 +115,17 @@ export const useWorkoutEdit = ({
   const sortAndMapWorkoutExercises = (
     workoutExercises: IWorkoutExerciseEditDTO[]
   ): IWorkoutExerciseEditDTO[] => {
-    const length = workoutExercises.length;
+    return workoutExercises.map((ex, i) => {
+      const isChangeOrder = ex.order !== i + 1;
 
-    return workoutExercises
-      .sort((a, b) => (a?.order || length) - (b?.order || length))
-      .map((ex, i) => {
-        const isChangeOrder = ex.order !== i + 1;
-
-        if (!isChangeOrder || ex.crudOperation === "delete") return ex;
-        return {
-          ...ex,
-          order: i + 1,
-          crudOperation:
-            ex.crudOperation !== "create" ? "update" : ex.crudOperation,
-        };
-      });
+      if (!isChangeOrder || ex.crudOperation === "delete") return ex;
+      return {
+        ...ex,
+        order: i + 1,
+        crudOperation:
+          ex.crudOperation !== "create" ? "update" : ex.crudOperation,
+      };
+    });
   };
 
   const handleInputChange = (
