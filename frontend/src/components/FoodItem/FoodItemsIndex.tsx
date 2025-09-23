@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import type {
-  IFoodItemDto,
+  IFoodItemDTO,
   IFoodItemFilter,
 } from "../../../../shared/models/foodItem.model";
-import useFoodItemsQuery from "../../hooks/queryHooks/useFoodItemsQuery";
 import GenericList from "../UI/GenericList";
 import FoodItemPreview from "./FoodItemPreview";
 import { formUtil } from "../../utils/form.util";
@@ -13,6 +12,7 @@ import { useFoodItemMutationKeyStore } from "../../store/foodItemMutationKey.sto
 import FoodItemFilter from "./FoodItemFilter";
 import GenericModel from "../UI/GenericModel";
 import FoodItemEdit from "./FoodItemEdit/FoodItemEdit";
+import useFoodItemsQuery from "../../hooks/queryHooks/features/foodItem/useFoodItemsQuery";
 
 const INITIAL_FILTER = {
   skip: 0,
@@ -22,7 +22,7 @@ const INITIAL_FILTER = {
 };
 
 interface IFoodItemsIndexProps {
-  onSelectFoodItem?: (e: React.MouseEvent, foodItem: IFoodItemDto) => void;
+  onSelectFoodItem?: (e: React.MouseEvent, foodItem: IFoodItemDTO) => void;
 }
 //TODO: Add fetching error handling
 export default function FoodItemsIndex({

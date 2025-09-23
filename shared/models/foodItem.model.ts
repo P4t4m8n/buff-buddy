@@ -16,7 +16,7 @@ interface IFoddItemBase extends IEntity, IEntityDates {
   name?: string;
 }
 
-export interface IFoodItemDto extends IFoddItemBase {
+export interface IFoodItemDTO extends IFoddItemBase {
   images?: IFoodItemImgDto[];
   labels?: IFoodItemLabelDto[];
   brand?: IFoodItemBrandDto | null;
@@ -25,7 +25,7 @@ export interface IFoodItemDto extends IFoddItemBase {
 /*
  * Brand is an array on edit, to handle crud operation on it.
  */
-export interface IFoodItemEditDto extends Partial<IFoddItemBase> {
+export interface IFoodItemEditDTO extends Partial<IFoddItemBase> {
   brand?: IFoodItemBrandEditDto[];
   labels?: IFoodItemLabelEditDto[];
   images?: string[];

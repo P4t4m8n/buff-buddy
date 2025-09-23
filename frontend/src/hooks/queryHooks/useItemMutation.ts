@@ -5,9 +5,10 @@ import { queryClient } from "../../lib/queryClient";
 import { useErrors } from "../../hooks/shared/useErrors";
 
 import type { THttpResponse } from "../../models/apiService.model";
+import type { IBaseFilter } from "../../../../shared/models/app.model";
 
 interface IUseItemMutationProps<EditDTO extends object, DTO> {
-  listKey: string[];
+  listKey: (string | IBaseFilter | null | undefined)[];
   itemIdKey: string[];
   saveFn: (dto: EditDTO) => Promise<THttpResponse<DTO>>;
   filterFn: (oldItem: DTO, savedItem: DTO) => boolean;

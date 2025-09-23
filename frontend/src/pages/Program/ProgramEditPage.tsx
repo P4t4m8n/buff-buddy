@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useProgramStore } from "../../store/program.store";
 
 import { calendarUtil } from "../../utils/calendar.util";
@@ -20,18 +20,26 @@ import SwitchInput from "../../components/UI/Form/SwitchInput";
 
 export default function ProgramEditPage() {
   const { programId: programIdParams } = useParams<{ programId?: string }>();
+  const navigate = useNavigate();
 
   const {
     programToEdit,
     isLoading,
     errors,
     handleDateSelect,
-    onSaveProgram,
+    saveProgram,
     handleInputChange,
     handleProgramWorkouts,
-    navigate,
     deleteProgramWorkout,
   } = useProgramEdit(programIdParams);
+
+  const onSaveProgram = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const id = await saveProgram();
+    if (id) navigate(`/programs/${id}`);
+  };
 
   if (isLoading || !programToEdit) {
     return <Loader loaderType="screen" />;

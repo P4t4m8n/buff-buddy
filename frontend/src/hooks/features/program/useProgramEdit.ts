@@ -1,55 +1,61 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import type {
+  IProgramDTO,
   IProgramEditDTO,
   IProgramWorkoutEditDTO,
 } from "../../../../../shared/models/program.model";
 import type { IDateRange } from "../../../models/calendar.model";
-import { useProgramStore } from "../../../store/program.store";
-import { useNavigate } from "react-router";
-import { programUtils } from "../../../utils/program.util";
+
+import { programUtil } from "../../../utils/program.util";
 import { useErrors } from "../../shared/useErrors";
 import { formUtil } from "../../../utils/form.util";
+import { useMutationKeyStore } from "../../../store/mutationKeys.store";
+import useProgramIdQuery from "../../queryHooks/features/program/useProgramIdQuery";
+import useItemMutation from "../../queryHooks/useItemMutation";
+import { QUERY_KEYS } from "../../../consts/queryKeys.consts";
+import { programService } from "../../../services/program.service";
 
-interface IProgramEditHook {
-  programToEdit: IProgramEditDTO | null;
-  isLoading: boolean;
-  errors: Partial<Record<keyof IProgramEditDTO, string>> | null;
-  handleDateSelect: (range: IDateRange) => void;
-  onSaveProgram: (e: React.FormEvent<HTMLFormElement>) => void;
-  handleProgramWorkouts: (workout: IProgramWorkoutEditDTO) => void;
-  navigate: ReturnType<typeof useNavigate>;
-  handleInputChange: (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  deleteProgramWorkout: (id?: string) => void;
-}
+// interface IProgramEditHook {
+//   programToEdit: IProgramEditDTO | null;
+//   isLoading: boolean;
+//   errors: Partial<Record<keyof IProgramEditDTO, string>> | null;
+//   handleDateSelect: (range: IDateRange) => void;
+//   onSaveProgram: (e: React.FormEvent<HTMLFormElement>) => void;
+//   handleProgramWorkouts: (workout: IProgramWorkoutEditDTO) => void;
+//   navigate: ReturnType<typeof useNavigate>;
+//   handleInputChange: (
+//     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+//   ) => void;
+//   deleteProgramWorkout: (id?: string) => void;
+// }
 
-export const useProgramEdit = (id?: string): IProgramEditHook => {
+export const useProgramEdit = (programId?: string) => {
   const [programToEdit, setProgramToEdit] = useState<IProgramEditDTO | null>(
     null
   );
-  const { errors, handleError } = useErrors<IProgramEditDTO>();
 
-  const isLoading = useProgramStore(
-    (state) => state.isLoadingId === programToEdit?.id
+  const mutationKey = useMutationKeyStore((store) => store.programsMutationKey);
+  const { errors, mutateAsync } = useItemMutation<IProgramEditDTO, IProgramDTO>(
+    {
+      listKey: mutationKey,
+      itemIdKey: [QUERY_KEYS.PROGRAM_ID_QUERY_KEY, programId ?? ""],
+      saveFn: programService.save,
+      filterFn: (oldItem, savedItem) => oldItem.id === savedItem.id,
+    }
   );
-  const getProgramById = useProgramStore((state) => state.getById);
-  const saveProgram = useProgramStore((state) => state.saveItem);
+  const { handleError } = useErrors<IProgramEditDTO>();
+  const { data, isLoading } = useProgramIdQuery(programId);
 
-  const navigate = useNavigate();
 
-  //TODO?? Ugly refactor later
   useEffect(() => {
-    getProgramById(id).then((program) => {
-      if (!program) {
-        setProgramToEdit(programUtils.getEmpty());
-        return;
-      }
-      const programEdit = programUtils.dtoToEditDto(program);
-      setProgramToEdit(programEdit);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+    const programData = data?.data;
+    const foodItem =
+      programId && programData
+        ? programUtil.dtoToEditDto(programData)
+        : programUtil.getEmpty();
+    setProgramToEdit(foodItem);
+    return;
+  }, [programId, data]);
 
   const handleDateSelect = (range: IDateRange) => {
     setProgramToEdit((prev) => ({
@@ -59,19 +65,17 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
     }));
   };
 
-  const onSaveProgram = async (e: React.FormEvent<HTMLFormElement>) => {
+  const saveProgram = async () => {
     try {
       if (!programToEdit) {
         console.warn("No program to save"); //INFO debugging not for production
         return;
       }
-      e.preventDefault();
-      e.stopPropagation();
 
-      const res = (await saveProgram(programToEdit)) as IProgramEditDTO;
+      const { data } = await mutateAsync(programToEdit);
 
-      const { id } = res;
-      navigate(`/programs/${id}`);
+      const { id } = data;
+      return id;
     } catch (error) {
       handleError({ error });
     }
@@ -130,8 +134,7 @@ export const useProgramEdit = (id?: string): IProgramEditHook => {
     isLoading,
     errors,
     handleDateSelect,
-    onSaveProgram,
-    navigate,
+    saveProgram,
     handleInputChange,
     handleProgramWorkouts,
     deleteProgramWorkout,

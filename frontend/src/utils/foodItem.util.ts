@@ -1,11 +1,11 @@
 import type {
-  IFoodItemEditDto,
-  IFoodItemDto,
+  IFoodItemEditDTO,
+  IFoodItemDTO,
   IFoodItemInfoEditBase,
 } from "../../../shared/models/foodItem.model";
 import { appUtil } from "./app.util";
 
-const getEmpty = (): IFoodItemEditDto => {
+const getEmpty = (): IFoodItemEditDTO => {
   return {
     id: appUtil.getTempId(),
     carbohydrates: 0,
@@ -34,7 +34,7 @@ const getEmptyInfo = (): IFoodItemInfoEditBase => {
   };
 };
 
-const dtoToEditDto = (dto: IFoodItemDto): IFoodItemEditDto => {
+const dtoToEditDto = (dto: IFoodItemDTO): IFoodItemEditDTO => {
   return {
     ...dto,
     brand: dto.brand ? [{ ...dto.brand }] : [],

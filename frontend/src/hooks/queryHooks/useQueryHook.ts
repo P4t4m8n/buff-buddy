@@ -8,11 +8,11 @@ interface IUseQueryProps<T, F> {
   queryFn: () => Promise<T[]>;
 }
 
-export default function useQueryHook<T extends object, F extends object>({
+export const useQueryHook = <T extends object, F extends object>({
   queryKey,
   queryFn,
   enabled,
-}: IUseQueryProps<T, F>) {
+}: IUseQueryProps<T, F>) => {
   const { handleError } = useErrors<T>();
   const { isPending, isError, data, error, status, isLoading } = useQuery({
     queryKey: queryKey,
@@ -27,4 +27,4 @@ export default function useQueryHook<T extends object, F extends object>({
     },
   });
   return { isPending, isError, data, error, status, isLoading };
-}
+};

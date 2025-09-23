@@ -3,7 +3,7 @@ import type {
   IMealFilter,
 } from "../../../../shared/models/meal.model";
 import useFilterQuery from "../../hooks/queryHooks/useFilterQuery";
-import useMealsQuery from "../../hooks/queryHooks/useMealsQuery";
+import useMealsQuery from "../../hooks/queryHooks/features/meal/useMealsQuery";
 import { mealMutationKeyStore } from "../../store/mealMutationKeyStore";
 import { formUtil } from "../../utils/form.util";
 import GenericList from "../UI/GenericList";

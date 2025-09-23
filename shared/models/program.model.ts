@@ -27,6 +27,7 @@ export interface IProgramEditDTO extends IProgramBase {
 }
 
 export interface IProgramFilter extends IBaseFilter {
+
   name?: string;
 }
 

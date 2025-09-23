@@ -1,7 +1,7 @@
 import type { MealType } from "../../backend/prisma/generated/prisma";
 import type { IBaseFilter, IItemImage, TCrudOperation } from "./app.model";
 import type { IEntity } from "./entity.model";
-import type { IFoodItemDto } from "./foodItem.model";
+import type { IFoodItemDTO } from "./foodItem.model";
 import type { IUserDTO } from "./user.model";
 
 interface IMealBase extends IEntity {
@@ -22,7 +22,7 @@ export interface IMealEditDTO extends IMealBase {
 }
 
 export interface IMealFoodItemDTO extends IEntity {
-  foodItem?: IFoodItemDto | null;
+  foodItem?: IFoodItemDTO | null;
   quantity?: number | null;
 }
 export interface IMealFoodItemEditDTO extends IMealFoodItemDTO {

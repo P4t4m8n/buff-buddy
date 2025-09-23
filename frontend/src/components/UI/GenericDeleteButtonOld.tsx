@@ -1,18 +1,25 @@
 import React from "react";
 import Button from "./Button";
+import type { StoreApi, UseBoundStore } from "zustand";
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
 
-interface GenericDeleteButtonProps {
-  itemId: string;
+interface DeletableStore {
   isDeleting: boolean;
+}
+
+interface GenericDeleteButtonProps<T extends DeletableStore> {
+  itemId?: string;
+  useStore: UseBoundStore<StoreApi<T>>;
   deleteAction: (id?: string) => Promise<void>;
 }
 
-export default function GenericDeleteButton({
+export default function GenericDeleteButtonOld<T extends DeletableStore>({
   itemId,
-  isDeleting,
+  useStore,
   deleteAction,
-}: GenericDeleteButtonProps) {
+}: GenericDeleteButtonProps<T>) {
+  const isDeleting = useStore((state) => state.isDeleting);
+
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();

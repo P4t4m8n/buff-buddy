@@ -1,20 +1,17 @@
-import { useProgramStore } from "../../store/program.store";
-import { useItemDetails } from "../../hooks/shared/useItemDetails";
+import { useParams } from "react-router";
+import useProgramIdQuery from "../../hooks/queryHooks/features/program/useProgramIdQuery";
 
 import { toTitle } from "../../utils/toTitle";
-import ActiveButtonIcon from "../../utils/ActiveButtonIcon.util";
+import { ActiveButtonIcon } from "../../utils/ActiveButtonIcon.util";
 import { calendarUtil } from "../../utils/calendar.util";
 
 import Loader from "../../components/UI/loader/Loader";
-import { useParams } from "react-router";
 import BackButton from "../../components/UI/BackButton";
 
 export default function ProgramDetails() {
   const { programId } = useParams<{ programId?: string }>();
-  const { itemToView: programToView, isLoadingId: isLoading } = useItemDetails({
-    useStore: useProgramStore,
-    id: programId,
-  });
+  const { data, isLoading } = useProgramIdQuery(programId);
+  const programToView = data?.data;
 
   if (isLoading) {
     return <Loader />;

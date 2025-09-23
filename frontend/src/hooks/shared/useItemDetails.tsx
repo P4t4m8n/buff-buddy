@@ -1,32 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import type { StoreApi, UseBoundStore } from "zustand";
-import type { IGetByIdStore } from "../../models/store.model";
+import type { THttpResponse } from "../../models/apiService.model";
 
-interface IUseItemDetails<T> {
-  itemToView: T | null;
-  isLoadingId: boolean;
+interface IUseIdQuery<T> {
+  data: THttpResponse<T> | undefined;
+  isLoading: boolean;
 }
-interface IUseItemDetailsProps<T> {
-  useStore: UseBoundStore<StoreApi<IGetByIdStore<T>>>;
-  id?: string;
+interface IUseItemDetailsProps<DTO, EditDTO> {
+  useIdQuery: (id?: string) => IUseIdQuery<DTO>;
+  itemId?: string;
+  dtoToEditDto: (item: DTO) => EditDTO;
+  getEmpty: () => EditDTO;
+  setItem: React.Dispatch<React.SetStateAction<DTO | EditDTO | null>>;
 }
 
-export const useItemDetails = <T,>({
-  useStore,
-  id,
-}: IUseItemDetailsProps<T>): IUseItemDetails<T> => {
-  const [itemToView, setItemToView] = React.useState<T | null>(null);
+export const useItemDetails = <T, F>({
+  useIdQuery,
+  itemId,
+  dtoToEditDto,
+  getEmpty,
+  setItem,
+}: IUseItemDetailsProps<T, F>) => {
+  const { data, isLoading } = useIdQuery(itemId);
 
-  const getById = useStore((state) => state.getById);
+  useEffect(() => {
+    const itemData = data?.data;
+    const foodItem = itemId && itemData ? dtoToEditDto(itemData) : getEmpty();
+    setItem(foodItem);
+    return;
+  }, [itemId, data]);
 
-  const isLoadingId = useStore((state) => state.isLoadingId === id);
-
-  React.useEffect(() => {
-    getById(id).then((i) => {
-      setItemToView(i);
-    });
-  }, [id, getById]);
-
-  return { itemToView, isLoadingId };
+  return { isLoading };
 };

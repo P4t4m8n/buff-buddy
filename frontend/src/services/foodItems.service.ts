@@ -1,6 +1,6 @@
 import type {
-  IFoodItemDto,
-  IFoodItemEditDto,
+  IFoodItemDTO,
+  IFoodItemEditDTO,
   IFoodItemFilter,
 } from "../../../shared/models/foodItem.model";
 
@@ -13,26 +13,26 @@ const BASE_URL = "/food-items";
 
 const get = async (filter?: IFoodItemFilter | null) => {
   const validateFilter = foodItemValidation.FoodItemQuerySchema.parse(filter);
-  return await apiService.get<IFoodItemDto[]>(`${BASE_URL}`, validateFilter);
+  return await apiService.get<IFoodItemDTO[]>(`${BASE_URL}`, validateFilter);
 };
 
 const getById = async (id?: string) => {
-  const { data } = await apiService.get<THttpResponse<IFoodItemDto>>(
+  const { data } = await apiService.get<THttpResponse<IFoodItemDTO>>(
     `${BASE_URL}/${id}`
   );
   return data;
 };
 
 const save = async (
-  dto?: IFoodItemEditDto
-): Promise<THttpResponse<IFoodItemDto>> => {
+  dto?: IFoodItemEditDTO
+): Promise<THttpResponse<IFoodItemDTO>> => {
   if (!dto) throw ClientError.create("Food item data is required", 400);
 
   if (!dto?.id || dto.id.startsWith("temp")) {
     const validateDto = foodItemValidation
       .createFoodItemFactorySchema({ toSanitize: false })
       .parse(dto);
-    return await apiService.post<THttpResponse<IFoodItemDto>>(
+    return await apiService.post<THttpResponse<IFoodItemDTO>>(
       `${BASE_URL}/edit`,
       validateDto
     );
@@ -40,7 +40,7 @@ const save = async (
   const validateDto = foodItemValidation
     .updateFoodItemFactorySchema({ toSanitize: false })
     .parse(dto);
-  return await apiService.put<THttpResponse<IFoodItemDto>>(
+  return await apiService.put<THttpResponse<IFoodItemDTO>>(
     `${BASE_URL}/edit/${dto.id}`,
     validateDto
   );

@@ -66,26 +66,19 @@ export const ROUTES: RouteConfig[] = [
   {
     path: "/programs",
     element: <ProgramPage />,
-    children: [
-      {
-        path: "/programs/edit",
-        element: <ProgramEditPage />,
-        children: [
-          {
-            path: "workouts/edit",
-            element: <WorkoutEditPage />,
-          },
-        ],
-      },
-      {
-        path: "/programs/edit/:programId",
-        element: <ProgramEditPage />,
-      },
-      {
-        path: "/programs/:programId",
-        element: <ProgramDetails />,
-      },
-    ],
+    children: [],
+  },
+  {
+    path: "/programs/edit",
+    element: <ProgramEditPage />,
+  },
+  {
+    path: "/programs/edit/:programId",
+    element: <ProgramEditPage />,
+  },
+  {
+    path: "/programs/:programId",
+    element: <ProgramDetails />,
   },
 
   {

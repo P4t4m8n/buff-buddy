@@ -10,7 +10,7 @@ import { mealFoodItemUtil } from "../../../utils/mealFoodItem.util";
 
 import type { IMealFoodItemEditDTO } from "../../../../../shared/models/meal.model";
 import type { IModelProps } from "../../../models/UI.model";
-import type { IFoodItemDto } from "../../../../../shared/models/foodItem.model";
+import type { IFoodItemDTO } from "../../../../../shared/models/foodItem.model";
 import FoodItemPreview from "../../FoodItem/FoodItemPreview";
 import Button from "../../UI/Button";
 import IconArrow from "../../UI/Icons/IconArrow";
@@ -41,7 +41,7 @@ export default function MealFoodItemEditModel({
     return <Loader />;
   }
 
-  const onSelectFoodItem = (e: React.MouseEvent, foodItem: IFoodItemDto) => {
+  const onSelectFoodItem = (e: React.MouseEvent, foodItem: IFoodItemDTO) => {
     e.preventDefault();
     setFoodIItemToEdit((prev) => ({
       ...prev,
@@ -50,7 +50,7 @@ export default function MealFoodItemEditModel({
     }));
   };
 
-  const onDeselectFoodItem = (e: React.MouseEvent, _: IFoodItemDto) => {
+  const onDeselectFoodItem = (e: React.MouseEvent, _: IFoodItemDTO) => {
     e.preventDefault();
 
     setFoodIItemToEdit((prev) => ({

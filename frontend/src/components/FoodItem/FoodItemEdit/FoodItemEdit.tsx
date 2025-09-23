@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useFoodItemMutationKeyStore } from "../../../store/foodItemMutationKey.store";
 import type {
   IFoodItemBrandEditDto,
-  IFoodItemDto,
-  IFoodItemEditDto,
+  IFoodItemDTO,
+  IFoodItemEditDTO,
   IFoodItemInfoEditBase,
   TFoodItemInfo,
 } from "../../../../../shared/models/foodItem.model";
-import useFoodItemIdQuery from "../../../hooks/queryHooks/useFoodItemIdQuery";
+import useFoodItemIdQuery from "../../../hooks/queryHooks/features/foodItem/useFoodItemIdQuery";
 import { useErrors } from "../../../hooks/shared/useErrors";
 import { useMutation } from "@tanstack/react-query";
 import { foodItemService } from "../../../services/foodItems.service";
@@ -33,27 +33,27 @@ export default function FoodItemEdit({
   ...props
 }: IFoodItemEditProps) {
   const getKey = useFoodItemMutationKeyStore((store) => store.getMutationKey);
-  const [foodItemToEdit, setFoodItemToEdit] = useState<IFoodItemEditDto | null>(
+  const [foodItemToEdit, setFoodItemToEdit] = useState<IFoodItemEditDTO | null>(
     null
   );
   const { handleModel, setIsOpen, modelRef } = props;
   const { onBack } = usePageBack();
 
   const { data, isLoading } = useFoodItemIdQuery(foodItemId);
-  const { errors, handleError } = useErrors<IFoodItemEditDto>();
+  const { errors, handleError } = useErrors<IFoodItemEditDTO>();
 
   const mutation = useMutation({
-    mutationFn: (dto: IFoodItemEditDto) => foodItemService.save(dto),
+    mutationFn: (dto: IFoodItemEditDTO) => foodItemService.save(dto),
     onSuccess({ data }) {
       //INFO: Update the list base on the cache key
-      queryClient.setQueryData<IFoodItemDto[]>(getKey(), (old) => {
+      queryClient.setQueryData<IFoodItemDTO[]>(getKey(), (old) => {
         const idx =
           old?.findIndex((oldFoodItem) => oldFoodItem.name === data.name) ?? -1;
         if (idx < 0) return [...(old ?? []), data];
         return [...(old?.toSpliced(idx, 1, data) ?? [])];
       });
       //INFO: Update the EDIT and Details route
-      queryClient.setQueryData<IFoodItemDto>(
+      queryClient.setQueryData<IFoodItemDTO>(
         ["foodItemId", data.id],
         (old) => ({ ...old, ...data })
       );

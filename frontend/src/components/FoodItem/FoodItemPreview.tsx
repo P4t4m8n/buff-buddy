@@ -1,4 +1,4 @@
-import type { IFoodItemDto } from "../../../../shared/models/foodItem.model";
+import type { IFoodItemDTO } from "../../../../shared/models/foodItem.model";
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
 import Button from "../UI/Button";
 import GenericModel from "../UI/GenericModel";
@@ -6,8 +6,8 @@ import LinkComponent from "../UI/Link";
 import FoodItemEdit from "./FoodItemEdit/FoodItemEdit";
 
 interface IFoodItemPreviewProps {
-  item: IFoodItemDto;
-  onSelectFoodItem?: (e: React.MouseEvent, foodItem: IFoodItemDto) => void;
+  item: IFoodItemDTO;
+  onSelectFoodItem?: (e: React.MouseEvent, foodItem: IFoodItemDTO) => void;
   isSelect?: boolean;
 }
 

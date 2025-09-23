@@ -1,27 +1,26 @@
 import { Link } from "react-router";
 
-import { useProgramStore } from "../../../store/program.store";
-
 import { calendarUtil } from "../../../utils/calendar.util";
 import { toTitle } from "../../../utils/toTitle";
 import { ModelButtonIcon } from "../../../utils/ModelButtonIcon.util";
 
-import GenericDeleteButton from "../../UI/GenericDeleteButton";
 import Button from "../../UI/Button";
+import GenericDeleteButton from "../../UI/GenericDeleteButton";
 
 import type { IProgramDTO } from "../../../../../shared/models/program.model";
 interface ProgramPreviewProps {
   item: IProgramDTO;
-  onDeleteProgram?: (id?: string) => Promise<void>;
+  deleteProgram: (programId?: string) => Promise<void>;
+  isDeleting: boolean;
 }
 export default function ProgramPreview({
   item,
-  onDeleteProgram,
+  deleteProgram,
+  isDeleting,
 }: ProgramPreviewProps) {
-  const { name, startDate, endDate, id:programId, isActive } = item;
+  const { name, startDate, endDate, id: programId, isActive } = item;
 
   const dates = calendarUtil.getFormatDateRange(startDate, endDate);
-
 
   const activeMarkup = isActive ? (
     <span className="text-success-green border rounded p-2">Active</span>
@@ -49,9 +48,9 @@ export default function ProgramPreview({
           <Button buttonStyle="model">{ModelButtonIcon("edit")}</Button>
         </Link>
         <GenericDeleteButton
-          itemId={programId}
-          useStore={useProgramStore}
-          deleteAction={onDeleteProgram!}
+          itemId={programId ?? ""}
+          deleteAction={deleteProgram!}
+          isDeleting={isDeleting}
         />
       </div>
     </li>

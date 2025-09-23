@@ -3,14 +3,14 @@ import { useWorkoutStore } from "../../store/workout.store";
 import Loader from "../../components/UI/loader/Loader";
 import ItemNotFound from "../../components/UI/ItemNotFound";
 import Button from "../../components/UI/Button";
-import { useItemDetails } from "../../hooks/shared/useItemDetails";
+import { useItemDetailsOld } from "../../hooks/shared/useItemDetailsOld";
 
 //TODO??Implement  workout details
 export default function WorkoutDetailsPage() {
   const { workoutId } = useParams<{ workoutId?: string }>();
   const navigate = useNavigate();
 
-  const { itemToView: workoutToView, isLoadingId } = useItemDetails({
+  const { itemToView: workoutToView, isLoadingId } = useItemDetailsOld({
     useStore: useWorkoutStore,
     id: workoutId,
   });

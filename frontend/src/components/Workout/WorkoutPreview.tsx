@@ -3,7 +3,7 @@ import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
 import Button from "../UI/Button";
 import WorkoutTags from "./WorkoutTags";
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
-import GenericDeleteButton from "../UI/GenericDeleteButton";
+import GenericDeleteButtonOld from "../UI/GenericDeleteButtonOld";
 import { useWorkoutStore } from "../../store/workout.store";
 type TActionRoute = "programEdit" | "workoutList";
 
@@ -85,7 +85,7 @@ const WorkoutDetailsActions = (props: Partial<IWorkoutPreviewProps>) => {
       <Link to={`/workouts/edit/${workoutId}`} className="">
         <Button buttonStyle="model">{ModelButtonIcon("edit")}</Button>
       </Link>
-      <GenericDeleteButton
+      <GenericDeleteButtonOld
         itemId={workoutId}
         useStore={useWorkoutStore}
         deleteAction={onDeleteWorkout!}

@@ -1,6 +1,6 @@
 import { useExerciseStore } from "../../store/exercise.store";
 
-import GenericDeleteButton from "../UI/GenericDeleteButton";
+import GenericDeleteButtonOld from "../UI/GenericDeleteButtonOld";
 import ExerciseDetails from "./ExerciseDetails";
 import ExerciseEdit from "./ExerciseEdit";
 import ExerciseAttributes from "./ExerciseTagPanel/ExerciseTagPanel";
@@ -48,7 +48,7 @@ export default function ExercisePreview({
             buttonStyle: "model",
           }}
         />
-        <GenericDeleteButton
+        <GenericDeleteButtonOld
           itemId={id}
           useStore={useExerciseStore}
           deleteAction={onDelete}

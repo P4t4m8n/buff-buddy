@@ -1,33 +1,46 @@
-import type { IProgramDTO } from "../../../../../shared/models/program.model";
+import type {
+  IProgramDTO,
+  IProgramFilter,
+} from "../../../../../shared/models/program.model";
 import GenericList from "../../UI/GenericList";
 import Loader from "../../UI/loader/Loader";
+import ProgramFilter from "./ProgramFilter";
 import ProgramPreview from "./ProgramPreview";
 
 interface IProgramsListProps {
   programs: IProgramDTO[];
-  onDeleteProgram: (id?: string) => Promise<void>;
+  deleteProgram: (programId?: string) => Promise<void>;
   isLoading: boolean;
+  isDeleting: boolean;
+  filter: IProgramFilter | null;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 export default function ProgramsList({
   programs,
-  onDeleteProgram,
+  deleteProgram,
   isLoading,
+  isDeleting,
+  filter,
+  onSubmit,
 }: IProgramsListProps) {
   if (isLoading) {
     return <Loader loaderType="screen" />;
   }
   return (
-    <GenericList
-      items={programs}
-      ulStyle="grid grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]
-                    md:grid-cols-[repeat(auto-fit,minmax(18rem,22rem))]
-                    h-auto overflow-auto gap-4 p-mobile md:p-desktop"
-      ItemComponent={ProgramPreview}
-      itemComponentProps={{ onDeleteProgram }}
-      getKey={(item) => item.id!}
-      NoItemsComponent={NoProgramsComponent}
-    />
+    <div>
+      <ProgramFilter filter={filter} onSubmit={onSubmit} />
+      <GenericList
+        items={programs}
+        ulStyle="grid grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]
+      md:grid-cols-[repeat(auto-fit,minmax(18rem,22rem))]
+      h-auto overflow-auto gap-4 p-mobile md:p-desktop"
+        ItemComponent={ProgramPreview}
+        itemComponentProps={{ deleteProgram, isDeleting }}
+        getKey={(item) => item.id!}
+        NoItemsComponent={NoProgramsComponent}
+      />
+    </div>
   );
 }
 

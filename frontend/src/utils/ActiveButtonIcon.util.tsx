@@ -5,7 +5,7 @@ interface ActiveButtonIconProps {
   isActive: boolean;
 }
 
-export default function ActiveButtonIcon({ isActive }: ActiveButtonIconProps) {
+export const ActiveButtonIcon = ({ isActive }: ActiveButtonIconProps) => {
   return isActive ? (
     <IconCheckMark
       className="border-2 border-green-600 rounded-full
@@ -17,4 +17,4 @@ export default function ActiveButtonIcon({ isActive }: ActiveButtonIconProps) {
      w-8 aspect-square"
     />
   );
-}
+};
