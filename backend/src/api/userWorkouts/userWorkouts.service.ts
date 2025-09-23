@@ -35,9 +35,19 @@ const remove = async (id: string) => {
     where: { id },
   });
 };
+const getById = async (
+  userWorkoutId: string,
+  userId: string
+): Promise<IUserWorkout | null> => {
+  return await prisma.userWorkout.findUnique({
+    where: { id: userWorkoutId, ownerId: userId },
+    select: userWorkoutSql.USER_WORKOUT_SELECT,
+  });
+};
 
 export const userWorkoutService = {
   getLastUserWorkouts,
   create,
   remove,
+  getById,
 };

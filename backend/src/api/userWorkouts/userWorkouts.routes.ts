@@ -1,15 +1,17 @@
 import { Router } from "express";
+
+import { requireAuth } from "../../middlewares/auth.middleware";
+
 import {
   createUserWorkout,
-  getLastWorkouts,
   deleteUserWorkout,
+  getUserWorkoutById,
 } from "./userWorkout.controller";
-import { requireAuth } from "../../middlewares/auth.middleware";
 
 export const userWorkoutsRoutes = Router();
 
-userWorkoutsRoutes.post("/", requireAuth, createUserWorkout);
+userWorkoutsRoutes.get("/:userWorkoutId", requireAuth, getUserWorkoutById);
 
-userWorkoutsRoutes.get("/:workoutId/last", requireAuth, getLastWorkouts);
+userWorkoutsRoutes.post("/", requireAuth, createUserWorkout);
 
 userWorkoutsRoutes.delete("/:userWorkoutId", requireAuth, deleteUserWorkout);

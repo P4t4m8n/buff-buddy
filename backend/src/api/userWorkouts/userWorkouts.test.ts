@@ -1,16 +1,17 @@
 import request from "supertest";
+
 import { app } from "../../server";
-import {
+
+import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
 } from "../../../../shared/models/workout.model";
-import { IExerciseDTO } from "../../../../shared/models/exercise.model";
-import {
+import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
+import type {
   IUserWorkoutDTO,
   IUserWorkoutEditDTO,
-  IUserWorkoutExercisesEditDTO,
 } from "../../../../shared/models/userWorkout";
-import {
+import type {
   IProgramDTO,
   IProgramEditDTO,
 } from "../../../../shared/models/program.model";
@@ -53,157 +54,95 @@ describe("UserWorkout API", () => {
         equipment: ["dumbbell"],
         muscles: ["biceps", "forearms"],
       },
-      {
-        name: "strength 3",
-        youtubeUrl: "https://www.youtube.com/watch?v=Dy28vbdq2PjcM",
-        type: "strength",
-        equipment: ["barbell"],
-        muscles: ["quads", "glutes", "hamstrings", "lower_back"],
-      },
-      {
-        name: "strength 4",
-        youtubeUrl: "https://www.youtube.com/watch?v=ykJmrZ5gfdv0Oo",
-        type: "strength",
-        equipment: ["dumbbell"],
-        muscles: ["biceps", "forearms"],
-      },
     ];
 
-    // const cardioExercises: IExerciseDTO[] = [
-    //   {
-    //     name: "cardio 1",
-    //     youtubeUrl: "https://www.youtube.com/watch?v=_l3ySVKYVJ8",
-    //     type: "cardio",
-    //     equipment: ["cable_machine"],
-    //     muscles: ["chest", "triceps", "abductors"],
-    //   },
-    //   {
-    //     name: "cardio 2",
-    //     youtubeUrl: "https://www.youtube.com/watch?v=pSHjTRCQxIw",
-    //     type: "cardio",
-    //     equipment: ["air_bike"],
-    //     muscles: ["triceps", "abs", "rotator_cuff"],
-    //   },
-    // ];
+    const cardioExercises: IExerciseDTO[] = [
+      {
+        name: "cardio 1",
+        youtubeUrl: "https://www.youtube.com/watch?v=_l3ySVKYVJ8",
+        type: "cardio",
+        equipment: ["cable_machine"],
+        muscles: ["chest", "triceps", "abductors"],
+      },
+      {
+        name: "cardio 2",
+        youtubeUrl: "https://www.youtube.com/watch?v=pSHjTRCQxIw",
+        type: "cardio",
+        equipment: ["air_bike"],
+        muscles: ["triceps", "abs", "rotator_cuff"],
+      },
+    ];
 
     for (const exercise of strengthExercises) {
       const exerciseRes = await request(app)
         .post("/api/v1/exercises/edit")
         .set("Cookie", `token=${authToken}`)
         .send(exercise);
-      if (exerciseRes.body.data.id) {
-        testStrengthExercises.push(exerciseRes.body.data);
-      }
+      testStrengthExercises.push(exerciseRes.body.data);
+    }
+
+    for (const exercise of cardioExercises) {
+      const exerciseRes = await request(app)
+        .post("/api/v1/exercises/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(exercise);
+      testCardioExercises.push(exerciseRes.body.data);
     }
 
     const workouts: IWorkoutEditDTO[] = [
       {
-        name: "Full Body Test Workout 1",
-        notes: "A workout for testing purposes.",
+        name: "Strength Test Workout",
+        notes: "A workout for testing strength exercises.",
         crudOperation: "create",
         workoutExercises: [
           {
             order: 1,
-            notes: "First exercise 1",
+            notes: "First strength exercise",
             exerciseData: {
-              type: testStrengthExercises[0].type ?? "strength",
+              type: testStrengthExercises[0].type!,
               id: testStrengthExercises[0].id!,
             },
             crudOperation: "create",
-            isBodyWeight: true,
+            isBodyWeight: false,
             hasWarmup: true,
           },
           {
             order: 2,
-            notes: "2nd exercise 1",
-            exerciseData: {
-              type: testStrengthExercises[1].type ?? "strength",
-              id: testStrengthExercises[1].id!,
-            },
-            crudOperation: "create",
-          },
-        ],
-      },
-      {
-        name: "Full Body Test Workout 2 ",
-        notes: "A workout for testing purposes.",
-        crudOperation: "create",
-        workoutExercises: [
-          {
-            order: 1,
-            notes: "First exercise 2",
-            exerciseData: {
-              type: testStrengthExercises[3].type!,
-              id: testStrengthExercises[3].id!,
-            },
-            crudOperation: "create",
-          },
-          {
-            order: 2,
-            notes: "2nd exercise 2",
+            notes: "Second strength exercise",
             exerciseData: {
               type: testStrengthExercises[1].type!,
               id: testStrengthExercises[1].id!,
             },
             crudOperation: "create",
             isBodyWeight: true,
-            hasWarmup: true,
+            hasWarmup: false,
           },
         ],
       },
       {
-        name: "Full Body Test Workout 3",
-        notes: "A workout for testing purposes.",
+        name: "Cardio Test Workout",
+        notes: "A workout for testing cardio exercises.",
         crudOperation: "create",
         workoutExercises: [
           {
             order: 1,
-            notes: "First exercise 4",
+            notes: "First cardio exercise",
             exerciseData: {
-              type: testStrengthExercises[3].type!,
-              id: testStrengthExercises[3].id!,
+              type: testCardioExercises[0].type!,
+              id: testCardioExercises[0].id!,
             },
             crudOperation: "create",
-            isBodyWeight: true,
             hasWarmup: true,
           },
           {
             order: 2,
-            notes: "2nd exercise 3",
+            notes: "Second cardio exercise",
             exerciseData: {
-              type: testStrengthExercises[2].type!,
-              id: testStrengthExercises[2].id!,
+              type: testCardioExercises[1].type!,
+              id: testCardioExercises[1].id!,
             },
             crudOperation: "create",
-            isBodyWeight: true,
-            hasWarmup: true,
-          },
-        ],
-      },
-      {
-        name: "Full Body Test Workout 4",
-        notes: "A workout for testing purposes.",
-        crudOperation: "create",
-        workoutExercises: [
-          {
-            order: 1,
-            notes: "First exercise",
-            exerciseData: {
-              type: testStrengthExercises[0].type!,
-              id: testStrengthExercises[0].id!,
-            },
-            crudOperation: "create",
-            isBodyWeight: true,
-            hasWarmup: true,
-          },
-          {
-            order: 2,
-            notes: "2nd exercise 4",
-            exerciseData: {
-              type: testStrengthExercises[2].type!,
-              id: testStrengthExercises[2].id!,
-            },
-            crudOperation: "create",
+            hasWarmup: false,
           },
         ],
       },
@@ -214,13 +153,12 @@ describe("UserWorkout API", () => {
         .post("/api/v1/workouts/edit")
         .set("Cookie", `token=${authToken}`)
         .send(workout);
-      const workoutData: IWorkoutDTO = workoutRes.body.data;
-      testWorkouts.push(workoutData);
+      testWorkouts.push(workoutRes.body.data);
     }
 
     const newProgram: IProgramEditDTO = {
-      name: "My New Lifting Program",
-      notes: "3-day split for strength.",
+      name: "UserWorkout Test Program",
+      notes: "Program for testing user workouts.",
       startDate: "2025-08-01",
       endDate: "2025-10-31",
       isActive: true,
@@ -228,36 +166,14 @@ describe("UserWorkout API", () => {
         {
           daysOfWeek: ["monday", "friday"],
           crudOperation: "create",
-          workout: {
-            id: testWorkouts[0].id,
-          },
+          workout: { id: testWorkouts[0].id },
           workoutLevel: "beginner",
           workoutGoal: "hypertrophy",
         },
         {
-          daysOfWeek: ["monday", "friday"],
+          daysOfWeek: ["wednesday"],
           crudOperation: "create",
-          workout: {
-            id: testWorkouts[1].id,
-          },
-          workoutLevel: "beginner",
-          workoutGoal: "hypertrophy",
-        },
-        {
-          daysOfWeek: ["monday", "friday"],
-          crudOperation: "create",
-          workout: {
-            id: testWorkouts[2].id,
-          },
-          workoutLevel: "beginner",
-          workoutGoal: "hypertrophy",
-        },
-        {
-          daysOfWeek: ["monday", "friday"],
-          crudOperation: "create",
-          workout: {
-            id: testWorkouts[3].id,
-          },
+          workout: { id: testWorkouts[1].id },
           workoutLevel: "beginner",
           workoutGoal: "hypertrophy",
         },
@@ -268,122 +184,56 @@ describe("UserWorkout API", () => {
       .post("/api/v1/programs/edit")
       .set("Cookie", `token=${authToken}`)
       .send(newProgram);
-
     testPrograms.push(programRes.body.data);
-
-    const userWorkouts: IUserWorkoutEditDTO[] = [
-      {
-        ownerId: testUserId,
-        workoutId: testWorkouts[0].id,
-        programId: testPrograms[0].id,
-        userWorkoutExercises: [
-          {
-            workoutExerciseId:
-              testWorkouts?.[0].workoutExercises?.[0].id! ?? "",
-            userStrengthSets: [
-              {
-                reps: 5,
-                weight: 5,
-                crudOperation: "create",
-                order: 1,
-              },
-              {
-                reps: 4,
-                weight: 5,
-                crudOperation: "create",
-                order: 2,
-              },
-              {
-                reps: 3,
-                weight: 5,
-                crudOperation: "create",
-                order: 3,
-              },
-            ],
-          },
-          {
-            workoutExerciseId:
-              testWorkouts?.[0].workoutExercises?.[1].id! ?? "",
-            userStrengthSets: [
-              {
-                reps: 9,
-                weight: 1,
-                crudOperation: "create",
-                order: 1,
-              },
-              {
-                reps: 8,
-                weight: 1,
-                crudOperation: "create",
-                order: 2,
-              },
-              {
-                reps: 7,
-                weight: 1,
-                crudOperation: "create",
-                order: 3,
-              },
-            ],
-          },
-        ],
-      },
-    ];
   });
 
   describe("POST /api/v1/user-workouts", () => {
-    it("Should create a new user workout successfully", async () => {
+    it("should create a new user workout with strength exercises successfully", async () => {
       const userWorkoutData: IUserWorkoutEditDTO = {
         ownerId: testUserId,
         workoutId: testWorkouts[0].id,
         programId: testPrograms[0].id,
         userWorkoutExercises: [
           {
-            hasWarmup: true,
-            isBodyWeight: true,
-            workoutExerciseId:
-              testWorkouts?.[0].workoutExercises?.[0].id! ?? "",
+            workoutExerciseId: testWorkouts[0].workoutExercises?.[0].id!,
             userStrengthSets: [
               {
-                reps: 5,
-                weight: 5,
+                reps: 10,
+                weight: 135,
+                isBodyWeight: false,
                 crudOperation: "create",
                 order: 1,
+                isCompleted: true,
+                isJointPain: false,
+                isMuscleFailure: false,
+                isWarmup: false,
               },
               {
-                reps: 4,
-                weight: 5,
+                reps: 8,
+                weight: 135,
+                isBodyWeight: false,
                 crudOperation: "create",
                 order: 2,
-              },
-              {
-                reps: 3,
-                weight: 5,
-                crudOperation: "create",
-                order: 3,
+                isCompleted: true,
+                isJointPain: false,
+                isMuscleFailure: true,
+                isWarmup: false,
               },
             ],
           },
           {
-            workoutExerciseId:
-              testWorkouts?.[0].workoutExercises?.[1].id! ?? "",
+            workoutExerciseId: testWorkouts[0].workoutExercises?.[1].id!,
             userStrengthSets: [
               {
-                reps: 9,
-                weight: 1,
+                reps: 12,
+                weight: 0,
+                isBodyWeight: true,
                 crudOperation: "create",
                 order: 1,
-              },
-              {
-                reps: 8,
-                weight: 1,
-                crudOperation: "create",
-                order: 2,
-              },
-              {
-                reps: 7,
-                weight: 1,
-                crudOperation: "create",
-                order: 3,
+                isCompleted: true,
+                isJointPain: false,
+                isMuscleFailure: false,
+                isWarmup: false,
               },
             ],
           },
@@ -397,226 +247,664 @@ describe("UserWorkout API", () => {
 
       expect(res.status).toBe(201);
       expect(res.body.message).toBe("User-Workout created successfully");
+      const userWorkout: IUserWorkoutDTO = res.body.data;
+      expect(userWorkout).toHaveProperty("id");
+      expect(userWorkout.program?.id).toBe(testPrograms[0].id);
+      expect(userWorkout.owner?.id).toBe(testUserId);
+      expect(userWorkout.workout?.id).toBe(testWorkouts[0].id);
+      expect(userWorkout.userWorkoutExercises).toHaveLength(2);
 
-      const workoutRes: IUserWorkoutDTO = res.body.data;
-      expect(workoutRes).toBeDefined();
-
-      expect(workoutRes).toHaveProperty("id");
-      expect(workoutRes?.program?.id).toBe(testPrograms[0].id);
-      expect(workoutRes.owner?.id).toBe(testUserId);
-      expect(workoutRes.workout?.id).toBe(testWorkouts[0].id);
-
-      testUserWorkouts.push(workoutRes);
+      testUserWorkouts.push(userWorkout);
     });
 
-    // it("should fail if dateCompleted is missing", async () => {
-    //   const valid = {
-    //     programId: testProgramId,
-    //     ownerId: testUserId,
-    //     workoutId: testWorkouts[0].id,
-    //     workoutExercises: [
-    //       {
-    //         workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
-    //         userCardioSets: [
-    //           getRandomUserCardioSet(
-    //             testWorkouts?.[0]?.workoutExercises?.[0]?.coreCardioSet?.id!
-    //           ),
-    //         ],
-    //       },
-    //     ],
-    //   };
-    //   const res = await request(app)
-    //     .post("/api/v1/user-workouts")
-    //     .set("Cookie", `token=${authToken}`)
-    //     .send(valid);
-    //   expect(res.status).toBe(400);
-    //   expect(res.body.errors.dateCompleted).toBeDefined();
-    // });
+    it("should create a new user workout with cardio exercises successfully", async () => {
+      const userWorkoutData: IUserWorkoutEditDTO = {
+        ownerId: testUserId,
+        workoutId: testWorkouts[1].id,
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[1].workoutExercises?.[0].id!,
+            userCardioSets: [
+              {
+                workTime: 60 * 30,
+                avgHeartRate: 150,
+                avgSpeed: 8.5,
+                distance: 4.25,
+                caloriesBurned: 320,
+                isCompleted: true,
+                order: 1,
+                crudOperation: "create",
+              },
+            ],
+          },
+        ],
+      };
 
-    // it("should fail if programId is missing", async () => {
-    //   const valid = {
-    //     dateCompleted: new Date(),
-    //     ownerId: testUserId,
-    //     workoutId: testWorkouts[0]?.id,
-    //     workoutExercises: [
-    //       {
-    //         workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
-    //         userCardioSets: [
-    //           getRandomUserCardioSet(
-    //             testWorkouts?.[0]?.workoutExercises?.[0]?.coreCardioSet?.id!
-    //           ),
-    //         ],
-    //       },
-    //     ],
-    //   };
-    //   const res = await request(app)
-    //     .post("/api/v1/user-workouts")
-    //     .set("Cookie", `token=${authToken}`)
-    //     .send(valid);
-    //   expect(res.status).toBe(400);
-    //   expect(res.body.errors.programId).toBeDefined();
-    // });
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(userWorkoutData);
 
-    // it("should fail if workoutId is missing", async () => {
-    //   const valid = {
-    //     dateCompleted: new Date(),
-    //     programId: testProgramId,
-    //     ownerId: testUserId,
-    //     workoutExercises: [
-    //       {
-    //         workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
-    //         userCardioSets: [
-    //           getRandomUserCardioSet(
-    //             testWorkouts?.[0]?.workoutExercises?.[0]?.coreCardioSet?.id!
-    //           ),
-    //         ],
-    //       },
-    //     ],
-    //   };
-    //   const res = await request(app)
-    //     .post("/api/v1/user-workouts")
-    //     .set("Cookie", `token=${authToken}`)
-    //     .send(valid);
-    //   expect(res.status).toBe(400);
-    //   expect(res.body.errors.workoutId).toBeDefined();
-    // });
+      expect(res.status).toBe(201);
+      const userWorkout: IUserWorkoutDTO = res.body.data;
+      expect(userWorkout.userWorkoutExercises).toHaveLength(1);
+      expect(userWorkout.userWorkoutExercises?.[0].userCardioSets).toHaveLength(
+        1
+      );
 
-    // it("should fail if workoutExercises is missing", async () => {
-    //   const valid: Partial<IUserWorkoutEditDTO> = {
-    //     dateCompleted: new Date(),
-    //     programId: testProgramId,
-    //     ownerId: testUserId,
-    //     workoutId: testWorkouts[0]?.id,
-    //   };
-    //   const res = await request(app)
-    //     .post("/api/v1/user-workouts")
-    //     .set("Cookie", `token=${authToken}`)
-    //     .send(valid);
+      testUserWorkouts.push(userWorkout);
+    });
 
-    //   expect(res.status).toBe(400);
-    //   expect(res.body.errors.userWorkoutExercises).toBeDefined();
-    // });
+    it("should reject user workout with missing required fields", async () => {
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send({});
 
-    // it("should fail if workoutExercises[].workoutExerciseId is missing", async () => {
-    //   const valid = {
-    //     dateCompleted: new Date(),
-    //     programId: testProgramId,
-    //     ownerId: testUserId,
-    //     workoutId: testWorkouts[0]?.id,
-    //     userWorkoutExercises: [
-    //       {
-    //         userCardioSets: [
-    //           getRandomUserCardioSet(
-    //             testWorkouts?.[0]?.workoutExercises?.[0]?.coreCardioSet?.id!
-    //           ),
-    //         ],
-    //       },
-    //     ],
-    //   };
-    //   const res = await request(app)
-    //     .post("/api/v1/user-workouts")
-    //     .set("Cookie", `token=${authToken}`)
-    //     .send(valid);
+      expect(res.status).toBe(400);
+      expect(res.body.errors).toBeDefined();
+      expect(res.body.errors.workoutId).toBeDefined();
+      expect(res.body.errors.programId).toBeDefined();
+      expect(res.body.errors.userWorkoutExercises).toBeDefined();
+    });
 
-    //   expect(res.status).toBe(400);
-    //   expect(
-    //     res.body.errors["userWorkoutExercises.0.workoutExerciseId"]
-    //   ).toBeDefined();
-    // });
+    it("should reject user workout with invalid workout ID", async () => {
+      const invalidData: IUserWorkoutEditDTO = {
+        ownerId: testUserId,
+        workoutId: "invalid-workout-id",
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0].workoutExercises?.[0].id!,
+            userStrengthSets: [
+              {
+                reps: 10,
+                weight: 100,
+                isBodyWeight: false,
+                crudOperation: "create",
+                order: 1,
+                isCompleted: true,
+                isJointPain: false,
+                isMuscleFailure: false,
+                isWarmup: false,
+              },
+            ],
+          },
+        ],
+      };
 
-    // it("should fail if userWorkoutExercises[].userSets is missing", async () => {
-    //   const valid = {
-    //     dateCompleted: new Date(),
-    //     programId: testProgramId,
-    //     ownerId: testUserId,
-    //     workoutId: testWorkouts[0]?.id,
-    //     userWorkoutExercises: [
-    //       {
-    //         workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
-    //       },
-    //     ],
-    //   };
-    //   const res = await request(app)
-    //     .post("/api/v1/user-workouts")
-    //     .set("Cookie", `token=${authToken}`)
-    //     .send(valid);
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(invalidData);
 
-    //   expect(res.status).toBe(400);
-    //   expect(res.body.errors["userWorkoutExercises.0"]).toBeDefined();
-    // });
+      expect(res.status).toBe(404);
+      expect(res.body.message).toContain(
+        "One or more referenced records not found"
+      );
+    });
 
-    // it("should fail if userSets[].reps is missing", async () => {
-    //   const invalidSet = {
-    //     ...getRandomUserCardioSet(
-    //       testWorkouts[0]?.workoutExercises?.[0]?.coreCardioSet?.id!
-    //     ),
-    //   };
-    //   delete invalidSet.avgHeartRate;
-    //   const valid = {
-    //     dateCompleted: new Date(),
-    //     programId: testProgramId,
-    //     ownerId: testUserId,
-    //     workoutId: testWorkouts[0]?.id,
-    //     userWorkoutExercises: [
-    //       {
-    //         workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
-    //         userSets: [invalidSet],
-    //       },
-    //     ],
-    //   };
-    //   const res = await request(app)
-    //     .post("/api/v1/user-workouts")
-    //     .set("Cookie", `token=${authToken}`)
-    //     .send(valid);
+    it("should reject user workout with invalid program ID", async () => {
+      const invalidData: IUserWorkoutEditDTO = {
+        ownerId: testUserId,
+        workoutId: testWorkouts[0].id,
+        programId: "invalid-program-id",
+        userWorkoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0].workoutExercises?.[0].id!,
+            userStrengthSets: [
+              {
+                reps: 10,
+                weight: 100,
+                isBodyWeight: false,
+                crudOperation: "create",
+                order: 1,
+                isCompleted: true,
+                isJointPain: false,
+                isMuscleFailure: false,
+                isWarmup: false,
+              },
+            ],
+          },
+        ],
+      };
 
-    //   expect(res.status).toBe(400);
-    //   expect(res.body.errors["userWorkoutExercises.0"]).toBeDefined();
-    // });
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(invalidData);
 
-    // it("should fail if userSets[].weight is negative", async () => {
-    //   const invalidSet = {
-    //     ...getRandomUserStrengthSet(
-    //       testWorkouts[0]?.workoutExercises?.[0]?.coreStrengthSet?.id
-    //     ),
-    //     weight: -5,
-    //   };
-    //   const valid = {
-    //     dateCompleted: new Date(),
-    //     programId: testProgramId,
-    //     ownerId: testUserId,
-    //     workoutId: testWorkouts[0]?.id,
-    //     userWorkoutExercises: [
-    //       {
-    //         workoutExerciseId: testWorkouts[0]?.workoutExercises?.[0]?.id,
-    //         userSets: [invalidSet],
-    //       },
-    //     ],
-    //   };
-    //   const res = await request(app)
-    //     .post("/api/v1/user-workouts")
-    //     .set("Cookie", `token=${authToken}`)
-    //     .send(valid);
+      expect(res.status).toBe(404);
+      expect(res.body.message).toContain(
+        "One or more referenced records not found"
+      );
+    });
 
-    //   expect(res.status).toBe(400);
-    //   expect(res.body.errors["userWorkoutExercises.0"]).toBeDefined();
-    // });
+    it("should reject user workout with both strength and cardio sets", async () => {
+      const invalidData: IUserWorkoutEditDTO = {
+        ownerId: testUserId,
+        workoutId: testWorkouts[0].id,
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0].workoutExercises?.[0].id!,
+            userStrengthSets: [
+              {
+                reps: 10,
+                weight: 100,
+                isBodyWeight: false,
+                crudOperation: "create",
+                order: 1,
+                isCompleted: true,
+                isJointPain: false,
+                isMuscleFailure: false,
+                isWarmup: false,
+              },
+            ],
+            userCardioSets: [
+              {
+                workTime: 1800,
+                avgHeartRate: 150,
+                avgSpeed: 8.5,
+                distance: 4.25,
+                caloriesBurned: 320,
+                isCompleted: true,
+                order: 1,
+                crudOperation: "create",
+              },
+            ],
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(invalidData);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors["userWorkoutExercises.0"]).toMatch(
+        "Cannot provide both strength and cardio sets"
+      );
+    });
+
+    it("should reject user workout with neither strength nor cardio sets", async () => {
+      const invalidData: IUserWorkoutEditDTO = {
+        ownerId: testUserId,
+        workoutId: testWorkouts[0].id,
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0].workoutExercises?.[0].id!,
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(invalidData);
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors["userWorkoutExercises.0"]).toMatch(
+        "At least one user set (strength or cardio) must be provided"
+      );
+    });
+
+    it("should reject strength set with both weight and body weight", async () => {
+      const invalidData: IUserWorkoutEditDTO = {
+        ownerId: testUserId,
+        workoutId: testWorkouts[0].id,
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0].workoutExercises?.[0].id!,
+            userStrengthSets: [
+              {
+                reps: 10,
+                weight: 100, // Has weight
+                isBodyWeight: true, // But also body weight - invalid
+                crudOperation: "create",
+                order: 1,
+                isCompleted: true,
+                isJointPain: false,
+                isMuscleFailure: false,
+                isWarmup: false,
+              },
+            ],
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(invalidData);
+
+      expect(res.status).toBe(400);
+      expect(
+        res.body.errors["userWorkoutExercises.0.userStrengthSets.0.weight"]
+      ).toMatch("Cannot have both weight and body weight set");
+    });
+
+    it("should reject strength set with invalid reps", async () => {
+      const invalidData: IUserWorkoutEditDTO = {
+        ownerId: testUserId,
+        workoutId: testWorkouts[0].id,
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0].workoutExercises?.[0].id!,
+            userStrengthSets: [
+              {
+                reps: 0, // Invalid - must be at least 1
+                weight: 100,
+                isBodyWeight: false,
+                crudOperation: "create",
+                order: 1,
+                isCompleted: true,
+                isJointPain: false,
+                isMuscleFailure: false,
+                isWarmup: false,
+              },
+            ],
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(invalidData);
+
+      expect(res.status).toBe(400);
+      expect(
+        res.body.errors["userWorkoutExercises.0.userStrengthSets.0.reps"]
+      ).toMatch("Reps must be at least 1");
+    });
+
+    it("should handle skipped strength sets correctly", async () => {
+      const userWorkoutData: IUserWorkoutEditDTO = {
+        ownerId: testUserId,
+        workoutId: testWorkouts[0].id,
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0].workoutExercises?.[0].id!,
+            userStrengthSets: [
+              {
+                skippedReason: "Joint pain prevented completion",
+                isCompleted: false,
+                crudOperation: "create",
+                order: 1,
+                isJointPain: true,
+                isMuscleFailure: false,
+                isWarmup: false,
+              },
+            ],
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(userWorkoutData);
+
+      expect(res.status).toBe(201);
+      const userWorkout: IUserWorkoutDTO = res.body.data;
+      expect(
+        userWorkout.userWorkoutExercises?.[0].userStrengthSets?.[0]
+          .skippedReason
+      ).toBe("joint pain prevented completion");
+      testUserWorkouts.push(userWorkout);
+    });
+
+    it("should reject skipped set with reps provided", async () => {
+      const invalidData: IUserWorkoutEditDTO = {
+        ownerId: testUserId,
+        workoutId: testWorkouts[0].id,
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0].workoutExercises?.[0].id!,
+            userStrengthSets: [
+              {
+                skippedReason: "Too tired",
+                isCompleted: false,
+                reps: 10, // Invalid - can't have reps with skipped reason
+                crudOperation: "create",
+                order: 1,
+                isJointPain: false,
+                isMuscleFailure: false,
+                isWarmup: false,
+              },
+            ],
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(invalidData);
+
+      expect(res.status).toBe(400);
+      expect(
+        res.body.errors["userWorkoutExercises.0.userStrengthSets.0.reps"]
+      ).toMatch("Reps must not be provided when skippedReason is present");
+    });
+
+    it("should reject cardio set with invalid values", async () => {
+      const invalidData: IUserWorkoutEditDTO = {
+        ownerId: testUserId,
+        workoutId: testWorkouts[1].id,
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[1].workoutExercises?.[0].id!,
+            userCardioSets: [
+              {
+                workTime: -100, // Invalid - negative time
+                avgHeartRate: 300, // Invalid - too high
+                avgSpeed: 8.5,
+                distance: 4.25,
+                caloriesBurned: 320,
+                isCompleted: true,
+                order: 1,
+                crudOperation: "create",
+              },
+            ],
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(invalidData);
+
+      expect(res.status).toBe(400);
+      expect(
+        res.body.errors["userWorkoutExercises.0.userCardioSets.0.workTime"]
+      ).toMatch("Work Time must be at least 0");
+      expect(
+        res.body.errors["userWorkoutExercises.0.userCardioSets.0.avgHeartRate"]
+      ).toMatch("Average Heart Rate cannot exceed 200");
+    });
+
+    it("should sanitize HTML in skipped reason", async () => {
+      const userWorkoutData: IUserWorkoutEditDTO = {
+        ownerId: testUserId,
+        workoutId: testWorkouts[0].id,
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0].workoutExercises?.[0].id!,
+            userStrengthSets: [
+              {
+                skippedReason:
+                  "<script>alert('xss')</script>Too <b>tired</b> to continue",
+                isCompleted: false,
+                crudOperation: "create",
+                order: 1,
+                isJointPain: false,
+                isMuscleFailure: false,
+                isWarmup: false,
+              },
+            ],
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(userWorkoutData);
+
+      expect(res.status).toBe(201);
+      const userWorkout: IUserWorkoutDTO = res.body.data;
+      const skippedReason =
+        userWorkout.userWorkoutExercises?.[0].userStrengthSets?.[0]
+          .skippedReason;
+      expect(skippedReason).toBe("too tired to continue");
+      expect(skippedReason).not.toMatch(/<[^>]*>/);
+      testUserWorkouts.push(userWorkout);
+    });
+
+    it("should reject user workout with missing credentials", async () => {
+      const userWorkoutData: IUserWorkoutEditDTO = {
+        ownerId: testUserId,
+        workoutId: testWorkouts[0].id,
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0].workoutExercises?.[0].id!,
+            userStrengthSets: [
+              {
+                reps: 10,
+                weight: 100,
+                isBodyWeight: false,
+                crudOperation: "create",
+                order: 1,
+                isCompleted: true,
+                isJointPain: false,
+                isMuscleFailure: false,
+                isWarmup: false,
+              },
+            ],
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/user-workouts")
+        .send(userWorkoutData);
+
+      expect(res.status).toBe(401);
+    });
   });
+  describe("GET /api/v1/user-workouts/:userWorkoutId", () => {
+    let userWorkoutId: string;
+    beforeAll(async () => {
+      const userWorkoutData = {
+        ownerId: testUserId,
+        workoutId: testWorkouts[0].id,
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0].workoutExercises?.[0].id!,
+            userStrengthSets: [
+              {
+                reps: 5,
+                weight: 50,
+                isBodyWeight: false,
+                crudOperation: "create",
+                order: 1,
+                isCompleted: true,
+                isJointPain: false,
+                isMuscleFailure: false,
+                isWarmup: false,
+              },
+            ],
+          },
+        ],
+      };
 
-  describe("GET /api/v1/user-workouts/:workoutId/last", () => {
-    // it("should retrieve the last user workout for a given workout ID", async () => {
-    //   const res = await request(app)
-    //     .get(`/api/v1/user-workouts/${testWorkouts[0].id}/last`)
-    //     .set("Cookie", `token=${authToken}`);
-    //   expect(res.status).toBe(200);
-    //   expect(res.body.data.workout.id).toBe(testWorkouts[0].id);
-    // });
-    // it("should return 404 if no workout found for the given ID", async () => {
-    //   const res = await request(app)
-    //     .get("/api/v1/user-workouts/nonexistent/last")
-    //     .set("Cookie", `token=${authToken}`);
-    //   expect(res.status).toBe(404);
-    //   expect(res.body.message).toBe("No workout found for the given ID");
-    // });
+      const createRes = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(userWorkoutData);
+      userWorkoutId = createRes.body.data.id;
+    });
+
+    it("should get a single user-workout by its ID", async () => {
+      const res = await request(app)
+        .get(`/api/v1/user-workouts/${userWorkoutId}`)
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.id).toBe(userWorkoutId);
+      expect(res.body.data.workout.id).toBe(testWorkouts[0].id);
+    });
+
+    it("should return 404 if no workout found for the given ID", async () => {
+      const res = await request(app)
+        .get("/api/v1/user-workouts/nonexistent")
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(404);
+      expect(res.body.message).toBe("User Workout not found");
+    });
+
+    it("should reject request with missing credentials", async () => {
+      const res = await request(app).get(
+        `/api/v1/user-workouts/${userWorkoutId}`
+      );
+
+      expect(res.status).toBe(401);
+    });
+  });
+  //TODO: Not in use at the moment, will change when create a get route
+
+  // describe("GET /api/v1/user-workouts", () => {
+  //   it("should return a list of user workouts", async () => {
+  //     const res = await request(app)
+  //       .get("/api/v1/user-workouts")
+  //       .set("Cookie", `token=${authToken}`);
+
+  //     expect(res.status).toBe(200);
+  //     expect(Array.isArray(res.body.data || res.body)).toBe(true);
+  //   });
+
+  //   it("should support pagination", async () => {
+  //     const res = await request(app)
+  //       .get("/api/v1/user-workouts?skip=0&take=2")
+  //       .set("Cookie", `token=${authToken}`);
+
+  //     expect(res.status).toBe(200);
+  //     const workouts = res.body.data || res.body;
+  //     expect(workouts.length).toBeLessThanOrEqual(2);
+  //   });
+  // });
+
+  //TODO: No Edit Route yes
+  // describe("PUT /api/v1/user-workouts/:id", () => {
+  //   let userWorkoutToUpdate: IUserWorkoutDTO;
+
+  //   beforeEach(async () => {
+  //     const userWorkoutData: IUserWorkoutEditDTO = {
+  //       ownerId: testUserId,
+  //       workoutId: testWorkouts[0].id,
+  //       programId: testPrograms[0].id,
+  //       userWorkoutExercises: [
+  //         {
+  //           workoutExerciseId: testWorkouts[0].workoutExercises?.[0].id!,
+  //           userStrengthSets: [
+  //             {
+  //               reps: 10,
+  //               weight: 100,
+  //               isBodyWeight: false,
+  //               crudOperation: "create",
+  //               order: 1,
+  //               isCompleted: true,
+  //               isJointPain: false,
+  //               isMuscleFailure: false,
+  //               isWarmup: false,
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //     };
+
+  //     const res = await request(app)
+  //       .post("/api/v1/user-workouts")
+  //       .set("Cookie", `token=${authToken}`)
+  //       .send(userWorkoutData);
+
+  //     userWorkoutToUpdate = res.body.data;
+  //     testUserWorkouts.push(userWorkoutToUpdate);
+  //   });
+
+  //   it("should update user workout successfully", async () => {
+  //     const updateData = {
+  //       dateCompleted: "2025-09-15T10:00:00.000Z",
+  //     };
+
+  //     const res = await request(app)
+  //       .put(`/api/v1/user-workouts/${userWorkoutToUpdate.id}`)
+  //       .set("Cookie", `token=${authToken}`)
+  //       .send(updateData);
+
+  //     expect(res.status).toBe(200);
+  //     expect(res.body.message).toBe("User-Workout updated successfully");
+  //   });
+
+  //   it("should return 404 for updating a non-existent user workout", async () => {
+  //     const res = await request(app)
+  //       .put("/api/v1/user-workouts/non-existent-id")
+  //       .set("Cookie", `token=${authToken}`)
+  //       .send({ dateCompleted: "2025-09-15T10:00:00.000Z" });
+
+  //     expect(res.status).toBe(404);
+  //   });
+  // });
+
+  describe("DELETE /api/v1/user-workouts/:id", () => {
+    it("should delete an existing workout", async () => {
+      const userWorkoutData: IUserWorkoutEditDTO = {
+        ownerId: testUserId,
+        workoutId: testWorkouts[0].id,
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0].workoutExercises?.[0].id!,
+            userStrengthSets: [
+              {
+                reps: 5,
+                weight: 50,
+                isBodyWeight: false,
+                crudOperation: "create",
+                order: 1,
+                isCompleted: true,
+                isJointPain: false,
+                isMuscleFailure: false,
+                isWarmup: false,
+              },
+            ],
+          },
+        ],
+      };
+
+      const createRes = await request(app)
+        .post("/api/v1/user-workouts")
+        .set("Cookie", `token=${authToken}`)
+        .send(userWorkoutData);
+
+      const userWorkoutIdToDeleteId = createRes.body.data.id;
+
+      const deleteRes = await request(app)
+        .delete(`/api/v1/user-workouts/${userWorkoutIdToDeleteId}`)
+        .set("Cookie", `token=${authToken}`);
+
+      expect(deleteRes.status).toBe(200);
+      expect(deleteRes.body.message).toBe("User Workout deleted successfully");
+
+      const getRes = await request(app)
+        .get(`/api/v1/user-workouts/${userWorkoutIdToDeleteId}`)
+        .set("Cookie", `token=${authToken}`);
+
+      expect(getRes.status).toBe(404);
+    });
+
+    it("should return 404 for deleting a non-existent user-workout", async () => {
+      const res = await request(app)
+        .delete("/api/v1/user-workouts/non-existent-id")
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(404);
+    });
   });
 
   afterAll(async () => {

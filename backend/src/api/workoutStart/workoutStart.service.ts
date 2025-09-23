@@ -166,6 +166,7 @@ const _getStrengthWarmupSet = ({
     isMuscleFailure: false,
     isJointPain: false,
     isBodyWeight,
+    isWarmup: true,
     order: 0, // Warmup set is always the first set
   };
 };
@@ -242,6 +243,7 @@ const _getPlanedUserWorkoutExercise = ({
       const bTime = b.dateCompleted ? new Date(b.dateCompleted).getTime() : 0;
       return aTime - bTime;
     });
+    debugger
 
   const isComplete = lastUserWorkouts?.every((luw) =>
     luw.userStrengthSets?.every((uss) => uss.reps >= workoutGoalData.maxReps)

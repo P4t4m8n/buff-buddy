@@ -15,7 +15,7 @@ export const workoutStart = async (req: Request, res: Response) => {
       .IDSchemaFactory({ toSanitize: true })
       .parse(workoutId);
 
-    if (!workoutId) {
+    if (!validatedWorkoutId) {
       throw new AppError("Workout ID is required", 400);
     }
 
@@ -26,8 +26,8 @@ export const workoutStart = async (req: Request, res: Response) => {
     }
 
     const [userWorkouts, programWorkout] = await Promise.all([
-      userWorkoutService.getLastUserWorkouts(workoutId, userId),
-      programsService.getProgramWorkout(workoutId),
+      userWorkoutService.getLastUserWorkouts(validatedWorkoutId, userId),
+      programsService.getProgramWorkout(validatedWorkoutId),
     ]);
 
     if (!programWorkout) {

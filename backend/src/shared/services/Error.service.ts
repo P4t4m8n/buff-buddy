@@ -79,8 +79,8 @@ export class AppError extends Error {
           }
           break;
         }
-        //No record was found for an update
 
+        //No record was found for an update
         case "P2025": {
           returnError.status = 404;
           returnError.message = "One or more referenced records not found";
