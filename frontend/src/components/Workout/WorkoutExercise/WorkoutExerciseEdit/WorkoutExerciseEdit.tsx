@@ -58,11 +58,11 @@ export default function WorkoutExerciseEdit({
       const { id } = weToUpsert;
       if (!id || id.startsWith("temp")) {
         workoutExerciseValidation
-          .createWorkoutExerciseFactorySchema({ toSanitize: false })
+          .createFactorySchema({ toSanitize: false })
           .parse(weToUpsert);
       } else {
         workoutExerciseValidation
-          .updateWorkoutExerciseFactorySchema({ toSanitize: false })
+          .updateFactorySchema({ toSanitize: false })
           .parse(weToUpsert);
       }
 
@@ -80,7 +80,7 @@ export default function WorkoutExerciseEdit({
     const peToRemove: IWorkoutExerciseEditDTO = {
       ...workoutExerciseToEdit!,
       crudOperation: "delete",
-      order:null,
+      order: null,
     };
     handleWorkoutExercises(peToRemove);
     if (setIsOpen) setIsOpen(false);

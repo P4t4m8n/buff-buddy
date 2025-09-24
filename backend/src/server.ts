@@ -7,7 +7,7 @@ import { setupCors } from "./setups/cors.setup";
 import { setupRoutes } from "./setups/routes.setup";
 
 dotenv.config();
-//INFO?? export for Jest
+//INFO: export for Jest
 export const app = express();
 export const server = http.createServer(app);
 

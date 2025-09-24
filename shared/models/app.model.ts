@@ -1,4 +1,4 @@
-import { DAY_OF_WEEK, MONTHS, CRUD_OPERATIONS } from "../consts/app.consts";
+import { DAY_OF_WEEK, CRUD_OPERATIONS } from "../consts/app.consts";
 import type { IEntity, IEntityDates } from "./entity.model";
 
 export interface IBaseFilter {
@@ -8,8 +8,6 @@ export interface IBaseFilter {
 
 export type TDayOfWeek = (typeof DAY_OF_WEEK)[number];
 
-export type TMonth = (typeof MONTHS)[number];
-
 export type TCrudOperation = (typeof CRUD_OPERATIONS)[number];
 
 export interface IValidationProps {
@@ -18,12 +16,6 @@ export interface IValidationProps {
   fieldName?: string;
   toSanitize?: boolean;
   toLowerCase?: boolean;
-}
-
-export interface IDateValidationProps {
-  startDate: string;
-  endDate: string;
-  fieldName: string;
 }
 
 export interface IToSanitize {

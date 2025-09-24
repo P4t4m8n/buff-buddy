@@ -1,5 +1,4 @@
 import { useParams } from "react-router";
-import useProgramIdQuery from "../../hooks/queryHooks/features/program/useProgramIdQuery";
 
 import { toTitle } from "../../utils/toTitle";
 import { ActiveButtonIcon } from "../../utils/ActiveButtonIcon.util";
@@ -7,6 +6,7 @@ import { calendarUtil } from "../../utils/calendar.util";
 
 import Loader from "../../components/UI/loader/Loader";
 import BackButton from "../../components/UI/BackButton";
+import useProgramIdQuery from "../../hooks/features/program/useProgramIdQuery";
 
 export default function ProgramDetails() {
   const { programId } = useParams<{ programId?: string }>();

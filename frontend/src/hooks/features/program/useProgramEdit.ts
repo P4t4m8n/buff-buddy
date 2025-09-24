@@ -10,10 +10,10 @@ import { programUtil } from "../../../utils/program.util";
 import { useErrors } from "../../shared/useErrors";
 import { formUtil } from "../../../utils/form.util";
 import { useMutationKeyStore } from "../../../store/mutationKeys.store";
-import useProgramIdQuery from "../../queryHooks/features/program/useProgramIdQuery";
 import useItemMutation from "../../queryHooks/useItemMutation";
 import { QUERY_KEYS } from "../../../consts/queryKeys.consts";
 import { programService } from "../../../services/program.service";
+import useProgramIdQuery from "./useProgramIdQuery";
 
 // interface IProgramEditHook {
 //   programToEdit: IProgramEditDTO | null;

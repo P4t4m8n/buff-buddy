@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { validationUtil } from "./util.validation";
 import { userStrengthSetsValidation } from "./userStrengthSet.validation";
 import { userCardioSetsValidation } from "./userCardioSet.validation";
@@ -37,14 +38,14 @@ const createUserWorkoutExerciseFactorySchema = ({
       workoutExerciseId: validationUtil.IDSchemaFactory({ toSanitize: false }),
       userStrengthSets: z
         .array(
-          userStrengthSetsValidation.createUserStrengthSetFactorySchema({
+          userStrengthSetsValidation.createFactorySchema({
             toSanitize,
           })
         )
         .optional(),
       userCardioSets: z
         .array(
-          userCardioSetsValidation.createUserCardioSetFactorySchema({
+          userCardioSetsValidation.createFactorySchema({
             toSanitize,
           })
         )
@@ -53,11 +54,7 @@ const createUserWorkoutExerciseFactorySchema = ({
     .superRefine(userSetRefinement);
 };
 
-const createUserWorkoutFactorySchema = ({
-  toSanitize,
-}: {
-  toSanitize?: boolean;
-}) => {
+const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   return z.object({
     id: validationUtil.IDSchemaFactory({ toSanitize }).optional(),
     dateCompleted: validationUtil.DateSchema.default(new Date()),
@@ -70,22 +67,22 @@ const createUserWorkoutFactorySchema = ({
   });
 };
 
-const updateUserWorkoutFactorySchema = ({
-  toSanitize,
-}: {
-  toSanitize?: boolean;
-}) => {
-  return createUserWorkoutFactorySchema({ toSanitize }).partial();
+const updateFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+  return createFactorySchema({ toSanitize }).partial();
 };
 
+const QuerySchema = validationUtil.FilterSchema;
+
 export const userWorkoutValidation = {
-  createUserWorkoutFactorySchema,
-  updateUserWorkoutFactorySchema,
+  createFactorySchema,
+  updateFactorySchema,
+  QuerySchema,
 };
 
 export type TCreateUserWorkoutInput = z.infer<
-  ReturnType<typeof createUserWorkoutFactorySchema>
+  ReturnType<typeof createFactorySchema>
 >;
 export type TUpdateUserWorkoutInput = z.infer<
-  ReturnType<typeof updateUserWorkoutFactorySchema>
+  ReturnType<typeof updateFactorySchema>
 >;
+export type TUserWorkoutFilter = z.infer<typeof QuerySchema>;

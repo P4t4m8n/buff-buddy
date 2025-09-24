@@ -2,9 +2,9 @@ import { create } from "zustand";
 
 import type { IBaseFilter } from "../../../shared/models/app.model";
 
-const STORE_KEYS = ["foodItemMutationKey", "programsMutationKey"] as const;
+const STORE_KEYS = ["foodItemMutationKey", "programsMutationKey", "exerciseMutationKey"] as const;
 
-type TStoreKeys = (typeof STORE_KEYS)[number];
+export type TStoreKeys = (typeof STORE_KEYS)[number];
 type TKeyValue = (string | IBaseFilter | null | undefined)[];
 
 interface IMutationKeyState extends Record<TStoreKeys, TKeyValue> {}

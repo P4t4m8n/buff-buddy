@@ -1,8 +1,8 @@
-import type { IExerciseFilter } from "../../../../shared/models/exercise.model";
+import type { TExerciseQuery } from "../../../../shared/validations/exercise.validation";
 import type { Prisma } from "../../../prisma/generated/prisma";
 
 const buildWhereClause = (
-  filter: IExerciseFilter
+  filter: TExerciseQuery
 ): Prisma.ExerciseWhereInput => {
   const where: Prisma.ExerciseWhereInput = {};
 

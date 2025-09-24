@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router";
-import { useProgramStore } from "../../store/program.store";
 
 import { calendarUtil } from "../../utils/calendar.util";
 
@@ -14,7 +13,7 @@ import Button from "../../components/UI/Button";
 import DateInput from "../../components/UI/Form/DateInput/DateInput";
 import Loader from "../../components/UI/loader/Loader";
 import GenericModel from "../../components/UI/GenericModel";
-import GenericSaveButton from "../../components/UI/GenericSaveButton";
+import GenericSaveButtonOld from "../../components/UI/GenericSaveButtonOld";
 import InputWithError from "../../components/UI/Form/InputWithError";
 import SwitchInput from "../../components/UI/Form/SwitchInput";
 
@@ -153,7 +152,7 @@ export default function ProgramEditPage() {
           >
             Cancel
           </Button>
-          <GenericSaveButton
+          <GenericSaveButtonOld
             itemId={programToEdit.id}
             useStore={useProgramStore}
             type="submit"

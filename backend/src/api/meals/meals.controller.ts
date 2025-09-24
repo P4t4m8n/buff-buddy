@@ -10,10 +10,12 @@ import type { Request, Response } from "express";
 
 export const getMeals = async (req: Request, res: Response) => {
   try {
-    const filter = mealValidation.MealQuerySchema.parse(req.query);
-    const exercises = await mealsService.get({ filter });
+    const filter = mealValidation.QuerySchema.parse(req.query);
+    const meals = await mealsService.get({ filter });
 
-    res.status(200).json(exercises);
+    res
+      .status(200)
+      .json({ message: "Meals retrieved successfully", data: meals });
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);
     res.status(status).json({
@@ -25,7 +27,9 @@ export const getMeals = async (req: Request, res: Response) => {
 
 export const getMealById = async (req: Request, res: Response) => {
   try {
-    const { id } = mealValidation.MealIdParamsSchema.parse(req.params);
+    const id = validationUtil
+      .IDSchemaFactory({ toSanitize: true })
+      .parse(req.params);
     const meal = await mealsService.getById(id);
 
     if (!meal) {
@@ -33,6 +37,7 @@ export const getMealById = async (req: Request, res: Response) => {
     }
 
     res.status(200).json({
+      message: "Meal retrieved successfully",
       data: meal,
     });
   } catch (error) {
@@ -49,7 +54,7 @@ export const createMeal = async (req: Request, res: Response) => {
     const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
 
     const validatedData = mealValidation
-      .createMealFactorySchema({ toSanitize: true })
+      .createFactorySchema({ toSanitize: true })
       .parse(req.body);
 
     if (!userId || validatedData.ownerId !== userId) {
@@ -75,18 +80,13 @@ export const updateMeal = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const validateId = validationUtil
-      .IDSchemaFactory({ toSanitize: true })
-      .parse(id);
-
     const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
 
-    const invalidatedData = req.body;
-    invalidatedData.id = validateId;
+    const invalidatedData = { ...req.body, id };
 
     const validatedData = mealValidation
-      .updateMealFactorySchema({ toSanitize: true })
-      .parse(req.body);
+      .updateFactorySchema({ toSanitize: true })
+      .parse(invalidatedData);
 
     if (!userId || validatedData.ownerId !== userId) {
       throw AppError.create("Not Allowed", 401);
@@ -127,6 +127,7 @@ export const deleteMeal = async (req: Request, res: Response) => {
     await mealsService.remove(validateId);
     res.status(200).json({
       message: "Meal deleted successfully",
+      data: null,
     });
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);

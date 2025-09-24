@@ -4,17 +4,15 @@ import { dbUtil } from "../../shared/utils/db.util";
 import { exerciseSQL } from "./exercise.sql";
 import { exerciseUtil } from "./exercise.util";
 
-import type {
-  IExerciseDTO,
-  IExerciseFilter,
-} from "../../../../shared/models/exercise.model";
+import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
 import type { Exercise, Prisma } from "../../../prisma/generated/prisma";
 import type {
   TCreateExerciseInput,
+  TExerciseQuery,
   TUpdateExerciseInput,
 } from "../../../../shared/validations/exercise.validation";
 
-const get = async (filter: IExerciseFilter): Promise<IExerciseDTO[]> => {
+const get = async (filter: TExerciseQuery): Promise<IExerciseDTO[]> => {
   const where: Prisma.ExerciseWhereInput =
     exerciseUtil.buildWhereClause(filter);
 

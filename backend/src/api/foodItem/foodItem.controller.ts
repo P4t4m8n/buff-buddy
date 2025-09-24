@@ -2,15 +2,18 @@ import { AppError } from "../../shared/services/Error.service";
 import { foodItemService } from "./foodItem.service";
 
 import { foodItemValidation } from "../../../../shared/validations/foodItem.validation";
+import { validationUtil } from "../../../../shared/validations/util.validation";
 
 import type { Request, Response } from "express";
 
 export const getFoodItems = async (req: Request, res: Response) => {
   try {
-    const filter = foodItemValidation.FoodItemQuerySchema.parse(req.query);
+    const filter = foodItemValidation.QuerySchema.parse(req.query);
     const foodItems = await foodItemService.get(filter);
 
-    res.status(200).json(foodItems);
+    res
+      .status(200)
+      .json({ message: "Food items retrieved successfully", data: foodItems });
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);
     res.status(status).json({
@@ -22,8 +25,9 @@ export const getFoodItems = async (req: Request, res: Response) => {
 
 export const getFoodItemById = async (req: Request, res: Response) => {
   try {
-    const { id } = foodItemValidation.FoodItemIdParamsSchema.parse(req.params);
-
+    const id = validationUtil
+      .IDSchemaFactory({ toSanitize: true })
+      .parse(req.params);
     const foodItem = await foodItemService.getById(id);
 
     if (!foodItem) {
@@ -31,6 +35,7 @@ export const getFoodItemById = async (req: Request, res: Response) => {
     }
 
     res.status(200).json({
+      message: "Food item retrieved successfully",
       data: foodItem,
     });
   } catch (error) {
@@ -55,6 +60,7 @@ export const getFoodItemByBarcode = async (req: Request, res: Response) => {
     }
 
     res.status(200).json({
+      message: "Food item retrieved successfully",
       data: foodItem,
     });
   } catch (error) {
@@ -69,7 +75,7 @@ export const getFoodItemByBarcode = async (req: Request, res: Response) => {
 export const createFoodItem = async (req: Request, res: Response) => {
   try {
     const validatedData = foodItemValidation
-      .createFoodItemFactorySchema({
+      .createFactorySchema({
         toSanitize: true,
       })
       .parse(req.body);
@@ -91,14 +97,15 @@ export const createFoodItem = async (req: Request, res: Response) => {
 
 export const updateFoodItem = async (req: Request, res: Response) => {
   try {
-    const { id } = foodItemValidation.FoodItemIdParamsSchema.parse(req.params);
-    req.body.id = id;
+    const { id } = req.params;
+
+    const invalidatedData = { ...req.body, id };
 
     const validatedData = foodItemValidation
-      .updateFoodItemFactorySchema({
+      .updateFactorySchema({
         toSanitize: true,
       })
-      .parse(req.body);
+      .parse(invalidatedData);
 
     const foodItem = await foodItemService.update(validatedData);
 
@@ -116,12 +123,15 @@ export const updateFoodItem = async (req: Request, res: Response) => {
 
 export const deleteFoodItem = async (req: Request, res: Response) => {
   try {
-    const { id } = foodItemValidation.FoodItemIdParamsSchema.parse(req.params);
+    const id = validationUtil
+      .IDSchemaFactory({ toSanitize: true })
+      .parse(req.params);
 
     await foodItemService.remove(id);
 
     res.status(200).json({
       message: "Food item deleted successfully",
+      data: null,
     });
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);

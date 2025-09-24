@@ -6,10 +6,11 @@ import { programsUtil } from "./programs.util";
 import { programValidation } from "../../../../shared/validations/program.validations";
 
 import type { Request, Response } from "express";
+import { validationUtil } from "../../../../shared/validations/util.validation";
 
 export const getPrograms = async (req: Request, res: Response) => {
   try {
-    const filter = programValidation.ProgramQuerySchema.parse(req.query);
+    const filter = programValidation.QuerySchema.parse(req.query);
 
     const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
 
@@ -36,14 +37,16 @@ export const getPrograms = async (req: Request, res: Response) => {
 
 export const getProgramById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const validateId = validationUtil
+      .IDSchemaFactory({ toSanitize: true })
+      .parse(req.params);
     const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
 
     if (!userId) {
       throw new AppError("User not authenticated", 401);
     }
 
-    const programData = await programsService.getById(id, userId);
+    const programData = await programsService.getById(validateId, userId);
 
     if (!programData) {
       throw new AppError("Program not found", 404);
@@ -76,7 +79,7 @@ export const createProgram = async (req: Request, res: Response) => {
     invalidatedData.userId = userId;
 
     const validatedData = programValidation
-      .createProgramFactorySchema({ toSanitize: true })
+      .createFactorySchema({ toSanitize: true })
       .parse(invalidatedData);
 
     const programData = await programsService.create(validatedData, userId);
@@ -98,8 +101,9 @@ export const createProgram = async (req: Request, res: Response) => {
 
 export const updateProgram = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-
+    const validateId = validationUtil
+      .IDSchemaFactory({ toSanitize: true })
+      .parse(req.params);
     const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
 
     if (!userId) {
@@ -107,10 +111,14 @@ export const updateProgram = async (req: Request, res: Response) => {
     }
 
     const validatedData = programValidation
-      .updateProgramFactorySchema({ toSanitize: true })
+      .updateFactorySchema({ toSanitize: true })
       .parse(req.body);
 
-    const programData = await programsService.update(id, validatedData, userId);
+    const programData = await programsService.update(
+      validateId,
+      validatedData,
+      userId
+    );
 
     const program = programsUtil.buildDTO(programData);
 
@@ -129,13 +137,15 @@ export const updateProgram = async (req: Request, res: Response) => {
 
 export const deleteProgram = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-
-    const program = await programsService.remove(id);
+    const validateId = validationUtil
+      .IDSchemaFactory({ toSanitize: true })
+      .parse(req.params);
+      
+    await programsService.remove(validateId);
 
     res.status(200).json({
       message: "Program deleted successfully",
-      data: program,
+      data: null,
     });
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);

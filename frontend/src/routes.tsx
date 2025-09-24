@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { Route } from "react-router";
 import HomePage from "./pages/HomePage";
 import ProgramPage from "./pages/Program/ProgramPage";
-import ExercisePage from "./pages/ExercisePage";
+import ExercisePage from "./pages/exercise/ExercisePage";
 import ProfilePage from "./pages/ProfilePage";
 import AdminPage from "./pages/AdminPage";
 import ProgramDetails from "./pages/Program/ProgramDetails";
@@ -16,6 +16,7 @@ import ProgramEditPage from "./pages/Program/ProgramEditPage";
 import MealPage from "./pages/Meal/MealPage";
 import MealEditPage from "./pages/Meal/MealEditPage";
 import FoodItemEditPage from "./pages/FoodItem/FoodItemEditPage";
+import ExerciseEditPage from "./pages/exercise/ExerciseEditPage";
 
 export interface RouteConfig {
   path: string;
@@ -84,6 +85,16 @@ export const ROUTES: RouteConfig[] = [
   {
     path: "/exercises",
     element: <ExercisePage />,
+    children: [
+      {
+        path: "/exercises/edit/:exerciseId",
+        element: <ExerciseEditPage />,
+      },
+      {
+        path: "/exercises/edit",
+        element: <ExerciseEditPage />,
+      },
+    ],
   },
   {
     path: "/profile",

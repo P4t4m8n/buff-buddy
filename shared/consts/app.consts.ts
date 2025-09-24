@@ -33,13 +33,6 @@ export const CRUD_OPERATIONS = [
   "read",
 ] as const;
 
-export const ICON_MODE = [
-  "create",
-  "edit",
-  "details",
-  "delete",
-  "read",
-] as const;
 
-export const DAY_IN_SECONDES = 60 * 60 * 24;
+
 

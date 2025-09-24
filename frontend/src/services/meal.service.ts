@@ -24,7 +24,7 @@ const save = async (dto: IMealEditDTO): Promise<THttpResponse<IMealDTO>> => {
 
   if (!id || id.startsWith("temp")) {
     const validatedDTO = mealValidation
-      .createMealFactorySchema({ toSanitize: false })
+      .createFactorySchema({ toSanitize: false })
       .parse(dto);
     return await apiService.post<THttpResponse<IMealDTO>>(
       `${BASE_URL}/edit`,
@@ -32,7 +32,7 @@ const save = async (dto: IMealEditDTO): Promise<THttpResponse<IMealDTO>> => {
     );
   }
   const validatedDTO = mealValidation
-    .updateMealFactorySchema({ toSanitize: false })
+    .updateFactorySchema({ toSanitize: false })
     .parse(dto);
   return await apiService.put<THttpResponse<IMealDTO>>(
     `${BASE_URL}/edit/${dto.id}`,

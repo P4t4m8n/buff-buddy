@@ -6,7 +6,6 @@ import { queryClient } from "../../lib/queryClient";
 
 import { programService } from "../../services/program.service";
 
-import { useProgramsQuery } from "../../hooks/queryHooks/features/program/useProgramsQuery";
 import { useMutationKeyStore } from "../../store/mutationKeys.store";
 import { useErrors } from "../../hooks/shared/useErrors";
 
@@ -21,6 +20,7 @@ import type {
   IProgramFilter,
 } from "../../../../shared/models/program.model";
 import { QUERY_KEYS } from "../../consts/queryKeys.consts";
+import { useProgramsQuery } from "../../hooks/features/program/useProgramsQuery";
 
 const INITIAL_FILTER: IProgramFilter = {
   skip: 0,
@@ -50,7 +50,9 @@ export default function ProgramPage() {
     ]);
   }, [filter]);
 
-  const { data: programs, isLoading } = useProgramsQuery(filter);
+  const { data, isLoading } = useProgramsQuery(filter);
+
+  const { data: programs } = data || {};
 
   const mutation = useMutation({
     mutationFn: (programId: string) => programService.remove(programId),

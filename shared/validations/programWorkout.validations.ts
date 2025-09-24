@@ -10,39 +10,34 @@ const BaseProgramWorkoutSchema = z.object({
   workoutGoal: z.enum(WORKOUT_GOALS).default("hypertrophy"),
 });
 
-const createProgramWorkoutFactorySchema = ({
-  toSanitize,
-}: {
-  toSanitize?: boolean;
-}) => {
+const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   return BaseProgramWorkoutSchema.extend({
     workout: z.union([
-      workoutValidation.updateWorkoutFactorySchema({ toSanitize }),
-      workoutValidation.createWorkoutFactorySchema({ toSanitize }),
+      workoutValidation.updateFactorySchema({ toSanitize }),
+      workoutValidation.createFactorySchema({ toSanitize }),
     ]),
   });
 };
 
-const updateProgramWorkoutFactorySchema = ({
-  toSanitize,
-}: {
-  toSanitize?: boolean;
-}) => {
+const updateFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   return BaseProgramWorkoutSchema.extend({
-    workout: workoutValidation.updateWorkoutFactorySchema({ toSanitize }),
+    workout: workoutValidation.updateFactorySchema({ toSanitize }),
     id: validationUtil.IDSchemaFactory({ toSanitize }).optional(),
   }).optional();
 };
 
+const QuerySchema = validationUtil.FilterSchema;
+
 export const programWorkoutValidation = {
-  createProgramWorkoutFactorySchema,
-  updateProgramWorkoutFactorySchema,
+  createFactorySchema,
+  updateFactorySchema,
+  QuerySchema,
 };
 
 export type TCreateProgramWorkoutInput = z.infer<
-  ReturnType<typeof createProgramWorkoutFactorySchema>
+  ReturnType<typeof createFactorySchema>
 >;
 
 export type TUpdateProgramWorkoutInput = z.infer<
-  ReturnType<typeof updateProgramWorkoutFactorySchema>
+  ReturnType<typeof updateFactorySchema>
 >;

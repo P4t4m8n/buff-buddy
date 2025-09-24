@@ -1,6 +1,6 @@
-import { QUERY_KEYS } from "../../../../consts/queryKeys.consts";
-import { programService } from "../../../../services/program.service";
-import useQueryIdHook from "../../useQueryIdHook";
+import { QUERY_KEYS } from "../../../consts/queryKeys.consts";
+import { programService } from "../../../services/program.service";
+import useQueryIdHook from "../../queryHooks/useQueryIdHook";
 
 export default function useProgramIdQuery(id?: string) {
   const { data, isLoading } = useQueryIdHook({

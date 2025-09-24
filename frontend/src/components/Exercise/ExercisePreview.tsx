@@ -1,6 +1,3 @@
-import { useExerciseStore } from "../../store/exercise.store";
-
-import GenericDeleteButtonOld from "../UI/GenericDeleteButtonOld";
 import ExerciseDetails from "./ExerciseDetails";
 import ExerciseEdit from "./ExerciseEdit";
 import ExerciseAttributes from "./ExerciseTagPanel/ExerciseTagPanel";
@@ -8,6 +5,10 @@ import GenericModel from "../UI/GenericModel";
 
 import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
 import { toTitle } from "../../utils/toTitle";
+import GenericDeleteButton from "../UI/GenericDeleteButton";
+import { useContext } from "react";
+import { IsDeletingContext } from "../../hooks/context/IsDeletingContext";
+import LinkComponent from "../UI/Link";
 interface ExercisePreviewProps {
   item: IExerciseDTO;
   onDelete: (id?: string) => Promise<void>;
@@ -17,6 +18,7 @@ export default function ExercisePreview({
   onDelete,
 }: ExercisePreviewProps) {
   const { muscles, id, name, equipment } = exercise;
+  const isDeleting = useContext(IsDeletingContext);
 
   return (
     <li
@@ -40,17 +42,15 @@ export default function ExercisePreview({
         {/*
         //INFO: Exercise Edit Model
          */}
-        <GenericModel
-          modelProps={{ exercise }}
-          Model={ExerciseEdit}
+        <LinkComponent
+          to={`/exercises/edit/${id}`}
           mode="edit"
-          buttonProps={{
-            buttonStyle: "model",
-          }}
+          linkStyle="model"
+          className="w-fit"
         />
-        <GenericDeleteButtonOld
-          itemId={id}
-          useStore={useExerciseStore}
+        <GenericDeleteButton
+          itemId={id!}
+          isDeleting={!!isDeleting}
           deleteAction={onDelete}
         />
       </div>

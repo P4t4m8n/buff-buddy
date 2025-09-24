@@ -1,5 +1,3 @@
-import type { IEntity } from "./entity.model";
-
 export interface IAuthSignInDTO {
   email: string;
   password: string;
@@ -12,10 +10,4 @@ export interface IAuthSignUpDTO {
   firstName: string;
   lastName: string;
   imgUrl?: string;
-}
-
-export interface IAuthUserDTO extends IEntity {
-  firstName?: string | null;
-  lastName?: string | null;
-  imgUrl?: string | null;
 }

@@ -29,7 +29,7 @@ const programFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
 
     programWorkouts: z
       .array(
-        programWorkoutValidation.createProgramWorkoutFactorySchema({
+        programWorkoutValidation.createFactorySchema({
           toSanitize,
         })
       )
@@ -38,11 +38,7 @@ const programFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   });
 };
 
-const createProgramFactorySchema = ({
-  toSanitize,
-}: {
-  toSanitize?: boolean;
-}) => {
+const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   return programFactorySchema({ toSanitize }).refine(
     (data) => data.endDate > data.startDate,
     {
@@ -52,16 +48,12 @@ const createProgramFactorySchema = ({
   );
 };
 
-const updateProgramFactorySchema = ({
-  toSanitize,
-}: {
-  toSanitize?: boolean;
-}) => {
+const updateFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   return programFactorySchema({ toSanitize })
     .extend({
       programWorkouts: z
         .array(
-          programWorkoutValidation.updateProgramWorkoutFactorySchema({
+          programWorkoutValidation.updateFactorySchema({
             toSanitize,
           })
         )
@@ -79,7 +71,7 @@ const updateProgramFactorySchema = ({
     );
 };
 
-const ProgramQuerySchema = z.object({
+const QuerySchema = z.object({
   name: z.string().optional(),
   isActive: z.coerce.boolean().optional(),
   startDate: z.string().optional(),
@@ -89,17 +81,17 @@ const ProgramQuerySchema = z.object({
 });
 
 export const programValidation = {
-  createProgramFactorySchema,
-  updateProgramFactorySchema,
-  ProgramQuerySchema,
+  createFactorySchema,
+  updateFactorySchema,
+  QuerySchema,
 };
 
 export type TCreateProgramInput = z.infer<
-  ReturnType<typeof createProgramFactorySchema>
+  ReturnType<typeof createFactorySchema>
 >;
 
 export type TUpdateProgramInput = z.infer<
-  ReturnType<typeof updateProgramFactorySchema>
+  ReturnType<typeof updateFactorySchema>
 >;
 
-export type TProgramQuery = z.infer<typeof ProgramQuerySchema>;
+export type TProgramQuery = z.infer<typeof QuerySchema>;

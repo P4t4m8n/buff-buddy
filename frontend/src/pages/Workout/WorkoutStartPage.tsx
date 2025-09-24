@@ -7,7 +7,7 @@ import { usePageBack } from "../../hooks/shared/usePageBack";
 import WorkoutStartExerciseList from "../../components/WorkoutStart/WorkoutStartExerciseList";
 
 import Button from "../../components/UI/Button";
-import GenericSaveButton from "../../components/UI/GenericSaveButton";
+import GenericSaveButtonOld from "../../components/UI/GenericSaveButtonOld";
 import Loader from "../../components/UI/loader/Loader";
 import DateInput from "../../components/UI/Form/DateInput/DateInput";
 
@@ -77,7 +77,7 @@ export default function WorkoutStartPage() {
         <Button buttonStyle="warning" type="button" onClick={onBack}>
           Cancel
         </Button>
-        <GenericSaveButton
+        <GenericSaveButtonOld
           itemId={workoutId}
           useStore={useWorkoutStore}
           type="submit"

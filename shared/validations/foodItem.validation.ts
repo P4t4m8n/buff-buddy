@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { validationUtil } from "./util.validation";
 import type { IToSanitize } from "../models/app.model";
-import { TFoodItemInfo } from "../models/foodItem.model";
+import type { TFoodItemInfo } from "../models/foodItem.model";
 
 const createFoodItemInfoFactorySchema = ({
   toSanitize,
@@ -19,6 +19,7 @@ const createFoodItemInfoFactorySchema = ({
     crudOperation: validationUtil.CrudOperationSchema,
   });
 };
+
 const updateFoodItemInfoFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z
     .object({
@@ -35,7 +36,7 @@ const updateFoodItemInfoFactorySchema = ({ toSanitize }: IToSanitize) => {
     .optional();
 };
 
-const createFoodItemFactorySchema = ({ toSanitize }: IToSanitize) => {
+const createFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
     name: validationUtil.stringSchemaFactory({
       fieldName: "Food name",
@@ -155,8 +156,8 @@ const createFoodItemFactorySchema = ({ toSanitize }: IToSanitize) => {
   });
 };
 
-const updateFoodItemFactorySchema = ({ toSanitize }: IToSanitize) => {
-  return createFoodItemFactorySchema({ toSanitize })
+const updateFactorySchema = ({ toSanitize }: IToSanitize) => {
+  return createFactorySchema({ toSanitize })
     .partial()
     .extend({
       id: validationUtil.IDSchemaFactory({ toSanitize }),
@@ -173,34 +174,30 @@ const updateFoodItemFactorySchema = ({ toSanitize }: IToSanitize) => {
     });
 };
 
-const FoodItemQuerySchema = validationUtil.FilterSchema.extend({
+const QuerySchema = validationUtil.FilterSchema.extend({
   name: z.string().optional(),
   barcode: z.string().min(0).max(100).optional(),
   calories: z.number().min(0).optional(),
   protein: z.number().min(0).optional(),
 });
 
-const FoodItemIdParamsSchema = z.object({
-  id: validationUtil.IDSchemaFactory({ toSanitize: false }),
-});
 const FoodItemIdBarcodeSchema = z.object({
   barcode: validationUtil.stringSchemaFactory({ toSanitize: false }),
 });
 
 export const foodItemValidation = {
-  createFoodItemFactorySchema,
-  updateFoodItemFactorySchema,
-  FoodItemQuerySchema,
+  createFactorySchema,
+  updateFactorySchema,
+  QuerySchema,
   FoodItemIdBarcodeSchema,
-  FoodItemIdParamsSchema,
 };
 
 export type TCreateFoodItemInput = z.infer<
-  ReturnType<typeof createFoodItemFactorySchema>
+  ReturnType<typeof createFactorySchema>
 >;
 
 export type TUpdateFoodItemInput = z.infer<
-  ReturnType<typeof updateFoodItemFactorySchema>
+  ReturnType<typeof updateFactorySchema>
 >;
 
-export type TFoodItemQuery = z.infer<typeof FoodItemQuerySchema>;
+export type TFoodItemQuery = z.infer<typeof QuerySchema>;

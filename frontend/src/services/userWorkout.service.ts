@@ -12,7 +12,7 @@ const save = async (
   dto?: IUserWorkoutEditDTO | null
 ): Promise<THttpResponse<IUserWorkoutDTO>> => {
   const validatedDTO = userWorkoutValidation
-    .createUserWorkoutFactorySchema({ toSanitize: false })
+    .createFactorySchema({ toSanitize: false })
     .parse(dto);
 
   return await apiService.post<THttpResponse<IUserWorkoutDTO>>(

@@ -88,22 +88,14 @@ const UserStrengthSetSchema = z.object({
   crudOperation: validationUtil.CrudOperationSchema,
 });
 
-const createUserStrengthSetFactorySchema = ({
-  toSanitize,
-}: {
-  toSanitize?: boolean;
-}) => {
+const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   return z.intersection(
     UserStrengthSetSchema,
     userStrengthUnionFactorySchema({ toSanitize })
   );
 };
 
-const updateUserStrengthSetFactorySchema = ({
-  toSanitize,
-}: {
-  toSanitize?: boolean;
-}) => {
+const updateFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   return z.intersection(
     UserStrengthSetSchema.partial().extend({
       id: validationUtil.IDSchemaFactory({ toSanitize: false }).optional(),
@@ -112,29 +104,22 @@ const updateUserStrengthSetFactorySchema = ({
   );
 };
 
-const UserStrengthSetParamsSchema = z.object({
-  id: validationUtil.IDSchemaFactory({ toSanitize: false }).optional(),
-});
-
-const UserStrengthSetQuerySchema = z.object({
+const QuerySchema = z.object({
   skip: z.coerce.number().min(0).optional(),
   page: z.coerce.number().min(1).optional(),
 });
 
 export const userStrengthSetsValidation = {
-  createUserStrengthSetFactorySchema,
-  updateUserStrengthSetFactorySchema,
-  UserStrengthSetParamsSchema,
-  UserStrengthSetQuerySchema,
+  createFactorySchema,
+  updateFactorySchema,
+  QuerySchema,
 };
 
 export type TCreateUserStrengthSetInput = z.infer<
-  ReturnType<typeof createUserStrengthSetFactorySchema>
+  ReturnType<typeof createFactorySchema>
 >;
 export type TUpdateUserStrengthSetInput = z.infer<
-  ReturnType<typeof updateUserStrengthSetFactorySchema>
+  ReturnType<typeof updateFactorySchema>
 >;
-export type TUserStrengthSetParams = z.infer<
-  typeof UserStrengthSetParamsSchema
->;
-export type TUserStrengthSetQuery = z.infer<typeof UserStrengthSetQuerySchema>;
+
+export type TUserStrengthSetQuery = z.infer<typeof QuerySchema>;

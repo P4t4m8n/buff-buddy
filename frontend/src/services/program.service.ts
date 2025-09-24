@@ -12,13 +12,13 @@ import type { THttpResponse } from "../models/apiService.model";
 
 const ROOT_PATH = "/programs";
 
-const get = async (filter: IProgramFilter|null): Promise<Array<IProgramDTO>> => {
-  const { data } = await apiService.get<THttpResponse<Array<IProgramDTO>>>(
+const get = async (
+  filter: IProgramFilter | null
+): Promise<THttpResponse<Array<IProgramDTO>>> => {
+  return await apiService.get<THttpResponse<Array<IProgramDTO>>>(
     ROOT_PATH,
     filter
   );
-
-  return data;
 };
 
 const getById = async (
@@ -37,7 +37,7 @@ const save = async (
 
   if (!id || id.startsWith("temp")) {
     const validatedDTO = programValidation
-      .createProgramFactorySchema({ toSanitize: false })
+      .createFactorySchema({ toSanitize: false })
       .parse(dto);
     return await apiService.post<THttpResponse<IProgramDTO>>(
       `${ROOT_PATH}/edit`,
@@ -45,7 +45,7 @@ const save = async (
     );
   }
   const validatedDTO = programValidation
-    .updateProgramFactorySchema({ toSanitize: false })
+    .updateFactorySchema({ toSanitize: false })
     .parse(dto);
   return await apiService.put<THttpResponse<IProgramDTO>>(
     `${ROOT_PATH}/edit/${dto.id}`,

@@ -1,11 +1,7 @@
 import { z } from "zod";
 import { validationUtil } from "./util.validation";
 
-const createUserCardioSetFactorySchema = ({
-  toSanitize,
-}: {
-  toSanitize?: boolean;
-}) => {
+const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   return z.object({
     workTime: validationUtil.numberValidation({
       fieldName: "Work Time",
@@ -40,39 +36,29 @@ const createUserCardioSetFactorySchema = ({
   });
 };
 
-const updateUserCardioSetFactorySSchema = ({
-  toSanitize,
-}: {
-  toSanitize?: boolean;
-}) => {
-  return createUserCardioSetFactorySchema({ toSanitize })
+const updateFactorySSchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+  return createFactorySchema({ toSanitize })
     .partial()
     .extend({
       id: validationUtil.IDSchemaFactory({ toSanitize: false }).optional(),
     });
 };
 
-const UserCardioSetParamsSchema = z.object({
-  id: validationUtil.IDSchemaFactory({ toSanitize: false }).optional(),
-});
-
-const UserCardioSetQuerySchema = z.object({
+const QuerySchema = z.object({
   skip: z.coerce.number().min(0).optional(),
   page: z.coerce.number().min(1).optional(),
 });
 
 export const userCardioSetsValidation = {
-  createUserCardioSetFactorySchema,
-  updateUserCardioSetFactorySSchema,
-  UserCardioSetParamsSchema,
-  UserCardioSetQuerySchema,
+  createFactorySchema,
+  updateFactorySSchema,
+  QuerySchema,
 };
 
 export type TCreateUserCardioSetInput = z.infer<
-  ReturnType<typeof createUserCardioSetFactorySchema>
+  ReturnType<typeof createFactorySchema>
 >;
 export type TUpdateUserCardioSetInput = z.infer<
-  ReturnType<typeof updateUserCardioSetFactorySSchema>
+  ReturnType<typeof updateFactorySSchema>
 >;
-export type TUserCardioSetParams = z.infer<typeof UserCardioSetParamsSchema>;
-export type TUserCardioSetQuery = z.infer<typeof UserCardioSetQuerySchema>;
+export type TUserCardioSetQuery = z.infer<typeof QuerySchema>;

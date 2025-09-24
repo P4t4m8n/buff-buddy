@@ -4,6 +4,7 @@ import { workoutsService } from "./workouts.service";
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
 
 import { workoutValidation } from "../../../../shared/validations/workout.validations";
+import { validationUtil } from "../../../../shared/validations/util.validation";
 import { workoutUtil } from "./workout.util";
 
 import type { Request, Response } from "express";
@@ -15,12 +16,14 @@ export const getWorkouts = async (req: Request, res: Response) => {
     if (!userId) {
       throw new AppError("User not authenticated", 401);
     }
-    const filter = workoutValidation.WorkoutQuerySchema.parse(req.query);
+    const filter = workoutValidation.QuerySchema.parse(req.query);
 
     const workoutsData = await workoutsService.get(filter, userId);
     const workouts = workoutUtil.buildDTOArr(workoutsData);
 
-    res.status(200).json(workouts);
+    res
+      .status(200)
+      .json({ message: "Workouts retrieved successfully", data: workouts });
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);
     res.status(status).json({
@@ -37,9 +40,12 @@ export const getWorkoutById = async (req: Request, res: Response) => {
     if (!userId) {
       throw new AppError("User not authenticated", 401);
     }
-    const { id } = req.params;
+    const validateId = validationUtil
+      .IDSchemaFactory({ toSanitize: true })
+      .parse(req.params);
 
-    const workoutData = await workoutsService.getById(id, userId);
+    const workoutData = await workoutsService.getById(validateId, userId);
+
     if (!workoutData) {
       throw new AppError("Workout not found", 404);
     }
@@ -49,7 +55,9 @@ export const getWorkoutById = async (req: Request, res: Response) => {
       throw new AppError("Workout not found", 404);
     }
 
-    res.status(200).json(workout);
+    res
+      .status(200)
+      .json({ message: "Workout retrieved successfully", data: workout });
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);
     res.status(status).json({
@@ -71,7 +79,7 @@ export const createWorkout = async (req: Request, res: Response) => {
     invalidatedData.ownerId = ownerId;
 
     const validatedData = workoutValidation
-      .createWorkoutFactorySchema({ toSanitize: true })
+      .createFactorySchema({ toSanitize: true })
       .parse(invalidatedData);
 
     const workoutData = await workoutsService.create(validatedData);
@@ -92,20 +100,19 @@ export const createWorkout = async (req: Request, res: Response) => {
 
 export const updateWorkout = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = validationUtil
+      .IDSchemaFactory({ toSanitize: true })
+      .parse(req.params);
 
     const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
 
     if (!userId) {
       throw new AppError("User not authenticated", 401);
     }
-    const invalidatedData = req.body;
-
-    invalidatedData.userId = userId;
-    invalidatedData.id = id;
+    const invalidatedData = { ...req.body, userId, id };
 
     const validatedData = workoutValidation
-      .updateWorkoutFactorySchema({ toSanitize: true })
+      .updateFactorySchema({ toSanitize: true })
       .parse(invalidatedData);
 
     const workoutData = await workoutsService.update(id, validatedData);
@@ -126,7 +133,9 @@ export const updateWorkout = async (req: Request, res: Response) => {
 
 export const deleteWorkout = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = validationUtil
+      .IDSchemaFactory({ toSanitize: true })
+      .parse(req.params);
 
     const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
 
@@ -142,6 +151,7 @@ export const deleteWorkout = async (req: Request, res: Response) => {
 
     res.status(200).json({
       message: "Workout deleted successfully",
+      data: null,
     });
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);

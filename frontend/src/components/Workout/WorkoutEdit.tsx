@@ -7,7 +7,7 @@ import InputWithError from "../UI/Form/InputWithError";
 import Label from "../UI/Form/Label";
 import TextArea from "../UI/Form/TextArea";
 import GenericModel from "../UI/GenericModel";
-import GenericSaveButton from "../UI/GenericSaveButton";
+import GenericSaveButtonOld from "../UI/GenericSaveButtonOld";
 import Loader from "../UI/loader/Loader";
 
 import type {
@@ -171,7 +171,7 @@ export default function WorkoutEdit({
             >
               Cancel
             </Button>
-            <GenericSaveButton
+            <GenericSaveButtonOld
               useStore={useWorkoutStore}
               itemId={workoutToEditId}
             />

@@ -1,4 +1,3 @@
-import { useErrors } from "../shared/useErrors";
 import { useQuery } from "@tanstack/react-query";
 
 interface IUseQueryIdHookProps<T> {
@@ -12,16 +11,11 @@ export default function useQueryIdHook<T extends object>({
   queryFn,
   queryKey,
 }: IUseQueryIdHookProps<T>) {
-  const { handleError } = useErrors<T>();
   return useQuery({
     queryKey: [queryKey, id],
     queryFn: () => queryFn(id),
     enabled: !!id,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-    throwOnError: (error, _) => {
-      handleError({ error, emitToToast: true });
-      return true;
-    },
   });
 }

@@ -4,7 +4,6 @@ import {
   EXERCISE_TYPES,
 } from "../../../../shared/consts/exercise.consts";
 
-import { useExerciseStore } from "../../store/exercise.store";
 import { useExerciseEdit } from "../../hooks/features/exercise/useExerciseEdit";
 
 import Button from "../UI/Button";
@@ -23,25 +22,64 @@ import type {
   TExerciseInfo,
 } from "../../../../shared/models/exercise.model";
 import type { IModelProps } from "../../models/UI.model";
+import { useErrors } from "../../hooks/shared/useErrors";
+import Loader from "../UI/loader/Loader";
+import { useEffect } from "react";
 
 interface ExerciseEditProps extends IModelProps<HTMLFormElement> {
-  exercise?: IExerciseDTO;
+  exerciseId?: string;
 }
 
 export default function ExerciseEdit({
-  exercise,
+  exerciseId,
   ...props
 }: ExerciseEditProps) {
   const { setIsOpen, modelRef } = props;
+  const { clearErrors, handleError } = useErrors<IExerciseDTO>();
 
   const {
     exerciseToEdit,
-    onSubmit,
-    errors,
+    saveExercise,
+    mutationErrors,
+    queryError,
     handleType,
     handleExerciseInfo,
-    onCancel,
-  } = useExerciseEdit(exercise, setIsOpen);
+    clearItem,
+    isLoading,
+    isSaving,
+  } = useExerciseEdit({ exerciseId });
+
+  useEffect(() => {
+    if (queryError) handleError({ error: queryError,emitToToast: true });
+  }, [queryError]);
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    clearErrors();
+    try {
+      const formData = new FormData(e.currentTarget);
+
+      const { data } = await saveExercise(formData);
+      if (data && setIsOpen) {
+        setIsOpen(false);
+      }
+    } catch (error) {
+      handleError({ error });
+    }
+  };
+
+  const onCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    clearErrors();
+    clearItem();
+    if (setIsOpen) setIsOpen(false);
+  };
+
+  if (isLoading || !exerciseToEdit) {
+    return <Loader loaderType="screen" isFullScreen={false} />;
+  }
 
   const { id, muscles, equipment, type, name, youtubeUrl } =
     exerciseToEdit || {};
@@ -83,12 +121,12 @@ export default function ExerciseEdit({
           children: "Exercise Name",
           isMoveUpEffect: true,
         }}
-        error={errors?.name}
+        error={mutationErrors?.name}
       />
 
       <YoutubeInput
         youtubeUrlProps={youtubeUrl}
-        error={errors?.youtubeUrl}
+        error={mutationErrors?.youtubeUrl}
         parentId={id}
       />
 
@@ -99,14 +137,14 @@ export default function ExerciseEdit({
         SelectedComponent={<ExerciseTypeSelected type={type} />}
         parentModelRef={modelRef}
         filterBy={(item) => item}
-        error={errors?.type}
+        error={mutationErrors?.type}
         SelectItemComponent={ExerciseTypeSelectItem}
       />
 
       {selects.map((select) => (
         <SelectMultiWithSearch
           options={select.options}
-          error={errors?.[select.name as keyof IExerciseDTO]}
+          error={mutationErrors?.[select.name as keyof IExerciseDTO]}
           parentModelRef={modelRef}
           selectedOptions={select.selectedOptions}
           inputName={select.name as TExerciseInfo}
@@ -120,7 +158,7 @@ export default function ExerciseEdit({
         <Button type="button" buttonStyle="warning" onClick={onCancel}>
           Cancel
         </Button>
-        <GenericSaveButton useStore={useExerciseStore} itemId={id} />
+        <GenericSaveButton isSaving={isSaving} />
       </div>
     </form>
   );

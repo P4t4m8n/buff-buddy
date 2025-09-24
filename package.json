@@ -13,8 +13,10 @@
     "studio": "npm run studio --workspace=backend",
     "test": "npm test --workspace=backend",
     "migrate": "npm run migrate --workspace=backend",
-    "gen": "npm run gen --workspace=backend"
+    "gen": "npm run gen --workspace=backend",
+    "clean": "ts-prune -p frontend/tsconfig.json --skip-type-only-exports && ts-prune -p backend/tsconfig.json --skip-type-only-exports --ignore backend/prisma/generated/"
   },
-  "devDependencies": {},
-  "dependencies": {}
+  "devDependencies": {
+    "ts-prune": "^0.10.3"
+  }
 }

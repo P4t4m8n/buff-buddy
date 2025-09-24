@@ -24,9 +24,9 @@ export interface IExerciseDTO extends IExerciseBase {
 
 export interface IExerciseFilter extends IBaseFilter {
   name?: string;
-  types?: ExerciseType[];
-  equipment?: ExerciseEquipment[];
-  muscles?: ExerciseMuscle[];
+  types?: ExerciseType[] | string;
+  equipment?: ExerciseEquipment[] | string;
+  muscles?: ExerciseMuscle[] | string;
 }
 export type TExerciseInfo = (typeof EXERCISE_INFO)[number];
 

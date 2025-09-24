@@ -39,7 +39,7 @@ export interface IWorkoutEditDTO extends IWorkoutBase {
 export interface IWorkoutExerciseEditDTO extends IEntity {
   order?: number | null;
   notes?: string | null;
-  exerciseData: {
+  exerciseData?: {
     id: string;
     type: ExerciseType;
   } | null; //For backend relationship
@@ -60,5 +60,5 @@ export interface IWorkoutFilter extends IBaseFilter {
   dayOfWeek?: DaysOfWeek | null;
   exerciseId?: string | null;
   isCompleted?: boolean | null;
-  isTemplate?: boolean | null;
+  isTemplate?: boolean |string| null;
 }

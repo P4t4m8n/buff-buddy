@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useErrors } from "../shared/useErrors";
+import type { THttpResponse } from "../../models/apiService.model";
 
 interface IUseQueryProps<T, F> {
   queryKey: (string | F | null | undefined)[];
-
   enabled?: boolean;
-  queryFn: () => Promise<T[]>;
+  queryFn: () => Promise<THttpResponse<T[]>>;
 }
 
 export const useQueryHook = <T extends object, F extends object>({

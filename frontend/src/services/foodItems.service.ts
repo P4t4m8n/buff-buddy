@@ -12,7 +12,7 @@ import { ClientError } from "./ClientError.service";
 const BASE_URL = "/food-items";
 
 const get = async (filter?: IFoodItemFilter | null) => {
-  const validateFilter = foodItemValidation.FoodItemQuerySchema.parse(filter);
+  const validateFilter = foodItemValidation.QuerySchema.parse(filter);
   return await apiService.get<IFoodItemDTO[]>(`${BASE_URL}`, validateFilter);
 };
 
@@ -30,7 +30,7 @@ const save = async (
 
   if (!dto?.id || dto.id.startsWith("temp")) {
     const validateDto = foodItemValidation
-      .createFoodItemFactorySchema({ toSanitize: false })
+      .createFactorySchema({ toSanitize: false })
       .parse(dto);
     return await apiService.post<THttpResponse<IFoodItemDTO>>(
       `${BASE_URL}/edit`,
@@ -38,7 +38,7 @@ const save = async (
     );
   }
   const validateDto = foodItemValidation
-    .updateFoodItemFactorySchema({ toSanitize: false })
+    .updateFactorySchema({ toSanitize: false })
     .parse(dto);
   return await apiService.put<THttpResponse<IFoodItemDTO>>(
     `${BASE_URL}/edit/${dto.id}`,

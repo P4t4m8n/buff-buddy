@@ -1,9 +1,10 @@
+import { buildQueryParams } from "../utils/services.util";
+import { ClientError } from "./ClientError.service";
+
 import type {
   THttpErrorResponse,
   THttpMethod,
 } from "../models/apiService.model";
-import { buildQueryParams } from "../utils/services.util";
-import { ClientError } from "./ClientError.service";
 
 const BASE_URL =
   import.meta.env.VITE_PUBLIC_API_BASE_URL || "http://localhost:3030";
@@ -36,6 +37,7 @@ const ajax = async <T>(
   data: unknown = null
 ): Promise<T> => {
   let url = `${BASE_URL}${endpoint}`;
+
   const options: RequestInit = {
     method,
     credentials: "include",
@@ -58,6 +60,7 @@ const ajax = async <T>(
   }
 
   const res = await fetch(url, options);
+
   if (!res.ok) {
     let errorBody: THttpErrorResponse;
     try {

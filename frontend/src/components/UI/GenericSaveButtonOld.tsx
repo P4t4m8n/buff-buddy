@@ -8,18 +8,22 @@ interface SavableStore {
 import type React from "react";
 import Loader from "./loader/Loader";
 
-interface GenericSaveButtonProps {
-  isSaving: boolean;
+interface GenericSaveButtonProps<T extends SavableStore> {
+  itemId?: string;
+  useStore: UseBoundStore<StoreApi<T>>;
   saveAction?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   type?: "submit" | "button";
 }
 
 //TODO??Add loading UI
-export default function GenericSaveButton({
-  isSaving,
+export default function GenericSaveButtonOld<T extends SavableStore>({
+  itemId,
+  useStore,
   saveAction,
   type = "submit",
-}: GenericSaveButtonProps) {
+}: GenericSaveButtonProps<T>) {
+  const isSaving = useStore((state) => state.isSavingId === itemId);
+
   return (
     <Button
       type={type}

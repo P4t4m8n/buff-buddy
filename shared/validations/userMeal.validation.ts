@@ -3,7 +3,7 @@ import { z } from "zod";
 import { validationUtil } from "./util.validation";
 import { MEAL_TYPES } from "../consts/meal.consts";
 
-const createUserMealFactorySchema = ({ toSanitize }: IToSanitize) => {
+const createFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
     userId: validationUtil.IDSchemaFactory({ toSanitize }),
     mealId: validationUtil.IDSchemaFactory({ toSanitize }),
@@ -11,15 +11,15 @@ const createUserMealFactorySchema = ({ toSanitize }: IToSanitize) => {
   });
 };
 
-const updateUserMealFactorySchema = ({ toSanitize }: IToSanitize) => {
-  return createUserMealFactorySchema({ toSanitize })
+const updateFactorySchema = ({ toSanitize }: IToSanitize) => {
+  return createFactorySchema({ toSanitize })
     .partial()
     .extend({
       id: validationUtil.IDSchemaFactory({ toSanitize }),
     });
 };
 
-const UserMealQuerySchema = validationUtil.FilterSchema.extend({
+const QuerySchema = validationUtil.FilterSchema.extend({
   userId: validationUtil.IDSchemaFactory({ toSanitize: true }).optional(),
   mealTypes: z.array(z.enum(MEAL_TYPES)).optional(),
   mealName: validationUtil
@@ -32,23 +32,18 @@ const UserMealQuerySchema = validationUtil.FilterSchema.extend({
     .optional(),
 });
 
-const UserMealIdParamsSchema = z.object({
-  id: validationUtil.IDSchemaFactory({ toSanitize: false }),
-});
-
 export const userMealValidation = {
-  createUserMealFactorySchema,
-  updateUserMealFactorySchema,
-  UserMealQuerySchema,
-  UserMealIdParamsSchema,
+  createFactorySchema,
+  updateFactorySchema,
+  QuerySchema,
 };
 
 export type TCreateUserMealInput = z.infer<
-  ReturnType<typeof createUserMealFactorySchema>
+  ReturnType<typeof createFactorySchema>
 >;
 
 export type TUpdateUserMealInput = z.infer<
-  ReturnType<typeof updateUserMealFactorySchema>
+  ReturnType<typeof updateFactorySchema>
 >;
 
-export type TUserMealQuery = z.infer<typeof UserMealQuerySchema>;
+export type TUserMealQuery = z.infer<typeof QuerySchema>;

@@ -4,13 +4,16 @@ import { exerciseService } from "./exercises.service";
 import { exerciseValidation } from "../../../../shared/validations/exercise.validation";
 
 import type { Request, Response } from "express";
+import { validationUtil } from "../../../../shared/validations/util.validation";
 
 export const getExercises = async (req: Request, res: Response) => {
   try {
-    const filter = exerciseValidation.ExerciseQuerySchema.parse(req.query);
+    const filter = exerciseValidation.QuerySchema.parse(req.query);
     const exercises = await exerciseService.get(filter);
 
-    res.status(200).json(exercises);
+    res
+      .status(200)
+      .json({ message: "Exercises retrieved successfully", data: exercises });
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);
     res.status(status).json({
@@ -22,15 +25,19 @@ export const getExercises = async (req: Request, res: Response) => {
 
 export const getExerciseById = async (req: Request, res: Response) => {
   try {
-    const { id } = exerciseValidation.ExerciseParamsSchema.parse(req.params);
+    const { id } = req.params;
+    const validatedId = validationUtil
+      .IDSchemaFactory({ toSanitize: true })
+      .parse(id);
 
-    const exercise = await exerciseService.getById(id);
+    const exercise = await exerciseService.getById(validatedId);
 
     if (!exercise) {
       throw new AppError("Exercise not found", 404);
     }
 
     res.status(200).json({
+      message: "Exercise retrieved successfully",
       data: exercise,
     });
   } catch (error) {
@@ -45,7 +52,7 @@ export const getExerciseById = async (req: Request, res: Response) => {
 export const createExercise = async (req: Request, res: Response) => {
   try {
     const validatedData = exerciseValidation
-      .createExerciseFactorySchema({
+      .createFactorySchema({
         toSanitize: true,
       })
       .parse(req.body);
@@ -67,10 +74,12 @@ export const createExercise = async (req: Request, res: Response) => {
 
 export const updateExercise = async (req: Request, res: Response) => {
   try {
-    const { id } = exerciseValidation.ExerciseParamsSchema.parse(req.params);
+    const id = validationUtil
+      .IDSchemaFactory({ toSanitize: true })
+      .parse(req.params);
 
     const validatedData = exerciseValidation
-      .updateExerciseFactorySchema({
+      .updateFactorySchema({
         toSanitize: true,
       })
       .parse(req.body);
@@ -93,14 +102,19 @@ export const updateExercise = async (req: Request, res: Response) => {
 
 export const deleteExercise = async (req: Request, res: Response) => {
   try {
-    const { id } = exerciseValidation.ExerciseParamsSchema.parse(req.params);
+    const { id } = req.params;
+    const validatedId = validationUtil
+      .IDSchemaFactory({ toSanitize: true })
+      .parse(id);
 
-    await exerciseService.remove(id);
+    await exerciseService.remove(validatedId);
 
     res.status(200).json({
       message: "Exercise deleted successfully",
+      data: null,
     });
   } catch (error) {
+    console.log("🚀 ~ deleteExercise ~ error:", error);
     const { status, message, errors } = AppError.handleResponse(error);
     res.status(status).json({
       message,

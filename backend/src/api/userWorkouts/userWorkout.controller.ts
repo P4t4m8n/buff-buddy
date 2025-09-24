@@ -21,7 +21,7 @@ export const createUserWorkout = async (req: Request, res: Response) => {
     invalidatedData.ownerId = ownerId;
 
     const validatedData = userWorkoutValidation
-      .createUserWorkoutFactorySchema({ toSanitize: true })
+      .createFactorySchema({ toSanitize: true })
       .parse(invalidatedData);
 
     const userWorkoutData = await userWorkoutService.create(validatedData);
@@ -116,7 +116,9 @@ export const deleteUserWorkout = async (req: Request, res: Response) => {
     const { userWorkoutId } = _validateCredentials(req.params.userWorkoutId);
 
     await userWorkoutService.remove(userWorkoutId);
-    res.status(200).json({ message: "User Workout deleted successfully" });
+    res
+      .status(200)
+      .json({ message: "User Workout deleted successfully", data: null });
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);
     res.status(status).json({

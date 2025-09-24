@@ -1,12 +1,9 @@
 import { z } from "zod";
+
 import { validationUtil } from "./util.validation";
 import { workoutExerciseValidation } from "./workoutExercise.validations";
 
-const createWorkoutFactorySchema = ({
-  toSanitize,
-}: {
-  toSanitize?: boolean;
-}) => {
+const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   return z.object({
     programId: z.string().nullish(),
 
@@ -35,7 +32,7 @@ const createWorkoutFactorySchema = ({
 
     workoutExercises: z
       .array(
-        workoutExerciseValidation.createWorkoutExerciseFactorySchema({
+        workoutExerciseValidation.createFactorySchema({
           toSanitize,
         }),
         {
@@ -50,17 +47,13 @@ const createWorkoutFactorySchema = ({
   });
 };
 
-const updateWorkoutFactorySchema = ({
-  toSanitize,
-}: {
-  toSanitize?: boolean;
-}) => {
-  return createWorkoutFactorySchema({ toSanitize })
+const updateFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+  return createFactorySchema({ toSanitize })
     .partial()
     .extend({
       workoutExercises: z
         .array(
-          workoutExerciseValidation.updateWorkoutExerciseFactorySchema({
+          workoutExerciseValidation.updateFactorySchema({
             toSanitize,
           })
         )
@@ -71,7 +64,7 @@ const updateWorkoutFactorySchema = ({
     });
 };
 
-const WorkoutQuerySchema = z.object({
+const QuerySchema = z.object({
   programId: z.string().optional(),
   programName: z.string().optional(),
   exerciseName: z.string().optional(),
@@ -88,14 +81,15 @@ const WorkoutQuerySchema = z.object({
 });
 
 export const workoutValidation = {
-  createWorkoutFactorySchema,
-  updateWorkoutFactorySchema,
-  WorkoutQuerySchema,
+  createFactorySchema,
+  updateFactorySchema,
+  QuerySchema,
 };
+
 export type TCreateWorkoutInput = z.infer<
-  ReturnType<typeof createWorkoutFactorySchema>
+  ReturnType<typeof createFactorySchema>
 >;
 export type TUpdateWorkoutInput = z.infer<
-  ReturnType<typeof updateWorkoutFactorySchema>
+  ReturnType<typeof updateFactorySchema>
 >;
-export type TWorkoutQuery = z.infer<typeof WorkoutQuerySchema>;
+export type TWorkoutQuery = z.infer<typeof QuerySchema>;

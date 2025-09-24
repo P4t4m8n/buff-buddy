@@ -7,7 +7,8 @@ import {
   EXERCISE_MUSCLES,
   EXERCISE_TYPES,
 } from "../consts/exercise.consts";
-import { TExerciseInfo } from "../models/exercise.model";
+import type { TExerciseInfo } from "../models/exercise.model";
+import type { IValidation } from "../models/validation.model";
 
 /*
  * INFO: In case the enums arr is not long return
@@ -80,8 +81,8 @@ const YoutubeURLSchema = (toSanitize?: boolean) => {
       return youtubeRegex.test(url);
     }, "Must be a valid YouTube URL");
 };
-const createExerciseFactorySchema = ({
-  toSanitize,
+const createFactorySchema = ({
+  toSanitize = false,
 }: {
   toSanitize?: boolean;
 }) => {
@@ -120,19 +121,15 @@ const createExerciseFactorySchema = ({
   });
 };
 
-const updateExerciseFactorySchema = ({
-  toSanitize,
+const updateFactorySchema = ({
+  toSanitize = false,
 }: {
   toSanitize?: boolean;
 }) => {
-  return createExerciseFactorySchema({ toSanitize }).partial();
+  return createFactorySchema({ toSanitize }).partial();
 };
 
-const ExerciseParamsSchema = z.object({
-  id: validationUtil.IDSchemaFactory({ toSanitize: false }),
-});
-
-const ExerciseQuerySchema = z.object({
+const QuerySchema = validationUtil.FilterSchema.extend({
   name: z.string().optional(),
   types: z
     .string()
@@ -151,24 +148,28 @@ const ExerciseQuerySchema = z.object({
     .transform((val) => val.split(","))
     .pipe(z.array(ExerciseMuscleSchema))
     .optional(),
-
-  skip: z.coerce.number().min(0).optional(),
-  take: z.coerce.number().min(1).optional(),
 });
 
-export const exerciseValidation = {
-  createExerciseFactorySchema,
-  updateExerciseFactorySchema,
+//INFO: Explicit type due to extension of the IValidation interface
+export const exerciseValidation: IValidation<
+  TCreateExerciseInput,
+  TUpdateExerciseInput,
+  typeof QuerySchema
+> & {
+  ExerciseTypeSchema: z.ZodEnum<
+    ["strength", "cardio", "flexibility", "miscellaneous"]
+  >;
+} = {
+  createFactorySchema,
+  updateFactorySchema,
+  QuerySchema,
   ExerciseTypeSchema,
-  ExerciseParamsSchema,
-  ExerciseQuerySchema,
 };
 
 export type TCreateExerciseInput = z.infer<
-  ReturnType<typeof createExerciseFactorySchema>
+  ReturnType<typeof createFactorySchema>
 >;
 export type TUpdateExerciseInput = z.infer<
-  ReturnType<typeof updateExerciseFactorySchema>
+  ReturnType<typeof updateFactorySchema>
 >;
-export type TExerciseParams = z.infer<typeof ExerciseParamsSchema>;
-export type TExerciseQuery = z.infer<typeof ExerciseQuerySchema>;
+export type TExerciseQuery = z.infer<typeof QuerySchema>;
