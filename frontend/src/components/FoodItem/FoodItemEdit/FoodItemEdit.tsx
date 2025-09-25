@@ -7,7 +7,6 @@ import type {
   IFoodItemInfoEditBase,
   TFoodItemInfo,
 } from "../../../../../shared/models/foodItem.model";
-import useFoodItemIdQuery from "../../../hooks/queryHooks/features/foodItem/useFoodItemIdQuery";
 import { useErrors } from "../../../hooks/shared/useErrors";
 import { useMutation } from "@tanstack/react-query";
 import { foodItemService } from "../../../services/foodItems.service";
@@ -24,6 +23,7 @@ import { usePageBack } from "../../../hooks/shared/usePageBack";
 import IconArrow from "../../UI/Icons/IconArrow";
 import FoodItemEditInfo from "./FoodItemEditInfo";
 import FoodItemEditBrand from "./FoodItemBrand/FoodItemEditBrand";
+import {useFoodItemIdQuery} from "../../../hooks/features/foodItem/useFoodItemIdQuery";
 
 interface IFoodItemEditProps extends IModelProps<HTMLFormElement> {
   foodItemId?: string;

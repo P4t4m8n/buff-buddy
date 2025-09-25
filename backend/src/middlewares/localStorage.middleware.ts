@@ -50,7 +50,8 @@ export async function setupAsyncLocalStorage(
         alsStore.sessionUser = user;
       }
     } catch (error) {
-      res.clearCookie("token", COOKIE);
+      console.log("🚀 ~ setupAsyncLocalStorage ~ error:", error)
+      // res.clearCookie("token", COOKIE);
     } finally {
       next();
     }

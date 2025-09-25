@@ -1,15 +1,17 @@
 import { z } from "zod";
 
 export interface IValidation<
-  CreateInput,
-  UpdateInput,
-  Filter extends z.ZodType
+  DTO,
+  Filter,
+  TCreateOutput,
+  TUpdateOutput,
+  TQuery
 > {
   createFactorySchema: (options: {
     toSanitize?: boolean;
-  }) => z.ZodType<CreateInput>;
+  }) => z.ZodType<TCreateOutput, z.ZodTypeDef, DTO>;
   updateFactorySchema: (options: {
     toSanitize?: boolean;
-  }) => z.ZodType<UpdateInput>;
-  QuerySchema: Filter;
+  }) => z.ZodType<TUpdateOutput, z.ZodTypeDef, Partial<DTO>>;
+  QuerySchema: z.ZodType<TQuery, z.ZodTypeDef, Partial<Filter>>;
 }

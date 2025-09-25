@@ -2,8 +2,8 @@ import type {
   IMealDTO,
   IMealFilter,
 } from "../../../../shared/models/meal.model";
+import { useMealsQuery } from "../../hooks/features/meal/useMealsQuery";
 import useFilterQuery from "../../hooks/queryHooks/useFilterQuery";
-import useMealsQuery from "../../hooks/queryHooks/features/meal/useMealsQuery";
 import { mealMutationKeyStore } from "../../store/mealMutationKeyStore";
 import { formUtil } from "../../utils/form.util";
 import GenericList from "../UI/GenericList";

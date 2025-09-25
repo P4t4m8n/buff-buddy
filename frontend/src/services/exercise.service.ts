@@ -1,12 +1,13 @@
+//-Services
 import { genericServiceFactory } from "./generic.service";
-
+//-Validations
 import { exerciseValidation } from "../../../shared/validations/exercise.validation";
-
-import {
-  type TCreateExerciseInput,
-  type TUpdateExerciseInput,
+//-Types
+import type {
+  TExerciseCreateValidatedInput,
+  TExerciseUpdateValidatedInput,
+  TExerciseQuery,
 } from "../../../shared/validations/exercise.validation";
-
 import type {
   IExerciseDTO,
   IExerciseFilter,
@@ -18,9 +19,9 @@ export const exerciseService = genericServiceFactory<
   IExerciseDTO,
   IExerciseDTO,
   IExerciseFilter,
-  TCreateExerciseInput,
-  TUpdateExerciseInput,
-  typeof exerciseValidation.QuerySchema
+  TExerciseCreateValidatedInput,
+  TExerciseUpdateValidatedInput,
+  TExerciseQuery
 >({
   rootPath,
   validation: exerciseValidation,

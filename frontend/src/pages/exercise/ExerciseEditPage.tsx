@@ -5,7 +5,7 @@ import ExerciseEdit from "../../components/Exercise/ExerciseEdit";
 
 import ModelOverlay from "../../components/UI/ModelOverlay";
 
-//INFO: Logic weird to cpy the structure of the edit component as it can be used as a model
+//INFO: Logic weird to keep the structure of the edit component as it can be used as a model
 export default function ExerciseEditPage() {
   const { exerciseId } = useParams<{ exerciseId?: string }>();
   const navigate = useNavigate();
@@ -21,7 +21,6 @@ export default function ExerciseEditPage() {
         modelRef={modelRef}
         setIsOpen={onBack}
       />
-      ;
     </ModelOverlay>
   );
 }

@@ -1,4 +1,16 @@
-import React from "react";
+//-Core
+import React, { useEffect } from "react";
+//-Services
+import { exerciseService } from "../../../services/exercise.service";
+//-Util
+import { exerciseUtil } from "../../../utils/exercise.util";
+//-Hooks
+import { useItemEdit } from "../../shared/useItemEdit";
+import { useExerciseIdQuery } from "./useExerciseIdQuery";
+import { useErrors } from "../../shared/useErrors";
+//-Consts
+import { QUERY_KEYS } from "../../../consts/queryKeys.consts";
+//-Types
 import type {
   IExerciseDTO,
   TExerciseInfo,
@@ -8,11 +20,6 @@ import type {
   ExerciseMuscle,
   ExerciseType,
 } from "../../../../../backend/prisma/generated/prisma";
-import { exerciseUtil } from "../../../utils/exercise.util";
-import { useItemEdit } from "../../shared/useItemEdit";
-import { QUERY_KEYS } from "../../../consts/queryKeys.consts";
-import { exerciseService } from "../../../services/exercise.service";
-import useExerciseIdQuery from "./useExerciseIdQuery";
 
 interface IUseExerciseProps {
   exerciseId?: string;
@@ -38,17 +45,25 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
     getEmpty: exerciseUtil.getEmpty,
   });
 
+  const { clearErrors, handleError } = useErrors<IExerciseDTO>();
+
+  useEffect(() => {
+    if (queryError) handleError({ error: queryError, emitToToast: true });
+  }, [queryError]);
+
   const saveExercise = async (formData: FormData) => {
+    clearErrors();
+
     const name = formData.get("name") as string;
     const youtubeUrl = formData.get("youtubeUrl") as string;
-    const id = formData.get("id") as string;
 
-    return await mutateAsync({
+    const res = await mutateAsync({
       ...exerciseToEdit,
       name,
       youtubeUrl,
-      id,
     });
+
+    return !!res.data.id;
   };
 
   const handleExerciseInfo = (
@@ -86,18 +101,13 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
     });
   };
 
-  const clearItem = () => {
-    setExerciseToEdit(null);
-  };
   return {
     exerciseToEdit,
     mutationErrors,
-    queryError,
     isLoading,
     isSaving,
     saveExercise,
     handleType,
     handleExerciseInfo,
-    clearItem,
   };
 };

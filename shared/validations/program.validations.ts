@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { validationUtil } from "./util.validation";
 import { programWorkoutValidation } from "./programWorkout.validations";
+import type { IValidation } from "../models/validation.model";
+import type { IProgramEditDTO, IProgramFilter } from "../models/program.model";
 
 const programFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   return z.object({
@@ -80,7 +82,13 @@ const QuerySchema = z.object({
   page: z.coerce.number().min(1).optional(),
 });
 
-export const programValidation = {
+export const programValidation: IValidation<
+  IProgramEditDTO,
+  IProgramFilter,
+  TCreateProgramInput,
+  TUpdateProgramInput,
+  TProgramQuery
+> = {
   createFactorySchema,
   updateFactorySchema,
   QuerySchema,

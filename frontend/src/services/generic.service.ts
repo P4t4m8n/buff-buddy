@@ -4,21 +4,26 @@ import { apiService } from "./api.service";
 import type { IValidation } from "../../../shared/models/validation.model";
 import type { THttpResponse } from "../models/apiService.model";
 import type { IEntity } from "../../../shared/models/entity.model";
-import type z from "zod";
 
 export const genericServiceFactory = <
   DTO extends IEntity,
   EditDTO extends IEntity,
   Filter,
-  CreateInput,
-  UpdateInput,
-  Schema extends z.ZodTypeAny
+  CreateValidatedInput,
+  UpdateValidatedInput,
+  Schema
 >({
   rootPath,
   validation,
 }: {
   rootPath: string;
-  validation: IValidation<CreateInput, UpdateInput, Schema>;
+  validation: IValidation<
+    DTO,
+    Filter,
+    CreateValidatedInput,
+    UpdateValidatedInput,
+    Schema
+  >;
 }) => {
   return {
     get: async (filter?: Filter | null): Promise<THttpResponse<Array<DTO>>> => {
@@ -29,13 +34,12 @@ export const genericServiceFactory = <
     },
 
     getById: async (id?: string): Promise<THttpResponse<DTO | null>> => {
-      console.log("🚀 ~ genericServiceFactory ~ id:", id)
       return await apiService.get<THttpResponse<DTO | null>>(
         `${rootPath}/${id}`
       );
     },
 
-    save: async (dto: EditDTO): Promise<THttpResponse<DTO >> => {
+    save: async (dto: EditDTO): Promise<THttpResponse<DTO>> => {
       if (!dto) throw ClientError.create("Data is required", 404);
 
       const { id } = dto;
@@ -61,7 +65,7 @@ export const genericServiceFactory = <
       );
     },
 
-    remove: async (id: string): Promise<THttpResponse<void>> => {
+    remove: async (id?: string): Promise<THttpResponse<void>> => {
       return await apiService.delete<THttpResponse<void>>(`${rootPath}/${id}`);
     },
   };

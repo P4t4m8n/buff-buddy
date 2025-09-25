@@ -27,7 +27,6 @@ export interface IProgramEditDTO extends IProgramBase {
 }
 
 export interface IProgramFilter extends IBaseFilter {
-
   name?: string;
 }
 
@@ -37,7 +36,7 @@ export type TProgramWorkoutEditRecord = Record<
 >;
 
 interface IProgramWorkoutBase extends IEntity {
-  daysOfWeek: DaysOfWeek[];
+  daysOfWeek?: DaysOfWeek[];
   programId?: string;
   workoutLevel?: WorkoutLevel | null;
   workoutGoal?: WorkoutGoal | null;

@@ -7,7 +7,11 @@ import {
   EXERCISE_MUSCLES,
   EXERCISE_TYPES,
 } from "../consts/exercise.consts";
-import type { TExerciseInfo } from "../models/exercise.model";
+import type {
+  IExerciseDTO,
+  IExerciseFilter,
+  TExerciseInfo,
+} from "../models/exercise.model";
 import type { IValidation } from "../models/validation.model";
 
 /*
@@ -95,12 +99,13 @@ const createFactorySchema = ({
       toSanitize,
     }),
 
-    notes: validationUtil
-      .stringSchemaFactory({
-        fieldName: "Exercise notes",
-        toSanitize,
-      })
-      .optional(),
+    // notes: validationUtil
+    //   .stringSchemaFactory({
+    //     fieldName: "Exercise notes",
+    //     toSanitize,
+    //   })
+    //   .optional()
+    //   .nullable(),
     type: ExerciseTypeSchema,
 
     equipment: z
@@ -152,9 +157,11 @@ const QuerySchema = validationUtil.FilterSchema.extend({
 
 //INFO: Explicit type due to extension of the IValidation interface
 export const exerciseValidation: IValidation<
-  TCreateExerciseInput,
-  TUpdateExerciseInput,
-  typeof QuerySchema
+  IExerciseDTO,
+  IExerciseFilter,
+  TExerciseCreateValidatedInput,
+  TExerciseUpdateValidatedInput,
+  TExerciseQuery
 > & {
   ExerciseTypeSchema: z.ZodEnum<
     ["strength", "cardio", "flexibility", "miscellaneous"]
@@ -166,10 +173,10 @@ export const exerciseValidation: IValidation<
   ExerciseTypeSchema,
 };
 
-export type TCreateExerciseInput = z.infer<
+export type TExerciseCreateValidatedInput = z.infer<
   ReturnType<typeof createFactorySchema>
 >;
-export type TUpdateExerciseInput = z.infer<
+export type TExerciseUpdateValidatedInput = z.infer<
   ReturnType<typeof updateFactorySchema>
 >;
 export type TExerciseQuery = z.infer<typeof QuerySchema>;

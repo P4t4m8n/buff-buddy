@@ -15,7 +15,7 @@ export default function App() {
   return (
     <>
       <QueryClientWrapper>
-        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+        <ReactQueryDevtools initialIsOpen={false} />
         <BrowserRouter>
           <AuthGuard>
             <RootRefContext value={rootRef}>

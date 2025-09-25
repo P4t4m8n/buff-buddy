@@ -2,6 +2,8 @@ import { z } from "zod";
 
 import { validationUtil } from "./util.validation";
 import { workoutExerciseValidation } from "./workoutExercise.validations";
+import type { IValidation } from "../models/validation.model";
+import type { IWorkoutEditDTO, IWorkoutFilter } from "../models/workout.model";
 
 const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   return z.object({
@@ -9,7 +11,7 @@ const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
 
     ownerId: z.string().nullish(),
 
-    isTemplate: validationUtil.BooleanSchema,
+    isTemplate: z.coerce.boolean(),
 
     notes: validationUtil
       .stringSchemaFactory({
@@ -49,7 +51,6 @@ const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
 
 const updateFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   return createFactorySchema({ toSanitize })
-    .partial()
     .extend({
       workoutExercises: z
         .array(
@@ -61,7 +62,8 @@ const updateFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
         .max(50, "Maximum 50 workout sets allowed per workout")
         .optional(),
       id: validationUtil.IDSchemaFactory({ toSanitize }),
-    });
+    })
+    .partial();
 };
 
 const QuerySchema = z.object({
@@ -80,7 +82,13 @@ const QuerySchema = z.object({
   take: z.coerce.number().min(1).optional(),
 });
 
-export const workoutValidation = {
+export const workoutValidation: IValidation<
+  IWorkoutEditDTO,
+  IWorkoutFilter,
+  TCreateWorkoutInput,
+  TUpdateWorkoutInput,
+  TWorkoutQuery
+> = {
   createFactorySchema,
   updateFactorySchema,
   QuerySchema,

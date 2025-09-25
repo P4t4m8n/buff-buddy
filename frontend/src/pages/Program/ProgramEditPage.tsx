@@ -13,9 +13,9 @@ import Button from "../../components/UI/Button";
 import DateInput from "../../components/UI/Form/DateInput/DateInput";
 import Loader from "../../components/UI/loader/Loader";
 import GenericModel from "../../components/UI/GenericModel";
-import GenericSaveButtonOld from "../../components/UI/GenericSaveButtonOld";
 import InputWithError from "../../components/UI/Form/InputWithError";
 import SwitchInput from "../../components/UI/Form/SwitchInput";
+import GenericSaveButton from "../../components/UI/GenericSaveButton";
 
 export default function ProgramEditPage() {
   const { programId: programIdParams } = useParams<{ programId?: string }>();
@@ -23,8 +23,9 @@ export default function ProgramEditPage() {
 
   const {
     programToEdit,
+    isSaving,
     isLoading,
-    errors,
+    mutationErrors,
     handleDateSelect,
     saveProgram,
     handleInputChange,
@@ -33,11 +34,15 @@ export default function ProgramEditPage() {
   } = useProgramEdit(programIdParams);
 
   const onSaveProgram = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
+    try {
+      e.preventDefault();
+      e.stopPropagation();
 
-    const id = await saveProgram();
-    if (id) navigate(`/programs/${id}`);
+      const id = await saveProgram();
+      if (id) navigate(`/programs/${id}`);
+    } catch (error) {
+      //INFO: The try catch block in need to let the error be catched some where. errors are handled in the mutation hook
+    }
   };
 
   if (isLoading || !programToEdit) {
@@ -91,7 +96,7 @@ export default function ProgramEditPage() {
             children: "Program Name",
             isMoveUpEffect: true,
           }}
-          error={errors?.name}
+          error={mutationErrors?.name}
           divStyle="h-fit order-1 w-full col-span-2 lg:col-span-1 self-end"
         />
 
@@ -100,8 +105,8 @@ export default function ProgramEditPage() {
           selectedRange={dateRange}
           className="col-span-full lg:col-span-1 order-3 lg:order-2 self-end"
           errorRange={{
-            startDate: errors?.startDate,
-            endDate: errors?.endDate,
+            startDate: mutationErrors?.startDate,
+            endDate: mutationErrors?.endDate,
           }}
         />
         <SwitchInput
@@ -152,15 +157,11 @@ export default function ProgramEditPage() {
           >
             Cancel
           </Button>
-          <GenericSaveButtonOld
-            itemId={programToEdit.id}
-            useStore={useProgramStore}
-            type="submit"
-          />
+          <GenericSaveButton isSaving={isSaving} />
         </div>
-        {errors?.programWorkouts && (
+        {mutationErrors?.programWorkouts && (
           <span className="text-error-red text-sm col-span-full order-6">
-            {errors.programWorkouts}
+            {mutationErrors.programWorkouts}
           </span>
         )}
       </header>

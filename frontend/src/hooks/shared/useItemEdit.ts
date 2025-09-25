@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import {
-  useMutationKeyStore,
-  type TStoreKeys,
-} from "../../store/mutationKeys.store";
+import { useMutationKeyStore } from "../../store/mutationKeys.store";
 import useItemMutation from "../queryHooks/useItemMutation";
 import type { IEntity } from "../../../../shared/models/entity.model";
 import type { THttpResponse } from "../../models/apiService.model";
+import type { TStoreKeys } from "../../models/mutationKeyStore.model";
 
 interface IUseIdQuery<DTO extends IEntity> {
   data: THttpResponse<DTO | null> | undefined;
@@ -40,6 +38,7 @@ export const useItemEdit = <
   const [itemToEdit, setItemToEdit] = useState<EditDTO | null>(null);
 
   const mutationKey = useMutationKeyStore((store) => store[storeMutationKey]);
+
   const {
     errors: mutationErrors,
     mutateAsync,

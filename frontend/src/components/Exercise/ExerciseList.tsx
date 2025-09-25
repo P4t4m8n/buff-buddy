@@ -9,15 +9,14 @@ import NoListItems from "../UI/NoListItems";
 interface IExerciseListProps {
   filteredExercises?: IExerciseDTO[];
   isLoading: boolean;
-  onDelete: (id?: string) => Promise<void>;
+  deleteItem: (id?: string) => Promise<void>;
   onSearch: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 export default function ExerciseList({
   filteredExercises,
   isLoading,
-  onDelete,
-  onSearch,
+  deleteItem,
 }: IExerciseListProps) {
   if (isLoading) {
     return <Loader loaderType="cards-pulse" />;
@@ -27,7 +26,7 @@ export default function ExerciseList({
     <GenericList
       items={filteredExercises ?? []}
       ItemComponent={ExercisePreview}
-      itemComponentProps={{ onDelete }}
+      itemComponentProps={{ deleteItem }}
       NoItemsComponent={NoItemsComponent}
       getKey={(item) => item.id!}
       ulStyle="grid grid-cols-[repeat(auto-fit,minmax(18rem,1fr))] 

@@ -1,27 +1,46 @@
+//-Core
 import { useEffect, useMemo, useState } from "react";
 import { Outlet } from "react-router";
-
-import { useProgramStore } from "../../store/program.store";
-import { useItemsPage } from "../../hooks/shared/useItemsPage";
-
+//-Hooks
+import { useProgramsQuery } from "../../hooks/features/program/useProgramsQuery";
+import { useGenericPage } from "../../hooks/shared/useGenericPage";
+//-Utils
 import { calendarUtil } from "../../utils/calendar.util";
 import { toTitle } from "../../utils/toTitle";
-
+//-Components
 import ProgramWorkoutPreview from "../../components/Program/ProgramWorkout/ProgramWorkoutPreview";
-
+//-UI
 import LinkComponent from "../../components/UI/Link";
 import Loader from "../../components/UI/loader/Loader";
 import Button from "../../components/UI/Button";
 import IconArrow from "../../components/UI/Icons/IconArrow";
 import GenericList from "../../components/UI/GenericList";
-
+//-Consts
+import { QUERY_KEYS } from "../../consts/queryKeys.consts";
+//-Types
 import type { DaysOfWeek } from "../../../../backend/prisma/generated/prisma";
-import type { IProgramWorkoutDTO } from "../../../../shared/models/program.model";
+import type {
+  IProgramDTO,
+  IProgramFilter,
+  IProgramWorkoutDTO,
+} from "../../../../shared/models/program.model";
+
+const INITIAL_FILTER: IProgramFilter = {
+  skip: 0,
+  take: 1000000,
+  name: "",
+};
 
 export default function WorkoutPage() {
-  const { items: programs, isLoading } = useItemsPage({
-    useStore: useProgramStore,
-    initialFilter: {},
+  const { items: programs, isLoading } = useGenericPage<
+    IProgramDTO,
+    IProgramFilter
+  >({
+    initialFilter: INITIAL_FILTER,
+    queryKey: QUERY_KEYS.PROGRAMS_QUERY_KEY,
+    mutationKeyName: "programsMutationKey",
+    itemIdKey: QUERY_KEYS.PROGRAM_ID_QUERY_KEY,
+    useQuery: useProgramsQuery,
   });
 
   const [day, setDay] = useState<DaysOfWeek | null>(null);
@@ -35,22 +54,28 @@ export default function WorkoutPage() {
     setDay(newDay);
   };
 
-  const cleanPrograms: IProgramWorkoutDTO[] = useMemo(
-    () =>
-      programs
-        .filter((p) => p.isActive)
-        .map((p) =>
-          p.programWorkouts?.map((pw) => ({ ...pw, programId: p.id }))
-        )
-        .flat()
-        .filter((pw) => pw?.daysOfWeek.includes(day!))
-        .filter((p) => !!p), //INFO: FOR TS to be quiet
-    [day]
-  );
+  const programDayMap = useMemo(() => {
+    const map: Map<DaysOfWeek, IProgramWorkoutDTO[]> = new Map();
+
+    programs?.forEach((program) => {
+      program.programWorkouts?.forEach((workout) => {
+        workout.daysOfWeek.forEach((day) => {
+          if (!map.has(day)) {
+            map.set(day, []);
+          }
+          map.get(day)?.push({ ...workout, programId: program.id });
+        });
+      });
+    });
+
+    return map;
+  }, [programs]);
 
   if (isLoading) {
     return <Loader loaderType="screen" />;
   }
+
+  const todayWorkouts = programDayMap.get(day ?? "sunday") || [];
 
   return (
     <div className="h-main grid  ">
@@ -86,7 +111,7 @@ export default function WorkoutPage() {
         </div>
         {/*//INFO: Workouts Preview per day*/}
         <GenericList
-          items={cleanPrograms}
+          items={todayWorkouts}
           ItemComponent={ProgramWorkoutPreview}
           getKey={(item) => item?.id ?? "" + day}
           ulStyle="px-mobile columns-[3_12.5rem] overflow-y-auto  "

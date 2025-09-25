@@ -1,6 +1,6 @@
 export const HTTP_METHODS = ["GET", "POST", "PUT", "DELETE"] as const;
 export type THttpResponse<T> = {
-  massage: string;
+  massage?: string;
   data: T;
 };
 

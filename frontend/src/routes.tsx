@@ -17,6 +17,7 @@ import MealPage from "./pages/Meal/MealPage";
 import MealEditPage from "./pages/Meal/MealEditPage";
 import FoodItemEditPage from "./pages/FoodItem/FoodItemEditPage";
 import ExerciseEditPage from "./pages/exercise/ExerciseEditPage";
+import ExerciseDetailsPage from "./pages/exercise/exerciseDetailsPage";
 
 export interface RouteConfig {
   path: string;
@@ -86,6 +87,10 @@ export const ROUTES: RouteConfig[] = [
     path: "/exercises",
     element: <ExercisePage />,
     children: [
+      {
+        path: "/exercises/:exerciseId",
+        element: <ExerciseDetailsPage />,
+      },
       {
         path: "/exercises/edit/:exerciseId",
         element: <ExerciseEditPage />,

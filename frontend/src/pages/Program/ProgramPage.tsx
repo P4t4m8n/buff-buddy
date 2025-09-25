@@ -1,13 +1,6 @@
-import { useEffect, useMemo } from "react";
-import { Link, Outlet, useSearchParams } from "react-router";
-import { useMutation } from "@tanstack/react-query";
-
-import { queryClient } from "../../lib/queryClient";
+import { Link, Outlet } from "react-router";
 
 import { programService } from "../../services/program.service";
-
-import { useMutationKeyStore } from "../../store/mutationKeys.store";
-import { useErrors } from "../../hooks/shared/useErrors";
 
 import ProgramsList from "../../components/Program/ProgramPage/ProgramsList";
 
@@ -21,79 +14,32 @@ import type {
 } from "../../../../shared/models/program.model";
 import { QUERY_KEYS } from "../../consts/queryKeys.consts";
 import { useProgramsQuery } from "../../hooks/features/program/useProgramsQuery";
+import { useGenericPage } from "../../hooks/shared/useGenericPage";
 
 const INITIAL_FILTER: IProgramFilter = {
   skip: 0,
   take: 1000000,
   name: "",
 };
+
 export default function ProgramPage() {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const filter = useMemo(() => {
-    return {
-      name: searchParams.get("name") || INITIAL_FILTER.name,
-      skip: +(searchParams.get("skip") || INITIAL_FILTER.skip || 0),
-      take: +(searchParams.get("take") || INITIAL_FILTER.take || 10),
-    };
-  }, [searchParams]);
-
-  const setMutationKey = useMutationKeyStore((store) => store.setMutationKey);
-  const key = useMutationKeyStore((store) => store.programsMutationKey);
-
-  const { handleError } = useErrors();
-
-  useEffect(() => {
-    setMutationKey("programsMutationKey", [
-      QUERY_KEYS.PROGRAMS_QUERY_KEY,
-      filter,
-    ]);
-  }, [filter]);
-
-  const { data, isLoading } = useProgramsQuery(filter);
-
-  const { data: programs } = data || {};
-
-  const mutation = useMutation({
-    mutationFn: (programId: string) => programService.remove(programId),
-    onSuccess(_, programId) {
-      //INFO: Update the list base on the cache key
-      queryClient.setQueryData<IProgramDTO[]>(key, (old) => {
-        return old?.filter((o) => o.id !== programId);
-      });
-      //INFO: Update the EDIT and Details route
-      queryClient.removeQueries({
-        queryKey: ["programId", programId],
-        exact: true,
-      });
-    },
-    onError(error) {
-      handleError({ error, emitToToast: true });
-    },
+  const {
+    items: programs,
+    isLoading,
+    isPending,
+    filter,
+    deleteItem: deleteProgram,
+    onSearch,
+  } = useGenericPage<IProgramDTO, IProgramFilter>({
+    initialFilter: INITIAL_FILTER,
+    queryKey: QUERY_KEYS.PROGRAMS_QUERY_KEY,
+    mutationKeyName: "programsMutationKey",
+    itemIdKey: QUERY_KEYS.PROGRAM_ID_QUERY_KEY,
+    useQuery: useProgramsQuery,
+    removeFn: programService.remove,
   });
 
-  const onDeleteProgram = async (programId?: string) => {
-    try {
-      if (!programId) return;
-      await mutation.mutateAsync(programId);
-    } catch (error) {
-      handleError({ error, emitToToast: true });
-    }
-  };
-
-  const onSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const name = formData.get("name") as string;
-
-    setSearchParams({
-      name: name || "",
-      skip: "0",
-      take: String(filter.take),
-    });
-  };
-
-  const isDeleting = mutation.isPending;
+  const isDeleting = isPending;
   return (
     <section className="h-main w-full grid ">
       <div className="flex flex-col">
@@ -112,7 +58,7 @@ export default function ProgramPage() {
         </header>
         <ProgramsList
           programs={programs ?? []}
-          deleteProgram={onDeleteProgram}
+          deleteProgram={deleteProgram}
           isLoading={isLoading}
           isDeleting={isDeleting}
           onSubmit={onSearch}

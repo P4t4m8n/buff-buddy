@@ -1,10 +1,12 @@
 import LZString from "lz-string";
-type TSessionDataKeys = "workoutStart";
+
+const SESSION_KEYS = ["workoutStart", "user"] as const;
+type TSessionDataKeys = (typeof SESSION_KEYS)[number];
 
 const jsonStringify = <T>(data: T): string => JSON.stringify(data);
 const jsonParse = <T>(data: string): T => JSON.parse(data);
 
-const CART_DATA_EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 7; // 7 days in milliseconds
+const DATA_EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 7; // 7 days in milliseconds
 const ERROR_MESSAGE = "Error parsing session data";
 
 export const localStorageService = {
@@ -56,7 +58,7 @@ export const localStorageService = {
       const { data, timestamp }: { data: string; timestamp: number } =
         jsonParse(storedItem);
 
-      if (Date.now() - timestamp > CART_DATA_EXPIRATION_TIME) {
+      if (Date.now() - timestamp > DATA_EXPIRATION_TIME) {
         localStorage.removeItem(key);
         return null;
       }

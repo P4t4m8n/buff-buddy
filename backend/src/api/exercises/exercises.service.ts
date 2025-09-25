@@ -7,9 +7,9 @@ import { exerciseUtil } from "./exercise.util";
 import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
 import type { Exercise, Prisma } from "../../../prisma/generated/prisma";
 import type {
-  TCreateExerciseInput,
+  TExerciseCreateValidatedInput,
+  TExerciseUpdateValidatedInput,
   TExerciseQuery,
-  TUpdateExerciseInput,
 } from "../../../../shared/validations/exercise.validation";
 
 const get = async (filter: TExerciseQuery): Promise<IExerciseDTO[]> => {
@@ -32,7 +32,9 @@ const getById = async (id: string): Promise<IExerciseDTO | null> => {
     select: exerciseSQL.EXERCISE_SELECT,
   });
 };
-const create = async (dto: TCreateExerciseInput): Promise<IExerciseDTO> => {
+const create = async (
+  dto: TExerciseCreateValidatedInput
+): Promise<IExerciseDTO> => {
   return await prisma.exercise.create({
     data: {
       name: dto.name,
@@ -46,7 +48,7 @@ const create = async (dto: TCreateExerciseInput): Promise<IExerciseDTO> => {
 };
 const update = async (
   id: string,
-  dto: TUpdateExerciseInput
+  dto: TExerciseUpdateValidatedInput
 ): Promise<Exercise> => {
   return await prisma.exercise.update({
     where: { id },

@@ -1,11 +1,16 @@
+//-Core
+//-Constants
 import {
   EXERCISE_EQUIPMENT,
   EXERCISE_MUSCLES,
   EXERCISE_TYPES,
 } from "../../../../shared/consts/exercise.consts";
-
+//-Hooks
 import { useExerciseEdit } from "../../hooks/features/exercise/useExerciseEdit";
-
+//-Components
+import ExerciseTypeSelectItem from "./ExerciseTypeSelectItem";
+import ExerciseTypeSelected from "./ExerciseTypeSelected";
+//-UI
 import Button from "../UI/Button";
 import Input from "../UI/Form/Input";
 import YoutubeInput from "../UI/Form/YoutubeInput";
@@ -13,18 +18,13 @@ import GenericSaveButton from "../UI/GenericSaveButton";
 import SelectMultiWithSearch from "../UI/Form/SelectMultiWithSearch/SelectMultiWithSearch";
 import SelectWithSearch from "../UI/Form/SelectWithSearch/SelectWithSearch";
 import InputWithError from "../UI/Form/InputWithError";
-
-import ExerciseTypeSelectItem from "./ExerciseTypeSelectItem";
-import ExerciseTypeSelected from "./ExerciseTypeSelected";
-
+import Loader from "../UI/loader/Loader";
+//-Types
 import type {
   IExerciseDTO,
   TExerciseInfo,
 } from "../../../../shared/models/exercise.model";
 import type { IModelProps } from "../../models/UI.model";
-import { useErrors } from "../../hooks/shared/useErrors";
-import Loader from "../UI/loader/Loader";
-import { useEffect } from "react";
 
 interface ExerciseEditProps extends IModelProps<HTMLFormElement> {
   exerciseId?: string;
@@ -35,45 +35,36 @@ export default function ExerciseEdit({
   ...props
 }: ExerciseEditProps) {
   const { setIsOpen, modelRef } = props;
-  const { clearErrors, handleError } = useErrors<IExerciseDTO>();
 
   const {
     exerciseToEdit,
     saveExercise,
     mutationErrors,
-    queryError,
     handleType,
     handleExerciseInfo,
-    clearItem,
     isLoading,
     isSaving,
   } = useExerciseEdit({ exerciseId });
 
-  useEffect(() => {
-    if (queryError) handleError({ error: queryError,emitToToast: true });
-  }, [queryError]);
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    clearErrors();
     try {
       const formData = new FormData(e.currentTarget);
 
-      const { data } = await saveExercise(formData);
-      if (data && setIsOpen) {
+      const isSuccess = await saveExercise(formData);
+      if (isSuccess && setIsOpen) {
         setIsOpen(false);
       }
     } catch (error) {
-      handleError({ error });
+      //INFO: The try catch block in need to let the error be catched some where. errors are handled in the mutation hook
     }
   };
 
   const onCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    clearErrors();
-    clearItem();
+
     if (setIsOpen) setIsOpen(false);
   };
 

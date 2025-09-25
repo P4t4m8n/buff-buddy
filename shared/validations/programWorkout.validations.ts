@@ -23,7 +23,7 @@ const updateFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   return BaseProgramWorkoutSchema.extend({
     workout: workoutValidation.updateFactorySchema({ toSanitize }),
     id: validationUtil.IDSchemaFactory({ toSanitize }).optional(),
-  }).optional();
+  });
 };
 
 const QuerySchema = validationUtil.FilterSchema;

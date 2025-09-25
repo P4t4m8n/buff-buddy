@@ -1,10 +1,11 @@
 import { AppError } from "../../shared/services/Error.service";
 
 import { exerciseService } from "./exercises.service";
+
 import { exerciseValidation } from "../../../../shared/validations/exercise.validation";
+import { validationUtil } from "../../../../shared/validations/util.validation";
 
 import type { Request, Response } from "express";
-import { validationUtil } from "../../../../shared/validations/util.validation";
 
 export const getExercises = async (req: Request, res: Response) => {
   try {
@@ -51,11 +52,12 @@ export const getExerciseById = async (req: Request, res: Response) => {
 
 export const createExercise = async (req: Request, res: Response) => {
   try {
+    const exerciseDTO = req.body;
     const validatedData = exerciseValidation
       .createFactorySchema({
         toSanitize: true,
       })
-      .parse(req.body);
+      .parse(exerciseDTO);
 
     const exercise = await exerciseService.create(validatedData);
 
@@ -76,7 +78,8 @@ export const updateExercise = async (req: Request, res: Response) => {
   try {
     const id = validationUtil
       .IDSchemaFactory({ toSanitize: true })
-      .parse(req.params);
+      .parse(req.params.id);
+    console.log("🚀 ~ updateExercise ~ id:", id);
 
     const validatedData = exerciseValidation
       .updateFactorySchema({
@@ -114,7 +117,6 @@ export const deleteExercise = async (req: Request, res: Response) => {
       data: null,
     });
   } catch (error) {
-    console.log("🚀 ~ deleteExercise ~ error:", error);
     const { status, message, errors } = AppError.handleResponse(error);
     res.status(status).json({
       message,

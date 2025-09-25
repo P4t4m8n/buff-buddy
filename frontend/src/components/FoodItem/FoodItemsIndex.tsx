@@ -12,7 +12,7 @@ import { useFoodItemMutationKeyStore } from "../../store/foodItemMutationKey.sto
 import FoodItemFilter from "./FoodItemFilter";
 import GenericModel from "../UI/GenericModel";
 import FoodItemEdit from "./FoodItemEdit/FoodItemEdit";
-import useFoodItemsQuery from "../../hooks/queryHooks/features/foodItem/useFoodItemsQuery";
+import {useFoodItemsQuery} from "../../hooks/features/foodItem/useFoodItemsQuery";
 
 const INITIAL_FILTER = {
   skip: 0,

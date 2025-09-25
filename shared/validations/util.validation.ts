@@ -38,7 +38,7 @@ const stringSchemaFactory = ({
   const sanitizer = createSanitizer(toSanitize);
   return z
     .string({
-      invalid_type_error: `${fieldName} is required.`,
+      invalid_type_error: `${fieldName} is invalid.`,
       required_error: `${fieldName} is required.`,
     })
     .transform((val) => sanitizer(val))

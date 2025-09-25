@@ -1,13 +1,13 @@
-import { useQueryHook } from "../../useQueryHook";
+import { useQueryHook } from "../../queryHooks/useQueryHook";
 
-import { QUERY_KEYS } from "../../../../consts/queryKeys.consts";
+import { QUERY_KEYS } from "../../../consts/queryKeys.consts";
 
-import { workoutService } from "../../../../services/workout.service";
+import { workoutService } from "../../../services/workout.service";
 
 import type {
   IWorkoutDTO,
   IWorkoutFilter,
-} from "../../../../../../shared/models/workout.model";
+} from "../../../../../shared/models/workout.model";
 
 export const useWorkoutsQuery = (filter: IWorkoutFilter | null) => {
   return useQueryHook<IWorkoutDTO, IWorkoutFilter>({

@@ -7,7 +7,7 @@ import { mealValidation } from "../../../shared/validations//meal.validations";
 const BASE_URL = "/meals";
 
 const get = async () => {
-  return await apiService.get<Array<IMealDTO>>(BASE_URL);
+  return await apiService.get<THttpResponse<Array<IMealDTO>>>(BASE_URL);
 };
 const getById = async (id?: string): Promise<IMealDTO> => {
   if (!id) throw ClientError.create("Meal ID is required", 400);
@@ -15,7 +15,7 @@ const getById = async (id?: string): Promise<IMealDTO> => {
   const { data } = await apiService.get<THttpResponse<IMealDTO>>(
     `${BASE_URL}/${id}`
   );
-  
+
   return data;
 };
 const save = async (dto: IMealEditDTO): Promise<THttpResponse<IMealDTO>> => {

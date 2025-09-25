@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { useErrors } from "../../../shared/useErrors";
-import type { IFoodItemDTO } from "../../../../../../shared/models/foodItem.model";
-import { foodItemService } from "../../../../services/foodItems.service";
+import type { IFoodItemDTO } from "../../../../../shared/models/foodItem.model";
+import { foodItemService } from "../../../services/foodItems.service";
+import { useErrors } from "../../shared/useErrors";
 
-export default function useFoodItemIdQuery(id?: string) {
+export const useFoodItemIdQuery = (id?: string) => {
   const { handleError } = useErrors<IFoodItemDTO>();
   const { data, isLoading } = useQuery({
     queryKey: ["foodItemId", id],
@@ -17,4 +17,4 @@ export default function useFoodItemIdQuery(id?: string) {
     },
   });
   return { data, isLoading };
-}
+};

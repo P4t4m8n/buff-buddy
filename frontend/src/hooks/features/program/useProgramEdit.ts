@@ -1,4 +1,17 @@
-import { useEffect, useState, type ChangeEvent } from "react";
+//-Core
+import { useEffect } from "react";
+//-Services
+import { programService } from "../../../services/program.service";
+//-Utils
+import { programUtil } from "../../../utils/program.util";
+import { formUtil } from "../../../utils/form.util";
+//-Hooks
+import { useErrors } from "../../shared/useErrors";
+import { useProgramIdQuery } from "./useProgramIdQuery";
+import { useItemEdit } from "../../shared/useItemEdit";
+//-Consts
+import { QUERY_KEYS } from "../../../consts/queryKeys.consts";
+//-Types
 import type {
   IProgramDTO,
   IProgramEditDTO,
@@ -6,56 +19,30 @@ import type {
 } from "../../../../../shared/models/program.model";
 import type { IDateRange } from "../../../models/calendar.model";
 
-import { programUtil } from "../../../utils/program.util";
-import { useErrors } from "../../shared/useErrors";
-import { formUtil } from "../../../utils/form.util";
-import { useMutationKeyStore } from "../../../store/mutationKeys.store";
-import useItemMutation from "../../queryHooks/useItemMutation";
-import { QUERY_KEYS } from "../../../consts/queryKeys.consts";
-import { programService } from "../../../services/program.service";
-import useProgramIdQuery from "./useProgramIdQuery";
-
-// interface IProgramEditHook {
-//   programToEdit: IProgramEditDTO | null;
-//   isLoading: boolean;
-//   errors: Partial<Record<keyof IProgramEditDTO, string>> | null;
-//   handleDateSelect: (range: IDateRange) => void;
-//   onSaveProgram: (e: React.FormEvent<HTMLFormElement>) => void;
-//   handleProgramWorkouts: (workout: IProgramWorkoutEditDTO) => void;
-//   navigate: ReturnType<typeof useNavigate>;
-//   handleInputChange: (
-//     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-//   ) => void;
-//   deleteProgramWorkout: (id?: string) => void;
-// }
-
 export const useProgramEdit = (programId?: string) => {
-  const [programToEdit, setProgramToEdit] = useState<IProgramEditDTO | null>(
-    null
-  );
+  const {
+    itemToEdit: programToEdit,
+    setItemToEdit: setProgramToEdit,
+    mutateAsync,
+    mutationErrors,
+    queryError,
+    isLoading,
+    isSaving,
+  } = useItemEdit<IProgramEditDTO, IProgramDTO>({
+    storeMutationKey: "programsMutationKey",
+    itemId: programId,
+    queryIdKey: QUERY_KEYS.PROGRAM_ID_QUERY_KEY,
+    saveFn: programService.save,
+    useIdQuery: useProgramIdQuery,
+    dtoToEditDto: programUtil.dtoToEditDto,
+    getEmpty: programUtil.getEmpty,
+  });
 
-  const mutationKey = useMutationKeyStore((store) => store.programsMutationKey);
-  const { errors, mutateAsync } = useItemMutation<IProgramEditDTO, IProgramDTO>(
-    {
-      listKey: mutationKey,
-      itemIdKey: [QUERY_KEYS.PROGRAM_ID_QUERY_KEY, programId ?? ""],
-      saveFn: programService.save,
-      filterFn: (oldItem, savedItem) => oldItem.id === savedItem.id,
-    }
-  );
-  const { handleError } = useErrors<IProgramEditDTO>();
-  const { data, isLoading } = useProgramIdQuery(programId);
-
+  const { handleError } = useErrors<IProgramDTO>();
 
   useEffect(() => {
-    const programData = data?.data;
-    const foodItem =
-      programId && programData
-        ? programUtil.dtoToEditDto(programData)
-        : programUtil.getEmpty();
-    setProgramToEdit(foodItem);
-    return;
-  }, [programId, data]);
+    if (queryError) handleError({ error: queryError, emitToToast: true });
+  }, [queryError]);
 
   const handleDateSelect = (range: IDateRange) => {
     setProgramToEdit((prev) => ({
@@ -66,19 +53,11 @@ export const useProgramEdit = (programId?: string) => {
   };
 
   const saveProgram = async () => {
-    try {
-      if (!programToEdit) {
-        console.warn("No program to save"); //INFO debugging not for production
-        return;
-      }
+    if (!programToEdit) return false;
+    const { data } = await mutateAsync(programToEdit);
 
-      const { data } = await mutateAsync(programToEdit);
-
-      const { id } = data;
-      return id;
-    } catch (error) {
-      handleError({ error });
-    }
+    const { id } = data;
+    return !!id;
   };
 
   const handleProgramWorkouts = (programWorkout: IProgramWorkoutEditDTO) => {
@@ -124,15 +103,16 @@ export const useProgramEdit = (programId?: string) => {
   };
 
   const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     formUtil.handleInputChange(e, setProgramToEdit);
   };
 
   return {
     programToEdit,
+    isSaving,
     isLoading,
-    errors,
+    mutationErrors,
     handleDateSelect,
     saveProgram,
     handleInputChange,
