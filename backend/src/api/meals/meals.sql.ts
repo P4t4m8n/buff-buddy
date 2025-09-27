@@ -4,8 +4,8 @@ import { foodItemSQL } from "../foodItem/foodItem.sql";
 import { userSQL } from "../users/users.sql";
 
 import type {
-  TCreateMealInput,
-  TUpdateMealInput,
+  TMealCreateValidatedInput,
+  TMealUpdateValidatedInput,
 } from "../../../../shared/validations/meal.validations";
 import type { Prisma } from "../../../prisma/generated/prisma";
 
@@ -26,7 +26,7 @@ const MEALS_SELECT: Prisma.MealSelect = {
   },
 };
 
-const getMealCreate = (dto: TCreateMealInput): Prisma.MealCreateInput => {
+const getMealCreate = (dto: TMealCreateValidatedInput): Prisma.MealCreateInput => {
   return {
     name: dto.name,
     mealType: dto.mealType,
@@ -45,7 +45,7 @@ const getMealCreate = (dto: TCreateMealInput): Prisma.MealCreateInput => {
   };
 };
 
-const getMealUpdate = (dto: TUpdateMealInput): Prisma.MealUpdateInput => {
+const getMealUpdate = (dto: TMealUpdateValidatedInput): Prisma.MealUpdateInput => {
   const mealFoodItemToAdd =
     dto.mealFoodItems?.filter((item) => item.crudOperation === "create") ?? [];
 

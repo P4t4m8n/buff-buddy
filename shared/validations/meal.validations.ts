@@ -5,6 +5,8 @@ import { validationUtil } from "./util.validation";
 import { MEAL_TYPES } from "../consts/meal.consts";
 
 import type { IToSanitize } from "../models/app.model";
+import type { IValidation } from "../models/validation.model";
+import type { IMealEditDTO, IMealFilter } from "../models/meal.model";
 
 const createMealFoodItemFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
@@ -76,14 +78,24 @@ const QuerySchema = validationUtil.FilterSchema.extend({
     .optional(),
 });
 
-export const mealValidation = {
+export const mealValidation: IValidation<
+  IMealEditDTO,
+  IMealFilter,
+  TMealCreateValidatedInput,
+  TMealUpdateValidatedInput,
+  TMealQuery
+> = {
   createFactorySchema,
   updateFactorySchema,
   QuerySchema,
 };
 
-export type TCreateMealInput = z.infer<ReturnType<typeof createFactorySchema>>;
+export type TMealCreateValidatedInput = z.infer<
+  ReturnType<typeof createFactorySchema>
+>;
 
-export type TUpdateMealInput = z.infer<ReturnType<typeof updateFactorySchema>>;
+export type TMealUpdateValidatedInput = z.infer<
+  ReturnType<typeof updateFactorySchema>
+>;
 
 export type TMealQuery = z.infer<typeof QuerySchema>;

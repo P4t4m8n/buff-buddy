@@ -10,6 +10,7 @@ import type {
   IUserCardioSetEditDTO,
 } from "./userCardioSet.model";
 import type { IWorkoutDTO, IWorkoutExerciseDTO } from "./workout.model";
+import type { IBaseFilter } from "./app.model";
 
 interface IUserWorkoutBase extends IEntity, IEntityDates {
   dateCompleted?: Date | null | string;
@@ -23,7 +24,7 @@ export interface IUserWorkoutDTO extends IUserWorkoutBase {
 }
 
 export interface IUserWorkoutEditDTO extends IUserWorkoutBase {
-  ownerId?: string;
+  ownerId?: string | null;
   workout?: IWorkoutDTO | null;
   workoutId?: string;
   programId?: string;
@@ -40,3 +41,5 @@ export interface IUserWorkoutExercisesEditDTO extends IWorkoutExerciseDTO {
   userCardioSets?: IUserCardioSetEditDTO[];
   skippedReason?: string | null;
 }
+
+export interface IUserWorkoutFilter extends IBaseFilter {}

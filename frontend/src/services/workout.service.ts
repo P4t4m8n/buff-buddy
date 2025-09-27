@@ -7,8 +7,9 @@ import type {
   IWorkoutEditDTO,
 } from "../../../shared/models/workout.model";
 import type {
-  TCreateWorkoutInput,
-  TUpdateWorkoutInput,
+  TWorkoutCreateValidatedInput,
+  TWorkoutUpdateValidatedInput,
+  TWorkoutQuery,
 } from "../../../shared/validations/workout.validations";
 
 const rootPath = "/workouts" as const;
@@ -17,9 +18,9 @@ export const workoutService = genericServiceFactory<
   IWorkoutDTO,
   IWorkoutEditDTO,
   IWorkoutFilter,
-  TCreateWorkoutInput,
-  TUpdateWorkoutInput,
-  typeof workoutValidation.QuerySchema
+  TWorkoutCreateValidatedInput,
+  TWorkoutUpdateValidatedInput,
+  TWorkoutQuery
 >({
   rootPath,
   validation: workoutValidation,

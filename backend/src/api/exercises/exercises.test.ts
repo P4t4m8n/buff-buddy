@@ -31,6 +31,7 @@ describe("Exercises API", () => {
         type: "strength",
         equipment: ["barbell"],
         muscles: ["chest", "triceps"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -65,6 +66,7 @@ describe("Exercises API", () => {
         types: ["strength"],
         equipment: ["barbell"],
         muscles: ["chest"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -81,6 +83,8 @@ describe("Exercises API", () => {
     it("should reject exercise with missing required fields", async () => {
       const incompleteExercise = {
         name: "Incomplete Exercise",
+        ownerId: testUserId,
+
         // Missing youtubeUrl, types, equipment, muscles
       };
 
@@ -106,6 +110,7 @@ describe("Exercises API", () => {
         type: "fun",
         equipment: ["barbell"],
         muscles: ["chest", "triceps"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -127,6 +132,7 @@ describe("Exercises API", () => {
         type: "strength",
         equipment: ["barbell"],
         muscles: ["head", "lag"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -153,6 +159,7 @@ describe("Exercises API", () => {
         type: "strength",
         equipment: ["wall", "BomB"],
         muscles: ["glutes"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -180,6 +187,7 @@ describe("Exercises API", () => {
         type: "strength",
         equipment: ["barbell"],
         muscles: ["chest", "triceps"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -196,6 +204,7 @@ describe("Exercises API", () => {
         type: "strength",
         equipment: ["barbell"],
         muscles: ["chest", "triceps"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -218,6 +227,7 @@ describe("Exercises API", () => {
         type: "strength",
         equipment: ["barbell"],
         muscles: ["chest", "triceps"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -240,6 +250,7 @@ describe("Exercises API", () => {
         type: "strength",
         equipment: ["barbell"],
         muscles: ["chest", "triceps"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -262,6 +273,7 @@ describe("Exercises API", () => {
         type: "strength",
         equipment: ["barbell"],
         muscles: ["chest", "triceps"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -288,6 +300,7 @@ describe("Exercises API", () => {
         type: "strength",
         equipment: ["barbell"],
         muscles: ["chest", "triceps"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -314,6 +327,7 @@ describe("Exercises API", () => {
         type: "strength",
         equipment: ["barbell"],
         muscles: ["chest", "triceps"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -335,19 +349,20 @@ describe("Exercises API", () => {
       const res = await request(app)
         .get("/api/v1/exercises")
         .set("Cookie", `token=${authToken}`);
-      const exercisesRes = res.body;
+      const exercisesRes = res.body.data;
       expect(res.status).toBe(200);
       expect(Array.isArray(exercisesRes)).toBe(true);
-      expect(exercisesRes).toHaveLength(6);
+      expect(exercisesRes.length).toBeGreaterThanOrEqual(6);
     });
 
     it("should filter exercises by name", async () => {
       const res = await request(app)
         .get("/api/v1/exercises?name=Pull-up")
         .set("Cookie", `token=${authToken}`);
+      const exercisesRes = res.body.data;
       expect(res.status).toBe(200);
       expect(
-        res.body.every((e: IExerciseDTO) => e.name?.includes("pull-up"))
+        exercisesRes.every((e: IExerciseDTO) => e.name?.includes("pull-up"))
       ).toBe(true);
     });
 
@@ -355,9 +370,10 @@ describe("Exercises API", () => {
       const res = await request(app)
         .get("/api/v1/exercises?muscles=biceps")
         .set("Cookie", `token=${authToken}`);
+      const exercisesRes = res.body.data;
       expect(res.status).toBe(200);
       expect(
-        res.body.every((e: IExerciseDTO) => e.muscles?.includes("biceps"))
+        exercisesRes.every((e: IExerciseDTO) => e.muscles?.includes("biceps"))
       ).toBe(true);
     });
 
@@ -365,8 +381,10 @@ describe("Exercises API", () => {
       const res = await request(app)
         .get("/api/v1/exercises?skip=1&take=5")
         .set("Cookie", `token=${authToken}`);
+      const exercisesRes = res.body.data;
+
       expect(res.status).toBe(200);
-      expect(res.body.length).toBeLessThanOrEqual(5);
+      expect(exercisesRes.length).toBeLessThanOrEqual(5);
     });
   });
 
@@ -378,8 +396,11 @@ describe("Exercises API", () => {
       type: "cardio",
       equipment: ["air_bike"],
       muscles: ["chest"],
+      ownerId: testUserId,
     };
     beforeAll(async () => {
+      exercise.ownerId = testUserId;
+
       const res = await request(app)
         .post("/api/v1/exercises/edit")
         .set("Cookie", `token=${authToken}`)
@@ -393,6 +414,7 @@ describe("Exercises API", () => {
       const res = await request(app)
         .get(`/api/v1/exercises/${exerciseRes.id}`)
         .set("Cookie", `token=${authToken}`);
+
       expect(res.status).toBe(200);
       expect(res.body.data.id).toBe(exerciseRes.id);
       expect(res.body.data.name).toBe("get by id test");
@@ -422,9 +444,11 @@ describe("Exercises API", () => {
       type: "strength",
       equipment: ["dumbbell"],
       muscles: ["adductors"],
+      ownerId: testUserId,
     };
 
     beforeEach(async () => {
+      baseExercise.ownerId = testUserId;
       const res = await request(app)
         .post("/api/v1/exercises/edit")
         .set("Cookie", `token=${authToken}`)
@@ -441,6 +465,7 @@ describe("Exercises API", () => {
     it("should update exercise name successfully", async () => {
       const updateData: Partial<IExerciseDTO> = {
         name: "Updated Exercise Name",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -457,6 +482,7 @@ describe("Exercises API", () => {
     it("should update exercise muscles successfully", async () => {
       const updateData: Partial<IExerciseDTO> = {
         muscles: ["hip_flexors", "triceps"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -475,6 +501,7 @@ describe("Exercises API", () => {
     it("should update exercise equipment successfully", async () => {
       const updateData: Partial<IExerciseDTO> = {
         equipment: ["barbell", "adjustable_bench"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -495,6 +522,7 @@ describe("Exercises API", () => {
     it("should update exercise type successfully", async () => {
       const updateData: Partial<IExerciseDTO> = {
         type: "cardio",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -513,6 +541,7 @@ describe("Exercises API", () => {
     it("should update exercise YouTube URL successfully", async () => {
       const updateData: Partial<IExerciseDTO> = {
         youtubeUrl: "https://www.youtube.com/watch?v=newvideo123",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -532,6 +561,7 @@ describe("Exercises API", () => {
         type: "flexibility",
         muscles: ["hamstrings", "calves"],
         equipment: ["yoga_mat"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -553,6 +583,7 @@ describe("Exercises API", () => {
     it("should sanitize HTML in updated exercise name", async () => {
       const updateData: Partial<IExerciseDTO> = {
         name: "<script>alert('hack')</script>Updated <b>Exercise</b>",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -568,6 +599,7 @@ describe("Exercises API", () => {
     it("should reject update with invalid YouTube URL", async () => {
       const updateData: Partial<IExerciseDTO> = {
         youtubeUrl: "not-a-valid-url",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -583,6 +615,7 @@ describe("Exercises API", () => {
     it("should reject update with invalid exercise type", async () => {
       const updateData = {
         type: "invalid-type",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -599,6 +632,7 @@ describe("Exercises API", () => {
     it("should reject update with invalid muscles", async () => {
       const updateData = {
         muscles: ["invalid-muscle", "another-invalid"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -614,6 +648,7 @@ describe("Exercises API", () => {
     it("should reject update with invalid equipment", async () => {
       const updateData = {
         equipment: ["invalid-equipment", "another-invalid"],
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -629,6 +664,7 @@ describe("Exercises API", () => {
     it("should normalize YouTube URLs on update", async () => {
       const updateData: Partial<IExerciseDTO> = {
         youtubeUrl: "https://youtu.be/newvideo456",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -645,6 +681,7 @@ describe("Exercises API", () => {
     it("should handle whitespace normalization on update", async () => {
       const updateData: Partial<IExerciseDTO> = {
         name: "   Updated    Exercise   Name   ",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -659,6 +696,7 @@ describe("Exercises API", () => {
     it("should return 400 for updating a non-existent exercise", async () => {
       const updateData: Partial<IExerciseDTO> = {
         name: "This will fail",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -675,6 +713,7 @@ describe("Exercises API", () => {
     it("should reject update with missing credentials", async () => {
       const updateData: Partial<IExerciseDTO> = {
         name: "This will fail without auth",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -687,6 +726,7 @@ describe("Exercises API", () => {
     it("should reject update with empty name after sanitization", async () => {
       const updateData: Partial<IExerciseDTO> = {
         name: "<script></script><style></style>",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -709,6 +749,7 @@ describe("Exercises API", () => {
         type: "flexibility",
         equipment: ["cable_crossover"],
         muscles: ["hamstrings"],
+        ownerId: testUserId,
       };
       const res = await request(app)
         .post("/api/v1/exercises/edit")

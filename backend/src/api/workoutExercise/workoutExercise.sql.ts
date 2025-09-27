@@ -2,13 +2,13 @@ import { dbUtil } from "../../shared/utils/db.util";
 
 import type { Prisma } from "../../../prisma/generated/prisma";
 import type {
-  TCreateWorkoutExerciseInput,
-  TUpdateWorkoutExerciseInput,
+  TWorkoutExerciseCreateValidatedInput,
+  TWorkoutExerciseUpdateValidatedInput,
 } from "../../../../shared/validations/workoutExercise.validations";
 
 //INFO: Return Partial as workoutExercise create only happens when creating/editing a workout
 const getWorkoutExerciseCreate = (
-  dto: TCreateWorkoutExerciseInput | null
+  dto: TWorkoutExerciseCreateValidatedInput | null
 ): Partial<Prisma.WorkoutExerciseCreateInput> => {
   return {
     order: dto?.order || 1,
@@ -16,12 +16,11 @@ const getWorkoutExerciseCreate = (
     exercise: { connect: { id: dto?.exerciseData?.id } },
     isBodyWeight: dto?.isBodyWeight,
     hasWarmup: dto?.hasWarmup,
-    
   };
 };
 
 const getWorkoutExerciseUpdate = (
-  dto: TUpdateWorkoutExerciseInput
+  dto: TWorkoutExerciseUpdateValidatedInput
 ): Prisma.WorkoutExerciseUpdateInput => {
   return {
     ...dbUtil.cleanData({

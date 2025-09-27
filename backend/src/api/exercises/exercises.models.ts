@@ -11,4 +11,5 @@ export interface IExercise {
   type: ExerciseType;
   equipment: ExerciseEquipment[];
   muscles: ExerciseMuscle[];
+  ownerId: string|null;
 }

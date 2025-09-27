@@ -4,8 +4,8 @@ import { foodItemSQL } from "./foodItem.sql";
 import { foodItemUtil } from "./foodItem.util";
 
 import type {
-  TCreateFoodItemInput,
-  TUpdateFoodItemInput,
+  TFoodItemCreateValidatedInput,
+  TFoodItemUpdateValidatedInput,
   TFoodItemQuery,
 } from "../../../../shared/validations/foodItem.validation";
 import type { Prisma } from "../../../prisma/generated/prisma";
@@ -40,7 +40,7 @@ const getByBarCode = async (barcode: string) => {
     select: foodItemSQL.FOOD_ITEM_SQL,
   });
 };
-const create = async (dto: TCreateFoodItemInput) => {
+const create = async (dto: TFoodItemCreateValidatedInput) => {
   return await prisma.foodItem.create({
     data: {
       ...foodItemSQL.getFoodItemCreate(dto),
@@ -48,7 +48,7 @@ const create = async (dto: TCreateFoodItemInput) => {
     select: foodItemSQL.FOOD_ITEM_SQL,
   });
 };
-const update = async (dto: TUpdateFoodItemInput) => {
+const update = async (dto: TFoodItemUpdateValidatedInput) => {
   return await prisma.foodItem.update({
     where: {
       id: dto.id,

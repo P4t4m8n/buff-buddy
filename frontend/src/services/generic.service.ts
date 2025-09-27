@@ -18,7 +18,7 @@ export const genericServiceFactory = <
 }: {
   rootPath: string;
   validation: IValidation<
-    DTO,
+    EditDTO,
     Filter,
     CreateValidatedInput,
     UpdateValidatedInput,

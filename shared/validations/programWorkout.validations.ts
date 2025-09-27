@@ -1,7 +1,12 @@
 import { z } from "zod";
+
 import { validationUtil } from "./util.validation";
+
 import { workoutValidation } from "./workout.validations";
+
 import { WORKOUT_LEVELS, WORKOUT_GOALS } from "../consts/program.consts";
+
+import type { IToSanitize } from "../models/app.model";
 
 const BaseProgramWorkoutSchema = z.object({
   daysOfWeek: validationUtil.DaysOfWeekSchema.optional(),
@@ -10,7 +15,7 @@ const BaseProgramWorkoutSchema = z.object({
   workoutGoal: z.enum(WORKOUT_GOALS).default("hypertrophy"),
 });
 
-const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const createFactorySchema = ({ toSanitize }: IToSanitize) => {
   return BaseProgramWorkoutSchema.extend({
     workout: z.union([
       workoutValidation.updateFactorySchema({ toSanitize }),
@@ -19,7 +24,7 @@ const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   });
 };
 
-const updateFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const updateFactorySchema = ({ toSanitize }: IToSanitize) => {
   return BaseProgramWorkoutSchema.extend({
     workout: workoutValidation.updateFactorySchema({ toSanitize }),
     id: validationUtil.IDSchemaFactory({ toSanitize }).optional(),
@@ -34,10 +39,10 @@ export const programWorkoutValidation = {
   QuerySchema,
 };
 
-export type TCreateProgramWorkoutInput = z.infer<
+export type TProgramWorkoutCreateValidatedInput = z.infer<
   ReturnType<typeof createFactorySchema>
 >;
 
-export type TUpdateProgramWorkoutInput = z.infer<
+export type TProgramWorkoutUpdateValidatedInput = z.infer<
   ReturnType<typeof updateFactorySchema>
 >;

@@ -1,10 +1,14 @@
 import { z } from "zod";
+
 import { validationUtil } from "./util.validation";
+
 import { programWorkoutValidation } from "./programWorkout.validations";
+
 import type { IValidation } from "../models/validation.model";
 import type { IProgramEditDTO, IProgramFilter } from "../models/program.model";
+import type { IToSanitize } from "../models/app.model";
 
-const programFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const programFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
     name: validationUtil.stringSchemaFactory({
       fieldName: "Program name",
@@ -12,6 +16,7 @@ const programFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
       maxLength: 100,
       toSanitize,
     }),
+    ownerId: validationUtil.IDSchemaFactory({ toSanitize: true }).nullable(),
 
     notes: validationUtil
       .stringSchemaFactory({
@@ -40,7 +45,7 @@ const programFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   });
 };
 
-const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const createFactorySchema = ({ toSanitize }: IToSanitize) => {
   return programFactorySchema({ toSanitize }).refine(
     (data) => data.endDate > data.startDate,
     {
@@ -50,7 +55,7 @@ const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   );
 };
 
-const updateFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const updateFactorySchema = ({ toSanitize }: IToSanitize) => {
   return programFactorySchema({ toSanitize })
     .extend({
       programWorkouts: z
@@ -73,20 +78,18 @@ const updateFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
     );
 };
 
-const QuerySchema = z.object({
+const QuerySchema = validationUtil.FilterSchema.extend({
   name: z.string().optional(),
   isActive: z.coerce.boolean().optional(),
   startDate: z.string().optional(),
   endDate: z.string().optional(),
-  skip: z.coerce.number().min(0).optional(),
-  page: z.coerce.number().min(1).optional(),
 });
 
 export const programValidation: IValidation<
   IProgramEditDTO,
   IProgramFilter,
-  TCreateProgramInput,
-  TUpdateProgramInput,
+  TProgramCreateValidatedInput,
+  TProgramUpdateValidatedInput,
   TProgramQuery
 > = {
   createFactorySchema,
@@ -94,11 +97,11 @@ export const programValidation: IValidation<
   QuerySchema,
 };
 
-export type TCreateProgramInput = z.infer<
+export type TProgramCreateValidatedInput = z.infer<
   ReturnType<typeof createFactorySchema>
 >;
 
-export type TUpdateProgramInput = z.infer<
+export type TProgramUpdateValidatedInput = z.infer<
   ReturnType<typeof updateFactorySchema>
 >;
 

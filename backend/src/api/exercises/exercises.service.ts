@@ -1,18 +1,17 @@
 import { prisma } from "../../../prisma/prisma";
 
-import { dbUtil } from "../../shared/utils/db.util";
 import { exerciseSQL } from "./exercise.sql";
 import { exerciseUtil } from "./exercise.util";
 
-import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
-import type { Exercise, Prisma } from "../../../prisma/generated/prisma";
+import type { Prisma } from "../../../prisma/generated/prisma";
 import type {
   TExerciseCreateValidatedInput,
   TExerciseUpdateValidatedInput,
   TExerciseQuery,
 } from "../../../../shared/validations/exercise.validation";
+import type { IExercise } from "./exercises.models";
 
-const get = async (filter: TExerciseQuery): Promise<IExerciseDTO[]> => {
+const get = async (filter: TExerciseQuery): Promise<IExercise[]> => {
   const where: Prisma.ExerciseWhereInput =
     exerciseUtil.buildWhereClause(filter);
 
@@ -26,7 +25,7 @@ const get = async (filter: TExerciseQuery): Promise<IExerciseDTO[]> => {
     select: exerciseSQL.EXERCISE_SELECT,
   });
 };
-const getById = async (id: string): Promise<IExerciseDTO | null> => {
+const getById = async (id: string): Promise<IExercise | null> => {
   return await prisma.exercise.findUnique({
     where: { id },
     select: exerciseSQL.EXERCISE_SELECT,
@@ -34,29 +33,23 @@ const getById = async (id: string): Promise<IExerciseDTO | null> => {
 };
 const create = async (
   dto: TExerciseCreateValidatedInput
-): Promise<IExerciseDTO> => {
+): Promise<IExercise> => {
   return await prisma.exercise.create({
-    data: {
-      name: dto.name,
-      youtubeUrl: dto.youtubeUrl,
-      muscles: dto.muscles,
-      equipment: dto.equipment,
-      type: dto.type,
-    },
+    data: exerciseSQL.getExerciseCreate(dto),
     select: exerciseSQL.EXERCISE_SELECT,
   });
 };
 const update = async (
   id: string,
   dto: TExerciseUpdateValidatedInput
-): Promise<Exercise> => {
+): Promise<IExercise> => {
   return await prisma.exercise.update({
     where: { id },
-    data: dbUtil.cleanData({ ...dto }),
+    data: exerciseSQL.getExerciseUpdate(dto),
   });
 };
-const remove = async (id: string): Promise<Exercise> => {
-  return await prisma.exercise.delete({
+const remove = async (id: string): Promise<void> => {
+  await prisma.exercise.delete({
     where: { id },
   });
 };

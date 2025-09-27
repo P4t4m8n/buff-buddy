@@ -19,7 +19,7 @@ export interface IValidationProps {
 }
 
 export interface IToSanitize {
-  toSanitize: boolean;
+  toSanitize?: boolean;
 }
 
 export interface IItemImage extends IEntity, IEntityDates {

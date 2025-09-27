@@ -3,6 +3,8 @@ import { z } from "zod";
 import { validationUtil } from "./util.validation";
 import { exerciseValidation } from "./exercise.validation";
 
+import type { IToSanitize } from "../models/app.model";
+
 // const exerciseTypeSetRefinement = (
 //   data: {
 //     exerciseData?: { type?: string };
@@ -80,11 +82,11 @@ const workoutExerciseFactorySchema = ({
   });
 };
 
-const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const createFactorySchema = ({ toSanitize }: IToSanitize) => {
   return workoutExerciseFactorySchema({ toSanitize });
 };
 
-const updateFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const updateFactorySchema = ({ toSanitize }: IToSanitize) => {
   return workoutExerciseFactorySchema({ toSanitize }).partial();
 };
 
@@ -105,12 +107,11 @@ export const workoutExerciseValidation = {
   QuerySchema,
 };
 
-export type TCreateWorkoutExerciseInput = z.infer<
+export type TWorkoutExerciseCreateValidatedInput = z.infer<
   ReturnType<typeof createFactorySchema>
 >;
-export type TUpdateWorkoutExerciseInput = z.infer<
+export type TWorkoutExerciseUpdateValidatedInput = z.infer<
   ReturnType<typeof updateFactorySchema>
 >;
 
 export type TWorkoutExerciseQuery = z.infer<typeof QuerySchema>;
-

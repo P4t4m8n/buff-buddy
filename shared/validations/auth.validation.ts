@@ -1,5 +1,8 @@
 import { z } from "zod";
+
 import { validationUtil } from "./util.validation";
+
+import type { IToSanitize } from "../models/app.model";
 
 const EmailSchema = (sanitizer: (val: string) => string) => {
   return z
@@ -59,7 +62,7 @@ const PasswordSchema = (sanitizer: (val: string) => string) => {
   // );
 };
 
-const signUpFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const signUpFactorySchema = ({ toSanitize }: IToSanitize) => {
   const sanitizer = validationUtil.createSanitizer(toSanitize);
 
   return z
@@ -98,7 +101,7 @@ const signUpFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
     });
 };
 
-const signInFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const signInFactorySchema = ({ toSanitize }: IToSanitize) => {
   const sanitizer = validationUtil.createSanitizer(toSanitize);
 
   return z.object({
@@ -111,7 +114,7 @@ const signInFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   });
 };
 
-const googleOAuthFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const googleOAuthFactorySchema = ({ toSanitize }: IToSanitize) => {
   const sanitizer = validationUtil.createSanitizer(toSanitize);
 
   return z.object({
@@ -134,7 +137,7 @@ const googleOAuthFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   });
 };
 
-const updateUserFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const updateUserFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
     firstName: validationUtil.stringSchemaFactory({
       maxLength: 50,

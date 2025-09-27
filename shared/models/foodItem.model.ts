@@ -17,7 +17,7 @@ interface IFoddItemBase extends IEntity, IEntityDates {
 }
 
 export interface IFoodItemDTO extends IFoddItemBase {
-  images?: IFoodItemImgDto[];
+  images?:  string[];
   labels?: IFoodItemLabelDto[];
   brand?: IFoodItemBrandDto | null;
   categories: IFoodItemCategoryDto[];
@@ -36,8 +36,8 @@ export interface IFoodItemEditDTO extends Partial<IFoddItemBase> {
 
 export interface IFoodItemFilter extends IBaseFilter {
   name?: string | null;
-  calories?: string | null;
-  protein?: string | null;
+  calories?: string | number | null;
+  protein?: string | number | null;
   barcode?: string | null;
 }
 

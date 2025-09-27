@@ -7,8 +7,9 @@ import type {
   IProgramEditDTO,
 } from "../../../shared/models/program.model";
 import type {
-  TCreateProgramInput,
-  TUpdateProgramInput,
+  TProgramCreateValidatedInput,
+  TProgramUpdateValidatedInput,
+  TProgramQuery,
 } from "../../../shared/validations/program.validations";
 
 const rootPath = "/programs" as const;
@@ -17,9 +18,9 @@ export const programService = genericServiceFactory<
   IProgramDTO,
   IProgramEditDTO,
   IProgramFilter,
-  TCreateProgramInput,
-  TUpdateProgramInput,
-  typeof programValidation.QuerySchema
+  TProgramCreateValidatedInput,
+  TProgramUpdateValidatedInput,
+  TProgramQuery
 >({
   rootPath,
   validation: programValidation,

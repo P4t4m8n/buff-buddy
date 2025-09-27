@@ -38,6 +38,7 @@ describe("Workouts API", () => {
         type: "cardio",
         equipment: ["cable_machine"],
         muscles: ["chest", "triceps", "abductors"],
+        ownerId: testUserId,
       },
       {
         name: "strength 1",
@@ -45,6 +46,7 @@ describe("Workouts API", () => {
         type: "strength",
         equipment: ["barbell"],
         muscles: ["quads", "glutes", "hamstrings", "lower_back"],
+        ownerId: testUserId,
       },
       {
         name: "strength 2",
@@ -52,6 +54,7 @@ describe("Workouts API", () => {
         type: "strength",
         equipment: ["dumbbell"],
         muscles: ["biceps", "forearms"],
+        ownerId: testUserId,
       },
       {
         name: "cardio 2",
@@ -59,6 +62,7 @@ describe("Workouts API", () => {
         type: "cardio",
         equipment: ["air_bike"],
         muscles: ["triceps", "abs", "rotator_cuff"],
+        ownerId: testUserId,
       },
     ];
 
@@ -77,6 +81,7 @@ describe("Workouts API", () => {
         name: "Full Body Test Workout",
         notes: "A workout for testing purposes.",
         crudOperation: "create",
+        ownerId: testUserId,
         workoutExercises: [
           {
             order: 1,
@@ -116,7 +121,7 @@ describe("Workouts API", () => {
       const res = await request(app)
         .post("/api/v1/workouts/edit")
         .set("Cookie", `token=${authToken}`)
-        .send({});
+        .send({ ownerId: testUserId });
 
       expect(res.status).toBe(400);
       expect(res.body.errors).toBeDefined();
@@ -130,6 +135,7 @@ describe("Workouts API", () => {
       const invalidWorkout: Partial<IWorkoutEditDTO> = {
         name: "Invalid Type Workout",
         crudOperation: "create",
+        ownerId: testUserId,
         workoutExercises: [
           {
             order: 1,
@@ -158,6 +164,7 @@ describe("Workouts API", () => {
       const invalidWorkout: Partial<IWorkoutEditDTO> = {
         name: "Invalid ID Workout",
         crudOperation: "create",
+        ownerId: testUserId,
         workoutExercises: [
           {
             order: 1,
@@ -185,6 +192,7 @@ describe("Workouts API", () => {
       const invalidWorkout: Partial<IWorkoutEditDTO> = {
         name: "Invalid Order Workout",
         crudOperation: "create",
+        ownerId: testUserId,
         workoutExercises: [
           {
             order: 0, // Invalid order (must be >= 1)
@@ -212,6 +220,7 @@ describe("Workouts API", () => {
       const invalidWorkout: Partial<IWorkoutEditDTO> = {
         name: "High Order Workout",
         crudOperation: "create",
+        ownerId: testUserId,
         workoutExercises: [
           {
             order: 101, // Invalid order (must be <= 100)
@@ -248,6 +257,7 @@ describe("Workouts API", () => {
       const invalidWorkout: Partial<IWorkoutEditDTO> = {
         name: "Too Many Exercises Workout",
         crudOperation: "create",
+        ownerId: testUserId,
         workoutExercises,
       };
 
@@ -266,6 +276,8 @@ describe("Workouts API", () => {
       const workoutWithHtml: IWorkoutEditDTO = {
         name: "<script>alert('xss')</script>Malicious <b>Workout</b>",
         crudOperation: "create",
+        ownerId: testUserId,
+
         workoutExercises: [
           {
             order: 1,
@@ -297,6 +309,8 @@ describe("Workouts API", () => {
         notes:
           '<p>This is a <strong>great</strong> workout!</p><script>alert("hack")</script>',
         crudOperation: "create",
+        ownerId: testUserId,
+
         workoutExercises: [
           {
             order: 1,
@@ -326,6 +340,8 @@ describe("Workouts API", () => {
       const workoutWithWhitespace: IWorkoutEditDTO = {
         name: "   Spaced    Out     Workout   ",
         crudOperation: "create",
+        ownerId: testUserId,
+
         workoutExercises: [
           {
             order: 1,
@@ -353,6 +369,8 @@ describe("Workouts API", () => {
     it("should handle empty string after sanitization", async () => {
       const workoutWithOnlyHtml: IWorkoutEditDTO = {
         name: "<script></script><style></style>",
+        ownerId: testUserId,
+
         crudOperation: "create",
         workoutExercises: [
           {
@@ -380,6 +398,8 @@ describe("Workouts API", () => {
     it("should reject workout with missing credentials", async () => {
       const newWorkout: IWorkoutEditDTO = {
         name: "Unauthorized Workout",
+        ownerId: testUserId,
+
         crudOperation: "create",
         workoutExercises: [
           {
@@ -402,31 +422,122 @@ describe("Workouts API", () => {
   });
 
   describe("GET /api/v1/workouts", () => {
+    beforeAll(async () => {
+      const workoutsToCreate: IWorkoutEditDTO[] = [
+        {
+          name: "Cardio Blast",
+          notes: "A high-intensity cardio workout.",
+          crudOperation: "create",
+          ownerId: testUserId,
+
+          workoutExercises: [
+            {
+              order: 1,
+              exerciseData: {
+                type: testExercises.find((ex) => ex.type === "cardio")?.type!,
+                id: testExercises.find((ex) => ex.type === "cardio")?.id!,
+              },
+              crudOperation: "create",
+            },
+          ],
+        },
+        {
+          name: "Strength Builder",
+          notes: "Focus on building strength.",
+          isTemplate: true,
+          crudOperation: "create",
+          ownerId: testUserId,
+
+          workoutExercises: [
+            {
+              order: 1,
+              exerciseData: {
+                type: testExercises.find((ex) => ex.type === "strength")?.type!,
+                id: testExercises.find((ex) => ex.type === "strength")?.id!,
+              },
+              crudOperation: "create",
+            },
+          ],
+        },
+        {
+          name: "Morning Cardio",
+          notes: "A refreshing morning cardio workout.",
+          crudOperation: "create",
+          ownerId: testUserId,
+
+          workoutExercises: [
+            {
+              order: 1,
+              exerciseData: {
+                type: testExercises.find((ex) => ex.type === "cardio")?.type!,
+                id: testExercises.find((ex) => ex.type === "cardio")?.id!,
+              },
+              crudOperation: "create",
+            },
+          ],
+        },
+      ];
+      for (const workout of workoutsToCreate) {
+        const res = await request(app)
+          .post("/api/v1/workouts/edit")
+          .set("Cookie", `token=${authToken}`)
+          .send(workout);
+        testWorkouts.push(res.body.data);
+      }
+    });
+
     it("should return a list of workouts", async () => {
       const res = await request(app)
         .get("/api/v1/workouts")
         .set("Cookie", `token=${authToken}`);
 
       expect(res.status).toBe(200);
-      expect(Array.isArray(res.body)).toBe(true);
+      expect(Array.isArray(res.body.data)).toBe(true);
+      expect(res.body.data.length).toBeGreaterThanOrEqual(5);
     });
 
-    it("should filter workouts by name", async () => {
+    it("should filter workouts exercise by name", async () => {
       const res = await request(app)
         .get("/api/v1/workouts?exerciseName=cardio")
         .set("Cookie", `token=${authToken}`);
 
       expect(res.status).toBe(200);
-      expect(Array.isArray(res.body)).toBe(true);
+
+      const workoutsRes: IWorkoutDTO[] = res.body.data;
+      expect(Array.isArray(workoutsRes)).toBe(true);
+
+      expect(
+        workoutsRes.every((workout) =>
+          workout?.workoutExercises?.some((ex) =>
+            ex.exercise?.name?.toLowerCase().includes("cardio")
+          )
+        )
+      ).toBe(true);
     });
 
-    it("should filter workouts by template status", async () => {
+    it("should filter workouts by template status false", async () => {
       const res = await request(app)
         .get("/api/v1/workouts?isTemplate=false")
         .set("Cookie", `token=${authToken}`);
 
       expect(res.status).toBe(200);
-      expect(Array.isArray(res.body)).toBe(true);
+      const workoutsRes: IWorkoutDTO[] = res.body.data;
+      expect(Array.isArray(workoutsRes)).toBe(true);
+      expect(workoutsRes.every((workout) => workout.isTemplate === false)).toBe(
+        true
+      );
+    });
+    it("should filter workouts by template status true", async () => {
+      const res = await request(app)
+        .get("/api/v1/workouts?isTemplate=true")
+        .set("Cookie", `token=${authToken}`);
+
+      expect(res.status).toBe(200);
+      const workoutsRes: IWorkoutDTO[] = res.body.data;
+      expect(Array.isArray(workoutsRes)).toBe(true);
+      expect(workoutsRes.every((workout) => workout.isTemplate === true)).toBe(
+        true
+      );
     });
 
     it("should support pagination", async () => {
@@ -435,7 +546,9 @@ describe("Workouts API", () => {
         .set("Cookie", `token=${authToken}`);
 
       expect(res.status).toBe(200);
-      expect(res.body.length).toBeLessThanOrEqual(5);
+      const workoutsRes: IWorkoutDTO[] = res.body.data;
+      expect(Array.isArray(workoutsRes)).toBe(true);
+      expect(workoutsRes.length).toBeLessThanOrEqual(5);
     });
   });
 
@@ -447,6 +560,8 @@ describe("Workouts API", () => {
         name: "Workout To Get",
         notes: "A workout for getting by ID.",
         crudOperation: "create",
+        ownerId: testUserId,
+
         workoutExercises: [
           {
             order: 1,
@@ -498,6 +613,8 @@ describe("Workouts API", () => {
         name: "Workout To Update",
         notes: "A workout for updating purposes.",
         crudOperation: "create",
+        ownerId: testUserId,
+
         workoutExercises: [
           {
             order: 1,
@@ -533,6 +650,7 @@ describe("Workouts API", () => {
     it("should update workout name successfully", async () => {
       const updateData: IWorkoutEditDTO = {
         name: "Updated Workout Name",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -548,6 +666,7 @@ describe("Workouts API", () => {
     it("should update workout notes successfully", async () => {
       const updateData: IWorkoutEditDTO = {
         notes: "Updated workout notes",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -562,6 +681,7 @@ describe("Workouts API", () => {
     it("should update workout template status", async () => {
       const updateData: IWorkoutEditDTO = {
         isTemplate: true,
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -582,11 +702,14 @@ describe("Workouts API", () => {
       );
 
       const updateData: IWorkoutEditDTO = {
+        ownerId: testUserId,
+
         workoutExercises: [
           {
             id: strengthExercise?.id,
             notes: "Updated strength exercise",
             crudOperation: "update",
+
             order: 3,
             exerciseData: {
               id: testExercises[1].id!,
@@ -627,6 +750,7 @@ describe("Workouts API", () => {
     it("should sanitize HTML in updated workout name", async () => {
       const updateData: IWorkoutEditDTO = {
         name: "<script>alert('hack')</script>Updated <b>Workout</b>",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -642,6 +766,7 @@ describe("Workouts API", () => {
     it("should handle whitespace normalization on update", async () => {
       const updateData: IWorkoutEditDTO = {
         name: "   Updated    Workout   Name   ",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -656,6 +781,7 @@ describe("Workouts API", () => {
     it("should return 404 for updating a non-existent workout", async () => {
       const updateData: IWorkoutEditDTO = {
         name: "This will fail",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -669,6 +795,7 @@ describe("Workouts API", () => {
     it("should reject update with missing credentials", async () => {
       const updateData: IWorkoutEditDTO = {
         name: "This will fail without auth",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -681,6 +808,7 @@ describe("Workouts API", () => {
     it("should reject update with empty name after sanitization", async () => {
       const updateData: IWorkoutEditDTO = {
         name: "<script></script><style></style>",
+        ownerId: testUserId,
       };
 
       const res = await request(app)
@@ -699,6 +827,7 @@ describe("Workouts API", () => {
     it("should delete an existing workout", async () => {
       const workout: IWorkoutEditDTO = {
         name: "Workout To Be Deleted",
+        ownerId: testUserId,
         crudOperation: "create",
         workoutExercises: [
           {

@@ -20,6 +20,7 @@ export interface IExerciseDTO extends IExerciseBase {
   type?: TExerciseType | null;
   equipment?: TExerciseEquipment[];
   muscles?: TExerciseMuscle[];
+  ownerId: string | null;
 }
 
 export interface IExerciseFilter extends IBaseFilter {

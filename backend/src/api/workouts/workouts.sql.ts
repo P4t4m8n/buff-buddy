@@ -5,10 +5,10 @@ import { userSQL } from "../users/users.sql";
 import { workoutExerciseSQL } from "../workoutExercise/workoutExercise.sql";
 
 import type { Prisma } from "../../../prisma/generated/prisma";
-import type { TCreateWorkoutExerciseInput } from "../../../../shared/validations/workoutExercise.validations";
+import type { TWorkoutExerciseCreateValidatedInput } from "../../../../shared/validations/workoutExercise.validations";
 import type {
-  TCreateWorkoutInput,
-  TUpdateWorkoutInput,
+  TWorkoutCreateValidatedInput,
+  TWorkoutUpdateValidatedInput,
 } from "../../../../shared/validations/workout.validations";
 
 const WORKOUT_EXERCISE_SELECT: Prisma.WorkoutExerciseSelect = {
@@ -51,7 +51,7 @@ const WORKOUT_SELECT_SMALL: Partial<Prisma.WorkoutSelect> = {
 };
 
 const getWorkoutCreate = (
-  data?: TCreateWorkoutInput | null,
+  data?: TWorkoutCreateValidatedInput | null,
   userId?: string | null
 ): Prisma.WorkoutCreateInput => {
   return {
@@ -71,14 +71,14 @@ const getWorkoutCreate = (
 };
 
 const getWorkoutUpdate = (
-  data: TUpdateWorkoutInput
+  data: TWorkoutUpdateValidatedInput
 ): Prisma.WorkoutUpdateInput => {
   const { workoutExercises, ...workoutData } = data;
 
   const exercisesToCreate =
     (workoutExercises?.filter(
       (we) => we.crudOperation === "create"
-    ) as TCreateWorkoutExerciseInput[]) ?? [];
+    ) as TWorkoutExerciseCreateValidatedInput[]) ?? [];
   const exercisesToUpdate =
     workoutExercises?.filter((we) => we.crudOperation === "update") ?? [];
   const exercisesToDelete =

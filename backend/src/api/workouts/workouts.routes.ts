@@ -1,19 +1,15 @@
 import { Router } from "express";
 
-import {
-  getWorkouts,
-  getWorkoutById,
-  createWorkout,
-  updateWorkout,
-  deleteWorkout,
-} from "./workouts.controller";
+import { workoutsController } from "./workouts.controller";
+
+import { requireAuth } from "../../middlewares/auth.middleware";
 
 export const workoutRoutes = Router();
 
-workoutRoutes.get("/", getWorkouts);
-workoutRoutes.get("/:id", getWorkoutById);
+workoutRoutes.get("/", requireAuth, workoutsController.getAll);
+workoutRoutes.get("/:id", requireAuth, workoutsController.getById);
 
-workoutRoutes.post("/edit", createWorkout);
-workoutRoutes.put("/edit/:id", updateWorkout);
+workoutRoutes.post("/edit", requireAuth, workoutsController.create);
+workoutRoutes.put("/edit/:id", requireAuth, workoutsController.update);
 
-workoutRoutes.delete("/:id", deleteWorkout);
+workoutRoutes.delete("/:id", requireAuth, workoutsController.remove);

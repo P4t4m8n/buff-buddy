@@ -1,8 +1,5 @@
 import type { IBaseFilter } from "../../../../shared/models/app.model";
-import {
-  TWorkoutGoal,
-  TWorkoutLevel,
-} from "../../../../shared/models/program.model";
+
 import type {
   DaysOfWeek,
   WorkoutGoal,

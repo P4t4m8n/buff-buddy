@@ -1,8 +1,16 @@
 import { z } from "zod";
 
 import { validationUtil } from "./util.validation";
+
 import { userStrengthSetsValidation } from "./userStrengthSet.validation";
 import { userCardioSetsValidation } from "./userCardioSet.validation";
+
+import type { IToSanitize } from "../models/app.model";
+import type { IValidation } from "../models/validation.model";
+import type {
+  IUserWorkoutEditDTO,
+  IUserWorkoutFilter,
+} from "../models/userWorkout";
 
 const userSetRefinement = (
   data: {
@@ -36,6 +44,7 @@ const createUserWorkoutExerciseFactorySchema = ({
   return z
     .object({
       workoutExerciseId: validationUtil.IDSchemaFactory({ toSanitize: false }),
+
       userStrengthSets: z
         .array(
           userStrengthSetsValidation.createFactorySchema({
@@ -54,35 +63,41 @@ const createUserWorkoutExerciseFactorySchema = ({
     .superRefine(userSetRefinement);
 };
 
-const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const createFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
     id: validationUtil.IDSchemaFactory({ toSanitize }).optional(),
     dateCompleted: validationUtil.DateSchema.default(new Date()),
     programId: validationUtil.IDSchemaFactory({ toSanitize }),
     workoutId: validationUtil.IDSchemaFactory({ toSanitize }),
-    ownerId: validationUtil.IDSchemaFactory({ toSanitize }).optional(), //INFO: validation and sanitation done manually in the middleware and controller
+    ownerId: validationUtil.IDSchemaFactory({ toSanitize }).nullable(), //INFO: validation and sanitation done manually in the middleware and controller
     userWorkoutExercises: z.array(
       createUserWorkoutExerciseFactorySchema({ toSanitize })
     ),
   });
 };
 
-const updateFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const updateFactorySchema = ({ toSanitize }: IToSanitize) => {
   return createFactorySchema({ toSanitize }).partial();
 };
 
 const QuerySchema = validationUtil.FilterSchema;
 
-export const userWorkoutValidation = {
+export const userWorkoutValidation: IValidation<
+  IUserWorkoutEditDTO,
+  IUserWorkoutFilter,
+  TUserWorkoutCreateValidatedInput,
+  TUserWorkoutUpdateValidatedInput,
+  TUserWorkoutQuery
+> = {
   createFactorySchema,
   updateFactorySchema,
   QuerySchema,
 };
 
-export type TCreateUserWorkoutInput = z.infer<
+export type TUserWorkoutCreateValidatedInput = z.infer<
   ReturnType<typeof createFactorySchema>
 >;
-export type TUpdateUserWorkoutInput = z.infer<
+export type TUserWorkoutUpdateValidatedInput = z.infer<
   ReturnType<typeof updateFactorySchema>
 >;
-export type TUserWorkoutFilter = z.infer<typeof QuerySchema>;
+export type TUserWorkoutQuery = z.infer<typeof QuerySchema>;

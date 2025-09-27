@@ -47,6 +47,7 @@ describe("WorkoutPlanner API", () => {
         type: "strength",
         equipment: ["barbell"],
         muscles: ["quads", "glutes", "hamstrings", "lower_back"],
+        ownerId: testUserId,
       },
       {
         name: "strength 2",
@@ -54,6 +55,7 @@ describe("WorkoutPlanner API", () => {
         type: "strength",
         equipment: ["dumbbell"],
         muscles: ["biceps", "forearms"],
+        ownerId: testUserId,
       },
       {
         name: "strength 3",
@@ -61,6 +63,7 @@ describe("WorkoutPlanner API", () => {
         type: "strength",
         equipment: ["barbell"],
         muscles: ["quads", "glutes", "hamstrings", "lower_back"],
+        ownerId: testUserId,
       },
       {
         name: "strength 4",
@@ -68,6 +71,7 @@ describe("WorkoutPlanner API", () => {
         type: "strength",
         equipment: ["dumbbell"],
         muscles: ["biceps", "forearms"],
+        ownerId: testUserId,
       },
     ];
 
@@ -103,6 +107,8 @@ describe("WorkoutPlanner API", () => {
         name: "Full Body Test Workout 1",
         notes: "A workout for testing purposes.",
         crudOperation: "create",
+        ownerId: testUserId,
+
         workoutExercises: [
           {
             order: 1,
@@ -130,6 +136,8 @@ describe("WorkoutPlanner API", () => {
         name: "Full Body Test Workout 2 ",
         notes: "A workout for testing purposes.",
         crudOperation: "create",
+        ownerId: testUserId,
+
         workoutExercises: [
           {
             order: 1,
@@ -221,6 +229,8 @@ describe("WorkoutPlanner API", () => {
       notes: "3-day split for strength.",
       startDate: "2025-08-01",
       endDate: "2025-10-31",
+      ownerId: testUserId,
+
       isActive: true,
       programWorkouts: [
         {
@@ -470,7 +480,7 @@ describe("WorkoutPlanner API", () => {
 
         const userWorkoutRes = res.body.data as IUserWorkoutEditDTO;
 
-        userWorkoutRes.userWorkoutExercises[0].userStrengthSets
+        userWorkoutRes?.userWorkoutExercises?.[0].userStrengthSets
           ?.filter((uss) => !uss.isWarmup)
           .forEach((uss, idx) => expect(uss.goalSet?.reps).toBe(10 - idx));
       },
@@ -486,7 +496,7 @@ describe("WorkoutPlanner API", () => {
       expect(res.status).toBe(200);
       expect(res.body.message).toMatch("Workout start was successfully planed");
       const userWorkoutRes = res.body.data as IUserWorkoutEditDTO;
-      userWorkoutRes.userWorkoutExercises[0].userStrengthSets
+      userWorkoutRes.userWorkoutExercises?.[0].userStrengthSets
         ?.filter((uss) => !uss.isWarmup)
         .forEach((uss) => {
           expect(uss.goalSet?.reps).toBe(8);

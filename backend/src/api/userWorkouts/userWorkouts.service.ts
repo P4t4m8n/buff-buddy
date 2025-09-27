@@ -3,7 +3,7 @@ import { prisma } from "../../../prisma/prisma";
 import { userWorkoutSql } from "./userWorkout.sql";
 
 import type { IUserWorkout } from "./userWorkouts.model";
-import type { TCreateUserWorkoutInput } from "../../../../shared/validations/userWorkout.validations";
+import type { TUserWorkoutCreateValidatedInput } from "../../../../shared/validations/userWorkout.validations";
 
 const getLastUserWorkouts = async (
   workoutId: string,
@@ -24,7 +24,9 @@ const getLastUserWorkouts = async (
     select: userWorkoutSql.USER_WORKOUT_SELECT,
   });
 };
-const create = async (dto: TCreateUserWorkoutInput): Promise<IUserWorkout> => {
+const create = async (
+  dto: TUserWorkoutCreateValidatedInput
+): Promise<IUserWorkout> => {
   return (await prisma.userWorkout.create({
     data: userWorkoutSql.getCreateUserWork(dto),
     select: userWorkoutSql.USER_WORKOUT_SELECT,

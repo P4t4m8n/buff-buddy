@@ -1,19 +1,20 @@
 import { prisma } from "../../../prisma/prisma";
 
-import { workoutUtil } from "./workout.util";
-import { workoutSQL } from "./workout.sql";
+import { workoutUtil } from "./workouts.util";
+import { workoutSQL } from "./workouts.sql";
 
 import type { Prisma, Workout } from "../../../prisma/generated/prisma";
 import type { IWorkout } from "./workouts.models";
 import type {
-  TCreateWorkoutInput,
-  TUpdateWorkoutInput,
+  TWorkoutCreateValidatedInput,
+  TWorkoutUpdateValidatedInput,
   TWorkoutQuery,
 } from "../../../../shared/validations/workout.validations";
+import { IApiService } from "../../shared/models/server.model";
 
 const get = async (
   filter: TWorkoutQuery,
-  userId: string
+  userId?: string
 ): Promise<IWorkout[]> => {
   const where: Prisma.WorkoutWhereInput = workoutUtil.buildWhereClause(
     filter,
@@ -30,16 +31,13 @@ const get = async (
     select: workoutSQL.WORKOUT_SELECT,
   });
 };
-const getById = async (
-  id: string,
-  userId: string
-): Promise<IWorkout | null> => {
+const getById = async (id: string): Promise<IWorkout | null> => {
   return prisma.workout.findUnique({
-    where: { id, ownerId: userId },
+    where: { id },
     select: workoutSQL.WORKOUT_SELECT,
   });
 };
-const create = async (dto: TCreateWorkoutInput): Promise<IWorkout> => {
+const create = async (dto: TWorkoutCreateValidatedInput): Promise<IWorkout> => {
   return prisma.workout.create({
     data: workoutSQL.getWorkoutCreate(dto, dto?.ownerId),
     select: workoutSQL.WORKOUT_SELECT,
@@ -47,7 +45,7 @@ const create = async (dto: TCreateWorkoutInput): Promise<IWorkout> => {
 };
 const update = async (
   id: string,
-  dto: TUpdateWorkoutInput
+  dto: TWorkoutUpdateValidatedInput
 ): Promise<IWorkout> => {
   return await prisma.workout.update({
     where: { id },
@@ -55,9 +53,14 @@ const update = async (
     select: workoutSQL.WORKOUT_SELECT,
   });
 };
-const remove = async (id: string): Promise<Workout> => {
+const remove = async (id: string): Promise<void | null | IWorkout> => {
   return prisma.workout.delete({
     where: { id },
   });
 };
-export const workoutsService = { get, getById, create, update, remove };
+export const workoutsService: IApiService<
+  IWorkout,
+  TWorkoutCreateValidatedInput,
+  TWorkoutUpdateValidatedInput,
+  TWorkoutQuery
+> = { get, getById, create, update, remove };

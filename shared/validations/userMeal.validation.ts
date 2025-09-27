@@ -1,7 +1,10 @@
-import type { IToSanitize } from "../models/app.model";
 import { z } from "zod";
+
 import { validationUtil } from "./util.validation";
+
 import { MEAL_TYPES } from "../consts/meal.consts";
+
+import type { IToSanitize } from "../models/app.model";
 
 const createFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
@@ -38,11 +41,11 @@ export const userMealValidation = {
   QuerySchema,
 };
 
-export type TCreateUserMealInput = z.infer<
+export type TUserMealCreateValidatedInput = z.infer<
   ReturnType<typeof createFactorySchema>
 >;
 
-export type TUpdateUserMealInput = z.infer<
+export type TUserMealUpdateValidatedInput = z.infer<
   ReturnType<typeof updateFactorySchema>
 >;
 

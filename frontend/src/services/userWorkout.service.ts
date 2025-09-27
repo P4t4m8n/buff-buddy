@@ -1,25 +1,26 @@
 import type {
   IUserWorkoutDTO,
   IUserWorkoutEditDTO,
+  IUserWorkoutFilter,
 } from "../../../shared/models/userWorkout";
-import type { THttpResponse } from "../models/apiService.model";
 import { userWorkoutValidation } from "../../../shared/validations/userWorkout.validations";
-import { apiService } from "./api.service";
+import type {
+  TUserWorkoutCreateValidatedInput,
+  TUserWorkoutUpdateValidatedInput,
+  TUserWorkoutQuery,
+} from "../../../shared/validations/userWorkout.validations";
+import { genericServiceFactory } from "./generic.service";
 
-const ROOT_PATH = "/user-workouts";
+const rootPath = "/user-workouts" as const;
 
-const save = async (
-  dto?: IUserWorkoutEditDTO | null
-): Promise<THttpResponse<IUserWorkoutDTO>> => {
-  const validatedDTO = userWorkoutValidation
-    .createFactorySchema({ toSanitize: false })
-    .parse(dto);
-
-  return await apiService.post<THttpResponse<IUserWorkoutDTO>>(
-    `${ROOT_PATH}`,
-    validatedDTO
-  );
-};
-export const userWorkoutService = {
-  save,
-};
+export const userWorkoutService = genericServiceFactory<
+  IUserWorkoutDTO,
+  IUserWorkoutEditDTO,
+  IUserWorkoutFilter,
+  TUserWorkoutCreateValidatedInput,
+  TUserWorkoutUpdateValidatedInput,
+  TUserWorkoutQuery
+>({
+  rootPath,
+  validation: userWorkoutValidation,
+});

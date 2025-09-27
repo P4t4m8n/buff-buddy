@@ -1,5 +1,5 @@
 import { userUtil } from "../users/user.util";
-import { workoutUtil } from "../workouts/workout.util";
+import { workoutUtil } from "../workouts/workouts.util";
 
 import type { IProgramDTO } from "../../../../shared/models/program.model";
 import type { Prisma } from "../../../prisma/generated/prisma";
@@ -7,7 +7,7 @@ import type { IProgram, IProgramFilter } from "./programs.models";
 
 const buildWhereClause = (
   filter: IProgramFilter,
-  userId: string
+  userId?: string
 ): Prisma.ProgramWhereInput => {
   const where: Prisma.ProgramWhereInput = {};
 

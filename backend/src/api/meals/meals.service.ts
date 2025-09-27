@@ -5,8 +5,8 @@ import { mealsSQL } from "./meals.sql";
 
 import type { IMealDTO } from "../../../../shared/models/meal.model";
 import type {
-  TCreateMealInput,
-  TUpdateMealInput,
+  TMealCreateValidatedInput,
+  TMealUpdateValidatedInput,
   TMealQuery,
 } from "../../../../shared/validations/meal.validations";
 import type { Meal } from "../../../prisma/generated/prisma";
@@ -32,14 +32,14 @@ const getById = async (mealId: string) => {
   });
 };
 
-const create = async (dto: TCreateMealInput): Promise<IMealDTO> => {
+const create = async (dto: TMealCreateValidatedInput): Promise<IMealDTO> => {
   return await prisma.meal.create({
     data: mealsSQL.getMealCreate(dto),
     select: mealsSQL.MEALS_SELECT,
   });
 };
 
-const update = async (dto: TUpdateMealInput): Promise<IMealDTO> => {
+const update = async (dto: TMealUpdateValidatedInput): Promise<IMealDTO> => {
   return await prisma.meal.update({
     where: { id: dto.id },
     data: mealsSQL.getMealUpdate(dto),

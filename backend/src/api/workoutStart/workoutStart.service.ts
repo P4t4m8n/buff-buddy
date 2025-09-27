@@ -1,4 +1,4 @@
-import { workoutUtil } from "../workouts/workout.util";
+import { workoutUtil } from "../workouts/workouts.util";
 import { getTempId } from "../../../../shared/utils/getTempId";
 
 import type {

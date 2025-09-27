@@ -1,8 +1,8 @@
 import type { Prisma } from "../../../../prisma/generated/prisma";
-import type { TCreateUserCardioSetInput } from "../../../../../shared/validations/userCardioSet.validation";
+import type { TUserCardioSetCreateValidatedInput } from "../../../../../shared/validations/userCardioSet.validation";
 
 const getCreateUserCardioSet = (
-  dto: TCreateUserCardioSetInput
+  dto: TUserCardioSetCreateValidatedInput
 ): Prisma.UserCardioSetCreateInput => {
   return {
     workTime: dto.workTime,

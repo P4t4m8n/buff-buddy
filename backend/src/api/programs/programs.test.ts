@@ -1,12 +1,14 @@
 import request from "supertest";
+
 import { app } from "../../server";
-import {
+
+import type {
   IProgramDTO,
   IProgramEditDTO,
 } from "../../../../shared/models/program.model";
-import { IAuthSignUpDTO } from "../../../../shared/models/auth.model";
-import { IExerciseDTO } from "../../../../shared/models/exercise.model";
-import {
+import type { IAuthSignUpDTO } from "../../../../shared/models/auth.model";
+import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
+import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
 } from "../../../../shared/models/workout.model";
@@ -39,6 +41,7 @@ describe("Programs API", () => {
         type: "cardio",
         equipment: ["cable_machine"],
         muscles: ["chest", "triceps", "abductors"],
+        ownerId: testUserId,
       },
       {
         name: "strength 1",
@@ -46,6 +49,7 @@ describe("Programs API", () => {
         type: "strength",
         equipment: ["barbell"],
         muscles: ["quads", "glutes", "hamstrings", "lower_back"],
+        ownerId: testUserId,
       },
       {
         name: "strength 2",
@@ -53,6 +57,7 @@ describe("Programs API", () => {
         type: "strength",
         equipment: ["dumbbell"],
         muscles: ["biceps", "forearms"],
+        ownerId: testUserId,
       },
       {
         name: "cardio 2",
@@ -60,6 +65,7 @@ describe("Programs API", () => {
         type: "cardio",
         equipment: ["air_bike"],
         muscles: ["triceps", "abs", "rotator_cuff"],
+        ownerId: testUserId,
       },
     ];
 
@@ -75,6 +81,8 @@ describe("Programs API", () => {
       name: "Full Body Test Workout",
       notes: "A workout for testing purposes.",
       crudOperation: "create",
+      ownerId: testUserId,
+
       workoutExercises: [
         {
           order: 1,
@@ -99,6 +107,7 @@ describe("Programs API", () => {
   describe("POST /api/v1/programs/edit", () => {
     it("should create a new program successfully", async () => {
       const newProgram: IProgramEditDTO = {
+        ownerId: testUserId,
         name: "My New Lifting Program",
         notes: "3-day split for strength.",
         startDate: "2025-08-01",
@@ -140,6 +149,7 @@ describe("Programs API", () => {
 
     it("should reject program if end date is before start date", async () => {
       const invalidProgram: IProgramEditDTO = {
+        ownerId: testUserId,
         name: "Invalid Date Program",
         startDate: "2025-10-31",
         endDate: "2025-08-01",
@@ -172,7 +182,7 @@ describe("Programs API", () => {
       const res = await request(app)
         .post("/api/v1/programs/edit")
         .set("Cookie", `token=${authToken}`)
-        .send({ name: "Only a name" });
+        .send({ name: "Only a name", ownerId: testUserId });
 
       expect(res.status).toBe(400);
       expect(res.body).toHaveProperty("errors");
@@ -186,6 +196,7 @@ describe("Programs API", () => {
         name: "Invalid Goal Program",
         startDate: "2025-08-01",
         endDate: "2025-10-31",
+        ownerId: testUserId,
         programWorkouts: [
           {
             workout: { id: testWorkouts[0].id },
@@ -214,6 +225,7 @@ describe("Programs API", () => {
         name: "Invalid Level Program",
         startDate: "2025-08-01",
         endDate: "2025-10-31",
+        ownerId: testUserId,
         programWorkouts: [
           {
             workout: { id: testWorkouts[0].id },
@@ -242,6 +254,7 @@ describe("Programs API", () => {
         name: "Invalid Days Program",
         startDate: "2025-08-01",
         endDate: "2025-10-31",
+        ownerId: testUserId,
         programWorkouts: [
           {
             workout: { id: testWorkouts[0].id },
@@ -268,6 +281,7 @@ describe("Programs API", () => {
         name: "No Workouts Program",
         startDate: "2025-08-01",
         endDate: "2025-10-31",
+        ownerId: testUserId,
         programWorkouts: [],
       };
 
@@ -287,6 +301,7 @@ describe("Programs API", () => {
         name: "<script>alert('xss')</script>Malicious <b>Program</b>",
         startDate: "2025-08-01",
         endDate: "2025-10-31",
+        ownerId: testUserId,
         programWorkouts: [
           {
             workout: { id: testWorkouts[0].id },
@@ -314,6 +329,7 @@ describe("Programs API", () => {
     it("should sanitize HTML in program notes", async () => {
       const programWithHtmlNotes: IProgramEditDTO = {
         name: "Test Program",
+        ownerId: testUserId,
         notes:
           '<p>This is a <strong>great</strong> program!</p><script>alert("hack")</script>',
         startDate: "2025-08-01",
@@ -347,6 +363,7 @@ describe("Programs API", () => {
         name: "   Spaced    Out     Program   ",
         startDate: "2025-08-01",
         endDate: "2025-10-31",
+        ownerId: testUserId,
         programWorkouts: [
           {
             workout: { id: testWorkouts[0].id },
@@ -375,6 +392,7 @@ describe("Programs API", () => {
         name: "<script></script><style></style>",
         startDate: "2025-08-01",
         endDate: "2025-10-31",
+        ownerId: testUserId,
         programWorkouts: [
           {
             workout: { id: testWorkouts[0].id },
@@ -402,6 +420,7 @@ describe("Programs API", () => {
         name: "Unauthorized Program",
         startDate: "2025-08-01",
         endDate: "2025-10-31",
+        ownerId: testUserId,
         programWorkouts: [
           {
             workout: { id: testWorkouts[0].id },
@@ -471,6 +490,7 @@ describe("Programs API", () => {
 
     beforeAll(async () => {
       const program: IProgramEditDTO = {
+        ownerId: testUserId,
         name: "Program To Get",
         startDate: "2025-01-01",
         endDate: "2025-02-01",
@@ -520,6 +540,7 @@ describe("Programs API", () => {
 
     beforeEach(async () => {
       const program: IProgramEditDTO = {
+        ownerId: testUserId,
         name: "Program To Update",
         startDate: "2025-03-01",
         endDate: "2025-04-01",
@@ -549,6 +570,7 @@ describe("Programs API", () => {
 
     it("should update program name successfully", async () => {
       const updateData: IProgramEditDTO = {
+        ownerId: testUserId,
         name: "Updated Program Name",
       };
 
@@ -564,6 +586,7 @@ describe("Programs API", () => {
 
     it("should update program notes successfully", async () => {
       const updateData: IProgramEditDTO = {
+        ownerId: testUserId,
         notes: "This program has been updated.",
       };
 
@@ -578,6 +601,7 @@ describe("Programs API", () => {
 
     it("should update program active status successfully", async () => {
       const updateData: IProgramEditDTO = {
+        ownerId: testUserId,
         isActive: false,
       };
 
@@ -592,6 +616,7 @@ describe("Programs API", () => {
 
     it("should update program dates successfully", async () => {
       const updateData: IProgramEditDTO = {
+        ownerId: testUserId,
         startDate: "2025-05-01",
         endDate: "2025-06-01",
       };
@@ -610,6 +635,7 @@ describe("Programs API", () => {
 
     it("should update an existing programWorkout", async () => {
       const updateData: IProgramEditDTO = {
+        ownerId: testUserId,
         programWorkouts: [
           {
             id: programData!.programWorkouts![0].id,
@@ -636,6 +662,7 @@ describe("Programs API", () => {
 
     it("should sanitize HTML in updated program name", async () => {
       const updateData: IProgramEditDTO = {
+        ownerId: testUserId,
         name: "<script>alert('hack')</script>Updated <b>Program</b>",
       };
 
@@ -651,6 +678,7 @@ describe("Programs API", () => {
 
     it("should reject update with invalid date range", async () => {
       const updateData: IProgramEditDTO = {
+        ownerId: testUserId,
         startDate: "2025-10-31",
         endDate: "2025-08-01",
       };
@@ -668,6 +696,7 @@ describe("Programs API", () => {
 
     it("should handle whitespace normalization on update", async () => {
       const updateData: IProgramEditDTO = {
+        ownerId: testUserId,
         name: "   Updated    Program   Name   ",
       };
 
@@ -682,6 +711,7 @@ describe("Programs API", () => {
 
     it("should return 404 for updating a non-existent program", async () => {
       const updateData: IProgramEditDTO = {
+        ownerId: testUserId,
         name: "This will fail",
       };
 
@@ -695,6 +725,7 @@ describe("Programs API", () => {
 
     it("should reject update with missing credentials", async () => {
       const updateData: IProgramEditDTO = {
+        ownerId: testUserId,
         name: "This will fail without auth",
       };
 
@@ -709,6 +740,7 @@ describe("Programs API", () => {
   describe("DELETE /api/v1/programs/:id", () => {
     it("should delete an existing program", async () => {
       const program: IProgramEditDTO = {
+        ownerId: testUserId,
         name: "Program To Delete",
         startDate: "2025-05-01",
         endDate: "2025-06-01",
@@ -753,6 +785,7 @@ describe("Programs API", () => {
       expect(res.status).toBe(404);
     });
   });
+
   afterAll(async () => {
     for (const { id } of testPrograms) {
       if (!id) continue;

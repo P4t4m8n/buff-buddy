@@ -2,8 +2,8 @@ import { dbUtil } from "../../shared/utils/db.util";
 
 import type { IFoodItemInfoEditBase } from "../../../../shared/models/foodItem.model";
 import type {
-  TCreateFoodItemInput,
-  TUpdateFoodItemInput,
+  TFoodItemCreateValidatedInput,
+  TFoodItemUpdateValidatedInput,
 } from "../../../../shared/validations/foodItem.validation";
 import type { Prisma } from "../../../prisma/generated/prisma";
 
@@ -28,7 +28,7 @@ const FOOD_ITEM_SQL: Prisma.FoodItemSelect = {
 };
 
 const getFoodItemCreate = (
-  dto: TCreateFoodItemInput
+  dto: TFoodItemCreateValidatedInput
 ): Prisma.FoodItemCreateInput => {
   const baseInput: Prisma.FoodItemCreateInput = {
     name: dto.name,
@@ -114,7 +114,7 @@ const handleFoodItemInfoUpdate = (
 };
 
 const getFoodItemUpdate = (
-  dto: TUpdateFoodItemInput
+  dto: TFoodItemUpdateValidatedInput
 ): Prisma.FoodItemUpdateInput => {
   const baseInput: Prisma.FoodItemUpdateInput = dbUtil.cleanData({
     name: dto.name,

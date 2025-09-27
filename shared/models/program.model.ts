@@ -24,6 +24,7 @@ export interface IProgramDTO extends IProgramBase {
 
 export interface IProgramEditDTO extends IProgramBase {
   programWorkouts?: IProgramWorkoutEditDTO[];
+  ownerId: string | null;
 }
 
 export interface IProgramFilter extends IBaseFilter {

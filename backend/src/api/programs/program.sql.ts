@@ -1,14 +1,14 @@
 import { userSQL } from "../users/users.sql";
-import { workoutSQL } from "../workouts/workout.sql";
+import { workoutSQL } from "../workouts/workouts.sql";
 
 import type { DaysOfWeek, Prisma } from "../../../prisma/generated/prisma";
 import type {
-  TCreateProgramInput,
-  TUpdateProgramInput,
+  TProgramCreateValidatedInput,
+  TProgramUpdateValidatedInput,
 } from "../../../../shared/validations/program.validations";
-import type { TCreateProgramWorkoutInput } from "../../../../shared/validations/programWorkout.validations";
+import type { TProgramWorkoutCreateValidatedInput } from "../../../../shared/validations/programWorkout.validations";
 import { dbUtil } from "../../shared/utils/db.util";
-import { TCreateWorkoutInput } from "../../../../shared/validations/workout.validations";
+import { TWorkoutCreateValidatedInput } from "../../../../shared/validations/workout.validations";
 
 const PROGRAM_WORKOUTS_SELECT: Prisma.ProgramWorkoutSelect = {
   id: true,
@@ -43,7 +43,7 @@ const PROGRAM_SELECT = {
 };
 
 const getProgramWorkoutCreate = (
-  dto: TCreateProgramWorkoutInput,
+  dto: TProgramWorkoutCreateValidatedInput,
   userId: string
 ): Prisma.ProgramWorkoutCreateWithoutProgramInput => {
   const workoutCreateData: Prisma.WorkoutCreateInput = {
@@ -79,8 +79,7 @@ const getProgramWorkoutCreate = (
 };
 
 const getProgramCreate = (
-  dto: TCreateProgramInput,
-  userId: string
+  dto: TProgramCreateValidatedInput
 ): Prisma.ProgramCreateInput => {
   return {
     name: dto.name,
@@ -89,11 +88,11 @@ const getProgramCreate = (
     startDate: dto.startDate,
     endDate: dto.endDate,
     owner: {
-      connect: { id: userId },
+      connect: { id: dto.ownerId! },
     },
     programWorkouts: {
       create: (dto.programWorkouts ?? []).map((w) =>
-        getProgramWorkoutCreate(w, userId)
+        getProgramWorkoutCreate(w, dto.ownerId!)
       ),
     },
   };
@@ -103,8 +102,8 @@ const getProgramUpdate = ({
   dto,
   userId,
 }: {
-  dto: TUpdateProgramInput;
-  userId: string;
+  dto: TProgramUpdateValidatedInput;
+  userId?: string;
 }) => {
   const programData = dbUtil.cleanData({
     name: dto.name,
@@ -133,7 +132,7 @@ const getProgramUpdate = ({
           connectOrCreate: {
             where: { id: wo?.workout?.id },
             create: workoutSQL.getWorkoutCreate(
-              wo?.workout as TCreateWorkoutInput,
+              wo?.workout as TWorkoutCreateValidatedInput,
               userId
             ),
           },
@@ -147,7 +146,7 @@ const getProgramUpdate = ({
             connectOrCreate: {
               where: { id: wo?.workout?.id },
               create: workoutSQL.getWorkoutCreate(
-                wo?.workout as TCreateWorkoutInput,
+                wo?.workout as TWorkoutCreateValidatedInput,
                 userId
               ),
             },

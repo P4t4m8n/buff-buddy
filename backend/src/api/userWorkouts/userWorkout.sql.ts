@@ -4,7 +4,7 @@ import { userCardioSetsSQL } from "../userSets/userCardioSets/userCardioSets.sql
 import { userStrengthSetsSQL } from "../userSets/userStrengthSets/userStrengthSets.sql";
 
 import type { Prisma } from "../../../prisma/generated/prisma";
-import type { TCreateUserWorkoutInput } from "../../../../shared/validations/userWorkout.validations";
+import type { TUserWorkoutCreateValidatedInput } from "../../../../shared/validations/userWorkout.validations";
 
 const USER_WORKOUT_EXERCISE_SELECT: Prisma.UserWorkoutExerciseSelect = {
   id: true,
@@ -70,13 +70,13 @@ const USER_WORKOUT_SELECT = {
 };
 
 const getCreateUserWork = (
-  dto: TCreateUserWorkoutInput
+  dto: TUserWorkoutCreateValidatedInput
 ): Prisma.UserWorkoutCreateInput => {
   return {
     dateCompleted: dto.dateCompleted,
     owner: {
       connect: {
-        id: dto.ownerId,
+        id: dto.ownerId!,
       },
     },
     program: {

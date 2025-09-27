@@ -46,6 +46,7 @@ describe("UserWorkout API", () => {
         type: "strength",
         equipment: ["barbell"],
         muscles: ["quads", "glutes", "hamstrings", "lower_back"],
+        ownerId: testUserId,
       },
       {
         name: "strength 2",
@@ -53,6 +54,7 @@ describe("UserWorkout API", () => {
         type: "strength",
         equipment: ["dumbbell"],
         muscles: ["biceps", "forearms"],
+        ownerId: testUserId,
       },
     ];
 
@@ -63,6 +65,7 @@ describe("UserWorkout API", () => {
         type: "cardio",
         equipment: ["cable_machine"],
         muscles: ["chest", "triceps", "abductors"],
+        ownerId: testUserId,
       },
       {
         name: "cardio 2",
@@ -70,6 +73,7 @@ describe("UserWorkout API", () => {
         type: "cardio",
         equipment: ["air_bike"],
         muscles: ["triceps", "abs", "rotator_cuff"],
+        ownerId: testUserId,
       },
     ];
 
@@ -94,6 +98,7 @@ describe("UserWorkout API", () => {
         name: "Strength Test Workout",
         notes: "A workout for testing strength exercises.",
         crudOperation: "create",
+        ownerId: testUserId,
         workoutExercises: [
           {
             order: 1,
@@ -123,6 +128,7 @@ describe("UserWorkout API", () => {
         name: "Cardio Test Workout",
         notes: "A workout for testing cardio exercises.",
         crudOperation: "create",
+        ownerId: testUserId,
         workoutExercises: [
           {
             order: 1,
@@ -161,19 +167,20 @@ describe("UserWorkout API", () => {
       notes: "Program for testing user workouts.",
       startDate: "2025-08-01",
       endDate: "2025-10-31",
+      ownerId: testUserId,
       isActive: true,
       programWorkouts: [
         {
           daysOfWeek: ["monday", "friday"],
           crudOperation: "create",
-          workout: { id: testWorkouts[0].id },
+          workout: { id: testWorkouts[0].id, ownerId: testUserId },
           workoutLevel: "beginner",
           workoutGoal: "hypertrophy",
         },
         {
           daysOfWeek: ["wednesday"],
           crudOperation: "create",
-          workout: { id: testWorkouts[1].id },
+          workout: { id: testWorkouts[1].id, ownerId: testUserId },
           workoutLevel: "beginner",
           workoutGoal: "hypertrophy",
         },

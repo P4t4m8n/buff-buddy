@@ -1,157 +1,33 @@
-import { AppError } from "../../shared/services/Error.service";
 import { programsService } from "./programs.service";
 
-import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
-import { programsUtil } from "./programs.util";
 import { programValidation } from "../../../../shared/validations/program.validations";
 
-import type { Request, Response } from "express";
-import { validationUtil } from "../../../../shared/validations/util.validation";
+import { genericControllerFactory } from "../../shared/generics/genericControllerFactory";
 
-export const getPrograms = async (req: Request, res: Response) => {
-  try {
-    const filter = programValidation.QuerySchema.parse(req.query);
+import type {
+  TProgramCreateValidatedInput,
+  TProgramQuery,
+  TProgramUpdateValidatedInput,
+} from "../../../../shared/validations/program.validations";
 
-    const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
+import type {
+  IProgramDTO,
+  IProgramEditDTO,
+  IProgramFilter,
+} from "../../../../shared/models/program.model";
+import type { IProgram } from "./programs.models";
 
-    if (!userId) {
-      throw new AppError("User not authenticated", 401);
-    }
-
-    const programsData = await programsService.get(filter, userId!);
-
-    const programs = programsUtil.buildDTOArr(programsData);
-
-    res.status(200).json({
-      message: "Program successfully found",
-      data: programs,
-    });
-  } catch (error) {
-    const { status, message, errors } = AppError.handleResponse(error);
-    res.status(status).json({
-      message,
-      errors,
-    });
-  }
-};
-
-export const getProgramById = async (req: Request, res: Response) => {
-  try {
-    const validateId = validationUtil
-      .IDSchemaFactory({ toSanitize: true })
-      .parse(req.params);
-    const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
-
-    if (!userId) {
-      throw new AppError("User not authenticated", 401);
-    }
-
-    const programData = await programsService.getById(validateId, userId);
-
-    if (!programData) {
-      throw new AppError("Program not found", 404);
-    }
-
-    const program = programsUtil.buildDTO(programData);
-
-    res.status(200).json({
-      message: "Program successfully found",
-      data: program,
-    });
-  } catch (error) {
-    const { status, message, errors } = AppError.handleResponse(error);
-    res.status(status).json({
-      message,
-      errors,
-    });
-  }
-};
-
-export const createProgram = async (req: Request, res: Response) => {
-  try {
-    const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
-
-    if (!userId) {
-      throw new AppError("User not authenticated", 401);
-    }
-    const invalidatedData = req.body;
-
-    invalidatedData.userId = userId;
-
-    const validatedData = programValidation
-      .createFactorySchema({ toSanitize: true })
-      .parse(invalidatedData);
-
-    const programData = await programsService.create(validatedData, userId);
-
-    const program = programsUtil.buildDTO(programData);
-
-    res.status(201).json({
-      message: "Program created successfully",
-      data: program,
-    });
-  } catch (error) {
-    const { status, message, errors } = AppError.handleResponse(error);
-    res.status(status).json({
-      message,
-      errors,
-    });
-  }
-};
-
-export const updateProgram = async (req: Request, res: Response) => {
-  try {
-    const validateId = validationUtil
-      .IDSchemaFactory({ toSanitize: true })
-      .parse(req.params);
-    const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
-
-    if (!userId) {
-      throw new AppError("User not authenticated", 401);
-    }
-
-    const validatedData = programValidation
-      .updateFactorySchema({ toSanitize: true })
-      .parse(req.body);
-
-    const programData = await programsService.update(
-      validateId,
-      validatedData,
-      userId
-    );
-
-    const program = programsUtil.buildDTO(programData);
-
-    res.status(200).json({
-      message: "Program updated successfully",
-      data: program,
-    });
-  } catch (error) {
-    const { status, message, errors } = AppError.handleResponse(error);
-    res.status(status).json({
-      message,
-      errors,
-    });
-  }
-};
-
-export const deleteProgram = async (req: Request, res: Response) => {
-  try {
-    const validateId = validationUtil
-      .IDSchemaFactory({ toSanitize: true })
-      .parse(req.params);
-      
-    await programsService.remove(validateId);
-
-    res.status(200).json({
-      message: "Program deleted successfully",
-      data: null,
-    });
-  } catch (error) {
-    const { status, message, errors } = AppError.handleResponse(error);
-    res.status(status).json({
-      message,
-      errors,
-    });
-  }
-};
+export const programsController = genericControllerFactory<
+  IProgramDTO,
+  IProgramEditDTO,
+  IProgramFilter,
+  TProgramCreateValidatedInput,
+  TProgramUpdateValidatedInput,
+  TProgramQuery,
+  IProgram
+>({
+  service: programsService,
+  validation: programValidation,
+  entityName: "Program",
+  isAuth: true,
+});

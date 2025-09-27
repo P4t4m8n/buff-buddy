@@ -171,6 +171,7 @@ model User {
   userWorkout  UserWorkout[]
   meals        Meal[]
   userMeals    UserMeal[]
+  exercises    Exercise[]
   imgUrl       String?
   isAdmin      Boolean       @default(false)
   createdAt    DateTime      @default(now())
@@ -186,6 +187,8 @@ model Exercise {
   equipment        ExerciseEquipment[]
   muscles          ExerciseMuscle[]
   workoutExercises WorkoutExercise[]
+  ownerId          String?
+  owner            User?               @relation(fields: [ownerId], references: [id], onDelete: SetNull)
   createdAt        DateTime            @default(now())
   updatedAt        DateTime            @updatedAt
 }

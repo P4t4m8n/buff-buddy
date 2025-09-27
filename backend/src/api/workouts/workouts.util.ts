@@ -7,7 +7,7 @@ import type { TWorkoutQuery } from "../../../../shared/validations/workout.valid
 
 const buildWhereClause = (
   filter: TWorkoutQuery,
-  userId: string
+  userId?: string
 ): Prisma.WorkoutWhereInput => {
   const where: Prisma.WorkoutWhereInput = {};
 
@@ -40,9 +40,7 @@ const buildWhereClause = (
     };
   }
 
-  if (filter.isTemplate) {
-    where.isTemplate = true;
-  }
+  where.isTemplate = filter.isTemplate ?? false;
 
   where.ownerId = userId;
   return where;

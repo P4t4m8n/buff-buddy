@@ -2,14 +2,16 @@ import { z } from "zod";
 
 import { validationUtil } from "./util.validation";
 import { workoutExerciseValidation } from "./workoutExercise.validations";
+
 import type { IValidation } from "../models/validation.model";
 import type { IWorkoutEditDTO, IWorkoutFilter } from "../models/workout.model";
+import type { IToSanitize } from "../models/app.model";
 
-const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const createFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
     programId: z.string().nullish(),
 
-    ownerId: z.string().nullish(),
+    ownerId: validationUtil.IDSchemaFactory({ toSanitize: true }).nullable(),
 
     isTemplate: z.coerce.boolean(),
 
@@ -49,7 +51,7 @@ const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   });
 };
 
-const updateFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const updateFactorySchema = ({ toSanitize }: IToSanitize) => {
   return createFactorySchema({ toSanitize })
     .extend({
       workoutExercises: z
@@ -66,11 +68,12 @@ const updateFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
     .partial();
 };
 
-const QuerySchema = z.object({
+const QuerySchema = validationUtil.FilterSchema.extend({
   programId: z.string().optional(),
   programName: z.string().optional(),
   exerciseName: z.string().optional(),
   ownerName: z.string().optional(),
+  name: z.string().optional(),
   userId: z.string().optional(),
   exerciseId: z.string().optional(),
   date: z.string().optional(),
@@ -78,15 +81,13 @@ const QuerySchema = z.object({
     .string()
     .transform((val) => val === "true")
     .optional(),
-  skip: z.coerce.number().min(0).optional(),
-  take: z.coerce.number().min(1).optional(),
 });
 
 export const workoutValidation: IValidation<
   IWorkoutEditDTO,
   IWorkoutFilter,
-  TCreateWorkoutInput,
-  TUpdateWorkoutInput,
+  TWorkoutCreateValidatedInput,
+  TWorkoutUpdateValidatedInput,
   TWorkoutQuery
 > = {
   createFactorySchema,
@@ -94,10 +95,10 @@ export const workoutValidation: IValidation<
   QuerySchema,
 };
 
-export type TCreateWorkoutInput = z.infer<
+export type TWorkoutCreateValidatedInput = z.infer<
   ReturnType<typeof createFactorySchema>
 >;
-export type TUpdateWorkoutInput = z.infer<
+export type TWorkoutUpdateValidatedInput = z.infer<
   ReturnType<typeof updateFactorySchema>
 >;
 export type TWorkoutQuery = z.infer<typeof QuerySchema>;

@@ -2587,6 +2587,7 @@ export namespace Prisma {
     userWorkout: number
     meals: number
     userMeals: number
+    exercises: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2595,6 +2596,7 @@ export namespace Prisma {
     userWorkout?: boolean | UserCountOutputTypeCountUserWorkoutArgs
     meals?: boolean | UserCountOutputTypeCountMealsArgs
     userMeals?: boolean | UserCountOutputTypeCountUserMealsArgs
+    exercises?: boolean | UserCountOutputTypeCountExercisesArgs
   }
 
   // Custom InputTypes
@@ -2641,6 +2643,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountUserMealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserMealWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountExercisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExerciseWhereInput
   }
 
 
@@ -3270,6 +3279,7 @@ export namespace Prisma {
     userWorkout?: boolean | User$userWorkoutArgs<ExtArgs>
     meals?: boolean | User$mealsArgs<ExtArgs>
     userMeals?: boolean | User$userMealsArgs<ExtArgs>
+    exercises?: boolean | User$exercisesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3319,6 +3329,7 @@ export namespace Prisma {
     userWorkout?: boolean | User$userWorkoutArgs<ExtArgs>
     meals?: boolean | User$mealsArgs<ExtArgs>
     userMeals?: boolean | User$userMealsArgs<ExtArgs>
+    exercises?: boolean | User$exercisesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3332,6 +3343,7 @@ export namespace Prisma {
       userWorkout: Prisma.$UserWorkoutPayload<ExtArgs>[]
       meals: Prisma.$MealPayload<ExtArgs>[]
       userMeals: Prisma.$UserMealPayload<ExtArgs>[]
+      exercises: Prisma.$ExercisePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3743,6 +3755,7 @@ export namespace Prisma {
     userWorkout<T extends User$userWorkoutArgs<ExtArgs> = {}>(args?: Subset<T, User$userWorkoutArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserWorkoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     meals<T extends User$mealsArgs<ExtArgs> = {}>(args?: Subset<T, User$mealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     userMeals<T extends User$userMealsArgs<ExtArgs> = {}>(args?: Subset<T, User$userMealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    exercises<T extends User$exercisesArgs<ExtArgs> = {}>(args?: Subset<T, User$exercisesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4290,6 +4303,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.exercises
+   */
+  export type User$exercisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exercise
+     */
+    select?: ExerciseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exercise
+     */
+    omit?: ExerciseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExerciseInclude<ExtArgs> | null
+    where?: ExerciseWhereInput
+    orderBy?: ExerciseOrderByWithRelationInput | ExerciseOrderByWithRelationInput[]
+    cursor?: ExerciseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExerciseScalarFieldEnum | ExerciseScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4324,6 +4361,7 @@ export namespace Prisma {
     youtubeUrl: string | null
     type: $Enums.ExerciseType | null
     notes: string | null
+    ownerId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4334,6 +4372,7 @@ export namespace Prisma {
     youtubeUrl: string | null
     type: $Enums.ExerciseType | null
     notes: string | null
+    ownerId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4346,6 +4385,7 @@ export namespace Prisma {
     notes: number
     equipment: number
     muscles: number
+    ownerId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4358,6 +4398,7 @@ export namespace Prisma {
     youtubeUrl?: true
     type?: true
     notes?: true
+    ownerId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4368,6 +4409,7 @@ export namespace Prisma {
     youtubeUrl?: true
     type?: true
     notes?: true
+    ownerId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4380,6 +4422,7 @@ export namespace Prisma {
     notes?: true
     equipment?: true
     muscles?: true
+    ownerId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4465,6 +4508,7 @@ export namespace Prisma {
     notes: string | null
     equipment: $Enums.ExerciseEquipment[]
     muscles: $Enums.ExerciseMuscle[]
+    ownerId: string | null
     createdAt: Date
     updatedAt: Date
     _count: ExerciseCountAggregateOutputType | null
@@ -4494,9 +4538,11 @@ export namespace Prisma {
     notes?: boolean
     equipment?: boolean
     muscles?: boolean
+    ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     workoutExercises?: boolean | Exercise$workoutExercisesArgs<ExtArgs>
+    owner?: boolean | Exercise$ownerArgs<ExtArgs>
     _count?: boolean | ExerciseCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["exercise"]>
 
@@ -4508,8 +4554,10 @@ export namespace Prisma {
     notes?: boolean
     equipment?: boolean
     muscles?: boolean
+    ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    owner?: boolean | Exercise$ownerArgs<ExtArgs>
   }, ExtArgs["result"]["exercise"]>
 
   export type ExerciseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4520,8 +4568,10 @@ export namespace Prisma {
     notes?: boolean
     equipment?: boolean
     muscles?: boolean
+    ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    owner?: boolean | Exercise$ownerArgs<ExtArgs>
   }, ExtArgs["result"]["exercise"]>
 
   export type ExerciseSelectScalar = {
@@ -4532,22 +4582,29 @@ export namespace Prisma {
     notes?: boolean
     equipment?: boolean
     muscles?: boolean
+    ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "youtubeUrl" | "type" | "notes" | "equipment" | "muscles" | "createdAt" | "updatedAt", ExtArgs["result"]["exercise"]>
+  export type ExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "youtubeUrl" | "type" | "notes" | "equipment" | "muscles" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["exercise"]>
   export type ExerciseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workoutExercises?: boolean | Exercise$workoutExercisesArgs<ExtArgs>
+    owner?: boolean | Exercise$ownerArgs<ExtArgs>
     _count?: boolean | ExerciseCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type ExerciseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type ExerciseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ExerciseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | Exercise$ownerArgs<ExtArgs>
+  }
+  export type ExerciseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | Exercise$ownerArgs<ExtArgs>
+  }
 
   export type $ExercisePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Exercise"
     objects: {
       workoutExercises: Prisma.$WorkoutExercisePayload<ExtArgs>[]
+      owner: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4557,6 +4614,7 @@ export namespace Prisma {
       notes: string | null
       equipment: $Enums.ExerciseEquipment[]
       muscles: $Enums.ExerciseMuscle[]
+      ownerId: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["exercise"]>
@@ -4954,6 +5012,7 @@ export namespace Prisma {
   export interface Prisma__ExerciseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workoutExercises<T extends Exercise$workoutExercisesArgs<ExtArgs> = {}>(args?: Subset<T, Exercise$workoutExercisesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkoutExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    owner<T extends Exercise$ownerArgs<ExtArgs> = {}>(args?: Subset<T, Exercise$ownerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4990,6 +5049,7 @@ export namespace Prisma {
     readonly notes: FieldRef<"Exercise", 'String'>
     readonly equipment: FieldRef<"Exercise", 'ExerciseEquipment[]'>
     readonly muscles: FieldRef<"Exercise", 'ExerciseMuscle[]'>
+    readonly ownerId: FieldRef<"Exercise", 'String'>
     readonly createdAt: FieldRef<"Exercise", 'DateTime'>
     readonly updatedAt: FieldRef<"Exercise", 'DateTime'>
   }
@@ -5241,6 +5301,10 @@ export namespace Prisma {
      */
     data: ExerciseCreateManyInput | ExerciseCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExerciseIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -5311,6 +5375,10 @@ export namespace Prisma {
      * Limit how many Exercises to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExerciseIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -5401,6 +5469,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: WorkoutExerciseScalarFieldEnum | WorkoutExerciseScalarFieldEnum[]
+  }
+
+  /**
+   * Exercise.owner
+   */
+  export type Exercise$ownerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -23791,6 +23878,7 @@ export namespace Prisma {
     notes: 'notes',
     equipment: 'equipment',
     muscles: 'muscles',
+    ownerId: 'ownerId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -24229,6 +24317,7 @@ export namespace Prisma {
     userWorkout?: UserWorkoutListRelationFilter
     meals?: MealListRelationFilter
     userMeals?: UserMealListRelationFilter
+    exercises?: ExerciseListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -24247,6 +24336,7 @@ export namespace Prisma {
     userWorkout?: UserWorkoutOrderByRelationAggregateInput
     meals?: MealOrderByRelationAggregateInput
     userMeals?: UserMealOrderByRelationAggregateInput
+    exercises?: ExerciseOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -24268,6 +24358,7 @@ export namespace Prisma {
     userWorkout?: UserWorkoutListRelationFilter
     meals?: MealListRelationFilter
     userMeals?: UserMealListRelationFilter
+    exercises?: ExerciseListRelationFilter
   }, "id" | "email" | "googleId">
 
   export type UserOrderByWithAggregationInput = {
@@ -24313,9 +24404,11 @@ export namespace Prisma {
     notes?: StringNullableFilter<"Exercise"> | string | null
     equipment?: EnumExerciseEquipmentNullableListFilter<"Exercise">
     muscles?: EnumExerciseMuscleNullableListFilter<"Exercise">
+    ownerId?: StringNullableFilter<"Exercise"> | string | null
     createdAt?: DateTimeFilter<"Exercise"> | Date | string
     updatedAt?: DateTimeFilter<"Exercise"> | Date | string
     workoutExercises?: WorkoutExerciseListRelationFilter
+    owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type ExerciseOrderByWithRelationInput = {
@@ -24326,9 +24419,11 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     equipment?: SortOrder
     muscles?: SortOrder
+    ownerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     workoutExercises?: WorkoutExerciseOrderByRelationAggregateInput
+    owner?: UserOrderByWithRelationInput
   }
 
   export type ExerciseWhereUniqueInput = Prisma.AtLeast<{
@@ -24342,9 +24437,11 @@ export namespace Prisma {
     notes?: StringNullableFilter<"Exercise"> | string | null
     equipment?: EnumExerciseEquipmentNullableListFilter<"Exercise">
     muscles?: EnumExerciseMuscleNullableListFilter<"Exercise">
+    ownerId?: StringNullableFilter<"Exercise"> | string | null
     createdAt?: DateTimeFilter<"Exercise"> | Date | string
     updatedAt?: DateTimeFilter<"Exercise"> | Date | string
     workoutExercises?: WorkoutExerciseListRelationFilter
+    owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id" | "name">
 
   export type ExerciseOrderByWithAggregationInput = {
@@ -24355,6 +24452,7 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     equipment?: SortOrder
     muscles?: SortOrder
+    ownerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ExerciseCountOrderByAggregateInput
@@ -24373,6 +24471,7 @@ export namespace Prisma {
     notes?: StringNullableWithAggregatesFilter<"Exercise"> | string | null
     equipment?: EnumExerciseEquipmentNullableListFilter<"Exercise">
     muscles?: EnumExerciseMuscleNullableListFilter<"Exercise">
+    ownerId?: StringNullableWithAggregatesFilter<"Exercise"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Exercise"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Exercise"> | Date | string
   }
@@ -25565,6 +25664,7 @@ export namespace Prisma {
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
     meals?: MealCreateNestedManyWithoutOwnerInput
     userMeals?: UserMealCreateNestedManyWithoutUserInput
+    exercises?: ExerciseCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -25583,6 +25683,7 @@ export namespace Prisma {
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
     meals?: MealUncheckedCreateNestedManyWithoutOwnerInput
     userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
+    exercises?: ExerciseUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUpdateInput = {
@@ -25601,6 +25702,7 @@ export namespace Prisma {
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
     meals?: MealUpdateManyWithoutOwnerNestedInput
     userMeals?: UserMealUpdateManyWithoutUserNestedInput
+    exercises?: ExerciseUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -25619,6 +25721,7 @@ export namespace Prisma {
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
     userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
+    exercises?: ExerciseUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -25671,6 +25774,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     workoutExercises?: WorkoutExerciseCreateNestedManyWithoutExerciseInput
+    owner?: UserCreateNestedOneWithoutExercisesInput
   }
 
   export type ExerciseUncheckedCreateInput = {
@@ -25681,6 +25785,7 @@ export namespace Prisma {
     notes?: string | null
     equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
+    ownerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workoutExercises?: WorkoutExerciseUncheckedCreateNestedManyWithoutExerciseInput
@@ -25697,6 +25802,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workoutExercises?: WorkoutExerciseUpdateManyWithoutExerciseNestedInput
+    owner?: UserUpdateOneWithoutExercisesNestedInput
   }
 
   export type ExerciseUncheckedUpdateInput = {
@@ -25707,6 +25813,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workoutExercises?: WorkoutExerciseUncheckedUpdateManyWithoutExerciseNestedInput
@@ -25720,6 +25827,7 @@ export namespace Prisma {
     notes?: string | null
     equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
+    ownerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -25744,6 +25852,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -27073,6 +27182,12 @@ export namespace Prisma {
     none?: UserMealWhereInput
   }
 
+  export type ExerciseListRelationFilter = {
+    every?: ExerciseWhereInput
+    some?: ExerciseWhereInput
+    none?: ExerciseWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -27095,6 +27210,10 @@ export namespace Prisma {
   }
 
   export type UserMealOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ExerciseOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -27224,6 +27343,11 @@ export namespace Prisma {
     none?: WorkoutExerciseWhereInput
   }
 
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
   export type WorkoutExerciseOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -27236,6 +27360,7 @@ export namespace Prisma {
     notes?: SortOrder
     equipment?: SortOrder
     muscles?: SortOrder
+    ownerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -27246,6 +27371,7 @@ export namespace Prisma {
     youtubeUrl?: SortOrder
     type?: SortOrder
     notes?: SortOrder
+    ownerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -27256,6 +27382,7 @@ export namespace Prisma {
     youtubeUrl?: SortOrder
     type?: SortOrder
     notes?: SortOrder
+    ownerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -27626,11 +27753,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumWorkoutGoalFilter<$PrismaModel>
     _max?: NestedEnumWorkoutGoalFilter<$PrismaModel>
-  }
-
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
   }
 
   export type WorkoutCountOrderByAggregateInput = {
@@ -28219,6 +28341,13 @@ export namespace Prisma {
     connect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
   }
 
+  export type ExerciseCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<ExerciseCreateWithoutOwnerInput, ExerciseUncheckedCreateWithoutOwnerInput> | ExerciseCreateWithoutOwnerInput[] | ExerciseUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: ExerciseCreateOrConnectWithoutOwnerInput | ExerciseCreateOrConnectWithoutOwnerInput[]
+    createMany?: ExerciseCreateManyOwnerInputEnvelope
+    connect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+  }
+
   export type ProgramUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<ProgramCreateWithoutOwnerInput, ProgramUncheckedCreateWithoutOwnerInput> | ProgramCreateWithoutOwnerInput[] | ProgramUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: ProgramCreateOrConnectWithoutOwnerInput | ProgramCreateOrConnectWithoutOwnerInput[]
@@ -28252,6 +28381,13 @@ export namespace Prisma {
     connectOrCreate?: UserMealCreateOrConnectWithoutUserInput | UserMealCreateOrConnectWithoutUserInput[]
     createMany?: UserMealCreateManyUserInputEnvelope
     connect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
+  }
+
+  export type ExerciseUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<ExerciseCreateWithoutOwnerInput, ExerciseUncheckedCreateWithoutOwnerInput> | ExerciseCreateWithoutOwnerInput[] | ExerciseUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: ExerciseCreateOrConnectWithoutOwnerInput | ExerciseCreateOrConnectWithoutOwnerInput[]
+    createMany?: ExerciseCreateManyOwnerInputEnvelope
+    connect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -28340,6 +28476,20 @@ export namespace Prisma {
     deleteMany?: UserMealScalarWhereInput | UserMealScalarWhereInput[]
   }
 
+  export type ExerciseUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<ExerciseCreateWithoutOwnerInput, ExerciseUncheckedCreateWithoutOwnerInput> | ExerciseCreateWithoutOwnerInput[] | ExerciseUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: ExerciseCreateOrConnectWithoutOwnerInput | ExerciseCreateOrConnectWithoutOwnerInput[]
+    upsert?: ExerciseUpsertWithWhereUniqueWithoutOwnerInput | ExerciseUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: ExerciseCreateManyOwnerInputEnvelope
+    set?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    disconnect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    delete?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    connect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    update?: ExerciseUpdateWithWhereUniqueWithoutOwnerInput | ExerciseUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: ExerciseUpdateManyWithWhereWithoutOwnerInput | ExerciseUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: ExerciseScalarWhereInput | ExerciseScalarWhereInput[]
+  }
+
   export type ProgramUncheckedUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<ProgramCreateWithoutOwnerInput, ProgramUncheckedCreateWithoutOwnerInput> | ProgramCreateWithoutOwnerInput[] | ProgramUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: ProgramCreateOrConnectWithoutOwnerInput | ProgramCreateOrConnectWithoutOwnerInput[]
@@ -28410,6 +28560,20 @@ export namespace Prisma {
     deleteMany?: UserMealScalarWhereInput | UserMealScalarWhereInput[]
   }
 
+  export type ExerciseUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<ExerciseCreateWithoutOwnerInput, ExerciseUncheckedCreateWithoutOwnerInput> | ExerciseCreateWithoutOwnerInput[] | ExerciseUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: ExerciseCreateOrConnectWithoutOwnerInput | ExerciseCreateOrConnectWithoutOwnerInput[]
+    upsert?: ExerciseUpsertWithWhereUniqueWithoutOwnerInput | ExerciseUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: ExerciseCreateManyOwnerInputEnvelope
+    set?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    disconnect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    delete?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    connect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    update?: ExerciseUpdateWithWhereUniqueWithoutOwnerInput | ExerciseUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: ExerciseUpdateManyWithWhereWithoutOwnerInput | ExerciseUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: ExerciseScalarWhereInput | ExerciseScalarWhereInput[]
+  }
+
   export type ExerciseCreateequipmentInput = {
     set: $Enums.ExerciseEquipment[]
   }
@@ -28423,6 +28587,12 @@ export namespace Prisma {
     connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutExerciseInput | WorkoutExerciseCreateOrConnectWithoutExerciseInput[]
     createMany?: WorkoutExerciseCreateManyExerciseInputEnvelope
     connect?: WorkoutExerciseWhereUniqueInput | WorkoutExerciseWhereUniqueInput[]
+  }
+
+  export type UserCreateNestedOneWithoutExercisesInput = {
+    create?: XOR<UserCreateWithoutExercisesInput, UserUncheckedCreateWithoutExercisesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutExercisesInput
+    connect?: UserWhereUniqueInput
   }
 
   export type WorkoutExerciseUncheckedCreateNestedManyWithoutExerciseInput = {
@@ -28458,6 +28628,16 @@ export namespace Prisma {
     update?: WorkoutExerciseUpdateWithWhereUniqueWithoutExerciseInput | WorkoutExerciseUpdateWithWhereUniqueWithoutExerciseInput[]
     updateMany?: WorkoutExerciseUpdateManyWithWhereWithoutExerciseInput | WorkoutExerciseUpdateManyWithWhereWithoutExerciseInput[]
     deleteMany?: WorkoutExerciseScalarWhereInput | WorkoutExerciseScalarWhereInput[]
+  }
+
+  export type UserUpdateOneWithoutExercisesNestedInput = {
+    create?: XOR<UserCreateWithoutExercisesInput, UserUncheckedCreateWithoutExercisesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutExercisesInput
+    upsert?: UserUpsertWithoutExercisesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutExercisesInput, UserUpdateWithoutExercisesInput>, UserUncheckedUpdateWithoutExercisesInput>
   }
 
   export type WorkoutExerciseUncheckedUpdateManyWithoutExerciseNestedInput = {
@@ -29992,6 +30172,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ExerciseCreateWithoutOwnerInput = {
+    id?: string
+    name: string
+    youtubeUrl: string
+    type?: $Enums.ExerciseType
+    notes?: string | null
+    equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
+    muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workoutExercises?: WorkoutExerciseCreateNestedManyWithoutExerciseInput
+  }
+
+  export type ExerciseUncheckedCreateWithoutOwnerInput = {
+    id?: string
+    name: string
+    youtubeUrl: string
+    type?: $Enums.ExerciseType
+    notes?: string | null
+    equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
+    muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workoutExercises?: WorkoutExerciseUncheckedCreateNestedManyWithoutExerciseInput
+  }
+
+  export type ExerciseCreateOrConnectWithoutOwnerInput = {
+    where: ExerciseWhereUniqueInput
+    create: XOR<ExerciseCreateWithoutOwnerInput, ExerciseUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type ExerciseCreateManyOwnerInputEnvelope = {
+    data: ExerciseCreateManyOwnerInput | ExerciseCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProgramUpsertWithWhereUniqueWithoutOwnerInput = {
     where: ProgramWhereUniqueInput
     update: XOR<ProgramUpdateWithoutOwnerInput, ProgramUncheckedUpdateWithoutOwnerInput>
@@ -30137,6 +30353,38 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"UserMeal"> | Date | string
   }
 
+  export type ExerciseUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: ExerciseWhereUniqueInput
+    update: XOR<ExerciseUpdateWithoutOwnerInput, ExerciseUncheckedUpdateWithoutOwnerInput>
+    create: XOR<ExerciseCreateWithoutOwnerInput, ExerciseUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type ExerciseUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: ExerciseWhereUniqueInput
+    data: XOR<ExerciseUpdateWithoutOwnerInput, ExerciseUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type ExerciseUpdateManyWithWhereWithoutOwnerInput = {
+    where: ExerciseScalarWhereInput
+    data: XOR<ExerciseUpdateManyMutationInput, ExerciseUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type ExerciseScalarWhereInput = {
+    AND?: ExerciseScalarWhereInput | ExerciseScalarWhereInput[]
+    OR?: ExerciseScalarWhereInput[]
+    NOT?: ExerciseScalarWhereInput | ExerciseScalarWhereInput[]
+    id?: StringFilter<"Exercise"> | string
+    name?: StringFilter<"Exercise"> | string
+    youtubeUrl?: StringFilter<"Exercise"> | string
+    type?: EnumExerciseTypeFilter<"Exercise"> | $Enums.ExerciseType
+    notes?: StringNullableFilter<"Exercise"> | string | null
+    equipment?: EnumExerciseEquipmentNullableListFilter<"Exercise">
+    muscles?: EnumExerciseMuscleNullableListFilter<"Exercise">
+    ownerId?: StringNullableFilter<"Exercise"> | string | null
+    createdAt?: DateTimeFilter<"Exercise"> | Date | string
+    updatedAt?: DateTimeFilter<"Exercise"> | Date | string
+  }
+
   export type WorkoutExerciseCreateWithoutExerciseInput = {
     id?: string
     order?: number
@@ -30173,6 +30421,47 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserCreateWithoutExercisesInput = {
+    id?: string
+    email: string
+    passwordHash?: string | null
+    googleId?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    imgUrl?: string | null
+    isAdmin?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    programs?: ProgramCreateNestedManyWithoutOwnerInput
+    workouts?: WorkoutCreateNestedManyWithoutOwnerInput
+    userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
+    meals?: MealCreateNestedManyWithoutOwnerInput
+    userMeals?: UserMealCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutExercisesInput = {
+    id?: string
+    email: string
+    passwordHash?: string | null
+    googleId?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    imgUrl?: string | null
+    isAdmin?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    programs?: ProgramUncheckedCreateNestedManyWithoutOwnerInput
+    workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
+    userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
+    meals?: MealUncheckedCreateNestedManyWithoutOwnerInput
+    userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutExercisesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutExercisesInput, UserUncheckedCreateWithoutExercisesInput>
+  }
+
   export type WorkoutExerciseUpsertWithWhereUniqueWithoutExerciseInput = {
     where: WorkoutExerciseWhereUniqueInput
     update: XOR<WorkoutExerciseUpdateWithoutExerciseInput, WorkoutExerciseUncheckedUpdateWithoutExerciseInput>
@@ -30203,6 +30492,53 @@ export namespace Prisma {
     workoutId?: StringFilter<"WorkoutExercise"> | string
     createdAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
     updatedAt?: DateTimeFilter<"WorkoutExercise"> | Date | string
+  }
+
+  export type UserUpsertWithoutExercisesInput = {
+    update: XOR<UserUpdateWithoutExercisesInput, UserUncheckedUpdateWithoutExercisesInput>
+    create: XOR<UserCreateWithoutExercisesInput, UserUncheckedCreateWithoutExercisesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutExercisesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutExercisesInput, UserUncheckedUpdateWithoutExercisesInput>
+  }
+
+  export type UserUpdateWithoutExercisesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    programs?: ProgramUpdateManyWithoutOwnerNestedInput
+    workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
+    userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
+    meals?: MealUpdateManyWithoutOwnerNestedInput
+    userMeals?: UserMealUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutExercisesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    programs?: ProgramUncheckedUpdateManyWithoutOwnerNestedInput
+    workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
+    userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
+    meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
+    userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserWorkoutExerciseCreateWithoutUserCardioSetsInput = {
@@ -30374,6 +30710,7 @@ export namespace Prisma {
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
     meals?: MealCreateNestedManyWithoutOwnerInput
     userMeals?: UserMealCreateNestedManyWithoutUserInput
+    exercises?: ExerciseCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUncheckedCreateWithoutProgramsInput = {
@@ -30391,6 +30728,7 @@ export namespace Prisma {
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
     meals?: MealUncheckedCreateNestedManyWithoutOwnerInput
     userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
+    exercises?: ExerciseUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type UserCreateOrConnectWithoutProgramsInput = {
@@ -30470,6 +30808,7 @@ export namespace Prisma {
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
     meals?: MealUpdateManyWithoutOwnerNestedInput
     userMeals?: UserMealUpdateManyWithoutUserNestedInput
+    exercises?: ExerciseUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProgramsInput = {
@@ -30487,6 +30826,7 @@ export namespace Prisma {
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
     userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
+    exercises?: ExerciseUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type ProgramCreateWithoutProgramWorkoutsInput = {
@@ -30636,6 +30976,7 @@ export namespace Prisma {
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
     meals?: MealCreateNestedManyWithoutOwnerInput
     userMeals?: UserMealCreateNestedManyWithoutUserInput
+    exercises?: ExerciseCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUncheckedCreateWithoutWorkoutsInput = {
@@ -30653,6 +30994,7 @@ export namespace Prisma {
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
     meals?: MealUncheckedCreateNestedManyWithoutOwnerInput
     userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
+    exercises?: ExerciseUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type UserCreateOrConnectWithoutWorkoutsInput = {
@@ -30780,6 +31122,7 @@ export namespace Prisma {
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
     meals?: MealUpdateManyWithoutOwnerNestedInput
     userMeals?: UserMealUpdateManyWithoutUserNestedInput
+    exercises?: ExerciseUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkoutsInput = {
@@ -30797,6 +31140,7 @@ export namespace Prisma {
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
     userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
+    exercises?: ExerciseUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type WorkoutExerciseUpsertWithWhereUniqueWithoutWorkoutInput = {
@@ -30857,6 +31201,7 @@ export namespace Prisma {
     muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: Date | string
     updatedAt?: Date | string
+    owner?: UserCreateNestedOneWithoutExercisesInput
   }
 
   export type ExerciseUncheckedCreateWithoutWorkoutExercisesInput = {
@@ -30867,6 +31212,7 @@ export namespace Prisma {
     notes?: string | null
     equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
+    ownerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -30952,6 +31298,7 @@ export namespace Prisma {
     muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneWithoutExercisesNestedInput
   }
 
   export type ExerciseUncheckedUpdateWithoutWorkoutExercisesInput = {
@@ -30962,6 +31309,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -31315,6 +31663,7 @@ export namespace Prisma {
     workouts?: WorkoutCreateNestedManyWithoutOwnerInput
     meals?: MealCreateNestedManyWithoutOwnerInput
     userMeals?: UserMealCreateNestedManyWithoutUserInput
+    exercises?: ExerciseCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUncheckedCreateWithoutUserWorkoutInput = {
@@ -31332,6 +31681,7 @@ export namespace Prisma {
     workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
     meals?: MealUncheckedCreateNestedManyWithoutOwnerInput
     userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
+    exercises?: ExerciseUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type UserCreateOrConnectWithoutUserWorkoutInput = {
@@ -31451,6 +31801,7 @@ export namespace Prisma {
     workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
     meals?: MealUpdateManyWithoutOwnerNestedInput
     userMeals?: UserMealUpdateManyWithoutUserNestedInput
+    exercises?: ExerciseUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUserWorkoutInput = {
@@ -31468,6 +31819,7 @@ export namespace Prisma {
     workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
     userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
+    exercises?: ExerciseUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserWorkoutExerciseUpsertWithWhereUniqueWithoutUserWorkoutInput = {
@@ -32138,6 +32490,7 @@ export namespace Prisma {
     workouts?: WorkoutCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
     userMeals?: UserMealCreateNestedManyWithoutUserInput
+    exercises?: ExerciseCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUncheckedCreateWithoutMealsInput = {
@@ -32155,6 +32508,7 @@ export namespace Prisma {
     workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
     userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
+    exercises?: ExerciseUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type UserCreateOrConnectWithoutMealsInput = {
@@ -32240,6 +32594,7 @@ export namespace Prisma {
     workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
     userMeals?: UserMealUpdateManyWithoutUserNestedInput
+    exercises?: ExerciseUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMealsInput = {
@@ -32257,6 +32612,7 @@ export namespace Prisma {
     workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
+    exercises?: ExerciseUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type MealFoodItemUpsertWithWhereUniqueWithoutMealInput = {
@@ -32497,6 +32853,7 @@ export namespace Prisma {
     workouts?: WorkoutCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
     meals?: MealCreateNestedManyWithoutOwnerInput
+    exercises?: ExerciseCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUncheckedCreateWithoutUserMealsInput = {
@@ -32514,6 +32871,7 @@ export namespace Prisma {
     workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
     meals?: MealUncheckedCreateNestedManyWithoutOwnerInput
+    exercises?: ExerciseUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type UserCreateOrConnectWithoutUserMealsInput = {
@@ -32580,6 +32938,7 @@ export namespace Prisma {
     workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
     meals?: MealUpdateManyWithoutOwnerNestedInput
+    exercises?: ExerciseUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUserMealsInput = {
@@ -32597,6 +32956,7 @@ export namespace Prisma {
     workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
+    exercises?: ExerciseUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type ProgramCreateManyOwnerInput = {
@@ -32640,6 +33000,18 @@ export namespace Prisma {
     id?: string
     mealId: string
     dateConsumed?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExerciseCreateManyOwnerInput = {
+    id?: string
+    name: string
+    youtubeUrl: string
+    type?: $Enums.ExerciseType
+    notes?: string | null
+    equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
+    muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -32791,6 +33163,44 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     mealId?: StringFieldUpdateOperationsInput | string
     dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExerciseUpdateWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    youtubeUrl?: StringFieldUpdateOperationsInput | string
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
+    muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workoutExercises?: WorkoutExerciseUpdateManyWithoutExerciseNestedInput
+  }
+
+  export type ExerciseUncheckedUpdateWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    youtubeUrl?: StringFieldUpdateOperationsInput | string
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
+    muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workoutExercises?: WorkoutExerciseUncheckedUpdateManyWithoutExerciseNestedInput
+  }
+
+  export type ExerciseUncheckedUpdateManyWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    youtubeUrl?: StringFieldUpdateOperationsInput | string
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
+    muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

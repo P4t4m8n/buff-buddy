@@ -1,5 +1,8 @@
 import { z } from "zod";
+
 import { validationUtil } from "./util.validation";
+
+import type { IToSanitize } from "../models/app.model";
 
 const userStrengthSkippedSetFactorySchema = ({
   toSanitize,
@@ -88,14 +91,14 @@ const UserStrengthSetSchema = z.object({
   crudOperation: validationUtil.CrudOperationSchema,
 });
 
-const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const createFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.intersection(
     UserStrengthSetSchema,
     userStrengthUnionFactorySchema({ toSanitize })
   );
 };
 
-const updateFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const updateFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.intersection(
     UserStrengthSetSchema.partial().extend({
       id: validationUtil.IDSchemaFactory({ toSanitize: false }).optional(),
@@ -115,10 +118,10 @@ export const userStrengthSetsValidation = {
   QuerySchema,
 };
 
-export type TCreateUserStrengthSetInput = z.infer<
+export type TUserStrengthSetCreateValidatedInput = z.infer<
   ReturnType<typeof createFactorySchema>
 >;
-export type TUpdateUserStrengthSetInput = z.infer<
+export type TUserStrengthSetUpdateValidatedInput = z.infer<
   ReturnType<typeof updateFactorySchema>
 >;
 

@@ -13,6 +13,7 @@ import type {
   TExerciseInfo,
 } from "../models/exercise.model";
 import type { IValidation } from "../models/validation.model";
+import type { IToSanitize } from "../models/app.model";
 
 /*
  * INFO: In case the enums arr is not long return
@@ -85,11 +86,7 @@ const YoutubeURLSchema = (toSanitize?: boolean) => {
       return youtubeRegex.test(url);
     }, "Must be a valid YouTube URL");
 };
-const createFactorySchema = ({
-  toSanitize = false,
-}: {
-  toSanitize?: boolean;
-}) => {
+const createFactorySchema = ({ toSanitize = false }: IToSanitize) => {
   return z.object({
     youtubeUrl: YoutubeURLSchema(toSanitize),
 
@@ -98,6 +95,7 @@ const createFactorySchema = ({
       minLength: 1,
       toSanitize,
     }),
+    ownerId: validationUtil.IDSchemaFactory({ toSanitize: true }),
 
     // notes: validationUtil
     //   .stringSchemaFactory({
@@ -126,11 +124,7 @@ const createFactorySchema = ({
   });
 };
 
-const updateFactorySchema = ({
-  toSanitize = false,
-}: {
-  toSanitize?: boolean;
-}) => {
+const updateFactorySchema = ({ toSanitize = false }: IToSanitize) => {
   return createFactorySchema({ toSanitize }).partial();
 };
 
@@ -155,7 +149,6 @@ const QuerySchema = validationUtil.FilterSchema.extend({
     .optional(),
 });
 
-//INFO: Explicit type due to extension of the IValidation interface
 export const exerciseValidation: IValidation<
   IExerciseDTO,
   IExerciseFilter,
@@ -163,9 +156,7 @@ export const exerciseValidation: IValidation<
   TExerciseUpdateValidatedInput,
   TExerciseQuery
 > & {
-  ExerciseTypeSchema: z.ZodEnum<
-    ["strength", "cardio", "flexibility", "miscellaneous"]
-  >;
+  ExerciseTypeSchema: typeof ExerciseTypeSchema;
 } = {
   createFactorySchema,
   updateFactorySchema,

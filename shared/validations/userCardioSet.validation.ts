@@ -1,7 +1,10 @@
 import { z } from "zod";
+
 import { validationUtil } from "./util.validation";
 
-const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+import type { IToSanitize } from "../models/app.model";
+
+const createFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
     workTime: validationUtil.numberValidation({
       fieldName: "Work Time",
@@ -36,7 +39,7 @@ const createFactorySchema = ({ toSanitize }: { toSanitize?: boolean }) => {
   });
 };
 
-const updateFactorySSchema = ({ toSanitize }: { toSanitize?: boolean }) => {
+const updateFactorySSchema = ({ toSanitize }: IToSanitize) => {
   return createFactorySchema({ toSanitize })
     .partial()
     .extend({
@@ -55,10 +58,10 @@ export const userCardioSetsValidation = {
   QuerySchema,
 };
 
-export type TCreateUserCardioSetInput = z.infer<
+export type TUserCardioSetCreateValidatedInput = z.infer<
   ReturnType<typeof createFactorySchema>
 >;
-export type TUpdateUserCardioSetInput = z.infer<
+export type TUserCardioSetUpdateValidatedInput = z.infer<
   ReturnType<typeof updateFactorySSchema>
 >;
 export type TUserCardioSetQuery = z.infer<typeof QuerySchema>;
