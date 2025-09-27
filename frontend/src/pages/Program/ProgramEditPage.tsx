@@ -41,7 +41,7 @@ export default function ProgramEditPage() {
       const id = await saveProgram();
       if (id) navigate(`/programs/${id}`);
     } catch (error) {
-      //INFO: The try catch block in need to let the error be catched some where. errors are handled in the mutation hook
+      //INFO: The try catch block in need to let the error be caught some where. errors are handled in the mutation hook
     }
   };
 

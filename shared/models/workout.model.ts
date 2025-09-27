@@ -21,7 +21,7 @@ export interface IWorkoutDTO extends IWorkoutBase {
 }
 
 export interface IWorkoutExerciseDTO extends IEntity, IEntityDates {
-  order?: number;
+  order?: number | null;
   notes?: string | null;
   exercise?: IExerciseDTO;
   hasWarmup?: boolean;
@@ -60,5 +60,5 @@ export interface IWorkoutFilter extends IBaseFilter {
   dayOfWeek?: DaysOfWeek | null;
   exerciseId?: string | null;
   isCompleted?: boolean | null;
-  isTemplate?: boolean |string| null;
+  isTemplate?: boolean | string | null;
 }

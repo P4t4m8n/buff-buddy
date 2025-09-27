@@ -13,7 +13,14 @@ import GenericList from "../UI/GenericList";
 import Loader from "../UI/loader/Loader";
 
 import type { TWorkoutActionRoute } from "../../models/workout.model";
-import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
+import type {
+  IWorkoutDTO,
+  IWorkoutFilter,
+} from "../../../../shared/models/workout.model";
+import { useGenericPage } from "../../hooks/shared/useGenericPage";
+import { QUERY_KEYS } from "../../consts/queryKeys.consts";
+import { useWorkoutsQuery } from "../../hooks/features/workout/useWorkoutsQuery";
+import { workoutService } from "../../services/workout.service";
 
 interface IWorkoutListProps {
   actionType: TWorkoutActionRoute;
@@ -31,20 +38,25 @@ export default function WorkoutList({
   onSelectProgramWorkout,
 }: IWorkoutListProps) {
   const {
-    filter: workoutsFilter,
-    setFilter: setWorkoutsFilter,
-    items,
+    items = [],
     isLoading,
-    onDeleteItem,
-  } = useItemsPage({
-    useStore: useWorkoutStore,
+    isPending,
+    filter,
+    deleteItem: deleteWorkout,
+    onSearch,
+  } = useGenericPage<IWorkoutDTO, IWorkoutFilter>({
     initialFilter: INITIAL_WORKOUT_FILTER,
+    queryKey: QUERY_KEYS.WORKOUTS_QUERY_KEY,
+    mutationKeyName: "workoutsMutationKey",
+    itemIdKey: QUERY_KEYS.WORKOUT_ID_QUERY_KEY,
+    useQuery: useWorkoutsQuery,
+    removeFn: workoutService.remove,
   });
 
   const itemComponentProps = useMemo(() => {
     return actionType === "programEdit"
       ? { actionType: "programEdit", onSelectProgramWorkout }
-      : { actionType: "workoutList", onDeleteWorkout: onDeleteItem };
+      : { actionType: "workoutList", onDeleteWorkout: deleteWorkout };
   }, []);
 
   const getKey = useCallback((item: IWorkoutDTO) => item.id ?? "", []);
@@ -59,10 +71,10 @@ export default function WorkoutList({
 
   return (
     <>
-      <WorkoutFilter
-        workoutsFilter={workoutsFilter}
+      {/* <WorkoutFilter
+        workoutsFilter={filter}
         setWorkoutsFilter={setWorkoutsFilter}
-      />
+      /> */}
       <GenericList
         items={workouts}
         ItemComponent={WorkoutPreview}

@@ -42,7 +42,7 @@ const buildWhereClause = (
 
   where.isTemplate = filter.isTemplate ?? false;
 
-  where.ownerId = userId;
+  if (userId) where.ownerId = userId;
   return where;
 };
 const buildDTO = (workout: IWorkout): IWorkoutDTO => ({

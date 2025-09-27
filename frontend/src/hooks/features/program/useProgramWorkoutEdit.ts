@@ -14,6 +14,7 @@ import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
 export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO) => {
   const [selectedWorkout, setSelectedWorkout] =
     useState<IProgramWorkoutEditDTO | null>(null);
+
   useEffect(() => {
     const workoutEdit = programWorkoutUtil.dtoToEditDto(programWorkout);
 
@@ -87,7 +88,6 @@ export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO) => {
 
   const handleWorkoutPlannerInfo = useCallback(
     (option: string, inputName?: "level" | "workoutGoal") => {
-
       setSelectedWorkout((prev) => {
         if (!prev) return null;
 

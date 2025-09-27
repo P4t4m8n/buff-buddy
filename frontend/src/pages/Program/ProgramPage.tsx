@@ -38,6 +38,7 @@ export default function ProgramPage() {
     useQuery: useProgramsQuery,
     removeFn: programService.remove,
   });
+    console.log("🚀 ~ ProgramPage ~ programs:", programs)
 
   const isDeleting = isPending;
   return (

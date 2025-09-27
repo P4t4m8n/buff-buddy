@@ -18,10 +18,12 @@ const get = async (
   filter: TProgramQuery,
   userId?: string
 ): Promise<IProgram[]> => {
+  console.log("🚀 ~ get ~ userId:", userId)
   const where: Prisma.ProgramWhereInput = programsUtil.buildWhereClause(
     filter,
     userId
   );
+  console.log("🚀 ~ get ~ where:", where)
 
   const take = filter.take ?? 20;
   const skip = filter.skip && filter.skip > 1 ? (filter.skip - 1) * take : 0;

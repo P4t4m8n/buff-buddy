@@ -20,6 +20,7 @@ const get = async (
     filter,
     userId
   );
+  console.log("🚀 ~ get ~ where:", where)
 
   const take = filter.take ? parseInt(filter.take.toString()) : 20;
   const skip = filter.skip && filter.skip > 1 ? (filter.skip - 1) * take : 0;

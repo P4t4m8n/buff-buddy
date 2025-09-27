@@ -11,8 +11,15 @@ import { INITIAL_WORKOUT_FILTER } from "../../../../consts/filters.consts";
 import Loader from "../../../UI/loader/Loader";
 import GenericList from "../../../UI/GenericList";
 
-import type { IWorkoutDTO } from "../../../../../../shared/models/workout.model";
+import type {
+  IWorkoutDTO,
+  IWorkoutFilter,
+} from "../../../../../../shared/models/workout.model";
 import type { IProgramWorkoutEditDTO } from "../../../../../../shared/models/program.model";
+import { useGenericPage } from "../../../../hooks/shared/useGenericPage";
+import { QUERY_KEYS } from "../../../../consts/queryKeys.consts";
+import { useWorkoutsQuery } from "../../../../hooks/features/workout/useWorkoutsQuery";
+import { workoutService } from "../../../../services/workout.service";
 
 interface IProgramWorkoutListProps {
   selectedWorkout: IProgramWorkoutEditDTO | null;
@@ -27,15 +34,20 @@ export default function ProgramWorkoutList({
   selectedWorkout,
   onSelectProgramWorkout,
 }: IProgramWorkoutListProps) {
-
   const {
-    filter: workoutsFilter,
-    setFilter: setWorkoutsFilter,
-    items: workouts,
+    items: workouts = [],
     isLoading,
-  } = useItemsPage({
-    useStore: useWorkoutStore,
+    isPending,
+    filter,
+    deleteItem: deleteWorkout,
+    onSearch,
+  } = useGenericPage<IWorkoutDTO, IWorkoutFilter>({
     initialFilter: INITIAL_WORKOUT_FILTER,
+    queryKey: QUERY_KEYS.WORKOUTS_QUERY_KEY,
+    mutationKeyName: "workoutsMutationKey",
+    itemIdKey: QUERY_KEYS.WORKOUT_ID_QUERY_KEY,
+    useQuery: useWorkoutsQuery,
+    removeFn: workoutService.remove,
   });
 
   //Remove the selected workout from the list of available workouts
@@ -56,10 +68,10 @@ export default function ProgramWorkoutList({
 
   return (
     <>
-      <WorkoutFilter
-        workoutsFilter={workoutsFilter}
+      {/* <WorkoutFilter
+        workoutsFilter={filter}
         setWorkoutsFilter={setWorkoutsFilter}
-      />
+      /> */}
       <GenericList
         items={availableWorkouts}
         ItemComponent={WorkoutPreview}
