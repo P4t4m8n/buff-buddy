@@ -80,7 +80,7 @@ export default function WorkoutList({
         onResetForm={onResetForm}
       />
       {isLoading ? (
-        <Loader loaderType="screen" isFullScreen={false} />
+        <Loader loaderType="cards-pulse" isFullScreen={false} />
       ) : (
         <GenericList
           items={workouts}

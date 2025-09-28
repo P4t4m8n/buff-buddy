@@ -17,7 +17,7 @@ export default function WorkoutListPage() {
           <p>Create Workout</p>
         </LinkComponent>
       </header>
-      <div className="grid grid-rows-[auto_1fr] md:grid-rows-1 md:grid-cols-[auto_1fr] relative">
+      <div className="grid grid-rows-[auto_1fr] h-full md:grid-rows-1 md:grid-cols-[auto_1fr] relative">
         <WorkoutList actionType="workoutList" />
       </div>
     </div>

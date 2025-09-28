@@ -38,7 +38,10 @@ function GenericListMemo<T, P>({
   return (
     <ul className={ulStyle}>
       {items.map((item, index) => {
-        // resolve per-item props if a function was provided, else use the object (or undefined)
+        /*
+         * INFO: resolve per-item props if a function was provided,
+         * else use the object (or undefined)
+         */
         const resolvedProps =
           typeof itemComponentProps === "function"
             ? (itemComponentProps as (item: T, index: number) => P | undefined)(

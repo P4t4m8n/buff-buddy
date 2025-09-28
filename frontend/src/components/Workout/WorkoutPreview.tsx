@@ -9,6 +9,7 @@ import GenericDeleteButton from "../UI/GenericDeleteButton";
 
 import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
 import type { TWorkoutActionRoute } from "../../models/workout.model";
+import GenericCarousel from "../UI/GenericCarousel";
 
 interface IWorkoutPreviewProps {
   item: IWorkoutDTO;
@@ -27,11 +28,22 @@ export default function WorkoutPreview({
 }: IWorkoutPreviewProps) {
   const { name, workoutExercises } = workout;
 
+  const exerciseNames =
+    workoutExercises
+      ?.map((we) => we.exercise?.name)
+      .filter((name): name is string => !!name) ?? [];
+
   return (
-    <li className="p-2 border rounded grid gap-2 break-inside-avoid mb-4">
+    <li className="p-2 border rounded grid gap-2 break-inside-avoid mb-4 w-full ">
       <h4>{name}</h4>
 
-      <WorkoutTags workoutExercises={workoutExercises} />
+      {/* <WorkoutTags workoutExercises={workoutExercises} /> */}
+      <GenericCarousel
+        items={exerciseNames}
+        props={{}}
+        ItemComponent={WorkoutTag}
+        getKey={(item) => item}
+      />
 
       <DynamicAction {...props} item={workout} />
     </li>
@@ -83,7 +95,7 @@ const WorkoutDetailsActions = (props: Partial<IWorkoutPreviewProps>) => {
   const workoutId = workout?.id;
 
   return (
-    <div className=" flex items-center gap-3 ">
+    <div className="flex items-center gap-3">
       <Link to={`/workouts/${workoutId}`} className="mr-auto">
         <Button buttonStyle="model">{ModelButtonIcon("details")}</Button>
       </Link>
@@ -98,3 +110,15 @@ const WorkoutDetailsActions = (props: Partial<IWorkoutPreviewProps>) => {
     </div>
   );
 };
+
+function WorkoutTag({ item }: { item?: string }) {
+  return (
+    <li
+      className="border rounded-4xl px-2 py-1 min-w-fit shadow
+       bg-main-black text-main-orange shadow-black"
+      key={item}
+    >
+      {item}
+    </li>
+  );
+}

@@ -19,9 +19,9 @@ const GetLoader = ({ loaderType = "default", isFullScreen }: ILoaderProps) => {
     case "spinner":
       return <LoaderSmallRotation />;
     case "screen":
-      const height = isFullScreen ? "h-screen" : "h-main";
+      const height = isFullScreen ? "h-screen" : "h-full";
       const style = twMerge(
-        "flex justify-center items-center h-main overflow-hidden bg-gradient-to-br from-black-900 to-black-400",
+        "flex justify-center items-center overflow-hidden bg-gradient-to-br from-black-900 to-black-400",
         height
       );
       return (
