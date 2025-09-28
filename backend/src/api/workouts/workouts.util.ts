@@ -11,7 +11,11 @@ const buildWhereClause = (
 ): Prisma.WorkoutWhereInput => {
   const where: Prisma.WorkoutWhereInput = {};
 
-  if (filter.programName) {
+  if (!!filter.workoutName) {
+    where.name = { contains: filter.workoutName, mode: "insensitive" };
+  }
+
+  if (!!filter.programName) {
     where.programWorkouts = {
       some: {
         program: {
@@ -21,7 +25,7 @@ const buildWhereClause = (
     };
   }
 
-  if (filter.exerciseName) {
+  if (!!filter.exerciseName) {
     where.workoutExercises = {
       some: {
         exercise: {
@@ -31,7 +35,7 @@ const buildWhereClause = (
     };
   }
 
-  if (filter.ownerName) {
+  if (!!filter.ownerName) {
     where.owner = {
       OR: [
         { firstName: { contains: filter.ownerName, mode: "insensitive" } },
@@ -40,7 +44,7 @@ const buildWhereClause = (
     };
   }
 
-  where.isTemplate = filter.isTemplate ?? false;
+  where.isTemplate = filter.isTemplate;
 
   if (userId) where.ownerId = userId;
   return where;

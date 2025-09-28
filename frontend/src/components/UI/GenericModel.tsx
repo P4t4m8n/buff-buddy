@@ -21,6 +21,7 @@ interface IGenericModelProps<T extends HTMLElement, P> {
   mode?: TIconMode;
   isOverlay?: boolean;
   callBack?: null | (() => void);
+  modelInitialState?: boolean;
 }
 export default function GenericModel<T extends HTMLElement, P>({
   Model,
@@ -31,8 +32,12 @@ export default function GenericModel<T extends HTMLElement, P>({
   mode,
   isOverlay = true,
   callBack,
+  modelInitialState = false,
 }: IGenericModelProps<T, P>) {
-  const { isOpen, modelRef, setIsOpen, handleModel } = useModel<T>(callBack);
+  const { isOpen, modelRef, setIsOpen, handleModel } = useModel<T>({
+    callBack,
+    modelInitialState,
+  });
 
   const rootRef = useContext(RootRefContext);
 

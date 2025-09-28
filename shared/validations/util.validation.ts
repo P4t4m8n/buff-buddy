@@ -248,7 +248,7 @@ const OrderSchema = z.coerce
 
 const FilterSchema = z.object({
   skip: z.coerce.number().min(0).optional(),
-  take: z.coerce.number().min(1).optional(),
+  take: z.coerce.number().min(1).optional().default(10),
 });
 
 export const validationUtil = {

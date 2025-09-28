@@ -1,4 +1,4 @@
-export default function IconPlus({ className }: { className?: string }) {
+export const IconPlus = ({ className }: { className?: string }) => {
   return (
     <svg viewBox="0 0 24 24" className={className}>
       <g>
@@ -25,4 +25,4 @@ export default function IconPlus({ className }: { className?: string }) {
       </g>
     </svg>
   );
-}
+};

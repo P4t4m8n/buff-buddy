@@ -1,21 +1,25 @@
 import { Link } from "react-router";
-import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
-import Button from "../UI/Button";
-import WorkoutTags from "./WorkoutTags";
+
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
-import GenericDeleteButtonOld from "../UI/GenericDeleteButtonOld";
-import { useWorkoutStore } from "../../store/workout.store";
-type TActionRoute = "programEdit" | "workoutList";
+
+import WorkoutTags from "./WorkoutTags";
+
+import Button from "../UI/Button";
+import GenericDeleteButton from "../UI/GenericDeleteButton";
+
+import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
+import type { TWorkoutActionRoute } from "../../models/workout.model";
 
 interface IWorkoutPreviewProps {
   item: IWorkoutDTO;
-  actionType?: TActionRoute | string; //INFO too lazy to import the type
+  actionType?: TWorkoutActionRoute;
   onSelectProgramWorkout?: (
     e: React.MouseEvent<HTMLButtonElement>,
     workout?: IWorkoutDTO,
     isCopy?: boolean
   ) => void;
   onDeleteWorkout?: (id?: string) => Promise<void>;
+  isDeleting?: boolean;
 }
 export default function WorkoutPreview({
   item: workout,
@@ -24,7 +28,7 @@ export default function WorkoutPreview({
   const { name, workoutExercises } = workout;
 
   return (
-    <li className="p-2 border rounded grid gap-2">
+    <li className="p-2 border rounded grid gap-2 break-inside-avoid mb-4">
       <h4>{name}</h4>
 
       <WorkoutTags workoutExercises={workoutExercises} />
@@ -75,8 +79,9 @@ const ProgramEditActions = (props: Partial<IWorkoutPreviewProps>) => {
 };
 
 const WorkoutDetailsActions = (props: Partial<IWorkoutPreviewProps>) => {
-  const { item: workout, onDeleteWorkout } = props;
+  const { item: workout, onDeleteWorkout, isDeleting } = props;
   const workoutId = workout?.id;
+
   return (
     <div className=" flex items-center gap-3 ">
       <Link to={`/workouts/${workoutId}`} className="mr-auto">
@@ -85,9 +90,9 @@ const WorkoutDetailsActions = (props: Partial<IWorkoutPreviewProps>) => {
       <Link to={`/workouts/edit/${workoutId}`} className="">
         <Button buttonStyle="model">{ModelButtonIcon("edit")}</Button>
       </Link>
-      <GenericDeleteButtonOld
-        itemId={workoutId}
-        useStore={useWorkoutStore}
+      <GenericDeleteButton
+        itemId={workoutId ?? ""}
+        isDeleting={!!isDeleting}
         deleteAction={onDeleteWorkout!}
       />
     </div>

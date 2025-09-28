@@ -2,7 +2,7 @@ import type { ISelectItemComponentProps } from "../../../../models/select.model"
 import type { IExerciseDTO } from "../../../../../../shared/models/exercise.model";
 import Button from "../../../UI/Button";
 import { toTitle } from "../../../../utils/toTitle";
-import IconPlus from "../../../UI/Icons/IconPlus";
+import {IconPlus} from "../../../UI/Icons/IconPlus";
 
 interface IWorkoutExerciseEditExerciseSelectProps
   extends ISelectItemComponentProps<IExerciseDTO> {}

@@ -32,12 +32,20 @@ type TUseModelHook<T extends HTMLElement> = {
   handleModelWithPosition: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-export const useModel = <T extends HTMLElement>(
-  callBack?: null | (() => void),
-  parentModelRef?: React.RefObject<HTMLDivElement | HTMLFormElement | null>,
-  baseModelPositionClass: string | undefined = "top-[calc(100%+.25rem)]"
-): TUseModelHook<T> => {
-  const [isOpen, setIsOpen] = useState(false);
+interface IUseModelProps {
+  callBack?: null | (() => void);
+  parentModelRef?: React.RefObject<HTMLDivElement | HTMLFormElement | null>;
+  baseModelPositionClass?: string;
+  modelInitialState?: boolean;
+}
+
+export const useModel = <T extends HTMLElement>({
+  callBack,
+  parentModelRef,
+  baseModelPositionClass = "top-[calc(100%+.25rem)]",
+  modelInitialState = false,
+}: IUseModelProps): TUseModelHook<T> => {
+  const [isOpen, setIsOpen] = useState(modelInitialState);
   const [modelPositionClass, setModelPositionClass] = useState(
     baseModelPositionClass
   );
@@ -64,7 +72,7 @@ export const useModel = <T extends HTMLElement>(
       if (!isOpen && modelRef.current && parentModelRef?.current) {
         const parentRect = parentModelRef.current.getBoundingClientRect();
         const fieldRect = modelRef.current.getBoundingClientRect();
-        const modelHeight = 128;//TODO?? Adjust this value based on your model's height, change from hardcoded to dynamic
+        const modelHeight = 128; //TODO?? Adjust this value based on your model's height, change from hardcoded to dynamic
         const gap = 4;
 
         const spaceBelow = parentRect.bottom - fieldRect.bottom;

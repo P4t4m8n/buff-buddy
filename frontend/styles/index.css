@@ -39,7 +39,7 @@
   --color-gray-200: #e6e6e6;
   --color-gray-100: #f2f2f2;
 
-  --height-main: calc(100svh - 4.5rem);
+  --height-main: calc(100svh - 4rem);
 
   --width-small: calc(20rem);
   --width-small-with-padding: 18rem;
@@ -92,6 +92,9 @@
 }
 @utility grid-stack {
   grid-area: 1/1/-1/-1;
+}
+@utility grid-stack-auto {
+  grid-area: auto;
 }
 
 @utility flex-center {

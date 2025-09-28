@@ -11,3 +11,4 @@ export interface IWorkoutListPreviewProps {
   ) => void;
   onDeleteWorkout?: (id?: string) => Promise<void>;
 }
+

@@ -3,14 +3,14 @@ import { prisma } from "../../../prisma/prisma";
 import { workoutUtil } from "./workouts.util";
 import { workoutSQL } from "./workouts.sql";
 
-import type { Prisma, Workout } from "../../../prisma/generated/prisma";
+import type { Prisma } from "../../../prisma/generated/prisma";
 import type { IWorkout } from "./workouts.models";
 import type {
   TWorkoutCreateValidatedInput,
   TWorkoutUpdateValidatedInput,
   TWorkoutQuery,
 } from "../../../../shared/validations/workout.validations";
-import { IApiService } from "../../shared/models/server.model";
+import type { IApiService } from "../../shared/models/server.model";
 
 const get = async (
   filter: TWorkoutQuery,
@@ -20,7 +20,6 @@ const get = async (
     filter,
     userId
   );
-  console.log("🚀 ~ get ~ where:", where)
 
   const take = filter.take ? parseInt(filter.take.toString()) : 20;
   const skip = filter.skip && filter.skip > 1 ? (filter.skip - 1) * take : 0;

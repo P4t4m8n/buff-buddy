@@ -43,7 +43,7 @@ export const useGenericPage = <DTO, Filter extends IBaseFilter>({
   }, [searchParams, initialFilter]);
 
   const setMutationKey = useMutationKeyStore((store) => store.setMutationKey);
-  const key = useMutationKeyStore((store) => store[mutationKeyName]);
+  const listKey = useMutationKeyStore((store) => store[mutationKeyName]);
 
   useEffect(() => {
     setMutationKey(mutationKeyName, [queryKey, filter]);
@@ -54,15 +54,23 @@ export const useGenericPage = <DTO, Filter extends IBaseFilter>({
 
   const {
     mutateAsync,
-    isPending,
+    isPending: isDeleting,
     error: deleteError,
   } = useItemDeleteMutation({
-    listKey: key,
-    itemIdKey: itemIdKey,
+    listKey,
+    itemIdKey,
     removeFn,
   });
 
   const { handleError } = useErrors();
+
+  useEffect(() => {
+    if (queryError) handleError({ error: queryError, emitToToast: true });
+  }, [queryError]);
+
+  useEffect(() => {
+    if (deleteError) handleError({ error: deleteError, emitToToast: true });
+  }, [deleteError]);
 
   const deleteItem = async (itemId?: string) => {
     try {
@@ -73,16 +81,9 @@ export const useGenericPage = <DTO, Filter extends IBaseFilter>({
     }
   };
 
-  useEffect(() => {
-    if (queryError) handleError({ error: queryError, emitToToast: true });
-  }, [queryError]);
-
-  useEffect(() => {
-    if (deleteError) handleError({ error: deleteError, emitToToast: true });
-  }, [deleteError]);
-
   const onSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     const formData = new FormData(e.currentTarget);
     const updatedParams: Record<string, string> = {};
 
@@ -94,18 +95,33 @@ export const useGenericPage = <DTO, Filter extends IBaseFilter>({
     if ("skip" in updatedParams) {
       updatedParams.skip = "0";
     }
+    if ("take" in updatedParams) {
+      updatedParams.take = "10";
+    }
 
-    setSearchParams(updatedParams);
+    setSearchParams(updatedParams, { replace: true });
+  };
+
+  const onResetForm = () => {
+    const newParams: Record<string, string> = {};
+    //INFO: Preserve pagination but reset filters
+    for (const [key, value] of searchParams.entries()) {
+      if (key === "skip" || key === "take") {
+        newParams[key] = value;
+      }
+    }
+    setSearchParams(newParams, { replace: true });
   };
 
   return {
     items,
     isLoading,
-    isPending,
+    isDeleting,
     filter,
     queryError,
     deleteError,
     deleteItem,
     onSearch,
+    onResetForm,
   };
 };

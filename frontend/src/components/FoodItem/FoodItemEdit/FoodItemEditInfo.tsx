@@ -3,7 +3,7 @@ import { toTitle } from "../../../utils/toTitle";
 import InputWithError from "../../UI/Form/InputWithError";
 import GenericTags from "../../UI/GenericTags";
 import Button from "../../UI/Button";
-import IconPlus from "../../UI/Icons/IconPlus";
+import {IconPlus} from "../../UI/Icons/IconPlus";
 import type {
   IFoodItemInfoEditBase,
   TFoodItemInfo,

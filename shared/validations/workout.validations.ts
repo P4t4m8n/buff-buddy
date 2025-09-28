@@ -73,10 +73,9 @@ const QuerySchema = validationUtil.FilterSchema.extend({
   programName: z.string().optional(),
   exerciseName: z.string().optional(),
   ownerName: z.string().optional(),
-  name: z.string().optional(),
+  workoutName: z.string().optional(),
   userId: z.string().optional(),
   exerciseId: z.string().optional(),
-  date: z.string().optional(),
   isTemplate: z
     .string()
     .transform((val) => val === "true")

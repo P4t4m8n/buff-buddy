@@ -10,7 +10,7 @@ const DEFAULT_AFTER_CONTENT_TEXT = {
   inactive: "Inactive",
 };
 interface IIsActiveInputProps {
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isActive: boolean;
   inputName: string;
   afterContentText?: {
@@ -43,14 +43,19 @@ export default function SwitchInput({
   const labelClass = twMerge(mainClass, before, after, afterAttrClass);
 
   const idName = inputName + appUtil.getTempId();
+
+  const conditionalProps = handleInputChange
+    ? { checked: isActive }
+    : { defaultChecked: isActive };
+    
   return (
     <Input
       onChange={handleInputChange}
-      checked={isActive}
+      {...conditionalProps}
       type="checkbox"
       name={inputName}
       id={idName}
-      divStyle="flex items-center order-2 justify-self-end lg:justify-self-center self-end"
+      divStyle="flex items-center justify-self-end lg:justify-self-center self-end"
       hidden
       className="hidden peer"
     >

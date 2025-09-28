@@ -1,7 +1,4 @@
-import type {
-  DaysOfWeek,
-  ExerciseType,
-} from "../../backend/prisma/generated/prisma";
+import type { ExerciseType } from "../../backend/prisma/generated/prisma";
 import type { IUserDTO } from "./user.model";
 import type { IExerciseDTO } from "./exercise.model";
 import type { IEntity, IEntityDates } from "./entity.model";
@@ -20,6 +17,13 @@ export interface IWorkoutDTO extends IWorkoutBase {
   workoutExercises?: IWorkoutExerciseDTO[];
 }
 
+export interface IWorkoutEditDTO extends IWorkoutBase {
+  programId?: string | null;
+  ownerId?: string | null;
+  workoutExercises?: IWorkoutExerciseEditDTO[];
+  crudOperation?: TCrudOperation;
+}
+
 export interface IWorkoutExerciseDTO extends IEntity, IEntityDates {
   order?: number | null;
   notes?: string | null;
@@ -27,13 +31,6 @@ export interface IWorkoutExerciseDTO extends IEntity, IEntityDates {
   hasWarmup?: boolean;
   isBodyWeight?: boolean;
   restTime?: number | null;
-}
-
-export interface IWorkoutEditDTO extends IWorkoutBase {
-  programId?: string | null;
-  ownerId?: string | null;
-  workoutExercises?: IWorkoutExerciseEditDTO[];
-  crudOperation?: TCrudOperation;
 }
 
 export interface IWorkoutExerciseEditDTO extends IEntity {
@@ -56,9 +53,12 @@ export interface IWorkoutExerciseEditSet {
 }
 
 export interface IWorkoutFilter extends IBaseFilter {
+  programName?: string | null;
+  exerciseName?: string | null;
+  ownerName?: string | null;
   programId?: string | null;
-  dayOfWeek?: DaysOfWeek | null;
+  userId?: string | null;
   exerciseId?: string | null;
-  isCompleted?: boolean | null;
   isTemplate?: boolean | string | null;
+  workoutName?: string | null;
 }

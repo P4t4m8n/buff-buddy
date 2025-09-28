@@ -1,52 +1,125 @@
-import React from "react";
-
-import SwitchInput from "../UI/Form/SwitchInput";
-
+//Lib
+import React, { useState } from "react";
+import { twMerge } from "tailwind-merge";
+//UI
+import Button from "../UI/Button";
+import Input from "../UI/Form/Input";
+import Label from "../UI/Form/Label";
+import InputWithError from "../UI/Form/InputWithError";
+//Icons
+import { IconPlus } from "../UI/Icons/IconPlus";
+import { IconSearch } from "../UI/Icons/IconSearch";
+//Types
 import type { IWorkoutFilter } from "../../../../shared/models/workout.model";
 
 interface IWorkoutFilterProps {
   workoutsFilter: IWorkoutFilter;
-  setWorkoutsFilter: React.Dispatch<React.SetStateAction<IWorkoutFilter>>;
+  isLoading?: boolean;
+  onSearch: (e: React.FormEvent<HTMLFormElement>) => void;
+  onResetForm: () => void;
 }
+
+//TODO:Maybe move the local state for filter to manage clearing the filter better?
 function WorkoutFilterMemo({
   workoutsFilter,
-  setWorkoutsFilter,
+  isLoading,
+  onSearch,
+  onResetForm,
 }: IWorkoutFilterProps) {
-  const { isTemplate } = workoutsFilter;
+  const [isOpen, setIsOpen] = useState(true);
+  const { isTemplate, workoutName, programName, exerciseName, ownerName } =
+    workoutsFilter;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.stopPropagation();
-    const target = e.target as HTMLInputElement;
-    const { name, value, type, checked } = target;
+  const inputs = [
+    { label: "workout", value: workoutName, name: "workoutName" },
+    { label: "exercise", value: exerciseName, name: "exerciseName" },
+    { label: "program", value: programName, name: "programName" },
+    { label: "owner", value: ownerName, name: "ownerName" },
+  ];
 
-    let newVal: boolean | string | number | null;
-    switch (type) {
-      case "checkbox":
-        newVal = checked;
-        break;
-      case "number":
-        newVal = parseFloat(value);
-        break;
-      default:
-        newVal = value;
-        break;
-    }
-    setWorkoutsFilter((prev) => {
-      return {
-        ...prev,
-        [name]: newVal,
-      };
-    });
-  };
+  const baseFormStyle =
+    "flex flex-col z-10 gap-4 py-desktop transition-all duration-300 ease-in-out h-full";
+  const isFormOpenStyle = isOpen
+    ? "w-full md:w-small p-desktop bg-black-400 absolute inset-0 md:relative"
+    : " ml-4 w-8 ";
+
+  const formStyle = twMerge(baseFormStyle, isFormOpenStyle);
+
   return (
-    <div className="flex flex-wrap gap-3 items-end p-2">
-      <SwitchInput
-        handleInputChange={handleChange}
-        isActive={!!isTemplate}
-        inputName="isTemplate"
-        afterContentText={{ active: "Templates", inactive: "All" }}
-      />
-    </div>
+    <form onSubmit={onSearch} className={formStyle}>
+      {isOpen ? (
+        <>
+          <span className="inline-flex justify-between items-center w-full">
+            <h2 className="text-lg">Filter & Search</h2>
+            <Button
+              className="border rounded-full w-8 h-8 p-1 flex-center"
+              type="button"
+              onClick={() => setIsOpen((prev) => !prev)}
+            >
+              <IconPlus className="w-full stroke-main-orange rotate-45" />
+            </Button>
+          </span>
+
+          {inputs.map((input) => (
+            <InputWithError
+              key={input.name}
+              inputProps={{
+                defaultValue: input.value ?? "",
+                type: "text",
+                name: input.name,
+                id: `${input.name}-workout-filter`,
+                placeholder: `Search by ${input.label}...`,
+                className: "order-2 px-2 py-1 bg-black-900 ",
+              }}
+              labelProps={{
+                htmlFor: `${input.name}-workout-filter`,
+                children: `${input.label} name`,
+                isMoveUpEffect: false,
+                className: "order-1 text-sm",
+              }}
+              divStyle="h-fit w-full grid gap-1 "
+            />
+          ))}
+
+          <Input
+            type="checkbox"
+            name="isTemplate"
+            defaultChecked={!!isTemplate}
+            divStyle="flex  items-center gap-2 "
+            className=" cursor-pointer w-fit "
+          >
+            <Label> "Template" </Label>
+          </Input>
+          <div className="flex mt-auto gap-8 w-full">
+            <Button
+              type="reset"
+              buttonStyle="warning"
+              className="w-full"
+              disabled={isLoading}
+              onClick={onResetForm}
+            >
+              Reset
+            </Button>
+            <Button
+              disabled={isLoading}
+              type="submit"
+              buttonStyle="save"
+              className="w-full"
+            >
+              <p>Search</p>
+            </Button>
+          </div>
+        </>
+      ) : (
+        <Button
+          className="border rounded-full w-8 h-8 p-1 flex-center"
+          type="button"
+          onClick={() => setIsOpen((prev) => !prev)}
+        >
+          <IconSearch className="stroke-main-orange w-full" />
+        </Button>
+      )}
+    </form>
   );
 }
 
@@ -56,7 +129,7 @@ const arePropsEqual = (
 ) => {
   if (
     prevProps.workoutsFilter !== nextProps.workoutsFilter ||
-    prevProps.setWorkoutsFilter !== nextProps.setWorkoutsFilter
+    prevProps.isLoading !== nextProps.isLoading
   ) {
     return false;
   }

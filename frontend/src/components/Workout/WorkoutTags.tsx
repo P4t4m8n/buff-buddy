@@ -12,7 +12,7 @@ export default function WorkoutTags({ workoutExercises }: IWorkoutTagsProps) {
         items={workoutExercises || []}
         ItemComponent={WorkoutTag}
         getKey={(item) => item.id || ""}
-        ulStyle="flex w-full overflow-auto gap-2 py-2"
+        ulStyle="flex w-full overflow-x-scroll gap-2 py-2"
       />
     </>
   );

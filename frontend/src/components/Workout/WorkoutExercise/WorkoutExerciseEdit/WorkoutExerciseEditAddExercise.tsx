@@ -1,6 +1,6 @@
 import ExerciseEdit from "../../../Exercise/ExerciseEdit";
 import GenericModel from "../../../UI/GenericModel";
-import IconPlus from "../../../UI/Icons/IconPlus";
+import {IconPlus} from "../../../UI/Icons/IconPlus";
 
 interface WorkoutExerciseEditAddExerciseProps {
   parentRef?: React.RefObject<HTMLDivElement | null>;

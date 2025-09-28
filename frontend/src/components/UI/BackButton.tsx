@@ -7,7 +7,7 @@ export default function BackButton() {
 
   return (
     <Button
-      className="border-main-orange border rounded-full w-10 aspect-auto -rotate-90"
+      className="border-main-orange border rounded-full w-8 aspect-auto -rotate-90"
       onClick={onBack}
     >
       <IconArrow className="w-full aspect-square fill-main-orange" />

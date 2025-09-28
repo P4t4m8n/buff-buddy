@@ -1,12 +1,14 @@
 import { useCallback, useMemo } from "react";
 
-import { useItemsPage } from "../../hooks/shared/useItemsPage";
-import { useWorkoutStore } from "../../store/workout.store";
+import { workoutService } from "../../services/workout.service";
+
+import { useWorkoutsQuery } from "../../hooks/features/workout/useWorkoutsQuery";
+import { useGenericPage } from "../../hooks/shared/useGenericPage";
 
 import { INITIAL_WORKOUT_FILTER } from "../../consts/filters.consts";
+import { QUERY_KEYS } from "../../consts/queryKeys.consts";
 
 import WorkoutFilter from "./WorkoutFilter";
-
 import WorkoutPreview from "./WorkoutPreview";
 
 import GenericList from "../UI/GenericList";
@@ -17,10 +19,6 @@ import type {
   IWorkoutDTO,
   IWorkoutFilter,
 } from "../../../../shared/models/workout.model";
-import { useGenericPage } from "../../hooks/shared/useGenericPage";
-import { QUERY_KEYS } from "../../consts/queryKeys.consts";
-import { useWorkoutsQuery } from "../../hooks/features/workout/useWorkoutsQuery";
-import { workoutService } from "../../services/workout.service";
 
 interface IWorkoutListProps {
   actionType: TWorkoutActionRoute;
@@ -40,14 +38,15 @@ export default function WorkoutList({
   const {
     items = [],
     isLoading,
-    isPending,
+    isDeleting,
     filter,
     deleteItem: deleteWorkout,
     onSearch,
+    onResetForm,
   } = useGenericPage<IWorkoutDTO, IWorkoutFilter>({
     initialFilter: INITIAL_WORKOUT_FILTER,
     queryKey: QUERY_KEYS.WORKOUTS_QUERY_KEY,
-    mutationKeyName: "workoutsMutationKey",
+    mutationKeyName: QUERY_KEYS.WORKOUT_MUTATION_KEY,
     itemIdKey: QUERY_KEYS.WORKOUT_ID_QUERY_KEY,
     useQuery: useWorkoutsQuery,
     removeFn: workoutService.remove,
@@ -55,15 +54,18 @@ export default function WorkoutList({
 
   const itemComponentProps = useMemo(() => {
     return actionType === "programEdit"
-      ? { actionType: "programEdit", onSelectProgramWorkout }
-      : { actionType: "workoutList", onDeleteWorkout: deleteWorkout };
+      ? {
+          actionType: "programEdit" as TWorkoutActionRoute,
+          onSelectProgramWorkout,
+        }
+      : {
+          actionType: "workoutList" as TWorkoutActionRoute,
+          onDeleteWorkout: deleteWorkout,
+          isDeleting,
+        };
   }, []);
 
   const getKey = useCallback((item: IWorkoutDTO) => item.id ?? "", []);
-
-  if (isLoading) {
-    return <Loader loaderType="screen" />;
-  }
 
   const workouts = !selectedWorkoutId
     ? items
@@ -71,17 +73,23 @@ export default function WorkoutList({
 
   return (
     <>
-      {/* <WorkoutFilter
+      <WorkoutFilter
         workoutsFilter={filter}
-        setWorkoutsFilter={setWorkoutsFilter}
-      /> */}
-      <GenericList
-        items={workouts}
-        ItemComponent={WorkoutPreview}
-        itemComponentProps={itemComponentProps}
-        getKey={getKey}
-        ulStyle="flex flex-col gap-4 h-[calc(100%-9.5rem)] overflow-auto"
+        isLoading={isLoading}
+        onSearch={onSearch}
+        onResetForm={onResetForm}
       />
+      {isLoading ? (
+        <Loader loaderType="screen" isFullScreen={false} />
+      ) : (
+        <GenericList
+          items={workouts}
+          ItemComponent={WorkoutPreview}
+          itemComponentProps={itemComponentProps}
+          getKey={getKey}
+          ulStyle="xl:columns-3 lg:columns-2 md:columns-1 gap-4 h-[calc(100%-9.5rem)] overflow-auto p-desktop"
+        />
+      )}
     </>
   );
 }

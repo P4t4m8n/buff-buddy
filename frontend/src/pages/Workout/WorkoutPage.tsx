@@ -59,7 +59,7 @@ export default function WorkoutPage() {
 
     programs?.forEach((program) => {
       program.programWorkouts?.forEach((workout) => {
-        workout.daysOfWeek.forEach((day) => {
+        workout?.daysOfWeek?.forEach((day) => {
           if (!map.has(day)) {
             map.set(day, []);
           }
