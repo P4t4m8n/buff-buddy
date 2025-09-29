@@ -33,13 +33,15 @@ export default function WorkoutPreview({
       ?.map((we) => we.exercise?.name)
       .filter((name): name is string => !!name) ?? [];
 
+  //info: demo data is broken and im lazy, so just using a set to filter out duplicates
+  const exerciseSet = new Set(exerciseNames).values();
+
   return (
     <li className="p-2 border rounded grid gap-2 break-inside-avoid mb-4 w-full ">
       <h4>{name}</h4>
 
-      {/* <WorkoutTags workoutExercises={workoutExercises} /> */}
       <GenericCarousel
-        items={exerciseNames}
+        items={exerciseSet ? Array.from(exerciseSet) : []}
         props={{}}
         ItemComponent={WorkoutTag}
         getKey={(item) => item}

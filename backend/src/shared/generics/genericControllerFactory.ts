@@ -7,14 +7,17 @@ import { validationUtil } from "../../../../shared/validations/util.validation";
 import type { IApiService } from "../models/server.model";
 import type { IValidation } from "../../../../shared/models/validation.model";
 import type { Request, Response } from "express";
+import { IGetMetaData } from "../../../../shared/models/metaData.model";
+import { dbUtil } from "../utils/db.util";
+import { IBaseFilter } from "../../../../shared/models/app.model";
 
 export const genericControllerFactory = <
   DTO,
   EditDTO,
   Filter,
-  CreateInput extends { ownerId: string|null },
-  UpdateInput extends { ownerId?: string|null },
-  QuerySchema,
+  CreateInput extends { ownerId: string | null },
+  UpdateInput extends { ownerId?: string | null },
+  QuerySchema extends IBaseFilter,
   Model
 >({
   service,
@@ -39,12 +42,23 @@ export const genericControllerFactory = <
     getAll: async (req: Request, res: Response) => {
       try {
         let userId = undefined;
-
+        
         if (isAuth) userId = _authUser();
-
+        
         const filter = validation.QuerySchema.parse(req.query);
+        
+        const [itemsData, count] = await service.get(filter, userId);
 
-        const itemsData = await service.get(filter, userId);
+        const meta: IGetMetaData = dbUtil.buildMetaData({
+          count,
+          take: filter.take,
+          skip: filter.skip,
+        });
+
+        res.setHeader("X-Total-Count", meta.total.toString());
+        res.setHeader("X-Total-Pages", meta.totalPages.toString());
+        res.setHeader("X-Current-Page", meta.currentPage.toString());
+        res.setHeader("X-Per-Page", meta.perPage.toString());
 
         const dtos = buildDTO
           ? itemsData.map((item) => buildDTO(item))
@@ -53,6 +67,7 @@ export const genericControllerFactory = <
         res.status(200).json({
           message: `${entityName}s retrieved successfully`,
           data: dtos,
+          meta,
         });
       } catch (error) {
         const { status, message, errors } = AppError.handleResponse(error);

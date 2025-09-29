@@ -45,8 +45,13 @@ function WorkoutFilterMemo({
 
   const formStyle = twMerge(baseFormStyle, isFormOpenStyle);
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    onSearch(e);
+    setIsOpen(false);
+  };
+
   return (
-    <form onSubmit={onSearch} className={formStyle}>
+    <form onSubmit={onSubmit} className={formStyle}>
       {isOpen ? (
         <>
           <span className="inline-flex justify-between items-center w-full">

@@ -11,13 +11,12 @@ import type {
   TProgramQuery,
 } from "../../../../shared/validations/program.validations";
 import type { Prisma } from "../../../prisma/generated/prisma";
+import type { TGetReturn } from "../../shared/models/server.model";
 
-//TODO?? move to raw SQL for performance due to junction tables and reorganize of structure data
-
-const get = async (
+const get = (
   filter: TProgramQuery,
   userId?: string
-): Promise<IProgram[]> => {
+): Promise<TGetReturn<IProgram>> => {
   const where: Prisma.ProgramWhereInput = programsUtil.buildWhereClause(
     filter,
     userId
@@ -26,12 +25,15 @@ const get = async (
   const take = filter.take ?? 20;
   const skip = filter.skip && filter.skip > 1 ? (filter.skip - 1) * take : 0;
 
-  return await prisma.program.findMany({
-    where,
-    skip,
-    take,
-    select: programsSQL.PROGRAM_SELECT,
-  });
+  return prisma.$transaction([
+    prisma.program.findMany({
+      where,
+      skip,
+      take,
+      select: programsSQL.PROGRAM_SELECT,
+    }),
+    prisma.program.count({ where }),
+  ]);
 };
 
 const getById = async (
@@ -53,7 +55,6 @@ const create = async (
     select: programsSQL.PROGRAM_SELECT,
   })) as unknown as IProgram;
 };
-//TODO?? moving to raw sql in the end, so lazy solution for now
 const update = async (
   id: string,
   dto: TProgramUpdateValidatedInput

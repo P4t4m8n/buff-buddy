@@ -10,26 +10,31 @@ import type {
   TWorkoutUpdateValidatedInput,
   TWorkoutQuery,
 } from "../../../../shared/validations/workout.validations";
-import type { IApiService } from "../../shared/models/server.model";
+import type { IApiService, TGetReturn } from "../../shared/models/server.model";
+import type { IGetMetaData } from "../../../../shared/models/metaData.model";
+import { dbUtil } from "../../shared/utils/db.util";
 
-const get = async (
+const get = (
   filter: TWorkoutQuery,
   userId?: string
-): Promise<IWorkout[]> => {
+): Promise<TGetReturn<IWorkout>> => {
   const where: Prisma.WorkoutWhereInput = workoutUtil.buildWhereClause(
     filter,
     userId
   );
 
-  const take = filter.take ? parseInt(filter.take.toString()) : 20;
+  const take = filter.take ? parseInt(filter.take.toString()) : 10;
   const skip = filter.skip && filter.skip > 1 ? (filter.skip - 1) * take : 0;
-
-  return await prisma.workout.findMany({
-    where,
-    skip,
-    take,
-    select: workoutSQL.WORKOUT_SELECT,
-  });
+  
+  return prisma.$transaction([
+    prisma.workout.findMany({
+      where,
+      skip,
+      take,
+      select: workoutSQL.WORKOUT_SELECT,
+    }),
+    prisma.workout.count({ where }),
+  ]);
 };
 const getById = async (id: string): Promise<IWorkout | null> => {
   return prisma.workout.findUnique({

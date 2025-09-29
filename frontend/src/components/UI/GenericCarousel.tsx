@@ -69,7 +69,7 @@ export default function GenericCarousel<T, Props>({
       {isOverflowing ? (
         <Button
           onClick={() => scroll("left")}
-          className="w-8 h-8 flex-center border rounded-full stroke-main-orange -rotate-90"
+          className="w-8 h-8 flex-center border rounded-full  fill-main-orange -rotate-90"
         >
           <IconArrow className="w-full h-full" />
         </Button>
@@ -89,7 +89,7 @@ export default function GenericCarousel<T, Props>({
       {isOverflowing ? (
         <Button
           onClick={() => scroll("right")}
-          className="w-8 h-8 flex-center border rounded-full stroke-main-orange rotate-90"
+          className="w-8 h-8 flex-center border rounded-full  fill-main-orange rotate-90"
         >
           <IconArrow className="w-full h-full" />
         </Button>

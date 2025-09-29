@@ -11,19 +11,22 @@ import type {
 } from "../../../../shared/validations/exercise.validation";
 import type { IExercise } from "./exercises.models";
 
-const get = async (filter: TExerciseQuery): Promise<IExercise[]> => {
+const get = (filter: TExerciseQuery): Promise<[IExercise[], number]> => {
   const where: Prisma.ExerciseWhereInput =
     exerciseUtil.buildWhereClause(filter);
 
   const take = filter.take ?? 100;
   const skip = filter.skip && filter.skip > 1 ? (filter.skip - 1) * take : 0;
 
-  return prisma.exercise.findMany({
-    where,
-    skip,
-    take,
-    select: exerciseSQL.EXERCISE_SELECT,
-  });
+  return prisma.$transaction([
+    prisma.exercise.findMany({
+      where,
+      skip,
+      take,
+      select: exerciseSQL.EXERCISE_SELECT,
+    }),
+    prisma.exercise.count({ where }),
+  ]);
 };
 const getById = async (id: string): Promise<IExercise | null> => {
   return await prisma.exercise.findUnique({

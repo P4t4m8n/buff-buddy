@@ -12,7 +12,7 @@ interface IWorkoutBase extends IEntity, IEntityDates {
 }
 
 export interface IWorkoutDTO extends IWorkoutBase {
-  program?: Partial<IProgramDTO>;
+  programs?: Partial<IProgramDTO>[] | null;
   owner?: Partial<IUserDTO> | null;
   workoutExercises?: IWorkoutExerciseDTO[];
 }
@@ -47,10 +47,10 @@ export interface IWorkoutExerciseEditDTO extends IEntity {
   restTime?: number;
 }
 
-export interface IWorkoutExerciseEditSet {
-  crudOperation?: TCrudOperation;
-  workoutExerciseId?: string;
-}
+// export interface IWorkoutExerciseEditSet {
+//   crudOperation?: TCrudOperation;
+//   workoutExerciseId?: string;
+// }
 
 export interface IWorkoutFilter extends IBaseFilter {
   programName?: string | null;
