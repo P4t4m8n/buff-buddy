@@ -27,16 +27,11 @@ export const genericServiceFactory = <
 }) => {
   return {
     get: async (filter?: Filter | null): Promise<THttpResponse<Array<DTO>>> => {
-      return await apiService.get<THttpResponse<Array<DTO>>>(
-        `${rootPath}`,
-        filter
-      );
+      return await apiService.get<Array<DTO>>(`${rootPath}`, filter);
     },
 
     getById: async (id?: string): Promise<THttpResponse<DTO | null>> => {
-      return await apiService.get<THttpResponse<DTO | null>>(
-        `${rootPath}/${id}`
-      );
+      return await apiService.get<DTO | null>(`${rootPath}/${id}`);
     },
 
     save: async (dto: EditDTO): Promise<THttpResponse<DTO>> => {
@@ -49,24 +44,21 @@ export const genericServiceFactory = <
           .createFactorySchema({ toSanitize: false })
           .parse(dto);
 
-        return await apiService.post<THttpResponse<DTO>>(
-          `${rootPath}/edit`,
-          validatedDTO
-        );
+        return await apiService.post<DTO>(`${rootPath}/edit`, validatedDTO);
       }
 
       const validatedDTO = validation
         .updateFactorySchema({ toSanitize: false })
         .parse(dto);
 
-      return await apiService.put<THttpResponse<DTO>>(
+      return await apiService.put<DTO>(
         `${rootPath}/edit/${dto.id}`,
         validatedDTO
       );
     },
 
     remove: async (id?: string): Promise<THttpResponse<void>> => {
-      return await apiService.delete<THttpResponse<void>>(`${rootPath}/${id}`);
+      return await apiService.delete<void>(`${rootPath}/${id}`);
     },
   };
 };

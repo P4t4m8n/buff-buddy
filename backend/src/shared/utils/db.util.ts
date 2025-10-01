@@ -32,7 +32,7 @@ const buildMetaData = ({
 }): IGetMetaData => ({
   total: count,
   totalPages: Math.ceil(count / (take ?? 10)),
-  currentPage: skip ?? 1,
+  currentPage: skip ?? 0,
   perPage: take ?? 10,
 });
 export const dbUtil = {

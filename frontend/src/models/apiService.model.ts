@@ -1,7 +1,9 @@
+import type { IGetMetaData } from "../../../shared/models/metaData.model";
 export const HTTP_METHODS = ["GET", "POST", "PUT", "DELETE"] as const;
 export type THttpResponse<T> = {
   massage?: string;
   data: T;
+  meta?: IGetMetaData;
 };
 
 export type THttpErrorResponse = {
@@ -10,5 +12,3 @@ export type THttpErrorResponse = {
 };
 
 export type THttpMethod = (typeof HTTP_METHODS)[number];
-
-

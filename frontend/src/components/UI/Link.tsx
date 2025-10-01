@@ -12,17 +12,23 @@ import type { TIconMode } from "../../models/UI.model";
 interface ILinkProps extends LinkProps, React.RefAttributes<HTMLAnchorElement> {
   linkStyle?: TButtonLinkStyle | null;
   mode?: TIconMode;
+  disabled?: boolean;
 }
 export default function LinkComponent({
   linkStyle,
   mode,
+  disabled,
   ...props
 }: ILinkProps) {
   const style = linkStyle ? BUTTON_LINK_STYLES[linkStyle] : "";
 
   const className = twMerge(`cursor-pointer`, style, props.className);
   const children = props.children;
-  return (
+  return disabled ? (
+    <span className={className} aria-disabled="true">
+      {children ?? ModelButtonIcon(mode)}
+    </span>
+  ) : (
     <Link {...props} className={className}>
       {children ?? ModelButtonIcon(mode)}
     </Link>

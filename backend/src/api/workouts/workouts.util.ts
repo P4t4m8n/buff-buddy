@@ -44,7 +44,8 @@ const buildWhereClause = (
     };
   }
 
-  // where.isTemplate = filter.isTemplate;
+  where.isTemplate = filter.isTemplate;
+  
 
   if (userId) where.ownerId = userId;
   return where;

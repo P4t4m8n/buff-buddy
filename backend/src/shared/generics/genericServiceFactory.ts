@@ -12,15 +12,36 @@ const TABLE_KEYS = [
 ] as const;
 type TableKey = (typeof TABLE_KEYS)[number];
 
+const _getDelegate = (tableKey: TableKey) => {
+  switch (tableKey) {
+    case "workout":
+      return prisma.workout;
+    case "exercise":
+      return prisma.exercise;
+    case "program":
+      return prisma.program;
+    case "foodItem":
+      return prisma.foodItem;
+    case "meal":
+      return prisma.meal;
+    default:
+      const _exhaustiveCheck: never = tableKey;
+      throw new Error(`Invalid table key: ${_exhaustiveCheck}`);
+  }
+};
+
+interface IDelegate<Model> {
+  findMany: (...args: any) => PrismaPromise<Model[]>;
+  count: (...args: any) => PrismaPromise<number>;
+  findUnique: (...args: any) => PrismaPromise<Model | null>;
+  create: (...args: any) => PrismaPromise<Model>;
+  update: (...args: any) => PrismaPromise<Model>;
+  delete: (...args: any) => PrismaPromise<Model>;
+}
+
 const createServiceLogic = <
-  Delegate extends {
-    findMany: (...args: any) => PrismaPromise<any[]>;
-    count: (...args: any) => PrismaPromise<number>;
-    findUnique: (...args: any) => PrismaPromise<any | null>;
-    create: (...args: any) => PrismaPromise<any>;
-    update: (...args: any) => PrismaPromise<any>;
-    delete: (...args: any) => PrismaPromise<any>;
-  },
+  Model,
+  Delegate extends IDelegate<Model>,
   CreateInput,
   UpdateInput,
   QuerySchema extends IBaseFilter

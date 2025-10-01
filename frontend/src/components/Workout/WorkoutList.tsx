@@ -13,6 +13,7 @@ import WorkoutPreview from "./WorkoutPreview";
 
 import GenericList from "../UI/GenericList";
 import Loader from "../UI/loader/Loader";
+import Pagination from "../UI/Pagination";
 
 import type { TWorkoutActionRoute } from "../../models/workout.model";
 import type {
@@ -40,9 +41,11 @@ export default function WorkoutList({
     isLoading,
     isDeleting,
     filter,
+    meta,
     deleteItem: deleteWorkout,
     onSearch,
     onResetForm,
+    onPaginate,
   } = useGenericPage<IWorkoutDTO, IWorkoutFilter>({
     initialFilter: INITIAL_WORKOUT_FILTER,
     queryKey: QUERY_KEYS.WORKOUTS_QUERY_KEY,
@@ -82,13 +85,18 @@ export default function WorkoutList({
       {isLoading ? (
         <Loader loaderType="cards-pulse" isFullScreen={false} />
       ) : (
-        <GenericList
-          items={workouts}
-          ItemComponent={WorkoutPreview}
-          itemComponentProps={itemComponentProps}
-          getKey={getKey}
-          ulStyle="xl:columns-3 lg:columns-2 md:columns-1 gap-4 h-[calc(100%-9.5rem)] overflow-auto p-desktop"
-        />
+        <>
+          <GenericList
+            items={workouts}
+            ItemComponent={WorkoutPreview}
+            itemComponentProps={itemComponentProps}
+            getKey={getKey}
+            ulStyle="gap-4 h-full overflow-y-auto px-desktop w-full 
+                     grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))]
+                     grid-rows-[repeat(auto-fill,14rem)]   "
+          />
+          <Pagination meta={meta} onPaginate={onPaginate} />
+        </>
       )}
     </>
   );

@@ -14,7 +14,7 @@ const signIn = async (dto: TSignInInput): Promise<THttpResponse<IUserDTO>> => {
   const validatedDTO = authValidation
     .signInFactorySchema({ toSanitize: false })
     .parse(dto);
-  return await apiService.post<THttpResponse<IUserDTO>>(
+  return await apiService.post<IUserDTO>(
     `${ROOT_PATH}/sign-in`,
     validatedDTO
   );
@@ -24,7 +24,7 @@ const signUp = async (dto: TSignUpInput): Promise<THttpResponse<IUserDTO>> => {
   const validatedDTO = authValidation
     .signUpFactorySchema({ toSanitize: false })
     .parse(dto);
-  return await apiService.post<THttpResponse<IUserDTO>>(
+  return await apiService.post<IUserDTO>(
     `${ROOT_PATH}/sign-up`,
     validatedDTO
   );
@@ -35,7 +35,7 @@ const signOut = async (): Promise<void> => {
 };
 
 const getSessionUser = async (): Promise<THttpResponse<IUserDTO | null>> => {
-  return await apiService.get<THttpResponse<IUserDTO | null>>(
+  return await apiService.get<IUserDTO | null>(
     `${ROOT_PATH}/session-user`
   );
 };

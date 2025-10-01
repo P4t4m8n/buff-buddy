@@ -19,6 +19,12 @@ export const setupCors = (app: Express): void => {
     const corsOptions: cors.CorsOptions = {
       origin: ORIGINS,
       credentials: true,
+      exposedHeaders: [
+        "X-Total-Count",
+        "X-Total-Pages",
+        "x-Current-Page",
+        "x-Per-Page",
+      ],
     };
     app.use(cors(corsOptions));
   }

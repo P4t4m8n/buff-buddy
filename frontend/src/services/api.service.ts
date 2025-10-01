@@ -4,16 +4,17 @@ import { ClientError } from "./ClientError.service";
 import type {
   THttpErrorResponse,
   THttpMethod,
+  THttpResponse,
 } from "../models/apiService.model";
 
 const BASE_URL =
   import.meta.env.VITE_PUBLIC_API_BASE_URL || "http://localhost:3030";
 
 interface IApiService {
-  get: <T>(endpoint: string, data?: unknown) => Promise<T>;
-  post: <T>(endpoint: string, data?: unknown) => Promise<T>;
-  put: <T>(endpoint: string, data?: unknown) => Promise<T>;
-  delete: <T>(endpoint: string, data?: unknown) => Promise<T>;
+  get: <T>(endpoint: string, data?: unknown) => Promise<THttpResponse<T>>;
+  post: <T>(endpoint: string, data?: unknown) => Promise<THttpResponse<T>>;
+  put: <T>(endpoint: string, data?: unknown) => Promise<THttpResponse<T>>;
+  delete: <T>(endpoint: string, data?: unknown) => Promise<THttpResponse<T>>;
 }
 
 export const apiService: IApiService = {
@@ -35,7 +36,7 @@ const ajax = async <T>(
   endpoint: string,
   method: THttpMethod,
   data: unknown = null
-): Promise<T> => {
+): Promise<THttpResponse<T>> => {
   let url = `${BASE_URL}${endpoint}`;
 
   const options: RequestInit = {
@@ -75,6 +76,23 @@ const ajax = async <T>(
       errorBody?.errors
     );
   }
+  const httpResponse: THttpResponse<T> = await res.json();
 
-  return (await res.json()) as T;
+  if (method === "GET" && Array.isArray(httpResponse.data)) {
+    const currentPage = res.headers.get("x-Current-Page");
+    const perPage =  res.headers.get("x-Per-Page");
+    const totalCount = res.headers.get("X-Total-Count");
+    const totalPages = res.headers.get("X-Total-Pages");
+
+    httpResponse.meta = {
+      currentPage: Number(currentPage),
+      perPage: Number(perPage),
+      total: Number(totalCount),
+      totalPages: Number(totalPages),
+    };
+
+    return httpResponse;
+  }
+
+  return httpResponse;
 };

@@ -26,7 +26,7 @@ function WorkoutFilterMemo({
   onSearch,
   onResetForm,
 }: IWorkoutFilterProps) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const { isTemplate, workoutName, programName, exerciseName, ownerName } =
     workoutsFilter;
 
@@ -38,10 +38,10 @@ function WorkoutFilterMemo({
   ];
 
   const baseFormStyle =
-    "flex flex-col z-10 gap-4 py-desktop transition-all duration-300 ease-in-out h-full";
+    "transition-all duration-300 ease-in-out h-full flex md:row-span-2 ";
   const isFormOpenStyle = isOpen
-    ? "w-full md:w-small p-desktop bg-black-400 absolute inset-0 md:relative"
-    : " ml-4 w-8 ";
+    ? "w-full md:w-small p-desktop bg-black-400 absolute inset-0 md:relative flex flex-col z-10 gap-4"
+    : "pl-4 md:w-12  items-center md:items-start ";
 
   const formStyle = twMerge(baseFormStyle, isFormOpenStyle);
 

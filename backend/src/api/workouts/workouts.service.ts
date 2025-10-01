@@ -11,8 +11,6 @@ import type {
   TWorkoutQuery,
 } from "../../../../shared/validations/workout.validations";
 import type { IApiService, TGetReturn } from "../../shared/models/server.model";
-import type { IGetMetaData } from "../../../../shared/models/metaData.model";
-import { dbUtil } from "../../shared/utils/db.util";
 
 const get = (
   filter: TWorkoutQuery,
@@ -24,13 +22,14 @@ const get = (
   );
 
   const take = filter.take ? parseInt(filter.take.toString()) : 10;
-  const skip = filter.skip && filter.skip > 1 ? (filter.skip - 1) * take : 0;
-  
+  const skip = (filter?.skip ?? 0) * take;
+
   return prisma.$transaction([
     prisma.workout.findMany({
       where,
       skip,
       take,
+      orderBy: { name: "asc" },
       select: workoutSQL.WORKOUT_SELECT,
     }),
     prisma.workout.count({ where }),

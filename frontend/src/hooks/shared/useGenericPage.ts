@@ -50,7 +50,7 @@ export const useGenericPage = <DTO, Filter extends IBaseFilter>({
   }, [filter, queryKey, mutationKeyName, setMutationKey]);
 
   const { data, isLoading, error: queryError } = useQuery(filter);
-  const { data: items } = data ?? {};
+  const { data: items, meta } = data ?? {};
 
   const {
     mutateAsync,
@@ -87,7 +87,7 @@ export const useGenericPage = <DTO, Filter extends IBaseFilter>({
     const formData = new FormData(e.currentTarget);
     const updatedParams: Record<string, string> = {};
 
-    Object.keys(initialFilter).forEach((key) => {
+    Object.keys(filter).forEach((key) => {
       const value = formData.get(key) as string;
       updatedParams[key] = value || "";
     });
@@ -113,6 +113,14 @@ export const useGenericPage = <DTO, Filter extends IBaseFilter>({
     setSearchParams(newParams, { replace: true });
   };
 
+  const onPaginate = (page: number) => {
+    const newParams: Record<string, string> = {
+      ...(filter as unknown as Record<string, string>),
+      skip: page.toString(),
+    };
+
+    setSearchParams(newParams, { replace: true });
+  };
   return {
     items,
     isLoading,
@@ -120,8 +128,10 @@ export const useGenericPage = <DTO, Filter extends IBaseFilter>({
     filter,
     queryError,
     deleteError,
+    meta,
     deleteItem,
     onSearch,
     onResetForm,
+    onPaginate,
   };
 };

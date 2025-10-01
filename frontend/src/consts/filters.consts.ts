@@ -9,5 +9,5 @@ export const INITIAL_WORKOUT_FILTER: IWorkoutFilter = {
   exerciseId: "",
   isTemplate: "",
   skip: 0,
-  take: 50,
+  take: 10,
 };

@@ -21,7 +21,6 @@ export default function GenericCarousel<T, Props>({
   listStyle,
 }: IGenericCarouselProps<T, Props>) {
   const [isOverflowing, setIsOverflowing] = useState(false);
-  console.log("🚀 ~ GenericCarousel ~ isOverflowing:", isOverflowing);
   const scrollContainerRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {

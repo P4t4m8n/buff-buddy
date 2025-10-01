@@ -235,7 +235,6 @@ const seedWorkouts = async () => {
 
 seedWorkouts()
   .then((result) => {
-    console.log(result);
   })
   .catch((error) => {
     console.error("Error seeding workouts:", error);
