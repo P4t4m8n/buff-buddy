@@ -24,7 +24,6 @@ const dtoToEditDto = ({
     notes: dto.notes,
     name: dto.name,
     isTemplate: isEdit ? dto.isTemplate : false,
-    programId: dto.program?.id ?? null,
     ownerId: dto.owner?.id,
     crudOperation: isCopy ? "create" : isEdit ? "update" : "read",
     workoutExercises: (dto.workoutExercises || []).map((we) => {
@@ -51,7 +50,6 @@ const dtoToEditDto = ({
 const getEmpty = (): IWorkoutEditDTO => {
   return {
     id: getTempId(),
-    programId: null,
     ownerId: null,
     notes: "",
     workoutExercises: [],

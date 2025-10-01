@@ -1,11 +1,4 @@
-import type { StoreApi, UseBoundStore } from "zustand";
 import Button from "./Button";
-
-interface SavableStore {
-  isSavingId: string | null;
-}
-
-import type React from "react";
 import Loader from "./loader/Loader";
 
 interface GenericSaveButtonProps {

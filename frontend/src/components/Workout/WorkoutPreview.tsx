@@ -2,14 +2,13 @@ import { Link } from "react-router";
 
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
 
-import WorkoutTags from "./WorkoutTags";
-
 import Button from "../UI/Button";
 import GenericDeleteButton from "../UI/GenericDeleteButton";
+import Tag from "../UI/Tag";
+import GenericCarousel from "../UI/GenericCarousel";
 
 import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
 import type { TWorkoutActionRoute } from "../../models/workout.model";
-import GenericCarousel from "../UI/GenericCarousel";
 
 interface IWorkoutPreviewProps {
   item: IWorkoutDTO;
@@ -43,7 +42,7 @@ export default function WorkoutPreview({
       <GenericCarousel
         items={exerciseSet ? Array.from(exerciseSet) : []}
         props={{}}
-        ItemComponent={WorkoutTag}
+        ItemComponent={Tag}
         getKey={(item) => item}
       />
 
@@ -112,15 +111,3 @@ const WorkoutDetailsActions = (props: Partial<IWorkoutPreviewProps>) => {
     </div>
   );
 };
-
-function WorkoutTag({ item }: { item?: string }) {
-  return (
-    <li
-      className="border rounded-4xl px-2 py-1 min-w-fit shadow
-       bg-main-black text-main-orange shadow-black"
-      key={item}
-    >
-      {item}
-    </li>
-  );
-}

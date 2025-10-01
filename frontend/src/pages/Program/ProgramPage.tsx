@@ -26,7 +26,7 @@ export default function ProgramPage() {
   const {
     items: programs,
     isLoading,
-    isPending,
+    isDeleting,
     filter,
     deleteItem: deleteProgram,
     onSearch,
@@ -39,7 +39,6 @@ export default function ProgramPage() {
     removeFn: programService.remove,
   });
 
-  const isDeleting = isPending;
   return (
     <section className="h-main w-full grid ">
       <div className="flex flex-col">

@@ -20,7 +20,15 @@ interface IItemMutationParams<
   queryIdKey: string;
   saveFn: (dto: EditDTO) => Promise<THttpResponse<DTO>>;
   useIdQuery: (id?: string | undefined) => IUseIdQuery<DTO>;
-  dtoToEditDto: (dto: DTO) => EditDTO;
+  dtoToEditDto: ({
+    dto,
+    isEdit,
+    isCopy,
+  }: {
+    dto: DTO;
+    isEdit?: boolean;
+    isCopy?: boolean;
+  }) => EditDTO;
   getEmpty: () => EditDTO;
 }
 export const useItemEdit = <
@@ -53,7 +61,10 @@ export const useItemEdit = <
 
   useEffect(() => {
     const itemData = data?.data;
-    const item = itemId && itemData ? dtoToEditDto(itemData) : getEmpty();
+    const item =
+      itemId && itemData
+        ? dtoToEditDto({ dto: itemData, isEdit: true })
+        : getEmpty();
     setItemToEdit(item);
     return;
   }, [itemId, data]);

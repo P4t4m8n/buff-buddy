@@ -1,74 +1,45 @@
-import { useEffect, useState } from "react";
-
-import { useWorkoutStore } from "../../../store/workout.store";
-
+//Services
 import { ClientError } from "../../../services/ClientError.service";
-
-import { useErrors } from "../../shared/useErrors";
+import { workoutService } from "../../../services/workout.service";
+//Hooks
+import { useItemEdit } from "../../shared/useItemEdit";
+import { useWorkoutIdQuery } from "./useWorkoutIdQuery";
+//Utils
 import { workoutUtil } from "../../../utils/workout.util";
 import { formUtil } from "../../../utils/form.util";
-
+//Consts
+import { QUERY_KEYS } from "../../../consts/queryKeys.consts";
+//Types
 import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
   IWorkoutExerciseEditDTO,
 } from "../../../../../shared/models/workout.model";
+import { useAuthStore } from "../../../store/auth.store";
 
 interface IUseWorkoutEditProps {
   workoutId?: string;
   workout?: IWorkoutDTO;
 }
 
-export const useWorkoutEdit = ({
-  workout,
-  workoutId,
-}: IUseWorkoutEditProps) => {
-  const [workoutToEdit, setWorkoutToEdit] = useState<IWorkoutEditDTO | null>(
-    null
-  );
-
-  const { errors, handleError } = useErrors<IWorkoutEditDTO>();
-
-  const saveWorkout = useWorkoutStore((state) => state.saveItem);
-  const getById = useWorkoutStore((state) => state.getById);
-  const isLoading = useWorkoutStore(
-    (state) => state.isLoadingId === workoutToEdit?.id
-  );
-
-  useEffect(() => {
-    const init = async () => {
-      if (workout) {
-        const workoutToEdit = workoutUtil.dtoToEditDto({
-          dto: workout,
-          isEdit: true,
-        });
-        setWorkoutToEdit(workoutToEdit);
-        return;
-      }
-
-      if (!workoutId) {
-        const newWorkout = workoutUtil.getEmpty();
-        setWorkoutToEdit(newWorkout);
-        return;
-      }
-
-      try {
-        const updateWorkout = await getById(workoutId);
-        if (!updateWorkout) {
-          throw ClientError.create("Workout not found");
-        }
-        const workoutToUpdate = workoutUtil.dtoToEditDto({
-          dto: updateWorkout,
-          isEdit: true,
-        });
-        setWorkoutToEdit(workoutToUpdate);
-      } catch (error) {
-        handleError({ error });
-      }
-    };
-
-    init();
-  }, []);
+export const useWorkoutEdit = ({ workoutId }: IUseWorkoutEditProps) => {
+  const {
+    itemToEdit: workoutToEdit,
+    setItemToEdit: setWorkoutToEdit,
+    mutateAsync,
+    mutationErrors,
+    queryError,
+    isLoading,
+    isSaving,
+  } = useItemEdit<IWorkoutEditDTO, IWorkoutDTO>({
+    itemId: workoutId,
+    storeMutationKey: QUERY_KEYS.WORKOUT_MUTATION_KEY,
+    queryIdKey: QUERY_KEYS.WORKOUT_ID_QUERY_KEY,
+    saveFn: workoutService.save,
+    useIdQuery: useWorkoutIdQuery,
+    dtoToEditDto: workoutUtil.dtoToEditDto,
+    getEmpty: workoutUtil.getEmpty,
+  });
 
   const handleWorkoutExercises = (workoutExercise: IWorkoutExerciseEditDTO) => {
     setWorkoutToEdit((prev) => {
@@ -134,23 +105,24 @@ export const useWorkoutEdit = ({
     formUtil.handleInputChange(e, setWorkoutToEdit);
   };
 
-  const onSubmit = async () => {
-    try {
-      if (!workoutToEdit)
-        throw ClientError.create("Workout to edit is not defined");
+  const saveWorkout = async () => {
+    if (!workoutToEdit)
+      throw ClientError.create("Workout to edit is not defined");
+    const ownerId = useAuthStore.getState().user?.id || null;
+    workoutToEdit.ownerId = ownerId;
 
-      return await saveWorkout(workoutToEdit);
-    } catch (error) {
-      handleError({ error });
-    }
+    const { data } = await mutateAsync(workoutToEdit);
+    return data;
   };
 
   return {
     workoutToEdit,
     isLoading,
-    errors,
+    isSaving,
+    queryError,
+    mutationErrors,
     handleWorkoutExercises,
     handleInputChange,
-    onSubmit,
+    saveWorkout,
   };
 };

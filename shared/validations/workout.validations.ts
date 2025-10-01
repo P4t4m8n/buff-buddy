@@ -11,7 +11,7 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
     programId: z.string().nullish(),
 
-    ownerId: validationUtil.IDSchemaFactory({ toSanitize: true }).nullable(),
+    ownerId: validationUtil.IDSchemaFactory({ toSanitize }).nullable(),
 
     isTemplate: z.coerce.boolean(),
 

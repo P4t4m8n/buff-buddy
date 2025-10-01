@@ -42,7 +42,7 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
     queryIdKey: QUERY_KEYS.EXERCISE_ID_QUERY_KEY,
     saveFn: exerciseService.save,
     useIdQuery: useExerciseIdQuery,
-    dtoToEditDto: (item) => item,
+    dtoToEditDto: ({ dto }) => dto,
     getEmpty: exerciseUtil.getEmpty,
   });
 

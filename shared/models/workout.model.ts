@@ -18,7 +18,6 @@ export interface IWorkoutDTO extends IWorkoutBase {
 }
 
 export interface IWorkoutEditDTO extends IWorkoutBase {
-  programId?: string | null;
   ownerId?: string | null;
   workoutExercises?: IWorkoutExerciseEditDTO[];
   crudOperation?: TCrudOperation;

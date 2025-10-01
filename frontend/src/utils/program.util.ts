@@ -20,7 +20,7 @@ const filterActivePrograms = (programs: IProgramDTO[]) => {
     isProgramActive({ startDate, endDate })
   );
 };
-const dtoToEditDto = (dto: IProgramDTO): IProgramEditDTO => {
+const dtoToEditDto = ({ dto }: { dto: IProgramDTO }): IProgramEditDTO => {
   return {
     id: dto.id,
     name: dto.name || "",
@@ -28,6 +28,7 @@ const dtoToEditDto = (dto: IProgramDTO): IProgramEditDTO => {
     startDate: dto.startDate ? new Date(dto.startDate) : null,
     endDate: dto.endDate ? new Date(dto.endDate) : null,
     isActive: dto.isActive,
+    ownerId: dto.owner?.id || null,
     programWorkouts:
       dto.programWorkouts?.map((pw) => ({
         id: pw.id,
@@ -49,6 +50,7 @@ const getEmpty = (): IProgramEditDTO => {
     endDate: null,
     isActive: false,
     programWorkouts: [],
+    ownerId: null,
   };
 };
 export const programUtil = {

@@ -55,7 +55,7 @@ export default function SwitchInput({
       type="checkbox"
       name={inputName}
       id={idName}
-      divStyle="flex items-center justify-self-end lg:justify-self-center self-end"
+      divStyle="flex items-center "
       hidden
       className="hidden peer"
     >

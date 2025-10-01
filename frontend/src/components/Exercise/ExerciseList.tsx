@@ -1,25 +1,37 @@
+//Services
+import { exerciseService } from "../../services/exercise.service";
+//Hooks
+import { useGenericPage } from "../../hooks/shared/useGenericPage";
+import { useExercisesQuery } from "../../hooks/features/exercise/useExerciseQuery";
+//Context
+import { IsDeletingContext } from "../../hooks/context/IsDeletingContext";
+//Consts
+import { QUERY_KEYS } from "../../consts/queryKeys.consts";
+import { initialFilters } from "../../consts/filters.consts";
+//Components
 import ExercisePreview from "./ExercisePreview";
-
+import ExerciseFilter from "./ExerciseFilter";
+//UI
 import GenericList from "../UI/GenericList";
 import Loader from "../UI/loader/Loader";
-
+import Pagination from "../UI/Pagination";
+import NoListItems from "../UI/NoListItems";
+//Types
 import type {
   IExerciseDTO,
   IExerciseFilter,
 } from "../../../../shared/models/exercise.model";
-import NoListItems from "../UI/NoListItems";
-import { useGenericPage } from "../../hooks/shared/useGenericPage";
-import { QUERY_KEYS } from "../../consts/queryKeys.consts";
-import { useExercisesQuery } from "../../hooks/features/exercise/useExerciseQuery";
-import { exerciseService } from "../../services/exercise.service";
-import { initialFilters } from "../../consts/filters.consts";
-import Pagination from "../UI/Pagination";
-import ExerciseFilter from "./ExerciseFilter";
-import { IsDeletingContext } from "../../hooks/context/IsDeletingContext";
+import type { TExerciseActionRoute } from "../../models/exercise.model";
 
-interface IExerciseListProps {}
+interface IExerciseListProps {
+  selectExercise?: (exercise?: IExerciseDTO) => void;
+  actionType?: TExerciseActionRoute;
+}
 
-export default function ExerciseList({}: IExerciseListProps) {
+export default function ExerciseList({
+  selectExercise,
+  actionType = "exerciseList",
+}: IExerciseListProps) {
   const {
     items = [],
     isLoading,
@@ -54,7 +66,7 @@ export default function ExerciseList({}: IExerciseListProps) {
         <GenericList
           items={items}
           ItemComponent={ExercisePreview}
-          itemComponentProps={{ deleteItem }}
+          itemComponentProps={{ deleteItem, selectExercise, actionType }}
           NoItemsComponent={NoItemsComponent}
           getKey={(item) => item.id!}
           ulStyle="gap-4 h-full overflow-y-auto px-desktop w-full 

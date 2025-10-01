@@ -1,4 +1,3 @@
-import { useWorkoutStore } from "../../store/workout.store";
 import WorkoutExerciseEdit from "./WorkoutExercise/WorkoutExerciseEdit/WorkoutExerciseEdit";
 import WorkoutExerciseEditList from "./WorkoutExercise/WorkoutExerciseEdit/WorkoutExerciseEditList";
 
@@ -7,19 +6,20 @@ import InputWithError from "../UI/Form/InputWithError";
 import Label from "../UI/Form/Label";
 import TextArea from "../UI/Form/TextArea";
 import GenericModel from "../UI/GenericModel";
-import GenericSaveButtonOld from "../UI/GenericSaveButtonOld";
+import GenericSaveButton from "../UI/GenericSaveButton";
 import Loader from "../UI/loader/Loader";
+import SwitchInput from "../UI/Form/SwitchInput";
 
 import type {
   IWorkoutEditDTO,
   IWorkoutExerciseEditDTO,
 } from "../../../../shared/models/workout.model";
 import type { TErrors } from "../../models/errors.model";
-import SwitchInput from "../UI/Form/SwitchInput";
 
 interface IWorkoutEditProps {
   workoutToEdit?: IWorkoutEditDTO | null;
   isLoading?: boolean;
+  isSaving?: boolean;
   errors: TErrors<IWorkoutEditDTO> | null;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleInputChange: (
@@ -32,6 +32,7 @@ interface IWorkoutEditProps {
 export default function WorkoutEdit({
   workoutToEdit,
   isLoading,
+  isSaving,
   errors,
   onSubmit,
   handleInputChange,
@@ -103,19 +104,17 @@ export default function WorkoutEdit({
   return (
     <form
       onSubmit={onSubmit}
-      className="h-main p-1 py-2 grid grid-cols-1 grid-rows-[21rem_auto_calc(100%-22rem)]
-                 gap-4 bg-black-500 w-full z-20"
+      className="h-full px-desktop grid grid-cols-1 grid-rows-[21rem_calc(100%-22rem)] md:grid-rows-1 md:grid-cols-[20rem_1fr]
+                 gap-4  w-full z-20"
     >
       <header className="flex flex-col gap-2 w-full">
-        <div>
-          <h3 className="text-2xl">Edit Workout</h3>
-          <SwitchInput
-            handleInputChange={handleInputChange}
-            isActive={!!isTemplate}
-            inputName="isTemplate"
-            afterContentText={{ active: "Template", inactive: "Private" }}
-          />
-        </div>
+        <SwitchInput
+          handleInputChange={handleInputChange}
+          isActive={!!isTemplate}
+          inputName="isTemplate"
+          afterContentText={{ active: "Template", inactive: "Private" }}
+        />
+
         <InputWithError
           inputProps={{
             value: name || "",
@@ -155,12 +154,16 @@ export default function WorkoutEdit({
           </Label>
         </TextArea>
 
-        <div className="grid grid-cols-2 h-10 justify-around">
+        <div className="flex h-10 justify-between ">
           <GenericModel
             Model={WorkoutExerciseEdit}
             modelProps={{ handleWorkoutExercises, workoutExerciseLength }}
             mode="create"
-            buttonProps={{ buttonStyle: "model", className: "lg:h-10" }}
+            buttonProps={{
+              buttonStyle: "save",
+              className: "w-fit px-2",
+              children: "Add Exercise",
+            }}
           />
 
           <div className="grid grid-cols-[4rem_4rem] gap-2 place-self-end h-full ">
@@ -168,28 +171,26 @@ export default function WorkoutEdit({
               onClick={onCancel}
               buttonStyle="warning"
               className="h-full "
+              disabled={isSaving}
             >
               Cancel
             </Button>
-            <GenericSaveButtonOld
-              useStore={useWorkoutStore}
-              itemId={workoutToEditId}
-            />
+            <GenericSaveButton type="submit" isSaving={!!isSaving} />
           </div>
         </div>
+        {errors?.workoutExercises &&
+        typeof errors.workoutExercises === "string" ? (
+          <span className="text-error-red text-sm px-2">
+            {errors.workoutExercises}
+          </span>
+        ) : (
+          <span className="text-error-red text-sm px-2">
+            {Array.isArray(errors?.workoutExercises)
+              ? parseWorkoutExerciseError(errors?.workoutExercises)
+              : errors?.workoutExercises}
+          </span>
+        )}
       </header>
-      {errors?.workoutExercises &&
-      typeof errors.workoutExercises === "string" ? (
-        <span className="text-error-red text-sm px-2">
-          {errors.workoutExercises}
-        </span>
-      ) : (
-        <span className="text-error-red text-sm px-2">
-          {Array.isArray(errors?.workoutExercises)
-            ? parseWorkoutExerciseError(errors?.workoutExercises)
-            : errors?.workoutExercises}
-        </span>
-      )}
       <WorkoutExerciseEditList
         workoutExercises={cleanedWorkoutExercises || []}
         handleWorkoutExercises={handleWorkoutExercises}

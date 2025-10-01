@@ -1,20 +1,26 @@
-import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
-import { toTitle } from "../../utils/toTitle";
-import GenericDeleteButton from "../UI/GenericDeleteButton";
+//Lib
 import { useContext } from "react";
+//Utils
+import { toTitle } from "../../utils/toTitle";
+//Context
 import { IsDeletingContext } from "../../hooks/context/IsDeletingContext";
+//UI
+import GenericDeleteButton from "../UI/GenericDeleteButton";
 import LinkComponent from "../UI/Link";
 import GenericCarousel from "../UI/GenericCarousel";
-interface ExercisePreviewProps {
+import Tag from "../UI/Tag";
+import Button from "../UI/Button";
+//Types
+import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
+import type { TExerciseActionRoute } from "../../models/exercise.model";
+interface IExercisePreviewProps {
   item: IExerciseDTO;
+  actionType?: TExerciseActionRoute;
   deleteItem: (id?: string) => Promise<void>;
+  selectExercise?: (exercise?: IExerciseDTO) => void;
 }
-export default function ExercisePreview({
-  item: exercise,
-  deleteItem,
-}: ExercisePreviewProps) {
-  const { muscles, id, name, equipment } = exercise;
-  const isDeleting = useContext(IsDeletingContext);
+export default function ExercisePreview(props: IExercisePreviewProps) {
+  const { muscles, id, name, equipment } = props.item;
 
   return (
     <li
@@ -26,47 +32,74 @@ export default function ExercisePreview({
       <GenericCarousel
         items={muscles ?? []}
         props={{}}
-        ItemComponent={ExerciseTag}
+        ItemComponent={Tag}
         getKey={(item) => item}
       />
       <GenericCarousel
         items={equipment ?? []}
         props={{}}
-        ItemComponent={ExerciseTag}
+        ItemComponent={Tag}
         getKey={(item) => item}
       />
-      <nav className="flex gap-3 ">
-        <LinkComponent
-          to={`/exercises/${id}`}
-          mode="details"
-          linkStyle="model"
-          className="w-fit mr-auto"
-        />
-
-        <LinkComponent
-          to={`/exercises/edit/${id}`}
-          mode="edit"
-          linkStyle="model"
-          className="w-fit"
-        />
-        <GenericDeleteButton
-          itemId={id!}
-          isDeleting={!!isDeleting}
-          deleteAction={deleteItem}
-        />
-      </nav>
+      <DynamicAction {...props} />
     </li>
   );
 }
 
-function ExerciseTag({ item }: { item?: string }) {
+const DynamicAction = (props: IExercisePreviewProps) => {
+  const { actionType } = props;
+
+  switch (actionType) {
+    case "workoutEdit":
+      return <WorkoutEditActions {...props} />;
+    case "exerciseList":
+      return <ExerciseListActions {...props} />;
+    default:
+      return null;
+  }
+};
+
+const WorkoutEditActions = (props: Partial<IExercisePreviewProps>) => {
+  const { selectExercise, item } = props;
+
+  if (!selectExercise) return null;
+
   return (
-    <li
-      className="border rounded-4xl px-2 py-1 min-w-fit shadow
-       bg-main-black text-main-orange shadow-black"
-      key={item}
-    >
-      {toTitle(item)}
-    </li>
+    <div className="flex gap-2">
+      <Button buttonStyle="save" onClick={() => selectExercise(item)}>
+        Select
+      </Button>
+    </div>
   );
-}
+};
+
+const ExerciseListActions = (props: Partial<IExercisePreviewProps>) => {
+  const { item: exercise, deleteItem } = props;
+
+  if (!deleteItem) return null;
+  const exerciseId = exercise?.id;
+  const isDeleting = useContext(IsDeletingContext);
+
+  return (
+    <nav className="flex gap-3 ">
+      <LinkComponent
+        to={`/exercises/${exerciseId}`}
+        mode="details"
+        linkStyle="model"
+        className="w-fit mr-auto"
+      />
+
+      <LinkComponent
+        to={`/exercises/edit/${exerciseId}`}
+        mode="edit"
+        linkStyle="model"
+        className="w-fit"
+      />
+      <GenericDeleteButton
+        itemId={exerciseId!}
+        isDeleting={!!isDeleting}
+        deleteAction={deleteItem}
+      />
+    </nav>
+  );
+};

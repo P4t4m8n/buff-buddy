@@ -11,7 +11,7 @@ interface IWorkoutExerciseEditHook {
   setWorkoutExerciseToEdit: React.Dispatch<
     React.SetStateAction<IWorkoutExerciseEditDTO | null>
   >;
-  handleSelectExercise: (exercise: IExerciseDTO) => void;
+  selectExercise: (exercise?: IExerciseDTO) => void;
   filterExercises: (searchValue: string) => IExerciseDTO[];
   handleInputChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -35,14 +35,14 @@ export const useWorkoutExerciseEdit = (
     loadExercises();
   }, []);
 
-  const handleSelectExercise = (exercise: IExerciseDTO) => {
+  const selectExercise = (exercise?: IExerciseDTO) => {
     setWorkoutExerciseToEdit((prev) => {
       if (!prev) return null;
       const tempPrev = {
         ...prev,
         exerciseData: {
-          id: exercise.id!,
-          type: exercise.type!,
+          id: exercise?.id!,
+          type: exercise?.type!,
         },
         exercise: exercise,
       };
@@ -74,7 +74,7 @@ export const useWorkoutExerciseEdit = (
 
   return {
     setWorkoutExerciseToEdit,
-    handleSelectExercise,
+    selectExercise,
     filterExercises,
     handleInputChange,
     resetWorkoutExerciseToEdit,
