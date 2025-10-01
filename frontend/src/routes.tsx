@@ -41,7 +41,6 @@ export const ROUTES: RouteConfig[] = [
   {
     path: "/workouts",
     element: <WorkoutPage />,
-
   },
   {
     path: "/workouts/workout-list",
@@ -67,7 +66,6 @@ export const ROUTES: RouteConfig[] = [
   {
     path: "/programs",
     element: <ProgramPage />,
-    children: [],
   },
   {
     path: "/programs/edit",

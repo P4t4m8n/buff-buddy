@@ -10,6 +10,7 @@ const WORKOUT_MUTATION_KEY = "workoutsMutationKey" as const;
 
 const EXERCISES_QUERY_KEY = "exercises" as const;
 const EXERCISE_ID_QUERY_KEY = "exerciseId" as const;
+const EXERCISE_MUTATION_KEY = "exerciseMutationKey" as const;
 
 export const QUERY_KEYS = {
   MEAL_ID_QUERY_KEY,
@@ -21,5 +22,5 @@ export const QUERY_KEYS = {
   WORKOUT_MUTATION_KEY,
   EXERCISES_QUERY_KEY,
   EXERCISE_ID_QUERY_KEY,
+  EXERCISE_MUTATION_KEY,
 };
-

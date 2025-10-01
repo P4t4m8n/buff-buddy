@@ -39,3 +39,14 @@ export interface IModelProps<T extends HTMLElement> {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   modelRef?: React.RefObject<T | null>;
 }
+
+interface IFilterInput<Filter> {
+  name: keyof Filter;
+  label: string;
+}
+export interface IFilterTextInput<Filter> extends IFilterInput<Filter> {
+  value: string | string[] | undefined;
+}
+export interface IFilterCheckboxInput<Filter> extends IFilterInput<Filter> {
+  isChecked: boolean | undefined;
+}

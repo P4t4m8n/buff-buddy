@@ -182,8 +182,9 @@ model Exercise {
   id               String              @id @default(cuid())
   name             String              @unique
   youtubeUrl       String
-  type             ExerciseType        @default(strength)
   notes            String?
+  isCompounded     Boolean             @default(false)
+  type             ExerciseType        @default(strength)
   equipment        ExerciseEquipment[]
   muscles          ExerciseMuscle[]
   workoutExercises WorkoutExercise[]

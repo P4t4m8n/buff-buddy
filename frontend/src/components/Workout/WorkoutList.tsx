@@ -5,7 +5,7 @@ import { workoutService } from "../../services/workout.service";
 import { useWorkoutsQuery } from "../../hooks/features/workout/useWorkoutsQuery";
 import { useGenericPage } from "../../hooks/shared/useGenericPage";
 
-import { INITIAL_WORKOUT_FILTER } from "../../consts/filters.consts";
+import { initialFilters } from "../../consts/filters.consts";
 import { QUERY_KEYS } from "../../consts/queryKeys.consts";
 
 import WorkoutFilter from "./WorkoutFilter";
@@ -44,10 +44,10 @@ export default function WorkoutList({
     meta,
     deleteItem: deleteWorkout,
     onSearch,
-    onResetForm,
+    onResetSearchForm,
     onPaginate,
   } = useGenericPage<IWorkoutDTO, IWorkoutFilter>({
-    initialFilter: INITIAL_WORKOUT_FILTER,
+    initialFilter: initialFilters.INITIAL_WORKOUT_FILTER,
     queryKey: QUERY_KEYS.WORKOUTS_QUERY_KEY,
     mutationKeyName: QUERY_KEYS.WORKOUT_MUTATION_KEY,
     itemIdKey: QUERY_KEYS.WORKOUT_ID_QUERY_KEY,
@@ -80,7 +80,7 @@ export default function WorkoutList({
         workoutsFilter={filter}
         isLoading={isLoading}
         onSearch={onSearch}
-        onResetForm={onResetForm}
+        onResetForm={onResetSearchForm}
       />
       {isLoading ? (
         <Loader loaderType="cards-pulse" isFullScreen={false} />
@@ -93,7 +93,7 @@ export default function WorkoutList({
             getKey={getKey}
             ulStyle="gap-4 h-full overflow-y-auto px-desktop w-full 
                      grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))]
-                     grid-rows-[repeat(auto-fill,14rem)]   "
+                     grid-rows-[repeat(auto-fill,14rem)]"
           />
           <Pagination meta={meta} onPaginate={onPaginate} />
         </>

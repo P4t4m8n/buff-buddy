@@ -102,7 +102,7 @@ export const useGenericPage = <DTO, Filter extends IBaseFilter>({
     setSearchParams(updatedParams, { replace: true });
   };
 
-  const onResetForm = () => {
+  const onResetSearchForm = () => {
     const newParams: Record<string, string> = {};
     //INFO: Preserve pagination but reset filters
     for (const [key, value] of searchParams.entries()) {
@@ -131,7 +131,7 @@ export const useGenericPage = <DTO, Filter extends IBaseFilter>({
     meta,
     deleteItem,
     onSearch,
-    onResetForm,
+    onResetSearchForm,
     onPaginate,
   };
 };

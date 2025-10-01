@@ -4359,8 +4359,9 @@ export namespace Prisma {
     id: string | null
     name: string | null
     youtubeUrl: string | null
-    type: $Enums.ExerciseType | null
     notes: string | null
+    isCompounded: boolean | null
+    type: $Enums.ExerciseType | null
     ownerId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4370,8 +4371,9 @@ export namespace Prisma {
     id: string | null
     name: string | null
     youtubeUrl: string | null
-    type: $Enums.ExerciseType | null
     notes: string | null
+    isCompounded: boolean | null
+    type: $Enums.ExerciseType | null
     ownerId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4381,8 +4383,9 @@ export namespace Prisma {
     id: number
     name: number
     youtubeUrl: number
-    type: number
     notes: number
+    isCompounded: number
+    type: number
     equipment: number
     muscles: number
     ownerId: number
@@ -4396,8 +4399,9 @@ export namespace Prisma {
     id?: true
     name?: true
     youtubeUrl?: true
-    type?: true
     notes?: true
+    isCompounded?: true
+    type?: true
     ownerId?: true
     createdAt?: true
     updatedAt?: true
@@ -4407,8 +4411,9 @@ export namespace Prisma {
     id?: true
     name?: true
     youtubeUrl?: true
-    type?: true
     notes?: true
+    isCompounded?: true
+    type?: true
     ownerId?: true
     createdAt?: true
     updatedAt?: true
@@ -4418,8 +4423,9 @@ export namespace Prisma {
     id?: true
     name?: true
     youtubeUrl?: true
-    type?: true
     notes?: true
+    isCompounded?: true
+    type?: true
     equipment?: true
     muscles?: true
     ownerId?: true
@@ -4504,8 +4510,9 @@ export namespace Prisma {
     id: string
     name: string
     youtubeUrl: string
-    type: $Enums.ExerciseType
     notes: string | null
+    isCompounded: boolean
+    type: $Enums.ExerciseType
     equipment: $Enums.ExerciseEquipment[]
     muscles: $Enums.ExerciseMuscle[]
     ownerId: string | null
@@ -4534,8 +4541,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     youtubeUrl?: boolean
-    type?: boolean
     notes?: boolean
+    isCompounded?: boolean
+    type?: boolean
     equipment?: boolean
     muscles?: boolean
     ownerId?: boolean
@@ -4550,8 +4558,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     youtubeUrl?: boolean
-    type?: boolean
     notes?: boolean
+    isCompounded?: boolean
+    type?: boolean
     equipment?: boolean
     muscles?: boolean
     ownerId?: boolean
@@ -4564,8 +4573,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     youtubeUrl?: boolean
-    type?: boolean
     notes?: boolean
+    isCompounded?: boolean
+    type?: boolean
     equipment?: boolean
     muscles?: boolean
     ownerId?: boolean
@@ -4578,8 +4588,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     youtubeUrl?: boolean
-    type?: boolean
     notes?: boolean
+    isCompounded?: boolean
+    type?: boolean
     equipment?: boolean
     muscles?: boolean
     ownerId?: boolean
@@ -4587,7 +4598,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "youtubeUrl" | "type" | "notes" | "equipment" | "muscles" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["exercise"]>
+  export type ExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "youtubeUrl" | "notes" | "isCompounded" | "type" | "equipment" | "muscles" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["exercise"]>
   export type ExerciseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workoutExercises?: boolean | Exercise$workoutExercisesArgs<ExtArgs>
     owner?: boolean | Exercise$ownerArgs<ExtArgs>
@@ -4610,8 +4621,9 @@ export namespace Prisma {
       id: string
       name: string
       youtubeUrl: string
-      type: $Enums.ExerciseType
       notes: string | null
+      isCompounded: boolean
+      type: $Enums.ExerciseType
       equipment: $Enums.ExerciseEquipment[]
       muscles: $Enums.ExerciseMuscle[]
       ownerId: string | null
@@ -5045,8 +5057,9 @@ export namespace Prisma {
     readonly id: FieldRef<"Exercise", 'String'>
     readonly name: FieldRef<"Exercise", 'String'>
     readonly youtubeUrl: FieldRef<"Exercise", 'String'>
-    readonly type: FieldRef<"Exercise", 'ExerciseType'>
     readonly notes: FieldRef<"Exercise", 'String'>
+    readonly isCompounded: FieldRef<"Exercise", 'Boolean'>
+    readonly type: FieldRef<"Exercise", 'ExerciseType'>
     readonly equipment: FieldRef<"Exercise", 'ExerciseEquipment[]'>
     readonly muscles: FieldRef<"Exercise", 'ExerciseMuscle[]'>
     readonly ownerId: FieldRef<"Exercise", 'String'>
@@ -23874,8 +23887,9 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     youtubeUrl: 'youtubeUrl',
-    type: 'type',
     notes: 'notes',
+    isCompounded: 'isCompounded',
+    type: 'type',
     equipment: 'equipment',
     muscles: 'muscles',
     ownerId: 'ownerId',
@@ -24400,8 +24414,9 @@ export namespace Prisma {
     id?: StringFilter<"Exercise"> | string
     name?: StringFilter<"Exercise"> | string
     youtubeUrl?: StringFilter<"Exercise"> | string
-    type?: EnumExerciseTypeFilter<"Exercise"> | $Enums.ExerciseType
     notes?: StringNullableFilter<"Exercise"> | string | null
+    isCompounded?: BoolFilter<"Exercise"> | boolean
+    type?: EnumExerciseTypeFilter<"Exercise"> | $Enums.ExerciseType
     equipment?: EnumExerciseEquipmentNullableListFilter<"Exercise">
     muscles?: EnumExerciseMuscleNullableListFilter<"Exercise">
     ownerId?: StringNullableFilter<"Exercise"> | string | null
@@ -24415,8 +24430,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     youtubeUrl?: SortOrder
-    type?: SortOrder
     notes?: SortOrderInput | SortOrder
+    isCompounded?: SortOrder
+    type?: SortOrder
     equipment?: SortOrder
     muscles?: SortOrder
     ownerId?: SortOrderInput | SortOrder
@@ -24433,8 +24449,9 @@ export namespace Prisma {
     OR?: ExerciseWhereInput[]
     NOT?: ExerciseWhereInput | ExerciseWhereInput[]
     youtubeUrl?: StringFilter<"Exercise"> | string
-    type?: EnumExerciseTypeFilter<"Exercise"> | $Enums.ExerciseType
     notes?: StringNullableFilter<"Exercise"> | string | null
+    isCompounded?: BoolFilter<"Exercise"> | boolean
+    type?: EnumExerciseTypeFilter<"Exercise"> | $Enums.ExerciseType
     equipment?: EnumExerciseEquipmentNullableListFilter<"Exercise">
     muscles?: EnumExerciseMuscleNullableListFilter<"Exercise">
     ownerId?: StringNullableFilter<"Exercise"> | string | null
@@ -24448,8 +24465,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     youtubeUrl?: SortOrder
-    type?: SortOrder
     notes?: SortOrderInput | SortOrder
+    isCompounded?: SortOrder
+    type?: SortOrder
     equipment?: SortOrder
     muscles?: SortOrder
     ownerId?: SortOrderInput | SortOrder
@@ -24467,8 +24485,9 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Exercise"> | string
     name?: StringWithAggregatesFilter<"Exercise"> | string
     youtubeUrl?: StringWithAggregatesFilter<"Exercise"> | string
-    type?: EnumExerciseTypeWithAggregatesFilter<"Exercise"> | $Enums.ExerciseType
     notes?: StringNullableWithAggregatesFilter<"Exercise"> | string | null
+    isCompounded?: BoolWithAggregatesFilter<"Exercise"> | boolean
+    type?: EnumExerciseTypeWithAggregatesFilter<"Exercise"> | $Enums.ExerciseType
     equipment?: EnumExerciseEquipmentNullableListFilter<"Exercise">
     muscles?: EnumExerciseMuscleNullableListFilter<"Exercise">
     ownerId?: StringNullableWithAggregatesFilter<"Exercise"> | string | null
@@ -25767,8 +25786,9 @@ export namespace Prisma {
     id?: string
     name: string
     youtubeUrl: string
-    type?: $Enums.ExerciseType
     notes?: string | null
+    isCompounded?: boolean
+    type?: $Enums.ExerciseType
     equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: Date | string
@@ -25781,8 +25801,9 @@ export namespace Prisma {
     id?: string
     name: string
     youtubeUrl: string
-    type?: $Enums.ExerciseType
     notes?: string | null
+    isCompounded?: boolean
+    type?: $Enums.ExerciseType
     equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     ownerId?: string | null
@@ -25795,8 +25816,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     youtubeUrl?: StringFieldUpdateOperationsInput | string
-    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25809,8 +25831,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     youtubeUrl?: StringFieldUpdateOperationsInput | string
-    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25823,8 +25846,9 @@ export namespace Prisma {
     id?: string
     name: string
     youtubeUrl: string
-    type?: $Enums.ExerciseType
     notes?: string | null
+    isCompounded?: boolean
+    type?: $Enums.ExerciseType
     equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     ownerId?: string | null
@@ -25836,8 +25860,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     youtubeUrl?: StringFieldUpdateOperationsInput | string
-    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25848,8 +25873,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     youtubeUrl?: StringFieldUpdateOperationsInput | string
-    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27356,8 +27382,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     youtubeUrl?: SortOrder
-    type?: SortOrder
     notes?: SortOrder
+    isCompounded?: SortOrder
+    type?: SortOrder
     equipment?: SortOrder
     muscles?: SortOrder
     ownerId?: SortOrder
@@ -27369,8 +27396,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     youtubeUrl?: SortOrder
-    type?: SortOrder
     notes?: SortOrder
+    isCompounded?: SortOrder
+    type?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -27380,8 +27408,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     youtubeUrl?: SortOrder
-    type?: SortOrder
     notes?: SortOrder
+    isCompounded?: SortOrder
+    type?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -30176,8 +30205,9 @@ export namespace Prisma {
     id?: string
     name: string
     youtubeUrl: string
-    type?: $Enums.ExerciseType
     notes?: string | null
+    isCompounded?: boolean
+    type?: $Enums.ExerciseType
     equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: Date | string
@@ -30189,8 +30219,9 @@ export namespace Prisma {
     id?: string
     name: string
     youtubeUrl: string
-    type?: $Enums.ExerciseType
     notes?: string | null
+    isCompounded?: boolean
+    type?: $Enums.ExerciseType
     equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: Date | string
@@ -30376,8 +30407,9 @@ export namespace Prisma {
     id?: StringFilter<"Exercise"> | string
     name?: StringFilter<"Exercise"> | string
     youtubeUrl?: StringFilter<"Exercise"> | string
-    type?: EnumExerciseTypeFilter<"Exercise"> | $Enums.ExerciseType
     notes?: StringNullableFilter<"Exercise"> | string | null
+    isCompounded?: BoolFilter<"Exercise"> | boolean
+    type?: EnumExerciseTypeFilter<"Exercise"> | $Enums.ExerciseType
     equipment?: EnumExerciseEquipmentNullableListFilter<"Exercise">
     muscles?: EnumExerciseMuscleNullableListFilter<"Exercise">
     ownerId?: StringNullableFilter<"Exercise"> | string | null
@@ -31195,8 +31227,9 @@ export namespace Prisma {
     id?: string
     name: string
     youtubeUrl: string
-    type?: $Enums.ExerciseType
     notes?: string | null
+    isCompounded?: boolean
+    type?: $Enums.ExerciseType
     equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: Date | string
@@ -31208,8 +31241,9 @@ export namespace Prisma {
     id?: string
     name: string
     youtubeUrl: string
-    type?: $Enums.ExerciseType
     notes?: string | null
+    isCompounded?: boolean
+    type?: $Enums.ExerciseType
     equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     ownerId?: string | null
@@ -31292,8 +31326,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     youtubeUrl?: StringFieldUpdateOperationsInput | string
-    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31305,8 +31340,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     youtubeUrl?: StringFieldUpdateOperationsInput | string
-    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33008,8 +33044,9 @@ export namespace Prisma {
     id?: string
     name: string
     youtubeUrl: string
-    type?: $Enums.ExerciseType
     notes?: string | null
+    isCompounded?: boolean
+    type?: $Enums.ExerciseType
     equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: Date | string
@@ -33171,8 +33208,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     youtubeUrl?: StringFieldUpdateOperationsInput | string
-    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -33184,8 +33222,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     youtubeUrl?: StringFieldUpdateOperationsInput | string
-    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -33197,8 +33236,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     youtubeUrl?: StringFieldUpdateOperationsInput | string
-    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
     muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

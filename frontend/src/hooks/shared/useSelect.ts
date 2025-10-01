@@ -11,7 +11,7 @@ export const useSelect = <T, P>(
   parentModelRef?: React.RefObject<HTMLDivElement | HTMLFormElement | null>
 ) => {
   const [optionsList, setOptionsList] = useState<T[]>([]);
-  const modelBasePositionClass = "top-[calc(100%+.25rem)]";
+  const baseModelPositionClass = "top-[calc(100%+.25rem)]";
 
   const {
     isOpen,
@@ -20,7 +20,7 @@ export const useSelect = <T, P>(
     setIsOpen,
     handleModel,
     handleModelWithPosition,
-  } = useModel<HTMLDivElement>(null, parentModelRef, modelBasePositionClass);
+  } = useModel<HTMLDivElement>({ parentModelRef, baseModelPositionClass });
 
   useEffect(() => {
     setOptionsList(options ? [...options] : []);

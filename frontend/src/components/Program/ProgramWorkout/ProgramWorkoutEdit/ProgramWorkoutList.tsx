@@ -6,7 +6,9 @@ import { useWorkoutStore } from "../../../../store/workout.store";
 import WorkoutPreview from "../../../Workout/WorkoutPreview";
 import WorkoutFilter from "../../../Workout/WorkoutFilter";
 
-import { INITIAL_WORKOUT_FILTER } from "../../../../consts/filters.consts";
+import {
+  initialFilters,
+} from "../../../../consts/filters.consts";
 
 import Loader from "../../../UI/loader/Loader";
 import GenericList from "../../../UI/GenericList";
@@ -42,7 +44,7 @@ export default function ProgramWorkoutList({
     deleteItem: deleteWorkout,
     onSearch,
   } = useGenericPage<IWorkoutDTO, IWorkoutFilter>({
-    initialFilter: INITIAL_WORKOUT_FILTER,
+    initialFilter: initialFilters.INITIAL_WORKOUT_FILTER,
     queryKey: QUERY_KEYS.WORKOUTS_QUERY_KEY,
     mutationKeyName: "workoutsMutationKey",
     itemIdKey: QUERY_KEYS.WORKOUT_ID_QUERY_KEY,

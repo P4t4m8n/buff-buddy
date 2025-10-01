@@ -15,7 +15,7 @@ export const genericControllerFactory = <
   DTO,
   EditDTO,
   Filter,
-  CreateInput extends { ownerId: string | null },
+  CreateInput extends { ownerId?: string | null },
   UpdateInput extends { ownerId?: string | null },
   QuerySchema extends IBaseFilter,
   Model

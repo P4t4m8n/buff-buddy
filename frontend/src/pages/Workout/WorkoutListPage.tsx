@@ -4,7 +4,7 @@ import BackButton from "../../components/UI/BackButton";
 
 export default function WorkoutListPage() {
   return (
-    <div className="h-main w-full  bg-black-900 grid grid-rows-[3.5rem_calc(100%-4rem)] gap-2 ">
+    <div className="h-main w-full bg-black-900 grid grid-rows-[3.5rem_calc(100%-4rem)] gap-2 ">
       <header className="inline-flex items-center gap-4 border-b  border-b-main-orange/25 px-desktop py-2  col-span-full ">
         <BackButton />
         <h2 className="text-2xl font-bold col-span-full text-center ">

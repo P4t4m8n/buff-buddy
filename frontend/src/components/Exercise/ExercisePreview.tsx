@@ -1,11 +1,10 @@
-import ExerciseAttributes from "./ExerciseTagPanel/ExerciseTagPanel";
-
 import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
 import { toTitle } from "../../utils/toTitle";
 import GenericDeleteButton from "../UI/GenericDeleteButton";
 import { useContext } from "react";
 import { IsDeletingContext } from "../../hooks/context/IsDeletingContext";
 import LinkComponent from "../UI/Link";
+import GenericCarousel from "../UI/GenericCarousel";
 interface ExercisePreviewProps {
   item: IExerciseDTO;
   deleteItem: (id?: string) => Promise<void>;
@@ -20,11 +19,22 @@ export default function ExercisePreview({
   return (
     <li
       key={id}
-      className="border rounded p-2 shadow break-inside-avoid 
-       flex flex-col gap-2 h-fit"
+      className="border rounded p-2 shadow 
+       flex flex-col gap-2 h-full justify-between "
     >
-      <h3 className=" truncate">{toTitle(name)}</h3>
-      <ExerciseAttributes muscles={muscles} equipment={equipment} />
+      <h3 className=" truncate underline">{toTitle(name)}</h3>
+      <GenericCarousel
+        items={muscles ?? []}
+        props={{}}
+        ItemComponent={ExerciseTag}
+        getKey={(item) => item}
+      />
+      <GenericCarousel
+        items={equipment ?? []}
+        props={{}}
+        ItemComponent={ExerciseTag}
+        getKey={(item) => item}
+      />
       <nav className="flex gap-3 ">
         <LinkComponent
           to={`/exercises/${id}`}
@@ -45,6 +55,18 @@ export default function ExercisePreview({
           deleteAction={deleteItem}
         />
       </nav>
+    </li>
+  );
+}
+
+function ExerciseTag({ item }: { item?: string }) {
+  return (
+    <li
+      className="border rounded-4xl px-2 py-1 min-w-fit shadow
+       bg-main-black text-main-orange shadow-black"
+      key={item}
+    >
+      {toTitle(item)}
     </li>
   );
 }

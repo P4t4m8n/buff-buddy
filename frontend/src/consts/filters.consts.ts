@@ -1,6 +1,14 @@
+import type { IBaseFilter } from "../../../shared/models/app.model";
+import type { IExerciseFilter } from "../../../shared/models/exercise.model";
 import type { IWorkoutFilter } from "../../../shared/models/workout.model";
 
-export const INITIAL_WORKOUT_FILTER: IWorkoutFilter = {
+const PAGINATION_FILTER: IBaseFilter = {
+  skip: 0,
+  take: 10,
+};
+
+const INITIAL_WORKOUT_FILTER: IWorkoutFilter = {
+  ...PAGINATION_FILTER,
   programName: "",
   exerciseName: "",
   ownerName: "",
@@ -8,6 +16,15 @@ export const INITIAL_WORKOUT_FILTER: IWorkoutFilter = {
   programId: "",
   exerciseId: "",
   isTemplate: "",
-  skip: 0,
-  take: 10,
+};
+
+const INITIAL_EXERCISE_FILTER: IExerciseFilter = {
+  ...PAGINATION_FILTER,
+  name: "",
+};
+
+export const initialFilters = {
+  PAGINATION_FILTER,
+  INITIAL_WORKOUT_FILTER,
+  INITIAL_EXERCISE_FILTER,
 };

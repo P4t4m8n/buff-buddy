@@ -20,6 +20,7 @@ import type {
   ExerciseMuscle,
   ExerciseType,
 } from "../../../../../backend/prisma/generated/prisma";
+import { useAuthStore } from "../../../store/auth.store";
 
 interface IUseExerciseProps {
   exerciseId?: string;
@@ -53,6 +54,7 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
 
   const saveExercise = async (formData: FormData) => {
     clearErrors();
+    const ownerId = useAuthStore.getState().user?.id || null;
 
     const name = formData.get("name") as string;
     const youtubeUrl = formData.get("youtubeUrl") as string;
@@ -61,6 +63,7 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
       ...exerciseToEdit,
       name,
       youtubeUrl,
+      ownerId,
     });
 
     return !!res.data.id;

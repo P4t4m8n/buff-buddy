@@ -95,7 +95,10 @@ const createFactorySchema = ({ toSanitize = false }: IToSanitize) => {
       minLength: 1,
       toSanitize,
     }),
-    ownerId: validationUtil.IDSchemaFactory({ toSanitize: true }),
+    ownerId: validationUtil
+      .IDSchemaFactory({ toSanitize })
+      .optional()
+      .nullable(),
 
     // notes: validationUtil
     //   .stringSchemaFactory({

@@ -15,12 +15,13 @@ import type {
 interface IExerciseBase extends IEntity {
   name?: string;
   youtubeUrl?: string | null;
+  isCompounded?: boolean;
 }
 export interface IExerciseDTO extends IExerciseBase {
   type?: TExerciseType | null;
   equipment?: TExerciseEquipment[];
   muscles?: TExerciseMuscle[];
-  ownerId: string | null;
+  ownerId?: string | null;
 }
 
 export interface IExerciseFilter extends IBaseFilter {
@@ -28,6 +29,7 @@ export interface IExerciseFilter extends IBaseFilter {
   types?: ExerciseType[] | string;
   equipment?: ExerciseEquipment[] | string;
   muscles?: ExerciseMuscle[] | string;
+  isCompounded?: boolean | string;
 }
 export type TExerciseInfo = (typeof EXERCISE_INFO)[number];
 
