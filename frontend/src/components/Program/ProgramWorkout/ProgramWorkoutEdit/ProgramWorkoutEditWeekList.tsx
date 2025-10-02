@@ -61,7 +61,7 @@ function ProgramWorkoutEditWeekList({
   return (
     <ul
       className="grid grid-rows-[repeat(7,10rem)] px-4 lg:grid-rows-1 grid-cols-1 lg:grid-cols-7
-                         justify-around gap-2 h-full lg:pb-4 overflow-y-scroll"
+                         justify-around gap-2 h-full lg:pb-4 overflow-y-auto"
     >
       {DAY_OF_WEEK.map((day) => (
         <li

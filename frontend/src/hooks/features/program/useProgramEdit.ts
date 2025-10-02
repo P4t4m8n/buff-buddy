@@ -1,17 +1,17 @@
-//-Core
+//Core
 import { useEffect } from "react";
-//-Services
+//Services
 import { programService } from "../../../services/program.service";
-//-Utils
+//Utils
 import { programUtil } from "../../../utils/program.util";
 import { formUtil } from "../../../utils/form.util";
-//-Hooks
+//Hooks
 import { useErrors } from "../../shared/useErrors";
 import { useProgramIdQuery } from "./useProgramIdQuery";
 import { useItemEdit } from "../../shared/useItemEdit";
-//-Consts
+//Consts
 import { QUERY_KEYS } from "../../../consts/queryKeys.consts";
-//-Types
+//Types
 import type {
   IProgramDTO,
   IProgramEditDTO,
@@ -29,8 +29,8 @@ export const useProgramEdit = (programId?: string) => {
     isLoading,
     isSaving,
   } = useItemEdit<IProgramEditDTO, IProgramDTO>({
-    storeMutationKey: "programsMutationKey",
     itemId: programId,
+    storeMutationKey: QUERY_KEYS.PROGRAM_MUTATION_KEY,
     queryIdKey: QUERY_KEYS.PROGRAM_ID_QUERY_KEY,
     saveFn: programService.save,
     useIdQuery: useProgramIdQuery,

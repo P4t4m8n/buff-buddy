@@ -1,15 +1,16 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
-
+//Lib
+import { Fragment, useEffect, useRef, useState } from "react";
+//UI
 import Button from "./Button";
 import IconArrow from "./Icons/IconArrow";
+import { toTitle } from "../../utils/toTitle";
 
 interface IGenericCarouselProps<T, Props> {
   items?: T[];
   props: Props;
   ItemComponent: React.ComponentType<Props & { item?: T }>;
   getKey: (item: T) => string | number;
-  containerStyle?: string;
-  listStyle?: string;
+  listName?: string;
 }
 
 export default function GenericCarousel<T, Props>({
@@ -17,8 +18,7 @@ export default function GenericCarousel<T, Props>({
   props,
   ItemComponent,
   getKey,
-  containerStyle,
-  listStyle,
+  listName = "items",
 }: IGenericCarouselProps<T, Props>) {
   const [isOverflowing, setIsOverflowing] = useState(false);
   const scrollContainerRef = useRef<HTMLUListElement>(null);
@@ -64,35 +64,38 @@ export default function GenericCarousel<T, Props>({
   }
 
   return (
-    <div className="relative grid grid-cols-[auto_1fr_auto] h-8 gap-2">
-      {isOverflowing ? (
-        <Button
-          onClick={() => scroll("left")}
-          className="w-8 h-8 flex-center border rounded-full  fill-main-orange -rotate-90"
-        >
-          <IconArrow className="w-full h-full" />
-        </Button>
-      ) : null}
+    <div className="grid gap-1">
+      <h5 className="font-thin text-lg">{toTitle(listName)}:</h5>
+      <div className="relative grid grid-cols-[auto_1fr_auto] h-8 gap-2">
+        {isOverflowing ? (
+          <Button
+            onClick={() => scroll("left")}
+            className="w-8 h-8 flex-center border rounded-full  fill-main-orange -rotate-90"
+          >
+            <IconArrow className="w-full h-full" />
+          </Button>
+        ) : null}
 
-      <ul
-        ref={scrollContainerRef}
-        className="flex flex-1 overflow-hidden snap-x snap-mandatory scroll-smooth scrollbar-hide gap-2"
-      >
-        {items.map((item) => (
-          <Fragment key={getKey(item)}>
-            <ItemComponent {...props} item={item} />
-          </Fragment>
-        ))}
-      </ul>
-
-      {isOverflowing ? (
-        <Button
-          onClick={() => scroll("right")}
-          className="w-8 h-8 flex-center border rounded-full  fill-main-orange rotate-90"
+        <ul
+          ref={scrollContainerRef}
+          className="flex flex-1 overflow-hidden snap-x snap-mandatory scroll-smooth scrollbar-hide gap-2"
         >
-          <IconArrow className="w-full h-full" />
-        </Button>
-      ) : null}
+          {items.map((item) => (
+            <Fragment key={getKey(item)}>
+              <ItemComponent {...props} item={item} />
+            </Fragment>
+          ))}
+        </ul>
+
+        {isOverflowing ? (
+          <Button
+            onClick={() => scroll("right")}
+            className="w-8 h-8 flex-center border rounded-full  fill-main-orange rotate-90"
+          >
+            <IconArrow className="w-full h-full" />
+          </Button>
+        ) : null}
+      </div>
     </div>
   );
 }

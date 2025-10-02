@@ -1,3 +1,4 @@
+//Components
 import WorkoutList from "../../components/Workout/WorkoutList";
 import LinkComponent from "../../components/UI/Link";
 import BackButton from "../../components/UI/BackButton";

@@ -7,7 +7,7 @@ import { useExercisesQuery } from "../../hooks/features/exercise/useExerciseQuer
 import { IsDeletingContext } from "../../hooks/context/IsDeletingContext";
 //Consts
 import { QUERY_KEYS } from "../../consts/queryKeys.consts";
-import { initialFilters } from "../../consts/filters.consts";
+import { INITIAL_FILTERS } from "../../consts/filters.consts";
 //Components
 import ExercisePreview from "./ExercisePreview";
 import ExerciseFilter from "./ExerciseFilter";
@@ -43,13 +43,14 @@ export default function ExerciseList({
     onResetSearchForm,
     onPaginate,
   } = useGenericPage<IExerciseDTO, IExerciseFilter>({
-    initialFilter: initialFilters.INITIAL_EXERCISE_FILTER,
+    initialFilter: INITIAL_FILTERS.INITIAL_EXERCISE_FILTER,
     queryKey: QUERY_KEYS.EXERCISES_QUERY_KEY,
     mutationKeyName: QUERY_KEYS.EXERCISE_MUTATION_KEY,
     itemIdKey: QUERY_KEYS.EXERCISE_ID_QUERY_KEY,
     useQuery: useExercisesQuery,
     removeFn: exerciseService.remove,
   });
+
   if (isLoading) {
     return <Loader loaderType="cards-pulse" isFullScreen={false} />;
   }
@@ -69,9 +70,9 @@ export default function ExerciseList({
           itemComponentProps={{ deleteItem, selectExercise, actionType }}
           NoItemsComponent={NoItemsComponent}
           getKey={(item) => item.id!}
-          ulStyle="gap-4 h-full overflow-y-auto px-desktop w-full 
+          ulStyle="gap-4  h-full overflow-y-auto p-desktop w-full 
                      grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))]
-                     grid-rows-[repeat(auto-fill,14rem)]"
+                    "
         />
         <Pagination meta={meta} onPaginate={onPaginate} />
       </>

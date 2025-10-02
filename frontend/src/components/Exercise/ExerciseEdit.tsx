@@ -1,16 +1,15 @@
-//-Core
-//-Constants
+//Constants
 import {
   EXERCISE_EQUIPMENT,
   EXERCISE_MUSCLES,
   EXERCISE_TYPES,
 } from "../../../../shared/consts/exercise.consts";
-//-Hooks
+//Hooks
 import { useExerciseEdit } from "../../hooks/features/exercise/useExerciseEdit";
-//-Components
+//Components
 import ExerciseTypeSelectItem from "./ExerciseTypeSelectItem";
 import ExerciseTypeSelected from "./ExerciseTypeSelected";
-//-UI
+//UI
 import Button from "../UI/Button";
 import Input from "../UI/Form/Input";
 import YoutubeInput from "../UI/Form/YoutubeInput";
@@ -19,7 +18,7 @@ import SelectMultiWithSearch from "../UI/Form/SelectMultiWithSearch/SelectMultiW
 import SelectWithSearch from "../UI/Form/SelectWithSearch/SelectWithSearch";
 import InputWithError from "../UI/Form/InputWithError";
 import Loader from "../UI/loader/Loader";
-//-Types
+//Types
 import type {
   IExerciseDTO,
   TExerciseInfo,
@@ -34,16 +33,16 @@ export default function ExerciseEdit({
   exerciseId,
   ...props
 }: ExerciseEditProps) {
-  const { setIsOpen, modelRef } = props;
+  const { setIsOpen, modelRef, handleModel } = props;
 
   const {
     exerciseToEdit,
-    saveExercise,
-    mutationErrors,
-    handleType,
-    handleExerciseInfo,
     isLoading,
     isSaving,
+    mutationErrors,
+    saveExercise,
+    handleType,
+    handleExerciseInfo,
   } = useExerciseEdit({ exerciseId });
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -57,15 +56,8 @@ export default function ExerciseEdit({
         setIsOpen(false);
       }
     } catch (error) {
-      //INFO: The try catch block in need to let the error be catched some where. errors are handled in the mutation hook
+      //INFO: The try catch block in need to let the error be caught some where. errors are handled in the mutation hook
     }
-  };
-
-  const onCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (setIsOpen) setIsOpen(false);
   };
 
   if (isLoading || !exerciseToEdit) {
@@ -146,7 +138,7 @@ export default function ExerciseEdit({
       ))}
 
       <div className="inline-flex items-center justify-between gap-2">
-        <Button type="button" buttonStyle="warning" onClick={onCancel}>
+        <Button type="button" buttonStyle="warning" onClick={handleModel}>
           Cancel
         </Button>
         <GenericSaveButton isSaving={isSaving} />

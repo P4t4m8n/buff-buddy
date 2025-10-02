@@ -22,6 +22,7 @@ export default function Pagination({ meta, onPaginate }: PaginationProps) {
         <Button
           onClick={() => onPaginate(currentPage - 1)}
           aria-label="Previous Page"
+          type="button"
           buttonStyle="save"
           className={linkStyle}
           disabled={currentPage < 1}
@@ -33,6 +34,7 @@ export default function Pagination({ meta, onPaginate }: PaginationProps) {
           disabled={currentPage + 1 === totalPages}
           aria-label="Next Page"
           buttonStyle="save"
+          type="button"
           className={linkStyle}
         >
           Next

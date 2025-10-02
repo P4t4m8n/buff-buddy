@@ -1,12 +1,9 @@
+//Hooks
 import { useProgramWorkoutEdit } from "../../../../hooks/features/program/useProgramWorkoutEdit";
-
-import WorkoutEditModel from "../../../Workout/WorkoutEditModel";
+//Components
 import ProgramWorkoutEditSelected from "./ProgramWorkoutEditSelected";
-import ProgramWorkoutList from "./ProgramWorkoutList";
-
-import Button from "../../../UI/Button";
-import GenericModel from "../../../UI/GenericModel";
-
+import ProgramWorkoutEditWorkoutsList from "./ProgramWorkoutEditWorkoutsList";
+//Types
 import type {
   IProgramWorkoutDTO,
   IProgramWorkoutEditDTO,
@@ -28,7 +25,7 @@ export default function ProgramWorkoutEdit({
     onDaysChange,
     onSelectProgramWorkout,
     handleSelectedWorkoutUpdate,
-    handleWorkoutPlannerInfo
+    handleWorkoutPlannerInfo,
   } = useProgramWorkoutEdit(programWorkout);
 
   const { modelRef, handleModel } = props;
@@ -48,47 +45,25 @@ export default function ProgramWorkoutEdit({
   return (
     <div
       ref={modelRef}
-      className="h-main fixed inset-0 bg-black-500 p-2 z-10 flex flex-col gap-4"
+      className="h-main fixed inset-0 bg-black-900 z-50 flex flex-col gap-4"
     >
-      <h3 className="text-center">Pick a workout</h3>
-      <div className="h-full">
-        {selectedWorkout ? (
-          <ProgramWorkoutEditSelected
-            selectedProgramWorkout={selectedWorkout}
-            onDaysChange={onDaysChange}
-            saveToProgram={saveToProgram}
-            onSelectProgramWorkout={onSelectProgramWorkout}
-            parentRef={modelRef}
-            handleSelectedWorkoutUpdate={handleSelectedWorkoutUpdate}
-            handleWorkoutPlannerInfo={handleWorkoutPlannerInfo}
-          />
-        ) : (
-          <>
-            <GenericModel
-              Model={WorkoutEditModel}
-              mode="create"
-              buttonProps={{ buttonStyle: "model" }}
-              isOverlay={false}
-              isPortal={true}
-              parentRef={modelRef}
-            />
-
-            <ProgramWorkoutList
-              selectedWorkout={selectedWorkout}
-              onSelectProgramWorkout={onSelectProgramWorkout}
-            />
-          </>
-        )}
-      </div>
-
-      <Button
-        onClick={handleModel}
-        className={`bg-inherit border-1 w-full hover:bg-main-orange h-10 min-h-10 mt-auto
-              hover:text-white rounded transition-all duration-300
-              hover:cursor-pointer  `}
-      >
-        Cancel
-      </Button>
+      {selectedWorkout ? (
+        <ProgramWorkoutEditSelected
+          selectedProgramWorkout={selectedWorkout}
+          onDaysChange={onDaysChange}
+          saveToProgram={saveToProgram}
+          onSelectProgramWorkout={onSelectProgramWorkout}
+          parentRef={modelRef}
+          handleSelectedWorkoutUpdate={handleSelectedWorkoutUpdate}
+          handleWorkoutPlannerInfo={handleWorkoutPlannerInfo}
+        />
+      ) : (
+        <ProgramWorkoutEditWorkoutsList
+          handleModel={handleModel}
+          modelRef={modelRef}
+          onSelectProgramWorkout={onSelectProgramWorkout}
+        />
+      )}
     </div>
   );
 }

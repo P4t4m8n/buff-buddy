@@ -1,15 +1,17 @@
-//-Core
+//Core
 import { useEffect } from "react";
-//-Util
+//Util
 import { toTitle } from "../../utils/toTitle";
-//-Hooks
+//Hooks
 import { useExerciseIdQuery } from "../../hooks/features/exercise/useExerciseIdQuery";
 import { useErrors } from "../../hooks/shared/useErrors";
-//-UI
+//UI
 import Button from "../UI/Button";
 import YoutubePlayer from "../UI/YoutubePlayer";
 import Loader from "../UI/loader/Loader";
-//-Types
+import GenericCarousel from "../UI/GenericCarousel";
+import Tag from "../UI/Tag";
+//Types
 import type { IModelProps } from "../../models/UI.model";
 
 interface ExerciseDetailsProps extends IModelProps<HTMLDivElement> {
@@ -20,7 +22,9 @@ export default function ExerciseDetails({
   ...props
 }: ExerciseDetailsProps) {
   const { data, isLoading, error: queryError } = useExerciseIdQuery(exerciseId);
+
   const exercise = data?.data;
+
   const { handleError } = useErrors();
 
   useEffect(() => {
@@ -45,9 +49,19 @@ export default function ExerciseDetails({
         <>
           <h3>{toTitle(name)}</h3>
           <YoutubePlayer youtubeUrl={youtubeUrl!} />
-          <p>{toTitle(muscles?.join(", "))}</p>
-          <p>{toTitle(equipment?.join(", "))}</p>
           <p>{toTitle(type)}</p>
+          <GenericCarousel
+            items={muscles ?? []}
+            props={{}}
+            ItemComponent={Tag}
+            getKey={(item) => item}
+          />
+          <GenericCarousel
+            items={equipment ?? []}
+            props={{}}
+            ItemComponent={Tag}
+            getKey={(item) => item}
+          />
         </>
       )}
       <Button

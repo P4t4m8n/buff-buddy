@@ -1,7 +1,11 @@
-import type { IWorkoutExerciseEditDTO } from "../../../../../shared/models/workout.model";
+//Utils
 import { toTitle } from "../../../utils/toTitle";
-import GenericModel from "../../UI/GenericModel";
+//Components
 import WorkoutExerciseEdit from "./WorkoutExerciseEdit/WorkoutExerciseEdit";
+//UI
+import GenericModel from "../../UI/GenericModel";
+//Types
+import type { IWorkoutExerciseEditDTO } from "../../../../../shared/models/workout.model";
 
 interface WorkoutExerciseEditListItemProps {
   item?: IWorkoutExerciseEditDTO;

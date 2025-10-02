@@ -1,13 +1,13 @@
 import { Link } from "react-router";
 
-import { calendarUtil } from "../../../utils/calendar.util";
-import { toTitle } from "../../../utils/toTitle";
-import { ModelButtonIcon } from "../../../utils/ModelButtonIcon.util";
+import { calendarUtil } from "../../utils/calendar.util";
+import { toTitle } from "../../utils/toTitle";
+import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
 
-import Button from "../../UI/Button";
-import GenericDeleteButton from "../../UI/GenericDeleteButton";
+import Button from "../UI/Button";
+import GenericDeleteButton from "../UI/GenericDeleteButton";
 
-import type { IProgramDTO } from "../../../../../shared/models/program.model";
+import type { IProgramDTO } from "../../../../shared/models/program.model";
 interface ProgramPreviewProps {
   item: IProgramDTO;
   deleteProgram: (programId?: string) => Promise<void>;
@@ -30,8 +30,7 @@ export default function ProgramPreview({
 
   return (
     <li
-      className={`p-4 grid w-full gap-6 shadow-[0_0_1px_1px_rgba(0,0,0,.1)]
-                  hover:shadow-[0_0_2px_2px_rgba(0,0,0,.3)] shadow-main-orange transition-all duration-300 
+      className={`p-4 grid w-full gap-6 shadow-border  transition-all duration-300 
                   rounded items-center`}
     >
       <span className="flex items-center justify-between">

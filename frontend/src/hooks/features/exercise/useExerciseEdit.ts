@@ -1,16 +1,17 @@
-//-Core
+//Core
 import React, { useEffect } from "react";
-//-Services
+//Services
 import { exerciseService } from "../../../services/exercise.service";
-//-Util
+//Util
 import { exerciseUtil } from "../../../utils/exercise.util";
-//-Hooks
+//Hooks
 import { useItemEdit } from "../../shared/useItemEdit";
 import { useExerciseIdQuery } from "./useExerciseIdQuery";
 import { useErrors } from "../../shared/useErrors";
-//-Consts
+import { useAuthStore } from "../../../store/auth.store";
+//Consts
 import { QUERY_KEYS } from "../../../consts/queryKeys.consts";
-//-Types
+//Types
 import type {
   IExerciseDTO,
   TExerciseInfo,
@@ -20,7 +21,6 @@ import type {
   ExerciseMuscle,
   ExerciseType,
 } from "../../../../../backend/prisma/generated/prisma";
-import { useAuthStore } from "../../../store/auth.store";
 
 interface IUseExerciseProps {
   exerciseId?: string;
@@ -37,7 +37,7 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
     isLoading,
     isSaving,
   } = useItemEdit<IExerciseDTO, IExerciseDTO>({
-    storeMutationKey: "exerciseMutationKey",
+    storeMutationKey: QUERY_KEYS.EXERCISE_MUTATION_KEY,
     itemId: exerciseId,
     queryIdKey: QUERY_KEYS.EXERCISE_ID_QUERY_KEY,
     saveFn: exerciseService.save,

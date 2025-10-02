@@ -1,11 +1,13 @@
+//UI
 import InputWithError from "../../../UI/Form/InputWithError";
-import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
-import type { TErrors } from "../../../../models/errors.model";
 import TextArea from "../../../UI/Form/TextArea";
 import Label from "../../../UI/Form/Label";
+//Types
+import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
+import type { TErrors } from "../../../../models/errors.model";
 
 interface WorkoutExerciseEditInputProps {
-  workoutExerciseToEdit: IWorkoutExerciseEditDTO;
+  workoutExerciseToEdit?: IWorkoutExerciseEditDTO | null;
   workoutExerciseLength?: number;
   handleInputChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -24,16 +26,16 @@ export default function WorkoutExerciseEditInput({
     isBodyWeight,
     hasWarmup,
     id: WorkoutExerciseId,
-  } = workoutExerciseToEdit;
+  } = workoutExerciseToEdit ?? {};
+  console.log("🚀 ~ WorkoutExerciseEditInput ~ order:", order);
   return (
-    <div className=" flex flex-col items gap-4 w-full justify-around px-4 pt-4">
+    <div className=" flex flex-col items gap-4 w-full justify-around ">
       <InputWithError
         divStyle=" grid grid-cols-[auto_auto_1fr] justify-end gap-2 items-center"
         inputProps={{
           name: "order",
           type: "number",
-          defaultValue:
-            order && order >= 1 ? order : workoutExerciseLength ?? 1,
+          value: order && order >= 1 ? order : workoutExerciseLength ?? 1,
           className:
             "border w-[4ch] aspect-square rounded text-center order-2  ",
           min: 1,
@@ -67,14 +69,14 @@ export default function WorkoutExerciseEditInput({
         ) : null}
       </TextArea>
 
-      <div className=" col-span-full grid grid-cols-2 gap-4">
+      <div className="col-span-full grid  gap-4 ">
         <InputWithError
-          divStyle=""
+          divStyle="flex f items-center gap-2"
           inputProps={{
             name: "hasWarmup",
             type: "checkbox",
             checked: !!hasWarmup,
-            className: " ",
+            className: "w-4 ",
             id: "hasWarmUp-" + WorkoutExerciseId,
             onChange: handleInputChange,
           }}
@@ -82,12 +84,12 @@ export default function WorkoutExerciseEditInput({
             labelPosition: "input",
             className: "",
             htmlFor: "hasWarmup-" + WorkoutExerciseId,
-            children: "Warm up?:",
+            children: "Warm up",
           }}
           error={workoutExerciseErrors?.hasWarmup}
         />
         <InputWithError
-          divStyle=""
+          divStyle="flex  items-center gap-2 w-fit"
           inputProps={{
             name: "isBodyWeight",
             type: "checkbox",
@@ -98,9 +100,9 @@ export default function WorkoutExerciseEditInput({
           }}
           labelProps={{
             labelPosition: "input",
-            className: "",
+            className: "w-full flex whitespace-nowrap",
             htmlFor: "isBodyWeight-" + WorkoutExerciseId,
-            children: "Body Wight?:",
+            children: "Body Weight",
           }}
           error={workoutExerciseErrors?.isBodyWeight}
         />

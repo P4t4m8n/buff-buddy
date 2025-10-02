@@ -16,6 +16,7 @@ export interface IProgramBase extends IEntity {
   endDate?: Date | string | null;
   isActive?: boolean;
   owner?: Partial<IUserDTO>;
+  isPublic?: boolean;
 }
 
 export interface IProgramDTO extends IProgramBase {
@@ -29,6 +30,10 @@ export interface IProgramEditDTO extends IProgramBase {
 
 export interface IProgramFilter extends IBaseFilter {
   name?: string;
+  isActive?: boolean;
+  ownerName?: string;
+  startDate?: Date | string;
+  endDate?: Date | string;
 }
 
 export type TProgramWorkoutEditRecord = Record<

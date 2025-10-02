@@ -3,17 +3,21 @@ import { workoutUtil } from "../workouts/workouts.util";
 
 import type { IProgramDTO } from "../../../../shared/models/program.model";
 import type { Prisma } from "../../../prisma/generated/prisma";
-import type { IProgram, IProgramFilter } from "./programs.models";
+import type { IProgram } from "./programs.models";
+import type { TProgramQuery } from "../../../../shared/validations/program.validations";
 
 const buildWhereClause = (
-  filter: IProgramFilter,
+  filter: TProgramQuery,
   userId?: string
 ): Prisma.ProgramWhereInput => {
+  console.log("🚀 ~ buildWhereClause ~ filter:", filter);
   const where: Prisma.ProgramWhereInput = {};
 
   if (filter.name) {
     where.name = { contains: filter.name, mode: "insensitive" };
   }
+
+  // where.isActive = !!filter.isActive;
 
   where.ownerId = userId;
 

@@ -1,5 +1,6 @@
 import type { IBaseFilter } from "../../../shared/models/app.model";
 import type { IExerciseFilter } from "../../../shared/models/exercise.model";
+import type { IProgramFilter } from "../../../shared/models/program.model";
 import type { IWorkoutFilter } from "../../../shared/models/workout.model";
 
 const PAGINATION_FILTER: IBaseFilter = {
@@ -23,8 +24,15 @@ const INITIAL_EXERCISE_FILTER: IExerciseFilter = {
   name: "",
 };
 
-export const initialFilters = {
+const INITIAL_PROGRAM_FILTER: IProgramFilter = {
+  ...PAGINATION_FILTER,
+  name: "",
+  isActive: true,
+};
+
+export const INITIAL_FILTERS = {
   PAGINATION_FILTER,
   INITIAL_WORKOUT_FILTER,
   INITIAL_EXERCISE_FILTER,
+  INITIAL_PROGRAM_FILTER,
 };

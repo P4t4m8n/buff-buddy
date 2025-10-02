@@ -1,3 +1,4 @@
+//UI
 import IconHome from "../UI/Icons/IconHome";
 import IconWorkout from "../UI/Icons/IconWorkout";
 import IconProgram from "../UI/Icons/IconProgram";
@@ -5,9 +6,9 @@ import IconExercise from "../UI/Icons/IconExercise";
 import IconProfile from "../UI/Icons/IconProfile";
 import NavItem from "../UI/NavItem";
 import GenericList from "../UI/GenericList";
-
-import type { IAppNav } from "../../models/UI.model";
 import IconDiet from "../UI/Icons/IconDiet";
+//Types
+import type { IAppNav } from "../../models/UI.model";
 
 export default function AppNavList() {
   const paths = [

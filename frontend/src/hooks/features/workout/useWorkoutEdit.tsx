@@ -19,7 +19,6 @@ import { useAuthStore } from "../../../store/auth.store";
 
 interface IUseWorkoutEditProps {
   workoutId?: string;
-  workout?: IWorkoutDTO;
 }
 
 export const useWorkoutEdit = ({ workoutId }: IUseWorkoutEditProps) => {

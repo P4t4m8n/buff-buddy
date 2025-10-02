@@ -1,14 +1,16 @@
+//Lib
 import { useNavigate, useParams } from "react-router";
-
+//Hooks
 import { useWorkoutEdit } from "../../hooks/features/workout/useWorkoutEdit";
-
+//Components
 import WorkoutEdit from "../../components/Workout/WorkoutEdit";
-
+//UI
 import Loader from "../../components/UI/loader/Loader";
 import BackButton from "../../components/UI/BackButton";
 
 export default function WorkoutEditPage() {
   const { workoutId } = useParams<{ workoutId?: string }>();
+
   const navigate = useNavigate();
   const {
     workoutToEdit,

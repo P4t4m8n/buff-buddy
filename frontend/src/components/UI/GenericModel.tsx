@@ -48,18 +48,32 @@ export default function GenericModel<T extends HTMLElement, P>({
       setIsOpen,
       modelRef,
     };
-    return isPortal ? (
-      createPortal(
+
+    if (isPortal && isOverlay) {
+      return createPortal(
+        <ModelOverlay isOpen={isOpen}>
+          <Model {...props} />
+        </ModelOverlay>,
+        parentRef?.current || rootRef?.current || document.body
+      );
+    }
+
+    if (isPortal) {
+      return createPortal(
         <Model {...props} />,
         parentRef?.current || rootRef?.current || document.body
-      )
-    ) : isOverlay ? (
-      <ModelOverlay isOpen={isOpen}>
-        <Model {...props} />
-      </ModelOverlay>
-    ) : (
-      <Model {...props} />
-    );
+      );
+    }
+
+    if (isOverlay) {
+      return (
+        <ModelOverlay isOpen={isOpen}>
+          <Model {...props} />
+        </ModelOverlay>
+      );
+    }
+
+    return <Model {...props} />;
   };
   return (
     <>

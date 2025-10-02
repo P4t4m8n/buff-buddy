@@ -11,7 +11,7 @@ import type { ComponentType } from "react";
  */
 
 interface GenericListProps<T, P> {
-  items: T[];
+  items?: T[];
   ItemComponent: ComponentType<{ item: T } & P>;
   itemComponentProps?: P | ((item: T, index: number) => P | undefined);
   ulStyle?: string;

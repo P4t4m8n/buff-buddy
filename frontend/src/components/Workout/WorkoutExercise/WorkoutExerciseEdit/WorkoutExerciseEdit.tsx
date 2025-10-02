@@ -1,16 +1,18 @@
+//Hooks
 import { useWorkoutExerciseEdit } from "../../../../hooks/features/program/useWorkoutExerciseEdit";
 import { useErrors } from "../../../../hooks/shared/useErrors";
+//Validations
 import { workoutExerciseValidation } from "../../../../../../shared/validations/workoutExercise.validations";
-
-import Button from "../../../UI/Button";
-import Loader from "../../../UI/loader/Loader";
-
-import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
-import type { IModelProps } from "../../../../models/UI.model";
-import GenericModel from "../../../UI/GenericModel";
+//Components
 import ExerciseListModel from "../../../Exercise/ExerciseListModel";
 import WorkoutExerciseEditExercisePreview from "./WorkoutExerciseEditExercisePreview";
 import WorkoutExerciseEditInput from "./WorkoutExerciseEditInput";
+//UI
+import Button from "../../../UI/Button";
+import GenericModel from "../../../UI/GenericModel";
+//Types
+import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
+import type { IModelProps } from "../../../../models/UI.model";
 
 interface WorkoutExerciseEditProps extends IModelProps<HTMLDivElement> {
   workoutExercise?: IWorkoutExerciseEditDTO;
@@ -87,15 +89,13 @@ export default function WorkoutExerciseEdit({
     if (setIsOpen) setIsOpen(false);
   };
 
-  if (!workoutExerciseToEdit) return <Loader />;
-
-  const { exercise } = workoutExerciseToEdit;
+  const { exercise } = workoutExerciseToEdit ?? {};
 
   return (
     <div
       ref={modelRef}
-      className={`flex flex-col w-[calc(100%-1rem)] max-w-96 grid-cols-1 px-4 bg-black-400 border
-         rounded  gap-4`}
+      className={`flex flex-col w-[calc(100%-1rem)] max-w-96 grid-cols-1 p-4 bg-black-400 border
+         rounded gap-4`}
     >
       <WorkoutExerciseEditInput
         workoutExerciseToEdit={workoutExerciseToEdit}
@@ -110,9 +110,14 @@ export default function WorkoutExerciseEdit({
         />
       ) : (
         <GenericModel
+          parentRef={modelRef}
           Model={ExerciseListModel}
           modelProps={{ selectExercise }}
-          buttonProps={{ children: "Select Exercise" }}
+          buttonProps={{
+            children: "Choose Exercise",
+            buttonStyle: "save",
+            className: "w-full bg-main-orange text-black-900",
+          }}
           isPortal={true}
         />
       )}

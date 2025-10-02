@@ -1,15 +1,13 @@
+//Components
 import WorkoutExerciseEdit from "./WorkoutExercise/WorkoutExerciseEdit/WorkoutExerciseEdit";
 import WorkoutExerciseEditList from "./WorkoutExercise/WorkoutExerciseEdit/WorkoutExerciseEditList";
-
+import WorkoutEditInputs from "./WorkoutEditInputs";
+//UI
 import Button from "../UI/Button";
-import InputWithError from "../UI/Form/InputWithError";
-import Label from "../UI/Form/Label";
-import TextArea from "../UI/Form/TextArea";
 import GenericModel from "../UI/GenericModel";
 import GenericSaveButton from "../UI/GenericSaveButton";
 import Loader from "../UI/loader/Loader";
-import SwitchInput from "../UI/Form/SwitchInput";
-
+//Types
 import type {
   IWorkoutEditDTO,
   IWorkoutExerciseEditDTO,
@@ -40,16 +38,10 @@ export default function WorkoutEdit({
   onCancel,
 }: IWorkoutEditProps) {
   if (!workoutToEdit || isLoading) {
-    return <Loader loaderType="screen" />;
+    return <Loader loaderType="screen" isFullScreen={false} />;
   }
 
-  const {
-    notes,
-    workoutExercises,
-    name,
-    id: workoutToEditId,
-    isTemplate,
-  } = workoutToEdit;
+  const { workoutExercises } = workoutToEdit;
 
   const cleanedWorkoutExercises = workoutExercises
     ?.filter((ex) => ex.crudOperation !== "delete")
@@ -101,58 +93,19 @@ export default function WorkoutEdit({
   };
 
   const workoutExerciseLength = (cleanedWorkoutExercises?.length ?? 0) + 1;
+
   return (
     <form
       onSubmit={onSubmit}
       className="h-full px-desktop grid grid-cols-1 grid-rows-[21rem_calc(100%-22rem)] md:grid-rows-1 md:grid-cols-[20rem_1fr]
-                 gap-4  w-full z-20"
+                 gap-4 w-full z-20"
     >
-      <header className="flex flex-col gap-2 w-full">
-        <SwitchInput
+      <header className="flex flex-col gap-4 w-full border-r pr-4">
+        <WorkoutEditInputs
           handleInputChange={handleInputChange}
-          isActive={!!isTemplate}
-          inputName="isTemplate"
-          afterContentText={{ active: "Template", inactive: "Private" }}
+          workoutToEdit={workoutToEdit}
+          errors={errors}
         />
-
-        <InputWithError
-          inputProps={{
-            value: name || "",
-            type: "text",
-            name: "name",
-            id: "name-" + workoutToEditId,
-            placeholder: "",
-            className: "h-10 pl-2",
-            onChange: handleInputChange,
-          }}
-          labelProps={{
-            labelPosition: "input",
-            htmlFor: "name-" + workoutToEditId,
-            children: "Workout Name",
-            isMoveUpEffect: true,
-          }}
-          divStyle=" h-fit"
-          error={errors?.name}
-        />
-
-        <TextArea
-          value={notes || ""}
-          name="notes"
-          id={"notes-" + workoutToEditId}
-          rows={3}
-          placeholder=""
-          className="w-full h-full block peer outline-offset-0 p-2 resize-none border-1 rounded  "
-          divStyle="  h-auto col-span-full relative group "
-          onChange={handleInputChange}
-        >
-          <Label
-            labelPosition="textArea"
-            isMoveUpEffect={true}
-            htmlFor={"notes-" + workoutToEditId}
-          >
-            Notes
-          </Label>
-        </TextArea>
 
         <div className="flex h-10 justify-between ">
           <GenericModel

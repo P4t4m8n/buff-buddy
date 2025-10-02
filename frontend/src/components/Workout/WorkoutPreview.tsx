@@ -1,14 +1,15 @@
-import { Link } from "react-router";
-
+//Utils
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
-
+//UI
 import Button from "../UI/Button";
 import GenericDeleteButton from "../UI/GenericDeleteButton";
 import Tag from "../UI/Tag";
 import GenericCarousel from "../UI/GenericCarousel";
-
+import LinkComponent from "../UI/Link";
+//Types
 import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
 import type { TWorkoutActionRoute } from "../../models/workout.model";
+import { toTitle } from "../../utils/toTitle";
 
 interface IWorkoutPreviewProps {
   item: IWorkoutDTO;
@@ -37,7 +38,7 @@ export default function WorkoutPreview({
 
   return (
     <li className="p-2 border rounded grid gap-2 break-inside-avoid mb-4 w-full ">
-      <h4>{name}</h4>
+      <h4>{toTitle(name)}</h4>
 
       <GenericCarousel
         items={exerciseSet ? Array.from(exerciseSet) : []}
@@ -67,7 +68,6 @@ const DynamicAction = (props: IWorkoutPreviewProps) => {
 const ProgramEditActions = (props: Partial<IWorkoutPreviewProps>) => {
   const { onSelectProgramWorkout, item } = props;
   const isCopy = true;
-  const { isTemplate } = item ?? {};
 
   if (!onSelectProgramWorkout) return null;
 
@@ -77,16 +77,8 @@ const ProgramEditActions = (props: Partial<IWorkoutPreviewProps>) => {
         buttonStyle="save"
         onClick={(e) => onSelectProgramWorkout(e, item, isCopy)}
       >
-        Copy
+        Select
       </Button>
-      {isTemplate ? null : (
-        <Button
-          buttonStyle="save"
-          onClick={(e) => onSelectProgramWorkout(e, item, !isCopy)}
-        >
-          Select
-        </Button>
-      )}
     </div>
   );
 };
@@ -97,12 +89,12 @@ const WorkoutDetailsActions = (props: Partial<IWorkoutPreviewProps>) => {
 
   return (
     <div className="flex items-center gap-3">
-      <Link to={`/workouts/${workoutId}`} className="mr-auto">
+      <LinkComponent to={`/workouts/${workoutId}`} className="mr-auto">
         <Button buttonStyle="model">{ModelButtonIcon("details")}</Button>
-      </Link>
-      <Link to={`/workouts/edit/${workoutId}`} className="">
+      </LinkComponent>
+      <LinkComponent to={`/workouts/edit/${workoutId}`} className="">
         <Button buttonStyle="model">{ModelButtonIcon("edit")}</Button>
-      </Link>
+      </LinkComponent>
       <GenericDeleteButton
         itemId={workoutId ?? ""}
         isDeleting={!!isDeleting}

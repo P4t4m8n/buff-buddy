@@ -8,7 +8,7 @@ import AdminPage from "./pages/AdminPage";
 import ProgramDetails from "./pages/Program/ProgramDetails";
 import WorkoutPage from "./pages/Workout/WorkoutPage";
 import WorkoutDetailsPage from "./pages/Workout/WorkoutDetailsPage";
-import WorkoutStartPage from "./pages/Workout/WorkoutStartPage";
+import WorkoutStartPage from "./pages/WorkoutStart/WorkoutStartPage";
 import WorkoutEditPage from "./pages/Workout/WorkoutEditPage";
 import WorkoutListPage from "./pages/Workout/WorkoutListPage";
 import DietPage from "./pages/Diet/DietPage";
@@ -58,7 +58,6 @@ export const ROUTES: RouteConfig[] = [
     path: "/workouts/workout-start/:programId/:workoutId",
     element: <WorkoutStartPage />,
   },
-
   {
     path: "/workouts/edit/:workoutId",
     element: <WorkoutEditPage />,

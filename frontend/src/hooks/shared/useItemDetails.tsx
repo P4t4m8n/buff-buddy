@@ -1,34 +1,29 @@
-import React, { useEffect } from "react";
-
+//Lib
+import { useEffect } from "react";
+//Hooks
+import { useErrors } from "./useErrors";
+//Types
 import type { THttpResponse } from "../../models/apiService.model";
+import type { UseQueryResult } from "@tanstack/react-query";
 
-interface IUseIdQuery<T> {
-  data: THttpResponse<T> | undefined;
-  isLoading: boolean;
-}
-interface IUseItemDetailsProps<DTO, EditDTO> {
-  useIdQuery: (id?: string) => IUseIdQuery<DTO>;
+interface IUseItemDetailsProps<DTO> {
+  useIdQuery: (id?: string) => UseQueryResult<THttpResponse<DTO | null>, Error>;
   itemId?: string;
-  dtoToEditDto: (item: DTO) => EditDTO;
-  getEmpty: () => EditDTO;
-  setItem: React.Dispatch<React.SetStateAction<DTO | EditDTO | null>>;
 }
 
-export const useItemDetails = <T, F>({
+export const useItemDetails = <DTO,>({
   useIdQuery,
   itemId,
-  dtoToEditDto,
-  getEmpty,
-  setItem,
-}: IUseItemDetailsProps<T, F>) => {
-  const { data, isLoading } = useIdQuery(itemId);
+}: IUseItemDetailsProps<DTO>) => {
+  const { data, isLoading, error: queryError } = useIdQuery(itemId);
+
+  const item = data?.data;
+
+  const { handleError } = useErrors();
 
   useEffect(() => {
-    const itemData = data?.data;
-    const foodItem = itemId && itemData ? dtoToEditDto(itemData) : getEmpty();
-    setItem(foodItem);
-    return;
-  }, [itemId, data]);
+    if (queryError) handleError({ error: queryError, emitToToast: true });
+  }, [queryError]);
 
-  return { isLoading };
+  return { item, isLoading };
 };

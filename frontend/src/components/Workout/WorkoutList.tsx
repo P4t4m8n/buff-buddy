@@ -1,20 +1,21 @@
+//Lib
 import { useCallback, useMemo } from "react";
-
+//Services
 import { workoutService } from "../../services/workout.service";
-
+//Hooks
 import { useWorkoutsQuery } from "../../hooks/features/workout/useWorkoutsQuery";
 import { useGenericPage } from "../../hooks/shared/useGenericPage";
-
-import { initialFilters } from "../../consts/filters.consts";
+//Consts
+import { INITIAL_FILTERS } from "../../consts/filters.consts";
 import { QUERY_KEYS } from "../../consts/queryKeys.consts";
-
+//Components
 import WorkoutFilter from "./WorkoutFilter";
 import WorkoutPreview from "./WorkoutPreview";
-
+//UI
 import GenericList from "../UI/GenericList";
 import Loader from "../UI/loader/Loader";
 import Pagination from "../UI/Pagination";
-
+//Types
 import type { TWorkoutActionRoute } from "../../models/workout.model";
 import type {
   IWorkoutDTO,
@@ -47,7 +48,7 @@ export default function WorkoutList({
     onResetSearchForm,
     onPaginate,
   } = useGenericPage<IWorkoutDTO, IWorkoutFilter>({
-    initialFilter: initialFilters.INITIAL_WORKOUT_FILTER,
+    initialFilter: INITIAL_FILTERS.INITIAL_WORKOUT_FILTER,
     queryKey: QUERY_KEYS.WORKOUTS_QUERY_KEY,
     mutationKeyName: QUERY_KEYS.WORKOUT_MUTATION_KEY,
     itemIdKey: QUERY_KEYS.WORKOUT_ID_QUERY_KEY,

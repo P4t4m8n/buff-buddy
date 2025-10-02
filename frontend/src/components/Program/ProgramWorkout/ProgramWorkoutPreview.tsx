@@ -1,77 +1,62 @@
+//Components
 import WorkoutEditModel from "../../Workout/WorkoutEditModel";
-
-import GenericList from "../../UI/GenericList";
+//UI
 import GenericModel from "../../UI/GenericModel";
-import GenericTags from "../../UI/GenericTags";
 import IconStart from "../../UI/Icons/IconStart";
 import LinkComponent from "../../UI/Link";
-
+import GenericCarousel from "../../UI/GenericCarousel";
+import Tag from "../../UI/Tag";
+//Types
 import type { IProgramWorkoutDTO } from "../../../../../shared/models/program.model";
+import type { IWorkoutExerciseDTO } from "../../../../../shared/models/workout.model";
 
 interface IProgramWorkoutPreviewProps {
   item: IProgramWorkoutDTO;
 }
 
-type TTagItem<T> = {
-  header: string;
-  items: T[];
-  getKey: (item: T) => string;
-  getTag: (item: T) => string;
-};
 export default function ProgramWorkoutPreview({
   item: programWorkout,
 }: IProgramWorkoutPreviewProps) {
   const { programId, workout } = programWorkout;
   const { name, workoutExercises, id } = workout ?? {};
 
-  const typesUsed = workoutExercises?.map((we) => we.exercise?.type);
-  const cleanedTypesUsed = [...new Set(typesUsed)];
-
-  const musclesUses = workoutExercises
-    ?.map((we) => we.exercise?.muscles)
-    .flat();
-  const cleanedMusclesUsed = [...new Set(musclesUses)];
-
-  const equipmentUsed = workoutExercises
-    ?.map((we) => we.exercise?.equipment)
-    .flat();
-  const cleanedEquipmentUsed = [...new Set(equipmentUsed)];
-
-  const tags: TTagItem<any>[] = [
-    {
-      header: "Exercise Types",
-      items: cleanedTypesUsed ?? [],
-      getKey: (item: any) => item,
-      getTag: (item: any) => item,
-    },
-    {
-      header: "Exercises",
-      items: workoutExercises ?? [],
-      getKey: (item: any) => item.id!,
-      getTag: (item: any) => item.exercise?.name ?? "",
-    },
-    {
-      header: "Equipment",
-      items: cleanedEquipmentUsed ?? [],
-      getKey: (item: any) => item,
-      getTag: (item: any) => item ?? "",
-    },
-    {
-      header: "Muscles Used",
-      items: cleanedMusclesUsed ?? [],
-      getKey: (item: any) => item!,
-      getTag: (item: any) => item!,
-    },
-  ];
+  const {
+    cleanedTypesUsed,
+    cleanedMusclesUsed,
+    cleanedEquipmentUsed,
+    cleanedWorkoutExercises,
+  } = getCarouselArrays(workoutExercises);
 
   return (
     <li className="border rounded flex flex-col gap-2 p-2 h-fit break-inside-avoid mb-4">
       <h4 className="text-center text-xl">{name}</h4>
-      <GenericList
-        items={tags}
-        ItemComponent={TagItem}
-        getKey={(item) => item.header}
-        ulStyle="flex flex-col  w-full"
+      <GenericCarousel
+        items={cleanedTypesUsed ?? []}
+        props={{}}
+        ItemComponent={Tag}
+        getKey={(item) => item}
+        listName="Types"
+      />
+      <GenericCarousel
+        items={cleanedWorkoutExercises ?? []}
+        props={{}}
+        ItemComponent={Tag}
+        getKey={(item) => item}
+        listName="Exercises"
+      />
+      <GenericCarousel
+        items={cleanedMusclesUsed ?? []}
+        props={{}}
+        ItemComponent={Tag}
+        getKey={(item) => item}
+        listName="Muscles Used"
+      />
+      <GenericCarousel
+        items={cleanedEquipmentUsed ?? []}
+        props={{}}
+        ItemComponent={Tag}
+        getKey={(item) => item}
+        listName="Equipment"
       />
 
       <div className="gap-2 inline-flex justify-between shadow-border-t mt-2 pt-2">
@@ -104,12 +89,48 @@ export default function ProgramWorkoutPreview({
   );
 }
 
-const TagItem = <T,>({ item }: { item: TTagItem<T> }) => {
-  const { header, ...items } = item;
-  return (
-    <li className="w-full overflow-auto ">
-      <h5>{header}</h5>
-      <GenericTags {...items} />
-    </li>
+const getCarouselArrays = (
+  workoutExercises: IWorkoutExerciseDTO[] | undefined
+) => {
+  const cleanedTypesUsed = mapToSet(
+    workoutExercises ?? [],
+    (we) => we.exercise?.type
   );
+
+  const cleanedMusclesUsed = mapToSet(
+    workoutExercises ?? [],
+    (we) => we.exercise?.muscles
+  );
+
+  const cleanedEquipmentUsed = mapToSet(
+    workoutExercises ?? [],
+    (we) => we.exercise?.equipment
+  );
+
+  const cleanedWorkoutExercises = mapToSet(
+    workoutExercises ?? [],
+    (we) => we.exercise?.name
+  );
+
+  return {
+    cleanedTypesUsed,
+    cleanedMusclesUsed,
+    cleanedEquipmentUsed,
+    cleanedWorkoutExercises,
+  };
+};
+
+//INFO: TS is annoying because of optional values added filter to shut it up
+const mapToSet = <T, P>(
+  arr: T[],
+  mapCallBack: (value: T, index: number, array: T[]) => string | P
+) => {
+  return [
+    ...new Set(
+      arr
+        .map(mapCallBack)
+        .flat()
+        .filter((i) => !!i)
+    ),
+  ] as string[];
 };

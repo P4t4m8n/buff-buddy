@@ -11,7 +11,6 @@ interface AuthProviderProps {
 
 export default function AuthGuard({ children }: AuthProviderProps) {
   const user = useAuthStore((state) => state.user);
-  console.log("🚀 ~ AuthGuard ~ user:", user)
   const loadSessionUser = useAuthStore((state) => state.loadSessionUser);
   const isLoadingSession = useAuthStore((state) => state.isLoadingSession);
 

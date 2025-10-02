@@ -3,6 +3,7 @@ const MEALS_QUERY_KEY = "meals" as const;
 
 const PROGRAMS_QUERY_KEY = "programs" as const;
 const PROGRAM_ID_QUERY_KEY = "programId" as const;
+const PROGRAM_MUTATION_KEY = "programsMutationKey" as const;
 
 const WORKOUTS_QUERY_KEY = "workouts" as const;
 const WORKOUT_ID_QUERY_KEY = "workoutId" as const;
@@ -17,6 +18,7 @@ export const QUERY_KEYS = {
   MEALS_QUERY_KEY,
   PROGRAMS_QUERY_KEY,
   PROGRAM_ID_QUERY_KEY,
+  PROGRAM_MUTATION_KEY,
   WORKOUTS_QUERY_KEY,
   WORKOUT_ID_QUERY_KEY,
   WORKOUT_MUTATION_KEY,

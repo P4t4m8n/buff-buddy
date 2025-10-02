@@ -15,8 +15,8 @@ const get = (filter: TExerciseQuery): Promise<[IExercise[], number]> => {
   const where: Prisma.ExerciseWhereInput =
     exerciseUtil.buildWhereClause(filter);
 
-  const take = filter.take ?? 100;
-  const skip = filter.skip && filter.skip > 1 ? (filter.skip - 1) * take : 0;
+  const take = filter.take ? parseInt(filter.take.toString()) : 10;
+  const skip = (filter?.skip ?? 0) * take;
 
   return prisma.$transaction([
     prisma.exercise.findMany({

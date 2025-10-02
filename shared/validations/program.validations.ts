@@ -16,7 +16,7 @@ const programFactorySchema = ({ toSanitize }: IToSanitize) => {
       maxLength: 100,
       toSanitize,
     }),
-    ownerId: validationUtil.IDSchemaFactory({ toSanitize: true }).nullable(),
+    ownerId: validationUtil.IDSchemaFactory({ toSanitize }).nullable(),
 
     notes: validationUtil
       .stringSchemaFactory({
