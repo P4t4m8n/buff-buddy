@@ -1,5 +1,3 @@
-//Utils
-import { toTitle } from "../../utils/toTitle";
 //UI
 import InputWithError from "../UI/Form/InputWithError";
 import Label from "../UI/Form/Label";
@@ -32,7 +30,7 @@ export default function WorkoutEditInputs({
       />
       <InputWithError
         inputProps={{
-          value: toTitle(name),
+          value: name ?? "",
           type: "text",
           name: "name",
           id: "name-" + workoutToEditId,

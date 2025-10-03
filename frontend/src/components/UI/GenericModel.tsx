@@ -1,38 +1,41 @@
-import React, { useContext } from "react";
+//Lib
+import { useContext } from "react";
 import { createPortal } from "react-dom";
-
+//Hooks
 import { useModel } from "../../hooks/shared/useModel";
-
+//Context
+import { RootRefContext } from "../../hooks/context/rootRefContext";
+//Utils
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
-
+//UI
 import ModelOverlay from "./ModelOverlay";
 import Button from "./Button";
-
-import type { IButtonProps, IModelProps } from "../../models/UI.model";
+//Types
+import type { IButtonProps } from "../../models/UI.model";
+import type { IModelProps } from "../../models/model.model";
 import type { TIconMode } from "../../models/UI.model";
-import { RootRefContext } from "../../hooks/context/rootRefContext";
 
 interface IGenericModelProps<T extends HTMLElement, P> {
-  Model: React.ComponentType<P & IModelProps<T>>;
   modelProps?: P;
   parentRef?: React.RefObject<HTMLDivElement | null>;
   isPortal?: boolean;
   buttonProps?: IButtonProps;
   mode?: TIconMode;
   isOverlay?: boolean;
-  callBack?: null | (() => void);
   modelInitialState?: boolean;
+  Model: React.ComponentType<P & IModelProps<T>>;
+  callBack?: null | (() => void);
 }
 export default function GenericModel<T extends HTMLElement, P>({
-  Model,
   modelProps,
   parentRef,
   isPortal = false,
   buttonProps,
   mode,
   isOverlay = true,
-  callBack,
   modelInitialState = false,
+  Model,
+  callBack,
 }: IGenericModelProps<T, P>) {
   const { isOpen, modelRef, setIsOpen, handleModel } = useModel<T>({
     callBack,

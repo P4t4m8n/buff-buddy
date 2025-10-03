@@ -19,10 +19,7 @@ function ProgramWorkoutEditPreview({
   deleteProgramWorkout,
   handleProgramWorkouts,
 }: IProgramWorkoutEditPreview) {
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-
+  const onDeleteProgramWorkout = () => {
     deleteProgramWorkout(programWorkout?.id);
   };
 
@@ -35,15 +32,21 @@ function ProgramWorkoutEditPreview({
     >
       <h5 className="font-medium text-xl line-clamp-3 ">{name}</h5>
       <div className="flex justify-between w-full">
-        <Button onClick={handleClick} buttonStyle="model" className="">
+        <Button
+          onClick={onDeleteProgramWorkout}
+          buttonStyle="model"
+          className=""
+          type="button"
+        >
           {ModelButtonIcon("delete")}
         </Button>
         <GenericModel
           Model={ProgramWorkoutEdit}
           modelProps={{ programWorkout, handleProgramWorkouts }}
-          mode="create"
+          mode="edit"
           buttonProps={{ buttonStyle: "model", className: "" }}
           isOverlay={false}
+          isPortal={true}
         />
       </div>
     </li>

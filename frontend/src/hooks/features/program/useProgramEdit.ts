@@ -57,7 +57,7 @@ export const useProgramEdit = (programId?: string) => {
     const { data } = await mutateAsync(programToEdit);
 
     const { id } = data;
-    return !!id;
+    return id;
   };
 
   const handleProgramWorkouts = (programWorkout: IProgramWorkoutEditDTO) => {

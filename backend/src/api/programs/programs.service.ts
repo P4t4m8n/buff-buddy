@@ -21,7 +21,6 @@ const get = (
     filter,
     userId
   );
-  console.log("🚀 ~ get ~ where:", where)
 
   const take = filter.take ? parseInt(filter.take.toString()) : 10;
   const skip = (filter?.skip ?? 0) * take;

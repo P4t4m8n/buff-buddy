@@ -24,6 +24,7 @@ const dtoToEditDto = ({
     notes: dto.notes,
     name: dto.name,
     isTemplate: isEdit ? dto.isTemplate : false,
+    sourceWorkoutId: isCopy ? dto.id : null,
     ownerId: dto.owner?.id,
     crudOperation: isCopy ? "create" : isEdit ? "update" : "read",
     workoutExercises: (dto.workoutExercises || []).map((we) => {

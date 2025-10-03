@@ -2,7 +2,6 @@ import { calendarUtil } from "../../../../utils/calendar.util";
 import { toTitle } from "../../../../utils/toTitle";
 
 import WorkoutEditModel from "../../../Workout/WorkoutEditModel";
-import WorkoutTags from "../../../Workout/WorkoutTags";
 
 import Button from "../../../UI/Button";
 import CheckboxMulti from "../../../UI/Form/CheckboxMulti";
@@ -18,6 +17,12 @@ import {
 
 import type { IProgramWorkoutDTO } from "../../../../../../shared/models/program.model";
 import type { IWorkoutDTO } from "../../../../../../shared/models/workout.model";
+import PageHeader from "../../../UI/PageHeader";
+import GenericCarousel from "../../../UI/GenericCarousel";
+import Tag from "../../../UI/Tag";
+import { appUtil } from "../../../../utils/app.util";
+import GenericSaveButton from "../../../UI/GenericSaveButton";
+import type { IWorkoutEditModelProps } from "../../../../models/model.model";
 
 interface IProgramWorkoutEditSelectedProps {
   selectedProgramWorkout?: IProgramWorkoutDTO | null;
@@ -34,6 +39,7 @@ interface IProgramWorkoutEditSelectedProps {
     option: string,
     inputName?: "level" | "workoutGoal"
   ) => void;
+  handleModel?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 export default function ProgramWorkoutEditSelected({
   selectedProgramWorkout,
@@ -43,6 +49,7 @@ export default function ProgramWorkoutEditSelected({
   onSelectProgramWorkout,
   handleSelectedWorkoutUpdate,
   handleWorkoutPlannerInfo,
+  handleModel,
 }: IProgramWorkoutEditSelectedProps) {
   const options = calendarUtil.getShortWeekDays(true);
 
@@ -55,29 +62,33 @@ export default function ProgramWorkoutEditSelected({
   }
 
   const { workout, workoutLevel, workoutGoal } = selectedProgramWorkout;
+  const { id: tempWorkoutId, sourceWorkoutId } = workout || {};
+  const workoutId =
+    tempWorkoutId && !tempWorkoutId.startsWith("temp")
+      ? tempWorkoutId
+      : sourceWorkoutId || undefined;
+
+  //Info:TS is a  annoying here because workoutExercises can be undefined
+  const exerciseNames = workout?.workoutExercises
+    ?.map((we) => we.exercise?.name)
+    .filter((name): name is string => !!name);
   return (
-    <div className=" flex flex-col gap-4 h-full">
-      <div className="p-2 border rounded grid gap-2">
-        <h4>{toTitle(workout?.name)}</h4>
-        <WorkoutTags workoutExercises={workout?.workoutExercises} />
-        <Button
-          buttonStyle="save"
-          className="w-full"
-          onClick={onSelectProgramWorkout}
-        >
-          Remove
-        </Button>
-        <GenericModel
-          Model={WorkoutEditModel}
-          modelProps={{ workout, afterSubmit: handleSelectedWorkoutUpdate }}
-          mode="edit"
-          buttonProps={{ buttonStyle: "model" }}
-          isPortal={true}
-          parentRef={parentRef}
-        />
-      </div>
-      <div className="grid content-around h-28">
+    <>
+      <PageHeader handleModel={handleModel} pageName="program workout" />
+      <div className="flex flex-col px-4 gap-4 pb-4">
+        <h4 className="text-xl underline ">{toTitle(workout?.name)} Workout</h4>
+        <div className="col-span-full h-fit">
+          <GenericCarousel
+            items={exerciseNames}
+            props={{}}
+            ItemComponent={Tag}
+            getKey={(item) => item || appUtil.getTempId()}
+            listName="exercises"
+          />
+        </div>
+
         <Label htmlFor="daysOfWeek">Days of the week</Label>
+
         <CheckboxMulti
           options={options}
           selectedOptions={selectedOptions}
@@ -85,33 +96,57 @@ export default function ProgramWorkoutEditSelected({
           listStyle="border rounded p-1 gap-2 w-full grid grid-cols-4 justify-center justify-items-center h-20"
           onChange={onDaysChange}
         />
+
+        <SelectWithSearch
+          options={WORKOUT_GOALS}
+          handleSelect={handleWorkoutPlannerInfo}
+          SelectedComponent={<p>{workoutGoal ?? "Pick a goal"}</p>}
+          filterBy={(item) => item}
+          SelectItemComponent={(props) => (
+            <GenericSelectItem {...props} inputName="workoutGoal" />
+          )}
+        />
+
+        <SelectWithSearch
+          options={WORKOUT_LEVELS}
+          handleSelect={handleWorkoutPlannerInfo}
+          SelectedComponent={<p>{workoutLevel ?? "Pick a level"}</p>}
+          filterBy={(item) => item}
+          SelectItemComponent={(props) => (
+            <GenericSelectItem {...props} inputName="level" />
+          )}
+        />
+
+        <div className="grid grid-cols-2 grid-rows-2 gap-x-8 gap-y-2 mt-auto">
+          <Button
+            buttonStyle="save"
+            className="w-full"
+            onClick={onSelectProgramWorkout}
+          >
+            Replace
+          </Button>
+
+          <GenericModel<HTMLDivElement, IWorkoutEditModelProps>
+            Model={WorkoutEditModel}
+            modelProps={{
+              workoutId,
+              afterSubmit: handleSelectedWorkoutUpdate,
+              isCopy: true,
+            }}
+            mode="edit"
+            buttonProps={{ buttonStyle: "model" }}
+            isPortal={true}
+            parentRef={parentRef}
+          />
+
+          <GenericSaveButton
+            isSaving={false}
+            type="button"
+            saveAction={saveToProgram}
+            style=" col-span-2"
+          />
+        </div>
       </div>
-      <SelectWithSearch
-        options={WORKOUT_GOALS}
-        handleSelect={handleWorkoutPlannerInfo}
-        SelectedComponent={<p>{workoutGoal ?? "Pick a goal"}</p>}
-        filterBy={(item) => item}
-        SelectItemComponent={(props) => (
-          <GenericSelectItem {...props} inputName="workoutGoal" />
-        )}
-      />
-      <SelectWithSearch
-        options={WORKOUT_LEVELS}
-        handleSelect={handleWorkoutPlannerInfo}
-        SelectedComponent={<p>{workoutLevel ?? "Pick a level"}</p>}
-        filterBy={(item) => item}
-        SelectItemComponent={(props) => (
-          <GenericSelectItem {...props} inputName="level" />
-        )}
-      />
-      <Button
-        className={`bg-inherit border-1 w-full hover:bg-main-orange h-10 min-h-10 mt-auto
-                  hover:text-white rounded transition-all duration-300
-                  hover:cursor-pointer  `}
-        onClick={saveToProgram}
-      >
-        Save to Program
-      </Button>
-    </div>
+    </>
   );
 }

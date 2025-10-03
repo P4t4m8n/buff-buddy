@@ -70,8 +70,8 @@ export default function ExerciseList({
           itemComponentProps={{ deleteItem, selectExercise, actionType }}
           NoItemsComponent={NoItemsComponent}
           getKey={(item) => item.id!}
-          ulStyle="gap-4  h-full overflow-y-auto p-desktop w-full 
-                     grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))]
+          ulStyle="gap-4 h-full overflow-y-auto p-desktop w-full 
+                     grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] grid-rows-[repeat(auto-fill,16rem)]
                     "
         />
         <Pagination meta={meta} onPaginate={onPaginate} />

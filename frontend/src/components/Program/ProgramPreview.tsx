@@ -1,12 +1,13 @@
+//Lib
 import { Link } from "react-router";
-
+//Utils
 import { calendarUtil } from "../../utils/calendar.util";
 import { toTitle } from "../../utils/toTitle";
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
-
+//UI
 import Button from "../UI/Button";
 import GenericDeleteButton from "../UI/GenericDeleteButton";
-
+//Types
 import type { IProgramDTO } from "../../../../shared/models/program.model";
 interface ProgramPreviewProps {
   item: IProgramDTO;

@@ -64,7 +64,7 @@ export default function GenericCarousel<T, Props>({
   }
 
   return (
-    <div className="grid gap-1">
+    <div className="grid gap-1 w-full h-fit">
       <h5 className="font-thin text-lg">{toTitle(listName)}:</h5>
       <div className="relative grid grid-cols-[auto_1fr_auto] h-8 gap-2">
         {isOverflowing ? (

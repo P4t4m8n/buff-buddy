@@ -12,20 +12,20 @@ import type { ComponentType } from "react";
 
 interface GenericListProps<T, P> {
   items?: T[];
-  ItemComponent: ComponentType<{ item: T } & P>;
-  itemComponentProps?: P | ((item: T, index: number) => P | undefined);
   ulStyle?: string;
-  getKey: (item: T) => string | number;
+  ItemComponent: ComponentType<{ item: T } & P>;
   NoItemsComponent?: React.ComponentType;
+  getKey: (item: T) => string | number;
+  itemComponentProps?: P | ((item: T, index: number) => P | undefined);
 }
 
 function GenericListMemo<T, P>({
   items,
   ulStyle,
-  itemComponentProps,
   ItemComponent,
-  getKey,
   NoItemsComponent,
+  getKey,
+  itemComponentProps,
 }: GenericListProps<T, P>) {
   if (!items || !items.length) {
     return NoItemsComponent ? (

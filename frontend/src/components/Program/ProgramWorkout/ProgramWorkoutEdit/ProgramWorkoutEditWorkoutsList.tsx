@@ -23,9 +23,9 @@ export default function ProgramWorkoutEditWorkoutsList({
   onSelectProgramWorkout,
 }: IProgramWorkoutEditWorkoutsListProps) {
   return (
-    <div className="h-full w-full grid grid-rows-[3.5rem_calc(100%-4rem)] gap-2 ">
+    <>
       <PageHeader
-        pageName="workouts"
+        pageName="select workout"
         handleModel={handleModel}
         EditModel={
           <GenericModel
@@ -50,6 +50,6 @@ export default function ProgramWorkoutEditWorkoutsList({
           onSelectProgramWorkout={onSelectProgramWorkout}
         />
       </div>
-    </div>
+    </>
   );
 }

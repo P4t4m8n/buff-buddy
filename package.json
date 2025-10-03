@@ -8,8 +8,8 @@
   "scripts": {
     "build": "npm run build --workspace=frontend && npm run build --workspace=backend",
     "start": "npm run start --workspace=backend",
-    "dev:back": "npm run dev --workspace=backend",
-    "dev:front": "npm run dev --workspace=frontend",
+    "back": "npm run dev --workspace=backend",
+    "front": "npm run dev --workspace=frontend",
     "studio": "npm run studio --workspace=backend",
     "test": "npm test --workspace=backend",
     "migrate": "npm run migrate --workspace=backend",

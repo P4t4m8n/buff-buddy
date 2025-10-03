@@ -17,7 +17,7 @@ const handleInputChange = <T>(
     default:
       newVal = value;
       break;
-    }
+  }
 
   setStateToEdit((prev) => {
     if (!prev) return null;

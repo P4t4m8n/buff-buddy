@@ -9,6 +9,7 @@ interface IWorkoutBase extends IEntity, IEntityDates {
   name?: string | null;
   notes?: string | null;
   isTemplate?: boolean;
+  sourceWorkoutId?: string | null;
 }
 
 export interface IWorkoutDTO extends IWorkoutBase {

@@ -19,9 +19,10 @@ import { useAuthStore } from "../../../store/auth.store";
 
 interface IUseWorkoutEditProps {
   workoutId?: string;
+  isCopy?: boolean;
 }
 
-export const useWorkoutEdit = ({ workoutId }: IUseWorkoutEditProps) => {
+export const useWorkoutEdit = ({ workoutId, isCopy }: IUseWorkoutEditProps) => {
   const {
     itemToEdit: workoutToEdit,
     setItemToEdit: setWorkoutToEdit,
@@ -36,7 +37,8 @@ export const useWorkoutEdit = ({ workoutId }: IUseWorkoutEditProps) => {
     queryIdKey: QUERY_KEYS.WORKOUT_ID_QUERY_KEY,
     saveFn: workoutService.save,
     useIdQuery: useWorkoutIdQuery,
-    dtoToEditDto: workoutUtil.dtoToEditDto,
+    dtoToEditDto: ({ dto, isEdit }) =>
+      workoutUtil.dtoToEditDto({ dto, isEdit, isCopy }),
     getEmpty: workoutUtil.getEmpty,
   });
 

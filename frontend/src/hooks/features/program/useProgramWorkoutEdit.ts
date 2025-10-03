@@ -12,13 +12,13 @@ import type {
 import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
 
 export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO) => {
-  const [selectedWorkout, setSelectedWorkout] =
+  const [selectedProgramWorkout, setSelectedProgramWorkout] =
     useState<IProgramWorkoutEditDTO | null>(null);
 
   useEffect(() => {
     const workoutEdit = programWorkoutUtil.dtoToEditDto(programWorkout);
 
-    setSelectedWorkout(workoutEdit ?? null);
+    setSelectedProgramWorkout(workoutEdit ?? null);
   }, [programWorkout]);
 
   const onDaysChange = useCallback((e: React.ChangeEvent) => {
@@ -26,7 +26,7 @@ export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO) => {
     const { value, checked } = target;
     const fixedDay = calendarUtil.shortWeekdayToFull(value);
 
-    setSelectedWorkout((prev) => {
+    setSelectedProgramWorkout((prev) => {
       if (!prev) return null;
 
       const newDaysOfWeek = checked
@@ -63,14 +63,14 @@ export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO) => {
         );
       }
 
-      setSelectedWorkout(_workout);
+      setSelectedProgramWorkout(_workout);
     },
     []
   );
 
   const handleSelectedWorkoutUpdate = useCallback(
     (workout: IWorkoutDTO | null) => {
-      setSelectedWorkout((prev) => {
+      setSelectedProgramWorkout((prev) => {
         if (!prev) return null;
         if (!workout) return prev;
         const updatedWorkout = workoutUtil.dtoToEditDto({
@@ -88,7 +88,7 @@ export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO) => {
 
   const handleWorkoutPlannerInfo = useCallback(
     (option: string, inputName?: "level" | "workoutGoal") => {
-      setSelectedWorkout((prev) => {
+      setSelectedProgramWorkout((prev) => {
         if (!prev) return null;
 
         const _inputName = inputName || "level";
@@ -102,7 +102,7 @@ export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO) => {
   );
 
   return {
-    selectedWorkout,
+    selectedProgramWorkout,
     onDaysChange,
     onSelectProgramWorkout,
     handleSelectedWorkoutUpdate,

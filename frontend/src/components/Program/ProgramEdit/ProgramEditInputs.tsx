@@ -151,6 +151,7 @@ export default function ProgramEditInputs({
             className: "",
           }}
           isOverlay={false}
+          isPortal={true}
         />
 
         <Button

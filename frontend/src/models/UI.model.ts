@@ -34,11 +34,7 @@ export interface IButtonProps
   buttonStyle?: TButtonLinkStyle | null;
 }
 
-export interface IModelProps<T extends HTMLElement> {
-  handleModel?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-  modelRef?: React.RefObject<T | null>;
-}
+
 
 interface IFilterInput<Filter> {
   name: keyof Filter;

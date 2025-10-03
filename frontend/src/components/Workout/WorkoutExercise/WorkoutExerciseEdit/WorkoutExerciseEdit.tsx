@@ -12,7 +12,7 @@ import Button from "../../../UI/Button";
 import GenericModel from "../../../UI/GenericModel";
 //Types
 import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
-import type { IModelProps } from "../../../../models/UI.model";
+import type { IModelProps } from "../../../../models/model.model";
 
 interface WorkoutExerciseEditProps extends IModelProps<HTMLDivElement> {
   workoutExercise?: IWorkoutExerciseEditDTO;

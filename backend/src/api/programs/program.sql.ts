@@ -1,14 +1,15 @@
+//Utils
 import { userSQL } from "../users/users.sql";
 import { workoutSQL } from "../workouts/workouts.sql";
-
+import { dbUtil } from "../../shared/utils/db.util";
+//Types
 import type { DaysOfWeek, Prisma } from "../../../prisma/generated/prisma";
 import type {
   TProgramCreateValidatedInput,
   TProgramUpdateValidatedInput,
 } from "../../../../shared/validations/program.validations";
 import type { TProgramWorkoutCreateValidatedInput } from "../../../../shared/validations/programWorkout.validations";
-import { dbUtil } from "../../shared/utils/db.util";
-import { TWorkoutCreateValidatedInput } from "../../../../shared/validations/workout.validations";
+import type { TWorkoutCreateValidatedInput } from "../../../../shared/validations/workout.validations";
 
 const PROGRAM_WORKOUTS_SELECT: Prisma.ProgramWorkoutSelect = {
   id: true,
@@ -46,35 +47,14 @@ const getProgramWorkoutCreate = (
   dto: TProgramWorkoutCreateValidatedInput,
   userId: string
 ): Prisma.ProgramWorkoutCreateWithoutProgramInput => {
-  const workoutCreateData: Prisma.WorkoutCreateInput = {
-    name: dto.workout?.name ?? "Unnamed Workout",
-    notes: dto.workout?.notes,
-    owner: {
-      connect: {
-        id: userId,
-      },
-    },
-    workoutExercises: {
-      create: (dto.workout?.workoutExercises ?? []).map((we) => ({
-        order: we.order ?? 1,
-        notes: we.notes,
-        exercise: {
-          connect: {
-            id: we.exerciseData?.id,
-          },
-        },
-      })),
-    },
-  };
-
   return {
     daysOfWeek: dto.daysOfWeek as DaysOfWeek[],
     workoutLevel: dto.workoutLevel,
     workoutGoal: dto.workoutGoal,
-    workout:
-      dto.workout?.id && !dto.workout.id.startsWith("temp/")
-        ? { connect: { id: dto.workout.id } }
-        : { create: workoutCreateData },
+    workout: _connectOrCreateWorkout({
+      workout: dto?.workout as TWorkoutCreateValidatedInput,
+      userId,
+    }),
   };
 };
 
@@ -121,6 +101,7 @@ const getProgramUpdate = ({
 
   const workoutsToDelete =
     dto.programWorkouts?.filter((wo) => wo?.crudOperation === "delete") ?? [];
+
   return {
     ...programData,
     programWorkouts: {
@@ -128,33 +109,38 @@ const getProgramUpdate = ({
 
       create: workoutsToCreate.map((wo) => ({
         daysOfWeek: wo?.daysOfWeek as DaysOfWeek[],
-        workout: {
-          connectOrCreate: {
-            where: { id: wo?.workout?.id },
-            create: workoutSQL.getWorkoutCreate(
-              wo?.workout as TWorkoutCreateValidatedInput,
-              userId
-            ),
-          },
-        },
+        workout: _connectOrCreateWorkout({
+          workout: wo?.workout as TWorkoutCreateValidatedInput,
+          userId,
+        }),
       })),
       update: workoutsToUpdate.map((wo) => ({
         where: { id: wo?.id! },
         data: {
           daysOfWeek: wo?.daysOfWeek as DaysOfWeek[],
-          workout: {
-            connectOrCreate: {
-              where: { id: wo?.workout?.id },
-              create: workoutSQL.getWorkoutCreate(
-                wo?.workout as TWorkoutCreateValidatedInput,
-                userId
-              ),
-            },
-          },
+          workout: _connectOrCreateWorkout({
+            workout: wo?.workout as TWorkoutCreateValidatedInput,
+            userId,
+          }),
         },
       })),
     },
   };
+};
+
+const _connectOrCreateWorkout = ({
+  workout,
+  userId,
+}: {
+  workout: TWorkoutCreateValidatedInput;
+  userId?: string;
+}) => {
+  const { id: workoutId } = workout;
+  return workoutId && !workoutId.startsWith("temp/")
+    ? { connect: { id: workoutId } }
+    : {
+        create: workoutSQL.getWorkoutCreate(workout, userId),
+      };
 };
 
 export const programsSQL = {

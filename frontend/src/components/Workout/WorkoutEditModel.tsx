@@ -2,23 +2,18 @@
 import { useWorkoutEdit } from "../../hooks/features/workout/useWorkoutEdit";
 //Components
 import WorkoutEdit from "./WorkoutEdit";
-//Types
-import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
-import type { IModelProps } from "../../models/UI.model";
+//UI
 import PageHeader from "../UI/PageHeader";
+//Types
+import type { IWorkoutEditModelProps } from "../../models/model.model";
 
-interface WorkoutCreateProps extends IModelProps<HTMLFormElement> {
-  workoutId?: string;
-  handleModel?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  afterSubmit?: (workout: IWorkoutDTO) => void;
-}
 export default function WorkoutEditModel({
   workoutId,
+  isCopy,
   handleModel,
   afterSubmit,
-  ...props
-}: WorkoutCreateProps) {
-  const { setIsOpen } = props;
+  setIsOpen,
+}: IWorkoutEditModelProps) {
 
   const {
     workoutToEdit,
@@ -30,6 +25,7 @@ export default function WorkoutEditModel({
     saveWorkout,
   } = useWorkoutEdit({
     workoutId,
+    isCopy,
   });
 
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {

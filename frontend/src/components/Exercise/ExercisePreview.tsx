@@ -13,12 +13,8 @@ export default function ExercisePreview(props: IExercisePreviewProps) {
   const { muscles, id, name, equipment } = props.item;
 
   return (
-    <li
-      key={id}
-      className="shadow-border rounded p-2  
-       flex flex-col h-64 justify-between  "
-    >
-      <h3 className=" truncate underline">{toTitle(name)}</h3>
+    <li key={id} className="shadow-border rounded p-2 flex flex-col gap-4 ">
+      <h3 className=" truncate text-ellipsis underline ">{toTitle(name)}</h3>
       <GenericCarousel
         items={muscles ?? []}
         props={{}}

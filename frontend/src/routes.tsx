@@ -18,6 +18,7 @@ import MealEditPage from "./pages/Meal/MealEditPage";
 import FoodItemEditPage from "./pages/FoodItem/FoodItemEditPage";
 import ExerciseEditPage from "./pages/exercise/ExerciseEditPage";
 import ExerciseDetailsPage from "./pages/exercise/ExerciseDetailsPage";
+import { ROUTES_STORE } from "./consts/routes.const";
 
 export interface RouteConfig {
   path: string;
@@ -63,19 +64,19 @@ export const ROUTES: RouteConfig[] = [
     element: <WorkoutEditPage />,
   },
   {
-    path: "/programs",
+    path: ROUTES_STORE.PROGRAM_PAGE_ROUTE,
     element: <ProgramPage />,
   },
   {
-    path: "/programs/edit",
+    path: ROUTES_STORE.PROGRAM_EDIT_ROUTE,
     element: <ProgramEditPage />,
   },
   {
-    path: "/programs/edit/:programId",
+    path: ROUTES_STORE.PROGRAM_EDIT_WITH_ID_ROUTE,
     element: <ProgramEditPage />,
   },
   {
-    path: "/programs/:programId",
+    path: ROUTES_STORE.PROGRAM_DETAILS_ROUTE,
     element: <ProgramDetails />,
   },
 

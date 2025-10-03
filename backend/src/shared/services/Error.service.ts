@@ -86,6 +86,12 @@ export class AppError extends Error {
           returnError.message = "One or more referenced records not found";
           break;
         }
+        case "P2003": {
+          returnError.status = 400;
+          returnError.message =
+            "Foreign key constraint failed. Related record not found.";
+          break;
+        }
         default: {
           returnError.status = 400;
           returnError.message = error.message || "Database error";

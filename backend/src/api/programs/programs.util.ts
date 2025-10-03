@@ -10,7 +10,6 @@ const buildWhereClause = (
   filter: TProgramQuery,
   userId?: string
 ): Prisma.ProgramWhereInput => {
-  console.log("🚀 ~ buildWhereClause ~ filter:", filter);
   const where: Prisma.ProgramWhereInput = {};
 
   if (filter.name) {

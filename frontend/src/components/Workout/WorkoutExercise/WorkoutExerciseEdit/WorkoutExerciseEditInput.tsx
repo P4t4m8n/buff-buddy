@@ -27,7 +27,6 @@ export default function WorkoutExerciseEditInput({
     hasWarmup,
     id: WorkoutExerciseId,
   } = workoutExerciseToEdit ?? {};
-  console.log("🚀 ~ WorkoutExerciseEditInput ~ order:", order);
   return (
     <div className=" flex flex-col items gap-4 w-full justify-around ">
       <InputWithError
