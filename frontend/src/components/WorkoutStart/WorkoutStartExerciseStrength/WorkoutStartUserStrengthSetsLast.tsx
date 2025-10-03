@@ -2,24 +2,22 @@ import GenericModel from "../../UI/GenericModel";
 import IconCheckMark from "../../UI/Icons/IconCheckMark";
 import IconInactive from "../../UI/Icons/IconInactive";
 import WorkoutStartExerciseSkipDetailsModel from "../WorkoutStartExerciseSkipDetailsModel";
+import type { IUserStrengthLastSet } from "../../../../../shared/models/userStrengthSet.model";
 
-interface IWorkoutStartUserSetsLastProps {
-  lastReps?: number | null;
-  lastWeight?: number | null;
-  lastMuscleFailure?: boolean | null;
-  lastJointPain?: boolean | null;
+interface IWorkoutStartUserSetsLastProps extends IUserStrengthLastSet {
   isWarmup?: boolean | null;
-  lastSkippedReason?: string | null;
 }
 export default function WorkoutStartUserStrengthSetsLast({
   lastReps,
   lastWeight,
-  lastMuscleFailure,
-  lastJointPain,
+  lastIsMuscleFailure,
+  lastIsJointPain,
   lastSkippedReason,
   isWarmup,
 }: IWorkoutStartUserSetsLastProps) {
-
+  if (!lastReps && !lastSkippedReason) {
+    return <p className=" text-center ">No previous set</p>;
+  }
   if (isWarmup) {
     return <span className=" col-span-full ">Warmup Set</span>;
   }
@@ -54,7 +52,7 @@ export default function WorkoutStartUserStrengthSetsLast({
       )}
       <span className="flex flex-col items-center  gap-1 text-sm  ">
         <h5>Joint Pain</h5>
-        {lastJointPain ? (
+        {lastIsJointPain ? (
           <IconCheckMark className="w-4 aspect-square fill-success-green" />
         ) : (
           <IconInactive className="w-4 aspect-square fill-error-red" />
@@ -62,7 +60,7 @@ export default function WorkoutStartUserStrengthSetsLast({
       </span>
       <span className="flex flex-col gap-1 items-center   text-sm">
         <h5 className="text-center">Failure</h5>
-        {lastMuscleFailure ? (
+        {lastIsMuscleFailure ? (
           <IconCheckMark className="w-4 aspect-square fill-success-green" />
         ) : (
           <IconInactive className="w-4 aspect-square fill-error-red" />

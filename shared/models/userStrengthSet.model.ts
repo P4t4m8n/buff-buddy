@@ -15,7 +15,7 @@ export interface IUserStrengthSetDTO extends IEntity, IEntityDates {
   skippedReason?: string | null;
 }
 
-interface IUserStrengthLastSet {
+export interface IUserStrengthLastSet {
   lastIsMuscleFailure?: boolean | null; // Last recorded muscle failure status
   lastReps?: number | null; // Last recorded repetitions for the set
   lastIsJointPain?: boolean | null; // Last recorded joint pain status

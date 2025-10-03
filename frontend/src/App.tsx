@@ -6,7 +6,7 @@ import Toast from "./components/UI/Toast/Toast";
 import { QueryClientWrapper } from "./lib/queryClient";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useRef } from "react";
-import { RootRefContext } from "./hooks/context/rootRefContext";
+import { RootRefContext } from "./hooks/context/RootRefContext";
 
 export default function App() {
   const routes = renderRoutes(ROUTES);

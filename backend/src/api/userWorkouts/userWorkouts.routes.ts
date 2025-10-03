@@ -12,6 +12,6 @@ export const userWorkoutsRoutes = Router();
 
 userWorkoutsRoutes.get("/:userWorkoutId", requireAuth, getUserWorkoutById);
 
-userWorkoutsRoutes.post("/", requireAuth, createUserWorkout);
+userWorkoutsRoutes.post("/edit", requireAuth, createUserWorkout);
 
 userWorkoutsRoutes.delete("/:userWorkoutId", requireAuth, deleteUserWorkout);

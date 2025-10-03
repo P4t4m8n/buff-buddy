@@ -78,29 +78,35 @@ const createUserWorkoutPlan = ({
   const userWorkoutExercises: IUserWorkoutExercisesEditDTO[] =
     workoutExercises?.map((workoutExercise) => {
       const {
-        hasWarmUp,
+        hasWarmup,
         isBodyWeight,
         id: workoutExerciseId,
       } = workoutExercise;
 
       if (!userWorkouts || !userWorkouts.length) {
-        return _getDefaultUserWorkoutExercise({
-          hasWarmUp,
-          isBodyWeight,
-          workoutExerciseId,
-          workoutLevelData,
-          workoutGoalData,
-        });
+        return {
+          ..._getDefaultUserWorkoutExercise({
+            hasWarmup,
+            isBodyWeight,
+            workoutExerciseId,
+            workoutLevelData,
+            workoutGoalData,
+          }),
+          exercise: workoutExercise.exercise,
+        };
       }
 
-      return _getPlanedUserWorkoutExercise({
-        hasWarmUp,
-        isBodyWeight,
-        workoutExerciseId,
-        userWorkouts,
-        workoutLevelData,
-        workoutGoalData,
-      });
+      return {
+        ..._getPlanedUserWorkoutExercise({
+          hasWarmup,
+          isBodyWeight,
+          workoutExerciseId,
+          userWorkouts,
+          workoutLevelData,
+          workoutGoalData,
+        }),
+        exercise: workoutExercise.exercise,
+      };
     }) ?? [];
 
   return {
@@ -160,27 +166,27 @@ const _getStrengthWarmupSet = ({
     : null;
   return {
     id: getTempId("temp/warmup"),
-    reps: 10,
-    weight: warmupWeight,
+
     isCompleted: false,
     isMuscleFailure: false,
     isJointPain: false,
     isBodyWeight,
     isWarmup: true,
     order: 0, // Warmup set is always the first set
+    goalSet: { reps: 10, weight: warmupWeight },
   };
 };
 
 const _getDefaultUserWorkoutExercise = ({
   isBodyWeight = false,
-  hasWarmUp = true,
+  hasWarmup = true,
   workoutExerciseId,
   workoutGoalData,
   workoutLevelData,
 }: {
   workoutExerciseId: string;
   isBodyWeight?: boolean;
-  hasWarmUp?: boolean;
+  hasWarmup?: boolean;
   workoutGoalData: TWorkoutGoalData;
   workoutLevelData: TWorkoutLevelData;
 }): IUserWorkoutExercisesEditDTO => {
@@ -199,7 +205,7 @@ const _getDefaultUserWorkoutExercise = ({
     });
   });
 
-  if (hasWarmUp) {
+  if (hasWarmup) {
     userStrengthSets.push(
       _getStrengthWarmupSet({
         isBodyWeight,
@@ -210,12 +216,13 @@ const _getDefaultUserWorkoutExercise = ({
   return {
     userStrengthSets,
     workoutExerciseId,
+    id: getTempId(),
   };
 };
 
 const _getPlanedUserWorkoutExercise = ({
   isBodyWeight = false,
-  hasWarmUp = true,
+  hasWarmup = true,
   workoutExerciseId,
   userWorkouts,
   workoutGoalData,
@@ -223,7 +230,7 @@ const _getPlanedUserWorkoutExercise = ({
 }: {
   workoutExerciseId: string;
   isBodyWeight?: boolean;
-  hasWarmUp?: boolean;
+  hasWarmup?: boolean;
   userWorkouts: IUserWorkout[];
   workoutGoalData: TWorkoutGoalData;
   workoutLevelData: TWorkoutLevelData;
@@ -243,7 +250,7 @@ const _getPlanedUserWorkoutExercise = ({
       const bTime = b.dateCompleted ? new Date(b.dateCompleted).getTime() : 0;
       return aTime - bTime;
     });
-    debugger
+  debugger;
 
   const isComplete = lastUserWorkouts?.every((luw) =>
     luw.userStrengthSets?.every((uss) => uss.reps >= workoutGoalData.maxReps)
@@ -255,10 +262,10 @@ const _getPlanedUserWorkoutExercise = ({
   if (isComplete) {
     //Handle weight increase
     return {
+      id: getTempId(),
       workoutExerciseId,
       userStrengthSets: _handleWeightIncrease({
         isBodyWeight,
-        hasWarmUp,
         lastSet: lastSetArr[lastSetArr.length - 1],
         workoutGoalData,
         workoutLevelData,
@@ -288,7 +295,7 @@ const _getPlanedUserWorkoutExercise = ({
     }
   );
 
-  if (hasWarmUp) {
+  if (hasWarmup) {
     userStrengthSets.push(
       _getStrengthWarmupSet({
         isBodyWeight,
@@ -299,6 +306,7 @@ const _getPlanedUserWorkoutExercise = ({
   return {
     userStrengthSets,
     workoutExerciseId,
+    id: getTempId(),
   };
 };
 

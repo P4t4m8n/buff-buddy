@@ -4,25 +4,22 @@ import Button from "../UI/Button";
 import Label from "../UI/Form/Label";
 import TextArea from "../UI/Form/TextArea";
 
-import type { IModelProps } from "../../models/UI.model";
+import type { IModelProps } from "../../models/model.model";
 import type { IHandleUserSetSkipProps } from "../../models/workoutStart.model";
 
 interface IWorkoutStartExerciseSkipEditProps
   extends IModelProps<HTMLDivElement> {
-  handleUserSetSkip: ({
-    userWorkoutExerciseId,
+  handleUserSetSkip?: ({
     userSetId,
     skippedReason,
   }: IHandleUserSetSkipProps) => void;
   skippedReason?: string | null;
   userSetId?: string;
-  userWorkoutExerciseId?: string;
 }
 export default function WorkoutStartExerciseSkipEdit({
   handleUserSetSkip,
   skippedReason,
   userSetId,
-  userWorkoutExerciseId,
   ...modelProps
 }: IWorkoutStartExerciseSkipEditProps) {
   const { setIsOpen, modelRef } = modelProps;
@@ -46,15 +43,14 @@ export default function WorkoutStartExerciseSkipEdit({
 
     const { current } = textAreaRef;
 
-    if (!current || !userWorkoutExerciseId || !userSetId) {
+    if (!current  || !userSetId) {
       console.warn("Skipped user exercise textarea props not defined"); //INFO Debugging
       return;
     }
 
     const value = current.value;
 
-    handleUserSetSkip({
-      userWorkoutExerciseId,
+    handleUserSetSkip!({
       skippedReason: value,
       userSetId,
     });

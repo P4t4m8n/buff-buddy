@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 //Hooks
 import { useModel } from "../../hooks/shared/useModel";
 //Context
-import { RootRefContext } from "../../hooks/context/rootRefContext";
+import { RootRefContext } from "../../hooks/context/RootRefContext";
 //Utils
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
 //UI

@@ -10,7 +10,7 @@ interface INumberInput {
 
 interface WorkoutStartUserStrengthSetsInputProps {
   item: INumberInput;
-  handleUserSetsChange: (
+  handleUserSetsChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   userSetId?: string;
@@ -22,8 +22,8 @@ export default function WorkoutStartUserStrengthSetsInput({
   item,
 }: WorkoutStartUserStrengthSetsInputProps) {
   const divStyle =
-    "inline-flex flex-col-reverse gap-1 items-center w-full  h-full justify-between text-center";
-  const inputStyle = `rounded w-8 aspect-square  text-center border outline-none`;
+    "inline-flex flex-col-reverse gap-1 items-center w-full  h-full justify-between text-center ";
+  const inputStyle = `rounded w-input aspect-square  text-center border outline-none`;
 
   const getNumberInput = (input: INumberInput) => {
     if (input.value === "BW") {
@@ -51,10 +51,10 @@ export default function WorkoutStartUserStrengthSetsInput({
     );
   };
   return (
-    <li className="w-full flex">
-      <span>
-        <h6>Goal</h6>
-        <p>{item.goal}</p>
+    <li className="w-full flex flex-col">
+      <span className="grid items-center justify-items-center">
+        <h6>Goal {item.label}</h6>
+        <p className="">{item.goal}</p>
       </span>
       {getNumberInput(item)}
     </li>

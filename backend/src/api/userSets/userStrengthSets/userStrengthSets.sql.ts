@@ -4,6 +4,7 @@ import type { TUserStrengthSetCreateValidatedInput } from "../../../../../shared
 const getCreateUserStrengthSet = (
   dto: TUserStrengthSetCreateValidatedInput
 ): Prisma.UserStrengthSetCreateInput => {
+
   return {
     reps: dto.reps,
     weight: dto.weight,

@@ -7,15 +7,11 @@ const ROOT_PATH = "/workout-start";
 
 const getWorkoutStart = async (
   workoutId?: string
-): Promise<IUserWorkoutEditDTO> => {
+): Promise<THttpResponse<IUserWorkoutEditDTO>> => {
   if (!workoutId) {
     throw ClientError.create("Invalid ID");
   }
-  const { data } = await apiService.get<IUserWorkoutEditDTO>(
-    `${ROOT_PATH}/${workoutId}`
-  );
-
-  return data;
+  return await apiService.get<IUserWorkoutEditDTO>(`${ROOT_PATH}/${workoutId}`);
 };
 
 export const workoutStartService = { getWorkoutStart };

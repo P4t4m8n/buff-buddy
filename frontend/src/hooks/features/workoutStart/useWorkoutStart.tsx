@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { useErrors } from "../../shared/useErrors";
 
@@ -13,6 +13,7 @@ import type {
 import type { IDateRange } from "../../../models/calendar.model";
 import type { ExerciseType } from "../../../../../backend/prisma/generated/prisma";
 import type { IHandleUserSetSkipProps } from "../../../models/workoutStart.model";
+import { useAuthStore } from "../../../store/auth.store";
 
 interface IUseWorkoutStartProps {
   workoutId?: string;
@@ -25,14 +26,18 @@ export const useWorkoutStart = ({
   programId,
   onBack,
 }: IUseWorkoutStartProps) => {
-  const [workoutStart, setWorkoutStart] =
-    React.useState<IUserWorkoutEditDTO | null>(null);
+  const [workoutStart, setWorkoutStart] = useState<IUserWorkoutEditDTO | null>(
+    null
+  );
   const { errors, handleError, clearErrors } = useErrors<IUserWorkoutDTO>();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   const loadWorkoutStart = async () => {
-    const _workoutStart = await workoutStartService.getWorkoutStart(workoutId);
+    const { data: _workoutStart } = await workoutStartService.getWorkoutStart(
+      workoutId
+    );
     setWorkoutStart(_workoutStart);
     return;
   };
@@ -70,18 +75,45 @@ export const useWorkoutStart = ({
     };
 
     init();
-  }, [workoutId,programId]);
+  }, [workoutId, programId]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
     try {
+      if (!workoutStart) {
+        handleError({ error: "No workout to save", emitToToast: true });
+        return;
+      }
+      setIsSaving(true);
+
       clearErrors();
-      e.preventDefault();
-      e.stopPropagation();
-      await userWorkoutService.save(workoutStart);
+
+      const ownerId = useAuthStore.getState().user?.id;
+      workoutStart.ownerId = ownerId;
+      //INFO:Lazy solution for now
+      const userWorkoutExercises = workoutStart?.userWorkoutExercises?.map(
+        (uwe) => {
+          const userStrengthSets = uwe?.userStrengthSets?.filter(
+            (uss) => !uss.isWarmup
+          );
+          return {
+            ...uwe,
+            userStrengthSets,
+          };
+        }
+      );
+      const cleanWorkoutStart = { ...workoutStart, userWorkoutExercises };
+
+      await userWorkoutService.save(cleanWorkoutStart);
+
       localStorageService.storeSessionData("workoutStart");
+
       onBack();
     } catch (error) {
       handleError({ error, emitToToast: true });
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -111,7 +143,7 @@ export const useWorkoutStart = ({
 
       setWorkoutStart((prev) => {
         if (!prev) return null;
-        const workoutExercises = prev.userWorkoutExercises.map((we) => {
+        const workoutExercises = prev?.userWorkoutExercises?.map((we) => {
           //INFO: In case userSets is undefined, we assume no sets exist
           const idx = we[setType]?.findIndex((us) => us.id === id) ?? -1;
           if (idx < 0) {
@@ -154,13 +186,14 @@ export const useWorkoutStart = ({
   );
 
   const handleUserSetSkip = ({
-    userWorkoutExerciseId,
     userSetId,
     skippedReason,
   }: IHandleUserSetSkipProps) => {
     setWorkoutStart((prev) => {
-      const userWorkoutExercise = prev?.userWorkoutExercises.find(
-        (we) => we.id === userWorkoutExerciseId
+      const userWorkoutExercise = prev?.userWorkoutExercises?.find(
+        (we) =>
+          we.userStrengthSets?.some((us) => us.id === userSetId) ||
+          we.userCardioSets?.some((us) => us.id === userSetId)
       );
 
       if (!userWorkoutExercise) {
@@ -187,7 +220,7 @@ export const useWorkoutStart = ({
       }
       //INFO?? if we got here variables must be defined
       userWorkoutExercise[setType]![idx].skippedReason = skippedReason;
-      const updatedUserWorkoutExercises = prev?.userWorkoutExercises.map(
+      const updatedUserWorkoutExercises = prev?.userWorkoutExercises?.map(
         (uwe) => uwe
       );
       return {
@@ -220,7 +253,7 @@ export const useWorkoutStart = ({
     setWorkoutStart((prev) => {
       if (!prev) return null;
       const { userWorkoutExercises } = prev;
-      const _userWorkoutExercises = userWorkoutExercises.find((we) =>
+      const _userWorkoutExercises = userWorkoutExercises?.find((we) =>
         we[key]?.some((us) => us.id === userSetId)
       );
 
@@ -274,8 +307,8 @@ export const useWorkoutStart = ({
         if (we.id !== userWorkoutExerciseId) return we;
         const userStrengthSets = we.userStrengthSets?.map((uss) => ({
           ...uss,
-          reps: we.userStrengthSets?.[0]?.goalSet?.reps ?? 10,
-          weight: we.userStrengthSets?.[0]?.goalSet?.weight ?? 10,
+          reps: we.userStrengthSets?.[0]?.goalSet?.reps,
+          weight: we.userStrengthSets?.[0]?.goalSet?.weight,
           isCompleted: true,
         }));
         const userCardioSets = we.userCardioSets?.map((ucs) => ({
@@ -344,6 +377,7 @@ export const useWorkoutStart = ({
     errors,
     workoutStart,
     isLoading,
+    isSaving,
     onSubmit,
     handleDateSelect,
     handleUserSetsChange,

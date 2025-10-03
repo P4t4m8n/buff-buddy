@@ -74,6 +74,9 @@ export const useWorkoutEdit = ({ workoutId, isCopy }: IUseWorkoutEditProps) => {
       if (idx === undefined || idx === -1) {
         return prev;
       }
+      if(idx>=0){
+        updatedWorkoutExercises[idx] = workoutExercise;
+      }
       const [removedItem] = updatedWorkoutExercises.splice(idx, 1);
       updatedWorkoutExercises?.splice(x, 0, removedItem);
 

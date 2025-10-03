@@ -1,10 +1,10 @@
-import { memo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import { twMerge } from "tailwind-merge";
 
 import { useModel } from "../../hooks/shared/useModel";
 
 import WorkoutStartExerciseItemNotes from "./WorkoutStartExerciseItemNotes";
-import WorkoutStartUserStrengthSets from "./WorkoutStartExerciseStrength/WorkoutStartUserStrengthSets";
+import WorkoutStartUserStrengthSet from "./WorkoutStartExerciseStrength/WorkoutStartUserStrengthSet";
 import WorkoutStartUserCardioSets from "./WorkoutStartExerciseCardio/WorkoutStartUserCardioSets";
 import WorkoutStartExerciseVideo from "./WorkoutStartExerciseVideo";
 import WorkoutStartExerciseSkipEdit from "./WorkoutStartExerciseSkipEdit";
@@ -17,14 +17,18 @@ import GenericList from "../UI/GenericList";
 import type { IUserCardioSetEditDTO } from "../../../../shared/models/userCardioSet.model";
 import type { IUserStrengthSetEditDTO } from "../../../../shared/models/userStrengthSet.model";
 import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
-import type { TValidationError } from "../../models/errors.model";
 import type { IWorkoutStartExerciseItemProps } from "../../models/workoutStart.model";
+import { toTitle } from "../../utils/toTitle";
+import { useWorkoutStartContext } from "../../hooks/features/workoutStart/useWorkoutStartContext";
+import type { IUserWorkoutExercisesEditDTO } from "../../../../shared/models/userWorkout";
+import IconCheckMark from "../UI/Icons/IconCheckMark";
+import IconInactive from "../UI/Icons/IconInactive";
 
-function WorkoutStartExerciseItem(props: IWorkoutStartExerciseItemProps) {
-  const { isOpen, handleModel } = useModel();
+function WorkoutStartExercise({ item }: IWorkoutStartExerciseItemProps) {
+  const { isOpen, handleModel } = useModel({});
 
-  const { item, completeAllExerciseSets, skipAllExerciseSets, ...restProps } =
-    props;
+  const context = useWorkoutStartContext().context;
+  const { skipAllExerciseSets, completeAllExerciseSets } = context ?? {};
 
   const { userWorkoutExercise, errors } = item;
   const {
@@ -33,9 +37,42 @@ function WorkoutStartExerciseItem(props: IWorkoutStartExerciseItemProps) {
     notes,
     skippedReason,
   } = userWorkoutExercise;
+
   const { youtubeUrl, name: exerciseName, type } = exercise ?? {};
 
-  const exerciseConfig = getExerciseConfig(type ?? "strength", props);
+  const getExerciseConfig = useCallback(
+    (type: ExerciseType, userWorkoutExercise: IUserWorkoutExercisesEditDTO) => {
+      const { userStrengthSets, userCardioSets } = userWorkoutExercise ?? {};
+      switch (type) {
+        case "strength":
+          return {
+            numberOfSets: userStrengthSets?.length,
+            userSetListComponent: WorkoutStartUserStrengthSet,
+            userSetListData: userStrengthSets?.sort(
+              (a, b) => (a?.order || 0) - (b?.order || 0)
+            ),
+            isFinished: userStrengthSets
+              ?.filter((set) => !set.isWarmup)
+              .every((set) => set?.isCompleted),
+          };
+        case "cardio":
+          return {
+            numberOfSets: 1, //INFO: Cardio is typically one long set
+            userSetListComponent: WorkoutStartUserCardioSets,
+            userSetListData: userCardioSets,
+            isFinished: userCardioSets?.every((set) => set?.isCompleted),
+          };
+        default:
+          return null;
+      }
+    },
+    []
+  );
+
+  const exerciseConfig = useMemo(
+    () => getExerciseConfig(type ?? "strength", userWorkoutExercise),
+    [type, userWorkoutExercise]
+  );
 
   if (!exerciseConfig) {
     return (
@@ -61,7 +98,7 @@ function WorkoutStartExerciseItem(props: IWorkoutStartExerciseItemProps) {
 
   const modelButtonStyle = twMerge(
     "w-full flex items-center h-16 transition-all duration-300",
-    isOpen ? "border-b pb-2" : "",
+    isOpen ? "border-b " : "",
     isError ? "text-error-red " : ""
   );
 
@@ -73,10 +110,18 @@ function WorkoutStartExerciseItem(props: IWorkoutStartExerciseItemProps) {
   return (
     <li className={liStyle}>
       <Button onClick={handleModel} className={modelButtonStyle}>
-        <span className="inline-flex flex-col text-start">
-          <h4>{exerciseName}</h4>
+        <div className="inline-flex flex-col text-start">
+          <span className="inline-flex items-center gap-2">
+            <h4>{toTitle(exerciseName)}</h4>
+            {exerciseConfig?.isFinished ? (
+              <IconCheckMark className="w-4 aspect-square fill-success-green" />
+            ) : (
+              <IconInactive className="w-4 aspect-square fill-error-red" />
+            )}
+          </span>
           <p>Sets: {exerciseConfig?.numberOfSets}</p>
-        </span>
+        </div>
+
         <IconArrow className={iconArrowStyle} />
       </Button>
 
@@ -89,10 +134,7 @@ function WorkoutStartExerciseItem(props: IWorkoutStartExerciseItemProps) {
           items={exerciseConfig?.userSetListData ?? []}
           ItemComponent={exerciseConfig.userSetListComponent}
           itemComponentProps={{
-            ...restProps,
-            userWorkoutExerciseId,
-            errors:
-              errors?.userStrengthSets as TValidationError<IUserStrengthSetEditDTO>,
+            errors: errors?.userStrengthSets || errors?.userCardioSets,
           }}
           getKey={(item) => item.id!}
           ulStyle="h-full flex flex-col gap-2"
@@ -103,7 +145,7 @@ function WorkoutStartExerciseItem(props: IWorkoutStartExerciseItemProps) {
             Model={WorkoutStartExerciseSkipEdit}
             modelProps={{
               skippedReason,
-              handleUserSetSkip: skipAllExerciseSets,
+              handleUserSetSkip: skipAllExerciseSets!,
               userWorkoutExerciseId,
             }}
             buttonProps={{
@@ -119,7 +161,7 @@ function WorkoutStartExerciseItem(props: IWorkoutStartExerciseItemProps) {
             className="text-amber hover:text-black w-full"
             buttonStyle="model"
             type="button"
-            onClick={() => completeAllExerciseSets(userWorkoutExerciseId!)}
+            onClick={() => completeAllExerciseSets!(userWorkoutExerciseId!)}
           >
             Complete All Sets
           </Button>
@@ -137,35 +179,4 @@ function WorkoutStartExerciseItem(props: IWorkoutStartExerciseItemProps) {
   );
 }
 
-export default memo(
-  WorkoutStartExerciseItem
-) as typeof WorkoutStartExerciseItem;
-
-const getExerciseConfig = (
-  type: ExerciseType,
-  props: IWorkoutStartExerciseItemProps
-) => {
-  const { item } = props;
-
-  const { userWorkoutExercise } = item ?? {};
-  const { userStrengthSets, userCardioSets } = userWorkoutExercise ?? {};
-  switch (type) {
-    case "strength":
-      return {
-        numberOfSets: userStrengthSets?.length,
-        userSetListComponent: WorkoutStartUserStrengthSets,
-        userSetListData: userStrengthSets,
-        isFinished: userStrengthSets?.every((set) => set?.isCompleted),
-      };
-    case "cardio":
-      return {
-        numberOfSets: 1, //INFO: Cardio is typically one long set
-        userSetListComponent: WorkoutStartUserCardioSets,
-
-        userSetListData: userCardioSets,
-        isFinished: userCardioSets?.every((set) => set?.isCompleted),
-      };
-    default:
-      return null;
-  }
-};
+export default memo(WorkoutStartExercise);

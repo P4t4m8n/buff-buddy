@@ -6,7 +6,7 @@ export interface IWorkoutExercise {
   order: number;
   notes: string | null;
   exercise: IExercise;
-  hasWarmUp?: boolean;
+  hasWarmup?: boolean;
   isBodyWeight?: boolean;
   restTime?: number | null;
 }

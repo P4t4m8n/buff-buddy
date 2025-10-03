@@ -32,7 +32,10 @@ export const calendarUtil = {
     fullDays?: TDayOfWeek[],
     isTitle: boolean = true
   ): string[] => {
-    return fullDays?.map((day) => calendarUtil.fullWeekdayToShort(day, isTitle)) || [];
+    return (
+      fullDays?.map((day) => calendarUtil.fullWeekdayToShort(day, isTitle)) ||
+      []
+    );
   },
   formatDate: (
     date?: Date | string | null,
@@ -40,7 +43,7 @@ export const calendarUtil = {
   ): string => {
     if (!date) return "";
     const dateObj = typeof date === "string" ? new Date(date) : date;
-    return dateObj.toLocaleDateString("en-US", {
+    return dateObj.toLocaleDateString("en-IL", {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",

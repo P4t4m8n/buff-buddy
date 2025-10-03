@@ -34,7 +34,7 @@ export const genericServiceFactory = <
       return await apiService.get<DTO | null>(`${rootPath}/${id}`);
     },
 
-    save: async (dto: EditDTO): Promise<THttpResponse<DTO>> => {
+    save: async (dto?: EditDTO|null): Promise<THttpResponse<DTO>> => {
       if (!dto) throw ClientError.create("Data is required", 404);
 
       const { id } = dto;

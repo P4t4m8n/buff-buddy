@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import WorkoutStartExerciseItem from "./WorkoutStartExerciseItem";
+import WorkoutStartExerciseItem from "./WorkoutStartExercise";
 
 import GenericList from "../UI/GenericList";
 

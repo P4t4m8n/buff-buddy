@@ -9,7 +9,7 @@ interface IWorkoutStartExerciseVideoProps {
 export default function WorkoutStartExerciseVideo({
   youtubeUrl,
 }: IWorkoutStartExerciseVideoProps) {
-  const { isOpen, handleModel } = useModel();
+  const { isOpen, handleModel } = useModel({});
 
   const buttonText = isOpen ? "Hide Video" : "Show Video";
   return (

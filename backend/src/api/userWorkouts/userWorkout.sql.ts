@@ -97,9 +97,9 @@ const getCreateUserWork = (
           },
         },
         userStrengthSets: {
-          create: we.userStrengthSets?.map((us) =>
-            userStrengthSetsSQL.getCreateUserStrengthSet(us)
-          ),
+          create: we.userStrengthSets
+            ?.filter((us) => !us.isWarmup)
+            .map((us) => userStrengthSetsSQL.getCreateUserStrengthSet(us)),
         },
         userCardioSets: {
           create: we.userCardioSets?.map((uc) =>

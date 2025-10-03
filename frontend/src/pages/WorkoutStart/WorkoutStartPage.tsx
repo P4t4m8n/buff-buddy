@@ -1,15 +1,8 @@
 import { useParams } from "react-router";
 
-import { useWorkoutStore } from "../../store/workout.store";
-import { useWorkoutStart } from "../../hooks/features/workout/useWorkoutStart";
-import { usePageBack } from "../../hooks/shared/usePageBack";
+import PageHeader from "../../components/UI/PageHeader";
 
-import WorkoutStartExerciseList from "../../components/WorkoutStart/WorkoutStartExerciseList";
-
-import Button from "../../components/UI/Button";
-import GenericSaveButtonOld from "../../components/UI/GenericSaveButtonOld";
-import Loader from "../../components/UI/loader/Loader";
-import DateInput from "../../components/UI/Form/DateInput/DateInput";
+import WorkoutStart from "../../components/WorkoutStart/WorkoutStart";
 
 export default function WorkoutStartPage() {
   const { workoutId } = useParams<{
@@ -17,72 +10,10 @@ export default function WorkoutStartPage() {
     workoutId?: string;
   }>();
 
-  const { onBack } = usePageBack();
-
-  const {
-    errors,
-    workoutStart,
-    isLoading,
-    onSubmit,
-    handleDateSelect,
-    handleUserSetsChange,
-    handleUserSet,
-    completeAllExerciseSets,
-    skipAllExerciseSets,
-    handleUserSetSkip,
-  } = useWorkoutStart({ workoutId, onBack });
-
-  if (isLoading) {
-    return <Loader loaderType="screen" />;
-  }
-
-  const { userWorkoutExercises, workout } = workoutStart ?? {};
-  const { name } = workout ?? {};
-
-  const listItemProps = {
-    handleUserSetsChange,
-    handleUserSet,
-    completeAllExerciseSets,
-    skipAllExerciseSets,
-    handleUserSetSkip,
-  };
-
   return (
-    <form
-      onSubmit={onSubmit}
-      className="h-main overflow-y-auto grid grid-cols-1 grid-rows-[5.5rem_1fr_2.5rem]
-       gap-4 bg-black-800 pt-mobile"
-    >
-      <div className="px-mobile">
-        <h2 className="text-center text-xl underline underline-offset-2 pb-4">
-          {name}
-        </h2>
-        <DateInput
-          handleDateSelect={handleDateSelect}
-          selectedRange={{ start: workoutStart?.dateCompleted }}
-          className=" "
-          initialMode="single"
-          errorRange={{
-            startDate: errors?.dateCompleted,
-          }}
-        />
-      </div>
-      <WorkoutStartExerciseList
-        userWorkoutExercises={userWorkoutExercises ?? []}
-        errors={errors}
-        itemProps={listItemProps}
-      />
-
-      <div className="grid grid-cols-[auto_4rem] h-10 px-mobile ">
-        <Button buttonStyle="warning" type="button" onClick={onBack}>
-          Cancel
-        </Button>
-        <GenericSaveButtonOld
-          itemId={workoutId}
-          useStore={useWorkoutStore}
-          type="submit"
-        />
-      </div>
-    </form>
+    <section className="h-main w-full bg-black-900 grid grid-rows-[3.5rem_calc(100%-4rem)] gap-2 ">
+      <PageHeader pageName="Workout start" />
+      <WorkoutStart workoutId={workoutId} />
+    </section>
   );
 }
