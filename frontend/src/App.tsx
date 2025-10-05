@@ -5,7 +5,7 @@ import { QueryClientWrapper } from "./lib/queryClient";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useRef } from "react";
 //Context
-import { RootRefContext } from "./hooks/context/RootRefContext";
+import { RootRefContext } from "./hooks/context/x";
 //Components
 import AppFooter from "./components/AppFooter/AppFooter";
 //Guards

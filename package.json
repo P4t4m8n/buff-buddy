@@ -17,6 +17,5 @@
     "clean": "ts-prune -p frontend/tsconfig.json --skip-type-only-exports && ts-prune -p backend/tsconfig.json --skip-type-only-exports --ignore backend/prisma/generated/"
   },
   "devDependencies": {
-    "ts-prune": "^0.10.3"
   }
 }
