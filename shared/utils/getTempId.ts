@@ -1,6 +1,6 @@
-import { IEntity } from "../models/entity.model";
+import type { IEntity } from "../models/entity.model";
 
-export const getTempId = (prefix = "temp", item?: IEntity) => {
+export const getTempId = <T extends IEntity>(prefix = "temp", item?: T) => {
   if (item?.id) {
     return item.id;
   }

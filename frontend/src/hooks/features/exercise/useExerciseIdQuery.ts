@@ -3,11 +3,9 @@ import { exerciseService } from "../../../services/exercise.service";
 import useQueryIdHook from "../../queryHooks/useQueryIdHook";
 
 export const useExerciseIdQuery = (id?: string) => {
-  const { data, isLoading, error } = useQueryIdHook({
+  return useQueryIdHook({
     id,
     queryKey: QUERY_KEYS.EXERCISE_ID_QUERY_KEY,
     queryFn: exerciseService.getById,
   });
-
-  return { error, data, isLoading };
 };

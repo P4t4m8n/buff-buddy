@@ -1,13 +1,14 @@
-//-Core
+//Lib
 import { useSearchParams } from "react-router";
-//-Types
-import type { THttpResponse } from "../../models/apiService.model";
-import { useMutationKeyStore } from "../../store/mutationKeys.store";
 import { useEffect, useMemo } from "react";
+//Hooks
+import { useErrors } from "./useErrors";
+import { useMutationKeyStore } from "../../store/mutationKeys.store";
 import { useItemDeleteMutation } from "../queryHooks/useItemDeleteMutation";
+//Types
+import type { THttpResponse } from "../../models/apiService.model";
 import type { TStoreKeys } from "../../models/mutationKeyStore.model";
 import type { IBaseFilter } from "../../../../shared/models/app.model";
-import { useErrors } from "./useErrors";
 
 interface IUseGenericPageLogicProps<DTO, Filter> {
   initialFilter: Filter;

@@ -70,7 +70,7 @@ export default function WorkoutPage() {
   const todayWorkouts = programDayMap.get(day ?? "sunday") || [];
 
   return (
-    <div className="flex flex-col gap-4 relative w-full h-main grid-stack">
+    <div className="flex flex-col gap-4 relative w-full h-main ">
       <header className="w-full border-b px-mobile pt-2 grid grid-cols-[auto_1fr] grid-rows-2 gap-y-4">
         <BackButton />
         <h2 className="text-2xl font-bold text-center mr-8">Weekly Workouts</h2>

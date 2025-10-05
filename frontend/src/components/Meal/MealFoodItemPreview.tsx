@@ -19,8 +19,8 @@ export default function MealFoodItemPreview({
 }: IMealFoodItemPreviewProps) {
   const { quantity, foodItem, id: mealFoodItemId } = mealFoodItem;
 
-  const { images, name: foodItemName, brand } = foodItem ?? {};
-  const img = images?.[0]?.url ?? "/images/placeholder.webp";
+  const {  name: foodItemName, brand } = foodItem ?? {};
+  const img = "/images/placeholder.webp";
   const brandName = brand?.name ?? "";
 
   const onDelete = (e: React.MouseEvent) => {

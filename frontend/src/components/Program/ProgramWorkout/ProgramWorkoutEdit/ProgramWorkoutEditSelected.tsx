@@ -1,27 +1,28 @@
+//Utils
 import { calendarUtil } from "../../../../utils/calendar.util";
 import { toTitle } from "../../../../utils/toTitle";
-
+import { getTempId } from "../../../../../../shared/utils/getTempId";
+//Components
 import WorkoutEditModel from "../../../Workout/WorkoutEditModel";
-
+//UI
 import Button from "../../../UI/Button";
 import CheckboxMulti from "../../../UI/Form/CheckboxMulti";
 import Label from "../../../UI/Form/Label";
 import GenericModel from "../../../UI/GenericModel";
 import SelectWithSearch from "../../../UI/Form/SelectWithSearch/SelectWithSearch";
 import GenericSelectItem from "../../../UI/Form/SelectWithSearch/GenericSelectItem";
-
+import PageHeader from "../../../UI/PageHeader";
+import GenericCarousel from "../../../UI/GenericCarousel";
+import GenericSaveButton from "../../../UI/GenericSaveButton";
+import Tag from "../../../UI/Tag";
+//Consts
 import {
   WORKOUT_LEVELS,
   WORKOUT_GOALS,
 } from "../../../../../../shared/consts/program.consts";
-
+//Types
 import type { IProgramWorkoutDTO } from "../../../../../../shared/models/program.model";
 import type { IWorkoutDTO } from "../../../../../../shared/models/workout.model";
-import PageHeader from "../../../UI/PageHeader";
-import GenericCarousel from "../../../UI/GenericCarousel";
-import Tag from "../../../UI/Tag";
-import { appUtil } from "../../../../utils/app.util";
-import GenericSaveButton from "../../../UI/GenericSaveButton";
 import type { IWorkoutEditModelProps } from "../../../../models/model.model";
 
 interface IProgramWorkoutEditSelectedProps {
@@ -82,7 +83,7 @@ export default function ProgramWorkoutEditSelected({
             items={exerciseNames}
             props={{}}
             ItemComponent={Tag}
-            getKey={(item) => item || appUtil.getTempId()}
+            getKey={(item) => item || getTempId()}
             listName="exercises"
           />
         </div>

@@ -1,12 +1,18 @@
+//Lib
+import { memo, useCallback, useMemo } from "react";
+//Components
+import ProgramWorkoutEditPreview from "./ProgramWorkoutEditPreview";
+//Consts
 import { DAY_OF_WEEK } from "../../../../../../shared/consts/app.consts";
+//UI
 import GenericList from "../../../UI/GenericList";
+//Utils
 import { toTitle } from "../../../../utils/toTitle";
+//Types
 import type {
   IProgramWorkoutEditDTO,
   TProgramWorkoutEditRecord,
 } from "../../../../../../shared/models/program.model";
-import ProgramWorkoutEditPreview from "./ProgramWorkoutEditPreview";
-import { memo, useCallback, useMemo } from "react";
 
 interface IProgramWorkoutEditWeekListProps {
   programWorkouts?: IProgramWorkoutEditDTO[];

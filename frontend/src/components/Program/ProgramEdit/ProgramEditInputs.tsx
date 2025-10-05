@@ -49,10 +49,7 @@ export default function ProgramEditInputs({
     isPublic,
     id: programId,
   } = programToEdit ?? {};
-  const dateRange = {
-    start: calendarUtil.convertDate(startDate),
-    end: calendarUtil.convertDate(endDate),
-  };
+  const dateRange = calendarUtil.getDateRange(startDate, endDate);
   return (
     <div className="flex flex-col md:flex-row gap-4 p-desktop">
       <div className="grid gap-4 w-full">

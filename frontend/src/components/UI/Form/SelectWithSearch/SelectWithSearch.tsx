@@ -3,7 +3,6 @@ import { twMerge } from "tailwind-merge";
 
 import { useSelect } from "../../../../hooks/shared/useSelect";
 
-import { appUtil } from "../../../../utils/app.util";
 
 import Button from "../../Button";
 import Input from "../Input";
@@ -14,6 +13,8 @@ import type {
   ISelectAddComponentProps,
   ISelectItemComponentProps,
 } from "../../../../models/select.model";
+import { getTempId } from "../../../../../../shared/utils/getTempId";
+import type { IEntity } from "../../../../../../shared/models/entity.model";
 
 interface SelectWithSearchProps<T, P> {
   options: readonly T[];
@@ -83,7 +84,9 @@ export default function SelectWithSearch<T, P>({
               </li>
             ) : null}
             {optionsList.map((option) => (
-              <React.Fragment key={appUtil.getTempId("select-index", option)}>
+              <React.Fragment
+                key={getTempId("select-index", option as IEntity)}
+              >
                 <SelectItemComponent item={option} onClick={onOptionClick} />
               </React.Fragment>
             ))}

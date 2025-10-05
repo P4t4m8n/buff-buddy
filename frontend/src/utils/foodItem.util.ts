@@ -3,11 +3,11 @@ import type {
   IFoodItemDTO,
   IFoodItemInfoEditBase,
 } from "../../../shared/models/foodItem.model";
-import { appUtil } from "./app.util";
+import { getTempId } from "../../../shared/utils/getTempId";
 
 const getEmpty = (): IFoodItemEditDTO => {
   return {
-    id: appUtil.getTempId(),
+    id: getTempId(),
     carbohydrates: 0,
     fats: 0,
     fiber: 0,
@@ -28,7 +28,7 @@ const getEmpty = (): IFoodItemEditDTO => {
 
 const getEmptyInfo = (): IFoodItemInfoEditBase => {
   return {
-    id: appUtil.getTempId(),
+    id: getTempId(),
     name: "",
     crudOperation: "create",
   };
@@ -38,7 +38,7 @@ const dtoToEditDto = (dto: IFoodItemDTO): IFoodItemEditDTO => {
   return {
     ...dto,
     brand: dto.brand ? [{ ...dto.brand }] : [],
-    images: dto.images?.map((img) => img.url) || [],
+    images: dto.images?.map((img) => img) || [],
   };
 };
 

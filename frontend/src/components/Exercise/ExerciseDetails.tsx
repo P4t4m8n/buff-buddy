@@ -1,10 +1,8 @@
-//Core
-import { useEffect } from "react";
 //Util
 import { toTitle } from "../../utils/toTitle";
 //Hooks
 import { useExerciseIdQuery } from "../../hooks/features/exercise/useExerciseIdQuery";
-import { useErrors } from "../../hooks/shared/useErrors";
+import { useItemDetails } from "../../hooks/shared/useItemDetails";
 //UI
 import Button from "../UI/Button";
 import YoutubePlayer from "../UI/YoutubePlayer";
@@ -12,7 +10,7 @@ import Loader from "../UI/loader/Loader";
 import GenericCarousel from "../UI/GenericCarousel";
 import Tag from "../UI/Tag";
 //Types
-import type { IModelProps } from "../../models/UI.model";
+import type { IModelProps } from "../../models/model.model";
 
 interface ExerciseDetailsProps extends IModelProps<HTMLDivElement> {
   exerciseId?: string;
@@ -21,15 +19,12 @@ export default function ExerciseDetails({
   exerciseId,
   ...props
 }: ExerciseDetailsProps) {
-  const { data, isLoading, error: queryError } = useExerciseIdQuery(exerciseId);
+  const { item, isLoading } = useItemDetails({
+    itemId: exerciseId,
+    useIdQuery: useExerciseIdQuery,
+  });
 
-  const exercise = data?.data;
-
-  const { handleError } = useErrors();
-
-  useEffect(() => {
-    if (queryError) handleError({ error: queryError, emitToToast: true });
-  }, [queryError]);
+  const exercise = item;
 
   if (isLoading) {
     return <Loader loaderType="screen" isFullScreen={false} />;

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useFoodItemMutationKeyStore } from "../../../store/foodItemMutationKey.store";
 import type {
   IFoodItemBrandEditDto,
   IFoodItemDTO,
@@ -18,12 +17,12 @@ import GenericList from "../../UI/GenericList";
 import NutritionEditNumber from "../NutritionEditNumber";
 import Button from "../../UI/Button";
 import { formUtil } from "../../../utils/form.util";
-import type { IModelProps } from "../../../models/UI.model";
+import type { IModelProps } from "../../../models/model.model";
 import { usePageBack } from "../../../hooks/shared/usePageBack";
 import IconArrow from "../../UI/Icons/IconArrow";
 import FoodItemEditInfo from "./FoodItemEditInfo";
 import FoodItemEditBrand from "./FoodItemBrand/FoodItemEditBrand";
-import {useFoodItemIdQuery} from "../../../hooks/features/foodItem/useFoodItemIdQuery";
+import { useFoodItemIdQuery } from "../../../hooks/features/foodItem/useFoodItemIdQuery";
 
 interface IFoodItemEditProps extends IModelProps<HTMLFormElement> {
   foodItemId?: string;
@@ -32,7 +31,6 @@ export default function FoodItemEdit({
   foodItemId,
   ...props
 }: IFoodItemEditProps) {
-  const getKey = useFoodItemMutationKeyStore((store) => store.getMutationKey);
   const [foodItemToEdit, setFoodItemToEdit] = useState<IFoodItemEditDTO | null>(
     null
   );
@@ -40,13 +38,14 @@ export default function FoodItemEdit({
   const { onBack } = usePageBack();
 
   const { data, isLoading } = useFoodItemIdQuery(foodItemId);
+  const _foodITem = data?.data;
   const { errors, handleError } = useErrors<IFoodItemEditDTO>();
 
   const mutation = useMutation({
     mutationFn: (dto: IFoodItemEditDTO) => foodItemService.save(dto),
     onSuccess({ data }) {
       //INFO: Update the list base on the cache key
-      queryClient.setQueryData<IFoodItemDTO[]>(getKey(), (old) => {
+      queryClient.setQueryData<IFoodItemDTO[]>(["foodItems"], (old) => {
         const idx =
           old?.findIndex((oldFoodItem) => oldFoodItem.name === data.name) ?? -1;
         if (idx < 0) return [...(old ?? []), data];
@@ -67,7 +66,7 @@ export default function FoodItemEdit({
     const init = async () => {
       const foodItem =
         foodItemId && data
-          ? foodItemUtil.dtoToEditDto(data)
+          ? foodItemUtil.dtoToEditDto(_foodITem!)
           : foodItemUtil.getEmpty();
       setFoodItemToEdit(foodItem);
       return;

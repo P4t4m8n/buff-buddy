@@ -1,12 +1,6 @@
 import type { TCrudOperation } from "../../../shared/models/app.model";
 import type { TDebouncedFunction } from "../models/UI.model";
 
-const getTempId = (prefix = "temp", item?: any) => {
-  if (item?.id) {
-    return item.id;
-  }
-  return `${prefix}/${Math.random().toString(36).substring(2, 15)}`;
-};
 const debounce = <F extends (...args: any[]) => any>(
   fn: F,
   wait = 200,
@@ -95,7 +89,6 @@ const createOrUpdateCrud = (
     : existingCrudOperation;
 };
 export const appUtil = {
-  getTempId,
   debounce,
   checkIfTempId,
   createOrUpdateCrud,

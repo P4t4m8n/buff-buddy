@@ -9,7 +9,7 @@ import { formUtil } from "../../../utils/form.util";
 import { mealFoodItemUtil } from "../../../utils/mealFoodItem.util";
 
 import type { IMealFoodItemEditDTO } from "../../../../../shared/models/meal.model";
-import type { IModelProps } from "../../../models/UI.model";
+import type { IModelProps } from "../../../models/model.model";
 import type { IFoodItemDTO } from "../../../../../shared/models/foodItem.model";
 import FoodItemPreview from "../../FoodItem/FoodItemPreview";
 import Button from "../../UI/Button";

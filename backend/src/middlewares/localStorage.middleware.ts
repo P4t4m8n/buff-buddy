@@ -16,7 +16,7 @@ export const asyncLocalStorage = new AsyncLocalStorage<IAsyncStorageData>();
 
 export async function setupAsyncLocalStorage(
   req: Request,
-  res: Response,
+  _: Response,
   next: NextFunction
 ): Promise<void> {
   const storage: IAsyncStorageData = {};

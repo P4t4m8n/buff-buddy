@@ -2,6 +2,7 @@ import IconCreate from "../components/UI/Icons/IconCreate";
 import IconDetails from "../components/UI/Icons/IconDetails";
 import IconEdit from "../components/UI/Icons/IconEdit";
 import IconTrash from "../components/UI/Icons/IconTrash";
+
 import type { TIconMode } from "../models/UI.model";
 
 export const ModelButtonIcon = (mode?: TIconMode) => {

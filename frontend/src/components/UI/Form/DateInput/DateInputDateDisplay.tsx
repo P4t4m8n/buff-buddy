@@ -20,9 +20,7 @@ export default function DateInputDateDisplay({
     }
 
     if (endDate) {
-      return `${calendarUtil.formatDate(startDate)} - ${calendarUtil.formatDate(
-        endDate
-      )}`;
+      return `${calendarUtil.getFormatDateRange(startDate, endDate)}`;
     }
 
     return `${calendarUtil.formatDate(startDate)} - Select end date`;

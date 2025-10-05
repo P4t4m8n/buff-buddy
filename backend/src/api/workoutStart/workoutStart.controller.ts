@@ -4,9 +4,9 @@ import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
 import { userWorkoutService } from "../userWorkouts/userWorkouts.service";
 import { programsService } from "../programs/programs.service";
 
-import type { Request, Response } from "express";
 import { workoutPlannerService } from "./workoutStart.service";
 import { validationUtil } from "../../../../shared/validations/util.validation";
+import type { Request, Response } from "express";
 
 export const workoutStart = async (req: Request, res: Response) => {
   try {

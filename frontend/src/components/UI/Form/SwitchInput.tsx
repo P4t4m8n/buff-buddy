@@ -1,9 +1,9 @@
 import { twMerge } from "tailwind-merge";
 
-import { appUtil } from "../../../utils/app.util";
 
 import Input from "./Input";
 import Label from "./Label";
+import { getTempId } from "../../../../../shared/utils/getTempId";
 
 const DEFAULT_AFTER_CONTENT_TEXT = {
   active: "Active",
@@ -42,7 +42,7 @@ export default function SwitchInput({
 
   const labelClass = twMerge(mainClass, before, after, afterAttrClass);
 
-  const idName = inputName + appUtil.getTempId();
+  const idName = inputName + getTempId();
 
   const conditionalProps = handleInputChange
     ? { checked: isActive }

@@ -46,6 +46,7 @@ export default function MealEdit({ mealIdParams }: IMealEditProps) {
     queryKey: QUERY_KEYS.MEAL_ID_QUERY_KEY,
     queryFn: mealService.getById,
   });
+  const x = data?.data;
 
   const ownerId = useAuthStore((store) => store.user?.id);
 
@@ -62,7 +63,7 @@ export default function MealEdit({ mealIdParams }: IMealEditProps) {
     const init = async () => {
       const meal =
         mealIdParams && data
-          ? mealUtil.dtoToEditDto(data)
+          ? mealUtil.dtoToEditDto(x!)
           : mealUtil.getEmpty(ownerId);
       setMealToEdit(meal);
       return;

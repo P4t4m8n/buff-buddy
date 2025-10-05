@@ -1,4 +1,3 @@
-import { IGetMetaData } from "../../../../shared/models/metaData.model";
 
 export interface IApiService<Model, CreateInput, UpdateInput, TQuery> {
   get: (filter: TQuery, userId?: string) => Promise<TGetReturn<Model>>;

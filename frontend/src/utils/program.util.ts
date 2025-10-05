@@ -2,24 +2,9 @@ import type {
   IProgramDTO,
   IProgramEditDTO,
 } from "../../../shared/models/program.model";
-import { appUtil } from "./app.util";
+import { getTempId } from "../../../shared/utils/getTempId";
 import { workoutUtil } from "./workout.util";
 
-const isProgramActive = ({ startDate, endDate }: Partial<IProgramDTO>) => {
-  const today = new Date();
-
-  return (
-    startDate &&
-    new Date(startDate) <= today &&
-    endDate &&
-    new Date(endDate) >= today
-  );
-};
-const filterActivePrograms = (programs: IProgramDTO[]) => {
-  return programs.filter(({ startDate, endDate }) =>
-    isProgramActive({ startDate, endDate })
-  );
-};
 const dtoToEditDto = ({ dto }: { dto: IProgramDTO }): IProgramEditDTO => {
   return {
     id: dto.id,
@@ -43,7 +28,7 @@ const dtoToEditDto = ({ dto }: { dto: IProgramDTO }): IProgramEditDTO => {
 };
 const getEmpty = (): IProgramEditDTO => {
   return {
-    id: appUtil.getTempId(),
+    id: getTempId(),
     name: "",
     notes: "",
     startDate: null,
@@ -54,8 +39,6 @@ const getEmpty = (): IProgramEditDTO => {
   };
 };
 export const programUtil = {
-  isProgramActive,
-  filterActivePrograms,
   dtoToEditDto,
   getEmpty,
 };

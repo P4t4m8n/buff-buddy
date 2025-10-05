@@ -77,18 +77,17 @@ export default function DateInput({
     "p-2 rounded w-full h-10 flex justify-between items-center cursor-pointer border",
     isError ? "border border-error-red text-error-red" : ""
   );
-  const fixedStartDate = calendarUtil.convertDate(selectedRange?.start);
-  const fixedEndDate = calendarUtil.convertDate(selectedRange?.end);
+
+  const dateRange = calendarUtil.getDateRange(
+    selectedRange?.start,
+    selectedRange?.end
+  );
 
   return (
     <div className={divStyle} ref={modelRef}>
       {buildError()}
       <Button onClick={handleModel} className={buttonStyle}>
-        <DateInputDateDisplay
-          mode={mode}
-          startDate={fixedStartDate}
-          endDate={fixedEndDate}
-        />
+        <DateInputDateDisplay mode={mode} {...dateRange} />
         <IconCalendar
           className="bg-main-black rounded stroke-amber fill-none
            hover:bg-amber hover:stroke-main-black transition-all 
@@ -105,7 +104,7 @@ export default function DateInput({
           <DateInputControl
             mode={mode}
             setMode={setMode}
-            startDate={fixedStartDate}
+            startDate={dateRange.start}
             clearSelection={clearSelection}
           />
 
@@ -128,8 +127,7 @@ export default function DateInput({
             mode={mode}
             currentDate={currentDate}
             handleDateClick={handleDateClick}
-            startDate={fixedStartDate}
-            endDate={fixedEndDate}
+            {...dateRange}
           />
           <Button
             className={`bg-inherit border-1 p-2 hover:bg-main-orange h-10

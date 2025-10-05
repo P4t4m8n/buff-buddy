@@ -4,7 +4,7 @@ import Button from "../../Button";
 
 interface DateInputControlProps {
   mode: TDateInputMode;
-  startDate?: Date | null;
+  startDate?: Date | null|string;
   setMode: Dispatch<React.SetStateAction<TDateInputMode>>;
   clearSelection: (e: MouseEvent) => void;
 }

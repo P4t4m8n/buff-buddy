@@ -5,7 +5,7 @@ import type {
 } from "../../models/UI.model";
 import GenericFilter from "../UI/GenericFilter";
 
-interface IProgramFIlterProps {
+interface IProgramFilterProps {
   programFilter: IProgramFilter;
   isLoading?: boolean;
   onSearch: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -15,7 +15,7 @@ interface IProgramFIlterProps {
 export default function ProgramFilter({
   programFilter,
   ...rest
-}: IProgramFIlterProps) {
+}: IProgramFilterProps) {
   const { name, isActive } = programFilter ?? {};
 
   const textInputs: IFilterTextInput<IProgramFilter>[] = [

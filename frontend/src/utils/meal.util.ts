@@ -1,9 +1,9 @@
 import type { IMealEditDTO } from "../../../shared/models/meal.model";
-import { appUtil } from "./app.util";
+import { getTempId } from "../../../shared/utils/getTempId";
 import { mealFoodItemUtil } from "./mealFoodItem.util";
 
 const getEmpty = (ownerId?: string): IMealEditDTO => ({
-  id: appUtil.getTempId(),
+  id: getTempId(),
   name: "",
   ownerId: ownerId ?? null,
   mealType: "breakfast",

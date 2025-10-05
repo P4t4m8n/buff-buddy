@@ -1,5 +1,6 @@
-import type { ReactNode } from "react";
+//Lib
 import { Route } from "react-router";
+//Pages
 import HomePage from "./pages/HomePage";
 import ProgramPage from "./pages/Program/ProgramPage";
 import ExercisePage from "./pages/exercise/ExercisePage";
@@ -18,9 +19,12 @@ import MealEditPage from "./pages/Meal/MealEditPage";
 import FoodItemEditPage from "./pages/FoodItem/FoodItemEditPage";
 import ExerciseEditPage from "./pages/exercise/ExerciseEditPage";
 import ExerciseDetailsPage from "./pages/exercise/ExerciseDetailsPage";
+//Consts
 import { ROUTES_STORE } from "./consts/routes.const";
+//Types
+import type { ReactNode } from "react";
 
-export interface RouteConfig {
+interface RouteConfig {
   path: string;
   element: ReactNode;
   children?: RouteConfig[];

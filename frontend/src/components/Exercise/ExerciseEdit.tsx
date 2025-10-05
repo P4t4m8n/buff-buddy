@@ -23,7 +23,7 @@ import type {
   IExerciseDTO,
   TExerciseInfo,
 } from "../../../../shared/models/exercise.model";
-import type { IModelProps } from "../../models/UI.model";
+import type { IModelProps } from "../../models/model.model";
 
 interface ExerciseEditProps extends IModelProps<HTMLFormElement> {
   exerciseId?: string;

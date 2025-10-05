@@ -1,9 +1,14 @@
+//Lib
 import { useState, useCallback } from "react";
-import { emitEvent } from "../../utils/toast.util";
-import { ClientError } from "../../services/ClientError.service";
 import { ZodError } from "zod";
-import type { TErrors } from "../../models/errors.model";
+//Utils
+import { emitEvent } from "../../utils/toast.util";
+//Services
+import { ClientError } from "../../services/ClientError.service";
+//UI
 import ToastError from "../../components/UI/Toast/ToastError";
+//Types
+import type { TErrors } from "../../models/errors.model";
 
 export const useErrors = <T extends object>() => {
   const [errors, setErrors] = useState<TErrors<T> | null>(null);
@@ -15,32 +20,6 @@ export const useErrors = <T extends object>() => {
   const handleError = useCallback(
     ({ error, emitToToast }: { error: unknown; emitToToast?: boolean }) => {
       const formattedErrors: TErrors<T> = {};
-      if (error instanceof ZodError) {
-        for (const issue of error.issues) {
-          let current: any = formattedErrors;
-          for (let i = 0; i < issue.path.length - 1; i++) {
-            const key = issue.path[i];
-            const nextKey = issue.path[i + 1];
-
-            if (current[key] === undefined) {
-              current[key] = typeof nextKey === "number" ? [] : {};
-            }
-            current = current[key];
-          }
-          current[issue.path[issue.path.length - 1]] = issue.message;
-        }
-        setErrors(formattedErrors as TErrors<T>);
-      } else if (ClientError.isAppError(error)) {
-        setErrors((prev) => ({
-          ...(prev as TErrors<T>),
-          ...error.errors,
-        }));
-      } else {
-        setErrors((prev) => ({
-          ...(prev as TErrors<T>),
-          unknown: "An unknown error occurred while saving.",
-        }));
-      }
       if (emitToToast) {
         emitEvent({
           type: "error",
@@ -55,6 +34,34 @@ export const useErrors = <T extends object>() => {
           ),
         });
       }
+      if (error instanceof ZodError) {
+        for (const issue of error.issues) {
+          let current: any = formattedErrors;
+          for (let i = 0; i < issue.path.length - 1; i++) {
+            const key = issue.path[i] as keyof TErrors<T>;
+            const nextKey = issue.path[i + 1];
+
+            if (current[key] === undefined) {
+              current[key] = typeof nextKey === "number" ? [] : {};
+            }
+            current = current[key];
+          }
+          current[issue.path[issue.path.length - 1]] = issue.message;
+        }
+        setErrors(formattedErrors as TErrors<T>);
+        return;
+      }
+      if (ClientError.isAppError(error)) {
+        setErrors((prev) => ({
+          ...(prev as TErrors<T>),
+          ...error.errors,
+        }));
+        return;
+      }
+      setErrors((prev) => ({
+        ...(prev as TErrors<T>),
+        unknown: "An unknown error occurred while saving.",
+      }));
     },
     []
   );

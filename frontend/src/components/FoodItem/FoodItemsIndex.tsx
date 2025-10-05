@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type {
   IFoodItemDTO,
   IFoodItemFilter,
@@ -8,11 +8,10 @@ import FoodItemPreview from "./FoodItemPreview";
 import { formUtil } from "../../utils/form.util";
 import { useDebounceValue } from "../../hooks/shared/useDebounce";
 import Loader from "../UI/loader/Loader";
-import { useFoodItemMutationKeyStore } from "../../store/foodItemMutationKey.store";
 import FoodItemFilter from "./FoodItemFilter";
 import GenericModel from "../UI/GenericModel";
 import FoodItemEdit from "./FoodItemEdit/FoodItemEdit";
-import {useFoodItemsQuery} from "../../hooks/features/foodItem/useFoodItemsQuery";
+import { useFoodItemsQuery } from "../../hooks/features/foodItem/useFoodItemsQuery";
 
 const INITIAL_FILTER = {
   skip: 0,
@@ -32,14 +31,8 @@ export default function FoodItemsIndex({
   const debouncedFilter = useDebounceValue({ value: filter, delay: 500 });
 
   const { data, isLoading } = useFoodItemsQuery(debouncedFilter!);
-  const setMutationKey = useFoodItemMutationKeyStore(
-    (store) => store.setMutationKey
-  );
 
-  useEffect(() => {
-    setMutationKey(["foodItems", debouncedFilter]);
-  }, [debouncedFilter]);
-
+  const foodItems = data?.data;
   const onBarcodeSet = (barcode?: string | null) => {
     setFilter((prev) => ({ ...prev, barcode }));
   };
@@ -75,7 +68,7 @@ export default function FoodItemsIndex({
         <Loader loaderType="screen" isFullScreen={false} />
       ) : (
         <GenericList
-          items={[...(data ?? [])]}
+          items={[...(foodItems ?? [])]}
           ItemComponent={FoodItemPreview}
           itemComponentProps={{ onSelectFoodItem }}
           getKey={(item) => item?.id ?? ""}

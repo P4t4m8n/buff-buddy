@@ -1,5 +1,6 @@
 import type { IGetMetaData } from "../../../shared/models/metaData.model";
-export const HTTP_METHODS = ["GET", "POST", "PUT", "DELETE"] as const;
+import { HTTP_METHODS } from "../consts/api.const";
+
 export type THttpResponse<T> = {
   massage?: string;
   data: T;

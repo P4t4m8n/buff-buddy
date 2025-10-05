@@ -31,7 +31,7 @@ export default function ProgramDetails() {
   const dates = calendarUtil.getFormatDateRange(startDate, endDate);
 
   return (
-    <section className="h-main p-4 grid-stack bg-black-900">
+    <section className="h-main p-4  bg-black-900">
       <header>
         <BackButton />
         <h2>{title}</h2>

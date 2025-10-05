@@ -14,14 +14,14 @@ interface IFoodItemPreviewProps {
 export default function FoodItemPreview({
   item: foodItem,
   onSelectFoodItem,
-  isSelect = true
+  isSelect = true,
 }: IFoodItemPreviewProps) {
-  const { name, images, brand, id: foodItemId } = foodItem;
+  const { name, brand, id: foodItemId } = foodItem;
 
-  const img = images?.[0]?.url ?? "/images/placeholder.webp";
+  const img = "/images/placeholder.webp";
   const brandName = brand?.name ?? "";
 
-  const buttonText = isSelect? "Select":"Un-select"
+  const buttonText = isSelect ? "Select" : "Un-select";
   return (
     <li className="grid grid-cols-[3rem_calc(100%-3.5rem)] grid-rows-[1.5rem_1.5rem_auto] gap-x-2 bg-black-300 p-2 rounded">
       <img className=" row-span-2 aspect-square h-full rounded" src={img} />
@@ -43,7 +43,7 @@ export default function FoodItemPreview({
           className="w-fit px-2"
           onClick={(e) => !!onSelectFoodItem && onSelectFoodItem(e, foodItem)}
         >
-         {buttonText}
+          {buttonText}
         </Button>
       </div>
     </li>

@@ -1,4 +1,3 @@
-import WorkoutStartExerciseSkipEdit from "../WorkoutStartExerciseSkipEdit";
 import WorkoutStartUserCardioLast from "./WorkoutStartUserCardioLast";
 
 import Button from "../../UI/Button";
@@ -6,8 +5,9 @@ import NumberInputWIthError from "../../UI/Form/NumberInputWIthError";
 import GenericModel from "../../UI/GenericModel";
 
 import type { ExerciseType } from "../../../../../backend/prisma/generated/prisma";
-import type { IUserCardioSetEditDTO } from "../../../../../shared/models/cardioSet.model";
 import type { TValidationError } from "../../../models/errors.model";
+import type { IUserCardioSetEditDTO } from "../../../../../shared/models/userCardioSet.model";
+import WorkoutStartExerciseSkipEdit from "../WorkoutStartExerciseSkipEdit";
 
 interface IWorkoutStartUserCardioSetsProps {
   item: IUserCardioSetEditDTO;
@@ -22,7 +22,7 @@ interface IWorkoutStartUserCardioSetsProps {
     userSetId,
     skippedReason,
   }: {
-    userWorkoutExerciseId: string;
+    userWorkoutExerciseId?: string;
     userSetId?: string;
     skippedReason: string;
   }) => void;
@@ -106,10 +106,9 @@ export default function WorkoutStartUserCardioSets({
       <GenericModel
         Model={WorkoutStartExerciseSkipEdit}
         modelProps={{
-          handleUserSetsChange: handleUserCardioSetsChange,
-          handleUserSetSkip,
           skippedReason,
           userSetId,
+          handleUserSetSkip,
         }}
         buttonProps={{
           className:

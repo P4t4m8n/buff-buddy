@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Html5Qrcode } from "html5-qrcode";
-import type { IModelProps } from "../../models/UI.model";
+import type { IModelProps } from "../../models/model.model";
 import type { Html5QrcodeResult } from "html5-qrcode";
 import Button from "../UI/Button";
 import { IconBarcode } from "../UI/Icons/IconBarcode";

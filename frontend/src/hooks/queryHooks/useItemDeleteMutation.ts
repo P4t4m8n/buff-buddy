@@ -1,8 +1,7 @@
-//-Core
+//Core
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../lib/queryClient";
-
-//-Types
+//Types
 import type { THttpResponse } from "../../models/apiService.model";
 import type { IEntity } from "../../../../shared/models/entity.model";
 import type { TKeyValue } from "../../models/mutationKeyStore.model";

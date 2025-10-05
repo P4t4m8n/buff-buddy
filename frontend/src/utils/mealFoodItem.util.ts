@@ -2,11 +2,11 @@ import type {
   IMealFoodItemDTO,
   IMealFoodItemEditDTO,
 } from "../../../shared/models/meal.model";
-import { appUtil } from "./app.util";
+import { getTempId } from "../../../shared/utils/getTempId";
 
 const getEmpty = (): IMealFoodItemEditDTO => {
   return {
-    id: appUtil.getTempId(),
+    id: getTempId(),
     foodItemId: null,
     quantity: null,
     crudOperation: "create",

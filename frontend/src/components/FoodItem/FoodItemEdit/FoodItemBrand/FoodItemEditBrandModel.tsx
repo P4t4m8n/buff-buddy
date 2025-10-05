@@ -5,7 +5,7 @@ import { toTitle } from "../../../../utils/toTitle";
 import InputWithError from "../../../UI/Form/InputWithError";
 import Button from "../../../UI/Button";
 
-import type { IModelProps } from "../../../../models/UI.model";
+import type { IModelProps } from "../../../../models/model.model";
 interface IFoodItemEditBrandProps extends IModelProps<HTMLDivElement> {
   handleEditBrand: (name: string) => void;
 }
