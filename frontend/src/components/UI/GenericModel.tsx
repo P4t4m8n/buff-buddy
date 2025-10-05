@@ -13,7 +13,7 @@ import Button from "./Button";
 import type { IButtonProps } from "../../models/UI.model";
 import type { IModelProps } from "../../models/model.model";
 import type { TIconMode } from "../../models/UI.model";
-import  { RootRefContext } from "../../hooks/context/x";
+import  { RootRefContext } from "../../hooks/context/RootRefContext";
 
 interface IGenericModelProps<T extends HTMLElement, P> {
   modelProps?: P;
