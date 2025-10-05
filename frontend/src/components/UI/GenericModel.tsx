@@ -4,7 +4,6 @@ import { createPortal } from "react-dom";
 //Hooks
 import { useModel } from "../../hooks/shared/useModel";
 //Context
-import { RootRefContext } from "../../hooks/context/RootRefContext";
 //Utils
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
 //UI
@@ -14,6 +13,7 @@ import Button from "./Button";
 import type { IButtonProps } from "../../models/UI.model";
 import type { IModelProps } from "../../models/model.model";
 import type { TIconMode } from "../../models/UI.model";
+import  { RootRefContext } from "../../hooks/context/RootRefContext";
 
 interface IGenericModelProps<T extends HTMLElement, P> {
   modelProps?: P;
