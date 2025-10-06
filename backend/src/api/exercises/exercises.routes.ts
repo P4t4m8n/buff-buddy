@@ -13,3 +13,6 @@ exerciseRoutes.post("/edit", requireAuth, exerciseController.create);
 exerciseRoutes.put("/edit/:id", requireAuth, exerciseController.update);
 
 exerciseRoutes.delete("/:id", requireAuth, exerciseController.remove);
+
+exerciseRoutes.get("/muscles/list", requireAuth, exerciseController.getMuscles);
+exerciseRoutes.get("/equipment/list", requireAuth, exerciseController.getEquipment);

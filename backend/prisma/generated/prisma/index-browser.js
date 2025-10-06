@@ -140,9 +140,38 @@ exports.Prisma.ExerciseScalarFieldEnum = {
   notes: 'notes',
   isCompounded: 'isCompounded',
   type: 'type',
-  equipment: 'equipment',
-  muscles: 'muscles',
   ownerId: 'ownerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MuscleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MuscleAliasScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  language: 'language',
+  muscleId: 'muscleId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EquipmentScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EquipmentCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -339,95 +368,6 @@ exports.ExerciseType = exports.$Enums.ExerciseType = {
   miscellaneous: 'miscellaneous'
 };
 
-exports.ExerciseEquipment = exports.$Enums.ExerciseEquipment = {
-  barbell: 'barbell',
-  dumbbell: 'dumbbell',
-  kettlebell: 'kettlebell',
-  weight_plates: 'weight_plates',
-  ez_curl_bar: 'ez_curl_bar',
-  olympic_bar: 'olympic_bar',
-  trap_bar: 'trap_bar',
-  medicine_ball: 'medicine_ball',
-  flat_bench: 'flat_bench',
-  incline_bench: 'incline_bench',
-  decline_bench: 'decline_bench',
-  adjustable_bench: 'adjustable_bench',
-  power_rack: 'power_rack',
-  squat_rack: 'squat_rack',
-  smith_machine: 'smith_machine',
-  preacher_bench: 'preacher_bench',
-  cable_machine: 'cable_machine',
-  cable_crossover: 'cable_crossover',
-  lat_pulldown: 'lat_pulldown',
-  low_row: 'low_row',
-  cable_column: 'cable_column',
-  functional_trainer: 'functional_trainer',
-  treadmill: 'treadmill',
-  elliptical: 'elliptical',
-  stationary_bike: 'stationary_bike',
-  rowing_machine: 'rowing_machine',
-  stair_climber: 'stair_climber',
-  stepper: 'stepper',
-  spin_bike: 'spin_bike',
-  air_bike: 'air_bike',
-  leg_press: 'leg_press',
-  hack_squat: 'hack_squat',
-  leg_curl: 'leg_curl',
-  leg_extension: 'leg_extension',
-  calf_raise_machine: 'calf_raise_machine',
-  chest_press_machine: 'chest_press_machine',
-  shoulder_press_machine: 'shoulder_press_machine',
-  pec_deck: 'pec_deck',
-  hip_abduction_machine: 'hip_abduction_machine',
-  hip_adduction_machine: 'hip_adduction_machine',
-  pull_up_bar: 'pull_up_bar',
-  dip_station: 'dip_station',
-  assisted_pull_up_machine: 'assisted_pull_up_machine',
-  captains_chair: 'captains_chair',
-  trx_straps: 'trx_straps',
-  resistance_bands: 'resistance_bands',
-  battle_ropes: 'battle_ropes',
-  suspension_trainer: 'suspension_trainer',
-  stability_ball: 'stability_ball',
-  foam_roller: 'foam_roller',
-  yoga_mat: 'yoga_mat',
-  gymnastics_rings: 'gymnastics_rings',
-  plyometric_box: 'plyometric_box',
-  agility_ladder: 'agility_ladder',
-  speed_rope: 'speed_rope',
-  weight_belt: 'weight_belt',
-  lifting_straps: 'lifting_straps',
-  chalk: 'chalk',
-  gloves: 'gloves',
-  wrist_wraps: 'wrist_wraps',
-  knee_sleeves: 'knee_sleeves'
-};
-
-exports.ExerciseMuscle = exports.$Enums.ExerciseMuscle = {
-  chest: 'chest',
-  front_delts: 'front_delts',
-  side_delts: 'side_delts',
-  rear_delts: 'rear_delts',
-  lats: 'lats',
-  traps: 'traps',
-  rhomboids: 'rhomboids',
-  lower_back: 'lower_back',
-  biceps: 'biceps',
-  triceps: 'triceps',
-  forearms: 'forearms',
-  abs: 'abs',
-  obliques: 'obliques',
-  quads: 'quads',
-  hamstrings: 'hamstrings',
-  glutes: 'glutes',
-  calves: 'calves',
-  hip_flexors: 'hip_flexors',
-  adductors: 'adductors',
-  abductors: 'abductors',
-  rotator_cuff: 'rotator_cuff',
-  serratus_anterior: 'serratus_anterior'
-};
-
 exports.WorkoutLevel = exports.$Enums.WorkoutLevel = {
   beginner: 'beginner'
 };
@@ -456,6 +396,10 @@ exports.MealType = exports.$Enums.MealType = {
 exports.Prisma.ModelName = {
   User: 'User',
   Exercise: 'Exercise',
+  Muscle: 'Muscle',
+  MuscleAlias: 'MuscleAlias',
+  Equipment: 'Equipment',
+  EquipmentCategory: 'EquipmentCategory',
   UserCardioSet: 'UserCardioSet',
   UserStrengthSet: 'UserStrengthSet',
   Program: 'Program',

@@ -1,15 +1,23 @@
-import type {
-  ExerciseEquipment,
-  ExerciseMuscle,
-  ExerciseType,
-} from "../../../prisma/generated/prisma";
+import type { ExerciseType } from "../../../prisma/generated/prisma";
 
 export interface IExercise {
   id: string;
   name: string;
   youtubeUrl: string;
   type: ExerciseType;
-  equipment: ExerciseEquipment[];
-  muscles: ExerciseMuscle[];
-  ownerId: string|null;
+  equipment?: IEquipment[];
+  muscles?: IMuscle[];
+  ownerId: string | null;
+}
+
+export interface IMuscle {
+  id: string;
+  name: string;
+  aliases?: { name: string; language: string | null }[];
+}
+
+export interface IEquipment {
+  id: string;
+  name: string;
+  categories?: { name: string }[];
 }

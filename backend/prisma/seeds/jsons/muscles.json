@@ -1,0 +1,320 @@
+[
+  {
+    "name": "pectoralis_major",
+
+    "aliases": ["chest", "pecs", "pectoralis", "breast"]
+  },
+  {
+    "name": "pectoralis_minor",
+
+    "aliases": ["pectoralis_minor", "minor_pectoralis"]
+  },
+
+  {
+    "name": "anterior_deltoid",
+
+    "aliases": ["front_delts", "front_deltoid", "anterior_deltoid"]
+  },
+  {
+    "name": "lateral_deltoid",
+
+    "aliases": ["side_delts", "lateral_deltoid", "middle_deltoid"]
+  },
+  {
+    "name": "posterior_deltoid",
+
+    "aliases": ["rear_delts", "rear_deltoid", "posterior_deltoid"]
+  },
+
+  {
+    "name": "trapezius",
+
+    "aliases": ["traps", "upper_traps", "mid_traps", "lower_traps"]
+  },
+  {
+    "name": "levator_scapulae",
+
+    "aliases": ["levator_scapulae"]
+  },
+
+  {
+    "name": "latissimus_dorsi",
+
+    "aliases": ["lats", "lat"]
+  },
+
+  {
+    "name": "rhomboids",
+
+    "aliases": ["rhomboid", "rhomboids"]
+  },
+
+  {
+    "name": "erector_spinae",
+
+    "aliases": [
+      "lower_back",
+      "spinal_erectors",
+      "erector_spinae",
+      "spinal_erectors"
+    ]
+  },
+
+  {
+    "name": "biceps_brachii",
+
+    "aliases": ["biceps", "biceps_brachii", "biiceps"]
+  },
+
+  {
+    "name": "brachioradialis",
+
+    "aliases": ["brachioradialis", "forearm_brachioradialis"]
+  },
+
+  {
+    "name": "triceps_brachii",
+
+    "aliases": ["triceps", "triceps_brachii", "tri"]
+  },
+
+  {
+    "name": "wrist_flexors",
+
+    "aliases": ["forearm_flexors", "forearm_flexor", "forearm_flexors"]
+  },
+  {
+    "name": "wrist_extensors",
+
+    "aliases": ["forearm_extensors", "forearm_extensor"]
+  },
+  {
+    "name": "forearms_general",
+
+    "aliases": ["forearms", "forearm"]
+  },
+
+  {
+    "name": "rectus_abdominis",
+
+    "aliases": ["abs", "six_pack", "rectus_abdominis"]
+  },
+  {
+    "name": "external_oblique",
+
+    "aliases": ["obliques", "external_oblique", "oblique"]
+  },
+  {
+    "name": "internal_oblique",
+
+    "aliases": ["internal_oblique"]
+  },
+  {
+    "name": "transverse_abdominis",
+
+    "aliases": ["transverse_abdominis", "tv_a", "transverse_ab"]
+  },
+  {
+    "name": "serratus_anterior",
+
+    "aliases": ["serratus_anterior", "serratus"]
+  },
+
+  {
+    "name": "gluteus_maximus",
+
+    "aliases": ["glutes", "gluteus_maximus", "butt", "buttocks"]
+  },
+  {
+    "name": "gluteus_medius",
+
+    "aliases": ["gluteus_medius", "glute_medius", "glute_med"]
+  },
+  {
+    "name": "gluteus_minimus",
+
+    "aliases": ["gluteus_minimus"]
+  },
+
+  {
+    "name": "quadriceps_femoris",
+
+    "aliases": ["quads", "quadriceps", "quad"]
+  },
+  {
+    "name": "rectus_femoris",
+
+    "aliases": ["rectus_femoris", "rectus"]
+  },
+  {
+    "name": "vastus_lateralis",
+
+    "aliases": ["vastus_lateralis", "vl", "outer_quad"]
+  },
+  {
+    "name": "vastus_medialis",
+
+    "aliases": ["vastus_medialis", "vm", "tear_drop"]
+  },
+  {
+    "name": "vastus_intermedius",
+
+    "aliases": ["vastus_intermedius"]
+  },
+
+  {
+    "name": "hamstrings",
+
+    "aliases": ["hamstrings", "hams"]
+  },
+  {
+    "name": "biceps_femoris",
+
+    "aliases": ["biceps_femoris"]
+  },
+  {
+    "name": "semitendinosus",
+
+    "aliases": ["semitendinosus"]
+  },
+  {
+    "name": "semimembranosus",
+
+    "aliases": ["semimembranosus"]
+  },
+
+  {
+    "name": "adductors",
+
+    "aliases": ["adductors", "adductor_group", "inner_thigh"]
+  },
+  {
+    "name": "adductor_longus",
+
+    "aliases": ["adductor_longus"]
+  },
+  {
+    "name": "adductor_brevis",
+
+    "aliases": ["adductor_brevis"]
+  },
+  {
+    "name": "adductor_magnus",
+
+    "aliases": ["adductor_magnus"]
+  },
+
+  {
+    "name": "hip_flexors",
+
+    "aliases": ["hip_flexors", "iliopsoas", "psoas"]
+  },
+  {
+    "name": "tensor_fasciae_latae",
+
+    "aliases": ["tfl", "tensor_fasciae_latae"]
+  },
+
+  {
+    "name": "abductors",
+
+    "aliases": [
+      "abductors",
+      "hip_abductors",
+      "gluteus_medius",
+      "gluteus_minimus"
+    ]
+  },
+
+  {
+    "name": "gastrocnemius",
+
+    "aliases": ["gastrocnemius", "calf", "calves", "gastroc"]
+  },
+
+  {
+    "name": "tibialis_anterior",
+
+    "aliases": ["tibialis_anterior", "shin"]
+  },
+
+  {
+    "name": "rotator_cuff_supraspinatus",
+
+    "aliases": ["supraspinatus", "rotator_cuff_supraspinatus"]
+  },
+  {
+    "name": "rotator_cuff_infraspinatus",
+
+    "aliases": ["infraspinatus", "rotator_cuff_infraspinatus"]
+  },
+  {
+    "name": "rotator_cuff_teres_minor",
+
+    "aliases": ["teres_minor", "rotator_cuff_teres_minor"]
+  },
+  {
+    "name": "rotator_cuff_subscapularis",
+
+    "aliases": ["subscapularis", "rotator_cuff_subscapularis"]
+  },
+
+  {
+    "name": "pectoral_tendon_attachments",
+
+    "aliases": ["pec_tendon"]
+  },
+
+  {
+    "name": "serratus_anterior_detail",
+
+    "aliases": ["serratus", "serratus_anterior"]
+  },
+
+  {
+    "name": "hip_external_rotators",
+
+    "aliases": ["external_rotators", "piriformis", "gemellus"]
+  },
+
+  {
+    "name": "adductor_longus_detail",
+
+    "aliases": ["adductor_longus_detail"]
+  },
+
+  {
+    "name": "neck_sternocleidomastoid",
+
+    "aliases": ["neck", "sternocleidomastoid", "scm"]
+  },
+
+  {
+    "name": "upper_back_teres_major",
+
+    "aliases": ["teres_major", "upper_back_teres_major"]
+  },
+
+  {
+    "name": "multifidus",
+
+    "aliases": ["multifidus", "spinal_multifidus"]
+  },
+
+  {
+    "name": "iliotibial_band_region",
+
+    "aliases": ["it_band", "itb", "tfl_region"]
+  },
+
+  {
+    "name": "finger_flexors",
+
+    "aliases": ["finger_flexors"]
+  },
+  {
+    "name": "finger_extensors",
+
+    "aliases": ["finger_extensors"]
+  }
+]

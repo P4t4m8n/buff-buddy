@@ -8,15 +8,34 @@ const buildWhereClause = (
 
   if (filter.name) {
     where.name = { contains: filter.name, mode: "insensitive" };
+    1;
   }
-  if (filter.types && filter.types.length > 0) {
+  if (filter.types && filter.types.length) {
     where.type = { in: filter.types };
   }
-  if (filter.equipment) {
-    where.equipment = { hasSome: filter.equipment };
+  if (filter.equipment && filter.equipment.length) {
+    where.equipment = {
+      some: {
+        AND: [
+          { name: { in: filter.equipment as string[] } },
+          {
+            categories: {
+              some: { name: { in: filter.equipment as string[] } },
+            },
+          },
+        ],
+      },
+    };
   }
-  if (filter.muscles) {
-    where.muscles = { hasSome: filter.muscles };
+  if (filter.muscles && filter.muscles.length) {
+    where.muscles = {
+      some: {
+        AND: [
+          { name: { in: filter.muscles as string[] } },
+          { aliases: { some: { name: { in: filter.muscles as string[] } } } },
+        ],
+      },
+    };
   }
 
   return where;

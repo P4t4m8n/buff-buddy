@@ -9,7 +9,7 @@ import type {
   TExerciseUpdateValidatedInput,
   TExerciseQuery,
 } from "../../../../shared/validations/exercise.validation";
-import type { IExercise } from "./exercises.models";
+import type { IEquipment, IExercise, IMuscle } from "./exercises.models";
 
 const get = (filter: TExerciseQuery): Promise<[IExercise[], number]> => {
   const where: Prisma.ExerciseWhereInput =
@@ -49,6 +49,7 @@ const update = async (
   return await prisma.exercise.update({
     where: { id },
     data: exerciseSQL.getExerciseUpdate(dto),
+    select: exerciseSQL.EXERCISE_SELECT,
   });
 };
 const remove = async (id: string): Promise<void> => {
@@ -56,10 +57,29 @@ const remove = async (id: string): Promise<void> => {
     where: { id },
   });
 };
+const getMuscles = async (): Promise<[IMuscle[], number]> => {
+  return prisma.$transaction([
+    prisma.muscle.findMany({
+      select: exerciseSQL.MUSCLE_SELECT,
+    }),
+    prisma.muscle.count({}),
+  ]);
+};
+
+const getEquipment = async (): Promise<[IEquipment[], number]> => {
+  return prisma.$transaction([
+    prisma.equipment.findMany({
+      select: exerciseSQL.EQUIPMENT_SELECT,
+    }),
+    prisma.equipment.count({}),
+  ]);
+};
 export const exerciseService = {
   get,
   getById,
   create,
   update,
   remove,
+  getMuscles,
+  getEquipment,
 };

@@ -24,6 +24,26 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  */
 export type Exercise = $Result.DefaultSelection<Prisma.$ExercisePayload>
 /**
+ * Model Muscle
+ * 
+ */
+export type Muscle = $Result.DefaultSelection<Prisma.$MusclePayload>
+/**
+ * Model MuscleAlias
+ * 
+ */
+export type MuscleAlias = $Result.DefaultSelection<Prisma.$MuscleAliasPayload>
+/**
+ * Model Equipment
+ * 
+ */
+export type Equipment = $Result.DefaultSelection<Prisma.$EquipmentPayload>
+/**
+ * Model EquipmentCategory
+ * 
+ */
+export type EquipmentCategory = $Result.DefaultSelection<Prisma.$EquipmentCategoryPayload>
+/**
  * Model UserCardioSet
  * 
  */
@@ -108,102 +128,7 @@ export type UserMeal = $Result.DefaultSelection<Prisma.$UserMealPayload>
  * Enums
  */
 export namespace $Enums {
-  export const ExerciseMuscle: {
-  chest: 'chest',
-  front_delts: 'front_delts',
-  side_delts: 'side_delts',
-  rear_delts: 'rear_delts',
-  lats: 'lats',
-  traps: 'traps',
-  rhomboids: 'rhomboids',
-  lower_back: 'lower_back',
-  biceps: 'biceps',
-  triceps: 'triceps',
-  forearms: 'forearms',
-  abs: 'abs',
-  obliques: 'obliques',
-  quads: 'quads',
-  hamstrings: 'hamstrings',
-  glutes: 'glutes',
-  calves: 'calves',
-  hip_flexors: 'hip_flexors',
-  adductors: 'adductors',
-  abductors: 'abductors',
-  rotator_cuff: 'rotator_cuff',
-  serratus_anterior: 'serratus_anterior'
-};
-
-export type ExerciseMuscle = (typeof ExerciseMuscle)[keyof typeof ExerciseMuscle]
-
-
-export const ExerciseEquipment: {
-  barbell: 'barbell',
-  dumbbell: 'dumbbell',
-  kettlebell: 'kettlebell',
-  weight_plates: 'weight_plates',
-  ez_curl_bar: 'ez_curl_bar',
-  olympic_bar: 'olympic_bar',
-  trap_bar: 'trap_bar',
-  medicine_ball: 'medicine_ball',
-  flat_bench: 'flat_bench',
-  incline_bench: 'incline_bench',
-  decline_bench: 'decline_bench',
-  adjustable_bench: 'adjustable_bench',
-  power_rack: 'power_rack',
-  squat_rack: 'squat_rack',
-  smith_machine: 'smith_machine',
-  preacher_bench: 'preacher_bench',
-  cable_machine: 'cable_machine',
-  cable_crossover: 'cable_crossover',
-  lat_pulldown: 'lat_pulldown',
-  low_row: 'low_row',
-  cable_column: 'cable_column',
-  functional_trainer: 'functional_trainer',
-  treadmill: 'treadmill',
-  elliptical: 'elliptical',
-  stationary_bike: 'stationary_bike',
-  rowing_machine: 'rowing_machine',
-  stair_climber: 'stair_climber',
-  stepper: 'stepper',
-  spin_bike: 'spin_bike',
-  air_bike: 'air_bike',
-  leg_press: 'leg_press',
-  hack_squat: 'hack_squat',
-  leg_curl: 'leg_curl',
-  leg_extension: 'leg_extension',
-  calf_raise_machine: 'calf_raise_machine',
-  chest_press_machine: 'chest_press_machine',
-  shoulder_press_machine: 'shoulder_press_machine',
-  pec_deck: 'pec_deck',
-  hip_abduction_machine: 'hip_abduction_machine',
-  hip_adduction_machine: 'hip_adduction_machine',
-  pull_up_bar: 'pull_up_bar',
-  dip_station: 'dip_station',
-  assisted_pull_up_machine: 'assisted_pull_up_machine',
-  captains_chair: 'captains_chair',
-  trx_straps: 'trx_straps',
-  resistance_bands: 'resistance_bands',
-  battle_ropes: 'battle_ropes',
-  suspension_trainer: 'suspension_trainer',
-  stability_ball: 'stability_ball',
-  foam_roller: 'foam_roller',
-  yoga_mat: 'yoga_mat',
-  gymnastics_rings: 'gymnastics_rings',
-  plyometric_box: 'plyometric_box',
-  agility_ladder: 'agility_ladder',
-  speed_rope: 'speed_rope',
-  weight_belt: 'weight_belt',
-  lifting_straps: 'lifting_straps',
-  chalk: 'chalk',
-  gloves: 'gloves',
-  wrist_wraps: 'wrist_wraps',
-  knee_sleeves: 'knee_sleeves'
-};
-
-export type ExerciseEquipment = (typeof ExerciseEquipment)[keyof typeof ExerciseEquipment]
-
-
-export const ExerciseType: {
+  export const ExerciseType: {
   strength: 'strength',
   cardio: 'cardio',
   flexibility: 'flexibility',
@@ -250,14 +175,6 @@ export const WorkoutLevel: {
 export type WorkoutLevel = (typeof WorkoutLevel)[keyof typeof WorkoutLevel]
 
 }
-
-export type ExerciseMuscle = $Enums.ExerciseMuscle
-
-export const ExerciseMuscle: typeof $Enums.ExerciseMuscle
-
-export type ExerciseEquipment = $Enums.ExerciseEquipment
-
-export const ExerciseEquipment: typeof $Enums.ExerciseEquipment
 
 export type ExerciseType = $Enums.ExerciseType
 
@@ -416,6 +333,46 @@ export class PrismaClient<
     * ```
     */
   get exercise(): Prisma.ExerciseDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.muscle`: Exposes CRUD operations for the **Muscle** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Muscles
+    * const muscles = await prisma.muscle.findMany()
+    * ```
+    */
+  get muscle(): Prisma.MuscleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.muscleAlias`: Exposes CRUD operations for the **MuscleAlias** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MuscleAliases
+    * const muscleAliases = await prisma.muscleAlias.findMany()
+    * ```
+    */
+  get muscleAlias(): Prisma.MuscleAliasDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.equipment`: Exposes CRUD operations for the **Equipment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Equipment
+    * const equipment = await prisma.equipment.findMany()
+    * ```
+    */
+  get equipment(): Prisma.EquipmentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.equipmentCategory`: Exposes CRUD operations for the **EquipmentCategory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EquipmentCategories
+    * const equipmentCategories = await prisma.equipmentCategory.findMany()
+    * ```
+    */
+  get equipmentCategory(): Prisma.EquipmentCategoryDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.userCardioSet`: Exposes CRUD operations for the **UserCardioSet** model.
@@ -1018,6 +975,10 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     Exercise: 'Exercise',
+    Muscle: 'Muscle',
+    MuscleAlias: 'MuscleAlias',
+    Equipment: 'Equipment',
+    EquipmentCategory: 'EquipmentCategory',
     UserCardioSet: 'UserCardioSet',
     UserStrengthSet: 'UserStrengthSet',
     Program: 'Program',
@@ -1052,7 +1013,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "exercise" | "userCardioSet" | "userStrengthSet" | "program" | "programWorkout" | "workout" | "workoutExercise" | "userWorkoutExercise" | "userWorkout" | "foodItem" | "foodItemLabel" | "foodItemImg" | "foodItemBrand" | "foodItemCategory" | "meal" | "mealFoodItem" | "userMeal"
+      modelProps: "user" | "exercise" | "muscle" | "muscleAlias" | "equipment" | "equipmentCategory" | "userCardioSet" | "userStrengthSet" | "program" | "programWorkout" | "workout" | "workoutExercise" | "userWorkoutExercise" | "userWorkout" | "foodItem" | "foodItemLabel" | "foodItemImg" | "foodItemBrand" | "foodItemCategory" | "meal" | "mealFoodItem" | "userMeal"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1201,6 +1162,302 @@ export namespace Prisma {
           count: {
             args: Prisma.ExerciseCountArgs<ExtArgs>
             result: $Utils.Optional<ExerciseCountAggregateOutputType> | number
+          }
+        }
+      }
+      Muscle: {
+        payload: Prisma.$MusclePayload<ExtArgs>
+        fields: Prisma.MuscleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MuscleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MusclePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MuscleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MusclePayload>
+          }
+          findFirst: {
+            args: Prisma.MuscleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MusclePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MuscleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MusclePayload>
+          }
+          findMany: {
+            args: Prisma.MuscleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MusclePayload>[]
+          }
+          create: {
+            args: Prisma.MuscleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MusclePayload>
+          }
+          createMany: {
+            args: Prisma.MuscleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MuscleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MusclePayload>[]
+          }
+          delete: {
+            args: Prisma.MuscleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MusclePayload>
+          }
+          update: {
+            args: Prisma.MuscleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MusclePayload>
+          }
+          deleteMany: {
+            args: Prisma.MuscleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MuscleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MuscleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MusclePayload>[]
+          }
+          upsert: {
+            args: Prisma.MuscleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MusclePayload>
+          }
+          aggregate: {
+            args: Prisma.MuscleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMuscle>
+          }
+          groupBy: {
+            args: Prisma.MuscleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MuscleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MuscleCountArgs<ExtArgs>
+            result: $Utils.Optional<MuscleCountAggregateOutputType> | number
+          }
+        }
+      }
+      MuscleAlias: {
+        payload: Prisma.$MuscleAliasPayload<ExtArgs>
+        fields: Prisma.MuscleAliasFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MuscleAliasFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MuscleAliasPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MuscleAliasFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MuscleAliasPayload>
+          }
+          findFirst: {
+            args: Prisma.MuscleAliasFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MuscleAliasPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MuscleAliasFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MuscleAliasPayload>
+          }
+          findMany: {
+            args: Prisma.MuscleAliasFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MuscleAliasPayload>[]
+          }
+          create: {
+            args: Prisma.MuscleAliasCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MuscleAliasPayload>
+          }
+          createMany: {
+            args: Prisma.MuscleAliasCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MuscleAliasCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MuscleAliasPayload>[]
+          }
+          delete: {
+            args: Prisma.MuscleAliasDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MuscleAliasPayload>
+          }
+          update: {
+            args: Prisma.MuscleAliasUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MuscleAliasPayload>
+          }
+          deleteMany: {
+            args: Prisma.MuscleAliasDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MuscleAliasUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MuscleAliasUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MuscleAliasPayload>[]
+          }
+          upsert: {
+            args: Prisma.MuscleAliasUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MuscleAliasPayload>
+          }
+          aggregate: {
+            args: Prisma.MuscleAliasAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMuscleAlias>
+          }
+          groupBy: {
+            args: Prisma.MuscleAliasGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MuscleAliasGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MuscleAliasCountArgs<ExtArgs>
+            result: $Utils.Optional<MuscleAliasCountAggregateOutputType> | number
+          }
+        }
+      }
+      Equipment: {
+        payload: Prisma.$EquipmentPayload<ExtArgs>
+        fields: Prisma.EquipmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EquipmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EquipmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentPayload>
+          }
+          findFirst: {
+            args: Prisma.EquipmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EquipmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentPayload>
+          }
+          findMany: {
+            args: Prisma.EquipmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentPayload>[]
+          }
+          create: {
+            args: Prisma.EquipmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentPayload>
+          }
+          createMany: {
+            args: Prisma.EquipmentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EquipmentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentPayload>[]
+          }
+          delete: {
+            args: Prisma.EquipmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentPayload>
+          }
+          update: {
+            args: Prisma.EquipmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.EquipmentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EquipmentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EquipmentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentPayload>[]
+          }
+          upsert: {
+            args: Prisma.EquipmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentPayload>
+          }
+          aggregate: {
+            args: Prisma.EquipmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEquipment>
+          }
+          groupBy: {
+            args: Prisma.EquipmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EquipmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EquipmentCountArgs<ExtArgs>
+            result: $Utils.Optional<EquipmentCountAggregateOutputType> | number
+          }
+        }
+      }
+      EquipmentCategory: {
+        payload: Prisma.$EquipmentCategoryPayload<ExtArgs>
+        fields: Prisma.EquipmentCategoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EquipmentCategoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentCategoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EquipmentCategoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentCategoryPayload>
+          }
+          findFirst: {
+            args: Prisma.EquipmentCategoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentCategoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EquipmentCategoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentCategoryPayload>
+          }
+          findMany: {
+            args: Prisma.EquipmentCategoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentCategoryPayload>[]
+          }
+          create: {
+            args: Prisma.EquipmentCategoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentCategoryPayload>
+          }
+          createMany: {
+            args: Prisma.EquipmentCategoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EquipmentCategoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentCategoryPayload>[]
+          }
+          delete: {
+            args: Prisma.EquipmentCategoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentCategoryPayload>
+          }
+          update: {
+            args: Prisma.EquipmentCategoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentCategoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.EquipmentCategoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EquipmentCategoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EquipmentCategoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentCategoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.EquipmentCategoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipmentCategoryPayload>
+          }
+          aggregate: {
+            args: Prisma.EquipmentCategoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEquipmentCategory>
+          }
+          groupBy: {
+            args: Prisma.EquipmentCategoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EquipmentCategoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EquipmentCategoryCountArgs<ExtArgs>
+            result: $Utils.Optional<EquipmentCategoryCountAggregateOutputType> | number
           }
         }
       }
@@ -2486,6 +2743,10 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     exercise?: ExerciseOmit
+    muscle?: MuscleOmit
+    muscleAlias?: MuscleAliasOmit
+    equipment?: EquipmentOmit
+    equipmentCategory?: EquipmentCategoryOmit
     userCardioSet?: UserCardioSetOmit
     userStrengthSet?: UserStrengthSetOmit
     program?: ProgramOmit
@@ -2658,10 +2919,14 @@ export namespace Prisma {
    */
 
   export type ExerciseCountOutputType = {
+    equipment: number
+    muscles: number
     workoutExercises: number
   }
 
   export type ExerciseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    equipment?: boolean | ExerciseCountOutputTypeCountEquipmentArgs
+    muscles?: boolean | ExerciseCountOutputTypeCountMusclesArgs
     workoutExercises?: boolean | ExerciseCountOutputTypeCountWorkoutExercisesArgs
   }
 
@@ -2679,8 +2944,133 @@ export namespace Prisma {
   /**
    * ExerciseCountOutputType without action
    */
+  export type ExerciseCountOutputTypeCountEquipmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EquipmentWhereInput
+  }
+
+  /**
+   * ExerciseCountOutputType without action
+   */
+  export type ExerciseCountOutputTypeCountMusclesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MuscleWhereInput
+  }
+
+  /**
+   * ExerciseCountOutputType without action
+   */
   export type ExerciseCountOutputTypeCountWorkoutExercisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WorkoutExerciseWhereInput
+  }
+
+
+  /**
+   * Count Type MuscleCountOutputType
+   */
+
+  export type MuscleCountOutputType = {
+    exercises: number
+    aliases: number
+  }
+
+  export type MuscleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    exercises?: boolean | MuscleCountOutputTypeCountExercisesArgs
+    aliases?: boolean | MuscleCountOutputTypeCountAliasesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MuscleCountOutputType without action
+   */
+  export type MuscleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MuscleCountOutputType
+     */
+    select?: MuscleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MuscleCountOutputType without action
+   */
+  export type MuscleCountOutputTypeCountExercisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExerciseWhereInput
+  }
+
+  /**
+   * MuscleCountOutputType without action
+   */
+  export type MuscleCountOutputTypeCountAliasesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MuscleAliasWhereInput
+  }
+
+
+  /**
+   * Count Type EquipmentCountOutputType
+   */
+
+  export type EquipmentCountOutputType = {
+    exercises: number
+    categories: number
+  }
+
+  export type EquipmentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    exercises?: boolean | EquipmentCountOutputTypeCountExercisesArgs
+    categories?: boolean | EquipmentCountOutputTypeCountCategoriesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EquipmentCountOutputType without action
+   */
+  export type EquipmentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipmentCountOutputType
+     */
+    select?: EquipmentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EquipmentCountOutputType without action
+   */
+  export type EquipmentCountOutputTypeCountExercisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExerciseWhereInput
+  }
+
+  /**
+   * EquipmentCountOutputType without action
+   */
+  export type EquipmentCountOutputTypeCountCategoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EquipmentCategoryWhereInput
+  }
+
+
+  /**
+   * Count Type EquipmentCategoryCountOutputType
+   */
+
+  export type EquipmentCategoryCountOutputType = {
+    equipments: number
+  }
+
+  export type EquipmentCategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    equipments?: boolean | EquipmentCategoryCountOutputTypeCountEquipmentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EquipmentCategoryCountOutputType without action
+   */
+  export type EquipmentCategoryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipmentCategoryCountOutputType
+     */
+    select?: EquipmentCategoryCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EquipmentCategoryCountOutputType without action
+   */
+  export type EquipmentCategoryCountOutputTypeCountEquipmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EquipmentWhereInput
   }
 
 
@@ -4386,8 +4776,6 @@ export namespace Prisma {
     notes: number
     isCompounded: number
     type: number
-    equipment: number
-    muscles: number
     ownerId: number
     createdAt: number
     updatedAt: number
@@ -4426,8 +4814,6 @@ export namespace Prisma {
     notes?: true
     isCompounded?: true
     type?: true
-    equipment?: true
-    muscles?: true
     ownerId?: true
     createdAt?: true
     updatedAt?: true
@@ -4513,8 +4899,6 @@ export namespace Prisma {
     notes: string | null
     isCompounded: boolean
     type: $Enums.ExerciseType
-    equipment: $Enums.ExerciseEquipment[]
-    muscles: $Enums.ExerciseMuscle[]
     ownerId: string | null
     createdAt: Date
     updatedAt: Date
@@ -4544,11 +4928,11 @@ export namespace Prisma {
     notes?: boolean
     isCompounded?: boolean
     type?: boolean
-    equipment?: boolean
-    muscles?: boolean
     ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    equipment?: boolean | Exercise$equipmentArgs<ExtArgs>
+    muscles?: boolean | Exercise$musclesArgs<ExtArgs>
     workoutExercises?: boolean | Exercise$workoutExercisesArgs<ExtArgs>
     owner?: boolean | Exercise$ownerArgs<ExtArgs>
     _count?: boolean | ExerciseCountOutputTypeDefaultArgs<ExtArgs>
@@ -4561,8 +4945,6 @@ export namespace Prisma {
     notes?: boolean
     isCompounded?: boolean
     type?: boolean
-    equipment?: boolean
-    muscles?: boolean
     ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4576,8 +4958,6 @@ export namespace Prisma {
     notes?: boolean
     isCompounded?: boolean
     type?: boolean
-    equipment?: boolean
-    muscles?: boolean
     ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4591,15 +4971,15 @@ export namespace Prisma {
     notes?: boolean
     isCompounded?: boolean
     type?: boolean
-    equipment?: boolean
-    muscles?: boolean
     ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "youtubeUrl" | "notes" | "isCompounded" | "type" | "equipment" | "muscles" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["exercise"]>
+  export type ExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "youtubeUrl" | "notes" | "isCompounded" | "type" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["exercise"]>
   export type ExerciseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    equipment?: boolean | Exercise$equipmentArgs<ExtArgs>
+    muscles?: boolean | Exercise$musclesArgs<ExtArgs>
     workoutExercises?: boolean | Exercise$workoutExercisesArgs<ExtArgs>
     owner?: boolean | Exercise$ownerArgs<ExtArgs>
     _count?: boolean | ExerciseCountOutputTypeDefaultArgs<ExtArgs>
@@ -4614,6 +4994,8 @@ export namespace Prisma {
   export type $ExercisePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Exercise"
     objects: {
+      equipment: Prisma.$EquipmentPayload<ExtArgs>[]
+      muscles: Prisma.$MusclePayload<ExtArgs>[]
       workoutExercises: Prisma.$WorkoutExercisePayload<ExtArgs>[]
       owner: Prisma.$UserPayload<ExtArgs> | null
     }
@@ -4624,8 +5006,6 @@ export namespace Prisma {
       notes: string | null
       isCompounded: boolean
       type: $Enums.ExerciseType
-      equipment: $Enums.ExerciseEquipment[]
-      muscles: $Enums.ExerciseMuscle[]
       ownerId: string | null
       createdAt: Date
       updatedAt: Date
@@ -5023,6 +5403,8 @@ export namespace Prisma {
    */
   export interface Prisma__ExerciseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    equipment<T extends Exercise$equipmentArgs<ExtArgs> = {}>(args?: Subset<T, Exercise$equipmentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EquipmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    muscles<T extends Exercise$musclesArgs<ExtArgs> = {}>(args?: Subset<T, Exercise$musclesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MusclePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     workoutExercises<T extends Exercise$workoutExercisesArgs<ExtArgs> = {}>(args?: Subset<T, Exercise$workoutExercisesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkoutExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     owner<T extends Exercise$ownerArgs<ExtArgs> = {}>(args?: Subset<T, Exercise$ownerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
@@ -5060,8 +5442,6 @@ export namespace Prisma {
     readonly notes: FieldRef<"Exercise", 'String'>
     readonly isCompounded: FieldRef<"Exercise", 'Boolean'>
     readonly type: FieldRef<"Exercise", 'ExerciseType'>
-    readonly equipment: FieldRef<"Exercise", 'ExerciseEquipment[]'>
-    readonly muscles: FieldRef<"Exercise", 'ExerciseMuscle[]'>
     readonly ownerId: FieldRef<"Exercise", 'String'>
     readonly createdAt: FieldRef<"Exercise", 'DateTime'>
     readonly updatedAt: FieldRef<"Exercise", 'DateTime'>
@@ -5461,6 +5841,54 @@ export namespace Prisma {
   }
 
   /**
+   * Exercise.equipment
+   */
+  export type Exercise$equipmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipment
+     */
+    select?: EquipmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipment
+     */
+    omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    where?: EquipmentWhereInput
+    orderBy?: EquipmentOrderByWithRelationInput | EquipmentOrderByWithRelationInput[]
+    cursor?: EquipmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EquipmentScalarFieldEnum | EquipmentScalarFieldEnum[]
+  }
+
+  /**
+   * Exercise.muscles
+   */
+  export type Exercise$musclesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Muscle
+     */
+    select?: MuscleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Muscle
+     */
+    omit?: MuscleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleInclude<ExtArgs> | null
+    where?: MuscleWhereInput
+    orderBy?: MuscleOrderByWithRelationInput | MuscleOrderByWithRelationInput[]
+    cursor?: MuscleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MuscleScalarFieldEnum | MuscleScalarFieldEnum[]
+  }
+
+  /**
    * Exercise.workoutExercises
    */
   export type Exercise$workoutExercisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5519,6 +5947,4351 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ExerciseInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Muscle
+   */
+
+  export type AggregateMuscle = {
+    _count: MuscleCountAggregateOutputType | null
+    _avg: MuscleAvgAggregateOutputType | null
+    _sum: MuscleSumAggregateOutputType | null
+    _min: MuscleMinAggregateOutputType | null
+    _max: MuscleMaxAggregateOutputType | null
+  }
+
+  export type MuscleAvgAggregateOutputType = {
+    order: number | null
+  }
+
+  export type MuscleSumAggregateOutputType = {
+    order: number | null
+  }
+
+  export type MuscleMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    order: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MuscleMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    order: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MuscleCountAggregateOutputType = {
+    id: number
+    name: number
+    order: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MuscleAvgAggregateInputType = {
+    order?: true
+  }
+
+  export type MuscleSumAggregateInputType = {
+    order?: true
+  }
+
+  export type MuscleMinAggregateInputType = {
+    id?: true
+    name?: true
+    order?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MuscleMaxAggregateInputType = {
+    id?: true
+    name?: true
+    order?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MuscleCountAggregateInputType = {
+    id?: true
+    name?: true
+    order?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MuscleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Muscle to aggregate.
+     */
+    where?: MuscleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Muscles to fetch.
+     */
+    orderBy?: MuscleOrderByWithRelationInput | MuscleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MuscleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Muscles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Muscles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Muscles
+    **/
+    _count?: true | MuscleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MuscleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MuscleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MuscleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MuscleMaxAggregateInputType
+  }
+
+  export type GetMuscleAggregateType<T extends MuscleAggregateArgs> = {
+        [P in keyof T & keyof AggregateMuscle]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMuscle[P]>
+      : GetScalarType<T[P], AggregateMuscle[P]>
+  }
+
+
+
+
+  export type MuscleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MuscleWhereInput
+    orderBy?: MuscleOrderByWithAggregationInput | MuscleOrderByWithAggregationInput[]
+    by: MuscleScalarFieldEnum[] | MuscleScalarFieldEnum
+    having?: MuscleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MuscleCountAggregateInputType | true
+    _avg?: MuscleAvgAggregateInputType
+    _sum?: MuscleSumAggregateInputType
+    _min?: MuscleMinAggregateInputType
+    _max?: MuscleMaxAggregateInputType
+  }
+
+  export type MuscleGroupByOutputType = {
+    id: string
+    name: string
+    order: number
+    createdAt: Date
+    updatedAt: Date
+    _count: MuscleCountAggregateOutputType | null
+    _avg: MuscleAvgAggregateOutputType | null
+    _sum: MuscleSumAggregateOutputType | null
+    _min: MuscleMinAggregateOutputType | null
+    _max: MuscleMaxAggregateOutputType | null
+  }
+
+  type GetMuscleGroupByPayload<T extends MuscleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MuscleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MuscleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MuscleGroupByOutputType[P]>
+            : GetScalarType<T[P], MuscleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MuscleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    order?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    exercises?: boolean | Muscle$exercisesArgs<ExtArgs>
+    aliases?: boolean | Muscle$aliasesArgs<ExtArgs>
+    _count?: boolean | MuscleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["muscle"]>
+
+  export type MuscleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    order?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["muscle"]>
+
+  export type MuscleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    order?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["muscle"]>
+
+  export type MuscleSelectScalar = {
+    id?: boolean
+    name?: boolean
+    order?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MuscleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "order" | "createdAt" | "updatedAt", ExtArgs["result"]["muscle"]>
+  export type MuscleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    exercises?: boolean | Muscle$exercisesArgs<ExtArgs>
+    aliases?: boolean | Muscle$aliasesArgs<ExtArgs>
+    _count?: boolean | MuscleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type MuscleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type MuscleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $MusclePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Muscle"
+    objects: {
+      exercises: Prisma.$ExercisePayload<ExtArgs>[]
+      aliases: Prisma.$MuscleAliasPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      order: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["muscle"]>
+    composites: {}
+  }
+
+  type MuscleGetPayload<S extends boolean | null | undefined | MuscleDefaultArgs> = $Result.GetResult<Prisma.$MusclePayload, S>
+
+  type MuscleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MuscleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MuscleCountAggregateInputType | true
+    }
+
+  export interface MuscleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Muscle'], meta: { name: 'Muscle' } }
+    /**
+     * Find zero or one Muscle that matches the filter.
+     * @param {MuscleFindUniqueArgs} args - Arguments to find a Muscle
+     * @example
+     * // Get one Muscle
+     * const muscle = await prisma.muscle.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MuscleFindUniqueArgs>(args: SelectSubset<T, MuscleFindUniqueArgs<ExtArgs>>): Prisma__MuscleClient<$Result.GetResult<Prisma.$MusclePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Muscle that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MuscleFindUniqueOrThrowArgs} args - Arguments to find a Muscle
+     * @example
+     * // Get one Muscle
+     * const muscle = await prisma.muscle.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MuscleFindUniqueOrThrowArgs>(args: SelectSubset<T, MuscleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MuscleClient<$Result.GetResult<Prisma.$MusclePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Muscle that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MuscleFindFirstArgs} args - Arguments to find a Muscle
+     * @example
+     * // Get one Muscle
+     * const muscle = await prisma.muscle.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MuscleFindFirstArgs>(args?: SelectSubset<T, MuscleFindFirstArgs<ExtArgs>>): Prisma__MuscleClient<$Result.GetResult<Prisma.$MusclePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Muscle that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MuscleFindFirstOrThrowArgs} args - Arguments to find a Muscle
+     * @example
+     * // Get one Muscle
+     * const muscle = await prisma.muscle.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MuscleFindFirstOrThrowArgs>(args?: SelectSubset<T, MuscleFindFirstOrThrowArgs<ExtArgs>>): Prisma__MuscleClient<$Result.GetResult<Prisma.$MusclePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Muscles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MuscleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Muscles
+     * const muscles = await prisma.muscle.findMany()
+     * 
+     * // Get first 10 Muscles
+     * const muscles = await prisma.muscle.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const muscleWithIdOnly = await prisma.muscle.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MuscleFindManyArgs>(args?: SelectSubset<T, MuscleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MusclePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Muscle.
+     * @param {MuscleCreateArgs} args - Arguments to create a Muscle.
+     * @example
+     * // Create one Muscle
+     * const Muscle = await prisma.muscle.create({
+     *   data: {
+     *     // ... data to create a Muscle
+     *   }
+     * })
+     * 
+     */
+    create<T extends MuscleCreateArgs>(args: SelectSubset<T, MuscleCreateArgs<ExtArgs>>): Prisma__MuscleClient<$Result.GetResult<Prisma.$MusclePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Muscles.
+     * @param {MuscleCreateManyArgs} args - Arguments to create many Muscles.
+     * @example
+     * // Create many Muscles
+     * const muscle = await prisma.muscle.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MuscleCreateManyArgs>(args?: SelectSubset<T, MuscleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Muscles and returns the data saved in the database.
+     * @param {MuscleCreateManyAndReturnArgs} args - Arguments to create many Muscles.
+     * @example
+     * // Create many Muscles
+     * const muscle = await prisma.muscle.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Muscles and only return the `id`
+     * const muscleWithIdOnly = await prisma.muscle.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MuscleCreateManyAndReturnArgs>(args?: SelectSubset<T, MuscleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MusclePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Muscle.
+     * @param {MuscleDeleteArgs} args - Arguments to delete one Muscle.
+     * @example
+     * // Delete one Muscle
+     * const Muscle = await prisma.muscle.delete({
+     *   where: {
+     *     // ... filter to delete one Muscle
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MuscleDeleteArgs>(args: SelectSubset<T, MuscleDeleteArgs<ExtArgs>>): Prisma__MuscleClient<$Result.GetResult<Prisma.$MusclePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Muscle.
+     * @param {MuscleUpdateArgs} args - Arguments to update one Muscle.
+     * @example
+     * // Update one Muscle
+     * const muscle = await prisma.muscle.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MuscleUpdateArgs>(args: SelectSubset<T, MuscleUpdateArgs<ExtArgs>>): Prisma__MuscleClient<$Result.GetResult<Prisma.$MusclePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Muscles.
+     * @param {MuscleDeleteManyArgs} args - Arguments to filter Muscles to delete.
+     * @example
+     * // Delete a few Muscles
+     * const { count } = await prisma.muscle.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MuscleDeleteManyArgs>(args?: SelectSubset<T, MuscleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Muscles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MuscleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Muscles
+     * const muscle = await prisma.muscle.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MuscleUpdateManyArgs>(args: SelectSubset<T, MuscleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Muscles and returns the data updated in the database.
+     * @param {MuscleUpdateManyAndReturnArgs} args - Arguments to update many Muscles.
+     * @example
+     * // Update many Muscles
+     * const muscle = await prisma.muscle.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Muscles and only return the `id`
+     * const muscleWithIdOnly = await prisma.muscle.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MuscleUpdateManyAndReturnArgs>(args: SelectSubset<T, MuscleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MusclePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Muscle.
+     * @param {MuscleUpsertArgs} args - Arguments to update or create a Muscle.
+     * @example
+     * // Update or create a Muscle
+     * const muscle = await prisma.muscle.upsert({
+     *   create: {
+     *     // ... data to create a Muscle
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Muscle we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MuscleUpsertArgs>(args: SelectSubset<T, MuscleUpsertArgs<ExtArgs>>): Prisma__MuscleClient<$Result.GetResult<Prisma.$MusclePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Muscles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MuscleCountArgs} args - Arguments to filter Muscles to count.
+     * @example
+     * // Count the number of Muscles
+     * const count = await prisma.muscle.count({
+     *   where: {
+     *     // ... the filter for the Muscles we want to count
+     *   }
+     * })
+    **/
+    count<T extends MuscleCountArgs>(
+      args?: Subset<T, MuscleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MuscleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Muscle.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MuscleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MuscleAggregateArgs>(args: Subset<T, MuscleAggregateArgs>): Prisma.PrismaPromise<GetMuscleAggregateType<T>>
+
+    /**
+     * Group by Muscle.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MuscleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MuscleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MuscleGroupByArgs['orderBy'] }
+        : { orderBy?: MuscleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MuscleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMuscleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Muscle model
+   */
+  readonly fields: MuscleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Muscle.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MuscleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    exercises<T extends Muscle$exercisesArgs<ExtArgs> = {}>(args?: Subset<T, Muscle$exercisesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    aliases<T extends Muscle$aliasesArgs<ExtArgs> = {}>(args?: Subset<T, Muscle$aliasesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MuscleAliasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Muscle model
+   */
+  interface MuscleFieldRefs {
+    readonly id: FieldRef<"Muscle", 'String'>
+    readonly name: FieldRef<"Muscle", 'String'>
+    readonly order: FieldRef<"Muscle", 'Int'>
+    readonly createdAt: FieldRef<"Muscle", 'DateTime'>
+    readonly updatedAt: FieldRef<"Muscle", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Muscle findUnique
+   */
+  export type MuscleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Muscle
+     */
+    select?: MuscleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Muscle
+     */
+    omit?: MuscleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleInclude<ExtArgs> | null
+    /**
+     * Filter, which Muscle to fetch.
+     */
+    where: MuscleWhereUniqueInput
+  }
+
+  /**
+   * Muscle findUniqueOrThrow
+   */
+  export type MuscleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Muscle
+     */
+    select?: MuscleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Muscle
+     */
+    omit?: MuscleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleInclude<ExtArgs> | null
+    /**
+     * Filter, which Muscle to fetch.
+     */
+    where: MuscleWhereUniqueInput
+  }
+
+  /**
+   * Muscle findFirst
+   */
+  export type MuscleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Muscle
+     */
+    select?: MuscleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Muscle
+     */
+    omit?: MuscleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleInclude<ExtArgs> | null
+    /**
+     * Filter, which Muscle to fetch.
+     */
+    where?: MuscleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Muscles to fetch.
+     */
+    orderBy?: MuscleOrderByWithRelationInput | MuscleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Muscles.
+     */
+    cursor?: MuscleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Muscles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Muscles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Muscles.
+     */
+    distinct?: MuscleScalarFieldEnum | MuscleScalarFieldEnum[]
+  }
+
+  /**
+   * Muscle findFirstOrThrow
+   */
+  export type MuscleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Muscle
+     */
+    select?: MuscleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Muscle
+     */
+    omit?: MuscleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleInclude<ExtArgs> | null
+    /**
+     * Filter, which Muscle to fetch.
+     */
+    where?: MuscleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Muscles to fetch.
+     */
+    orderBy?: MuscleOrderByWithRelationInput | MuscleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Muscles.
+     */
+    cursor?: MuscleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Muscles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Muscles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Muscles.
+     */
+    distinct?: MuscleScalarFieldEnum | MuscleScalarFieldEnum[]
+  }
+
+  /**
+   * Muscle findMany
+   */
+  export type MuscleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Muscle
+     */
+    select?: MuscleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Muscle
+     */
+    omit?: MuscleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleInclude<ExtArgs> | null
+    /**
+     * Filter, which Muscles to fetch.
+     */
+    where?: MuscleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Muscles to fetch.
+     */
+    orderBy?: MuscleOrderByWithRelationInput | MuscleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Muscles.
+     */
+    cursor?: MuscleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Muscles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Muscles.
+     */
+    skip?: number
+    distinct?: MuscleScalarFieldEnum | MuscleScalarFieldEnum[]
+  }
+
+  /**
+   * Muscle create
+   */
+  export type MuscleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Muscle
+     */
+    select?: MuscleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Muscle
+     */
+    omit?: MuscleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Muscle.
+     */
+    data: XOR<MuscleCreateInput, MuscleUncheckedCreateInput>
+  }
+
+  /**
+   * Muscle createMany
+   */
+  export type MuscleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Muscles.
+     */
+    data: MuscleCreateManyInput | MuscleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Muscle createManyAndReturn
+   */
+  export type MuscleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Muscle
+     */
+    select?: MuscleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Muscle
+     */
+    omit?: MuscleOmit<ExtArgs> | null
+    /**
+     * The data used to create many Muscles.
+     */
+    data: MuscleCreateManyInput | MuscleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Muscle update
+   */
+  export type MuscleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Muscle
+     */
+    select?: MuscleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Muscle
+     */
+    omit?: MuscleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Muscle.
+     */
+    data: XOR<MuscleUpdateInput, MuscleUncheckedUpdateInput>
+    /**
+     * Choose, which Muscle to update.
+     */
+    where: MuscleWhereUniqueInput
+  }
+
+  /**
+   * Muscle updateMany
+   */
+  export type MuscleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Muscles.
+     */
+    data: XOR<MuscleUpdateManyMutationInput, MuscleUncheckedUpdateManyInput>
+    /**
+     * Filter which Muscles to update
+     */
+    where?: MuscleWhereInput
+    /**
+     * Limit how many Muscles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Muscle updateManyAndReturn
+   */
+  export type MuscleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Muscle
+     */
+    select?: MuscleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Muscle
+     */
+    omit?: MuscleOmit<ExtArgs> | null
+    /**
+     * The data used to update Muscles.
+     */
+    data: XOR<MuscleUpdateManyMutationInput, MuscleUncheckedUpdateManyInput>
+    /**
+     * Filter which Muscles to update
+     */
+    where?: MuscleWhereInput
+    /**
+     * Limit how many Muscles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Muscle upsert
+   */
+  export type MuscleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Muscle
+     */
+    select?: MuscleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Muscle
+     */
+    omit?: MuscleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Muscle to update in case it exists.
+     */
+    where: MuscleWhereUniqueInput
+    /**
+     * In case the Muscle found by the `where` argument doesn't exist, create a new Muscle with this data.
+     */
+    create: XOR<MuscleCreateInput, MuscleUncheckedCreateInput>
+    /**
+     * In case the Muscle was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MuscleUpdateInput, MuscleUncheckedUpdateInput>
+  }
+
+  /**
+   * Muscle delete
+   */
+  export type MuscleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Muscle
+     */
+    select?: MuscleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Muscle
+     */
+    omit?: MuscleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleInclude<ExtArgs> | null
+    /**
+     * Filter which Muscle to delete.
+     */
+    where: MuscleWhereUniqueInput
+  }
+
+  /**
+   * Muscle deleteMany
+   */
+  export type MuscleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Muscles to delete
+     */
+    where?: MuscleWhereInput
+    /**
+     * Limit how many Muscles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Muscle.exercises
+   */
+  export type Muscle$exercisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exercise
+     */
+    select?: ExerciseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exercise
+     */
+    omit?: ExerciseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExerciseInclude<ExtArgs> | null
+    where?: ExerciseWhereInput
+    orderBy?: ExerciseOrderByWithRelationInput | ExerciseOrderByWithRelationInput[]
+    cursor?: ExerciseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExerciseScalarFieldEnum | ExerciseScalarFieldEnum[]
+  }
+
+  /**
+   * Muscle.aliases
+   */
+  export type Muscle$aliasesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MuscleAlias
+     */
+    select?: MuscleAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MuscleAlias
+     */
+    omit?: MuscleAliasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleAliasInclude<ExtArgs> | null
+    where?: MuscleAliasWhereInput
+    orderBy?: MuscleAliasOrderByWithRelationInput | MuscleAliasOrderByWithRelationInput[]
+    cursor?: MuscleAliasWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MuscleAliasScalarFieldEnum | MuscleAliasScalarFieldEnum[]
+  }
+
+  /**
+   * Muscle without action
+   */
+  export type MuscleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Muscle
+     */
+    select?: MuscleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Muscle
+     */
+    omit?: MuscleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MuscleAlias
+   */
+
+  export type AggregateMuscleAlias = {
+    _count: MuscleAliasCountAggregateOutputType | null
+    _min: MuscleAliasMinAggregateOutputType | null
+    _max: MuscleAliasMaxAggregateOutputType | null
+  }
+
+  export type MuscleAliasMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    language: string | null
+    muscleId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MuscleAliasMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    language: string | null
+    muscleId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MuscleAliasCountAggregateOutputType = {
+    id: number
+    name: number
+    language: number
+    muscleId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MuscleAliasMinAggregateInputType = {
+    id?: true
+    name?: true
+    language?: true
+    muscleId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MuscleAliasMaxAggregateInputType = {
+    id?: true
+    name?: true
+    language?: true
+    muscleId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MuscleAliasCountAggregateInputType = {
+    id?: true
+    name?: true
+    language?: true
+    muscleId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MuscleAliasAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MuscleAlias to aggregate.
+     */
+    where?: MuscleAliasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MuscleAliases to fetch.
+     */
+    orderBy?: MuscleAliasOrderByWithRelationInput | MuscleAliasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MuscleAliasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MuscleAliases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MuscleAliases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MuscleAliases
+    **/
+    _count?: true | MuscleAliasCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MuscleAliasMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MuscleAliasMaxAggregateInputType
+  }
+
+  export type GetMuscleAliasAggregateType<T extends MuscleAliasAggregateArgs> = {
+        [P in keyof T & keyof AggregateMuscleAlias]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMuscleAlias[P]>
+      : GetScalarType<T[P], AggregateMuscleAlias[P]>
+  }
+
+
+
+
+  export type MuscleAliasGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MuscleAliasWhereInput
+    orderBy?: MuscleAliasOrderByWithAggregationInput | MuscleAliasOrderByWithAggregationInput[]
+    by: MuscleAliasScalarFieldEnum[] | MuscleAliasScalarFieldEnum
+    having?: MuscleAliasScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MuscleAliasCountAggregateInputType | true
+    _min?: MuscleAliasMinAggregateInputType
+    _max?: MuscleAliasMaxAggregateInputType
+  }
+
+  export type MuscleAliasGroupByOutputType = {
+    id: string
+    name: string
+    language: string | null
+    muscleId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: MuscleAliasCountAggregateOutputType | null
+    _min: MuscleAliasMinAggregateOutputType | null
+    _max: MuscleAliasMaxAggregateOutputType | null
+  }
+
+  type GetMuscleAliasGroupByPayload<T extends MuscleAliasGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MuscleAliasGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MuscleAliasGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MuscleAliasGroupByOutputType[P]>
+            : GetScalarType<T[P], MuscleAliasGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MuscleAliasSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    language?: boolean
+    muscleId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    muscle?: boolean | MuscleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["muscleAlias"]>
+
+  export type MuscleAliasSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    language?: boolean
+    muscleId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    muscle?: boolean | MuscleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["muscleAlias"]>
+
+  export type MuscleAliasSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    language?: boolean
+    muscleId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    muscle?: boolean | MuscleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["muscleAlias"]>
+
+  export type MuscleAliasSelectScalar = {
+    id?: boolean
+    name?: boolean
+    language?: boolean
+    muscleId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MuscleAliasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "language" | "muscleId" | "createdAt" | "updatedAt", ExtArgs["result"]["muscleAlias"]>
+  export type MuscleAliasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    muscle?: boolean | MuscleDefaultArgs<ExtArgs>
+  }
+  export type MuscleAliasIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    muscle?: boolean | MuscleDefaultArgs<ExtArgs>
+  }
+  export type MuscleAliasIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    muscle?: boolean | MuscleDefaultArgs<ExtArgs>
+  }
+
+  export type $MuscleAliasPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MuscleAlias"
+    objects: {
+      muscle: Prisma.$MusclePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      language: string | null
+      muscleId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["muscleAlias"]>
+    composites: {}
+  }
+
+  type MuscleAliasGetPayload<S extends boolean | null | undefined | MuscleAliasDefaultArgs> = $Result.GetResult<Prisma.$MuscleAliasPayload, S>
+
+  type MuscleAliasCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MuscleAliasFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MuscleAliasCountAggregateInputType | true
+    }
+
+  export interface MuscleAliasDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MuscleAlias'], meta: { name: 'MuscleAlias' } }
+    /**
+     * Find zero or one MuscleAlias that matches the filter.
+     * @param {MuscleAliasFindUniqueArgs} args - Arguments to find a MuscleAlias
+     * @example
+     * // Get one MuscleAlias
+     * const muscleAlias = await prisma.muscleAlias.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MuscleAliasFindUniqueArgs>(args: SelectSubset<T, MuscleAliasFindUniqueArgs<ExtArgs>>): Prisma__MuscleAliasClient<$Result.GetResult<Prisma.$MuscleAliasPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MuscleAlias that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MuscleAliasFindUniqueOrThrowArgs} args - Arguments to find a MuscleAlias
+     * @example
+     * // Get one MuscleAlias
+     * const muscleAlias = await prisma.muscleAlias.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MuscleAliasFindUniqueOrThrowArgs>(args: SelectSubset<T, MuscleAliasFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MuscleAliasClient<$Result.GetResult<Prisma.$MuscleAliasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MuscleAlias that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MuscleAliasFindFirstArgs} args - Arguments to find a MuscleAlias
+     * @example
+     * // Get one MuscleAlias
+     * const muscleAlias = await prisma.muscleAlias.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MuscleAliasFindFirstArgs>(args?: SelectSubset<T, MuscleAliasFindFirstArgs<ExtArgs>>): Prisma__MuscleAliasClient<$Result.GetResult<Prisma.$MuscleAliasPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MuscleAlias that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MuscleAliasFindFirstOrThrowArgs} args - Arguments to find a MuscleAlias
+     * @example
+     * // Get one MuscleAlias
+     * const muscleAlias = await prisma.muscleAlias.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MuscleAliasFindFirstOrThrowArgs>(args?: SelectSubset<T, MuscleAliasFindFirstOrThrowArgs<ExtArgs>>): Prisma__MuscleAliasClient<$Result.GetResult<Prisma.$MuscleAliasPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MuscleAliases that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MuscleAliasFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MuscleAliases
+     * const muscleAliases = await prisma.muscleAlias.findMany()
+     * 
+     * // Get first 10 MuscleAliases
+     * const muscleAliases = await prisma.muscleAlias.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const muscleAliasWithIdOnly = await prisma.muscleAlias.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MuscleAliasFindManyArgs>(args?: SelectSubset<T, MuscleAliasFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MuscleAliasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MuscleAlias.
+     * @param {MuscleAliasCreateArgs} args - Arguments to create a MuscleAlias.
+     * @example
+     * // Create one MuscleAlias
+     * const MuscleAlias = await prisma.muscleAlias.create({
+     *   data: {
+     *     // ... data to create a MuscleAlias
+     *   }
+     * })
+     * 
+     */
+    create<T extends MuscleAliasCreateArgs>(args: SelectSubset<T, MuscleAliasCreateArgs<ExtArgs>>): Prisma__MuscleAliasClient<$Result.GetResult<Prisma.$MuscleAliasPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MuscleAliases.
+     * @param {MuscleAliasCreateManyArgs} args - Arguments to create many MuscleAliases.
+     * @example
+     * // Create many MuscleAliases
+     * const muscleAlias = await prisma.muscleAlias.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MuscleAliasCreateManyArgs>(args?: SelectSubset<T, MuscleAliasCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MuscleAliases and returns the data saved in the database.
+     * @param {MuscleAliasCreateManyAndReturnArgs} args - Arguments to create many MuscleAliases.
+     * @example
+     * // Create many MuscleAliases
+     * const muscleAlias = await prisma.muscleAlias.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MuscleAliases and only return the `id`
+     * const muscleAliasWithIdOnly = await prisma.muscleAlias.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MuscleAliasCreateManyAndReturnArgs>(args?: SelectSubset<T, MuscleAliasCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MuscleAliasPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MuscleAlias.
+     * @param {MuscleAliasDeleteArgs} args - Arguments to delete one MuscleAlias.
+     * @example
+     * // Delete one MuscleAlias
+     * const MuscleAlias = await prisma.muscleAlias.delete({
+     *   where: {
+     *     // ... filter to delete one MuscleAlias
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MuscleAliasDeleteArgs>(args: SelectSubset<T, MuscleAliasDeleteArgs<ExtArgs>>): Prisma__MuscleAliasClient<$Result.GetResult<Prisma.$MuscleAliasPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MuscleAlias.
+     * @param {MuscleAliasUpdateArgs} args - Arguments to update one MuscleAlias.
+     * @example
+     * // Update one MuscleAlias
+     * const muscleAlias = await prisma.muscleAlias.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MuscleAliasUpdateArgs>(args: SelectSubset<T, MuscleAliasUpdateArgs<ExtArgs>>): Prisma__MuscleAliasClient<$Result.GetResult<Prisma.$MuscleAliasPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MuscleAliases.
+     * @param {MuscleAliasDeleteManyArgs} args - Arguments to filter MuscleAliases to delete.
+     * @example
+     * // Delete a few MuscleAliases
+     * const { count } = await prisma.muscleAlias.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MuscleAliasDeleteManyArgs>(args?: SelectSubset<T, MuscleAliasDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MuscleAliases.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MuscleAliasUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MuscleAliases
+     * const muscleAlias = await prisma.muscleAlias.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MuscleAliasUpdateManyArgs>(args: SelectSubset<T, MuscleAliasUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MuscleAliases and returns the data updated in the database.
+     * @param {MuscleAliasUpdateManyAndReturnArgs} args - Arguments to update many MuscleAliases.
+     * @example
+     * // Update many MuscleAliases
+     * const muscleAlias = await prisma.muscleAlias.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MuscleAliases and only return the `id`
+     * const muscleAliasWithIdOnly = await prisma.muscleAlias.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MuscleAliasUpdateManyAndReturnArgs>(args: SelectSubset<T, MuscleAliasUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MuscleAliasPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MuscleAlias.
+     * @param {MuscleAliasUpsertArgs} args - Arguments to update or create a MuscleAlias.
+     * @example
+     * // Update or create a MuscleAlias
+     * const muscleAlias = await prisma.muscleAlias.upsert({
+     *   create: {
+     *     // ... data to create a MuscleAlias
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MuscleAlias we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MuscleAliasUpsertArgs>(args: SelectSubset<T, MuscleAliasUpsertArgs<ExtArgs>>): Prisma__MuscleAliasClient<$Result.GetResult<Prisma.$MuscleAliasPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MuscleAliases.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MuscleAliasCountArgs} args - Arguments to filter MuscleAliases to count.
+     * @example
+     * // Count the number of MuscleAliases
+     * const count = await prisma.muscleAlias.count({
+     *   where: {
+     *     // ... the filter for the MuscleAliases we want to count
+     *   }
+     * })
+    **/
+    count<T extends MuscleAliasCountArgs>(
+      args?: Subset<T, MuscleAliasCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MuscleAliasCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MuscleAlias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MuscleAliasAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MuscleAliasAggregateArgs>(args: Subset<T, MuscleAliasAggregateArgs>): Prisma.PrismaPromise<GetMuscleAliasAggregateType<T>>
+
+    /**
+     * Group by MuscleAlias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MuscleAliasGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MuscleAliasGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MuscleAliasGroupByArgs['orderBy'] }
+        : { orderBy?: MuscleAliasGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MuscleAliasGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMuscleAliasGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MuscleAlias model
+   */
+  readonly fields: MuscleAliasFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MuscleAlias.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MuscleAliasClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    muscle<T extends MuscleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MuscleDefaultArgs<ExtArgs>>): Prisma__MuscleClient<$Result.GetResult<Prisma.$MusclePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MuscleAlias model
+   */
+  interface MuscleAliasFieldRefs {
+    readonly id: FieldRef<"MuscleAlias", 'String'>
+    readonly name: FieldRef<"MuscleAlias", 'String'>
+    readonly language: FieldRef<"MuscleAlias", 'String'>
+    readonly muscleId: FieldRef<"MuscleAlias", 'String'>
+    readonly createdAt: FieldRef<"MuscleAlias", 'DateTime'>
+    readonly updatedAt: FieldRef<"MuscleAlias", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MuscleAlias findUnique
+   */
+  export type MuscleAliasFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MuscleAlias
+     */
+    select?: MuscleAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MuscleAlias
+     */
+    omit?: MuscleAliasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleAliasInclude<ExtArgs> | null
+    /**
+     * Filter, which MuscleAlias to fetch.
+     */
+    where: MuscleAliasWhereUniqueInput
+  }
+
+  /**
+   * MuscleAlias findUniqueOrThrow
+   */
+  export type MuscleAliasFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MuscleAlias
+     */
+    select?: MuscleAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MuscleAlias
+     */
+    omit?: MuscleAliasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleAliasInclude<ExtArgs> | null
+    /**
+     * Filter, which MuscleAlias to fetch.
+     */
+    where: MuscleAliasWhereUniqueInput
+  }
+
+  /**
+   * MuscleAlias findFirst
+   */
+  export type MuscleAliasFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MuscleAlias
+     */
+    select?: MuscleAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MuscleAlias
+     */
+    omit?: MuscleAliasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleAliasInclude<ExtArgs> | null
+    /**
+     * Filter, which MuscleAlias to fetch.
+     */
+    where?: MuscleAliasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MuscleAliases to fetch.
+     */
+    orderBy?: MuscleAliasOrderByWithRelationInput | MuscleAliasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MuscleAliases.
+     */
+    cursor?: MuscleAliasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MuscleAliases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MuscleAliases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MuscleAliases.
+     */
+    distinct?: MuscleAliasScalarFieldEnum | MuscleAliasScalarFieldEnum[]
+  }
+
+  /**
+   * MuscleAlias findFirstOrThrow
+   */
+  export type MuscleAliasFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MuscleAlias
+     */
+    select?: MuscleAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MuscleAlias
+     */
+    omit?: MuscleAliasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleAliasInclude<ExtArgs> | null
+    /**
+     * Filter, which MuscleAlias to fetch.
+     */
+    where?: MuscleAliasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MuscleAliases to fetch.
+     */
+    orderBy?: MuscleAliasOrderByWithRelationInput | MuscleAliasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MuscleAliases.
+     */
+    cursor?: MuscleAliasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MuscleAliases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MuscleAliases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MuscleAliases.
+     */
+    distinct?: MuscleAliasScalarFieldEnum | MuscleAliasScalarFieldEnum[]
+  }
+
+  /**
+   * MuscleAlias findMany
+   */
+  export type MuscleAliasFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MuscleAlias
+     */
+    select?: MuscleAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MuscleAlias
+     */
+    omit?: MuscleAliasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleAliasInclude<ExtArgs> | null
+    /**
+     * Filter, which MuscleAliases to fetch.
+     */
+    where?: MuscleAliasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MuscleAliases to fetch.
+     */
+    orderBy?: MuscleAliasOrderByWithRelationInput | MuscleAliasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MuscleAliases.
+     */
+    cursor?: MuscleAliasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MuscleAliases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MuscleAliases.
+     */
+    skip?: number
+    distinct?: MuscleAliasScalarFieldEnum | MuscleAliasScalarFieldEnum[]
+  }
+
+  /**
+   * MuscleAlias create
+   */
+  export type MuscleAliasCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MuscleAlias
+     */
+    select?: MuscleAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MuscleAlias
+     */
+    omit?: MuscleAliasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleAliasInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MuscleAlias.
+     */
+    data: XOR<MuscleAliasCreateInput, MuscleAliasUncheckedCreateInput>
+  }
+
+  /**
+   * MuscleAlias createMany
+   */
+  export type MuscleAliasCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MuscleAliases.
+     */
+    data: MuscleAliasCreateManyInput | MuscleAliasCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MuscleAlias createManyAndReturn
+   */
+  export type MuscleAliasCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MuscleAlias
+     */
+    select?: MuscleAliasSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MuscleAlias
+     */
+    omit?: MuscleAliasOmit<ExtArgs> | null
+    /**
+     * The data used to create many MuscleAliases.
+     */
+    data: MuscleAliasCreateManyInput | MuscleAliasCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleAliasIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MuscleAlias update
+   */
+  export type MuscleAliasUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MuscleAlias
+     */
+    select?: MuscleAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MuscleAlias
+     */
+    omit?: MuscleAliasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleAliasInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MuscleAlias.
+     */
+    data: XOR<MuscleAliasUpdateInput, MuscleAliasUncheckedUpdateInput>
+    /**
+     * Choose, which MuscleAlias to update.
+     */
+    where: MuscleAliasWhereUniqueInput
+  }
+
+  /**
+   * MuscleAlias updateMany
+   */
+  export type MuscleAliasUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MuscleAliases.
+     */
+    data: XOR<MuscleAliasUpdateManyMutationInput, MuscleAliasUncheckedUpdateManyInput>
+    /**
+     * Filter which MuscleAliases to update
+     */
+    where?: MuscleAliasWhereInput
+    /**
+     * Limit how many MuscleAliases to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MuscleAlias updateManyAndReturn
+   */
+  export type MuscleAliasUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MuscleAlias
+     */
+    select?: MuscleAliasSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MuscleAlias
+     */
+    omit?: MuscleAliasOmit<ExtArgs> | null
+    /**
+     * The data used to update MuscleAliases.
+     */
+    data: XOR<MuscleAliasUpdateManyMutationInput, MuscleAliasUncheckedUpdateManyInput>
+    /**
+     * Filter which MuscleAliases to update
+     */
+    where?: MuscleAliasWhereInput
+    /**
+     * Limit how many MuscleAliases to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleAliasIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MuscleAlias upsert
+   */
+  export type MuscleAliasUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MuscleAlias
+     */
+    select?: MuscleAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MuscleAlias
+     */
+    omit?: MuscleAliasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleAliasInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MuscleAlias to update in case it exists.
+     */
+    where: MuscleAliasWhereUniqueInput
+    /**
+     * In case the MuscleAlias found by the `where` argument doesn't exist, create a new MuscleAlias with this data.
+     */
+    create: XOR<MuscleAliasCreateInput, MuscleAliasUncheckedCreateInput>
+    /**
+     * In case the MuscleAlias was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MuscleAliasUpdateInput, MuscleAliasUncheckedUpdateInput>
+  }
+
+  /**
+   * MuscleAlias delete
+   */
+  export type MuscleAliasDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MuscleAlias
+     */
+    select?: MuscleAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MuscleAlias
+     */
+    omit?: MuscleAliasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleAliasInclude<ExtArgs> | null
+    /**
+     * Filter which MuscleAlias to delete.
+     */
+    where: MuscleAliasWhereUniqueInput
+  }
+
+  /**
+   * MuscleAlias deleteMany
+   */
+  export type MuscleAliasDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MuscleAliases to delete
+     */
+    where?: MuscleAliasWhereInput
+    /**
+     * Limit how many MuscleAliases to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MuscleAlias without action
+   */
+  export type MuscleAliasDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MuscleAlias
+     */
+    select?: MuscleAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MuscleAlias
+     */
+    omit?: MuscleAliasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MuscleAliasInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Equipment
+   */
+
+  export type AggregateEquipment = {
+    _count: EquipmentCountAggregateOutputType | null
+    _min: EquipmentMinAggregateOutputType | null
+    _max: EquipmentMaxAggregateOutputType | null
+  }
+
+  export type EquipmentMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EquipmentMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EquipmentCountAggregateOutputType = {
+    id: number
+    name: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EquipmentMinAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EquipmentMaxAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EquipmentCountAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EquipmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Equipment to aggregate.
+     */
+    where?: EquipmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Equipment to fetch.
+     */
+    orderBy?: EquipmentOrderByWithRelationInput | EquipmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EquipmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Equipment from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Equipment.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Equipment
+    **/
+    _count?: true | EquipmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EquipmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EquipmentMaxAggregateInputType
+  }
+
+  export type GetEquipmentAggregateType<T extends EquipmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateEquipment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEquipment[P]>
+      : GetScalarType<T[P], AggregateEquipment[P]>
+  }
+
+
+
+
+  export type EquipmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EquipmentWhereInput
+    orderBy?: EquipmentOrderByWithAggregationInput | EquipmentOrderByWithAggregationInput[]
+    by: EquipmentScalarFieldEnum[] | EquipmentScalarFieldEnum
+    having?: EquipmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EquipmentCountAggregateInputType | true
+    _min?: EquipmentMinAggregateInputType
+    _max?: EquipmentMaxAggregateInputType
+  }
+
+  export type EquipmentGroupByOutputType = {
+    id: string
+    name: string
+    createdAt: Date
+    updatedAt: Date
+    _count: EquipmentCountAggregateOutputType | null
+    _min: EquipmentMinAggregateOutputType | null
+    _max: EquipmentMaxAggregateOutputType | null
+  }
+
+  type GetEquipmentGroupByPayload<T extends EquipmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EquipmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EquipmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EquipmentGroupByOutputType[P]>
+            : GetScalarType<T[P], EquipmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EquipmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    exercises?: boolean | Equipment$exercisesArgs<ExtArgs>
+    categories?: boolean | Equipment$categoriesArgs<ExtArgs>
+    _count?: boolean | EquipmentCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["equipment"]>
+
+  export type EquipmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["equipment"]>
+
+  export type EquipmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["equipment"]>
+
+  export type EquipmentSelectScalar = {
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EquipmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["equipment"]>
+  export type EquipmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    exercises?: boolean | Equipment$exercisesArgs<ExtArgs>
+    categories?: boolean | Equipment$categoriesArgs<ExtArgs>
+    _count?: boolean | EquipmentCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type EquipmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type EquipmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $EquipmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Equipment"
+    objects: {
+      exercises: Prisma.$ExercisePayload<ExtArgs>[]
+      categories: Prisma.$EquipmentCategoryPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["equipment"]>
+    composites: {}
+  }
+
+  type EquipmentGetPayload<S extends boolean | null | undefined | EquipmentDefaultArgs> = $Result.GetResult<Prisma.$EquipmentPayload, S>
+
+  type EquipmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EquipmentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EquipmentCountAggregateInputType | true
+    }
+
+  export interface EquipmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Equipment'], meta: { name: 'Equipment' } }
+    /**
+     * Find zero or one Equipment that matches the filter.
+     * @param {EquipmentFindUniqueArgs} args - Arguments to find a Equipment
+     * @example
+     * // Get one Equipment
+     * const equipment = await prisma.equipment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EquipmentFindUniqueArgs>(args: SelectSubset<T, EquipmentFindUniqueArgs<ExtArgs>>): Prisma__EquipmentClient<$Result.GetResult<Prisma.$EquipmentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Equipment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EquipmentFindUniqueOrThrowArgs} args - Arguments to find a Equipment
+     * @example
+     * // Get one Equipment
+     * const equipment = await prisma.equipment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EquipmentFindUniqueOrThrowArgs>(args: SelectSubset<T, EquipmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EquipmentClient<$Result.GetResult<Prisma.$EquipmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Equipment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipmentFindFirstArgs} args - Arguments to find a Equipment
+     * @example
+     * // Get one Equipment
+     * const equipment = await prisma.equipment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EquipmentFindFirstArgs>(args?: SelectSubset<T, EquipmentFindFirstArgs<ExtArgs>>): Prisma__EquipmentClient<$Result.GetResult<Prisma.$EquipmentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Equipment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipmentFindFirstOrThrowArgs} args - Arguments to find a Equipment
+     * @example
+     * // Get one Equipment
+     * const equipment = await prisma.equipment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EquipmentFindFirstOrThrowArgs>(args?: SelectSubset<T, EquipmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__EquipmentClient<$Result.GetResult<Prisma.$EquipmentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Equipment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipmentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Equipment
+     * const equipment = await prisma.equipment.findMany()
+     * 
+     * // Get first 10 Equipment
+     * const equipment = await prisma.equipment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const equipmentWithIdOnly = await prisma.equipment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EquipmentFindManyArgs>(args?: SelectSubset<T, EquipmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EquipmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Equipment.
+     * @param {EquipmentCreateArgs} args - Arguments to create a Equipment.
+     * @example
+     * // Create one Equipment
+     * const Equipment = await prisma.equipment.create({
+     *   data: {
+     *     // ... data to create a Equipment
+     *   }
+     * })
+     * 
+     */
+    create<T extends EquipmentCreateArgs>(args: SelectSubset<T, EquipmentCreateArgs<ExtArgs>>): Prisma__EquipmentClient<$Result.GetResult<Prisma.$EquipmentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Equipment.
+     * @param {EquipmentCreateManyArgs} args - Arguments to create many Equipment.
+     * @example
+     * // Create many Equipment
+     * const equipment = await prisma.equipment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EquipmentCreateManyArgs>(args?: SelectSubset<T, EquipmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Equipment and returns the data saved in the database.
+     * @param {EquipmentCreateManyAndReturnArgs} args - Arguments to create many Equipment.
+     * @example
+     * // Create many Equipment
+     * const equipment = await prisma.equipment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Equipment and only return the `id`
+     * const equipmentWithIdOnly = await prisma.equipment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EquipmentCreateManyAndReturnArgs>(args?: SelectSubset<T, EquipmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EquipmentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Equipment.
+     * @param {EquipmentDeleteArgs} args - Arguments to delete one Equipment.
+     * @example
+     * // Delete one Equipment
+     * const Equipment = await prisma.equipment.delete({
+     *   where: {
+     *     // ... filter to delete one Equipment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EquipmentDeleteArgs>(args: SelectSubset<T, EquipmentDeleteArgs<ExtArgs>>): Prisma__EquipmentClient<$Result.GetResult<Prisma.$EquipmentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Equipment.
+     * @param {EquipmentUpdateArgs} args - Arguments to update one Equipment.
+     * @example
+     * // Update one Equipment
+     * const equipment = await prisma.equipment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EquipmentUpdateArgs>(args: SelectSubset<T, EquipmentUpdateArgs<ExtArgs>>): Prisma__EquipmentClient<$Result.GetResult<Prisma.$EquipmentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Equipment.
+     * @param {EquipmentDeleteManyArgs} args - Arguments to filter Equipment to delete.
+     * @example
+     * // Delete a few Equipment
+     * const { count } = await prisma.equipment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EquipmentDeleteManyArgs>(args?: SelectSubset<T, EquipmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Equipment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Equipment
+     * const equipment = await prisma.equipment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EquipmentUpdateManyArgs>(args: SelectSubset<T, EquipmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Equipment and returns the data updated in the database.
+     * @param {EquipmentUpdateManyAndReturnArgs} args - Arguments to update many Equipment.
+     * @example
+     * // Update many Equipment
+     * const equipment = await prisma.equipment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Equipment and only return the `id`
+     * const equipmentWithIdOnly = await prisma.equipment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EquipmentUpdateManyAndReturnArgs>(args: SelectSubset<T, EquipmentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EquipmentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Equipment.
+     * @param {EquipmentUpsertArgs} args - Arguments to update or create a Equipment.
+     * @example
+     * // Update or create a Equipment
+     * const equipment = await prisma.equipment.upsert({
+     *   create: {
+     *     // ... data to create a Equipment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Equipment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EquipmentUpsertArgs>(args: SelectSubset<T, EquipmentUpsertArgs<ExtArgs>>): Prisma__EquipmentClient<$Result.GetResult<Prisma.$EquipmentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Equipment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipmentCountArgs} args - Arguments to filter Equipment to count.
+     * @example
+     * // Count the number of Equipment
+     * const count = await prisma.equipment.count({
+     *   where: {
+     *     // ... the filter for the Equipment we want to count
+     *   }
+     * })
+    **/
+    count<T extends EquipmentCountArgs>(
+      args?: Subset<T, EquipmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EquipmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Equipment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EquipmentAggregateArgs>(args: Subset<T, EquipmentAggregateArgs>): Prisma.PrismaPromise<GetEquipmentAggregateType<T>>
+
+    /**
+     * Group by Equipment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EquipmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EquipmentGroupByArgs['orderBy'] }
+        : { orderBy?: EquipmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EquipmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEquipmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Equipment model
+   */
+  readonly fields: EquipmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Equipment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EquipmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    exercises<T extends Equipment$exercisesArgs<ExtArgs> = {}>(args?: Subset<T, Equipment$exercisesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    categories<T extends Equipment$categoriesArgs<ExtArgs> = {}>(args?: Subset<T, Equipment$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EquipmentCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Equipment model
+   */
+  interface EquipmentFieldRefs {
+    readonly id: FieldRef<"Equipment", 'String'>
+    readonly name: FieldRef<"Equipment", 'String'>
+    readonly createdAt: FieldRef<"Equipment", 'DateTime'>
+    readonly updatedAt: FieldRef<"Equipment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Equipment findUnique
+   */
+  export type EquipmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipment
+     */
+    select?: EquipmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipment
+     */
+    omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Equipment to fetch.
+     */
+    where: EquipmentWhereUniqueInput
+  }
+
+  /**
+   * Equipment findUniqueOrThrow
+   */
+  export type EquipmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipment
+     */
+    select?: EquipmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipment
+     */
+    omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Equipment to fetch.
+     */
+    where: EquipmentWhereUniqueInput
+  }
+
+  /**
+   * Equipment findFirst
+   */
+  export type EquipmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipment
+     */
+    select?: EquipmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipment
+     */
+    omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Equipment to fetch.
+     */
+    where?: EquipmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Equipment to fetch.
+     */
+    orderBy?: EquipmentOrderByWithRelationInput | EquipmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Equipment.
+     */
+    cursor?: EquipmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Equipment from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Equipment.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Equipment.
+     */
+    distinct?: EquipmentScalarFieldEnum | EquipmentScalarFieldEnum[]
+  }
+
+  /**
+   * Equipment findFirstOrThrow
+   */
+  export type EquipmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipment
+     */
+    select?: EquipmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipment
+     */
+    omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Equipment to fetch.
+     */
+    where?: EquipmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Equipment to fetch.
+     */
+    orderBy?: EquipmentOrderByWithRelationInput | EquipmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Equipment.
+     */
+    cursor?: EquipmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Equipment from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Equipment.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Equipment.
+     */
+    distinct?: EquipmentScalarFieldEnum | EquipmentScalarFieldEnum[]
+  }
+
+  /**
+   * Equipment findMany
+   */
+  export type EquipmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipment
+     */
+    select?: EquipmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipment
+     */
+    omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Equipment to fetch.
+     */
+    where?: EquipmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Equipment to fetch.
+     */
+    orderBy?: EquipmentOrderByWithRelationInput | EquipmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Equipment.
+     */
+    cursor?: EquipmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Equipment from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Equipment.
+     */
+    skip?: number
+    distinct?: EquipmentScalarFieldEnum | EquipmentScalarFieldEnum[]
+  }
+
+  /**
+   * Equipment create
+   */
+  export type EquipmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipment
+     */
+    select?: EquipmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipment
+     */
+    omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Equipment.
+     */
+    data: XOR<EquipmentCreateInput, EquipmentUncheckedCreateInput>
+  }
+
+  /**
+   * Equipment createMany
+   */
+  export type EquipmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Equipment.
+     */
+    data: EquipmentCreateManyInput | EquipmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Equipment createManyAndReturn
+   */
+  export type EquipmentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipment
+     */
+    select?: EquipmentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipment
+     */
+    omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * The data used to create many Equipment.
+     */
+    data: EquipmentCreateManyInput | EquipmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Equipment update
+   */
+  export type EquipmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipment
+     */
+    select?: EquipmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipment
+     */
+    omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Equipment.
+     */
+    data: XOR<EquipmentUpdateInput, EquipmentUncheckedUpdateInput>
+    /**
+     * Choose, which Equipment to update.
+     */
+    where: EquipmentWhereUniqueInput
+  }
+
+  /**
+   * Equipment updateMany
+   */
+  export type EquipmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Equipment.
+     */
+    data: XOR<EquipmentUpdateManyMutationInput, EquipmentUncheckedUpdateManyInput>
+    /**
+     * Filter which Equipment to update
+     */
+    where?: EquipmentWhereInput
+    /**
+     * Limit how many Equipment to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Equipment updateManyAndReturn
+   */
+  export type EquipmentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipment
+     */
+    select?: EquipmentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipment
+     */
+    omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * The data used to update Equipment.
+     */
+    data: XOR<EquipmentUpdateManyMutationInput, EquipmentUncheckedUpdateManyInput>
+    /**
+     * Filter which Equipment to update
+     */
+    where?: EquipmentWhereInput
+    /**
+     * Limit how many Equipment to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Equipment upsert
+   */
+  export type EquipmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipment
+     */
+    select?: EquipmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipment
+     */
+    omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Equipment to update in case it exists.
+     */
+    where: EquipmentWhereUniqueInput
+    /**
+     * In case the Equipment found by the `where` argument doesn't exist, create a new Equipment with this data.
+     */
+    create: XOR<EquipmentCreateInput, EquipmentUncheckedCreateInput>
+    /**
+     * In case the Equipment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EquipmentUpdateInput, EquipmentUncheckedUpdateInput>
+  }
+
+  /**
+   * Equipment delete
+   */
+  export type EquipmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipment
+     */
+    select?: EquipmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipment
+     */
+    omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    /**
+     * Filter which Equipment to delete.
+     */
+    where: EquipmentWhereUniqueInput
+  }
+
+  /**
+   * Equipment deleteMany
+   */
+  export type EquipmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Equipment to delete
+     */
+    where?: EquipmentWhereInput
+    /**
+     * Limit how many Equipment to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Equipment.exercises
+   */
+  export type Equipment$exercisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Exercise
+     */
+    select?: ExerciseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Exercise
+     */
+    omit?: ExerciseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExerciseInclude<ExtArgs> | null
+    where?: ExerciseWhereInput
+    orderBy?: ExerciseOrderByWithRelationInput | ExerciseOrderByWithRelationInput[]
+    cursor?: ExerciseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExerciseScalarFieldEnum | ExerciseScalarFieldEnum[]
+  }
+
+  /**
+   * Equipment.categories
+   */
+  export type Equipment$categoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipmentCategory
+     */
+    select?: EquipmentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EquipmentCategory
+     */
+    omit?: EquipmentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentCategoryInclude<ExtArgs> | null
+    where?: EquipmentCategoryWhereInput
+    orderBy?: EquipmentCategoryOrderByWithRelationInput | EquipmentCategoryOrderByWithRelationInput[]
+    cursor?: EquipmentCategoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EquipmentCategoryScalarFieldEnum | EquipmentCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * Equipment without action
+   */
+  export type EquipmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipment
+     */
+    select?: EquipmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipment
+     */
+    omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EquipmentCategory
+   */
+
+  export type AggregateEquipmentCategory = {
+    _count: EquipmentCategoryCountAggregateOutputType | null
+    _min: EquipmentCategoryMinAggregateOutputType | null
+    _max: EquipmentCategoryMaxAggregateOutputType | null
+  }
+
+  export type EquipmentCategoryMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EquipmentCategoryMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EquipmentCategoryCountAggregateOutputType = {
+    id: number
+    name: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EquipmentCategoryMinAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EquipmentCategoryMaxAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EquipmentCategoryCountAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EquipmentCategoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EquipmentCategory to aggregate.
+     */
+    where?: EquipmentCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EquipmentCategories to fetch.
+     */
+    orderBy?: EquipmentCategoryOrderByWithRelationInput | EquipmentCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EquipmentCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EquipmentCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EquipmentCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EquipmentCategories
+    **/
+    _count?: true | EquipmentCategoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EquipmentCategoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EquipmentCategoryMaxAggregateInputType
+  }
+
+  export type GetEquipmentCategoryAggregateType<T extends EquipmentCategoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateEquipmentCategory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEquipmentCategory[P]>
+      : GetScalarType<T[P], AggregateEquipmentCategory[P]>
+  }
+
+
+
+
+  export type EquipmentCategoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EquipmentCategoryWhereInput
+    orderBy?: EquipmentCategoryOrderByWithAggregationInput | EquipmentCategoryOrderByWithAggregationInput[]
+    by: EquipmentCategoryScalarFieldEnum[] | EquipmentCategoryScalarFieldEnum
+    having?: EquipmentCategoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EquipmentCategoryCountAggregateInputType | true
+    _min?: EquipmentCategoryMinAggregateInputType
+    _max?: EquipmentCategoryMaxAggregateInputType
+  }
+
+  export type EquipmentCategoryGroupByOutputType = {
+    id: string
+    name: string
+    createdAt: Date
+    updatedAt: Date
+    _count: EquipmentCategoryCountAggregateOutputType | null
+    _min: EquipmentCategoryMinAggregateOutputType | null
+    _max: EquipmentCategoryMaxAggregateOutputType | null
+  }
+
+  type GetEquipmentCategoryGroupByPayload<T extends EquipmentCategoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EquipmentCategoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EquipmentCategoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EquipmentCategoryGroupByOutputType[P]>
+            : GetScalarType<T[P], EquipmentCategoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EquipmentCategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    equipments?: boolean | EquipmentCategory$equipmentsArgs<ExtArgs>
+    _count?: boolean | EquipmentCategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["equipmentCategory"]>
+
+  export type EquipmentCategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["equipmentCategory"]>
+
+  export type EquipmentCategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["equipmentCategory"]>
+
+  export type EquipmentCategorySelectScalar = {
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EquipmentCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["equipmentCategory"]>
+  export type EquipmentCategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    equipments?: boolean | EquipmentCategory$equipmentsArgs<ExtArgs>
+    _count?: boolean | EquipmentCategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type EquipmentCategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type EquipmentCategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $EquipmentCategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EquipmentCategory"
+    objects: {
+      equipments: Prisma.$EquipmentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["equipmentCategory"]>
+    composites: {}
+  }
+
+  type EquipmentCategoryGetPayload<S extends boolean | null | undefined | EquipmentCategoryDefaultArgs> = $Result.GetResult<Prisma.$EquipmentCategoryPayload, S>
+
+  type EquipmentCategoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EquipmentCategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EquipmentCategoryCountAggregateInputType | true
+    }
+
+  export interface EquipmentCategoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EquipmentCategory'], meta: { name: 'EquipmentCategory' } }
+    /**
+     * Find zero or one EquipmentCategory that matches the filter.
+     * @param {EquipmentCategoryFindUniqueArgs} args - Arguments to find a EquipmentCategory
+     * @example
+     * // Get one EquipmentCategory
+     * const equipmentCategory = await prisma.equipmentCategory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EquipmentCategoryFindUniqueArgs>(args: SelectSubset<T, EquipmentCategoryFindUniqueArgs<ExtArgs>>): Prisma__EquipmentCategoryClient<$Result.GetResult<Prisma.$EquipmentCategoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EquipmentCategory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EquipmentCategoryFindUniqueOrThrowArgs} args - Arguments to find a EquipmentCategory
+     * @example
+     * // Get one EquipmentCategory
+     * const equipmentCategory = await prisma.equipmentCategory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EquipmentCategoryFindUniqueOrThrowArgs>(args: SelectSubset<T, EquipmentCategoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EquipmentCategoryClient<$Result.GetResult<Prisma.$EquipmentCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EquipmentCategory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipmentCategoryFindFirstArgs} args - Arguments to find a EquipmentCategory
+     * @example
+     * // Get one EquipmentCategory
+     * const equipmentCategory = await prisma.equipmentCategory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EquipmentCategoryFindFirstArgs>(args?: SelectSubset<T, EquipmentCategoryFindFirstArgs<ExtArgs>>): Prisma__EquipmentCategoryClient<$Result.GetResult<Prisma.$EquipmentCategoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EquipmentCategory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipmentCategoryFindFirstOrThrowArgs} args - Arguments to find a EquipmentCategory
+     * @example
+     * // Get one EquipmentCategory
+     * const equipmentCategory = await prisma.equipmentCategory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EquipmentCategoryFindFirstOrThrowArgs>(args?: SelectSubset<T, EquipmentCategoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__EquipmentCategoryClient<$Result.GetResult<Prisma.$EquipmentCategoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EquipmentCategories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipmentCategoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EquipmentCategories
+     * const equipmentCategories = await prisma.equipmentCategory.findMany()
+     * 
+     * // Get first 10 EquipmentCategories
+     * const equipmentCategories = await prisma.equipmentCategory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const equipmentCategoryWithIdOnly = await prisma.equipmentCategory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EquipmentCategoryFindManyArgs>(args?: SelectSubset<T, EquipmentCategoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EquipmentCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EquipmentCategory.
+     * @param {EquipmentCategoryCreateArgs} args - Arguments to create a EquipmentCategory.
+     * @example
+     * // Create one EquipmentCategory
+     * const EquipmentCategory = await prisma.equipmentCategory.create({
+     *   data: {
+     *     // ... data to create a EquipmentCategory
+     *   }
+     * })
+     * 
+     */
+    create<T extends EquipmentCategoryCreateArgs>(args: SelectSubset<T, EquipmentCategoryCreateArgs<ExtArgs>>): Prisma__EquipmentCategoryClient<$Result.GetResult<Prisma.$EquipmentCategoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EquipmentCategories.
+     * @param {EquipmentCategoryCreateManyArgs} args - Arguments to create many EquipmentCategories.
+     * @example
+     * // Create many EquipmentCategories
+     * const equipmentCategory = await prisma.equipmentCategory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EquipmentCategoryCreateManyArgs>(args?: SelectSubset<T, EquipmentCategoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EquipmentCategories and returns the data saved in the database.
+     * @param {EquipmentCategoryCreateManyAndReturnArgs} args - Arguments to create many EquipmentCategories.
+     * @example
+     * // Create many EquipmentCategories
+     * const equipmentCategory = await prisma.equipmentCategory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EquipmentCategories and only return the `id`
+     * const equipmentCategoryWithIdOnly = await prisma.equipmentCategory.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EquipmentCategoryCreateManyAndReturnArgs>(args?: SelectSubset<T, EquipmentCategoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EquipmentCategoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EquipmentCategory.
+     * @param {EquipmentCategoryDeleteArgs} args - Arguments to delete one EquipmentCategory.
+     * @example
+     * // Delete one EquipmentCategory
+     * const EquipmentCategory = await prisma.equipmentCategory.delete({
+     *   where: {
+     *     // ... filter to delete one EquipmentCategory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EquipmentCategoryDeleteArgs>(args: SelectSubset<T, EquipmentCategoryDeleteArgs<ExtArgs>>): Prisma__EquipmentCategoryClient<$Result.GetResult<Prisma.$EquipmentCategoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EquipmentCategory.
+     * @param {EquipmentCategoryUpdateArgs} args - Arguments to update one EquipmentCategory.
+     * @example
+     * // Update one EquipmentCategory
+     * const equipmentCategory = await prisma.equipmentCategory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EquipmentCategoryUpdateArgs>(args: SelectSubset<T, EquipmentCategoryUpdateArgs<ExtArgs>>): Prisma__EquipmentCategoryClient<$Result.GetResult<Prisma.$EquipmentCategoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EquipmentCategories.
+     * @param {EquipmentCategoryDeleteManyArgs} args - Arguments to filter EquipmentCategories to delete.
+     * @example
+     * // Delete a few EquipmentCategories
+     * const { count } = await prisma.equipmentCategory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EquipmentCategoryDeleteManyArgs>(args?: SelectSubset<T, EquipmentCategoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EquipmentCategories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipmentCategoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EquipmentCategories
+     * const equipmentCategory = await prisma.equipmentCategory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EquipmentCategoryUpdateManyArgs>(args: SelectSubset<T, EquipmentCategoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EquipmentCategories and returns the data updated in the database.
+     * @param {EquipmentCategoryUpdateManyAndReturnArgs} args - Arguments to update many EquipmentCategories.
+     * @example
+     * // Update many EquipmentCategories
+     * const equipmentCategory = await prisma.equipmentCategory.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EquipmentCategories and only return the `id`
+     * const equipmentCategoryWithIdOnly = await prisma.equipmentCategory.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EquipmentCategoryUpdateManyAndReturnArgs>(args: SelectSubset<T, EquipmentCategoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EquipmentCategoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EquipmentCategory.
+     * @param {EquipmentCategoryUpsertArgs} args - Arguments to update or create a EquipmentCategory.
+     * @example
+     * // Update or create a EquipmentCategory
+     * const equipmentCategory = await prisma.equipmentCategory.upsert({
+     *   create: {
+     *     // ... data to create a EquipmentCategory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EquipmentCategory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EquipmentCategoryUpsertArgs>(args: SelectSubset<T, EquipmentCategoryUpsertArgs<ExtArgs>>): Prisma__EquipmentCategoryClient<$Result.GetResult<Prisma.$EquipmentCategoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EquipmentCategories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipmentCategoryCountArgs} args - Arguments to filter EquipmentCategories to count.
+     * @example
+     * // Count the number of EquipmentCategories
+     * const count = await prisma.equipmentCategory.count({
+     *   where: {
+     *     // ... the filter for the EquipmentCategories we want to count
+     *   }
+     * })
+    **/
+    count<T extends EquipmentCategoryCountArgs>(
+      args?: Subset<T, EquipmentCategoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EquipmentCategoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EquipmentCategory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipmentCategoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EquipmentCategoryAggregateArgs>(args: Subset<T, EquipmentCategoryAggregateArgs>): Prisma.PrismaPromise<GetEquipmentCategoryAggregateType<T>>
+
+    /**
+     * Group by EquipmentCategory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipmentCategoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EquipmentCategoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EquipmentCategoryGroupByArgs['orderBy'] }
+        : { orderBy?: EquipmentCategoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EquipmentCategoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEquipmentCategoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EquipmentCategory model
+   */
+  readonly fields: EquipmentCategoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EquipmentCategory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EquipmentCategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    equipments<T extends EquipmentCategory$equipmentsArgs<ExtArgs> = {}>(args?: Subset<T, EquipmentCategory$equipmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EquipmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EquipmentCategory model
+   */
+  interface EquipmentCategoryFieldRefs {
+    readonly id: FieldRef<"EquipmentCategory", 'String'>
+    readonly name: FieldRef<"EquipmentCategory", 'String'>
+    readonly createdAt: FieldRef<"EquipmentCategory", 'DateTime'>
+    readonly updatedAt: FieldRef<"EquipmentCategory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EquipmentCategory findUnique
+   */
+  export type EquipmentCategoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipmentCategory
+     */
+    select?: EquipmentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EquipmentCategory
+     */
+    omit?: EquipmentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which EquipmentCategory to fetch.
+     */
+    where: EquipmentCategoryWhereUniqueInput
+  }
+
+  /**
+   * EquipmentCategory findUniqueOrThrow
+   */
+  export type EquipmentCategoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipmentCategory
+     */
+    select?: EquipmentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EquipmentCategory
+     */
+    omit?: EquipmentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which EquipmentCategory to fetch.
+     */
+    where: EquipmentCategoryWhereUniqueInput
+  }
+
+  /**
+   * EquipmentCategory findFirst
+   */
+  export type EquipmentCategoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipmentCategory
+     */
+    select?: EquipmentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EquipmentCategory
+     */
+    omit?: EquipmentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which EquipmentCategory to fetch.
+     */
+    where?: EquipmentCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EquipmentCategories to fetch.
+     */
+    orderBy?: EquipmentCategoryOrderByWithRelationInput | EquipmentCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EquipmentCategories.
+     */
+    cursor?: EquipmentCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EquipmentCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EquipmentCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EquipmentCategories.
+     */
+    distinct?: EquipmentCategoryScalarFieldEnum | EquipmentCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * EquipmentCategory findFirstOrThrow
+   */
+  export type EquipmentCategoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipmentCategory
+     */
+    select?: EquipmentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EquipmentCategory
+     */
+    omit?: EquipmentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which EquipmentCategory to fetch.
+     */
+    where?: EquipmentCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EquipmentCategories to fetch.
+     */
+    orderBy?: EquipmentCategoryOrderByWithRelationInput | EquipmentCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EquipmentCategories.
+     */
+    cursor?: EquipmentCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EquipmentCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EquipmentCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EquipmentCategories.
+     */
+    distinct?: EquipmentCategoryScalarFieldEnum | EquipmentCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * EquipmentCategory findMany
+   */
+  export type EquipmentCategoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipmentCategory
+     */
+    select?: EquipmentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EquipmentCategory
+     */
+    omit?: EquipmentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which EquipmentCategories to fetch.
+     */
+    where?: EquipmentCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EquipmentCategories to fetch.
+     */
+    orderBy?: EquipmentCategoryOrderByWithRelationInput | EquipmentCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EquipmentCategories.
+     */
+    cursor?: EquipmentCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EquipmentCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EquipmentCategories.
+     */
+    skip?: number
+    distinct?: EquipmentCategoryScalarFieldEnum | EquipmentCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * EquipmentCategory create
+   */
+  export type EquipmentCategoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipmentCategory
+     */
+    select?: EquipmentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EquipmentCategory
+     */
+    omit?: EquipmentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentCategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EquipmentCategory.
+     */
+    data: XOR<EquipmentCategoryCreateInput, EquipmentCategoryUncheckedCreateInput>
+  }
+
+  /**
+   * EquipmentCategory createMany
+   */
+  export type EquipmentCategoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EquipmentCategories.
+     */
+    data: EquipmentCategoryCreateManyInput | EquipmentCategoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EquipmentCategory createManyAndReturn
+   */
+  export type EquipmentCategoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipmentCategory
+     */
+    select?: EquipmentCategorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EquipmentCategory
+     */
+    omit?: EquipmentCategoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many EquipmentCategories.
+     */
+    data: EquipmentCategoryCreateManyInput | EquipmentCategoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EquipmentCategory update
+   */
+  export type EquipmentCategoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipmentCategory
+     */
+    select?: EquipmentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EquipmentCategory
+     */
+    omit?: EquipmentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentCategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EquipmentCategory.
+     */
+    data: XOR<EquipmentCategoryUpdateInput, EquipmentCategoryUncheckedUpdateInput>
+    /**
+     * Choose, which EquipmentCategory to update.
+     */
+    where: EquipmentCategoryWhereUniqueInput
+  }
+
+  /**
+   * EquipmentCategory updateMany
+   */
+  export type EquipmentCategoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EquipmentCategories.
+     */
+    data: XOR<EquipmentCategoryUpdateManyMutationInput, EquipmentCategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which EquipmentCategories to update
+     */
+    where?: EquipmentCategoryWhereInput
+    /**
+     * Limit how many EquipmentCategories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EquipmentCategory updateManyAndReturn
+   */
+  export type EquipmentCategoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipmentCategory
+     */
+    select?: EquipmentCategorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EquipmentCategory
+     */
+    omit?: EquipmentCategoryOmit<ExtArgs> | null
+    /**
+     * The data used to update EquipmentCategories.
+     */
+    data: XOR<EquipmentCategoryUpdateManyMutationInput, EquipmentCategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which EquipmentCategories to update
+     */
+    where?: EquipmentCategoryWhereInput
+    /**
+     * Limit how many EquipmentCategories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EquipmentCategory upsert
+   */
+  export type EquipmentCategoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipmentCategory
+     */
+    select?: EquipmentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EquipmentCategory
+     */
+    omit?: EquipmentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentCategoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EquipmentCategory to update in case it exists.
+     */
+    where: EquipmentCategoryWhereUniqueInput
+    /**
+     * In case the EquipmentCategory found by the `where` argument doesn't exist, create a new EquipmentCategory with this data.
+     */
+    create: XOR<EquipmentCategoryCreateInput, EquipmentCategoryUncheckedCreateInput>
+    /**
+     * In case the EquipmentCategory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EquipmentCategoryUpdateInput, EquipmentCategoryUncheckedUpdateInput>
+  }
+
+  /**
+   * EquipmentCategory delete
+   */
+  export type EquipmentCategoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipmentCategory
+     */
+    select?: EquipmentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EquipmentCategory
+     */
+    omit?: EquipmentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentCategoryInclude<ExtArgs> | null
+    /**
+     * Filter which EquipmentCategory to delete.
+     */
+    where: EquipmentCategoryWhereUniqueInput
+  }
+
+  /**
+   * EquipmentCategory deleteMany
+   */
+  export type EquipmentCategoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EquipmentCategories to delete
+     */
+    where?: EquipmentCategoryWhereInput
+    /**
+     * Limit how many EquipmentCategories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EquipmentCategory.equipments
+   */
+  export type EquipmentCategory$equipmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipment
+     */
+    select?: EquipmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipment
+     */
+    omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    where?: EquipmentWhereInput
+    orderBy?: EquipmentOrderByWithRelationInput | EquipmentOrderByWithRelationInput[]
+    cursor?: EquipmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EquipmentScalarFieldEnum | EquipmentScalarFieldEnum[]
+  }
+
+  /**
+   * EquipmentCategory without action
+   */
+  export type EquipmentCategoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipmentCategory
+     */
+    select?: EquipmentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EquipmentCategory
+     */
+    omit?: EquipmentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentCategoryInclude<ExtArgs> | null
   }
 
 
@@ -23890,14 +28663,55 @@ export namespace Prisma {
     notes: 'notes',
     isCompounded: 'isCompounded',
     type: 'type',
-    equipment: 'equipment',
-    muscles: 'muscles',
     ownerId: 'ownerId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type ExerciseScalarFieldEnum = (typeof ExerciseScalarFieldEnum)[keyof typeof ExerciseScalarFieldEnum]
+
+
+  export const MuscleScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    order: 'order',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MuscleScalarFieldEnum = (typeof MuscleScalarFieldEnum)[keyof typeof MuscleScalarFieldEnum]
+
+
+  export const MuscleAliasScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    language: 'language',
+    muscleId: 'muscleId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MuscleAliasScalarFieldEnum = (typeof MuscleAliasScalarFieldEnum)[keyof typeof MuscleAliasScalarFieldEnum]
+
+
+  export const EquipmentScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EquipmentScalarFieldEnum = (typeof EquipmentScalarFieldEnum)[keyof typeof EquipmentScalarFieldEnum]
+
+
+  export const EquipmentCategoryScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EquipmentCategoryScalarFieldEnum = (typeof EquipmentCategoryScalarFieldEnum)[keyof typeof EquipmentCategoryScalarFieldEnum]
 
 
   export const UserCardioSetScalarFieldEnum: {
@@ -24198,34 +29012,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'ExerciseEquipment[]'
-   */
-  export type ListEnumExerciseEquipmentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExerciseEquipment[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'ExerciseEquipment'
-   */
-  export type EnumExerciseEquipmentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExerciseEquipment'>
-    
-
-
-  /**
-   * Reference to a field of type 'ExerciseMuscle[]'
-   */
-  export type ListEnumExerciseMuscleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExerciseMuscle[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'ExerciseMuscle'
-   */
-  export type EnumExerciseMuscleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExerciseMuscle'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -24417,11 +29203,11 @@ export namespace Prisma {
     notes?: StringNullableFilter<"Exercise"> | string | null
     isCompounded?: BoolFilter<"Exercise"> | boolean
     type?: EnumExerciseTypeFilter<"Exercise"> | $Enums.ExerciseType
-    equipment?: EnumExerciseEquipmentNullableListFilter<"Exercise">
-    muscles?: EnumExerciseMuscleNullableListFilter<"Exercise">
     ownerId?: StringNullableFilter<"Exercise"> | string | null
     createdAt?: DateTimeFilter<"Exercise"> | Date | string
     updatedAt?: DateTimeFilter<"Exercise"> | Date | string
+    equipment?: EquipmentListRelationFilter
+    muscles?: MuscleListRelationFilter
     workoutExercises?: WorkoutExerciseListRelationFilter
     owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
@@ -24433,11 +29219,11 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     isCompounded?: SortOrder
     type?: SortOrder
-    equipment?: SortOrder
-    muscles?: SortOrder
     ownerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    equipment?: EquipmentOrderByRelationAggregateInput
+    muscles?: MuscleOrderByRelationAggregateInput
     workoutExercises?: WorkoutExerciseOrderByRelationAggregateInput
     owner?: UserOrderByWithRelationInput
   }
@@ -24452,11 +29238,11 @@ export namespace Prisma {
     notes?: StringNullableFilter<"Exercise"> | string | null
     isCompounded?: BoolFilter<"Exercise"> | boolean
     type?: EnumExerciseTypeFilter<"Exercise"> | $Enums.ExerciseType
-    equipment?: EnumExerciseEquipmentNullableListFilter<"Exercise">
-    muscles?: EnumExerciseMuscleNullableListFilter<"Exercise">
     ownerId?: StringNullableFilter<"Exercise"> | string | null
     createdAt?: DateTimeFilter<"Exercise"> | Date | string
     updatedAt?: DateTimeFilter<"Exercise"> | Date | string
+    equipment?: EquipmentListRelationFilter
+    muscles?: MuscleListRelationFilter
     workoutExercises?: WorkoutExerciseListRelationFilter
     owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id" | "name">
@@ -24468,8 +29254,6 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     isCompounded?: SortOrder
     type?: SortOrder
-    equipment?: SortOrder
-    muscles?: SortOrder
     ownerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -24488,11 +29272,232 @@ export namespace Prisma {
     notes?: StringNullableWithAggregatesFilter<"Exercise"> | string | null
     isCompounded?: BoolWithAggregatesFilter<"Exercise"> | boolean
     type?: EnumExerciseTypeWithAggregatesFilter<"Exercise"> | $Enums.ExerciseType
-    equipment?: EnumExerciseEquipmentNullableListFilter<"Exercise">
-    muscles?: EnumExerciseMuscleNullableListFilter<"Exercise">
     ownerId?: StringNullableWithAggregatesFilter<"Exercise"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Exercise"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Exercise"> | Date | string
+  }
+
+  export type MuscleWhereInput = {
+    AND?: MuscleWhereInput | MuscleWhereInput[]
+    OR?: MuscleWhereInput[]
+    NOT?: MuscleWhereInput | MuscleWhereInput[]
+    id?: StringFilter<"Muscle"> | string
+    name?: StringFilter<"Muscle"> | string
+    order?: IntFilter<"Muscle"> | number
+    createdAt?: DateTimeFilter<"Muscle"> | Date | string
+    updatedAt?: DateTimeFilter<"Muscle"> | Date | string
+    exercises?: ExerciseListRelationFilter
+    aliases?: MuscleAliasListRelationFilter
+  }
+
+  export type MuscleOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    order?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    exercises?: ExerciseOrderByRelationAggregateInput
+    aliases?: MuscleAliasOrderByRelationAggregateInput
+  }
+
+  export type MuscleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: MuscleWhereInput | MuscleWhereInput[]
+    OR?: MuscleWhereInput[]
+    NOT?: MuscleWhereInput | MuscleWhereInput[]
+    order?: IntFilter<"Muscle"> | number
+    createdAt?: DateTimeFilter<"Muscle"> | Date | string
+    updatedAt?: DateTimeFilter<"Muscle"> | Date | string
+    exercises?: ExerciseListRelationFilter
+    aliases?: MuscleAliasListRelationFilter
+  }, "id" | "name">
+
+  export type MuscleOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    order?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MuscleCountOrderByAggregateInput
+    _avg?: MuscleAvgOrderByAggregateInput
+    _max?: MuscleMaxOrderByAggregateInput
+    _min?: MuscleMinOrderByAggregateInput
+    _sum?: MuscleSumOrderByAggregateInput
+  }
+
+  export type MuscleScalarWhereWithAggregatesInput = {
+    AND?: MuscleScalarWhereWithAggregatesInput | MuscleScalarWhereWithAggregatesInput[]
+    OR?: MuscleScalarWhereWithAggregatesInput[]
+    NOT?: MuscleScalarWhereWithAggregatesInput | MuscleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Muscle"> | string
+    name?: StringWithAggregatesFilter<"Muscle"> | string
+    order?: IntWithAggregatesFilter<"Muscle"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Muscle"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Muscle"> | Date | string
+  }
+
+  export type MuscleAliasWhereInput = {
+    AND?: MuscleAliasWhereInput | MuscleAliasWhereInput[]
+    OR?: MuscleAliasWhereInput[]
+    NOT?: MuscleAliasWhereInput | MuscleAliasWhereInput[]
+    id?: StringFilter<"MuscleAlias"> | string
+    name?: StringFilter<"MuscleAlias"> | string
+    language?: StringNullableFilter<"MuscleAlias"> | string | null
+    muscleId?: StringFilter<"MuscleAlias"> | string
+    createdAt?: DateTimeFilter<"MuscleAlias"> | Date | string
+    updatedAt?: DateTimeFilter<"MuscleAlias"> | Date | string
+    muscle?: XOR<MuscleScalarRelationFilter, MuscleWhereInput>
+  }
+
+  export type MuscleAliasOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    language?: SortOrderInput | SortOrder
+    muscleId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    muscle?: MuscleOrderByWithRelationInput
+  }
+
+  export type MuscleAliasWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: MuscleAliasWhereInput | MuscleAliasWhereInput[]
+    OR?: MuscleAliasWhereInput[]
+    NOT?: MuscleAliasWhereInput | MuscleAliasWhereInput[]
+    language?: StringNullableFilter<"MuscleAlias"> | string | null
+    muscleId?: StringFilter<"MuscleAlias"> | string
+    createdAt?: DateTimeFilter<"MuscleAlias"> | Date | string
+    updatedAt?: DateTimeFilter<"MuscleAlias"> | Date | string
+    muscle?: XOR<MuscleScalarRelationFilter, MuscleWhereInput>
+  }, "id" | "name">
+
+  export type MuscleAliasOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    language?: SortOrderInput | SortOrder
+    muscleId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MuscleAliasCountOrderByAggregateInput
+    _max?: MuscleAliasMaxOrderByAggregateInput
+    _min?: MuscleAliasMinOrderByAggregateInput
+  }
+
+  export type MuscleAliasScalarWhereWithAggregatesInput = {
+    AND?: MuscleAliasScalarWhereWithAggregatesInput | MuscleAliasScalarWhereWithAggregatesInput[]
+    OR?: MuscleAliasScalarWhereWithAggregatesInput[]
+    NOT?: MuscleAliasScalarWhereWithAggregatesInput | MuscleAliasScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MuscleAlias"> | string
+    name?: StringWithAggregatesFilter<"MuscleAlias"> | string
+    language?: StringNullableWithAggregatesFilter<"MuscleAlias"> | string | null
+    muscleId?: StringWithAggregatesFilter<"MuscleAlias"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"MuscleAlias"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MuscleAlias"> | Date | string
+  }
+
+  export type EquipmentWhereInput = {
+    AND?: EquipmentWhereInput | EquipmentWhereInput[]
+    OR?: EquipmentWhereInput[]
+    NOT?: EquipmentWhereInput | EquipmentWhereInput[]
+    id?: StringFilter<"Equipment"> | string
+    name?: StringFilter<"Equipment"> | string
+    createdAt?: DateTimeFilter<"Equipment"> | Date | string
+    updatedAt?: DateTimeFilter<"Equipment"> | Date | string
+    exercises?: ExerciseListRelationFilter
+    categories?: EquipmentCategoryListRelationFilter
+  }
+
+  export type EquipmentOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    exercises?: ExerciseOrderByRelationAggregateInput
+    categories?: EquipmentCategoryOrderByRelationAggregateInput
+  }
+
+  export type EquipmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: EquipmentWhereInput | EquipmentWhereInput[]
+    OR?: EquipmentWhereInput[]
+    NOT?: EquipmentWhereInput | EquipmentWhereInput[]
+    createdAt?: DateTimeFilter<"Equipment"> | Date | string
+    updatedAt?: DateTimeFilter<"Equipment"> | Date | string
+    exercises?: ExerciseListRelationFilter
+    categories?: EquipmentCategoryListRelationFilter
+  }, "id" | "name">
+
+  export type EquipmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EquipmentCountOrderByAggregateInput
+    _max?: EquipmentMaxOrderByAggregateInput
+    _min?: EquipmentMinOrderByAggregateInput
+  }
+
+  export type EquipmentScalarWhereWithAggregatesInput = {
+    AND?: EquipmentScalarWhereWithAggregatesInput | EquipmentScalarWhereWithAggregatesInput[]
+    OR?: EquipmentScalarWhereWithAggregatesInput[]
+    NOT?: EquipmentScalarWhereWithAggregatesInput | EquipmentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Equipment"> | string
+    name?: StringWithAggregatesFilter<"Equipment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Equipment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Equipment"> | Date | string
+  }
+
+  export type EquipmentCategoryWhereInput = {
+    AND?: EquipmentCategoryWhereInput | EquipmentCategoryWhereInput[]
+    OR?: EquipmentCategoryWhereInput[]
+    NOT?: EquipmentCategoryWhereInput | EquipmentCategoryWhereInput[]
+    id?: StringFilter<"EquipmentCategory"> | string
+    name?: StringFilter<"EquipmentCategory"> | string
+    createdAt?: DateTimeFilter<"EquipmentCategory"> | Date | string
+    updatedAt?: DateTimeFilter<"EquipmentCategory"> | Date | string
+    equipments?: EquipmentListRelationFilter
+  }
+
+  export type EquipmentCategoryOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    equipments?: EquipmentOrderByRelationAggregateInput
+  }
+
+  export type EquipmentCategoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: EquipmentCategoryWhereInput | EquipmentCategoryWhereInput[]
+    OR?: EquipmentCategoryWhereInput[]
+    NOT?: EquipmentCategoryWhereInput | EquipmentCategoryWhereInput[]
+    createdAt?: DateTimeFilter<"EquipmentCategory"> | Date | string
+    updatedAt?: DateTimeFilter<"EquipmentCategory"> | Date | string
+    equipments?: EquipmentListRelationFilter
+  }, "id" | "name">
+
+  export type EquipmentCategoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EquipmentCategoryCountOrderByAggregateInput
+    _max?: EquipmentCategoryMaxOrderByAggregateInput
+    _min?: EquipmentCategoryMinOrderByAggregateInput
+  }
+
+  export type EquipmentCategoryScalarWhereWithAggregatesInput = {
+    AND?: EquipmentCategoryScalarWhereWithAggregatesInput | EquipmentCategoryScalarWhereWithAggregatesInput[]
+    OR?: EquipmentCategoryScalarWhereWithAggregatesInput[]
+    NOT?: EquipmentCategoryScalarWhereWithAggregatesInput | EquipmentCategoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EquipmentCategory"> | string
+    name?: StringWithAggregatesFilter<"EquipmentCategory"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"EquipmentCategory"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"EquipmentCategory"> | Date | string
   }
 
   export type UserCardioSetWhereInput = {
@@ -25789,10 +30794,10 @@ export namespace Prisma {
     notes?: string | null
     isCompounded?: boolean
     type?: $Enums.ExerciseType
-    equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: Date | string
     updatedAt?: Date | string
+    equipment?: EquipmentCreateNestedManyWithoutExercisesInput
+    muscles?: MuscleCreateNestedManyWithoutExercisesInput
     workoutExercises?: WorkoutExerciseCreateNestedManyWithoutExerciseInput
     owner?: UserCreateNestedOneWithoutExercisesInput
   }
@@ -25804,11 +30809,11 @@ export namespace Prisma {
     notes?: string | null
     isCompounded?: boolean
     type?: $Enums.ExerciseType
-    equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     ownerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    equipment?: EquipmentUncheckedCreateNestedManyWithoutExercisesInput
+    muscles?: MuscleUncheckedCreateNestedManyWithoutExercisesInput
     workoutExercises?: WorkoutExerciseUncheckedCreateNestedManyWithoutExerciseInput
   }
 
@@ -25819,10 +30824,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
-    equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipment?: EquipmentUpdateManyWithoutExercisesNestedInput
+    muscles?: MuscleUpdateManyWithoutExercisesNestedInput
     workoutExercises?: WorkoutExerciseUpdateManyWithoutExerciseNestedInput
     owner?: UserUpdateOneWithoutExercisesNestedInput
   }
@@ -25834,11 +30839,11 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
-    equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipment?: EquipmentUncheckedUpdateManyWithoutExercisesNestedInput
+    muscles?: MuscleUncheckedUpdateManyWithoutExercisesNestedInput
     workoutExercises?: WorkoutExerciseUncheckedUpdateManyWithoutExerciseNestedInput
   }
 
@@ -25849,8 +30854,6 @@ export namespace Prisma {
     notes?: string | null
     isCompounded?: boolean
     type?: $Enums.ExerciseType
-    equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     ownerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25863,8 +30866,6 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
-    equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25876,9 +30877,243 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
-    equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MuscleCreateInput = {
+    id?: string
+    name: string
+    order?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    exercises?: ExerciseCreateNestedManyWithoutMusclesInput
+    aliases?: MuscleAliasCreateNestedManyWithoutMuscleInput
+  }
+
+  export type MuscleUncheckedCreateInput = {
+    id?: string
+    name: string
+    order?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    exercises?: ExerciseUncheckedCreateNestedManyWithoutMusclesInput
+    aliases?: MuscleAliasUncheckedCreateNestedManyWithoutMuscleInput
+  }
+
+  export type MuscleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exercises?: ExerciseUpdateManyWithoutMusclesNestedInput
+    aliases?: MuscleAliasUpdateManyWithoutMuscleNestedInput
+  }
+
+  export type MuscleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exercises?: ExerciseUncheckedUpdateManyWithoutMusclesNestedInput
+    aliases?: MuscleAliasUncheckedUpdateManyWithoutMuscleNestedInput
+  }
+
+  export type MuscleCreateManyInput = {
+    id?: string
+    name: string
+    order?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MuscleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MuscleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MuscleAliasCreateInput = {
+    id?: string
+    name: string
+    language?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    muscle: MuscleCreateNestedOneWithoutAliasesInput
+  }
+
+  export type MuscleAliasUncheckedCreateInput = {
+    id?: string
+    name: string
+    language?: string | null
+    muscleId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MuscleAliasUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    muscle?: MuscleUpdateOneRequiredWithoutAliasesNestedInput
+  }
+
+  export type MuscleAliasUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    muscleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MuscleAliasCreateManyInput = {
+    id?: string
+    name: string
+    language?: string | null
+    muscleId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MuscleAliasUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MuscleAliasUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    muscleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EquipmentCreateInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    exercises?: ExerciseCreateNestedManyWithoutEquipmentInput
+    categories?: EquipmentCategoryCreateNestedManyWithoutEquipmentsInput
+  }
+
+  export type EquipmentUncheckedCreateInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    exercises?: ExerciseUncheckedCreateNestedManyWithoutEquipmentInput
+    categories?: EquipmentCategoryUncheckedCreateNestedManyWithoutEquipmentsInput
+  }
+
+  export type EquipmentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exercises?: ExerciseUpdateManyWithoutEquipmentNestedInput
+    categories?: EquipmentCategoryUpdateManyWithoutEquipmentsNestedInput
+  }
+
+  export type EquipmentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exercises?: ExerciseUncheckedUpdateManyWithoutEquipmentNestedInput
+    categories?: EquipmentCategoryUncheckedUpdateManyWithoutEquipmentsNestedInput
+  }
+
+  export type EquipmentCreateManyInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EquipmentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EquipmentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EquipmentCategoryCreateInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    equipments?: EquipmentCreateNestedManyWithoutCategoriesInput
+  }
+
+  export type EquipmentCategoryUncheckedCreateInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    equipments?: EquipmentUncheckedCreateNestedManyWithoutCategoriesInput
+  }
+
+  export type EquipmentCategoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipments?: EquipmentUpdateManyWithoutCategoriesNestedInput
+  }
+
+  export type EquipmentCategoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipments?: EquipmentUncheckedUpdateManyWithoutCategoriesNestedInput
+  }
+
+  export type EquipmentCategoryCreateManyInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EquipmentCategoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EquipmentCategoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -27347,20 +32582,16 @@ export namespace Prisma {
     not?: NestedEnumExerciseTypeFilter<$PrismaModel> | $Enums.ExerciseType
   }
 
-  export type EnumExerciseEquipmentNullableListFilter<$PrismaModel = never> = {
-    equals?: $Enums.ExerciseEquipment[] | ListEnumExerciseEquipmentFieldRefInput<$PrismaModel> | null
-    has?: $Enums.ExerciseEquipment | EnumExerciseEquipmentFieldRefInput<$PrismaModel> | null
-    hasEvery?: $Enums.ExerciseEquipment[] | ListEnumExerciseEquipmentFieldRefInput<$PrismaModel>
-    hasSome?: $Enums.ExerciseEquipment[] | ListEnumExerciseEquipmentFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
+  export type EquipmentListRelationFilter = {
+    every?: EquipmentWhereInput
+    some?: EquipmentWhereInput
+    none?: EquipmentWhereInput
   }
 
-  export type EnumExerciseMuscleNullableListFilter<$PrismaModel = never> = {
-    equals?: $Enums.ExerciseMuscle[] | ListEnumExerciseMuscleFieldRefInput<$PrismaModel> | null
-    has?: $Enums.ExerciseMuscle | EnumExerciseMuscleFieldRefInput<$PrismaModel> | null
-    hasEvery?: $Enums.ExerciseMuscle[] | ListEnumExerciseMuscleFieldRefInput<$PrismaModel>
-    hasSome?: $Enums.ExerciseMuscle[] | ListEnumExerciseMuscleFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
+  export type MuscleListRelationFilter = {
+    every?: MuscleWhereInput
+    some?: MuscleWhereInput
+    none?: MuscleWhereInput
   }
 
   export type WorkoutExerciseListRelationFilter = {
@@ -27374,6 +32605,14 @@ export namespace Prisma {
     isNot?: UserWhereInput | null
   }
 
+  export type EquipmentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MuscleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type WorkoutExerciseOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -27385,8 +32624,6 @@ export namespace Prisma {
     notes?: SortOrder
     isCompounded?: SortOrder
     type?: SortOrder
-    equipment?: SortOrder
-    muscles?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -27426,6 +32663,159 @@ export namespace Prisma {
     _max?: NestedEnumExerciseTypeFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type MuscleAliasListRelationFilter = {
+    every?: MuscleAliasWhereInput
+    some?: MuscleAliasWhereInput
+    none?: MuscleAliasWhereInput
+  }
+
+  export type MuscleAliasOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MuscleCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    order?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MuscleAvgOrderByAggregateInput = {
+    order?: SortOrder
+  }
+
+  export type MuscleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    order?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MuscleMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    order?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MuscleSumOrderByAggregateInput = {
+    order?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type MuscleScalarRelationFilter = {
+    is?: MuscleWhereInput
+    isNot?: MuscleWhereInput
+  }
+
+  export type MuscleAliasCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    language?: SortOrder
+    muscleId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MuscleAliasMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    language?: SortOrder
+    muscleId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MuscleAliasMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    language?: SortOrder
+    muscleId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EquipmentCategoryListRelationFilter = {
+    every?: EquipmentCategoryWhereInput
+    some?: EquipmentCategoryWhereInput
+    none?: EquipmentCategoryWhereInput
+  }
+
+  export type EquipmentCategoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EquipmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EquipmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EquipmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EquipmentCategoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EquipmentCategoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EquipmentCategoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -27446,17 +32836,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type UserWorkoutExerciseScalarRelationFilter = {
@@ -27562,22 +32941,6 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type UserStrengthSetCountOrderByAggregateInput = {
@@ -28603,12 +33966,16 @@ export namespace Prisma {
     deleteMany?: ExerciseScalarWhereInput | ExerciseScalarWhereInput[]
   }
 
-  export type ExerciseCreateequipmentInput = {
-    set: $Enums.ExerciseEquipment[]
+  export type EquipmentCreateNestedManyWithoutExercisesInput = {
+    create?: XOR<EquipmentCreateWithoutExercisesInput, EquipmentUncheckedCreateWithoutExercisesInput> | EquipmentCreateWithoutExercisesInput[] | EquipmentUncheckedCreateWithoutExercisesInput[]
+    connectOrCreate?: EquipmentCreateOrConnectWithoutExercisesInput | EquipmentCreateOrConnectWithoutExercisesInput[]
+    connect?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
   }
 
-  export type ExerciseCreatemusclesInput = {
-    set: $Enums.ExerciseMuscle[]
+  export type MuscleCreateNestedManyWithoutExercisesInput = {
+    create?: XOR<MuscleCreateWithoutExercisesInput, MuscleUncheckedCreateWithoutExercisesInput> | MuscleCreateWithoutExercisesInput[] | MuscleUncheckedCreateWithoutExercisesInput[]
+    connectOrCreate?: MuscleCreateOrConnectWithoutExercisesInput | MuscleCreateOrConnectWithoutExercisesInput[]
+    connect?: MuscleWhereUniqueInput | MuscleWhereUniqueInput[]
   }
 
   export type WorkoutExerciseCreateNestedManyWithoutExerciseInput = {
@@ -28624,6 +33991,18 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type EquipmentUncheckedCreateNestedManyWithoutExercisesInput = {
+    create?: XOR<EquipmentCreateWithoutExercisesInput, EquipmentUncheckedCreateWithoutExercisesInput> | EquipmentCreateWithoutExercisesInput[] | EquipmentUncheckedCreateWithoutExercisesInput[]
+    connectOrCreate?: EquipmentCreateOrConnectWithoutExercisesInput | EquipmentCreateOrConnectWithoutExercisesInput[]
+    connect?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+  }
+
+  export type MuscleUncheckedCreateNestedManyWithoutExercisesInput = {
+    create?: XOR<MuscleCreateWithoutExercisesInput, MuscleUncheckedCreateWithoutExercisesInput> | MuscleCreateWithoutExercisesInput[] | MuscleUncheckedCreateWithoutExercisesInput[]
+    connectOrCreate?: MuscleCreateOrConnectWithoutExercisesInput | MuscleCreateOrConnectWithoutExercisesInput[]
+    connect?: MuscleWhereUniqueInput | MuscleWhereUniqueInput[]
+  }
+
   export type WorkoutExerciseUncheckedCreateNestedManyWithoutExerciseInput = {
     create?: XOR<WorkoutExerciseCreateWithoutExerciseInput, WorkoutExerciseUncheckedCreateWithoutExerciseInput> | WorkoutExerciseCreateWithoutExerciseInput[] | WorkoutExerciseUncheckedCreateWithoutExerciseInput[]
     connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutExerciseInput | WorkoutExerciseCreateOrConnectWithoutExerciseInput[]
@@ -28635,14 +34014,30 @@ export namespace Prisma {
     set?: $Enums.ExerciseType
   }
 
-  export type ExerciseUpdateequipmentInput = {
-    set?: $Enums.ExerciseEquipment[]
-    push?: $Enums.ExerciseEquipment | $Enums.ExerciseEquipment[]
+  export type EquipmentUpdateManyWithoutExercisesNestedInput = {
+    create?: XOR<EquipmentCreateWithoutExercisesInput, EquipmentUncheckedCreateWithoutExercisesInput> | EquipmentCreateWithoutExercisesInput[] | EquipmentUncheckedCreateWithoutExercisesInput[]
+    connectOrCreate?: EquipmentCreateOrConnectWithoutExercisesInput | EquipmentCreateOrConnectWithoutExercisesInput[]
+    upsert?: EquipmentUpsertWithWhereUniqueWithoutExercisesInput | EquipmentUpsertWithWhereUniqueWithoutExercisesInput[]
+    set?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+    disconnect?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+    delete?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+    connect?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+    update?: EquipmentUpdateWithWhereUniqueWithoutExercisesInput | EquipmentUpdateWithWhereUniqueWithoutExercisesInput[]
+    updateMany?: EquipmentUpdateManyWithWhereWithoutExercisesInput | EquipmentUpdateManyWithWhereWithoutExercisesInput[]
+    deleteMany?: EquipmentScalarWhereInput | EquipmentScalarWhereInput[]
   }
 
-  export type ExerciseUpdatemusclesInput = {
-    set?: $Enums.ExerciseMuscle[]
-    push?: $Enums.ExerciseMuscle | $Enums.ExerciseMuscle[]
+  export type MuscleUpdateManyWithoutExercisesNestedInput = {
+    create?: XOR<MuscleCreateWithoutExercisesInput, MuscleUncheckedCreateWithoutExercisesInput> | MuscleCreateWithoutExercisesInput[] | MuscleUncheckedCreateWithoutExercisesInput[]
+    connectOrCreate?: MuscleCreateOrConnectWithoutExercisesInput | MuscleCreateOrConnectWithoutExercisesInput[]
+    upsert?: MuscleUpsertWithWhereUniqueWithoutExercisesInput | MuscleUpsertWithWhereUniqueWithoutExercisesInput[]
+    set?: MuscleWhereUniqueInput | MuscleWhereUniqueInput[]
+    disconnect?: MuscleWhereUniqueInput | MuscleWhereUniqueInput[]
+    delete?: MuscleWhereUniqueInput | MuscleWhereUniqueInput[]
+    connect?: MuscleWhereUniqueInput | MuscleWhereUniqueInput[]
+    update?: MuscleUpdateWithWhereUniqueWithoutExercisesInput | MuscleUpdateWithWhereUniqueWithoutExercisesInput[]
+    updateMany?: MuscleUpdateManyWithWhereWithoutExercisesInput | MuscleUpdateManyWithWhereWithoutExercisesInput[]
+    deleteMany?: MuscleScalarWhereInput | MuscleScalarWhereInput[]
   }
 
   export type WorkoutExerciseUpdateManyWithoutExerciseNestedInput = {
@@ -28669,6 +34064,32 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutExercisesInput, UserUpdateWithoutExercisesInput>, UserUncheckedUpdateWithoutExercisesInput>
   }
 
+  export type EquipmentUncheckedUpdateManyWithoutExercisesNestedInput = {
+    create?: XOR<EquipmentCreateWithoutExercisesInput, EquipmentUncheckedCreateWithoutExercisesInput> | EquipmentCreateWithoutExercisesInput[] | EquipmentUncheckedCreateWithoutExercisesInput[]
+    connectOrCreate?: EquipmentCreateOrConnectWithoutExercisesInput | EquipmentCreateOrConnectWithoutExercisesInput[]
+    upsert?: EquipmentUpsertWithWhereUniqueWithoutExercisesInput | EquipmentUpsertWithWhereUniqueWithoutExercisesInput[]
+    set?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+    disconnect?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+    delete?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+    connect?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+    update?: EquipmentUpdateWithWhereUniqueWithoutExercisesInput | EquipmentUpdateWithWhereUniqueWithoutExercisesInput[]
+    updateMany?: EquipmentUpdateManyWithWhereWithoutExercisesInput | EquipmentUpdateManyWithWhereWithoutExercisesInput[]
+    deleteMany?: EquipmentScalarWhereInput | EquipmentScalarWhereInput[]
+  }
+
+  export type MuscleUncheckedUpdateManyWithoutExercisesNestedInput = {
+    create?: XOR<MuscleCreateWithoutExercisesInput, MuscleUncheckedCreateWithoutExercisesInput> | MuscleCreateWithoutExercisesInput[] | MuscleUncheckedCreateWithoutExercisesInput[]
+    connectOrCreate?: MuscleCreateOrConnectWithoutExercisesInput | MuscleCreateOrConnectWithoutExercisesInput[]
+    upsert?: MuscleUpsertWithWhereUniqueWithoutExercisesInput | MuscleUpsertWithWhereUniqueWithoutExercisesInput[]
+    set?: MuscleWhereUniqueInput | MuscleWhereUniqueInput[]
+    disconnect?: MuscleWhereUniqueInput | MuscleWhereUniqueInput[]
+    delete?: MuscleWhereUniqueInput | MuscleWhereUniqueInput[]
+    connect?: MuscleWhereUniqueInput | MuscleWhereUniqueInput[]
+    update?: MuscleUpdateWithWhereUniqueWithoutExercisesInput | MuscleUpdateWithWhereUniqueWithoutExercisesInput[]
+    updateMany?: MuscleUpdateManyWithWhereWithoutExercisesInput | MuscleUpdateManyWithWhereWithoutExercisesInput[]
+    deleteMany?: MuscleScalarWhereInput | MuscleScalarWhereInput[]
+  }
+
   export type WorkoutExerciseUncheckedUpdateManyWithoutExerciseNestedInput = {
     create?: XOR<WorkoutExerciseCreateWithoutExerciseInput, WorkoutExerciseUncheckedCreateWithoutExerciseInput> | WorkoutExerciseCreateWithoutExerciseInput[] | WorkoutExerciseUncheckedCreateWithoutExerciseInput[]
     connectOrCreate?: WorkoutExerciseCreateOrConnectWithoutExerciseInput | WorkoutExerciseCreateOrConnectWithoutExerciseInput[]
@@ -28681,6 +34102,222 @@ export namespace Prisma {
     update?: WorkoutExerciseUpdateWithWhereUniqueWithoutExerciseInput | WorkoutExerciseUpdateWithWhereUniqueWithoutExerciseInput[]
     updateMany?: WorkoutExerciseUpdateManyWithWhereWithoutExerciseInput | WorkoutExerciseUpdateManyWithWhereWithoutExerciseInput[]
     deleteMany?: WorkoutExerciseScalarWhereInput | WorkoutExerciseScalarWhereInput[]
+  }
+
+  export type ExerciseCreateNestedManyWithoutMusclesInput = {
+    create?: XOR<ExerciseCreateWithoutMusclesInput, ExerciseUncheckedCreateWithoutMusclesInput> | ExerciseCreateWithoutMusclesInput[] | ExerciseUncheckedCreateWithoutMusclesInput[]
+    connectOrCreate?: ExerciseCreateOrConnectWithoutMusclesInput | ExerciseCreateOrConnectWithoutMusclesInput[]
+    connect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+  }
+
+  export type MuscleAliasCreateNestedManyWithoutMuscleInput = {
+    create?: XOR<MuscleAliasCreateWithoutMuscleInput, MuscleAliasUncheckedCreateWithoutMuscleInput> | MuscleAliasCreateWithoutMuscleInput[] | MuscleAliasUncheckedCreateWithoutMuscleInput[]
+    connectOrCreate?: MuscleAliasCreateOrConnectWithoutMuscleInput | MuscleAliasCreateOrConnectWithoutMuscleInput[]
+    createMany?: MuscleAliasCreateManyMuscleInputEnvelope
+    connect?: MuscleAliasWhereUniqueInput | MuscleAliasWhereUniqueInput[]
+  }
+
+  export type ExerciseUncheckedCreateNestedManyWithoutMusclesInput = {
+    create?: XOR<ExerciseCreateWithoutMusclesInput, ExerciseUncheckedCreateWithoutMusclesInput> | ExerciseCreateWithoutMusclesInput[] | ExerciseUncheckedCreateWithoutMusclesInput[]
+    connectOrCreate?: ExerciseCreateOrConnectWithoutMusclesInput | ExerciseCreateOrConnectWithoutMusclesInput[]
+    connect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+  }
+
+  export type MuscleAliasUncheckedCreateNestedManyWithoutMuscleInput = {
+    create?: XOR<MuscleAliasCreateWithoutMuscleInput, MuscleAliasUncheckedCreateWithoutMuscleInput> | MuscleAliasCreateWithoutMuscleInput[] | MuscleAliasUncheckedCreateWithoutMuscleInput[]
+    connectOrCreate?: MuscleAliasCreateOrConnectWithoutMuscleInput | MuscleAliasCreateOrConnectWithoutMuscleInput[]
+    createMany?: MuscleAliasCreateManyMuscleInputEnvelope
+    connect?: MuscleAliasWhereUniqueInput | MuscleAliasWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ExerciseUpdateManyWithoutMusclesNestedInput = {
+    create?: XOR<ExerciseCreateWithoutMusclesInput, ExerciseUncheckedCreateWithoutMusclesInput> | ExerciseCreateWithoutMusclesInput[] | ExerciseUncheckedCreateWithoutMusclesInput[]
+    connectOrCreate?: ExerciseCreateOrConnectWithoutMusclesInput | ExerciseCreateOrConnectWithoutMusclesInput[]
+    upsert?: ExerciseUpsertWithWhereUniqueWithoutMusclesInput | ExerciseUpsertWithWhereUniqueWithoutMusclesInput[]
+    set?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    disconnect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    delete?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    connect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    update?: ExerciseUpdateWithWhereUniqueWithoutMusclesInput | ExerciseUpdateWithWhereUniqueWithoutMusclesInput[]
+    updateMany?: ExerciseUpdateManyWithWhereWithoutMusclesInput | ExerciseUpdateManyWithWhereWithoutMusclesInput[]
+    deleteMany?: ExerciseScalarWhereInput | ExerciseScalarWhereInput[]
+  }
+
+  export type MuscleAliasUpdateManyWithoutMuscleNestedInput = {
+    create?: XOR<MuscleAliasCreateWithoutMuscleInput, MuscleAliasUncheckedCreateWithoutMuscleInput> | MuscleAliasCreateWithoutMuscleInput[] | MuscleAliasUncheckedCreateWithoutMuscleInput[]
+    connectOrCreate?: MuscleAliasCreateOrConnectWithoutMuscleInput | MuscleAliasCreateOrConnectWithoutMuscleInput[]
+    upsert?: MuscleAliasUpsertWithWhereUniqueWithoutMuscleInput | MuscleAliasUpsertWithWhereUniqueWithoutMuscleInput[]
+    createMany?: MuscleAliasCreateManyMuscleInputEnvelope
+    set?: MuscleAliasWhereUniqueInput | MuscleAliasWhereUniqueInput[]
+    disconnect?: MuscleAliasWhereUniqueInput | MuscleAliasWhereUniqueInput[]
+    delete?: MuscleAliasWhereUniqueInput | MuscleAliasWhereUniqueInput[]
+    connect?: MuscleAliasWhereUniqueInput | MuscleAliasWhereUniqueInput[]
+    update?: MuscleAliasUpdateWithWhereUniqueWithoutMuscleInput | MuscleAliasUpdateWithWhereUniqueWithoutMuscleInput[]
+    updateMany?: MuscleAliasUpdateManyWithWhereWithoutMuscleInput | MuscleAliasUpdateManyWithWhereWithoutMuscleInput[]
+    deleteMany?: MuscleAliasScalarWhereInput | MuscleAliasScalarWhereInput[]
+  }
+
+  export type ExerciseUncheckedUpdateManyWithoutMusclesNestedInput = {
+    create?: XOR<ExerciseCreateWithoutMusclesInput, ExerciseUncheckedCreateWithoutMusclesInput> | ExerciseCreateWithoutMusclesInput[] | ExerciseUncheckedCreateWithoutMusclesInput[]
+    connectOrCreate?: ExerciseCreateOrConnectWithoutMusclesInput | ExerciseCreateOrConnectWithoutMusclesInput[]
+    upsert?: ExerciseUpsertWithWhereUniqueWithoutMusclesInput | ExerciseUpsertWithWhereUniqueWithoutMusclesInput[]
+    set?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    disconnect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    delete?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    connect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    update?: ExerciseUpdateWithWhereUniqueWithoutMusclesInput | ExerciseUpdateWithWhereUniqueWithoutMusclesInput[]
+    updateMany?: ExerciseUpdateManyWithWhereWithoutMusclesInput | ExerciseUpdateManyWithWhereWithoutMusclesInput[]
+    deleteMany?: ExerciseScalarWhereInput | ExerciseScalarWhereInput[]
+  }
+
+  export type MuscleAliasUncheckedUpdateManyWithoutMuscleNestedInput = {
+    create?: XOR<MuscleAliasCreateWithoutMuscleInput, MuscleAliasUncheckedCreateWithoutMuscleInput> | MuscleAliasCreateWithoutMuscleInput[] | MuscleAliasUncheckedCreateWithoutMuscleInput[]
+    connectOrCreate?: MuscleAliasCreateOrConnectWithoutMuscleInput | MuscleAliasCreateOrConnectWithoutMuscleInput[]
+    upsert?: MuscleAliasUpsertWithWhereUniqueWithoutMuscleInput | MuscleAliasUpsertWithWhereUniqueWithoutMuscleInput[]
+    createMany?: MuscleAliasCreateManyMuscleInputEnvelope
+    set?: MuscleAliasWhereUniqueInput | MuscleAliasWhereUniqueInput[]
+    disconnect?: MuscleAliasWhereUniqueInput | MuscleAliasWhereUniqueInput[]
+    delete?: MuscleAliasWhereUniqueInput | MuscleAliasWhereUniqueInput[]
+    connect?: MuscleAliasWhereUniqueInput | MuscleAliasWhereUniqueInput[]
+    update?: MuscleAliasUpdateWithWhereUniqueWithoutMuscleInput | MuscleAliasUpdateWithWhereUniqueWithoutMuscleInput[]
+    updateMany?: MuscleAliasUpdateManyWithWhereWithoutMuscleInput | MuscleAliasUpdateManyWithWhereWithoutMuscleInput[]
+    deleteMany?: MuscleAliasScalarWhereInput | MuscleAliasScalarWhereInput[]
+  }
+
+  export type MuscleCreateNestedOneWithoutAliasesInput = {
+    create?: XOR<MuscleCreateWithoutAliasesInput, MuscleUncheckedCreateWithoutAliasesInput>
+    connectOrCreate?: MuscleCreateOrConnectWithoutAliasesInput
+    connect?: MuscleWhereUniqueInput
+  }
+
+  export type MuscleUpdateOneRequiredWithoutAliasesNestedInput = {
+    create?: XOR<MuscleCreateWithoutAliasesInput, MuscleUncheckedCreateWithoutAliasesInput>
+    connectOrCreate?: MuscleCreateOrConnectWithoutAliasesInput
+    upsert?: MuscleUpsertWithoutAliasesInput
+    connect?: MuscleWhereUniqueInput
+    update?: XOR<XOR<MuscleUpdateToOneWithWhereWithoutAliasesInput, MuscleUpdateWithoutAliasesInput>, MuscleUncheckedUpdateWithoutAliasesInput>
+  }
+
+  export type ExerciseCreateNestedManyWithoutEquipmentInput = {
+    create?: XOR<ExerciseCreateWithoutEquipmentInput, ExerciseUncheckedCreateWithoutEquipmentInput> | ExerciseCreateWithoutEquipmentInput[] | ExerciseUncheckedCreateWithoutEquipmentInput[]
+    connectOrCreate?: ExerciseCreateOrConnectWithoutEquipmentInput | ExerciseCreateOrConnectWithoutEquipmentInput[]
+    connect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+  }
+
+  export type EquipmentCategoryCreateNestedManyWithoutEquipmentsInput = {
+    create?: XOR<EquipmentCategoryCreateWithoutEquipmentsInput, EquipmentCategoryUncheckedCreateWithoutEquipmentsInput> | EquipmentCategoryCreateWithoutEquipmentsInput[] | EquipmentCategoryUncheckedCreateWithoutEquipmentsInput[]
+    connectOrCreate?: EquipmentCategoryCreateOrConnectWithoutEquipmentsInput | EquipmentCategoryCreateOrConnectWithoutEquipmentsInput[]
+    connect?: EquipmentCategoryWhereUniqueInput | EquipmentCategoryWhereUniqueInput[]
+  }
+
+  export type ExerciseUncheckedCreateNestedManyWithoutEquipmentInput = {
+    create?: XOR<ExerciseCreateWithoutEquipmentInput, ExerciseUncheckedCreateWithoutEquipmentInput> | ExerciseCreateWithoutEquipmentInput[] | ExerciseUncheckedCreateWithoutEquipmentInput[]
+    connectOrCreate?: ExerciseCreateOrConnectWithoutEquipmentInput | ExerciseCreateOrConnectWithoutEquipmentInput[]
+    connect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+  }
+
+  export type EquipmentCategoryUncheckedCreateNestedManyWithoutEquipmentsInput = {
+    create?: XOR<EquipmentCategoryCreateWithoutEquipmentsInput, EquipmentCategoryUncheckedCreateWithoutEquipmentsInput> | EquipmentCategoryCreateWithoutEquipmentsInput[] | EquipmentCategoryUncheckedCreateWithoutEquipmentsInput[]
+    connectOrCreate?: EquipmentCategoryCreateOrConnectWithoutEquipmentsInput | EquipmentCategoryCreateOrConnectWithoutEquipmentsInput[]
+    connect?: EquipmentCategoryWhereUniqueInput | EquipmentCategoryWhereUniqueInput[]
+  }
+
+  export type ExerciseUpdateManyWithoutEquipmentNestedInput = {
+    create?: XOR<ExerciseCreateWithoutEquipmentInput, ExerciseUncheckedCreateWithoutEquipmentInput> | ExerciseCreateWithoutEquipmentInput[] | ExerciseUncheckedCreateWithoutEquipmentInput[]
+    connectOrCreate?: ExerciseCreateOrConnectWithoutEquipmentInput | ExerciseCreateOrConnectWithoutEquipmentInput[]
+    upsert?: ExerciseUpsertWithWhereUniqueWithoutEquipmentInput | ExerciseUpsertWithWhereUniqueWithoutEquipmentInput[]
+    set?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    disconnect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    delete?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    connect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    update?: ExerciseUpdateWithWhereUniqueWithoutEquipmentInput | ExerciseUpdateWithWhereUniqueWithoutEquipmentInput[]
+    updateMany?: ExerciseUpdateManyWithWhereWithoutEquipmentInput | ExerciseUpdateManyWithWhereWithoutEquipmentInput[]
+    deleteMany?: ExerciseScalarWhereInput | ExerciseScalarWhereInput[]
+  }
+
+  export type EquipmentCategoryUpdateManyWithoutEquipmentsNestedInput = {
+    create?: XOR<EquipmentCategoryCreateWithoutEquipmentsInput, EquipmentCategoryUncheckedCreateWithoutEquipmentsInput> | EquipmentCategoryCreateWithoutEquipmentsInput[] | EquipmentCategoryUncheckedCreateWithoutEquipmentsInput[]
+    connectOrCreate?: EquipmentCategoryCreateOrConnectWithoutEquipmentsInput | EquipmentCategoryCreateOrConnectWithoutEquipmentsInput[]
+    upsert?: EquipmentCategoryUpsertWithWhereUniqueWithoutEquipmentsInput | EquipmentCategoryUpsertWithWhereUniqueWithoutEquipmentsInput[]
+    set?: EquipmentCategoryWhereUniqueInput | EquipmentCategoryWhereUniqueInput[]
+    disconnect?: EquipmentCategoryWhereUniqueInput | EquipmentCategoryWhereUniqueInput[]
+    delete?: EquipmentCategoryWhereUniqueInput | EquipmentCategoryWhereUniqueInput[]
+    connect?: EquipmentCategoryWhereUniqueInput | EquipmentCategoryWhereUniqueInput[]
+    update?: EquipmentCategoryUpdateWithWhereUniqueWithoutEquipmentsInput | EquipmentCategoryUpdateWithWhereUniqueWithoutEquipmentsInput[]
+    updateMany?: EquipmentCategoryUpdateManyWithWhereWithoutEquipmentsInput | EquipmentCategoryUpdateManyWithWhereWithoutEquipmentsInput[]
+    deleteMany?: EquipmentCategoryScalarWhereInput | EquipmentCategoryScalarWhereInput[]
+  }
+
+  export type ExerciseUncheckedUpdateManyWithoutEquipmentNestedInput = {
+    create?: XOR<ExerciseCreateWithoutEquipmentInput, ExerciseUncheckedCreateWithoutEquipmentInput> | ExerciseCreateWithoutEquipmentInput[] | ExerciseUncheckedCreateWithoutEquipmentInput[]
+    connectOrCreate?: ExerciseCreateOrConnectWithoutEquipmentInput | ExerciseCreateOrConnectWithoutEquipmentInput[]
+    upsert?: ExerciseUpsertWithWhereUniqueWithoutEquipmentInput | ExerciseUpsertWithWhereUniqueWithoutEquipmentInput[]
+    set?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    disconnect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    delete?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    connect?: ExerciseWhereUniqueInput | ExerciseWhereUniqueInput[]
+    update?: ExerciseUpdateWithWhereUniqueWithoutEquipmentInput | ExerciseUpdateWithWhereUniqueWithoutEquipmentInput[]
+    updateMany?: ExerciseUpdateManyWithWhereWithoutEquipmentInput | ExerciseUpdateManyWithWhereWithoutEquipmentInput[]
+    deleteMany?: ExerciseScalarWhereInput | ExerciseScalarWhereInput[]
+  }
+
+  export type EquipmentCategoryUncheckedUpdateManyWithoutEquipmentsNestedInput = {
+    create?: XOR<EquipmentCategoryCreateWithoutEquipmentsInput, EquipmentCategoryUncheckedCreateWithoutEquipmentsInput> | EquipmentCategoryCreateWithoutEquipmentsInput[] | EquipmentCategoryUncheckedCreateWithoutEquipmentsInput[]
+    connectOrCreate?: EquipmentCategoryCreateOrConnectWithoutEquipmentsInput | EquipmentCategoryCreateOrConnectWithoutEquipmentsInput[]
+    upsert?: EquipmentCategoryUpsertWithWhereUniqueWithoutEquipmentsInput | EquipmentCategoryUpsertWithWhereUniqueWithoutEquipmentsInput[]
+    set?: EquipmentCategoryWhereUniqueInput | EquipmentCategoryWhereUniqueInput[]
+    disconnect?: EquipmentCategoryWhereUniqueInput | EquipmentCategoryWhereUniqueInput[]
+    delete?: EquipmentCategoryWhereUniqueInput | EquipmentCategoryWhereUniqueInput[]
+    connect?: EquipmentCategoryWhereUniqueInput | EquipmentCategoryWhereUniqueInput[]
+    update?: EquipmentCategoryUpdateWithWhereUniqueWithoutEquipmentsInput | EquipmentCategoryUpdateWithWhereUniqueWithoutEquipmentsInput[]
+    updateMany?: EquipmentCategoryUpdateManyWithWhereWithoutEquipmentsInput | EquipmentCategoryUpdateManyWithWhereWithoutEquipmentsInput[]
+    deleteMany?: EquipmentCategoryScalarWhereInput | EquipmentCategoryScalarWhereInput[]
+  }
+
+  export type EquipmentCreateNestedManyWithoutCategoriesInput = {
+    create?: XOR<EquipmentCreateWithoutCategoriesInput, EquipmentUncheckedCreateWithoutCategoriesInput> | EquipmentCreateWithoutCategoriesInput[] | EquipmentUncheckedCreateWithoutCategoriesInput[]
+    connectOrCreate?: EquipmentCreateOrConnectWithoutCategoriesInput | EquipmentCreateOrConnectWithoutCategoriesInput[]
+    connect?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+  }
+
+  export type EquipmentUncheckedCreateNestedManyWithoutCategoriesInput = {
+    create?: XOR<EquipmentCreateWithoutCategoriesInput, EquipmentUncheckedCreateWithoutCategoriesInput> | EquipmentCreateWithoutCategoriesInput[] | EquipmentUncheckedCreateWithoutCategoriesInput[]
+    connectOrCreate?: EquipmentCreateOrConnectWithoutCategoriesInput | EquipmentCreateOrConnectWithoutCategoriesInput[]
+    connect?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+  }
+
+  export type EquipmentUpdateManyWithoutCategoriesNestedInput = {
+    create?: XOR<EquipmentCreateWithoutCategoriesInput, EquipmentUncheckedCreateWithoutCategoriesInput> | EquipmentCreateWithoutCategoriesInput[] | EquipmentUncheckedCreateWithoutCategoriesInput[]
+    connectOrCreate?: EquipmentCreateOrConnectWithoutCategoriesInput | EquipmentCreateOrConnectWithoutCategoriesInput[]
+    upsert?: EquipmentUpsertWithWhereUniqueWithoutCategoriesInput | EquipmentUpsertWithWhereUniqueWithoutCategoriesInput[]
+    set?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+    disconnect?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+    delete?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+    connect?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+    update?: EquipmentUpdateWithWhereUniqueWithoutCategoriesInput | EquipmentUpdateWithWhereUniqueWithoutCategoriesInput[]
+    updateMany?: EquipmentUpdateManyWithWhereWithoutCategoriesInput | EquipmentUpdateManyWithWhereWithoutCategoriesInput[]
+    deleteMany?: EquipmentScalarWhereInput | EquipmentScalarWhereInput[]
+  }
+
+  export type EquipmentUncheckedUpdateManyWithoutCategoriesNestedInput = {
+    create?: XOR<EquipmentCreateWithoutCategoriesInput, EquipmentUncheckedCreateWithoutCategoriesInput> | EquipmentCreateWithoutCategoriesInput[] | EquipmentUncheckedCreateWithoutCategoriesInput[]
+    connectOrCreate?: EquipmentCreateOrConnectWithoutCategoriesInput | EquipmentCreateOrConnectWithoutCategoriesInput[]
+    upsert?: EquipmentUpsertWithWhereUniqueWithoutCategoriesInput | EquipmentUpsertWithWhereUniqueWithoutCategoriesInput[]
+    set?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+    disconnect?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+    delete?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+    connect?: EquipmentWhereUniqueInput | EquipmentWhereUniqueInput[]
+    update?: EquipmentUpdateWithWhereUniqueWithoutCategoriesInput | EquipmentUpdateWithWhereUniqueWithoutCategoriesInput[]
+    updateMany?: EquipmentUpdateManyWithWhereWithoutCategoriesInput | EquipmentUpdateManyWithWhereWithoutCategoriesInput[]
+    deleteMany?: EquipmentScalarWhereInput | EquipmentScalarWhereInput[]
   }
 
   export type UserWorkoutExerciseCreateNestedOneWithoutUserCardioSetsInput = {
@@ -28699,14 +34336,6 @@ export namespace Prisma {
 
   export type NullableFloatFieldUpdateOperationsInput = {
     set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
     increment?: number
     decrement?: number
     multiply?: number
@@ -29899,6 +35528,33 @@ export namespace Prisma {
     _max?: NestedEnumExerciseTypeFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -29940,33 +35596,6 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedEnumWorkoutLevelFilter<$PrismaModel = never> = {
@@ -30208,10 +35837,10 @@ export namespace Prisma {
     notes?: string | null
     isCompounded?: boolean
     type?: $Enums.ExerciseType
-    equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: Date | string
     updatedAt?: Date | string
+    equipment?: EquipmentCreateNestedManyWithoutExercisesInput
+    muscles?: MuscleCreateNestedManyWithoutExercisesInput
     workoutExercises?: WorkoutExerciseCreateNestedManyWithoutExerciseInput
   }
 
@@ -30222,10 +35851,10 @@ export namespace Prisma {
     notes?: string | null
     isCompounded?: boolean
     type?: $Enums.ExerciseType
-    equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: Date | string
     updatedAt?: Date | string
+    equipment?: EquipmentUncheckedCreateNestedManyWithoutExercisesInput
+    muscles?: MuscleUncheckedCreateNestedManyWithoutExercisesInput
     workoutExercises?: WorkoutExerciseUncheckedCreateNestedManyWithoutExerciseInput
   }
 
@@ -30410,11 +36039,53 @@ export namespace Prisma {
     notes?: StringNullableFilter<"Exercise"> | string | null
     isCompounded?: BoolFilter<"Exercise"> | boolean
     type?: EnumExerciseTypeFilter<"Exercise"> | $Enums.ExerciseType
-    equipment?: EnumExerciseEquipmentNullableListFilter<"Exercise">
-    muscles?: EnumExerciseMuscleNullableListFilter<"Exercise">
     ownerId?: StringNullableFilter<"Exercise"> | string | null
     createdAt?: DateTimeFilter<"Exercise"> | Date | string
     updatedAt?: DateTimeFilter<"Exercise"> | Date | string
+  }
+
+  export type EquipmentCreateWithoutExercisesInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    categories?: EquipmentCategoryCreateNestedManyWithoutEquipmentsInput
+  }
+
+  export type EquipmentUncheckedCreateWithoutExercisesInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    categories?: EquipmentCategoryUncheckedCreateNestedManyWithoutEquipmentsInput
+  }
+
+  export type EquipmentCreateOrConnectWithoutExercisesInput = {
+    where: EquipmentWhereUniqueInput
+    create: XOR<EquipmentCreateWithoutExercisesInput, EquipmentUncheckedCreateWithoutExercisesInput>
+  }
+
+  export type MuscleCreateWithoutExercisesInput = {
+    id?: string
+    name: string
+    order?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aliases?: MuscleAliasCreateNestedManyWithoutMuscleInput
+  }
+
+  export type MuscleUncheckedCreateWithoutExercisesInput = {
+    id?: string
+    name: string
+    order?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aliases?: MuscleAliasUncheckedCreateNestedManyWithoutMuscleInput
+  }
+
+  export type MuscleCreateOrConnectWithoutExercisesInput = {
+    where: MuscleWhereUniqueInput
+    create: XOR<MuscleCreateWithoutExercisesInput, MuscleUncheckedCreateWithoutExercisesInput>
   }
 
   export type WorkoutExerciseCreateWithoutExerciseInput = {
@@ -30494,6 +36165,59 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutExercisesInput, UserUncheckedCreateWithoutExercisesInput>
   }
 
+  export type EquipmentUpsertWithWhereUniqueWithoutExercisesInput = {
+    where: EquipmentWhereUniqueInput
+    update: XOR<EquipmentUpdateWithoutExercisesInput, EquipmentUncheckedUpdateWithoutExercisesInput>
+    create: XOR<EquipmentCreateWithoutExercisesInput, EquipmentUncheckedCreateWithoutExercisesInput>
+  }
+
+  export type EquipmentUpdateWithWhereUniqueWithoutExercisesInput = {
+    where: EquipmentWhereUniqueInput
+    data: XOR<EquipmentUpdateWithoutExercisesInput, EquipmentUncheckedUpdateWithoutExercisesInput>
+  }
+
+  export type EquipmentUpdateManyWithWhereWithoutExercisesInput = {
+    where: EquipmentScalarWhereInput
+    data: XOR<EquipmentUpdateManyMutationInput, EquipmentUncheckedUpdateManyWithoutExercisesInput>
+  }
+
+  export type EquipmentScalarWhereInput = {
+    AND?: EquipmentScalarWhereInput | EquipmentScalarWhereInput[]
+    OR?: EquipmentScalarWhereInput[]
+    NOT?: EquipmentScalarWhereInput | EquipmentScalarWhereInput[]
+    id?: StringFilter<"Equipment"> | string
+    name?: StringFilter<"Equipment"> | string
+    createdAt?: DateTimeFilter<"Equipment"> | Date | string
+    updatedAt?: DateTimeFilter<"Equipment"> | Date | string
+  }
+
+  export type MuscleUpsertWithWhereUniqueWithoutExercisesInput = {
+    where: MuscleWhereUniqueInput
+    update: XOR<MuscleUpdateWithoutExercisesInput, MuscleUncheckedUpdateWithoutExercisesInput>
+    create: XOR<MuscleCreateWithoutExercisesInput, MuscleUncheckedCreateWithoutExercisesInput>
+  }
+
+  export type MuscleUpdateWithWhereUniqueWithoutExercisesInput = {
+    where: MuscleWhereUniqueInput
+    data: XOR<MuscleUpdateWithoutExercisesInput, MuscleUncheckedUpdateWithoutExercisesInput>
+  }
+
+  export type MuscleUpdateManyWithWhereWithoutExercisesInput = {
+    where: MuscleScalarWhereInput
+    data: XOR<MuscleUpdateManyMutationInput, MuscleUncheckedUpdateManyWithoutExercisesInput>
+  }
+
+  export type MuscleScalarWhereInput = {
+    AND?: MuscleScalarWhereInput | MuscleScalarWhereInput[]
+    OR?: MuscleScalarWhereInput[]
+    NOT?: MuscleScalarWhereInput | MuscleScalarWhereInput[]
+    id?: StringFilter<"Muscle"> | string
+    name?: StringFilter<"Muscle"> | string
+    order?: IntFilter<"Muscle"> | number
+    createdAt?: DateTimeFilter<"Muscle"> | Date | string
+    updatedAt?: DateTimeFilter<"Muscle"> | Date | string
+  }
+
   export type WorkoutExerciseUpsertWithWhereUniqueWithoutExerciseInput = {
     where: WorkoutExerciseWhereUniqueInput
     update: XOR<WorkoutExerciseUpdateWithoutExerciseInput, WorkoutExerciseUncheckedUpdateWithoutExerciseInput>
@@ -30571,6 +36295,292 @@ export namespace Prisma {
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
     userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ExerciseCreateWithoutMusclesInput = {
+    id?: string
+    name: string
+    youtubeUrl: string
+    notes?: string | null
+    isCompounded?: boolean
+    type?: $Enums.ExerciseType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    equipment?: EquipmentCreateNestedManyWithoutExercisesInput
+    workoutExercises?: WorkoutExerciseCreateNestedManyWithoutExerciseInput
+    owner?: UserCreateNestedOneWithoutExercisesInput
+  }
+
+  export type ExerciseUncheckedCreateWithoutMusclesInput = {
+    id?: string
+    name: string
+    youtubeUrl: string
+    notes?: string | null
+    isCompounded?: boolean
+    type?: $Enums.ExerciseType
+    ownerId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    equipment?: EquipmentUncheckedCreateNestedManyWithoutExercisesInput
+    workoutExercises?: WorkoutExerciseUncheckedCreateNestedManyWithoutExerciseInput
+  }
+
+  export type ExerciseCreateOrConnectWithoutMusclesInput = {
+    where: ExerciseWhereUniqueInput
+    create: XOR<ExerciseCreateWithoutMusclesInput, ExerciseUncheckedCreateWithoutMusclesInput>
+  }
+
+  export type MuscleAliasCreateWithoutMuscleInput = {
+    id?: string
+    name: string
+    language?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MuscleAliasUncheckedCreateWithoutMuscleInput = {
+    id?: string
+    name: string
+    language?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MuscleAliasCreateOrConnectWithoutMuscleInput = {
+    where: MuscleAliasWhereUniqueInput
+    create: XOR<MuscleAliasCreateWithoutMuscleInput, MuscleAliasUncheckedCreateWithoutMuscleInput>
+  }
+
+  export type MuscleAliasCreateManyMuscleInputEnvelope = {
+    data: MuscleAliasCreateManyMuscleInput | MuscleAliasCreateManyMuscleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ExerciseUpsertWithWhereUniqueWithoutMusclesInput = {
+    where: ExerciseWhereUniqueInput
+    update: XOR<ExerciseUpdateWithoutMusclesInput, ExerciseUncheckedUpdateWithoutMusclesInput>
+    create: XOR<ExerciseCreateWithoutMusclesInput, ExerciseUncheckedCreateWithoutMusclesInput>
+  }
+
+  export type ExerciseUpdateWithWhereUniqueWithoutMusclesInput = {
+    where: ExerciseWhereUniqueInput
+    data: XOR<ExerciseUpdateWithoutMusclesInput, ExerciseUncheckedUpdateWithoutMusclesInput>
+  }
+
+  export type ExerciseUpdateManyWithWhereWithoutMusclesInput = {
+    where: ExerciseScalarWhereInput
+    data: XOR<ExerciseUpdateManyMutationInput, ExerciseUncheckedUpdateManyWithoutMusclesInput>
+  }
+
+  export type MuscleAliasUpsertWithWhereUniqueWithoutMuscleInput = {
+    where: MuscleAliasWhereUniqueInput
+    update: XOR<MuscleAliasUpdateWithoutMuscleInput, MuscleAliasUncheckedUpdateWithoutMuscleInput>
+    create: XOR<MuscleAliasCreateWithoutMuscleInput, MuscleAliasUncheckedCreateWithoutMuscleInput>
+  }
+
+  export type MuscleAliasUpdateWithWhereUniqueWithoutMuscleInput = {
+    where: MuscleAliasWhereUniqueInput
+    data: XOR<MuscleAliasUpdateWithoutMuscleInput, MuscleAliasUncheckedUpdateWithoutMuscleInput>
+  }
+
+  export type MuscleAliasUpdateManyWithWhereWithoutMuscleInput = {
+    where: MuscleAliasScalarWhereInput
+    data: XOR<MuscleAliasUpdateManyMutationInput, MuscleAliasUncheckedUpdateManyWithoutMuscleInput>
+  }
+
+  export type MuscleAliasScalarWhereInput = {
+    AND?: MuscleAliasScalarWhereInput | MuscleAliasScalarWhereInput[]
+    OR?: MuscleAliasScalarWhereInput[]
+    NOT?: MuscleAliasScalarWhereInput | MuscleAliasScalarWhereInput[]
+    id?: StringFilter<"MuscleAlias"> | string
+    name?: StringFilter<"MuscleAlias"> | string
+    language?: StringNullableFilter<"MuscleAlias"> | string | null
+    muscleId?: StringFilter<"MuscleAlias"> | string
+    createdAt?: DateTimeFilter<"MuscleAlias"> | Date | string
+    updatedAt?: DateTimeFilter<"MuscleAlias"> | Date | string
+  }
+
+  export type MuscleCreateWithoutAliasesInput = {
+    id?: string
+    name: string
+    order?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    exercises?: ExerciseCreateNestedManyWithoutMusclesInput
+  }
+
+  export type MuscleUncheckedCreateWithoutAliasesInput = {
+    id?: string
+    name: string
+    order?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    exercises?: ExerciseUncheckedCreateNestedManyWithoutMusclesInput
+  }
+
+  export type MuscleCreateOrConnectWithoutAliasesInput = {
+    where: MuscleWhereUniqueInput
+    create: XOR<MuscleCreateWithoutAliasesInput, MuscleUncheckedCreateWithoutAliasesInput>
+  }
+
+  export type MuscleUpsertWithoutAliasesInput = {
+    update: XOR<MuscleUpdateWithoutAliasesInput, MuscleUncheckedUpdateWithoutAliasesInput>
+    create: XOR<MuscleCreateWithoutAliasesInput, MuscleUncheckedCreateWithoutAliasesInput>
+    where?: MuscleWhereInput
+  }
+
+  export type MuscleUpdateToOneWithWhereWithoutAliasesInput = {
+    where?: MuscleWhereInput
+    data: XOR<MuscleUpdateWithoutAliasesInput, MuscleUncheckedUpdateWithoutAliasesInput>
+  }
+
+  export type MuscleUpdateWithoutAliasesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exercises?: ExerciseUpdateManyWithoutMusclesNestedInput
+  }
+
+  export type MuscleUncheckedUpdateWithoutAliasesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exercises?: ExerciseUncheckedUpdateManyWithoutMusclesNestedInput
+  }
+
+  export type ExerciseCreateWithoutEquipmentInput = {
+    id?: string
+    name: string
+    youtubeUrl: string
+    notes?: string | null
+    isCompounded?: boolean
+    type?: $Enums.ExerciseType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    muscles?: MuscleCreateNestedManyWithoutExercisesInput
+    workoutExercises?: WorkoutExerciseCreateNestedManyWithoutExerciseInput
+    owner?: UserCreateNestedOneWithoutExercisesInput
+  }
+
+  export type ExerciseUncheckedCreateWithoutEquipmentInput = {
+    id?: string
+    name: string
+    youtubeUrl: string
+    notes?: string | null
+    isCompounded?: boolean
+    type?: $Enums.ExerciseType
+    ownerId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    muscles?: MuscleUncheckedCreateNestedManyWithoutExercisesInput
+    workoutExercises?: WorkoutExerciseUncheckedCreateNestedManyWithoutExerciseInput
+  }
+
+  export type ExerciseCreateOrConnectWithoutEquipmentInput = {
+    where: ExerciseWhereUniqueInput
+    create: XOR<ExerciseCreateWithoutEquipmentInput, ExerciseUncheckedCreateWithoutEquipmentInput>
+  }
+
+  export type EquipmentCategoryCreateWithoutEquipmentsInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EquipmentCategoryUncheckedCreateWithoutEquipmentsInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EquipmentCategoryCreateOrConnectWithoutEquipmentsInput = {
+    where: EquipmentCategoryWhereUniqueInput
+    create: XOR<EquipmentCategoryCreateWithoutEquipmentsInput, EquipmentCategoryUncheckedCreateWithoutEquipmentsInput>
+  }
+
+  export type ExerciseUpsertWithWhereUniqueWithoutEquipmentInput = {
+    where: ExerciseWhereUniqueInput
+    update: XOR<ExerciseUpdateWithoutEquipmentInput, ExerciseUncheckedUpdateWithoutEquipmentInput>
+    create: XOR<ExerciseCreateWithoutEquipmentInput, ExerciseUncheckedCreateWithoutEquipmentInput>
+  }
+
+  export type ExerciseUpdateWithWhereUniqueWithoutEquipmentInput = {
+    where: ExerciseWhereUniqueInput
+    data: XOR<ExerciseUpdateWithoutEquipmentInput, ExerciseUncheckedUpdateWithoutEquipmentInput>
+  }
+
+  export type ExerciseUpdateManyWithWhereWithoutEquipmentInput = {
+    where: ExerciseScalarWhereInput
+    data: XOR<ExerciseUpdateManyMutationInput, ExerciseUncheckedUpdateManyWithoutEquipmentInput>
+  }
+
+  export type EquipmentCategoryUpsertWithWhereUniqueWithoutEquipmentsInput = {
+    where: EquipmentCategoryWhereUniqueInput
+    update: XOR<EquipmentCategoryUpdateWithoutEquipmentsInput, EquipmentCategoryUncheckedUpdateWithoutEquipmentsInput>
+    create: XOR<EquipmentCategoryCreateWithoutEquipmentsInput, EquipmentCategoryUncheckedCreateWithoutEquipmentsInput>
+  }
+
+  export type EquipmentCategoryUpdateWithWhereUniqueWithoutEquipmentsInput = {
+    where: EquipmentCategoryWhereUniqueInput
+    data: XOR<EquipmentCategoryUpdateWithoutEquipmentsInput, EquipmentCategoryUncheckedUpdateWithoutEquipmentsInput>
+  }
+
+  export type EquipmentCategoryUpdateManyWithWhereWithoutEquipmentsInput = {
+    where: EquipmentCategoryScalarWhereInput
+    data: XOR<EquipmentCategoryUpdateManyMutationInput, EquipmentCategoryUncheckedUpdateManyWithoutEquipmentsInput>
+  }
+
+  export type EquipmentCategoryScalarWhereInput = {
+    AND?: EquipmentCategoryScalarWhereInput | EquipmentCategoryScalarWhereInput[]
+    OR?: EquipmentCategoryScalarWhereInput[]
+    NOT?: EquipmentCategoryScalarWhereInput | EquipmentCategoryScalarWhereInput[]
+    id?: StringFilter<"EquipmentCategory"> | string
+    name?: StringFilter<"EquipmentCategory"> | string
+    createdAt?: DateTimeFilter<"EquipmentCategory"> | Date | string
+    updatedAt?: DateTimeFilter<"EquipmentCategory"> | Date | string
+  }
+
+  export type EquipmentCreateWithoutCategoriesInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    exercises?: ExerciseCreateNestedManyWithoutEquipmentInput
+  }
+
+  export type EquipmentUncheckedCreateWithoutCategoriesInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    exercises?: ExerciseUncheckedCreateNestedManyWithoutEquipmentInput
+  }
+
+  export type EquipmentCreateOrConnectWithoutCategoriesInput = {
+    where: EquipmentWhereUniqueInput
+    create: XOR<EquipmentCreateWithoutCategoriesInput, EquipmentUncheckedCreateWithoutCategoriesInput>
+  }
+
+  export type EquipmentUpsertWithWhereUniqueWithoutCategoriesInput = {
+    where: EquipmentWhereUniqueInput
+    update: XOR<EquipmentUpdateWithoutCategoriesInput, EquipmentUncheckedUpdateWithoutCategoriesInput>
+    create: XOR<EquipmentCreateWithoutCategoriesInput, EquipmentUncheckedCreateWithoutCategoriesInput>
+  }
+
+  export type EquipmentUpdateWithWhereUniqueWithoutCategoriesInput = {
+    where: EquipmentWhereUniqueInput
+    data: XOR<EquipmentUpdateWithoutCategoriesInput, EquipmentUncheckedUpdateWithoutCategoriesInput>
+  }
+
+  export type EquipmentUpdateManyWithWhereWithoutCategoriesInput = {
+    where: EquipmentScalarWhereInput
+    data: XOR<EquipmentUpdateManyMutationInput, EquipmentUncheckedUpdateManyWithoutCategoriesInput>
   }
 
   export type UserWorkoutExerciseCreateWithoutUserCardioSetsInput = {
@@ -31230,10 +37240,10 @@ export namespace Prisma {
     notes?: string | null
     isCompounded?: boolean
     type?: $Enums.ExerciseType
-    equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: Date | string
     updatedAt?: Date | string
+    equipment?: EquipmentCreateNestedManyWithoutExercisesInput
+    muscles?: MuscleCreateNestedManyWithoutExercisesInput
     owner?: UserCreateNestedOneWithoutExercisesInput
   }
 
@@ -31244,11 +37254,11 @@ export namespace Prisma {
     notes?: string | null
     isCompounded?: boolean
     type?: $Enums.ExerciseType
-    equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     ownerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    equipment?: EquipmentUncheckedCreateNestedManyWithoutExercisesInput
+    muscles?: MuscleUncheckedCreateNestedManyWithoutExercisesInput
   }
 
   export type ExerciseCreateOrConnectWithoutWorkoutExercisesInput = {
@@ -31329,10 +37339,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
-    equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipment?: EquipmentUpdateManyWithoutExercisesNestedInput
+    muscles?: MuscleUpdateManyWithoutExercisesNestedInput
     owner?: UserUpdateOneWithoutExercisesNestedInput
   }
 
@@ -31343,11 +37353,11 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
-    equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipment?: EquipmentUncheckedUpdateManyWithoutExercisesNestedInput
+    muscles?: MuscleUncheckedUpdateManyWithoutExercisesNestedInput
   }
 
   export type WorkoutUpsertWithoutWorkoutExercisesInput = {
@@ -33047,8 +39057,6 @@ export namespace Prisma {
     notes?: string | null
     isCompounded?: boolean
     type?: $Enums.ExerciseType
-    equipment?: ExerciseCreateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseCreatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -33211,10 +39219,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
-    equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipment?: EquipmentUpdateManyWithoutExercisesNestedInput
+    muscles?: MuscleUpdateManyWithoutExercisesNestedInput
     workoutExercises?: WorkoutExerciseUpdateManyWithoutExerciseNestedInput
   }
 
@@ -33225,10 +39233,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
-    equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipment?: EquipmentUncheckedUpdateManyWithoutExercisesNestedInput
+    muscles?: MuscleUncheckedUpdateManyWithoutExercisesNestedInput
     workoutExercises?: WorkoutExerciseUncheckedUpdateManyWithoutExerciseNestedInput
   }
 
@@ -33239,8 +39247,6 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
-    equipment?: ExerciseUpdateequipmentInput | $Enums.ExerciseEquipment[]
-    muscles?: ExerciseUpdatemusclesInput | $Enums.ExerciseMuscle[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -33255,6 +39261,55 @@ export namespace Prisma {
     workoutId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type EquipmentUpdateWithoutExercisesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories?: EquipmentCategoryUpdateManyWithoutEquipmentsNestedInput
+  }
+
+  export type EquipmentUncheckedUpdateWithoutExercisesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories?: EquipmentCategoryUncheckedUpdateManyWithoutEquipmentsNestedInput
+  }
+
+  export type EquipmentUncheckedUpdateManyWithoutExercisesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MuscleUpdateWithoutExercisesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aliases?: MuscleAliasUpdateManyWithoutMuscleNestedInput
+  }
+
+  export type MuscleUncheckedUpdateWithoutExercisesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aliases?: MuscleAliasUncheckedUpdateManyWithoutMuscleNestedInput
+  }
+
+  export type MuscleUncheckedUpdateManyWithoutExercisesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WorkoutExerciseUpdateWithoutExerciseInput = {
@@ -33291,6 +39346,162 @@ export namespace Prisma {
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     workoutId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MuscleAliasCreateManyMuscleInput = {
+    id?: string
+    name: string
+    language?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExerciseUpdateWithoutMusclesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    youtubeUrl?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipment?: EquipmentUpdateManyWithoutExercisesNestedInput
+    workoutExercises?: WorkoutExerciseUpdateManyWithoutExerciseNestedInput
+    owner?: UserUpdateOneWithoutExercisesNestedInput
+  }
+
+  export type ExerciseUncheckedUpdateWithoutMusclesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    youtubeUrl?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipment?: EquipmentUncheckedUpdateManyWithoutExercisesNestedInput
+    workoutExercises?: WorkoutExerciseUncheckedUpdateManyWithoutExerciseNestedInput
+  }
+
+  export type ExerciseUncheckedUpdateManyWithoutMusclesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    youtubeUrl?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MuscleAliasUpdateWithoutMuscleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MuscleAliasUncheckedUpdateWithoutMuscleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MuscleAliasUncheckedUpdateManyWithoutMuscleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExerciseUpdateWithoutEquipmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    youtubeUrl?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    muscles?: MuscleUpdateManyWithoutExercisesNestedInput
+    workoutExercises?: WorkoutExerciseUpdateManyWithoutExerciseNestedInput
+    owner?: UserUpdateOneWithoutExercisesNestedInput
+  }
+
+  export type ExerciseUncheckedUpdateWithoutEquipmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    youtubeUrl?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    muscles?: MuscleUncheckedUpdateManyWithoutExercisesNestedInput
+    workoutExercises?: WorkoutExerciseUncheckedUpdateManyWithoutExerciseNestedInput
+  }
+
+  export type ExerciseUncheckedUpdateManyWithoutEquipmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    youtubeUrl?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EquipmentCategoryUpdateWithoutEquipmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EquipmentCategoryUncheckedUpdateWithoutEquipmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EquipmentCategoryUncheckedUpdateManyWithoutEquipmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EquipmentUpdateWithoutCategoriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exercises?: ExerciseUpdateManyWithoutEquipmentNestedInput
+  }
+
+  export type EquipmentUncheckedUpdateWithoutCategoriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exercises?: ExerciseUncheckedUpdateManyWithoutEquipmentNestedInput
+  }
+
+  export type EquipmentUncheckedUpdateManyWithoutCategoriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

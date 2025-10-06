@@ -2,13 +2,9 @@ import { z } from "zod";
 
 import { validationUtil } from "./util.validation";
 
-import {
-  EXERCISE_EQUIPMENT,
-  EXERCISE_MUSCLES,
-  EXERCISE_TYPES,
-} from "../consts/exercise.consts";
+import { EXERCISE_TYPES } from "../consts/exercise.consts";
 import type {
-  IExerciseDTO,
+  IExerciseEditDTO,
   IExerciseFilter,
   TExerciseInfo,
 } from "../models/exercise.model";
@@ -29,17 +25,25 @@ const getExerciseEnumError = (
     : `Invalid ${type} type`;
 };
 
-const ExerciseMuscleSchema = z.enum(EXERCISE_MUSCLES, {
-  message: getExerciseEnumError(EXERCISE_MUSCLES, "muscles"),
-});
-
-const ExerciseEquipmentSchema = z.enum(EXERCISE_EQUIPMENT, {
-  message: getExerciseEnumError(EXERCISE_EQUIPMENT, "equipment"),
-});
-
 const ExerciseTypeSchema = z.enum(EXERCISE_TYPES, {
   message: getExerciseEnumError(EXERCISE_TYPES, "type"),
 });
+
+const exerciseInfoFactorySchema = ({
+  toSanitize = false,
+  name,
+}: IToSanitize & { name: string }) => {
+  return z.object({
+    name: validationUtil.stringSchemaFactory({
+      fieldName: name,
+      minLength: 1,
+      toSanitize,
+    }),
+    crudOperation: z
+      .optional(validationUtil.CrudOperationEnumSchema)
+      .default("read"),
+  });
+};
 
 const YoutubeURLSchema = (toSanitize?: boolean) => {
   return validationUtil
@@ -86,6 +90,7 @@ const YoutubeURLSchema = (toSanitize?: boolean) => {
       return youtubeRegex.test(url);
     }, "Must be a valid YouTube URL");
 };
+
 const createFactorySchema = ({ toSanitize = false }: IToSanitize) => {
   return z.object({
     youtubeUrl: YoutubeURLSchema(toSanitize),
@@ -100,25 +105,27 @@ const createFactorySchema = ({ toSanitize = false }: IToSanitize) => {
       .optional()
       .nullable(),
 
-    // notes: validationUtil
-    //   .stringSchemaFactory({
-    //     fieldName: "Exercise notes",
-    //     toSanitize,
-    //   })
-    //   .optional()
-    //   .nullable(),
-    type: ExerciseTypeSchema,
-
-    equipment: z
-      .array(ExerciseEquipmentSchema, {
-        required_error: "Equipment is required.",
+    notes: validationUtil
+      .stringSchemaFactory({
+        fieldName: "Exercise notes",
+        toSanitize,
       })
+      .optional(),
+    type: ExerciseTypeSchema,
+    isCompounded: validationUtil.BooleanSchema.default(false),
+    equipment: z
+      .array(
+        exerciseInfoFactorySchema({ toSanitize, name: "Equipment name" }),
+        {
+          required_error: "Equipment is required.",
+        }
+      )
       .min(1, "At least one equipment type is required")
       .max(8, "Maximum 8 equipment types allowed")
       .transform((equipment) => [...new Set(equipment)]), // Remove duplicates
 
     muscles: z
-      .array(ExerciseMuscleSchema, {
+      .array(exerciseInfoFactorySchema({ toSanitize, name: "Muscle  name" }), {
         required_error: "Muscles are required.",
       })
       .min(1, "At least one muscle group is required")
@@ -142,18 +149,18 @@ const QuerySchema = validationUtil.FilterSchema.extend({
   equipment: z
     .string()
     .transform((val) => val.split(","))
-    .pipe(z.array(ExerciseEquipmentSchema))
+    .pipe(z.array(z.string().optional()))
     .optional(),
 
   muscles: z
     .string()
     .transform((val) => val.split(","))
-    .pipe(z.array(ExerciseMuscleSchema))
+    .pipe(z.array(z.string().optional()))
     .optional(),
 });
 
 export const exerciseValidation: IValidation<
-  IExerciseDTO,
+  IExerciseEditDTO,
   IExerciseFilter,
   TExerciseCreateValidatedInput,
   TExerciseUpdateValidatedInput,

@@ -1,12 +1,19 @@
 import request from "supertest";
 import { app } from "../../server";
-import { IExerciseDTO } from "../../../../shared/models/exercise.model";
-import { IAuthSignUpDTO } from "../../../../shared/models/auth.model";
+import type {
+  IExerciseDTO,
+  IExerciseEditDTO,
+} from "../../../../shared/models/exercise.model";
+import type { IAuthSignUpDTO } from "../../../../shared/models/auth.model";
+import { IEquipment, IMuscle } from "./exercises.models";
+import { before } from "node:test";
 
 describe("Exercises API", () => {
   let authToken: string;
   let testUserId: string;
   const testExercises: IExerciseDTO[] = [];
+  let muscles: IMuscle[] = [];
+  let equipment: IEquipment[] = [];
 
   beforeAll(async () => {
     const userCredentials: IAuthSignUpDTO = {
@@ -21,17 +28,32 @@ describe("Exercises API", () => {
       .send(userCredentials);
     testUserId = userRes.body.data.id;
     authToken = userRes.headers["set-cookie"][0].split(";")[0].split("=")[1];
+
+    const musclesRes = await request(app)
+      .get("/api/v1/exercises/muscles/list")
+      .set("Cookie", `token=${authToken}`);
+    muscles = musclesRes.body.data;
+
+    const equipmentRes = await request(app)
+      .get("/api/v1/exercises/equipment/list")
+      .set("Cookie", `token=${authToken}`);
+    equipment = equipmentRes.body.data;
   });
 
   describe("POST /api/v1/exercises/edit", () => {
     it("should create a new exercise successfully", async () => {
-      const newExercise: IExerciseDTO = {
+      const randomMuscles = muscles.sort(() => 0.5 - Math.random()).slice(0, 2);
+      const randomEquipment = equipment
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+      const newExercise: IExerciseEditDTO = {
         name: "Testable Bench Press",
         youtubeUrl: "https://www.youtube.com/watch?v=test12345",
         type: "strength",
-        equipment: ["barbell"],
-        muscles: ["chest", "triceps"],
+        equipment: randomEquipment,
+        muscles: randomMuscles,
         ownerId: testUserId,
+        isCompounded: true,
       };
 
       const res = await request(app)
@@ -54,19 +76,25 @@ describe("Exercises API", () => {
       expect(exercise.equipment).toEqual(
         expect.arrayContaining(newExercise?.equipment ?? [])
       );
+
       expect(exercise.muscles).toEqual(
         expect.arrayContaining(newExercise?.muscles ?? [])
       );
     });
 
     it("should reject exercise with invalid youtubeUrl ", async () => {
-      const invalidExercise = {
+      const randomMuscles = muscles.sort(() => 0.5 - Math.random()).slice(0, 2);
+      const randomEquipment = equipment
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+      const invalidExercise: IExerciseEditDTO = {
         name: "Invalid Data Exercise",
         youtubeUrl: "not-a-valid-url",
-        types: ["strength"],
-        equipment: ["barbell"],
-        muscles: ["chest"],
+        type: "strength",
+        equipment: randomEquipment,
+        muscles: randomMuscles,
         ownerId: testUserId,
+        isCompounded: false,
       };
 
       const res = await request(app)
@@ -84,8 +112,9 @@ describe("Exercises API", () => {
       const incompleteExercise = {
         name: "Incomplete Exercise",
         ownerId: testUserId,
+        isCompounded: false,
 
-        // Missing youtubeUrl, types, equipment, muscles
+        // Missing youtubeUrl, type, equipment, muscles
       };
 
       const res = await request(app)
@@ -104,13 +133,18 @@ describe("Exercises API", () => {
     });
 
     it("should reject exercise with missing required type", async () => {
+      const randomMuscles = muscles.sort(() => 0.5 - Math.random()).slice(0, 2);
+      const randomEquipment = equipment
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
       const incompleteExercise = {
         name: "Incomplete Type Exercise",
         youtubeUrl: "https://www.youtube.com/watch?v=test12345",
         type: "fun",
-        equipment: ["barbell"],
-        muscles: ["chest", "triceps"],
+        equipment: randomEquipment,
+        muscles: randomMuscles,
         ownerId: testUserId,
+        isCompounded: false,
       };
 
       const res = await request(app)
@@ -126,13 +160,17 @@ describe("Exercises API", () => {
     });
 
     it("should reject exercise with missing required muscles", async () => {
-      const incompleteExercise = {
+      const randomEquipment = equipment
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+      const incompleteExercise: IExerciseEditDTO = {
         name: "Incomplete Muscles Exercise",
         youtubeUrl: "https://www.youtube.com/watch?v=test12345",
         type: "strength",
-        equipment: ["barbell"],
-        muscles: ["head", "lag"],
+        equipment: randomEquipment,
+        muscles: [{ name: "head" }, { name: "lag" }],
         ownerId: testUserId,
+        isCompounded: false,
       };
 
       const res = await request(app)
@@ -142,24 +180,22 @@ describe("Exercises API", () => {
 
       expect(res.status).toBe(400);
       expect(res.body.message).toBeDefined();
-      expect(res.body.message).toMatch("Validation failed");
-
-      expect(res.body.errors).toBeDefined();
-      expect(res.body.errors["muscles.0"]).toBeDefined();
-      expect(res.body.errors["muscles.1"]).toBeDefined();
-
-      expect(res.body.errors["muscles.0"]).toMatch("Invalid muscles type");
-      expect(res.body.errors["muscles.1"]).toMatch("Invalid muscles type");
+      expect(res.body.message).toMatch(
+        "One or more referenced records not found"
+      );
     });
 
     it("should reject exercise with missing required equipment", async () => {
-      const incompleteExercise = {
+      const randomMuscles = muscles.sort(() => 0.5 - Math.random()).slice(0, 2);
+
+      const incompleteExercise: IExerciseEditDTO = {
         name: "Incomplete Muscles Exercise",
         youtubeUrl: "https://www.youtube.com/watch?v=test12345",
         type: "strength",
-        equipment: ["wall", "BomB"],
-        muscles: ["glutes"],
+        equipment: [{ name: "wall" }, { name: "BomB" }],
+        muscles: randomMuscles,
         ownerId: testUserId,
+        isCompounded: false,
       };
 
       const res = await request(app)
@@ -170,24 +206,24 @@ describe("Exercises API", () => {
       expect(res.status).toBe(400);
 
       expect(res.body.message).toBeDefined();
-      expect(res.body.message).toMatch("Validation failed");
-
-      expect(res.body.errors).toBeDefined();
-      expect(res.body.errors["equipment.0"]).toBeDefined();
-      expect(res.body.errors["equipment.1"]).toBeDefined();
-
-      expect(res.body.errors["equipment.0"]).toMatch("Invalid equipment type");
-      expect(res.body.errors["equipment.1"]).toMatch("Invalid equipment type");
+      expect(res.body.message).toMatch(
+        "One or more referenced records not found"
+      );
     });
 
     it("should reject exercise with missing credentials", async () => {
-      const newExercise: IExerciseDTO = {
+      const randomMuscles = muscles.sort(() => 0.5 - Math.random()).slice(0, 2);
+      const randomEquipment = equipment
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+      const newExercise: IExerciseEditDTO = {
         name: "Testable Bench Press",
         youtubeUrl: "https://www.youtube.com/watch?v=test12345",
         type: "strength",
-        equipment: ["barbell"],
-        muscles: ["chest", "triceps"],
+        equipment: randomEquipment,
+        muscles: randomMuscles,
         ownerId: testUserId,
+        isCompounded: true,
       };
 
       const res = await request(app)
@@ -198,13 +234,18 @@ describe("Exercises API", () => {
     });
 
     it("should sanitize HTML tags from exercise name", async () => {
-      const exerciseWithHtml: IExerciseDTO = {
+      const randomMuscles = muscles.sort(() => 0.5 - Math.random()).slice(0, 2);
+      const randomEquipment = equipment
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+      const exerciseWithHtml: IExerciseEditDTO = {
         name: "<script>alert('xss')</script>Malicious <b>Bench</b> Press",
         youtubeUrl: "https://www.youtube.com/watch?v=test12345",
         type: "strength",
-        equipment: ["barbell"],
-        muscles: ["chest", "triceps"],
+        equipment: randomEquipment,
+        muscles: randomMuscles,
         ownerId: testUserId,
+        isCompounded: false,
       };
 
       const res = await request(app)
@@ -221,13 +262,18 @@ describe("Exercises API", () => {
     });
 
     it("should sanitize HTML tags from exercise name", async () => {
-      const exerciseWithHtmlNotes: IExerciseDTO = {
+      const randomMuscles = muscles.sort(() => 0.5 - Math.random()).slice(0, 2);
+      const randomEquipment = equipment
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+      const exerciseWithHtmlNotes: IExerciseEditDTO = {
         name: '<p>This is a <strong>great</strong> exercise!</p><script>alert("hack")</script>',
         youtubeUrl: "https://www.youtube.com/watch?v=test12345",
         type: "strength",
-        equipment: ["barbell"],
-        muscles: ["chest", "triceps"],
+        equipment: randomEquipment,
+        muscles: randomMuscles,
         ownerId: testUserId,
+        isCompounded: false,
       };
 
       const res = await request(app)
@@ -244,12 +290,17 @@ describe("Exercises API", () => {
     });
 
     it("should handle multiple whitespace characters in exercise name", async () => {
-      const exerciseWithWhitespace: IExerciseDTO = {
+      const randomMuscles = muscles.sort(() => 0.5 - Math.random()).slice(0, 2);
+      const randomEquipment = equipment
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+      const exerciseWithWhitespace: IExerciseEditDTO = {
         name: "   Spaced    Out     Exercise   ",
         youtubeUrl: "https://www.youtube.com/watch?v=test12345",
         type: "strength",
-        equipment: ["barbell"],
-        muscles: ["chest", "triceps"],
+        equipment: randomEquipment,
+        muscles: randomMuscles,
+        isCompounded: false,
         ownerId: testUserId,
       };
 
@@ -267,12 +318,17 @@ describe("Exercises API", () => {
     });
 
     it("should sanitize dangerous HTML attributes onerror", async () => {
-      const exerciseWithDangerousHtml: IExerciseDTO = {
+      const randomMuscles = muscles.sort(() => 0.5 - Math.random()).slice(0, 2);
+      const randomEquipment = equipment
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+      const exerciseWithDangerousHtml: IExerciseEditDTO = {
         name: '<img src="x" onerror="alert(1)">Dangerous Exercise',
         youtubeUrl: "https://www.youtube.com/watch?v=test12345",
         type: "strength",
-        equipment: ["barbell"],
-        muscles: ["chest", "triceps"],
+        equipment: randomEquipment,
+        muscles: randomMuscles,
+        isCompounded: false,
         ownerId: testUserId,
       };
 
@@ -294,12 +350,17 @@ describe("Exercises API", () => {
     });
 
     it("should sanitize dangerous HTML attributes onclick", async () => {
-      const exerciseWithDangerousHtml: IExerciseDTO = {
+      const randomMuscles = muscles.sort(() => 0.5 - Math.random()).slice(0, 2);
+      const randomEquipment = equipment
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+      const exerciseWithDangerousHtml: IExerciseEditDTO = {
         name: '<div onclick="steal()">Click me</div> Dangerous Exercise',
         youtubeUrl: "https://www.youtube.com/watch?v=test12345",
         type: "strength",
-        equipment: ["barbell"],
-        muscles: ["chest", "triceps"],
+        equipment: randomEquipment,
+        muscles: randomMuscles,
+        isCompounded: false,
         ownerId: testUserId,
       };
 
@@ -321,12 +382,17 @@ describe("Exercises API", () => {
     });
 
     it("should handle empty strings after sanitization", async () => {
-      const exerciseWithOnlyHtml: IExerciseDTO = {
+      const randomMuscles = muscles.sort(() => 0.5 - Math.random()).slice(0, 2);
+      const randomEquipment = equipment
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+      const exerciseWithOnlyHtml: IExerciseEditDTO = {
         name: "<script></script><style></style>",
         youtubeUrl: "https://www.youtube.com/watch?v=test12345",
         type: "strength",
-        equipment: ["barbell"],
-        muscles: ["chest", "triceps"],
+        equipment: randomEquipment,
+        muscles: randomMuscles,
+        isCompounded: false,
         ownerId: testUserId,
       };
 
@@ -373,7 +439,9 @@ describe("Exercises API", () => {
       const exercisesRes = res.body.data;
       expect(res.status).toBe(200);
       expect(
-        exercisesRes.every((e: IExerciseDTO) => e.muscles?.includes("biceps"))
+        exercisesRes.every((e: IExerciseDTO) =>
+          e.muscles?.includes({ name: "biceps" })
+        )
       ).toBe(true);
     });
 
@@ -389,16 +457,23 @@ describe("Exercises API", () => {
   });
 
   describe("GET /api/v1/exercises/:id", () => {
+    let randomMuscles: IMuscle[] = [];
+    let randomEquipment: IEquipment[] = [];
     let exerciseRes: IExerciseDTO;
-    const exercise: IExerciseDTO = {
-      name: "Get By ID Test",
-      youtubeUrl: "https://www.youtube.com/watch?v=getbyidtest",
-      type: "cardio",
-      equipment: ["air_bike"],
-      muscles: ["chest"],
-      ownerId: testUserId,
-    };
+    let exercise: IExerciseEditDTO;
+
     beforeAll(async () => {
+      randomMuscles = muscles.sort(() => 0.5 - Math.random()).slice(0, 2);
+      randomEquipment = equipment.sort(() => 0.5 - Math.random()).slice(0, 1);
+      exercise = {
+        name: "Get By ID Test",
+        youtubeUrl: "https://www.youtube.com/watch?v=getbyidtest",
+        type: "cardio",
+        equipment: randomEquipment,
+        muscles: randomMuscles,
+        isCompounded: false,
+        ownerId: testUserId,
+      };
       exercise.ownerId = testUserId;
 
       const res = await request(app)
@@ -437,15 +512,27 @@ describe("Exercises API", () => {
   });
 
   describe("PUT /api/v1/exercises/edit/:id", () => {
+    let musclesA: IMuscle[] = [];
+    let musclesB: IMuscle[] = [];
+    let equipmentA: IEquipment[] = [];
+    let equipmentB: IEquipment[] = [];
     let exerciseId: string;
-    const baseExercise: IExerciseDTO = {
-      name: "Exercise To Update",
-      youtubeUrl: "https://www.youtube.com/watch?v=tobeupdatedTest",
-      type: "strength",
-      equipment: ["dumbbell"],
-      muscles: ["adductors"],
-      ownerId: testUserId,
-    };
+    let baseExercise: IExerciseEditDTO;
+    beforeAll(async () => {
+      musclesA = [muscles[0], muscles[1]];
+      musclesB = [muscles[2], muscles[3]];
+      equipmentA = [equipment[0]];
+      equipmentB = [equipment[1]];
+      baseExercise = {
+        name: "Exercise To Update",
+        youtubeUrl: "https://www.youtube.com/watch?v=tobeupdatedTest",
+        type: "strength",
+        equipment: equipmentA,
+        muscles: musclesA,
+        isCompounded: false,
+        ownerId: testUserId,
+      };
+    });
 
     beforeEach(async () => {
       baseExercise.ownerId = testUserId;
@@ -463,7 +550,7 @@ describe("Exercises API", () => {
     });
 
     it("should update exercise name successfully", async () => {
-      const updateData: Partial<IExerciseDTO> = {
+      const updateData: Partial<IExerciseEditDTO> = {
         name: "Updated Exercise Name",
         ownerId: testUserId,
       };
@@ -480,8 +567,16 @@ describe("Exercises API", () => {
     });
 
     it("should update exercise muscles successfully", async () => {
-      const updateData: Partial<IExerciseDTO> = {
-        muscles: ["hip_flexors", "triceps"],
+      const deleteMuscleA: IMuscle[] = musclesA.map((m) => ({
+        ...m,
+        crudOperation: "delete",
+      }));
+      const connectMuscleB: IMuscle[] = musclesB.map((m) => ({
+        ...m,
+        crudOperation: "create",
+      }));
+      const updateData: Partial<IExerciseEditDTO> = {
+        muscles: [...deleteMuscleA, ...connectMuscleB],
         ownerId: testUserId,
       };
 
@@ -491,16 +586,26 @@ describe("Exercises API", () => {
         .send(updateData);
 
       expect(res.status).toBe(200);
-      expect(res.body.data.muscles).toEqual(
-        expect.arrayContaining(updateData.muscles ?? [])
+
+      const resExercise: IExerciseDTO = res.body.data;
+      expect(resExercise?.muscles?.map((m: any) => m.name)).toEqual(
+        expect.arrayContaining(connectMuscleB.map((m: any) => m.name))
       );
-      expect(res.body.data.name).toBe(baseExercise.name?.toLowerCase());
-      expect(res.body.data.type).toBe(baseExercise.type);
+      expect(resExercise.name).toBe(baseExercise.name?.toLowerCase());
+      expect(resExercise.type).toBe(baseExercise.type);
     });
 
     it("should update exercise equipment successfully", async () => {
-      const updateData: Partial<IExerciseDTO> = {
-        equipment: ["barbell", "adjustable_bench"],
+      const deleteEquipmentA: IEquipment[] = equipmentA.map((e) => ({
+        ...e,
+        crudOperation: "delete",
+      }));
+      const connectEquipmentB: IEquipment[] = equipmentB.map((e) => ({
+        ...e,
+        crudOperation: "create",
+      }));
+      const updateData: Partial<IExerciseEditDTO> = {
+        equipment: [...deleteEquipmentA, ...connectEquipmentB],
         ownerId: testUserId,
       };
 
@@ -510,11 +615,12 @@ describe("Exercises API", () => {
         .send(updateData);
 
       expect(res.status).toBe(200);
-      expect(res.body.data.equipment).toEqual(
-        expect.arrayContaining(updateData.equipment ?? [])
+      const resExercise: IExerciseDTO = res.body.data;
+      expect(resExercise?.equipment?.map((m: any) => m.name)).toEqual(
+        expect.arrayContaining(connectEquipmentB.map((m: any) => m.name))
       );
-      expect(res.body.data.name).toBe(baseExercise.name?.toLowerCase());
-      expect(res.body.data.muscles).toEqual(
+      expect(resExercise.name).toBe(baseExercise.name?.toLowerCase());
+      expect(resExercise.muscles).toEqual(
         expect.arrayContaining(baseExercise.muscles ?? [])
       );
     });
@@ -556,11 +662,29 @@ describe("Exercises API", () => {
     });
 
     it("should update multiple fields at once", async () => {
-      const updateData: Partial<IExerciseDTO> = {
+      const deleteMuscleA: IMuscle[] = musclesA.map((m) => ({
+        ...m,
+        crudOperation: "delete",
+      }));
+      const connectMuscleB: IMuscle[] = musclesB.map((m) => ({
+        ...m,
+        crudOperation: "create",
+      }));
+
+      const deleteEquipmentA: IEquipment[] = equipmentA.map((e) => ({
+        ...e,
+        crudOperation: "delete",
+      }));
+      const connectEquipmentB: IEquipment[] = equipmentB.map((e) => ({
+        ...e,
+        crudOperation: "create",
+      }));
+
+      const updateData: Partial<IExerciseEditDTO> = {
         name: "Completely Updated Exercise",
         type: "flexibility",
-        muscles: ["hamstrings", "calves"],
-        equipment: ["yoga_mat"],
+        muscles: [...deleteMuscleA, ...connectMuscleB],
+        equipment: [...deleteEquipmentA, ...connectEquipmentB],
         ownerId: testUserId,
       };
 
@@ -570,13 +694,14 @@ describe("Exercises API", () => {
         .send(updateData);
 
       expect(res.status).toBe(200);
-      expect(res.body.data.name).toBe("completely updated exercise");
-      expect(res.body.data.type).toBe("flexibility");
-      expect(res.body.data.muscles).toEqual(
-        expect.arrayContaining(updateData.muscles ?? [])
+      const resExercise: IExerciseDTO = res.body.data;
+      expect(resExercise.name).toBe("completely updated exercise");
+      expect(resExercise.type).toBe("flexibility");
+      expect(resExercise?.muscles?.map((m: any) => m.name)).toEqual(
+        expect.arrayContaining(connectMuscleB.map((m: any) => m.name))
       );
-      expect(res.body.data.equipment).toEqual(
-        expect.arrayContaining(updateData.equipment ?? [])
+      expect(resExercise?.equipment?.map((m: any) => m.name)).toEqual(
+        expect.arrayContaining(connectEquipmentB.map((m: any) => m.name))
       );
     });
 
@@ -630,8 +755,11 @@ describe("Exercises API", () => {
     });
 
     it("should reject update with invalid muscles", async () => {
-      const updateData = {
-        muscles: ["invalid-muscle", "another-invalid"],
+      const updateData: Partial<IExerciseEditDTO> = {
+        muscles: [
+          { name: "invalid-muscle", crudOperation: "create" },
+          { name: "another-invalid", crudOperation: "create" },
+        ],
         ownerId: testUserId,
       };
 
@@ -640,14 +768,19 @@ describe("Exercises API", () => {
         .set("Cookie", `token=${authToken}`)
         .send(updateData);
 
+      console.log("🚀 ~ res.body:", res.body);
       expect(res.status).toBe(400);
-      expect(res.body.errors["muscles.0"]).toMatch("Invalid muscles type");
-      expect(res.body.errors["muscles.1"]).toMatch("Invalid muscles type");
+      expect(res.body.message).toMatch(
+        "One or more referenced records not found"
+      );
     });
 
     it("should reject update with invalid equipment", async () => {
-      const updateData = {
-        equipment: ["invalid-equipment", "another-invalid"],
+      const updateData: Partial<IExerciseEditDTO> = {
+        equipment: [
+          { name: "invalid-equipment", crudOperation: "create" },
+          { name: "another-invalid", crudOperation: "create" },
+        ],
         ownerId: testUserId,
       };
 
@@ -657,8 +790,9 @@ describe("Exercises API", () => {
         .send(updateData);
 
       expect(res.status).toBe(400);
-      expect(res.body.errors["equipment.0"]).toMatch("Invalid equipment type");
-      expect(res.body.errors["equipment.1"]).toMatch("Invalid equipment type");
+      expect(res.body.message).toMatch(
+        "One or more referenced records not found"
+      );
     });
 
     it("should normalize YouTube URLs on update", async () => {
@@ -704,7 +838,7 @@ describe("Exercises API", () => {
         .set("Cookie", `token=${authToken}`)
         .send(updateData);
 
-      expect(res.status).toBe(404);
+      expect(res.status).toBe(400);
       expect(res.body.message).toMatch(
         "One or more referenced records not found"
       );
@@ -743,12 +877,17 @@ describe("Exercises API", () => {
 
   describe("DELETE /api/v1/exercises/:id", () => {
     it("should delete an existing exercise", async () => {
-      const exercise: IExerciseDTO = {
+      const randomMuscles = muscles.sort(() => 0.5 - Math.random()).slice(0, 2);
+      const randomEquipment = equipment
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 1);
+      const exercise: IExerciseEditDTO = {
         name: "Exercise To Be Deleted",
         youtubeUrl: "https://www.youtube.com/watch?v=tobedeleted",
         type: "flexibility",
-        equipment: ["cable_crossover"],
-        muscles: ["hamstrings"],
+        equipment: randomEquipment,
+        muscles: randomMuscles,
+        isCompounded: false,
         ownerId: testUserId,
       };
       const res = await request(app)
@@ -773,7 +912,7 @@ describe("Exercises API", () => {
       const res = await request(app)
         .delete("/api/v1/exercises/non-existent-id")
         .set("Cookie", `token=${authToken}`);
-      expect(res.status).toBe(404);
+      expect(res.status).toBe(400);
     });
   });
 
