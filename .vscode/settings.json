@@ -87,5 +87,9 @@
     "titleBar.inactiveBackground": "#06538499",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "peacock.color": "#065384"
+  "peacock.color": "#065384",
+  "files.associations": {
+    "*.env": "env",
+    "*.env.production": "env"
+  }
 }
