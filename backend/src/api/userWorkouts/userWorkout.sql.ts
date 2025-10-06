@@ -5,8 +5,9 @@ import { userStrengthSetsSQL } from "../userSets/userStrengthSets/userStrengthSe
 
 import type { Prisma } from "../../../prisma/generated/prisma";
 import type { TUserWorkoutCreateValidatedInput } from "../../../../shared/validations/userWorkout.validations";
+import { userSQL } from "../users/users.sql";
 
-const USER_WORKOUT_EXERCISE_SELECT: Prisma.UserWorkoutExerciseSelect = {
+const USER_WORKOUT_EXERCISE_SELECT = {
   id: true,
   workoutExercise: {
     select: {
@@ -18,11 +19,11 @@ const USER_WORKOUT_EXERCISE_SELECT: Prisma.UserWorkoutExerciseSelect = {
       },
     },
   },
-  userStrengthSets: {
-    select: userStrengthSetsSQL.CORE_STRENGTH_SET_SELECT,
-  },
   userCardioSets: {
     select: userCardioSetsSQL.CORE_CARDIO_SET_SELECT,
+  },
+  userStrengthSets: {
+    select: userStrengthSetsSQL.CORE_STRENGTH_SET_SELECT,
   },
 };
 
@@ -33,11 +34,7 @@ const USER_WORKOUT_SELECT = {
     select: programsSQL.SMALL_PROGRAM_SELECT,
   },
   owner: {
-    select: {
-      id: true,
-      firstName: true,
-      lastName: true,
-    },
+    select: userSQL.SMALL_USER_SELECT,
   },
   workout: {
     select: {
@@ -47,25 +44,7 @@ const USER_WORKOUT_SELECT = {
     },
   },
   userWorkoutExercises: {
-    select: {
-      id: true,
-      workoutExercise: {
-        select: {
-          id: true,
-          order: true,
-          notes: true,
-          exercise: {
-            select: exerciseSQL.EXERCISE_SELECT,
-          },
-        },
-      },
-      userCardioSets: {
-        select: userCardioSetsSQL.CORE_CARDIO_SET_SELECT,
-      },
-      userStrengthSets: {
-        select: userStrengthSetsSQL.CORE_STRENGTH_SET_SELECT,
-      },
-    },
+    select: USER_WORKOUT_EXERCISE_SELECT,
   },
 };
 

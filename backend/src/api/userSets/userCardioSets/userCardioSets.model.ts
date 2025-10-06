@@ -1,11 +1,11 @@
 export interface IUserCardioSet {
   id: string;
-  workTime: number; // in seconds
-  avgHeartRate: number;
-  avgSpeed: number; // in km/h
-  distance: number; // in meters
-  caloriesBurned: number;
+  workTime: number|null; // in seconds
+  avgHeartRate: number|null;
+  avgSpeed: number|null; // in km/h
+  distance: number|null; // in meters
+  caloriesBurned: number|null;
   isCompleted: boolean;
   order?: number;
-  skippedReason?: string;
+  skippedReason?: string|null;
 }

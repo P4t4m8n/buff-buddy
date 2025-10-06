@@ -253,7 +253,9 @@ const _getPlanedUserWorkoutExercise = ({
   debugger;
 
   const isComplete = lastUserWorkouts?.every((luw) =>
-    luw.userStrengthSets?.every((uss) => uss.reps >= workoutGoalData.maxReps)
+    luw.userStrengthSets?.every(
+      (uss) => (uss?.reps ?? 0) >= workoutGoalData.maxReps
+    )
   );
 
   const lastSetArr = lastUserWorkouts![0].userStrengthSets!.sort(
@@ -278,7 +280,7 @@ const _getPlanedUserWorkoutExercise = ({
       const lastSet = lastSetArr[idx];
 
       const lastWeight = lastSet.weight;
-      const lastRep = lastSet.reps;
+      const lastRep = lastSet?.reps ?? 0;
       let goalSet: IGoalSet = {
         reps:
           lastRep >= workoutGoalData.maxReps

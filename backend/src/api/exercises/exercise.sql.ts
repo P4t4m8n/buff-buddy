@@ -12,6 +12,14 @@ const EXERCISE_SELECT: Prisma.ExerciseSelect = {
   type: true,
   equipment: true,
   muscles: true,
+  owner: {
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+    },
+  },
+  ownerId: true,
 };
 
 const getExerciseCreate = (
