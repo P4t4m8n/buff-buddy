@@ -1,6 +1,6 @@
 export interface IUserStrengthSet {
   id: string;
-  reps: number;
+  reps: number | null;
   weight: number | null;
   isWarmup: boolean;
   isCompleted: boolean;
