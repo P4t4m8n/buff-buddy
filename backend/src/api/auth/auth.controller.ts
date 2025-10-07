@@ -1,16 +1,17 @@
+//Services
 import { authService } from "./auth.service";
 import { AppError } from "../../shared/services/Error.service";
-
+//Middlewares
 import { asyncLocalStorage } from "../../middlewares/localStorage.middleware";
-
+//Validations
 import { authValidation } from "../../../../shared/validations/auth.validation";
-
+//Consts
 import { COOKIE } from "./auth.consts";
-
+//Types
 import type { TGoogleUserResponse } from "./auth.model";
 import type { Request, Response } from "express";
 
-export const signUp = async (req: Request, res: Response) => {
+const signUp = async (req: Request, res: Response) => {
   try {
     const validateData = authValidation
       .signUpFactorySchema({ toSanitize: true })
@@ -31,7 +32,7 @@ export const signUp = async (req: Request, res: Response) => {
   }
 };
 
-export const signIn = async (req: Request, res: Response) => {
+const signIn = async (req: Request, res: Response) => {
   try {
     const validateData = authValidation
       .signInFactorySchema({ toSanitize: true })
@@ -52,7 +53,7 @@ export const signIn = async (req: Request, res: Response) => {
   }
 };
 
-export const signOut = async (req: Request, res: Response) => {
+const signOut = async (req: Request, res: Response) => {
   try {
     res.clearCookie("token", COOKIE).status(200).json({
       message: "User signed out successfully",
@@ -66,7 +67,7 @@ export const signOut = async (req: Request, res: Response) => {
   }
 };
 
-export const getSessionUser = async (_: Request, res: Response) => {
+const getSessionUser = async (_: Request, res: Response) => {
   try {
     const user = asyncLocalStorage.getStore()?.sessionUser;
 
@@ -83,22 +84,7 @@ export const getSessionUser = async (_: Request, res: Response) => {
   }
 };
 
-//DELETE, dont know if it being used. keep it as a comment till sure. commented at 9.17.25
-
-// export const googleRedirect = async (_: Request, res: Response) => {
-//   const clientId = process.env.GOOGLE_CLIENT_ID;
-//   const redirectUri = process.env.GOOGLE_REDIRECT_URI;
-
-//   if (!clientId || !redirectUri) {
-//     throw AppError.create("Google OAuth credentials are not set", 500);
-//   }
-
-//   const googleAuthURL = `https://accounts.google.com/o/oauth2/v2/auth
-//   ?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email%20profile`;
-//   res.redirect(googleAuthURL);
-// };
-
-export const googleCallback = async (req: Request, res: Response) => {
+const googleCallback = async (req: Request, res: Response) => {
   try {
     const frontendUrl = process.env.FRONTEND_URL;
     if (!frontendUrl) {
@@ -136,7 +122,7 @@ export const googleCallback = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteUser = async (req: Request, res: Response) => {
+const deleteUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
@@ -216,4 +202,13 @@ const getGoogleUserInfo = async (
   }
   const userInfo = await userInfoResponse.json();
   return userInfo as TGoogleUserResponse;
+};
+
+export const authController = {
+  signUp,
+  signIn,
+  signOut,
+  getSessionUser,
+  googleCallback,
+  deleteUser,
 };

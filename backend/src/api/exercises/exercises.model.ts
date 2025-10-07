@@ -6,6 +6,7 @@ export interface IExercise {
   youtubeUrl: string;
   type: ExerciseType;
   equipment?: IEquipment[];
+  isCompounded: boolean | null;
   muscles?: IMuscle[];
   ownerId: string | null;
 }

@@ -17,7 +17,7 @@ import type {
   TExerciseUpdateValidatedInput,
   TExerciseQuery,
 } from "../../../../shared/validations/exercise.validation";
-import type { IExercise } from "./exercises.models";
+import type { IExercise } from "./exercises.model";
 import type { IGetMetaData } from "../../../../shared/models/metaData.model";
 import type { Response, Request } from "express";
 
@@ -36,7 +36,7 @@ const exerciseGenericController = genericControllerFactory<
   isAuth: false,
 });
 
-const getMuscles = async (req: Request, res: Response) => {
+const getMuscles = async (_: Request, res: Response) => {
   try {
     const [muscles, count] = await exerciseService.getMuscles();
 

@@ -1,26 +1,26 @@
-import type { IBaseFilter, TCrudOperation } from "./app.model";
-import type { IEntity } from "./entity.model";
+//Consts
 import { EXERCISE_INFO } from "../consts/exercise.consts";
+//Types
+import type { IBaseFilter } from "./app.model";
+import type { IMuscleEditDTO, IMuscleDTO } from "./muscle.model";
+import type { IEquipmentDTO, IEquipmentEditDTO } from "./equipment.model";
+import type { IEntity, IEntityDates } from "./entity.model";
 import type { ExerciseType } from "../../backend/prisma/generated/prisma";
-import {
-  IEquipment,
-  IMuscle,
-} from "../../backend/src/api/exercises/exercises.models";
 
-interface IExerciseBase extends IEntity {
+interface IExerciseBase extends IEntity, IEntityDates {
   name?: string;
   youtubeUrl?: string | null;
-  isCompounded?: boolean;
+  isCompounded?: boolean | null;
   type?: ExerciseType | null;
   ownerId?: string | null;
 }
 export interface IExerciseDTO extends IExerciseBase {
-  equipment?: Array<Partial<IEquipment>>;
-  muscles?: Array<Partial<IMuscle>>;
+  equipment?: IEquipmentDTO[];
+  muscles?: IMuscleDTO[];
 }
 export interface IExerciseEditDTO extends IExerciseBase {
-  equipment: IExerciseInfoEdit[];
-  muscles: IExerciseInfoEdit[];
+  equipment: IEquipmentEditDTO[];
+  muscles: IMuscleEditDTO[];
 }
 
 export interface IExerciseFilter extends IBaseFilter {
@@ -31,8 +31,3 @@ export interface IExerciseFilter extends IBaseFilter {
   isCompounded?: boolean | string;
 }
 export type TExerciseInfo = (typeof EXERCISE_INFO)[number];
-
-interface IExerciseInfoEdit {
-  name?: string | null;
-  crudOperation?: TCrudOperation;
-}

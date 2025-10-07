@@ -9,7 +9,7 @@ import type {
   TExerciseUpdateValidatedInput,
   TExerciseQuery,
 } from "../../../../shared/validations/exercise.validation";
-import type { IEquipment, IExercise, IMuscle } from "./exercises.models";
+import type { IEquipment, IExercise, IMuscle } from "./exercises.model";
 
 const get = (filter: TExerciseQuery): Promise<[IExercise[], number]> => {
   const where: Prisma.ExerciseWhereInput =

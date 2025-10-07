@@ -1,18 +1,24 @@
+//Lib
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-
+//Services
 import { AppError } from "../../shared/services/Error.service";
-
+//Types
 import type {
   TSignUpInput,
-  TSignInInput,
   TGoogleOAuthInput,
 } from "../../../../shared/validations/auth.validation";
-import { Prisma } from "../../../prisma/generated/prisma";
+import type { Prisma } from "../../../prisma/generated/prisma";
 
 const TOKEN_EXPIRATION = "7d";
 
-const generateToken = (userId: string, isAdmin: boolean) => {
+const generateToken = ({
+  userId,
+  isAdmin,
+}: {
+  userId: string;
+  isAdmin: boolean;
+}) => {
   const secret = process.env.JWT_SECRET;
   if (!secret) {
     throw AppError.create("JWT_SECRET is not defined", 500);
@@ -27,7 +33,7 @@ const generateToken = (userId: string, isAdmin: boolean) => {
   });
 };
 
-const decodeToken = (token: string) => {
+const decodeToken = ({ token }: { token: string }) => {
   const secret = process.env.JWT_SECRET;
   if (!secret) {
     throw AppError.create("JWT_SECRET is not defined", 500);
@@ -39,9 +45,11 @@ const decodeToken = (token: string) => {
   };
 };
 
-const getAuthRecord = async (
-  dto: TSignUpInput | TGoogleOAuthInput
-): Promise<Prisma.UserCreateInput> => {
+const getAuthRecord = async ({
+  dto,
+}: {
+  dto: TSignUpInput | TGoogleOAuthInput;
+}): Promise<Prisma.UserCreateInput> => {
   const { email, firstName, lastName } = dto;
   const saltRounds = parseInt(process.env.SALT_ROUNDS || "10", 10);
 

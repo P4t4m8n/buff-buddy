@@ -1,11 +1,13 @@
+//Lib
 import { prisma } from "../../../prisma/prisma";
-
+//Utils
 import { authUtil } from "./auth.util";
+//Services
 import { AppError } from "../../shared/services/Error.service";
-
+//SQL
 import { authSQL } from "./auth.sql";
 import { userSQL } from "../users/users.sql";
-
+//Types
 import type {
   TSignUpInput,
   TSignInInput,
@@ -17,7 +19,7 @@ import type { TAuthRecordResponse } from "./auth.model";
 const signUp = async (
   dto: TSignUpInput | TGoogleOAuthInput
 ): Promise<TAuthRecordResponse<IUser>> => {
-  const authRecord = await authUtil.getAuthRecord(dto);
+  const authRecord = await authUtil.getAuthRecord({ dto });
   const data = authSQL.getAuthCreate(authRecord);
   const user = await prisma.user.create({
     data: data,
@@ -27,7 +29,7 @@ const signUp = async (
   if (!user) {
     throw AppError.create("User creation failed", 500);
   }
-  const token = authUtil.generateToken(user.id, false);
+  const token = authUtil.generateToken({ userId: user.id, isAdmin: false });
   return {
     user,
     token,
@@ -63,7 +65,7 @@ const signIn = async (
     throw AppError.create("Bad Request", 400);
   }
 
-  const token = authUtil.generateToken(user.id, false);
+  const token = authUtil.generateToken({ userId: user.id, isAdmin: false });
   const { lastName, firstName, id } = user;
   return {
     user: {
@@ -79,7 +81,7 @@ const signInWithGoogle = async (
   dto: TGoogleOAuthInput
 ): Promise<TAuthRecordResponse<IUser>> => {
   const { email, googleId } = dto;
-  const authRecord = await authUtil.getAuthRecord(dto);
+  const authRecord = await authUtil.getAuthRecord({ dto });
   const data = authSQL.getAuthCreate(authRecord);
 
   const user = await prisma.user.upsert({
@@ -93,7 +95,7 @@ const signInWithGoogle = async (
     throw AppError.create("Google sign-in failed", 500);
   }
 
-  const token = authUtil.generateToken(user.id, false);
+  const token = authUtil.generateToken({ userId: user.id, isAdmin: false });
   return {
     user,
     token,
@@ -104,7 +106,7 @@ const validateToken = async (token: string) => {
     return null;
   }
 
-  const decoded = authUtil.decodeToken(token);
+  const decoded = authUtil.decodeToken({ token });
 
   return await prisma.user.findUnique({
     where: { id: decoded.userId },

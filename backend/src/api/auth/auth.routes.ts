@@ -1,21 +1,15 @@
 import { Router } from "express";
-import {
-  deleteUser,
-  getSessionUser,
-  googleCallback,
-  signIn,
-  signOut,
-  signUp,
-} from "./auth.controller";
+
+import { authController } from "./auth.controller";
 
 export const authRoutes = Router();
 
-authRoutes.post("/sign-in", signIn);
-authRoutes.post("/sign-up", signUp);
+authRoutes.post("/sign-in", authController.signIn);
+authRoutes.post("/sign-up", authController.signUp);
 
-authRoutes.post("/sign-out", signOut);
+authRoutes.post("/sign-out", authController.signOut);
 
-authRoutes.get("/google/callback", googleCallback);
-authRoutes.get("/session-user", getSessionUser);
+authRoutes.get("/google/callback", authController.googleCallback);
+authRoutes.get("/session-user", authController.getSessionUser);
 
-authRoutes.delete("/delete-user/:id", deleteUser);
+authRoutes.delete("/delete-user/:id", authController.deleteUser);

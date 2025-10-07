@@ -1,8 +1,8 @@
-//-Services
+//Services
 import { genericServiceFactory } from "./generic.service";
-//-Validations
+//Validations
 import { exerciseValidation } from "../../../shared/validations/exercise.validation";
-//-Types
+//Types
 import type {
   TExerciseCreateValidatedInput,
   TExerciseUpdateValidatedInput,
@@ -10,6 +10,7 @@ import type {
 } from "../../../shared/validations/exercise.validation";
 import type {
   IExerciseDTO,
+  IExerciseEditDTO,
   IExerciseFilter,
 } from "../../../shared/models/exercise.model";
 
@@ -17,7 +18,7 @@ const rootPath = "/exercises" as const;
 
 export const exerciseService = genericServiceFactory<
   IExerciseDTO,
-  IExerciseDTO,
+  IExerciseEditDTO,
   IExerciseFilter,
   TExerciseCreateValidatedInput,
   TExerciseUpdateValidatedInput,
@@ -26,3 +27,5 @@ export const exerciseService = genericServiceFactory<
   rootPath,
   validation: exerciseValidation,
 });
+
+

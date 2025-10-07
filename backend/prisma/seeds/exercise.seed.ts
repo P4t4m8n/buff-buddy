@@ -6,16 +6,16 @@ import { exerciseService } from "../../src/api/exercises/exercises.service";
 
 import { exerciseValidation } from "../../../shared/validations/exercise.validation";
 
-import type { IExerciseDTO } from "../../../shared/models/exercise.model";
+import type { IExerciseEditDTO } from "../../../shared/models/exercise.model";
 
 export const seedExercises = async () => {
   try {
     const exerciseJson = fs.readFileSync(
-      path.join("prisma", "jsons", "exercises.json"),
+      path.join(__dirname, "jsons", "exercises.json"),
       "utf-8"
     );
 
-    const data: IExerciseDTO[] = JSON.parse(exerciseJson);
+    const data: IExerciseEditDTO[] = JSON.parse(exerciseJson);
 
     const exercisesPromises = data.map((exercise) => {
       const validatedData = exerciseValidation

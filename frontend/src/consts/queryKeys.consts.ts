@@ -13,16 +13,35 @@ const EXERCISES_QUERY_KEY = "exercises" as const;
 const EXERCISE_ID_QUERY_KEY = "exerciseId" as const;
 const EXERCISE_MUTATION_KEY = "exerciseMutationKey" as const;
 
+const MUSCLES_QUERY_KEY = "muscles" as const;
+const MUSCLE_ID_QUERY_KEY = "muscleId" as const;
+const MUSCLE_MUTATION_KEY = "muscleMutationKey" as const;
+
+const EQUIPMENTS_QUERY_KEY = "equipments" as const;
+const EQUIPMENT_ID_QUERY_KEY = "equipmentId" as const;
+const EQUIPMENT_MUTATION_KEY = "equipmentMutationKey" as const;
+
 export const QUERY_KEYS = {
   MEAL_ID_QUERY_KEY,
   MEALS_QUERY_KEY,
+
   PROGRAMS_QUERY_KEY,
   PROGRAM_ID_QUERY_KEY,
   PROGRAM_MUTATION_KEY,
+
   WORKOUTS_QUERY_KEY,
   WORKOUT_ID_QUERY_KEY,
   WORKOUT_MUTATION_KEY,
+
   EXERCISES_QUERY_KEY,
   EXERCISE_ID_QUERY_KEY,
   EXERCISE_MUTATION_KEY,
+
+  MUSCLES_QUERY_KEY,
+  MUSCLE_ID_QUERY_KEY,
+  MUSCLE_MUTATION_KEY,
+
+  EQUIPMENTS_QUERY_KEY,
+  EQUIPMENT_ID_QUERY_KEY,
+  EQUIPMENT_MUTATION_KEY,
 };

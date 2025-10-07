@@ -1,4 +1,4 @@
-import type { IExercise } from "../exercises/exercises.models";
+import type { IExercise } from "../exercises/exercises.model";
 import type { IUser } from "../users/users.model";
 
 export interface IWorkoutExercise {

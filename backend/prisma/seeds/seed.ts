@@ -16,6 +16,7 @@ import {
 import { workoutValidation } from "../../shared/validations/workout.validations";
 import { workoutsService } from "../src/api/workouts/workouts.service";
 
+
 // export const seedExercises = async () => {
 //   try {
 //     const exerciseJson = fs.readFileSync(

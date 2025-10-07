@@ -1,9 +1,5 @@
 //Constants
-import {
-  EXERCISE_EQUIPMENT,
-  EXERCISE_MUSCLES,
-  EXERCISE_TYPES,
-} from "../../../../shared/consts/exercise.consts";
+import { EXERCISE_TYPES } from "../../../../shared/consts/exercise.consts";
 //Hooks
 import { useExerciseEdit } from "../../hooks/features/exercise/useExerciseEdit";
 //Components
@@ -24,6 +20,8 @@ import type {
   TExerciseInfo,
 } from "../../../../shared/models/exercise.model";
 import type { IModelProps } from "../../models/model.model";
+import { useMusclesQuery } from "../../hooks/features/exercise/useMusclesQuery";
+import { useEquipmentsQuery } from "../../hooks/features/exercise/useEquipmentQuery";
 
 interface ExerciseEditProps extends IModelProps<HTMLFormElement> {
   exerciseId?: string;
@@ -45,6 +43,24 @@ export default function ExerciseEdit({
     handleExerciseInfo,
   } = useExerciseEdit({ exerciseId });
 
+  const {
+    data: muscleData,
+    isLoading: muscleIsLoading,
+    error: muscleQueryError,
+  } = useMusclesQuery({});
+  const { data: musclesList, meta: musclesMeta } = muscleData ?? {};
+
+  const {
+    data: equipmentData,
+    isLoading: equipmentIsLoading,
+    error: equipmentQueryError,
+  } = useEquipmentsQuery({});
+  const { data: equipmentsList, meta: equipmentsMeta } = equipmentData ?? {};
+  console.log("🚀 ~ ExerciseEdit ~ equipmentQueryError:", equipmentQueryError);
+  console.log("🚀 ~ ExerciseEdit ~ equipmentIsLoading:", equipmentIsLoading);
+  console.log("🚀 ~ ExerciseEdit ~ equipmentsMeta:", equipmentsMeta);
+  console.log("🚀 ~ ExerciseEdit ~ equipmentsList:", equipmentsList);
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -60,7 +76,7 @@ export default function ExerciseEdit({
     }
   };
 
-  if (isLoading || !exerciseToEdit) {
+  if (isLoading || muscleIsLoading || equipmentIsLoading || !exerciseToEdit) {
     return <Loader loaderType="screen" isFullScreen={false} />;
   }
 
@@ -70,12 +86,12 @@ export default function ExerciseEdit({
   const selects = [
     {
       name: "muscles",
-      options: EXERCISE_MUSCLES,
+      options: musclesList,
       selectedOptions: muscles ?? [],
     },
     {
       name: "equipment",
-      options: EXERCISE_EQUIPMENT,
+      options: equipmentsList,
       selectedOptions: equipment ?? [],
     },
   ];
@@ -126,14 +142,14 @@ export default function ExerciseEdit({
 
       {selects.map((select) => (
         <SelectMultiWithSearch
-          options={select.options}
+          options={select.options ?? []}
           error={mutationErrors?.[select.name as keyof IExerciseDTO]}
           parentModelRef={modelRef}
           selectedOptions={select.selectedOptions}
           inputName={select.name as TExerciseInfo}
           key={select.name}
           handleSelect={handleExerciseInfo}
-          filterBy={(item) => item}
+          filterBy={(item) => item.name}
         />
       ))}
 
