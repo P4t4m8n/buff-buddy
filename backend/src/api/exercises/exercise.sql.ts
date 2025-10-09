@@ -59,6 +59,7 @@ const EXERCISE_SELECT: Prisma.ExerciseSelect = {
   name: true,
   youtubeUrl: true,
   type: true,
+  isCompounded: true,
   equipment: {
     select: EQUIPMENT_SELECT,
   },
@@ -92,6 +93,7 @@ const getExerciseCreate = (
     name: dto.name,
     youtubeUrl: dto.youtubeUrl,
     type: dto.type,
+    isCompounded:dto.isCompounded,
     equipment: {
       connect: dto.equipment.map((e) => ({ name: e.name })),
     },
@@ -120,7 +122,7 @@ const getExerciseCreate = (
 const getExerciseUpdate = (
   dto: TExerciseUpdateValidatedInput
 ): Prisma.ExerciseUpdateInput => {
-  const { muscles, equipment, name, youtubeUrl, type } = dto;
+  const { muscles, equipment, name, youtubeUrl, type, isCompounded } = dto;
   const muscleToDelete: Prisma.MuscleWhereUniqueInput[] = [];
   const musclesToConnect: Prisma.MuscleWhereUniqueInput[] = [];
 
@@ -160,6 +162,7 @@ const getExerciseUpdate = (
     name,
     youtubeUrl,
     type,
+    isCompounded,
   });
   return {
     ...cleanData,

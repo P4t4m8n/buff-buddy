@@ -63,6 +63,7 @@ export const useItemEdit = <
   const { data, isLoading, error: queryError } = useIdQuery(itemId);
 
   useEffect(() => {
+    if (isLoading) return;
     const itemData = data?.data;
     const item =
       itemId && itemData
@@ -70,7 +71,7 @@ export const useItemEdit = <
         : getEmpty();
     setItemToEdit(item);
     return;
-  }, [itemId, data]);
+  }, [itemId, data, isLoading]);
 
   return {
     itemToEdit,

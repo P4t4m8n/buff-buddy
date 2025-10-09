@@ -15,6 +15,7 @@ import YoutubeInput from "../UI/Form/YoutubeInput";
 import GenericSaveButton from "../UI/GenericSaveButton";
 import SelectWithSearch from "../UI/Form/SelectWithSearch/SelectWithSearch";
 import InputWithError from "../UI/Form/InputWithError";
+import CheckBox from "../UI/Form/CheckBox";
 import Loader from "../UI/loader/Loader";
 //Types
 import type { IModelProps } from "../../models/model.model";
@@ -38,6 +39,7 @@ export default function ExerciseEdit({
     handleType,
     handleExerciseInfo,
   } = useExerciseEdit({ exerciseId });
+    console.log("🚀 ~ ExerciseEdit ~ exerciseToEdit:", exerciseToEdit)
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,9 +60,10 @@ export default function ExerciseEdit({
     return <Loader loaderType="screen" isFullScreen={false} />;
   }
 
-  const { id, muscles, equipment, type, name, youtubeUrl } =
-    exerciseToEdit || {};
-
+  const { id, muscles, equipment, type, name, youtubeUrl, isCompounded } =
+  exerciseToEdit || {};
+  
+  console.log("🚀 ~ ExerciseEdit ~ isCompounded:", isCompounded)
   return (
     <form
       ref={modelRef}
@@ -92,6 +95,12 @@ export default function ExerciseEdit({
         youtubeUrlProps={youtubeUrl}
         error={mutationErrors?.youtubeUrl}
         parentId={id}
+      />
+      <CheckBox
+        name="isCompounded"
+        id={"isCompounded"}
+        defaultChecked={!!isCompounded}
+        labelText="Compound Movement"
       />
 
       <SelectWithSearch
