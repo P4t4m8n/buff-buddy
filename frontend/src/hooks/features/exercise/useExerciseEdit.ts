@@ -57,7 +57,6 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
     const name = formData.get("name") as string;
     const youtubeUrl = formData.get("youtubeUrl") as string;
     const isCompounded = formData.get("isCompounded") === "on" ? true : false;
-    console.log("🚀 ~ saveExercise ~ isCompounded:", isCompounded)
 
     const res = await mutateAsync({
       ...exerciseToEdit,

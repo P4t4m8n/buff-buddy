@@ -1,24 +1,24 @@
 //Constants
-import { EXERCISE_TYPES } from "../../../../shared/consts/exercise.consts";
+import { EXERCISE_TYPES } from "../../../../../shared/consts/exercise.consts";
 //Hooks
-import { useExerciseEdit } from "../../hooks/features/exercise/useExerciseEdit";
-import { useMusclesQuery } from "../../hooks/features/exercise/useMusclesQuery";
-import { useEquipmentsQuery } from "../../hooks/features/exercise/useEquipmentQuery";
+import { useExerciseEdit } from "../../../hooks/features/exercise/useExerciseEdit";
+import { useMusclesQuery } from "../../../hooks/features/exercise/useMusclesQuery";
+import { useEquipmentsQuery } from "../../../hooks/features/exercise/useEquipmentQuery";
 //Components
 import ExerciseTypeSelectItem from "./ExerciseTypeSelectItem";
 import ExerciseTypeSelected from "./ExerciseTypeSelected";
 import ExerciseEditInfoSelect from "./ExerciseEditInfoSelect";
 //UI
-import Button from "../UI/Button";
-import Input from "../UI/Form/Input";
-import YoutubeInput from "../UI/Form/YoutubeInput";
-import GenericSaveButton from "../UI/GenericSaveButton";
-import SelectWithSearch from "../UI/Form/SelectWithSearch/SelectWithSearch";
-import InputWithError from "../UI/Form/InputWithError";
-import CheckBox from "../UI/Form/CheckBox";
-import Loader from "../UI/loader/Loader";
+import Button from "../../UI/Button";
+import Input from "../../UI/Form/Input";
+import YoutubeInput from "../../UI/Form/YoutubeInput";
+import GenericSaveButton from "../../UI/GenericSaveButton";
+import SelectWithSearch from "../../UI/Form/SelectWithSearch/SelectWithSearch";
+import InputWithError from "../../UI/Form/InputWithError";
+import CheckBox from "../../UI/Form/CheckBox";
+import Loader from "../../UI/loader/Loader";
 //Types
-import type { IModelProps } from "../../models/model.model";
+import type { IModelProps } from "../../../models/model.model";
 
 interface ExerciseEditProps extends IModelProps<HTMLFormElement> {
   exerciseId?: string;
@@ -39,7 +39,6 @@ export default function ExerciseEdit({
     handleType,
     handleExerciseInfo,
   } = useExerciseEdit({ exerciseId });
-    console.log("🚀 ~ ExerciseEdit ~ exerciseToEdit:", exerciseToEdit)
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -63,7 +62,6 @@ export default function ExerciseEdit({
   const { id, muscles, equipment, type, name, youtubeUrl, isCompounded } =
   exerciseToEdit || {};
   
-  console.log("🚀 ~ ExerciseEdit ~ isCompounded:", isCompounded)
   return (
     <form
       ref={modelRef}
@@ -101,6 +99,7 @@ export default function ExerciseEdit({
         id={"isCompounded"}
         defaultChecked={!!isCompounded}
         labelText="Compound Movement"
+        error={mutationErrors?.isCompounded}
       />
 
       <SelectWithSearch

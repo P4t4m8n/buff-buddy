@@ -1,11 +1,11 @@
 //UI
-import GenericFilter from "../UI/GenericFilter";
+import GenericFilter from "../../UI/GenericFilter";
 //Types
-import type { IExerciseFilter } from "../../../../shared/models/exercise.model";
+import type { IExerciseFilter } from "../../../../../shared/models/exercise.model";
 import type {
   IFilterCheckboxInput,
   IFilterTextInput,
-} from "../../models/UI.model";
+} from "../../../models/UI.model";
 
 interface IExerciseFilterProps {
   exerciseFilter: IExerciseFilter;

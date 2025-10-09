@@ -1,32 +1,34 @@
-//
-//Utils
-import { toTitle } from "../../utils/toTitle";
-//UI
-import GenericCarousel from "../UI/GenericCarousel";
-import Tag from "../UI/Tag";
-//Types
-import type { IExercisePreviewProps } from "../../models/exercise.model";
-import ExerciseWorkoutEditActions from "./ExerciseActions/ExerciseWorkoutEditActions";
+//Components
+import WorkoutExerciseEditListActions from "./ExerciseActions/WorkoutExerciseEditListActions";
 import ExerciseListActions from "./ExerciseActions/ExerciseListActions";
+import WorkoutExerciseSelectedActions from "./ExerciseActions/WorkoutExerciseSelectedActions";
+//Utils
+import { toTitle } from "../../../utils/toTitle";
+//UI
+import GenericCarousel from "../../UI/GenericCarousel";
+import Tag from "../../UI/Tag";
+//Types
+import type { IExercisePreviewProps } from "../../../models/exercise.model";
 
 export default function ExercisePreview(props: IExercisePreviewProps) {
   const { muscles, id, name, equipment } = props.item;
 
-  const musclesName =  muscles?.map((muscle) => muscle.name);
+  const musclesName = muscles?.map((muscle) => muscle.name);
   const equipmentName = equipment?.map((equip) => equip.name);
 
   return (
     <li key={id} className="shadow-border rounded p-2 flex flex-col gap-4 ">
       <h3 className=" truncate text-ellipsis underline ">{toTitle(name)}</h3>
+
       <GenericCarousel
-      listName="Muscles used"
+        listName="Muscles used"
         items={musclesName ?? []}
         props={{}}
         ItemComponent={Tag}
         getKey={(item) => item}
       />
       <GenericCarousel
-      listName="Equipment"
+        listName="Equipment"
         items={equipmentName ?? []}
         props={{}}
         ItemComponent={Tag}
@@ -42,9 +44,11 @@ const DynamicAction = (props: IExercisePreviewProps) => {
 
   switch (actionType) {
     case "workoutEdit":
-      return <ExerciseWorkoutEditActions {...props} />;
+      return <WorkoutExerciseSelectedActions {...props} />;
     case "exerciseList":
       return <ExerciseListActions {...props} />;
+    case "workoutExerciseEditList":
+      return <WorkoutExerciseEditListActions {...props} />;
     default:
       return null;
   }

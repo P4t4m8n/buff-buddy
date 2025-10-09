@@ -1,7 +1,10 @@
 import request from "supertest";
 import { app } from "../../server";
 
-import { IExerciseDTO } from "../../../../shared/models/exercise.model";
+import {
+  IExerciseDTO,
+  IExerciseEditDTO,
+} from "../../../../shared/models/exercise.model";
 import {
   IProgramDTO,
   IProgramEditDTO,
@@ -14,6 +17,7 @@ import {
   IUserWorkoutDTO,
   IUserWorkoutEditDTO,
 } from "../../../../shared/models/userWorkout";
+import { IEquipment, IMuscle } from "../exercises/exercises.model";
 
 describe("WorkoutPlanner API", () => {
   const testWorkouts: IWorkoutDTO[] = [];
@@ -25,6 +29,8 @@ describe("WorkoutPlanner API", () => {
   let authToken: string;
   let workoutTwoId: string | undefined;
   let workoutOneId: string | undefined;
+  let muscles: IMuscle[] = [];
+  let equipment: IEquipment[] = [];
 
   beforeAll(async () => {
     const userCredentials = {
@@ -40,68 +46,73 @@ describe("WorkoutPlanner API", () => {
     testUserId = userRes.body.data.id;
     authToken = userRes.headers["set-cookie"][0].split(";")[0].split("=")[1];
 
-    const strengthExercises: IExerciseDTO[] = [
+    const musclesRes = await request(app)
+      .get("/api/v1/exercises/muscles/list")
+      .set("Cookie", `token=${authToken}`);
+    muscles = musclesRes.body.data;
+
+    const equipmentRes = await request(app)
+      .get("/api/v1/exercises/equipment/list")
+      .set("Cookie", `token=${authToken}`);
+    equipment = equipmentRes.body.data;
+
+    const strengthExercises: IExerciseEditDTO[] = [
       {
         name: "strength 1",
         youtubeUrl: "https://www.youtube.com/watch?v=Dy28eq2PjcM",
         type: "strength",
-        equipment: ["barbell"],
-        muscles: ["quads", "glutes", "hamstrings", "lower_back"],
+        equipment: equipment.sort(() => 0.5 - Math.random()).slice(0, 1),
+        muscles: muscles.sort(() => 0.5 - Math.random()).slice(0, 2),
         ownerId: testUserId,
       },
       {
         name: "strength 2",
         youtubeUrl: "https://www.youtube.com/watch?v=ykJmrZ5v0Oo",
         type: "strength",
-        equipment: ["dumbbell"],
-        muscles: ["biceps", "forearms"],
-        ownerId: testUserId,
-      },
-      {
-        name: "strength 3",
-        youtubeUrl: "https://www.youtube.com/watch?v=Dy28vbdq2PjcM",
-        type: "strength",
-        equipment: ["barbell"],
-        muscles: ["quads", "glutes", "hamstrings", "lower_back"],
-        ownerId: testUserId,
-      },
-      {
-        name: "strength 4",
-        youtubeUrl: "https://www.youtube.com/watch?v=ykJmrZ5gfdv0Oo",
-        type: "strength",
-        equipment: ["dumbbell"],
-        muscles: ["biceps", "forearms"],
+        equipment: equipment.sort(() => 0.5 - Math.random()).slice(0, 1),
+        muscles: muscles.sort(() => 0.5 - Math.random()).slice(0, 2),
         ownerId: testUserId,
       },
     ];
 
-    // const cardioExercises: IExerciseDTO[] = [
-    //   {
-    //     name: "cardio 1",
-    //     youtubeUrl: "https://www.youtube.com/watch?v=_l3ySVKYVJ8",
-    //     type: "cardio",
-    //     equipment: ["cable_machine"],
-    //     muscles: ["chest", "triceps", "abductors"],
-    //   },
-    //   {
-    //     name: "cardio 2",
-    //     youtubeUrl: "https://www.youtube.com/watch?v=pSHjTRCQxIw",
-    //     type: "cardio",
-    //     equipment: ["air_bike"],
-    //     muscles: ["triceps", "abs", "rotator_cuff"],
-    //   },
-    // ];
+    const cardioExercises: IExerciseEditDTO[] = [
+      {
+        name: "cardio 1",
+        youtubeUrl: "https://www.youtube.com/watch?v=_l3ySVKYVJ8",
+        type: "cardio",
+        equipment: [{ name: "cable_machine", crudOperation: "create" }],
+        muscles: [
+          { name: "chest", crudOperation: "create" },
+          { name: "triceps", crudOperation: "create" },
+          { name: "abductors", crudOperation: "create" },
+        ],
+        ownerId: testUserId,
+      },
+      {
+        name: "cardio 2",
+        youtubeUrl: "https://www.youtube.com/watch?v=pSHjTRCQxIw",
+        type: "cardio",
+        equipment: [{ name: "air_bike", crudOperation: "create" }],
+        muscles: [
+          { name: "triceps", crudOperation: "create" },
+          { name: "abs", crudOperation: "create" },
+          { name: "rotator_cuff", crudOperation: "create" },
+        ],
+        ownerId: testUserId,
+      },
+    ];
 
     for (const exercise of strengthExercises) {
       const exerciseRes = await request(app)
         .post("/api/v1/exercises/edit")
         .set("Cookie", `token=${authToken}`)
         .send(exercise);
-      if (exerciseRes.body.data.id) {
+      if (exerciseRes.body?.data?.id) {
         testStrengthExercises.push(exerciseRes.body.data);
       }
     }
 
+    console.log("🚀 ~ testStrengthExercises:", testStrengthExercises);
     const workouts: IWorkoutEditDTO[] = [
       {
         name: "Full Body Test Workout 1",
@@ -143,8 +154,8 @@ describe("WorkoutPlanner API", () => {
             order: 1,
             notes: "First exercise 2",
             exerciseData: {
-              type: testStrengthExercises[2].type!,
-              id: testStrengthExercises[2].id!,
+              type: testStrengthExercises[1].type!,
+              id: testStrengthExercises[1].id!,
             },
             crudOperation: "create",
           },

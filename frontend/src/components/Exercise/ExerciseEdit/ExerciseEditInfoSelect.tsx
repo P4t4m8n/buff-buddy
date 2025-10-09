@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 //Hooks
-import { useExerciseInfoList } from "../../hooks/features/exercise/useExerciseInfoList";
+import { useExerciseInfoList } from "../../../hooks/features/exercise/useExerciseInfoList";
 //UI
-import SelectMultiWithSearch from "../UI/Form/SelectMultiWithSearch/SelectMultiWithSearch";
+import SelectMultiWithSearch from "../../UI/Form/SelectMultiWithSearch/SelectMultiWithSearch";
 //Types
 import type { RefObject } from "react";
-import type { IUseExerciseInfoListProps } from "../../models/exercise.model";
-import type { IMuscleEditDTO } from "../../../../shared/models/muscle.model";
-import type { IEquipmentEditDTO } from "../../../../shared/models/equipment.model";
+import type { IUseExerciseInfoListProps } from "../../../models/exercise.model";
+import type { IMuscleEditDTO } from "../../../../../shared/models/muscle.model";
+import type { IEquipmentEditDTO } from "../../../../../shared/models/equipment.model";
 
 interface IExerciseEditInfoSelectProps<
   T extends IMuscleEditDTO | IEquipmentEditDTO,

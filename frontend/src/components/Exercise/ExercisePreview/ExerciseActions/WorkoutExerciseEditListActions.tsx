@@ -1,11 +1,12 @@
+//Components
+import ExerciseDetails from "../../ExerciseDetails";
 //UI
-import Button from "../../UI/Button";
+import Button from "../../../UI/Button";
+import GenericModel from "../../../UI/GenericModel";
 //Types
-import type { IExercisePreviewProps } from "../../../models/exercise.model";
-import GenericModel from "../../UI/GenericModel";
-import ExerciseDetails from "../ExerciseDetails";
+import type { IExercisePreviewProps } from "../../../../models/exercise.model";
 
-export default function ExerciseWorkoutEditActions({
+export default function WorkoutExerciseEditListActions({
   selectExercise,
   item,
 }: Partial<IExercisePreviewProps>) {

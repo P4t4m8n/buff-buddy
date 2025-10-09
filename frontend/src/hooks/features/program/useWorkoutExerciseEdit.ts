@@ -6,19 +6,10 @@ import type { IWorkoutExerciseEditDTO } from "../../../../../shared/models/worko
 import type { IExerciseDTO } from "../../../../../shared/models/exercise.model";
 import { formUtil } from "../../../utils/form.util";
 
-interface IWorkoutExerciseEditHook {
-  selectExercise: (exercise?: IExerciseDTO) => void;
-  handleInputChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  resetWorkoutExerciseToEdit: () => void;
-  workoutExerciseToEdit: IWorkoutExerciseEditDTO | null;
-}
-
 export const useWorkoutExerciseEdit = (
   workoutExercise?: IWorkoutExerciseEditDTO,
   workoutExercisesLength?: number
-): IWorkoutExerciseEditHook => {
+) => {
   const [workoutExerciseToEdit, setWorkoutExerciseToEdit] =
     useState<IWorkoutExerciseEditDTO | null>(null);
 
@@ -26,15 +17,17 @@ export const useWorkoutExerciseEdit = (
     resetWorkoutExerciseToEdit();
   }, []);
 
-  const selectExercise = (exercise?: IExerciseDTO) => {
+  const selectExercise = (exercise?: IExerciseDTO | null) => {
     setWorkoutExerciseToEdit((prev) => {
       if (!prev) return null;
       const tempPrev = {
         ...prev,
-        exerciseData: {
-          id: exercise?.id!,
-          type: exercise?.type!,
-        },
+        exerciseData: exercise
+          ? {
+              id: exercise?.id!,
+              type: exercise?.type!,
+            }
+          : null,
         exercise: exercise,
       };
 

@@ -4,15 +4,15 @@ import { useErrors } from "../../../../hooks/shared/useErrors";
 //Validations
 import { workoutExerciseValidation } from "../../../../../../shared/validations/workoutExercise.validations";
 //Components
-import ExerciseListModel from "../../../Exercise/ExerciseListModel";
-import WorkoutExerciseEditExercisePreview from "./WorkoutExerciseEditExercisePreview";
 import WorkoutExerciseEditInput from "./WorkoutExerciseEditInput";
+import ExercisePreview from "../../../Exercise/ExercisePreview/ExercisePreview";
 //UI
 import Button from "../../../UI/Button";
 import GenericModel from "../../../UI/GenericModel";
 //Types
 import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
 import type { IModelProps } from "../../../../models/model.model";
+import ExerciseListModel from "../../../Exercise/ExerciseList/ExerciseListModel";
 
 interface WorkoutExerciseEditProps extends IModelProps<HTMLDivElement> {
   workoutExercise?: IWorkoutExerciseEditDTO;
@@ -97,17 +97,19 @@ export default function WorkoutExerciseEdit({
       className={`flex flex-col w-[calc(100%-1rem)] max-w-96 grid-cols-1 p-4 bg-black-400 border
          rounded gap-4`}
     >
-      <WorkoutExerciseEditInput
-        workoutExerciseToEdit={workoutExerciseToEdit}
-        handleInputChange={handleInputChange}
-        workoutExerciseErrors={workoutExerciseErrors}
-      />
-
       {exercise ? (
-        <WorkoutExerciseEditExercisePreview
-          selectExercise={selectExercise}
-          exercise={exercise}
-        />
+        <>
+          <WorkoutExerciseEditInput
+            workoutExerciseToEdit={workoutExerciseToEdit}
+            handleInputChange={handleInputChange}
+            workoutExerciseErrors={workoutExerciseErrors}
+          />
+          <ExercisePreview
+            item={exercise}
+            selectExercise={selectExercise}
+            actionType="workoutEdit"
+          />
+        </>
       ) : (
         <GenericModel
           parentRef={modelRef}
@@ -119,6 +121,7 @@ export default function WorkoutExerciseEdit({
             className: "w-full bg-main-orange text-black-900",
           }}
           isPortal={true}
+          modelInitialState={true}
         />
       )}
 

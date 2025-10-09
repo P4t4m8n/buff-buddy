@@ -44,7 +44,7 @@ const buildWhereClause = (
     };
   }
 
-  if (!!filter.isTemplate) {
+  if (filter.isTemplate !== undefined) {
     where.isTemplate = filter.isTemplate;
   }
 

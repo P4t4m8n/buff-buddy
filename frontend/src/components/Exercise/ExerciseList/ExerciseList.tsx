@@ -1,30 +1,30 @@
 //Services
-import { exerciseService } from "../../services/exercise.service";
+import { exerciseService } from "../../../services/exercise.service";
 //Hooks
-import { useGenericPage } from "../../hooks/shared/useGenericPage";
-import { useExercisesQuery } from "../../hooks/features/exercise/useExerciseQuery";
+import { useGenericPage } from "../../../hooks/shared/useGenericPage";
+import { useExercisesQuery } from "../../../hooks/features/exercise/useExerciseQuery";
 //Context
-import { IsDeletingContext } from "../../hooks/context/IsDeletingContext";
+import { IsDeletingContext } from "../../../hooks/context/IsDeletingContext";
 //Consts
-import { QUERY_KEYS } from "../../consts/queryKeys.consts";
-import { INITIAL_FILTERS } from "../../consts/filters.consts";
+import { QUERY_KEYS } from "../../../consts/queryKeys.consts";
+import { INITIAL_FILTERS } from "../../../consts/filters.consts";
 //Components
-import ExercisePreview from "./ExercisePreview";
+import ExercisePreview from ".././ExercisePreview/ExercisePreview";
 import ExerciseFilter from "./ExerciseFilter";
 //UI
-import GenericList from "../UI/GenericList";
-import Loader from "../UI/loader/Loader";
-import Pagination from "../UI/Pagination";
-import NoListItems from "../UI/NoListItems";
+import GenericList from "../../UI/GenericList";
+import Loader from "../../UI/loader/Loader";
+import Pagination from "../../UI/Pagination";
+import NoListItems from "../../UI/NoListItems";
 //Types
 import type {
   IExerciseDTO,
   IExerciseFilter,
-} from "../../../../shared/models/exercise.model";
-import type { TExerciseActionRoute } from "../../models/exercise.model";
+} from "../../../../../shared/models/exercise.model";
+import type { TExerciseActionRoute } from "../../../models/exercise.model";
 
 interface IExerciseListProps {
-  selectExercise?: (exercise?: IExerciseDTO) => void;
+  selectExercise?: (exercise?: IExerciseDTO | null) => void;
   actionType?: TExerciseActionRoute;
 }
 

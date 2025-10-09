@@ -30,8 +30,12 @@ export default function ExerciseDetails({
     return <Loader loaderType="screen" isFullScreen={false} />;
   }
 
-  const { name, muscles, equipment, type, youtubeUrl } = exercise ?? {};
+  const { name, muscles, equipment, type, youtubeUrl, isCompounded } =
+    exercise ?? {};
   const { handleModel } = props;
+
+  const musclesName = muscles?.map((muscle) => muscle.name);
+  const equipmentName = equipment?.map((equip) => equip.name);
 
   return (
     <div
@@ -45,14 +49,17 @@ export default function ExerciseDetails({
           <h3>{toTitle(name)}</h3>
           <YoutubePlayer youtubeUrl={youtubeUrl!} />
           <p>{toTitle(type)}</p>
+          <p className="">{isCompounded ? "Compound movement" : "Isolation movement"}</p>
           <GenericCarousel
-            items={muscles ?? []}
+            listName="Muscles used"
+            items={musclesName ?? []}
             props={{}}
             ItemComponent={Tag}
             getKey={(item) => item}
           />
           <GenericCarousel
-            items={equipment ?? []}
+            listName="Equipment"
+            items={equipmentName ?? []}
             props={{}}
             ItemComponent={Tag}
             getKey={(item) => item}

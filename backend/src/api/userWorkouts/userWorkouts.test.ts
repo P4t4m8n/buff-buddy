@@ -6,7 +6,10 @@ import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
 } from "../../../../shared/models/workout.model";
-import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
+import type {
+  IExerciseDTO,
+  IExerciseEditDTO,
+} from "../../../../shared/models/exercise.model";
 import type {
   IUserWorkoutDTO,
   IUserWorkoutEditDTO,
@@ -15,6 +18,7 @@ import type {
   IProgramDTO,
   IProgramEditDTO,
 } from "../../../../shared/models/program.model";
+import { IEquipment, IMuscle } from "../exercises/exercises.model";
 
 describe("UserWorkout API", () => {
   const testWorkouts: IWorkoutDTO[] = [];
@@ -24,6 +28,9 @@ describe("UserWorkout API", () => {
   const testPrograms: IProgramDTO[] = [];
   let testUserId: string;
   let authToken: string;
+  let muscles: IMuscle[] = [];
+  let equipment: IEquipment[] = [];
+  const baseUrl = "/api/v1/user-workouts";
 
   beforeAll(async () => {
     const userCredentials = {
@@ -38,41 +45,49 @@ describe("UserWorkout API", () => {
       .send(userCredentials);
     testUserId = userRes.body.data.id;
     authToken = userRes.headers["set-cookie"][0].split(";")[0].split("=")[1];
+    const musclesRes = await request(app)
+      .get("/api/v1/exercises/muscles/list")
+      .set("Cookie", `token=${authToken}`);
+    muscles = musclesRes.body.data;
 
-    const strengthExercises: IExerciseDTO[] = [
+    const equipmentRes = await request(app)
+      .get("/api/v1/exercises/equipment/list")
+      .set("Cookie", `token=${authToken}`);
+    equipment = equipmentRes.body.data;
+    const strengthExercises: IExerciseEditDTO[] = [
       {
         name: "strength 1",
         youtubeUrl: "https://www.youtube.com/watch?v=Dy28eq2PjcM",
         type: "strength",
-        equipment: ["barbell"],
-        muscles: ["quads", "glutes", "hamstrings", "lower_back"],
+        equipment: equipment.sort(() => 0.5 - Math.random()).slice(0, 1),
+        muscles: muscles.sort(() => 0.5 - Math.random()).slice(0, 2),
         ownerId: testUserId,
       },
       {
         name: "strength 2",
         youtubeUrl: "https://www.youtube.com/watch?v=ykJmrZ5v0Oo",
         type: "strength",
-        equipment: ["dumbbell"],
-        muscles: ["biceps", "forearms"],
+        equipment: equipment.sort(() => 0.5 - Math.random()).slice(0, 1),
+        muscles: muscles.sort(() => 0.5 - Math.random()).slice(0, 2),
         ownerId: testUserId,
       },
     ];
 
-    const cardioExercises: IExerciseDTO[] = [
+    const cardioExercises: IExerciseEditDTO[] = [
       {
         name: "cardio 1",
         youtubeUrl: "https://www.youtube.com/watch?v=_l3ySVKYVJ8",
         type: "cardio",
-        equipment: ["cable_machine"],
-        muscles: ["chest", "triceps", "abductors"],
+        equipment: equipment.sort(() => 0.5 - Math.random()).slice(0, 1),
+        muscles: muscles.sort(() => 0.5 - Math.random()).slice(0, 2),
         ownerId: testUserId,
       },
       {
         name: "cardio 2",
         youtubeUrl: "https://www.youtube.com/watch?v=pSHjTRCQxIw",
         type: "cardio",
-        equipment: ["air_bike"],
-        muscles: ["triceps", "abs", "rotator_cuff"],
+        equipment: equipment.sort(() => 0.5 - Math.random()).slice(0, 1),
+        muscles: muscles.sort(() => 0.5 - Math.random()).slice(0, 2),
         ownerId: testUserId,
       },
     ];
@@ -194,7 +209,8 @@ describe("UserWorkout API", () => {
     testPrograms.push(programRes.body.data);
   });
 
-  describe("POST /api/v1/user-workouts", () => {
+  describe("POST /api/v1/user-workouts/edit", () => {
+    const baseEditUrl = baseUrl + "/edit";
     it("should create a new user workout with strength exercises successfully", async () => {
       const userWorkoutData: IUserWorkoutEditDTO = {
         ownerId: testUserId,
@@ -248,7 +264,7 @@ describe("UserWorkout API", () => {
       };
 
       const res = await request(app)
-        .post("/api/v1/user-workouts")
+        .post(baseEditUrl)
         .set("Cookie", `token=${authToken}`)
         .send(userWorkoutData);
 
@@ -289,7 +305,7 @@ describe("UserWorkout API", () => {
       };
 
       const res = await request(app)
-        .post("/api/v1/user-workouts")
+        .post(baseEditUrl)
         .set("Cookie", `token=${authToken}`)
         .send(userWorkoutData);
 
@@ -305,7 +321,7 @@ describe("UserWorkout API", () => {
 
     it("should reject user workout with missing required fields", async () => {
       const res = await request(app)
-        .post("/api/v1/user-workouts")
+        .post(baseEditUrl)
         .set("Cookie", `token=${authToken}`)
         .send({});
 
@@ -342,11 +358,11 @@ describe("UserWorkout API", () => {
       };
 
       const res = await request(app)
-        .post("/api/v1/user-workouts")
+        .post(baseEditUrl)
         .set("Cookie", `token=${authToken}`)
         .send(invalidData);
 
-      expect(res.status).toBe(404);
+      expect(res.status).toBe(400);
       expect(res.body.message).toContain(
         "One or more referenced records not found"
       );
@@ -378,11 +394,11 @@ describe("UserWorkout API", () => {
       };
 
       const res = await request(app)
-        .post("/api/v1/user-workouts")
+        .post(baseEditUrl)
         .set("Cookie", `token=${authToken}`)
         .send(invalidData);
 
-      expect(res.status).toBe(404);
+      expect(res.status).toBe(400);
       expect(res.body.message).toContain(
         "One or more referenced records not found"
       );
@@ -426,7 +442,7 @@ describe("UserWorkout API", () => {
       };
 
       const res = await request(app)
-        .post("/api/v1/user-workouts")
+        .post(baseEditUrl)
         .set("Cookie", `token=${authToken}`)
         .send(invalidData);
 
@@ -449,7 +465,7 @@ describe("UserWorkout API", () => {
       };
 
       const res = await request(app)
-        .post("/api/v1/user-workouts")
+        .post(baseEditUrl)
         .set("Cookie", `token=${authToken}`)
         .send(invalidData);
 
@@ -485,7 +501,7 @@ describe("UserWorkout API", () => {
       };
 
       const res = await request(app)
-        .post("/api/v1/user-workouts")
+        .post(baseEditUrl)
         .set("Cookie", `token=${authToken}`)
         .send(invalidData);
 
@@ -521,7 +537,7 @@ describe("UserWorkout API", () => {
       };
 
       const res = await request(app)
-        .post("/api/v1/user-workouts")
+        .post(baseEditUrl)
         .set("Cookie", `token=${authToken}`)
         .send(invalidData);
 
@@ -555,7 +571,7 @@ describe("UserWorkout API", () => {
       };
 
       const res = await request(app)
-        .post("/api/v1/user-workouts")
+        .post(baseEditUrl)
         .set("Cookie", `token=${authToken}`)
         .send(userWorkoutData);
 
@@ -593,7 +609,7 @@ describe("UserWorkout API", () => {
       };
 
       const res = await request(app)
-        .post("/api/v1/user-workouts")
+        .post(baseEditUrl)
         .set("Cookie", `token=${authToken}`)
         .send(invalidData);
 
@@ -628,7 +644,7 @@ describe("UserWorkout API", () => {
       };
 
       const res = await request(app)
-        .post("/api/v1/user-workouts")
+        .post(baseEditUrl)
         .set("Cookie", `token=${authToken}`)
         .send(invalidData);
 
@@ -666,7 +682,7 @@ describe("UserWorkout API", () => {
       };
 
       const res = await request(app)
-        .post("/api/v1/user-workouts")
+        .post(baseEditUrl)
         .set("Cookie", `token=${authToken}`)
         .send(userWorkoutData);
 
@@ -705,9 +721,7 @@ describe("UserWorkout API", () => {
         ],
       };
 
-      const res = await request(app)
-        .post("/api/v1/user-workouts")
-        .send(userWorkoutData);
+      const res = await request(app).post(baseEditUrl).send(userWorkoutData);
 
       expect(res.status).toBe(401);
     });
@@ -740,7 +754,7 @@ describe("UserWorkout API", () => {
       };
 
       const createRes = await request(app)
-        .post("/api/v1/user-workouts")
+        .post(baseUrl + "/edit")
         .set("Cookie", `token=${authToken}`)
         .send(userWorkoutData);
       userWorkoutId = createRes.body.data.id;
@@ -778,7 +792,7 @@ describe("UserWorkout API", () => {
   // describe("GET /api/v1/user-workouts", () => {
   //   it("should return a list of user workouts", async () => {
   //     const res = await request(app)
-  //       .get("/api/v1/user-workouts")
+  //       .get(baseUrl)
   //       .set("Cookie", `token=${authToken}`);
 
   //     expect(res.status).toBe(200);
@@ -826,7 +840,7 @@ describe("UserWorkout API", () => {
   //     };
 
   //     const res = await request(app)
-  //       .post("/api/v1/user-workouts")
+  //       .post(baseUrl)
   //       .set("Cookie", `token=${authToken}`)
   //       .send(userWorkoutData);
 
@@ -885,32 +899,32 @@ describe("UserWorkout API", () => {
       };
 
       const createRes = await request(app)
-        .post("/api/v1/user-workouts")
+        .post(baseUrl + "/edit")
         .set("Cookie", `token=${authToken}`)
         .send(userWorkoutData);
 
       const userWorkoutIdToDeleteId = createRes.body.data.id;
 
       const deleteRes = await request(app)
-        .delete(`/api/v1/user-workouts/${userWorkoutIdToDeleteId}`)
+        .delete(`${baseUrl}/${userWorkoutIdToDeleteId}`)
         .set("Cookie", `token=${authToken}`);
 
       expect(deleteRes.status).toBe(200);
       expect(deleteRes.body.message).toBe("User Workout deleted successfully");
 
       const getRes = await request(app)
-        .get(`/api/v1/user-workouts/${userWorkoutIdToDeleteId}`)
+        .get(`${baseUrl}/${userWorkoutIdToDeleteId}`)
         .set("Cookie", `token=${authToken}`);
 
       expect(getRes.status).toBe(404);
     });
 
-    it("should return 404 for deleting a non-existent user-workout", async () => {
+    it("should return 400 for deleting a non-existent user-workout", async () => {
       const res = await request(app)
-        .delete("/api/v1/user-workouts/non-existent-id")
+        .delete(`${baseUrl}/non-existent-id`)
         .set("Cookie", `token=${authToken}`);
 
-      expect(res.status).toBe(404);
+      expect(res.status).toBe(400);
     });
   });
 

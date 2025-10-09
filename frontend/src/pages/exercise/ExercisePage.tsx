@@ -1,15 +1,15 @@
 //Core
 import { Outlet } from "react-router";
 //Components
-import ExerciseList from "../../components/Exercise/ExerciseList";
 import LinkComponent from "../../components/UI/Link";
 import BackButton from "../../components/UI/BackButton";
+import ExerciseList from "../../components/Exercise/ExerciseList/ExerciseList";
 //Types
 import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
 import type { TExerciseActionRoute } from "../../models/exercise.model";
 
 interface IExercisePageProps {
-  selectExercise?: (exercise?: IExerciseDTO) => void;
+  selectExercise?: (exercise?: IExerciseDTO|null) => void;
   actionType?: TExerciseActionRoute;
 }
 

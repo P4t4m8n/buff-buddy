@@ -1,12 +1,9 @@
-//Lib
-import { useContext } from "react";
-//Context
-import { IsDeletingContext } from "../../../hooks/context/IsDeletingContext";
 //UI
-import LinkComponent from "../../UI/Link";
-import GenericDeleteButton from "../../UI/GenericDeleteButton";
+import LinkComponent from "../../../UI/Link";
+import GenericDeleteButton from "../../../UI/GenericDeleteButton";
 //Types
-import type { IExercisePreviewProps } from "../../../models/exercise.model";
+import type { IExercisePreviewProps } from "../../../../models/exercise.model";
+import { useDeleteContext } from "../../../../hooks/shared/useDeleteContext";
 
 export default function ExerciseListActions({
   item: exercise,
@@ -14,7 +11,7 @@ export default function ExerciseListActions({
 }: Partial<IExercisePreviewProps>) {
   if (!deleteItem) return null;
   const exerciseId = exercise?.id;
-  const isDeleting = useContext(IsDeletingContext);
+  const isDeleting = useDeleteContext();
 
   return (
     <nav className="flex gap-3 ">

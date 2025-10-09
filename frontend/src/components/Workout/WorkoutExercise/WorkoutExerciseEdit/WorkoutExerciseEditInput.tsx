@@ -5,6 +5,7 @@ import Label from "../../../UI/Form/Label";
 //Types
 import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
 import type { TErrors } from "../../../../models/errors.model";
+import CheckBox from "../../../UI/Form/CheckBox";
 
 interface WorkoutExerciseEditInputProps {
   workoutExerciseToEdit?: IWorkoutExerciseEditDTO | null;
@@ -68,41 +69,19 @@ export default function WorkoutExerciseEditInput({
         ) : null}
       </TextArea>
 
-      <div className="col-span-full grid  gap-4 ">
-        <InputWithError
-          divStyle="flex f items-center gap-2"
-          inputProps={{
-            name: "hasWarmup",
-            type: "checkbox",
-            checked: !!hasWarmup,
-            className: "w-4 ",
-            id: "hasWarmUp-" + WorkoutExerciseId,
-            onChange: handleInputChange,
-          }}
-          labelProps={{
-            labelPosition: "input",
-            className: "",
-            htmlFor: "hasWarmup-" + WorkoutExerciseId,
-            children: "Warm up",
-          }}
+      <div className="col-span-full flex  gap-4 ">
+        <CheckBox
+          name="hasWarmup"
+          id="hasWarmup"
+          defaultChecked={!!hasWarmup}
+          labelText="Warm up"
           error={workoutExerciseErrors?.hasWarmup}
         />
-        <InputWithError
-          divStyle="flex  items-center gap-2 w-fit"
-          inputProps={{
-            name: "isBodyWeight",
-            type: "checkbox",
-            checked: !!isBodyWeight,
-            className: " ",
-            id: "isBodyWeight-" + WorkoutExerciseId,
-            onChange: handleInputChange,
-          }}
-          labelProps={{
-            labelPosition: "input",
-            className: "w-full flex whitespace-nowrap",
-            htmlFor: "isBodyWeight-" + WorkoutExerciseId,
-            children: "Body Weight",
-          }}
+        <CheckBox
+          name="isBodyWeight"
+          id="isBodyWeight"
+          defaultChecked={!!isBodyWeight}
+          labelText="Body Weight"
           error={workoutExerciseErrors?.isBodyWeight}
         />
       </div>

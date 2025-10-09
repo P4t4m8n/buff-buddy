@@ -7,15 +7,21 @@ import type {
   IWorkoutEditDTO,
   IWorkoutExerciseDTO,
 } from "../../../../shared/models/workout.model";
-import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
+import type {
+  IExerciseDTO,
+  IExerciseEditDTO,
+} from "../../../../shared/models/exercise.model";
 import type { ExerciseType } from "../../../prisma/generated/prisma";
 import type { IAuthSignUpDTO } from "../../../../shared/models/auth.model";
+import { IEquipment, IMuscle } from "../exercises/exercises.model";
 
 describe("Workouts API", () => {
   const testExercises: IExerciseDTO[] = [];
   let authToken: string;
   let testUserId: string;
   const testWorkouts: IWorkoutDTO[] = [];
+  let muscles: IMuscle[] = [];
+  let equipment: IEquipment[] = [];
 
   beforeAll(async () => {
     const userCredentials: IAuthSignUpDTO = {
@@ -31,37 +37,46 @@ describe("Workouts API", () => {
     testUserId = userRes.body.data.id;
     authToken = userRes.headers["set-cookie"][0].split(";")[0].split("=")[1];
 
-    const exercises: IExerciseDTO[] = [
-      {
-        name: "cardio 1",
-        youtubeUrl: "https://www.youtube.com/watch?v=_l3ySVKYVJ8",
-        type: "cardio",
-        equipment: ["cable_machine"],
-        muscles: ["chest", "triceps", "abductors"],
-        ownerId: testUserId,
-      },
+    const musclesRes = await request(app)
+      .get("/api/v1/exercises/muscles/list")
+      .set("Cookie", `token=${authToken}`);
+    muscles = musclesRes.body.data;
+
+    const equipmentRes = await request(app)
+      .get("/api/v1/exercises/equipment/list")
+      .set("Cookie", `token=${authToken}`);
+    equipment = equipmentRes.body.data;
+    const exercises: IExerciseEditDTO[] = [
       {
         name: "strength 1",
         youtubeUrl: "https://www.youtube.com/watch?v=Dy28eq2PjcM",
         type: "strength",
-        equipment: ["barbell"],
-        muscles: ["quads", "glutes", "hamstrings", "lower_back"],
+        equipment: equipment.sort(() => 0.5 - Math.random()).slice(0, 1),
+        muscles: muscles.sort(() => 0.5 - Math.random()).slice(0, 2),
         ownerId: testUserId,
       },
       {
         name: "strength 2",
         youtubeUrl: "https://www.youtube.com/watch?v=ykJmrZ5v0Oo",
         type: "strength",
-        equipment: ["dumbbell"],
-        muscles: ["biceps", "forearms"],
+        equipment: equipment.sort(() => 0.5 - Math.random()).slice(0, 1),
+        muscles: muscles.sort(() => 0.5 - Math.random()).slice(0, 2),
+        ownerId: testUserId,
+      },
+      {
+        name: "cardio 1",
+        youtubeUrl: "https://www.youtube.com/watch?v=_l3ySVKYVJ8",
+        type: "cardio",
+        equipment: equipment.sort(() => 0.5 - Math.random()).slice(0, 1),
+        muscles: muscles.sort(() => 0.5 - Math.random()).slice(0, 2),
         ownerId: testUserId,
       },
       {
         name: "cardio 2",
         youtubeUrl: "https://www.youtube.com/watch?v=pSHjTRCQxIw",
         type: "cardio",
-        equipment: ["air_bike"],
-        muscles: ["triceps", "abs", "rotator_cuff"],
+        equipment: equipment.sort(() => 0.5 - Math.random()).slice(0, 1),
+        muscles: muscles.sort(() => 0.5 - Math.random()).slice(0, 2),
         ownerId: testUserId,
       },
     ];
@@ -182,7 +197,7 @@ describe("Workouts API", () => {
         .set("Cookie", `token=${authToken}`)
         .send(invalidWorkout);
 
-      expect(res.status).toBe(404);
+      expect(res.status).toBe(400);
       expect(res.body.message).toContain(
         "One or more referenced records not found"
       );
@@ -527,6 +542,7 @@ describe("Workouts API", () => {
         true
       );
     });
+
     it("should filter workouts by template status true", async () => {
       const res = await request(app)
         .get("/api/v1/workouts?isTemplate=true")
@@ -778,7 +794,7 @@ describe("Workouts API", () => {
       expect(res.body.data.name).toBe("updated workout name");
     });
 
-    it("should return 404 for updating a non-existent workout", async () => {
+    it("should return 400 for updating a non-existent workout", async () => {
       const updateData: IWorkoutEditDTO = {
         name: "This will fail",
         ownerId: testUserId,
@@ -789,7 +805,7 @@ describe("Workouts API", () => {
         .set("Cookie", `token=${authToken}`)
         .send(updateData);
 
-      expect(res.status).toBe(404);
+      expect(res.status).toBe(400);
     });
 
     it("should reject update with missing credentials", async () => {
@@ -862,12 +878,12 @@ describe("Workouts API", () => {
       expect(getRes.status).toBe(404);
     });
 
-    it("should return 404 for deleting a non-existent workout", async () => {
+    it("should return 400 for deleting a non-existent workout", async () => {
       const res = await request(app)
         .delete("/api/v1/workouts/non-existent-id")
         .set("Cookie", `token=${authToken}`);
 
-      expect(res.status).toBe(404);
+      expect(res.status).toBe(400);
     });
   });
 

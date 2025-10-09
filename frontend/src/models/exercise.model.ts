@@ -2,13 +2,16 @@ import type { UseQueryResult } from "@tanstack/react-query";
 import type { IExerciseDTO } from "../../../shared/models/exercise.model";
 import type { THttpResponse } from "./apiService.model";
 
-export type TExerciseActionRoute = "workoutEdit" | "exerciseList";
+export type TExerciseActionRoute =
+  | "workoutEdit"
+  | "exerciseList"
+  | "workoutExerciseEditList";
 
 export interface IExercisePreviewProps {
   item: IExerciseDTO;
   actionType?: TExerciseActionRoute;
-  deleteItem: (id?: string) => Promise<void>;
-  selectExercise?: (exercise?: IExerciseDTO) => void;
+  deleteItem?: (id?: string) => Promise<void>;
+  selectExercise?: (exercise?: IExerciseDTO | null) => void;
 }
 
 export interface IUseExerciseInfoListProps<DTO, Filter> {
@@ -17,3 +20,5 @@ export interface IUseExerciseInfoListProps<DTO, Filter> {
   ): UseQueryResult<THttpResponse<DTO[]>, Error>;
   filter?: Filter | null;
 }
+
+export type TSelectExercise = (exercise?: IExerciseDTO | null) => void;

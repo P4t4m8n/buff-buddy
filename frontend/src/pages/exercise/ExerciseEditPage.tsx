@@ -2,7 +2,7 @@
 import { useRef } from "react";
 import { useNavigate, useParams } from "react-router";
 //Components
-import ExerciseEdit from "../../components/Exercise/ExerciseEdit";
+import ExerciseEdit from "../../components/Exercise/ExerciseEdit/ExerciseEdit";
 //UI
 import ModelOverlay from "../../components/UI/ModelOverlay";
 
@@ -11,9 +11,10 @@ export default function ExerciseEditPage() {
   const { exerciseId } = useParams<{ exerciseId?: string }>();
   const navigate = useNavigate();
   const modelRef = useRef<HTMLFormElement>(null);
+  
 
   const onBack = () => {
-    navigate("/exercises");
+    navigate(-1);
   };
   return (
     <ModelOverlay isOpen={true}>

@@ -1,15 +1,15 @@
 import { toTitle } from "../../../../utils/toTitle";
 
-import ExerciseListModel from "../../../Exercise/ExerciseListModel";
-
 import GenericModel from "../../../UI/GenericModel";
 import YoutubePlayer from "../../../UI/YoutubePlayer";
+import ExerciseListModel from "../../../Exercise/ExerciseList/ExerciseListModel";
 
 import type { IExerciseDTO } from "../../../../../../shared/models/exercise.model";
+import type { TSelectExercise } from "../../../../models/exercise.model";
 
 interface IWorkoutExerciseEditExercisePreviewProps {
   exercise: IExerciseDTO;
-  selectExercise: (exercise?: IExerciseDTO) => void;
+  selectExercise: TSelectExercise;
 }
 export default function WorkoutExerciseEditExercisePreview({
   exercise,

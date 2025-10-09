@@ -1,15 +1,15 @@
 //Components
 import ExerciseList from "./ExerciseList";
-import ExerciseEdit from "./ExerciseEdit";
+import ExerciseEdit from ".././ExerciseEdit/ExerciseEdit";
 //UI
-import GenericModel from "../UI/GenericModel";
-import PageHeader from "../UI/PageHeader";
+import GenericModel from "../../UI/GenericModel";
+import PageHeader from "../../UI/PageHeader";
 //Types
-import type { IModelProps } from "../../models/model.model";
-import type { IExerciseDTO } from "../../../../shared/models/exercise.model";
+import type { IModelProps } from "../../../models/model.model";
+import type { IExerciseDTO } from "../../../../../shared/models/exercise.model";
 
 interface IExerciseListModelProps extends IModelProps<HTMLDivElement> {
-  selectExercise?: (exercise?: IExerciseDTO) => void;
+  selectExercise?: (exercise?: IExerciseDTO | null) => void;
 }
 export default function ExerciseListModel({
   selectExercise,
@@ -17,7 +17,7 @@ export default function ExerciseListModel({
 }: IExerciseListModelProps) {
   const { setIsOpen, handleModel, modelRef } = props;
 
-  const onSelectExercise = (exercise?: IExerciseDTO) => {
+  const onSelectExercise = (exercise?: IExerciseDTO | null) => {
     selectExercise!(exercise);
     setIsOpen!(false);
   };
@@ -49,7 +49,7 @@ export default function ExerciseListModel({
       <div className="grid grid-rows-[3rem_calc(100%-8rem)_3rem] md:grid-rows-[1fr_3rem] md:grid-cols-[auto_1fr] relative gap-y-4 ">
         <ExerciseList
           selectExercise={onSelectExercise}
-          actionType="workoutEdit"
+          actionType="workoutExerciseEditList"
         />
       </div>
     </section>
