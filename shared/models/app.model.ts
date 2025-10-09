@@ -9,6 +9,9 @@ export interface IBaseFilter {
 export type TDayOfWeek = (typeof DAY_OF_WEEK)[number];
 
 export type TCrudOperation = (typeof CRUD_OPERATIONS)[number];
+export interface ICrudOperation {
+  crudOperation?: TCrudOperation;
+}
 
 export interface IValidationProps {
   minLength?: number;

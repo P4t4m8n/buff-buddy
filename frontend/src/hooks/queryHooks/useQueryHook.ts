@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+
 import type { THttpResponse } from "../../models/apiService.model";
 
 interface IUseQueryProps<T, F> {
@@ -12,13 +13,13 @@ export const useQueryHook = <T extends object, F extends object>({
   queryFn,
   enabled,
 }: IUseQueryProps<T, F>) => {
-  const { isPending, isError, data, error, status, isLoading } = useQuery({
+  return useQuery({
     queryKey: queryKey,
     queryFn,
     enabled,
     staleTime: 1000 * 60 * 60 * 24 * 7, // 7 days
     refetchOnWindowFocus: false,
     refetchOnMount: false,
+    retry:false
   });
-  return { isPending, isError, data, error, status, isLoading };
 };

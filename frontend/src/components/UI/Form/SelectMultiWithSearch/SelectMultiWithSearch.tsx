@@ -9,13 +9,14 @@ import OptionModelList from "./OptionModelList";
 import OptionSelectedItem from "./OptionSelectedItem";
 
 interface ISelectMultiWithSearchProps<T, P> {
-  options: readonly T[];
+  options: T[];
   error?: string;
   parentModelRef?: React.RefObject<HTMLDivElement | HTMLFormElement | null>;
   selectedOptions?: T[];
   inputName: P;
   handleSelect: (option: T, inputName?: P) => void;
   filterBy: (option: T) => string;
+  isLoading?: boolean;
 }
 
 export default function SelectMultiWithSearch<T, P>({
@@ -26,6 +27,7 @@ export default function SelectMultiWithSearch<T, P>({
   parentModelRef,
   error,
   filterBy,
+  isLoading,
 }: ISelectMultiWithSearchProps<T, P>) {
   const {
     optionsList,
@@ -34,7 +36,6 @@ export default function SelectMultiWithSearch<T, P>({
     modelPositionClass,
     handleSearchChange,
     handleModelWithPosition,
-
     setOptionsList,
   } = useSelect(options, filterBy, null, parentModelRef);
   const [optionsSelected, setOptionsSelected] = useState<T[]>([]);
@@ -76,29 +77,37 @@ export default function SelectMultiWithSearch<T, P>({
   );
 
   const selectedDivStyle = twMerge(
-    "inline-flex items-center gap-2 w-full border rounded pl-2 h-10",
+    "inline-flex items-center gap-2 w-full border rounded pl-2 h-fit py-2",
     error ? "border-error-red" : ""
   );
+
+  const getSelectedElement = () => {
+    if (isLoading) {
+      return <p className="text-blue-700 animate-bounce">Loading</p>;
+    }
+
+    if (optionsSelected.length) {
+      return (
+        <GenericList
+          items={optionsSelected}
+          ItemComponent={OptionSelectedItem}
+          itemComponentProps={{
+            handleOptionRemove,
+            filterBy,
+          }}
+          getKey={(item) => filterBy(item) + "selected"}
+          ulStyle=" w-full flex flex-wrap gap-2 h-full overflow-y-auto"
+        />
+      );
+    }
+    return <p className="text-gray-500">No selected options</p>;
+  };
 
   return (
     <div ref={modelRef} className="w-full h-fit relative">
       <LabelWithError error={error} isMoveUpEffect={false} />
       <div className={selectedDivStyle}>
-        {optionsSelected.length ? (
-          <GenericList
-            items={optionsSelected}
-            ItemComponent={OptionSelectedItem}
-            itemComponentProps={{
-              handleOptionRemove,
-              filterBy,
-            }}
-            getKey={(item) => filterBy(item) + "selected"}
-            ulStyle=" w-full flex flex-wrap gap-2"
-          />
-        ) : (
-          <p className="text-gray-500">No selected options</p>
-        )}
-
+        {getSelectedElement()}
         <Button
           className=" cursor-pointer h-8 aspect-square ml-auto"
           onClick={handleModelWithPosition}

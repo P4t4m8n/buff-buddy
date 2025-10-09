@@ -21,6 +21,7 @@ export default function ExerciseEditPage() {
         exerciseId={exerciseId}
         modelRef={modelRef}
         setIsOpen={onBack}
+        handleModel={onBack}
       />
     </ModelOverlay>
   );

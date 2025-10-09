@@ -19,8 +19,8 @@ export interface IExerciseDTO extends IExerciseBase {
   muscles?: IMuscleDTO[];
 }
 export interface IExerciseEditDTO extends IExerciseBase {
-  equipment: IEquipmentEditDTO[];
-  muscles: IMuscleEditDTO[];
+  equipment?: IEquipmentEditDTO[];
+  muscles?: IMuscleEditDTO[];
 }
 
 export interface IExerciseFilter extends IBaseFilter {
@@ -31,3 +31,4 @@ export interface IExerciseFilter extends IBaseFilter {
   isCompounded?: boolean | string;
 }
 export type TExerciseInfo = (typeof EXERCISE_INFO)[number];
+

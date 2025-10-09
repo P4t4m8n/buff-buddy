@@ -2,26 +2,22 @@
 import { EXERCISE_TYPES } from "../../../../shared/consts/exercise.consts";
 //Hooks
 import { useExerciseEdit } from "../../hooks/features/exercise/useExerciseEdit";
+import { useMusclesQuery } from "../../hooks/features/exercise/useMusclesQuery";
+import { useEquipmentsQuery } from "../../hooks/features/exercise/useEquipmentQuery";
 //Components
 import ExerciseTypeSelectItem from "./ExerciseTypeSelectItem";
 import ExerciseTypeSelected from "./ExerciseTypeSelected";
+import ExerciseEditInfoSelect from "./ExerciseEditInfoSelect";
 //UI
 import Button from "../UI/Button";
 import Input from "../UI/Form/Input";
 import YoutubeInput from "../UI/Form/YoutubeInput";
 import GenericSaveButton from "../UI/GenericSaveButton";
-import SelectMultiWithSearch from "../UI/Form/SelectMultiWithSearch/SelectMultiWithSearch";
 import SelectWithSearch from "../UI/Form/SelectWithSearch/SelectWithSearch";
 import InputWithError from "../UI/Form/InputWithError";
 import Loader from "../UI/loader/Loader";
 //Types
-import type {
-  IExerciseDTO,
-  TExerciseInfo,
-} from "../../../../shared/models/exercise.model";
 import type { IModelProps } from "../../models/model.model";
-import { useMusclesQuery } from "../../hooks/features/exercise/useMusclesQuery";
-import { useEquipmentsQuery } from "../../hooks/features/exercise/useEquipmentQuery";
 
 interface ExerciseEditProps extends IModelProps<HTMLFormElement> {
   exerciseId?: string;
@@ -43,24 +39,6 @@ export default function ExerciseEdit({
     handleExerciseInfo,
   } = useExerciseEdit({ exerciseId });
 
-  const {
-    data: muscleData,
-    isLoading: muscleIsLoading,
-    error: muscleQueryError,
-  } = useMusclesQuery({});
-  const { data: musclesList, meta: musclesMeta } = muscleData ?? {};
-
-  const {
-    data: equipmentData,
-    isLoading: equipmentIsLoading,
-    error: equipmentQueryError,
-  } = useEquipmentsQuery({});
-  const { data: equipmentsList, meta: equipmentsMeta } = equipmentData ?? {};
-  console.log("🚀 ~ ExerciseEdit ~ equipmentQueryError:", equipmentQueryError);
-  console.log("🚀 ~ ExerciseEdit ~ equipmentIsLoading:", equipmentIsLoading);
-  console.log("🚀 ~ ExerciseEdit ~ equipmentsMeta:", equipmentsMeta);
-  console.log("🚀 ~ ExerciseEdit ~ equipmentsList:", equipmentsList);
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -76,25 +54,12 @@ export default function ExerciseEdit({
     }
   };
 
-  if (isLoading || muscleIsLoading || equipmentIsLoading || !exerciseToEdit) {
+  if (isLoading || !exerciseToEdit) {
     return <Loader loaderType="screen" isFullScreen={false} />;
   }
 
   const { id, muscles, equipment, type, name, youtubeUrl } =
     exerciseToEdit || {};
-
-  const selects = [
-    {
-      name: "muscles",
-      options: musclesList,
-      selectedOptions: muscles ?? [],
-    },
-    {
-      name: "equipment",
-      options: equipmentsList,
-      selectedOptions: equipment ?? [],
-    },
-  ];
 
   return (
     <form
@@ -129,7 +94,6 @@ export default function ExerciseEdit({
         parentId={id}
       />
 
-      {/* //INFO: Exercise Type Select */}
       <SelectWithSearch
         options={EXERCISE_TYPES}
         handleSelect={handleType}
@@ -139,19 +103,24 @@ export default function ExerciseEdit({
         error={mutationErrors?.type}
         SelectItemComponent={ExerciseTypeSelectItem}
       />
-
-      {selects.map((select) => (
-        <SelectMultiWithSearch
-          options={select.options ?? []}
-          error={mutationErrors?.[select.name as keyof IExerciseDTO]}
-          parentModelRef={modelRef}
-          selectedOptions={select.selectedOptions}
-          inputName={select.name as TExerciseInfo}
-          key={select.name}
-          handleSelect={handleExerciseInfo}
-          filterBy={(item) => item.name}
-        />
-      ))}
+      <ExerciseEditInfoSelect
+        queryHook={useMusclesQuery}
+        handleExerciseInfo={handleExerciseInfo}
+        filter={{}}
+        inputName="muscles"
+        mutationError={mutationErrors?.muscles}
+        parentModelRef={modelRef}
+        selectedList={muscles}
+      />
+      <ExerciseEditInfoSelect
+        queryHook={useEquipmentsQuery}
+        handleExerciseInfo={handleExerciseInfo}
+        filter={{}}
+        inputName="equipment"
+        mutationError={mutationErrors?.equipment}
+        parentModelRef={modelRef}
+        selectedList={equipment}
+      />
 
       <div className="inline-flex items-center justify-between gap-2">
         <Button type="button" buttonStyle="warning" onClick={handleModel}>

@@ -14,13 +14,11 @@ import { QUERY_KEYS } from "../../../consts/queryKeys.consts";
 //Types
 import type {
   IExerciseDTO,
-  TExerciseInfo,
+  IExerciseEditDTO,
 } from "../../../../../shared/models/exercise.model";
-import type {
-  ExerciseEquipment,
-  ExerciseMuscle,
-  ExerciseType,
-} from "../../../../../backend/prisma/generated/prisma";
+import type { ExerciseType } from "../../../../../backend/prisma/generated/prisma";
+import type { IEquipmentEditDTO } from "../../../../../shared/models/equipment.model";
+import type { IMuscleEditDTO } from "../../../../../shared/models/muscle.model";
 
 interface IUseExerciseProps {
   exerciseId?: string;
@@ -36,7 +34,7 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
     queryError,
     isLoading,
     isSaving,
-  } = useItemEdit<IExerciseDTO, IExerciseDTO>({
+  } = useItemEdit<IExerciseEditDTO, IExerciseDTO>({
     storeMutationKey: QUERY_KEYS.EXERCISE_MUTATION_KEY,
     itemId: exerciseId,
     queryIdKey: QUERY_KEYS.EXERCISE_ID_QUERY_KEY,
@@ -70,10 +68,11 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
   };
 
   const handleExerciseInfo = (
-    option: ExerciseMuscle | ExerciseEquipment,
-    inputName?: TExerciseInfo
+    option: IMuscleEditDTO | IEquipmentEditDTO,
+    inputName?: "equipment" | "muscles"
   ) => {
     if (!exerciseToEdit) return;
+
     if (!inputName) {
       console.warn(
         "handleExerciseInfo called without inputName, this should not happen"
@@ -84,16 +83,28 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
     setExerciseToEdit((prev) => {
       if (!prev) return prev;
 
-      const currentItems =
-        (prev[inputName as keyof IExerciseDTO] as string[]) || [];
-      const idx = currentItems.findIndex((item) => item === option);
+      const currentItems = prev[inputName] || [];
+      const idx = currentItems.findIndex((item) => item.name === option.name);
 
-      return idx !== -1
-        ? {
-            ...prev,
-            [inputName]: currentItems.filter((item) => item !== option),
-          }
-        : { ...prev, [inputName]: [...currentItems, option] };
+      if (idx > -1) {
+        return {
+          ...prev,
+          [inputName]: currentItems.map((item) =>
+            item.name === option.name
+              ? {
+                  ...item,
+                  crudOperation:
+                    item.crudOperation != "delete" ? "delete" : "create",
+                }
+              : item
+          ),
+        };
+      }
+
+      return {
+        ...prev,
+        [inputName]: [...currentItems, { ...option, crudOperation: "create" }],
+      };
     });
   };
 

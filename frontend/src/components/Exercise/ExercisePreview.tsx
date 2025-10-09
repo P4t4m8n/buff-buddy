@@ -12,17 +12,22 @@ import ExerciseListActions from "./ExerciseActions/ExerciseListActions";
 export default function ExercisePreview(props: IExercisePreviewProps) {
   const { muscles, id, name, equipment } = props.item;
 
+  const musclesName =  muscles?.map((muscle) => muscle.name);
+  const equipmentName = equipment?.map((equip) => equip.name);
+
   return (
     <li key={id} className="shadow-border rounded p-2 flex flex-col gap-4 ">
       <h3 className=" truncate text-ellipsis underline ">{toTitle(name)}</h3>
       <GenericCarousel
-        items={muscles ?? []}
+      listName="Muscles used"
+        items={musclesName ?? []}
         props={{}}
         ItemComponent={Tag}
         getKey={(item) => item}
       />
       <GenericCarousel
-        items={equipment ?? []}
+      listName="Equipment"
+        items={equipmentName ?? []}
         props={{}}
         ItemComponent={Tag}
         getKey={(item) => item}

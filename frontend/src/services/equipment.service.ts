@@ -7,7 +7,7 @@ import type {
 } from "../../../shared/models/equipment.model";
 import type { THttpResponse } from "../models/apiService.model";
 
-const ROOT_PATH = "/exercises/equipments/list" as const;
+const ROOT_PATH = "/exercises/equipment/list" as const;
 const get = async (
   filter?: IEquipmentFilter | null
 ): Promise<THttpResponse<Array<IEquipmentDTO>>> => {

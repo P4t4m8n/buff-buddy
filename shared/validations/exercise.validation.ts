@@ -6,7 +6,6 @@ import { EXERCISE_TYPES } from "../consts/exercise.consts";
 import type {
   IExerciseEditDTO,
   IExerciseFilter,
-  TExerciseInfo,
 } from "../models/exercise.model";
 import type { IValidation } from "../models/validation.model";
 import type { IToSanitize } from "../models/app.model";
@@ -18,7 +17,7 @@ import type { IToSanitize } from "../models/app.model";
  */
 const getExerciseEnumError = (
   enumArr: readonly string[],
-  type: TExerciseInfo
+  type: string
 ): string => {
   return enumArr.length <= 4
     ? `Invalid ${type} type only ${enumArr.join(", ")} are allowed`

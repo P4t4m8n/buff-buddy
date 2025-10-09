@@ -5,8 +5,7 @@ import type {
   IExerciseEditDTO,
 } from "../../../../shared/models/exercise.model";
 import type { IAuthSignUpDTO } from "../../../../shared/models/auth.model";
-import { IEquipment, IMuscle } from "./exercises.models";
-import { before } from "node:test";
+import type { IEquipment, IMuscle } from "./exercises.model";
 
 describe("Exercises API", () => {
   let authToken: string;
@@ -768,7 +767,6 @@ describe("Exercises API", () => {
         .set("Cookie", `token=${authToken}`)
         .send(updateData);
 
-      console.log("🚀 ~ res.body:", res.body);
       expect(res.status).toBe(400);
       expect(res.body.message).toMatch(
         "One or more referenced records not found"

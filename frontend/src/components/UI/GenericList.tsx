@@ -49,7 +49,6 @@ function GenericListMemo<T, P>({
                 index
               )
             : itemComponentProps;
-
         return (
           <React.Fragment key={getKey(item)}>
             <ItemComponent item={item} {...(resolvedProps as P)} />

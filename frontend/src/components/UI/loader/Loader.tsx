@@ -39,7 +39,7 @@ const GetLoader = ({ loaderType = "default", isFullScreen }: ILoaderProps) => {
         <GenericList
           items={array}
           ItemComponent={PulseItem}
-          getKey={(item) => item}
+          getKey={(item) => item+" loader"}
           ulStyle="grid grid-cols-[repeat(auto-fit,minmax(18rem,1fr))] 
                    h-main overflow-auto gap-4 p-mobile md:p-desktop"
         />
