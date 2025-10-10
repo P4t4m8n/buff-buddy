@@ -1,45 +1,31 @@
 import { create } from "zustand";
+
 import { authService } from "../services/auth.service";
+
 import type {
   IAuthSignInDTO,
   IAuthSignUpDTO,
 } from "../../../shared/models/auth.model";
 import type { IUserDTO } from "../../../shared/models/user.model";
-import { localStorageService } from "../services/localStorage.service";
 
 interface IAuthStore {
   user: IUserDTO | null;
   isLoadingSession: boolean;
   isLoadingAuth: boolean;
-  loadSessionUser: () => Promise<void>;
   signIn: (dto: IAuthSignInDTO) => Promise<void>;
   signUp: (dto: IAuthSignUpDTO) => Promise<void>;
   signOut: () => Promise<void>;
+  setUser: (user?: IUserDTO | null) => void;
 }
 
-export const useAuthStore = create<IAuthStore>((set, get) => ({
+export const useAuthStore = create<IAuthStore>((set) => ({
   user: null,
   isLoadingSession: true,
   isLoadingAuth: false,
 
-  loadSessionUser: async () => {
-    try {
-      if (get().user) return;
-
-      const localStoredUser =
-        localStorageService.getSessionData<IUserDTO>("user");
-
-      if (localStoredUser) {
-        set({ user: localStoredUser });
-        return;
-      }
-
-      const res = await authService.getSessionUser();
-      set({ user: res.data });
-      localStorageService.storeSessionData("user", res.data);
-    } finally {
-      set({ isLoadingSession: false });
-    }
+  setUser: (user?: IUserDTO | null) => {
+    set({ user });
+    return;
   },
 
   signIn: async (dto: IAuthSignInDTO) => {
