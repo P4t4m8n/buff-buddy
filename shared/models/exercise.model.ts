@@ -31,4 +31,3 @@ export interface IExerciseFilter extends IBaseFilter {
   isCompounded?: boolean | string;
 }
 export type TExerciseInfo = (typeof EXERCISE_INFO)[number];
-

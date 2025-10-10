@@ -9,9 +9,9 @@ export interface IValidation<
 > {
   createFactorySchema: (options: {
     toSanitize?: boolean;
-  }) => z.ZodType<TCreateOutput, z.ZodTypeDef, DTO>;
+  }) => z.ZodType<TCreateOutput, DTO>;
   updateFactorySchema: (options: {
     toSanitize?: boolean;
-  }) => z.ZodType<TUpdateOutput, z.ZodTypeDef, Partial<DTO>>;
-  QuerySchema: z.ZodType<TQuery, z.ZodTypeDef, Partial<Filter>>;
+  }) => z.ZodType<TUpdateOutput, Partial<DTO>>;
+  QuerySchema: z.ZodType<TQuery, Partial<Filter>>;
 }

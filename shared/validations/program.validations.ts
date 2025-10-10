@@ -32,7 +32,7 @@ const programFactorySchema = ({ toSanitize }: IToSanitize) => {
 
     endDate: validationUtil.DateSchema,
 
-    isActive: z.coerce.boolean().default(true),
+    isActive: validationUtil.BooleanSchema.default(true),
 
     programWorkouts: z
       .array(
@@ -80,7 +80,7 @@ const updateFactorySchema = ({ toSanitize }: IToSanitize) => {
 
 const QuerySchema = validationUtil.FilterSchema.extend({
   name: z.string().optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: validationUtil.BooleanSchema.optional(),
   startDate: z.string().optional(),
   endDate: z.string().optional(),
 });

@@ -10,34 +10,26 @@ import type { IUserDTO } from "../../../shared/models/user.model";
 
 const ROOT_PATH = "/auth" as const;
 
-const signIn = async (dto: TSignInInput): Promise<THttpResponse<IUserDTO>> => {
+const signIn = (dto: TSignInInput): Promise<THttpResponse<IUserDTO>> => {
   const validatedDTO = authValidation
     .signInFactorySchema({ toSanitize: false })
     .parse(dto);
-  return await apiService.post<IUserDTO>(
-    `${ROOT_PATH}/sign-in`,
-    validatedDTO
-  );
+  return apiService.post<IUserDTO>(`${ROOT_PATH}/sign-in`, validatedDTO);
 };
 
-const signUp = async (dto: TSignUpInput): Promise<THttpResponse<IUserDTO>> => {
+const signUp = (dto: TSignUpInput): Promise<THttpResponse<IUserDTO>> => {
   const validatedDTO = authValidation
     .signUpFactorySchema({ toSanitize: false })
     .parse(dto);
-  return await apiService.post<IUserDTO>(
-    `${ROOT_PATH}/sign-up`,
-    validatedDTO
-  );
+  return apiService.post<IUserDTO>(`${ROOT_PATH}/sign-up`, validatedDTO);
 };
 
-const signOut = async (): Promise<void> => {
-  await apiService.post<void>(`${ROOT_PATH}/sign-out`);
+const signOut = (): Promise<THttpResponse<void>> => {
+  return apiService.post<void>(`${ROOT_PATH}/sign-out`);
 };
 
-const getSessionUser = async (): Promise<THttpResponse<IUserDTO | null>> => {
-  return await apiService.get<IUserDTO | null>(
-    `${ROOT_PATH}/session-user`
-  );
+const getSessionUser = (): Promise<THttpResponse<IUserDTO | null>> => {
+  return apiService.get<IUserDTO | null>(`${ROOT_PATH}/session-user`);
 };
 
 export const authService = {

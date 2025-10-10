@@ -1,6 +1,9 @@
-import type { IAuthSignUpDTO } from "../../../shared/models/auth.model";
+import type {
+  IAuthSignInDTO,
+  IAuthSignUpDTO,
+} from "../../../shared/models/auth.model";
 
-const getEmptyUser = (): IAuthSignUpDTO => {
+const getEmptySignUp = (): IAuthSignUpDTO => {
   return {
     firstName: "",
     lastName: "",
@@ -10,6 +13,14 @@ const getEmptyUser = (): IAuthSignUpDTO => {
   };
 };
 
+const getEmptySignIn = (): IAuthSignInDTO => {
+  return {
+    email: "",
+    password: "",
+  };
+};
+
 export const authUtil = {
-  getEmptyUser,
+  getEmptySignUp,
+  getEmptySignIn,
 };

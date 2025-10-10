@@ -1,6 +1,8 @@
 import { z, ZodType } from "zod";
-import type { IValidationProps } from "../models/app.model";
+import type { IToSanitize, IValidationProps } from "../models/app.model";
 import { CRUD_OPERATIONS, DAY_OF_WEEK } from "../consts/app.consts";
+import type { ZodObject } from "zod";
+import type { $ZodRawIssue } from "zod/v4/core";
 
 /**
  * Return an identity function or a sanitizer (lazily requiring 'sanitize-html')
@@ -34,17 +36,20 @@ const stringSchemaFactory = ({
   fieldName,
   toSanitize = false,
   toLowerCase = true,
-}: IValidationProps): ZodType<string> => {
+}: IValidationProps): z.ZodType<
+  string,
+  string,
+  z.core.$ZodTypeInternals<string, string>
+> => {
   const sanitizer = createSanitizer(toSanitize);
-  return z
+  const y = z
     .string({
-      invalid_type_error: `${fieldName} is invalid.`,
-      required_error: `${fieldName} is required.`,
+      error: createFieldErrorHandler(fieldName),
     })
-    .transform((val) => sanitizer(val))
-    .transform((val) => val.trim())
-    .transform((val) => val.replace(/\s+/g, " "))
-    .transform((val) => (toLowerCase ? val.toLowerCase() : val))
+    .transform<string>((val) => sanitizer(val))
+    .transform<string>((val) => val.trim())
+    .transform<string>((val) => val.replace(/\s+/g, " "))
+    .transform<string>((val) => (toLowerCase ? val.toLowerCase() : val))
     .refine(
       (val) => val.length >= (minLength ?? 0),
       `${fieldName} must be at least ${minLength} characters long`
@@ -53,7 +58,13 @@ const stringSchemaFactory = ({
       (val) => val.length <= maxLength,
       `${fieldName} must be less than ${maxLength} characters`
     );
+  return y as z.ZodType<
+    string,
+    string,
+    z.core.$ZodTypeInternals<string, string>
+  >;
 };
+
 /**
  * Create a Zod schema for an ID string.
  *
@@ -63,7 +74,7 @@ const stringSchemaFactory = ({
  * @param options.sanitize - enable sanitization (default: false)
  * @returns  {ZodType<string>}schema for an ID string
  */
-const IDSchemaFactory = ({ toSanitize = false }): ZodType<string> => {
+const IDSchemaFactory = ({ toSanitize = false }) => {
   const sanitizer = createSanitizer(toSanitize);
   return z
     .string()
@@ -85,11 +96,11 @@ const IDSchemaFactory = ({ toSanitize = false }): ZodType<string> => {
  * @param fieldName - The name of the field used to compose validation error messages.
  * @returns A Zod date schema that enforces presence and rejects invalid dates.
  */
+
 const dateValidation = ({ fieldName }: { fieldName: string }) => {
   return z
     .date({
-      invalid_type_error: `${fieldName} must be a valid date.`,
-      required_error: `${fieldName} is required.`,
+      error: createFieldErrorHandler(fieldName),
     })
     .refine(
       (date) => !isNaN(date.getTime()),
@@ -123,10 +134,43 @@ const refineDateRange = ({
       `${fieldName} start date must be before or equal to end date`
     );
 };
+const validateFieldOnly = <V>({
+  factory,
+  field,
+  value,
+  toSanitize,
+}: {
+  factory: ({ toSanitize }: IToSanitize) => ZodObject<any>;
+  field: string;
+  value: V;
+} & IToSanitize) => {
+  const schema = factory({ toSanitize });
+  const schemaField = schema.pick({ [field]: true });
+  const result = schemaField.safeParse({ [field]: value });
+  // console.dir( result.error,{depth:5})
+  console.log(result);
+  const { success, error, data } = result;
+  return {
+    isSuccess: success,
+    error,
+    data,
+    field,
+  };
+};
+const createFieldErrorHandler =
+  (fieldName?: string) => (issue: $ZodRawIssue<any>) => {
+    const { input } = issue;
+    const isMissing = input === undefined || input === null;
+    return {
+      message: isMissing
+        ? `${fieldName} is required.`
+        : `${fieldName} is invalid.`,
+    };
+  };
 /**
  * Coerce to boolean (e.g. "true", 1) and default to false.
  */
-const BooleanSchema = z.coerce.boolean().default(false);
+const BooleanSchema = z.coerce.boolean<any>().default(false);
 /**
  * Zod schema validating CRUD operation enum values.
  */
@@ -158,7 +202,7 @@ const conditionalOrderRefinement = (
   // For create operations, order is required. For update, it's optional.
   if (!order && data.crudOperation !== "update") {
     ctx.addIssue({
-      code: z.ZodIssueCode.custom,
+      code: "custom",
       message: "Order is required",
       path: ["order"],
     });
@@ -167,7 +211,7 @@ const conditionalOrderRefinement = (
 
   if (!order) {
     ctx.addIssue({
-      code: z.ZodIssueCode.custom,
+      code: "custom",
       message: "Order is required",
       path: ["order"],
     });
@@ -176,7 +220,7 @@ const conditionalOrderRefinement = (
 
   if (!Number.isInteger(order)) {
     ctx.addIssue({
-      code: z.ZodIssueCode.custom,
+      code: "custom",
       message: "Order must be a whole number",
       path: ["order"],
     });
@@ -184,7 +228,7 @@ const conditionalOrderRefinement = (
   }
   if (order < 1) {
     ctx.addIssue({
-      code: z.ZodIssueCode.custom,
+      code: "custom",
       message: "Order must be at least 1",
       path: ["order"],
     });
@@ -192,7 +236,7 @@ const conditionalOrderRefinement = (
   }
   if (order > 100) {
     ctx.addIssue({
-      code: z.ZodIssueCode.custom,
+      code: "custom",
       message: "Order cannot exceed 100",
       path: ["order"],
     });
@@ -208,7 +252,7 @@ const conditionalWeightRefinement = (
 ) => {
   if (data.isBodyWeight && data.weight && data.weight > 0) {
     ctx.addIssue({
-      code: z.ZodIssueCode.custom,
+      code: "custom",
       message: "Cannot have both weight and body weight set.",
       path: ["weight"],
     });
@@ -228,27 +272,26 @@ const numberValidation = ({
   fieldName,
 }: IValidationProps) => {
   return z.coerce
-    .number({
-      invalid_type_error: `${fieldName} must be a number`,
-      required_error: `${fieldName} is required`,
+    .number<number>({
+      error: createFieldErrorHandler(fieldName),
     })
     .min(minLength, `${fieldName} must be at least ${minLength}`)
     .max(maxLength, `${fieldName} cannot exceed ${maxLength}`);
 };
 
-export const DateSchema = z.coerce
-  .date()
+const DateSchema = z.coerce
+  .date<Date | string>()
   .refine((date) => !isNaN(date.getTime()), "Invalid date");
 
 const OrderSchema = z.coerce
-  .number()
+  .number<number>()
   .int("Order must be a whole number")
   .min(1, "Order must be at least 1")
   .max(100, "Order cannot exceed 100");
 
 const FilterSchema = z.object({
-  skip: z.coerce.number().min(0).optional(),
-  take: z.coerce.number().min(1).optional().default(10),
+  skip: z.coerce.number<number>().min(0).optional(),
+  take: z.coerce.number<number>().min(1).optional().default(10),
 });
 
 export const validationUtil = {
@@ -259,6 +302,7 @@ export const validationUtil = {
   numberValidation,
   stringSchemaFactory,
   IDSchemaFactory,
+  validateFieldOnly,
   BooleanSchema,
   CrudOperationEnumSchema,
   CrudOperationSchema,

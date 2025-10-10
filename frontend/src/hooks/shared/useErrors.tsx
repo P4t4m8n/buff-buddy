@@ -11,7 +11,7 @@ import ToastError from "../../components/UI/Toast/ToastError";
 import type { TErrors } from "../../models/errors.model";
 
 export const useErrors = <T extends object>() => {
-  const [errors, setErrors] = useState<TErrors<T> | null>(null);
+  const [errors, setErrors] = useState<TErrors<T> | null>({});
 
   const clearErrors = useCallback(() => {
     setErrors(null);
@@ -66,10 +66,37 @@ export const useErrors = <T extends object>() => {
     []
   );
 
+  const setSingleFiledError = ({
+    key,
+    error,
+  }: {
+    key: keyof TErrors<T>;
+    error?: ZodError<Record<string, unknown>> | undefined;
+  }) => {
+    setErrors((prev) => {
+      if (!prev) return {};
+      if (error) {
+        let _message = "";
+        for (const issue of error.issues) {
+          _message += `${issue.message} `;
+        }
+        return {
+          ...(prev as TErrors<T>),
+          [key]: _message,
+        };
+      }
+      const newErrors = { ...prev };
+      delete newErrors[key];
+      console.log("🚀 ~ setSingleFiledError ~ newErrors:", newErrors);
+      return newErrors;
+    });
+  };
+
   return {
     errors,
     setErrors,
     clearErrors,
     handleError,
+    setSingleFiledError,
   };
 };

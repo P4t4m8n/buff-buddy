@@ -16,6 +16,7 @@
     "gen": "npm run gen --workspace=backend",
     "clean": "ts-prune -p frontend/tsconfig.json --skip-type-only-exports && ts-prune -p backend/tsconfig.json --skip-type-only-exports --ignore backend/prisma/generated/"
   },
-  "devDependencies": {
+  "dependencies": {
+    "zod": "^4.1.12"
   }
 }

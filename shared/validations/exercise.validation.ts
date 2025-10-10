@@ -116,7 +116,7 @@ const createFactorySchema = ({ toSanitize = false }: IToSanitize) => {
       .array(
         exerciseInfoFactorySchema({ toSanitize, name: "Equipment name" }),
         {
-          required_error: "Equipment is required.",
+          error: "Equipment is required.",
         }
       )
       .min(1, "At least one equipment type is required")
@@ -125,7 +125,7 @@ const createFactorySchema = ({ toSanitize = false }: IToSanitize) => {
 
     muscles: z
       .array(exerciseInfoFactorySchema({ toSanitize, name: "Muscle  name" }), {
-        required_error: "Muscles are required.",
+        error: "Muscles are required.",
       })
       .min(1, "At least one muscle group is required")
       .max(21, "Maximum 21 muscle groups allowed")
@@ -148,13 +148,13 @@ const QuerySchema = validationUtil.FilterSchema.extend({
   equipment: z
     .string()
     .transform((val) => val.split(","))
-    .pipe(z.array(z.string().optional()))
+    .pipe(z.array(z.string()))
     .optional(),
 
   muscles: z
     .string()
     .transform((val) => val.split(","))
-    .pipe(z.array(z.string().optional()))
+    .pipe(z.array(z.string()))
     .optional(),
 });
 

@@ -13,7 +13,7 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
 
     ownerId: validationUtil.IDSchemaFactory({ toSanitize }).nullable(),
 
-    isTemplate: z.coerce.boolean(),
+    isTemplate: validationUtil.BooleanSchema,
 
     notes: validationUtil
       .stringSchemaFactory({
@@ -40,8 +40,10 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
           toSanitize,
         }),
         {
-          invalid_type_error: "",
-          required_error: "Workout need at least one exercise.",
+          error: (issue) =>
+            issue.input === undefined || issue.input === null
+              ? { message: "Workout need at least one exercise." }
+              : { message: "Workout exercises is invalid." },
         }
       )
       .min(1, "At least one workout set is required")
