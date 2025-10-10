@@ -67,12 +67,13 @@ const handleInputChangeWithValidation = <T>({
       break;
   }
 
-  const { isSuccess, error, data } = validationUtil.validateFieldOnly({
+  const { error, data } = validationUtil.validateFieldOnly({
     toSanitize: false,
     factory,
     value,
     field: name,
   });
+  console.log("🚀 ~ handleInputChangeWithValidation ~ data:", data);
 
   setSingleFiledError({
     key: name as keyof TErrors<T>,

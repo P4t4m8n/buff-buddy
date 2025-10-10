@@ -2,7 +2,7 @@
 import { BrowserRouter, Routes } from "react-router";
 import { renderRoutes, ROUTES } from "./routes";
 import { QueryClientWrapper } from "./lib/queryClient";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useRef } from "react";
 //Context
 import { RootRefContext } from "./hooks/context/RootRefContext";

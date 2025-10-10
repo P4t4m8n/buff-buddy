@@ -26,7 +26,6 @@ export default function WorkoutExerciseEditInput({
     notes,
     isBodyWeight,
     hasWarmup,
-    id: WorkoutExerciseId,
   } = workoutExerciseToEdit ?? {};
   return (
     <div className=" flex flex-col items gap-4 w-full justify-around ">

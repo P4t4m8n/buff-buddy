@@ -1,4 +1,4 @@
-import { z, ZodType } from "zod";
+import { z } from "zod";
 import type { IToSanitize, IValidationProps } from "../models/app.model";
 import { CRUD_OPERATIONS, DAY_OF_WEEK } from "../consts/app.consts";
 import type { ZodObject } from "zod";

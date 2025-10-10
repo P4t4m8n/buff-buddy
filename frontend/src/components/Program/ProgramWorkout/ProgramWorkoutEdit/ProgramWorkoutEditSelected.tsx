@@ -21,12 +21,12 @@ import {
   WORKOUT_GOALS,
 } from "../../../../../../shared/consts/program.consts";
 //Types
-import type { IProgramWorkoutDTO } from "../../../../../../shared/models/program.model";
+import type { IProgramWorkoutEditDTO } from "../../../../../../shared/models/program.model";
 import type { IWorkoutDTO } from "../../../../../../shared/models/workout.model";
 import type { IWorkoutEditModelProps } from "../../../../models/model.model";
 
 interface IProgramWorkoutEditSelectedProps {
-  selectedProgramWorkout?: IProgramWorkoutDTO | null;
+  selectedProgramWorkout?: IProgramWorkoutEditDTO | null;
   parentRef?: React.RefObject<HTMLDivElement | null>;
   onDaysChange: (e: React.ChangeEvent) => void;
   saveToProgram: (e: React.MouseEvent<HTMLButtonElement>) => void;

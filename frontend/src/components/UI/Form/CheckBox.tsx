@@ -1,5 +1,3 @@
-import Input from "./Input";
-import Label from "./Label";
 import IconCheckMark from "../Icons/IconCheckMark";
 import InputWithError from "./InputWithError";
 

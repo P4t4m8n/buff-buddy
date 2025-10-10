@@ -11,7 +11,7 @@ import type {
 } from "../../../../../shared/models/program.model";
 import type { IWorkoutDTO } from "../../../../../shared/models/workout.model";
 
-export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO) => {
+export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO|IProgramWorkoutEditDTO) => {
   const [selectedProgramWorkout, setSelectedProgramWorkout] =
     useState<IProgramWorkoutEditDTO | null>(null);
 

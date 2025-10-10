@@ -231,7 +231,7 @@ describe("Programs API", () => {
       expect(res.status).toBe(400);
       expect(res.body.errors["programWorkouts.0.workoutGoal"]).toBeDefined();
       expect(res.body.errors["programWorkouts.0.workoutGoal"]).toMatch(
-        "Invalid enum value. Expected 'hypertrophy', received 'invalid-goal"
+       "Invalid input: expected \"hypertrophy\""
       );
     });
 
@@ -260,7 +260,7 @@ describe("Programs API", () => {
       expect(res.status).toBe(400);
       expect(res.body.errors["programWorkouts.0.workoutLevel"]).toBeDefined();
       expect(res.body.errors["programWorkouts.0.workoutLevel"]).toMatch(
-        "Invalid enum value. Expected 'beginner', received 'invalid-level'"
+       "Invalid input: expected \"beginner\""
       );
     });
 

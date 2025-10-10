@@ -11,7 +11,7 @@ import type {
 import type { IModelProps } from "../../../../models/model.model";
 
 interface ProgramWorkoutProps extends IModelProps<HTMLDivElement> {
-  programWorkout?: IProgramWorkoutDTO;
+  programWorkout?: IProgramWorkoutDTO|IProgramWorkoutEditDTO;
   handleProgramWorkouts: (workout: IProgramWorkoutEditDTO) => void;
 }
 

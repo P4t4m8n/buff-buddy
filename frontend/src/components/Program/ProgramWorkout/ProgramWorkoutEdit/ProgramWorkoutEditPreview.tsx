@@ -9,7 +9,7 @@ import GenericModel from "../../../UI/GenericModel";
 import ProgramWorkoutEdit from "./ProgramWorkoutEdit";
 
 interface IProgramWorkoutEditPreview {
-  item: IProgramWorkoutDTO;
+  item: IProgramWorkoutEditDTO|IProgramWorkoutDTO;
   deleteProgramWorkout: (id?: string) => void;
   handleProgramWorkouts: (workout: IProgramWorkoutEditDTO) => void;
 }
