@@ -87,7 +87,6 @@ export const useErrors = <T extends object>() => {
       }
       const newErrors = { ...prev };
       delete newErrors[key];
-      console.log("🚀 ~ setSingleFiledError ~ newErrors:", newErrors);
       return newErrors;
     });
   };

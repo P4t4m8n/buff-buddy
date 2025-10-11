@@ -12,6 +12,7 @@ interface InputWithErrorProps {
   };
   error?: string | null;
   divStyle?: string;
+  children?: React.ReactNode;
 }
 
 function InputWithError({
@@ -19,6 +20,7 @@ function InputWithError({
   labelProps,
   error,
   divStyle = "rounded h-full",
+  children,
 }: InputWithErrorProps) {
   const labelErrorStyle = error
     ? `text-sm w-fit text-error-red
@@ -34,7 +36,6 @@ function InputWithError({
 
   const labelStyle = twMerge(labelErrorStyle, labelProps.className ?? "");
   const { labelPosition, ..._labelProps } = labelProps;
-  console.log("render");
 
   return (
     <Input
@@ -50,6 +51,7 @@ function InputWithError({
       >
         {error ? error : labelProps.children}
       </Label>
+      {children}
     </Input>
   );
 }
@@ -60,7 +62,9 @@ const propsEqual = (prev: InputWithErrorProps, next: InputWithErrorProps) => {
   if (prevVal !== nextVal) return false;
   if (prev.error !== next.error) return false;
   if (prev.inputProps?.name !== next.inputProps?.name) return false;
-  return true; 
+  if (prev.inputProps?.type !== next.inputProps?.type) return false;
+  if (prev.children !== next.children) return false;
+  return true;
 };
 
 export default memo(InputWithError, propsEqual);

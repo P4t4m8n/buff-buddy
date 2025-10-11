@@ -147,9 +147,8 @@ const validateFieldOnly = <V>({
   const schema = factory({ toSanitize });
   const schemaField = schema.pick({ [field]: true });
   const result = schemaField.safeParse({ [field]: value });
-  // console.dir( result.error,{depth:5})
-  console.log(result);
   const { success, error, data } = result;
+  console.log("🚀 ~ validateFieldOnly ~ result:", result)
   return {
     isSuccess: success,
     error,

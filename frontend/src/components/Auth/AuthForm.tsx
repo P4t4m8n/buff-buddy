@@ -3,6 +3,7 @@ import { useAuthForm } from "../../hooks/features/auth/useAuthForm";
 //UI
 import InputWithError from "../UI/Form/InputWithError";
 import Button from "../UI/Button";
+import PasswordInput from "../UI/Form/PasswordInput";
 //Types
 import type { IAuthSignUpDTO } from "../../../../shared/models/auth.model";
 import type { TErrors } from "../../models/errors.model";
@@ -39,6 +40,7 @@ export default function AuthForm({ isSignUp }: IAuthFormProps) {
           value: value || "",
           className: "h-10 pl-2",
           onChange: onChange,
+          autoComplete: "off", //INFO:To make the browser quite, maybe update autofill later
         }}
         divStyle="rounded h-full border-black outline-black"
         labelProps={{
@@ -50,6 +52,7 @@ export default function AuthForm({ isSignUp }: IAuthFormProps) {
       />
     );
   };
+
   return (
     <form onSubmit={handleSubmit} className="grid gap-2 w-full">
       {isSignUp ? (
@@ -79,23 +82,23 @@ export default function AuthForm({ isSignUp }: IAuthFormProps) {
         error: errors?.email,
       })}
 
-      {getInput({
-        name: "password",
-        type: "password",
-        label: "Password",
-        value: authForm?.password,
-        error: errors?.password,
-      })}
+      <PasswordInput
+        name="password"
+        label="Password"
+        onChange={onChange}
+        value={authForm?.password}
+        error={errors?.password}
+      />
 
-      {isSignUp
-        ? getInput({
-            name: "confirmPassword",
-            type: "password",
-            label: "Confirm password",
-            value: (authForm as IAuthSignUpDTO).confirmPassword,
-            error: (errors as TErrors<IAuthSignUpDTO>)?.confirmPassword,
-          })
-        : null}
+      {isSignUp ? (
+        <PasswordInput
+          name="confirmPassword"
+          label="Confirm password"
+          onChange={onChange}
+          value={(authForm as IAuthSignUpDTO).confirmPassword}
+          error={(errors as TErrors<IAuthSignUpDTO>)?.confirmPassword}
+        />
+      ) : null}
 
       <Button
         type="submit"

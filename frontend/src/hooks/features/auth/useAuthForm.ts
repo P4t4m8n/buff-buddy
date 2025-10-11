@@ -74,7 +74,7 @@ export const useAuthForm = ({ isSignUp }: IUseAuthFormProps) => {
       ? authValidation.signUpFactorySchema
       : authValidation.signInFactorySchema;
 
-    formUtil.handleInputChangeWithValidation({
+    formUtil.onInputChangeWithValidation({
       event,
       setStateToEdit: setAuthForm,
       factory,

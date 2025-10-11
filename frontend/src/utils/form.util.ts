@@ -1,6 +1,8 @@
+//Utils
+import { validationUtil } from "../../../shared/validations/util.validation";
+//Types
 import type { ZodError, ZodObject } from "zod";
 import type { IToSanitize } from "../../../shared/models/app.model";
-import { validationUtil } from "../../../shared/validations/util.validation";
 import type { TErrors } from "../models/errors.model";
 
 const handleInputChange = <T>(
@@ -32,8 +34,9 @@ const handleInputChange = <T>(
     };
   });
 };
+
 //TODO:Add proper key validation
-const handleInputChangeWithValidation = <T>({
+const onInputChangeWithValidation = <T>({
   event,
   setStateToEdit,
   factory,
@@ -67,13 +70,12 @@ const handleInputChangeWithValidation = <T>({
       break;
   }
 
-  const { error, data } = validationUtil.validateFieldOnly({
+  const { error } = validationUtil.validateFieldOnly({
     toSanitize: false,
     factory,
-    value,
+    value: newVal,
     field: name,
   });
-  console.log("🚀 ~ handleInputChangeWithValidation ~ data:", data);
 
   setSingleFiledError({
     key: name as keyof TErrors<T>,
@@ -91,5 +93,5 @@ const handleInputChangeWithValidation = <T>({
 
 export const formUtil = {
   handleInputChange,
-  handleInputChangeWithValidation,
+   onInputChangeWithValidation,
 };
