@@ -32,6 +32,7 @@ const exerciseInfoFactorySchema = ({
   toSanitize = false,
   name,
 }: IToSanitize & { name: string }) => {
+  console.log("🚀 ~ exerciseInfoFactorySchema ~ name:", name)
   return z.object({
     name: validationUtil.stringSchemaFactory({
       fieldName: name,
@@ -113,12 +114,7 @@ const createFactorySchema = ({ toSanitize = false }: IToSanitize) => {
     type: ExerciseTypeSchema,
     isCompounded: validationUtil.BooleanSchema.default(false),
     equipment: z
-      .array(
-        exerciseInfoFactorySchema({ toSanitize, name: "Equipment name" }),
-        {
-          error: "Equipment is required.",
-        }
-      )
+      .array(exerciseInfoFactorySchema({ toSanitize, name: "Equipment name" }))
       .min(1, "At least one equipment type is required")
       .max(8, "Maximum 8 equipment types allowed")
       .transform((equipment) => [...new Set(equipment)]), // Remove duplicates
@@ -158,17 +154,10 @@ const QuerySchema = validationUtil.FilterSchema.extend({
     .optional(),
 });
 
-export const exerciseValidation: IValidation<
-  IExerciseEditDTO,
-  IExerciseFilter,
-  TExerciseCreateValidatedInput,
-  TExerciseUpdateValidatedInput,
-  TExerciseQuery
-> & {
-  ExerciseTypeSchema: typeof ExerciseTypeSchema;
-} = {
+export const exerciseValidation = {
   createFactorySchema,
   updateFactorySchema,
+  exerciseInfoFactorySchema,
   QuerySchema,
   ExerciseTypeSchema,
 };

@@ -42,7 +42,7 @@ const stringSchemaFactory = ({
   z.core.$ZodTypeInternals<string, string>
 > => {
   const sanitizer = createSanitizer(toSanitize);
-  const y = z
+  return z
     .string({
       error: createFieldErrorHandler(fieldName),
     })
@@ -58,11 +58,6 @@ const stringSchemaFactory = ({
       (val) => val.length <= maxLength,
       `${fieldName} must be less than ${maxLength} characters`
     );
-  return y as z.ZodType<
-    string,
-    string,
-    z.core.$ZodTypeInternals<string, string>
-  >;
 };
 
 /**

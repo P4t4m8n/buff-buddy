@@ -27,7 +27,6 @@ export default function useItemMutation<
   saveFn,
   filterFn,
 }: IUseItemMutationProps<EditDTO, DTO>) {
-  const { handleError, errors } = useErrors<EditDTO>();
 
   const mutation = useMutation({
     mutationFn: async (dto: EditDTO) => await saveFn(dto),
@@ -45,10 +44,8 @@ export default function useItemMutation<
         data: { ...(old?.data ?? {}), ...data },
       }));
     },
-    onError(error) {
-      handleError({ error, emitToToast: true });
-    },
+ 
   });
 
-  return { ...mutation, errors };
+  return { ...mutation };
 }

@@ -34,11 +34,14 @@ export default function ExerciseEdit({
     exerciseToEdit,
     isLoading,
     isSaving,
-    mutationErrors,
+    errors,
     saveExercise,
     handleType,
     handleExerciseInfo,
+    onInputChange,
   } = useExerciseEdit({ exerciseId });
+    console.log("🚀 ~ ExerciseEdit ~ exerciseToEdit:", exerciseToEdit)
+  console.log("🚀 ~ ExerciseEdit ~ mutationErrors:", errors);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -60,8 +63,8 @@ export default function ExerciseEdit({
   }
 
   const { id, muscles, equipment, type, name, youtubeUrl, isCompounded } =
-  exerciseToEdit || {};
-  
+    exerciseToEdit || {};
+
   return (
     <form
       ref={modelRef}
@@ -77,7 +80,8 @@ export default function ExerciseEdit({
           name: "name",
           id: "name" + id,
           placeholder: "",
-          defaultValue: name,
+          value: name,
+          onChange: onInputChange,
           className: "h-10 pl-2",
         }}
         divStyle=""
@@ -86,20 +90,21 @@ export default function ExerciseEdit({
           children: "Exercise Name",
           isMoveUpEffect: true,
         }}
-        error={mutationErrors?.name}
+        error={errors?.name}
       />
 
       <YoutubeInput
-        youtubeUrlProps={youtubeUrl}
-        error={mutationErrors?.youtubeUrl}
+        youtubeUrl={youtubeUrl}
+        error={errors?.youtubeUrl}
         parentId={id}
+        onInputChange={onInputChange}
       />
       <CheckBox
         name="isCompounded"
         id={"isCompounded"}
         defaultChecked={!!isCompounded}
         labelText="Compound Movement"
-        error={mutationErrors?.isCompounded}
+        error={errors?.isCompounded}
       />
 
       <SelectWithSearch
@@ -108,7 +113,7 @@ export default function ExerciseEdit({
         SelectedComponent={<ExerciseTypeSelected type={type} />}
         parentModelRef={modelRef}
         filterBy={(item) => item}
-        error={mutationErrors?.type}
+        error={errors?.type}
         SelectItemComponent={ExerciseTypeSelectItem}
       />
       <ExerciseEditInfoSelect
@@ -116,7 +121,7 @@ export default function ExerciseEdit({
         handleExerciseInfo={handleExerciseInfo}
         filter={{}}
         inputName="muscles"
-        mutationError={mutationErrors?.muscles}
+        mutationError={errors?.muscles}
         parentModelRef={modelRef}
         selectedList={muscles}
       />
@@ -125,13 +130,18 @@ export default function ExerciseEdit({
         handleExerciseInfo={handleExerciseInfo}
         filter={{}}
         inputName="equipment"
-        mutationError={mutationErrors?.equipment}
+        mutationError={errors?.equipment}
         parentModelRef={modelRef}
         selectedList={equipment}
       />
 
-      <div className="inline-flex items-center justify-between gap-2">
-        <Button type="button" buttonStyle="warning" onClick={handleModel}>
+      <div className="grid grid-cols-2 gap-8">
+        <Button
+          type="button"
+          buttonStyle="warning"
+          className="w-full"
+          onClick={handleModel}
+        >
           Cancel
         </Button>
         <GenericSaveButton isSaving={isSaving} />

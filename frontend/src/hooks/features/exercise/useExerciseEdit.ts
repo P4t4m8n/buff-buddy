@@ -2,8 +2,12 @@
 import React, { useEffect } from "react";
 //Services
 import { exerciseService } from "../../../services/exercise.service";
+//Validation
+import { exerciseValidation } from "../../../../../shared/validations/exercise.validation";
 //Util
 import { exerciseUtil } from "../../../utils/exercise.util";
+import { validationUtil } from "../../../../../shared/validations/util.validation";
+import { formUtil } from "../../../utils/form.util";
 //Hooks
 import { useItemEdit } from "../../shared/useItemEdit";
 import { useExerciseIdQuery } from "./useExerciseIdQuery";
@@ -30,7 +34,6 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
     itemToEdit: exerciseToEdit,
     setItemToEdit: setExerciseToEdit,
     mutateAsync,
-    mutationErrors,
     queryError,
     isLoading,
     isSaving,
@@ -44,29 +47,48 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
     getEmpty: exerciseUtil.getEmpty,
   });
 
-  const { clearErrors, handleError } = useErrors<IExerciseDTO>();
+  const { handleError, setSingleFiledError, errors } =
+    useErrors<IExerciseEditDTO>();
 
   useEffect(() => {
     if (queryError) handleError({ error: queryError, emitToToast: true });
   }, [queryError]);
 
-  const saveExercise = async (formData: FormData) => {
-    clearErrors();
-    const ownerId = useAuthStore.getState().user?.id || null;
+  const onInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const factory = exerciseToEdit?.id?.startsWith("temp")
+      ? exerciseValidation.createFactorySchema
+      : exerciseValidation.updateFactorySchema;
 
-    const name = formData.get("name") as string;
-    const youtubeUrl = formData.get("youtubeUrl") as string;
-    const isCompounded = formData.get("isCompounded") === "on" ? true : false;
-
-    const res = await mutateAsync({
-      ...exerciseToEdit,
-      name,
-      youtubeUrl,
-      ownerId,
-      isCompounded,
+    formUtil.onInputChangeWithValidation({
+      event,
+      setStateToEdit: setExerciseToEdit,
+      factory,
+      setSingleFiledError,
     });
+  };
 
-    return !!res.data.id;
+  const saveExercise = async (formData: FormData) => {
+    try {
+      const ownerId = useAuthStore.getState().user?.id || null;
+
+      const name = formData.get("name") as string;
+      const youtubeUrl = formData.get("youtubeUrl") as string;
+      const isCompounded = formData.get("isCompounded") === "on" ? true : false;
+
+      const res = await mutateAsync({
+        ...exerciseToEdit,
+        name,
+        youtubeUrl,
+        ownerId,
+        isCompounded,
+      });
+
+      return !!res.data.id;
+    } catch (error) {
+      handleError({ error, emitToToast: false });
+    }
   };
 
   const handleExerciseInfo = (
@@ -81,6 +103,21 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
       );
       return;
     }
+    const factory = exerciseToEdit?.id?.startsWith("temp")
+      ? exerciseValidation.createFactorySchema
+      : exerciseValidation.updateFactorySchema;
+
+    const { error } = validationUtil.validateFieldOnly({
+      toSanitize: false,
+      factory,
+      value: [option],
+      field: inputName,
+    });
+
+    setSingleFiledError({
+      key: inputName,
+      error,
+    });
 
     setExerciseToEdit((prev) => {
       if (!prev) return prev;
@@ -111,6 +148,22 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
   };
 
   const handleType = (option: ExerciseType) => {
+    const factory = exerciseToEdit?.id?.startsWith("temp")
+      ? exerciseValidation.createFactorySchema
+      : exerciseValidation.updateFactorySchema;
+
+    const { error } = validationUtil.validateFieldOnly({
+      toSanitize: false,
+      factory,
+      value: option,
+      field: "type",
+    });
+
+    setSingleFiledError({
+      key: "type",
+      error,
+    });
+
     setExerciseToEdit((prev) => {
       if (!prev) return prev;
       return { ...prev, type: option };
@@ -119,11 +172,12 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
 
   return {
     exerciseToEdit,
-    mutationErrors,
+    errors,
     isLoading,
     isSaving,
     saveExercise,
     handleType,
     handleExerciseInfo,
+    onInputChange,
   };
 };

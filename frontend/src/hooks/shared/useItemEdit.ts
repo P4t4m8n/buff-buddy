@@ -51,7 +51,7 @@ export const useItemEdit = <
   const mutationKey = useMutationKeyStore((store) => store[storeMutationKey]);
 
   const {
-    errors: mutationErrors,
+    error: mutationErrors,
     mutateAsync,
     isPending: isSaving,
   } = useItemMutation<EditDTO, DTO>({
