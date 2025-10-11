@@ -2,8 +2,6 @@ import { useMutation } from "@tanstack/react-query";
 
 import { queryClient } from "../../lib/queryClient";
 
-import { useErrors } from "../../hooks/shared/useErrors";
-
 import type { THttpResponse } from "../../models/apiService.model";
 import type { IBaseFilter } from "../../../../shared/models/app.model";
 import type { IEntity } from "../../../../shared/models/entity.model";
@@ -27,7 +25,6 @@ export default function useItemMutation<
   saveFn,
   filterFn,
 }: IUseItemMutationProps<EditDTO, DTO>) {
-
   const mutation = useMutation({
     mutationFn: async (dto: EditDTO) => await saveFn(dto),
     onSuccess({ data }) {
@@ -44,7 +41,6 @@ export default function useItemMutation<
         data: { ...(old?.data ?? {}), ...data },
       }));
     },
- 
   });
 
   return { ...mutation };

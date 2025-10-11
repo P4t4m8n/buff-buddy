@@ -3,11 +3,7 @@ import { z } from "zod";
 import { validationUtil } from "./util.validation";
 
 import { EXERCISE_TYPES } from "../consts/exercise.consts";
-import type {
-  IExerciseEditDTO,
-  IExerciseFilter,
-} from "../models/exercise.model";
-import type { IValidation } from "../models/validation.model";
+
 import type { IToSanitize } from "../models/app.model";
 
 /*
@@ -32,7 +28,6 @@ const exerciseInfoFactorySchema = ({
   toSanitize = false,
   name,
 }: IToSanitize & { name: string }) => {
-  console.log("🚀 ~ exerciseInfoFactorySchema ~ name:", name)
   return z.object({
     name: validationUtil.stringSchemaFactory({
       fieldName: name,

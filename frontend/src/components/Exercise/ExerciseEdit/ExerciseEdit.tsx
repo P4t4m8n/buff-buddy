@@ -40,8 +40,7 @@ export default function ExerciseEdit({
     handleExerciseInfo,
     onInputChange,
   } = useExerciseEdit({ exerciseId });
-    console.log("🚀 ~ ExerciseEdit ~ exerciseToEdit:", exerciseToEdit)
-  console.log("🚀 ~ ExerciseEdit ~ mutationErrors:", errors);
+
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
