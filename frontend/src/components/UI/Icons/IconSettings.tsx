@@ -1,0 +1,101 @@
+import type { IIconProps } from "../../../models/UI.model";
+
+export const IconSettings = ({ className }: IIconProps) => {
+  return (
+    <svg viewBox="0 0 24 24" className={className} strokeMiterlimit={10}>
+      <g id="SVGRepo_iconCarrier">
+        <defs></defs>
+        <circle className="stroke-[1.8px]" cx="12" cy="13.91" r="2.86"></circle>
+        <line
+          className="stroke-[1.8px]"
+          x1="12"
+          y1="11.05"
+          x2="12"
+          y2="9.14"
+        ></line>
+        <line
+          className="stroke-[1.8px]"
+          x1="12"
+          y1="18.68"
+          x2="12"
+          y2="16.77"
+        ></line>
+        <line
+          className="stroke-[1.8px]"
+          x1="12"
+          y1="11.05"
+          x2="12"
+          y2="9.14"
+        ></line>
+        <line
+          className="stroke-[1.8px]"
+          x1="12"
+          y1="18.68"
+          x2="12"
+          y2="16.77"
+        ></line>
+        <line
+          className="stroke-[1.8px]"
+          x1="9.52"
+          y1="12.48"
+          x2="7.87"
+          y2="11.52"
+        ></line>
+        <line
+          className="stroke-[1.8px]"
+          x1="16.13"
+          y1="16.3"
+          x2="14.48"
+          y2="15.34"
+        ></line>
+        <line
+          className="stroke-[1.8px]"
+          x1="9.52"
+          y1="12.48"
+          x2="7.87"
+          y2="11.52"
+        ></line>
+        <line
+          className="stroke-[1.8px]"
+          x1="16.13"
+          y1="16.3"
+          x2="14.48"
+          y2="15.34"
+        ></line>
+        <line
+          className="stroke-[1.8px]"
+          x1="14.48"
+          y1="12.48"
+          x2="16.13"
+          y2="11.52"
+        ></line>
+        <line
+          className="stroke-[1.8px]"
+          x1="7.87"
+          y1="16.3"
+          x2="9.52"
+          y2="15.34"
+        ></line>
+        <line
+          className="stroke-[1.8px]"
+          x1="14.48"
+          y1="12.48"
+          x2="16.13"
+          y2="11.52"
+        ></line>
+        <line
+          className="stroke-[1.8px]"
+          x1="7.87"
+          y1="16.3"
+          x2="9.52"
+          y2="15.34"
+        ></line>
+        <polyline
+          stroke="1"
+          points="15.82 2.46 15.82 2.46 20.59 2.46 20.59 22.5 3.41 22.5 3.41 2.46 8.18 2.46 8.18 2.46"
+        ></polyline>
+        <path d="M15.82,1.5V3.41a1.92,1.92,0,0,1-1.91,1.91H10.09A1.92,1.92,0,0,1,8.18,3.41V1.5Z"></path>
+      </g>
+    </svg>
+  );
+};

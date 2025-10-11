@@ -23,6 +23,7 @@ import ExerciseDetailsPage from "./pages/exercise/ExerciseDetailsPage";
 import { ROUTES_STORE } from "./consts/routes.const";
 //Types
 import type { ReactNode } from "react";
+import AuthPage from "./pages/AuthPage";
 
 interface RouteConfig {
   path: string;
@@ -42,6 +43,10 @@ export const ROUTES: RouteConfig[] = [
   {
     path: "/",
     element: <HomePage />,
+  },
+  {
+    path: ROUTES_STORE.AUTH_PAGE_ROUTE,
+    element: <AuthPage />,
   },
   {
     path: "/workouts",

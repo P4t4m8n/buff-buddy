@@ -70,6 +70,9 @@ const signOut = async (req: Request, res: Response) => {
 const getSessionUser = async (_: Request, res: Response) => {
   try {
     const user = asyncLocalStorage.getStore()?.sessionUser;
+    if (!user) {
+      throw AppError.create("User not authenticated", 401);
+    }
 
     res.status(200).json({
       message: "User session retrieved successfully",

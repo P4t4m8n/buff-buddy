@@ -21,10 +21,18 @@ const signUp = async (
 ): Promise<TAuthRecordResponse<IUser>> => {
   const authRecord = await authUtil.getAuthRecord({ dto });
   const data = authSQL.getAuthCreate(authRecord);
-  const user = await prisma.user.create({
-    data: data,
-    select: userSQL.SMALL_USER_SELECT,
-  });
+  const user = await prisma.user
+    .create({
+      data: data,
+      select: userSQL.SMALL_USER_SELECT,
+    })
+    //INFO:Catch the record exist error here in case its in the email to prevent sensitive info to leak
+    .catch((error) => {
+      if ("meta" in error && error.meta?.target?.includes("email")) {
+        throw AppError.create("Bad Request", 409);
+      }
+      throw error;
+    });
 
   if (!user) {
     throw AppError.create("User creation failed", 500);
@@ -38,11 +46,11 @@ const signUp = async (
 const signIn = async (
   dto: TSignInInput | TGoogleOAuthInput
 ): Promise<TAuthRecordResponse<IUser>> => {
-  const { email } = dto;
+  const { email: signInEmail } = dto;
 
   const user = await prisma.user.findUnique({
     where: {
-      email: email,
+      email: signInEmail,
     },
     select: {
       ...userSQL.SMALL_USER_SELECT,
@@ -54,24 +62,25 @@ const signIn = async (
     throw AppError.create("Bad Request", 409);
   }
 
-  const match = authUtil.verifyCredentials({
-    password: (dto as TSignInInput)?.password ?? null,
+  const match = await authUtil.verifyCredentials({
+    password: (dto as TSignInInput)?.password ,
     passwordHash: user?.passwordHash,
-    googleId: (dto as TGoogleOAuthInput)?.googleId ?? null,
+    googleId: (dto as TGoogleOAuthInput)?.googleId,
     userGoogleId: user.googleId,
   });
 
   if (!match) {
-    throw AppError.create("Bad Request", 400);
+    throw AppError.create("Bad Request", 409);
   }
 
   const token = authUtil.generateToken({ userId: user.id, isAdmin: false });
-  const { lastName, firstName, id } = user;
+  const { lastName, firstName, id, email } = user;
   return {
     user: {
       id,
       firstName,
       lastName,
+      email,
     },
     token,
   };

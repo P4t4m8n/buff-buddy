@@ -148,7 +148,6 @@ const validateFieldOnly = <V>({
   const schemaField = schema.pick({ [field]: true });
   const result = schemaField.safeParse({ [field]: value });
   const { success, error, data } = result;
-  console.log("🚀 ~ validateFieldOnly ~ result:", result)
   return {
     isSuccess: success,
     error,

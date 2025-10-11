@@ -25,7 +25,7 @@ export default function AppNavList() {
     {
       label: "diet",
       path: "/diet",
-      icon: <IconDiet className="w-6 h-6 fill-main-orange " />,
+      icon: <IconDiet className="w-6 h-6 " />,
     },
     {
       label: "programs",

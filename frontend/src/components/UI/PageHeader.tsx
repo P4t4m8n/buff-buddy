@@ -19,7 +19,7 @@ export default function PageHeader({
   ...rest
 }: IListPageHeaderProps) {
   return (
-    <header className="inline-flex items-center gap-4 border-b  border-b-main-orange/25 px-desktop py-2 col-span-full ">
+    <header className="inline-flex items-center gap-4 border-b border-b-main-orange/25 px-desktop py-2 col-span-full ">
       {RenderBackButton(handleModel)}
       <h2 className="text-2xl font-bold col-span-full text-center ">
         {toTitle(rest.pageName)}
