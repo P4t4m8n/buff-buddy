@@ -109,7 +109,10 @@ const createFactorySchema = ({ toSanitize = false }: IToSanitize) => {
     type: ExerciseTypeSchema,
     isCompounded: validationUtil.BooleanSchema.default(false),
     equipment: z
-      .array(exerciseInfoFactorySchema({ toSanitize, name: "Equipment name" }))
+      .array(
+        exerciseInfoFactorySchema({ toSanitize, name: "Equipment name" }),
+        { error: validationUtil.createFieldErrorHandler("Equipment") }
+      )
       .min(1, "At least one equipment type is required")
       .max(8, "Maximum 8 equipment types allowed")
       .transform((equipment) => [...new Set(equipment)]), // Remove duplicates

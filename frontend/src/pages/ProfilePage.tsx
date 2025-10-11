@@ -68,6 +68,7 @@ export default function ProfilePage() {
         className="self-end border rounded py-1 mx-6"
         type="button"
         onClick={onSignOut}
+        disabled={isLoading}
       >
         Sign Out
       </Button>

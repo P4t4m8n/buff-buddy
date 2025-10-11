@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
 //UI
 import Button from "../UI/Button";
-import Input from "../UI/Form/Input";
-import Label from "../UI/Form/Label";
+
 import InputWithError from "../UI/Form/InputWithError";
 //Icons
 import { IconPlus } from "../UI/Icons/IconPlus";
@@ -27,8 +26,7 @@ function WorkoutFilterMemo({
   onResetForm,
 }: IWorkoutFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const { isTemplate, workoutName, programName, exerciseName, ownerName } =
-    workoutsFilter;
+  const { workoutName, programName, exerciseName, ownerName } = workoutsFilter;
 
   const inputs = [
     { label: "workout", value: workoutName, name: "workoutName" },

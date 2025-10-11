@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 
 import YoutubePlayer from "../YoutubePlayer";
 import InputWithError from "./InputWithError";

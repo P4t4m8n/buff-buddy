@@ -296,6 +296,7 @@ export const validationUtil = {
   stringSchemaFactory,
   IDSchemaFactory,
   validateFieldOnly,
+  createFieldErrorHandler,
   BooleanSchema,
   CrudOperationEnumSchema,
   CrudOperationSchema,

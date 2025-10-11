@@ -34,6 +34,7 @@ import type {
   IMealFoodItemEditDTO,
 } from "../../../../../shared/models/meal.model";
 import type { MealType } from "../../../../../backend/prisma/generated/prisma";
+import { useErrors } from "../../../hooks/shared/useErrors";
 
 interface IMealEditProps {
   mealIdParams?: string;
@@ -49,8 +50,9 @@ export default function MealEdit({ mealIdParams }: IMealEditProps) {
   const x = data?.data;
 
   const ownerId = useAuthStore((store) => store.user?.id);
+  const { errors, handleError } = useErrors<IMealEditDTO>();
 
-  const { errors, mutateAsync } = useItemMutation<IMealEditDTO, IMealDTO>({
+  const { mutateAsync } = useItemMutation<IMealEditDTO, IMealDTO>({
     listKey: [QUERY_KEYS.MEALS_QUERY_KEY],
     itemIdKey: [QUERY_KEYS.MEAL_ID_QUERY_KEY, mealIdParams ?? ""],
     saveFn: mealService.save,
@@ -75,10 +77,14 @@ export default function MealEdit({ mealIdParams }: IMealEditProps) {
     return <Loader loaderType="screen" />;
   }
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    await mutateAsync(mealToEdit);
-    onBack();
+      await mutateAsync(mealToEdit);
+      onBack();
+    } catch (error) {
+      handleError({ error });
+    }
   };
 
   const handleType = (mealType: MealType) => {
