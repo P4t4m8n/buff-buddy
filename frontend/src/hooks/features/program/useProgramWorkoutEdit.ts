@@ -87,11 +87,11 @@ export const useProgramWorkoutEdit = (programWorkout?: IProgramWorkoutDTO|IProgr
   );
 
   const handleWorkoutPlannerInfo = useCallback(
-    (option: string, inputName?: "level" | "workoutGoal") => {
+    (option: string, inputName?: "workoutLevel" | "workoutGoal") => {
       setSelectedProgramWorkout((prev) => {
         if (!prev) return null;
 
-        const _inputName = inputName || "level";
+        const _inputName = inputName || "workoutLevel";
         return {
           ...prev,
           [_inputName]: option,

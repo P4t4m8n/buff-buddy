@@ -19,6 +19,7 @@ import type {
 } from "../../../../../shared/models/program.model";
 import type { IDateRange } from "../../../models/calendar.model";
 import type { TErrors } from "../../../models/errors.model";
+import CheckBox from "../../UI/Form/CheckBox";
 
 interface IProgramEditInputsProps {
   programToEdit?: IProgramEditDTO | null;
@@ -82,41 +83,21 @@ export default function ProgramEditInputs({
           }}
         />
         <div className="flex items-center gap-8">
-          <InputWithError
-            divStyle="flex f items-center gap-2"
-            inputProps={{
-              name: "isActive",
-              type: "checkbox",
-              checked: !!isActive,
-              className: "w-4 ",
-              id: "isActive-" + programId,
-              onChange: handleInputChange,
-            }}
-            labelProps={{
-              labelPosition: "input",
-              className: "",
-              htmlFor: "isActive-" + programId,
-              children: isActive ? "Active" : "Inactive",
-            }}
+          <CheckBox
+            name="isActive"
+            id={"isActive-" + programId}
+            checked={!!isActive}
+            labelText={isActive ? "Active" : "Inactive"}
             error={errors?.isActive}
+            onChange={handleInputChange}
           />
-          <InputWithError
-            divStyle="flex f items-center gap-2"
-            inputProps={{
-              name: "isPublic",
-              type: "checkbox",
-              checked: !!isPublic,
-              className: "w-4 ",
-              id: "isPublic-" + programId,
-              onChange: handleInputChange,
-            }}
-            labelProps={{
-              labelPosition: "input",
-              className: "",
-              htmlFor: "isPublic-" + programId,
-              children: isPublic ? "Public" : "Private",
-            }}
+          <CheckBox
+            name="isPublic"
+            id={"isPublic-" + programId}
+            checked={!!isPublic}
+            labelText={isPublic ? "Public" : "Private"}
             error={errors?.isPublic}
+            onChange={handleInputChange}
           />
         </div>
         <TextArea

@@ -18,6 +18,7 @@ import type {
   IProgramWorkoutEditDTO,
 } from "../../../../../shared/models/program.model";
 import type { IDateRange } from "../../../models/calendar.model";
+import { useAuthStore } from "../../../store/auth.store";
 
 export const useProgramEdit = (programId?: string) => {
   const {
@@ -54,6 +55,9 @@ export const useProgramEdit = (programId?: string) => {
 
   const saveProgram = async () => {
     if (!programToEdit) return false;
+    const ownerId = useAuthStore.getState().user?.id || null;
+
+    programToEdit.ownerId = ownerId;
     const { data } = await mutateAsync(programToEdit);
 
     const { id } = data;

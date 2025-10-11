@@ -38,7 +38,7 @@ interface IProgramWorkoutEditSelectedProps {
   handleSelectedWorkoutUpdate?: (workout: IWorkoutDTO | null) => void;
   handleWorkoutPlannerInfo: (
     option: string,
-    inputName?: "level" | "workoutGoal"
+    inputName?: "workoutLevel" | "workoutGoal"
   ) => void;
   handleModel?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
@@ -114,7 +114,7 @@ export default function ProgramWorkoutEditSelected({
           SelectedComponent={<p>{workoutLevel ?? "Pick a level"}</p>}
           filterBy={(item) => item}
           SelectItemComponent={(props) => (
-            <GenericSelectItem {...props} inputName="level" />
+            <GenericSelectItem {...props} inputName="workoutLevel" />
           )}
         />
 

@@ -63,7 +63,7 @@ export default function WorkoutPage() {
     return map;
   }, [programs]);
 
-  if (isLoading) {
+  if (isLoading||!day) {
     return <Loader loaderType="screen" />;
   }
 

@@ -1,29 +1,29 @@
+import type { IDateRange } from "../../../../models/calendar.model";
 import { calendarUtil } from "../../../../utils/calendar.util";
 
 interface DateInputDateDisplayProps {
   mode: "single" | "range";
-  startDate?: Date | null;
-  endDate?: Date | null;
+  dateRange?: IDateRange;
 }
 
 export default function DateInputDateDisplay({
   mode,
-  startDate,
-  endDate,
+  dateRange,
 }: DateInputDateDisplayProps) {
+  const { start, end } = dateRange ?? {};
   const getDisplayText = () => {
-    if (!startDate) {
+    if (!start) {
       return "Select date" + (mode === "range" ? " range" : "");
     }
     if (mode === "single") {
-      return calendarUtil.formatDate(startDate);
+      return calendarUtil.formatDate(start);
     }
 
-    if (endDate) {
-      return `${calendarUtil.getFormatDateRange(startDate, endDate)}`;
+    if (end) {
+      return `${calendarUtil.getFormatDateRange(start, end)}`;
     }
 
-    return `${calendarUtil.formatDate(startDate)} - Select end date`;
+    return `${calendarUtil.formatDate(start)} - Select end date`;
   };
   return <span className="">{getDisplayText()}</span>;
 }

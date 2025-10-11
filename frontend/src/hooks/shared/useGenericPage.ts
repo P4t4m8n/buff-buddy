@@ -85,19 +85,34 @@ export const useGenericPage = <DTO, Filter extends IBaseFilter>({
   const onSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    const formData = new FormData(e.currentTarget);
+
+    const form = e.currentTarget;
     const updatedParams: Record<string, string> = {};
 
-    Object.keys(filter).forEach((key) => {
-      const value = formData.get(key) as string;
-      updatedParams[key] = value || "";
+    Object.keys(initialFilter).forEach((key) => {
+      const element = form.elements.namedItem(key) as HTMLInputElement | null;
+      if (!element) return;
+
+      let value: string | number | boolean;
+
+      switch (element.type) {
+        case "checkbox":
+          value = element.checked;
+          break;
+        case "number":
+          value = element.valueAsNumber;
+          break;
+        default:
+          value = element.value;
+          break;
+      }
+      if (value !== "" && value !== null && value !== undefined) {
+        updatedParams[key] = String(value);
+      }
     });
 
-    if ("skip" in updatedParams) {
+    if ("skip" in initialFilter) {
       updatedParams.skip = "0";
-    }
-    if ("take" in updatedParams) {
-      updatedParams.take = "10";
     }
 
     setSearchParams(updatedParams, { replace: true });

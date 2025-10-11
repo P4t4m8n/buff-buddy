@@ -37,7 +37,7 @@ export default function WorkoutExerciseEditInput({
           value: order && order >= 1 ? order : workoutExerciseLength ?? 1,
           className:
             "border w-[4ch] aspect-square rounded text-center order-2  ",
-          min: 1,
+        
           onChange: handleInputChange,
         }}
         labelProps={{

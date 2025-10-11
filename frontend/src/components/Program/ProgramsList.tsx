@@ -63,7 +63,7 @@ export default function ProgramsList() {
             getKey={(item) => item.id!}
             NoItemsComponent={NoProgramsComponent}
           />
-          <Pagination meta={meta} onPaginate={onPaginate} />
+          {meta?.totalPages ? <Pagination meta={meta} onPaginate={onPaginate} /> : null}
         </>
       )}
     </div>

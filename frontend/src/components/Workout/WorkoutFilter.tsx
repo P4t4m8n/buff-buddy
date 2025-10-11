@@ -86,7 +86,7 @@ function WorkoutFilterMemo({
             />
           ))}
 
-          <Input
+          {/* <Input
             type="checkbox"
             name="isTemplate"
             defaultChecked={!!isTemplate}
@@ -94,7 +94,7 @@ function WorkoutFilterMemo({
             className=" cursor-pointer w-fit "
           >
             <Label> "Template" </Label>
-          </Input>
+          </Input> */}
           <div className="flex mt-auto gap-8 w-full">
             <Button
               type="reset"

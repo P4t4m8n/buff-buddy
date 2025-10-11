@@ -24,8 +24,8 @@ function InputWithError({
 }: InputWithErrorProps) {
   const labelErrorStyle = error
     ? `text-sm w-fit text-error-red
-       peer-[:not(:placeholder-shown)]:text-error-red
-       peer-focus:text-error-red`
+  peer-[:not(:placeholder-shown)]:text-error-red
+  peer-focus:text-error-red`
     : "";
 
   const inputStyle = twMerge(
@@ -57,8 +57,16 @@ function InputWithError({
 }
 
 const propsEqual = (prev: InputWithErrorProps, next: InputWithErrorProps) => {
-  const prevVal = prev.inputProps?.value ?? prev.inputProps?.defaultValue;
-  const nextVal = next.inputProps?.value ?? next.inputProps?.defaultValue;
+  const prevVal =
+    prev.inputProps?.value ??
+    prev.inputProps?.defaultValue ??
+    prev.inputProps?.checked ??
+    prev.inputProps.defaultChecked;
+  const nextVal =
+    next.inputProps?.value ??
+    next.inputProps?.defaultValue ??
+    next.inputProps?.checked ??
+    next.inputProps.defaultChecked;
   if (prevVal !== nextVal) return false;
   if (prev.error !== next.error) return false;
   if (prev.inputProps?.name !== next.inputProps?.name) return false;

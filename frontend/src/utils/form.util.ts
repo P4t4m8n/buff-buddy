@@ -1,7 +1,7 @@
 //Utils
 import { validationUtil } from "../../../shared/validations/util.validation";
 //Types
-import type { ZodError, ZodObject, ZodType } from "zod";
+import type { ZodError, ZodObject } from "zod";
 import type { IToSanitize } from "../../../shared/models/app.model";
 import type { TErrors } from "../models/errors.model";
 

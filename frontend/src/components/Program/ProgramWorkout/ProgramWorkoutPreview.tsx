@@ -97,14 +97,12 @@ const getCarouselArrays = (
     (we) => we.exercise?.type
   );
 
-  const cleanedMusclesUsed = mapToSet(
-    workoutExercises ?? [],
-    (we) => we.exercise?.muscles
+  const cleanedMusclesUsed = mapToSet(workoutExercises ?? [], (we) =>
+    we.exercise?.muscles?.map((m) => m.name)
   );
 
-  const cleanedEquipmentUsed = mapToSet(
-    workoutExercises ?? [],
-    (we) => we.exercise?.equipment
+  const cleanedEquipmentUsed = mapToSet(workoutExercises ?? [], (we) =>
+    we.exercise?.equipment?.map((m) => m.name)
   );
 
   const cleanedWorkoutExercises = mapToSet(

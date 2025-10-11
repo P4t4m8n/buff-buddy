@@ -13,7 +13,6 @@ import type {
 import { useDateInput } from "../../../../hooks/features/calendar/useDateInput";
 import { DAY_OF_WEEK } from "../../../../../../shared/consts/app.consts";
 import { twMerge } from "tailwind-merge";
-import { calendarUtil } from "../../../../utils/calendar.util";
 
 interface DateInputProps {
   handleDateSelect: (range: IDateRange) => void;
@@ -78,16 +77,11 @@ export default function DateInput({
     isError ? "border border-error-red text-error-red" : ""
   );
 
-  const dateRange = calendarUtil.getDateRange(
-    selectedRange?.start,
-    selectedRange?.end
-  );
-
   return (
     <div className={divStyle} ref={modelRef}>
       {buildError()}
       <Button onClick={handleModel} className={buttonStyle}>
-        <DateInputDateDisplay mode={mode} {...dateRange} />
+        <DateInputDateDisplay mode={mode} dateRange={selectedRange} />
         <IconCalendar
           className="bg-main-black rounded stroke-amber fill-none
            hover:bg-amber hover:stroke-main-black transition-all 
@@ -104,7 +98,7 @@ export default function DateInput({
           <DateInputControl
             mode={mode}
             setMode={setMode}
-            startDate={dateRange.start}
+            startDate={selectedRange?.start}
             clearSelection={clearSelection}
           />
 
@@ -127,7 +121,7 @@ export default function DateInput({
             mode={mode}
             currentDate={currentDate}
             handleDateClick={handleDateClick}
-            {...dateRange}
+            {...selectedRange}
           />
           <Button
             className={`bg-inherit border-1 p-2 hover:bg-main-orange h-10
