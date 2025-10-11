@@ -11,5 +11,6 @@ export const useSession = () => {
     queryFn: () => authService.getSessionUser(),
     staleTime: MAX_AGE,
     refetchOnWindowFocus: false,
+    retry: false,
   });
 };

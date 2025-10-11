@@ -55,6 +55,7 @@ export const useErrors = <T extends object>() => {
         setErrors((prev) => ({
           ...(prev as TErrors<T>),
           ...error.errors,
+          unknown: error.message,
         }));
         return;
       }

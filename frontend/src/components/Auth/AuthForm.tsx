@@ -55,6 +55,7 @@ export default function AuthForm({ isSignUp }: IAuthFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="grid gap-2 w-full">
+      <div className="text-error-red font-sm text-center h-6">{errors?.unknown ? errors.unknown : ""}</div>
       {isSignUp ? (
         <>
           {getInput({
