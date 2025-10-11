@@ -1,20 +1,20 @@
-import path from "path";
-import { IExerciseDTO } from "../../shared/models/exercise.model";
-import { exerciseValidation } from "../../shared/validations/exercise.validation";
-import { exerciseService } from "../src/api/exercises/exercises.service";
-import { AppError } from "../src/shared/services/Error.service";
-import fs from "fs";
-import { foodItemValidation } from "../../shared/validations/foodItem.validation";
-import { foodItemService } from "../src/api/foodItem/foodItem.service";
-import { prisma } from "./prisma";
-import { foodItemSQL } from "../src/api/foodItem/foodItem.sql";
-// import { IFoodItemEditDto } from "../../shared/models/foodItem.model";
-import {
-  IWorkoutEditDTO,
-  IWorkoutExerciseEditDTO,
-} from "../../shared/models/workout.model";
-import { workoutValidation } from "../../shared/validations/workout.validations";
-import { workoutsService } from "../src/api/workouts/workouts.service";
+// import path from "path";
+// import { IExerciseDTO } from "../../shared/models/exercise.model";
+// import { exerciseValidation } from "../../shared/validations/exercise.validation";
+// import { exerciseService } from "../src/api/exercises/exercises.service";
+// import { AppError } from "../src/shared/services/Error.service";
+// import fs from "fs";
+// import { foodItemValidation } from "../../shared/validations/foodItem.validation";
+// import { foodItemService } from "../src/api/foodItem/foodItem.service";
+// import { prisma } from "./prisma";
+// import { foodItemSQL } from "../src/api/foodItem/foodItem.sql";
+// // import { IFoodItemEditDto } from "../../shared/models/foodItem.model";
+// import {
+//   IWorkoutEditDTO,
+//   IWorkoutExerciseEditDTO,
+// } from "../../shared/models/workout.model";
+// import { workoutValidation } from "../../shared/validations/workout.validations";
+// import { workoutsService } from "../src/api/workouts/workouts.service";
 
 
 // export const seedExercises = async () => {
@@ -175,69 +175,69 @@ import { workoutsService } from "../src/api/workouts/workouts.service";
 //     console.error("Error seeding exercises:", error);
 //   });
 
-const createWorkoutExercise = ({
-  order,
-  exercise,
-}: {
-  order: number;
-  exercise?: IExerciseDTO;
-}): IWorkoutExerciseEditDTO => {
-  return {
-    order,
-    notes: `This is a note for exercise ${order + 1}`,
-    exerciseData: {
-      id: exercise?.id || "",
-      type: exercise?.type || "cardio",
-    },
-    crudOperation: "create",
-    hasWarmup: Math.random() < 0.5,
-    isBodyWeight: Math.random() < 0.2,
-    restTime: Math.floor(Math.random() * 300),
-  };
-};
+// const createWorkoutExercise = ({
+//   order,
+//   exercise,
+// }: {
+//   order: number;
+//   exercise?: IExerciseDTO;
+// }): IWorkoutExerciseEditDTO => {
+//   return {
+//     order,
+//     notes: `This is a note for exercise ${order + 1}`,
+//     exerciseData: {
+//       id: exercise?.id || "",
+//       type: exercise?.type || "cardio",
+//     },
+//     crudOperation: "create",
+//     hasWarmup: Math.random() < 0.5,
+//     isBodyWeight: Math.random() < 0.2,
+//     restTime: Math.floor(Math.random() * 300),
+//   };
+// };
 
-const seedWorkouts = async () => {
-  const exercises = await prisma.exercise.findMany();
+// const seedWorkouts = async () => {
+//   const exercises = await prisma.exercise.findMany();
 
-  const user = await prisma.user.findMany({
-    where: { firstName: "test" },
-  });
+//   const user = await prisma.user.findMany({
+//     where: { firstName: "test" },
+//   });
 
-  const demoWorkouts: IWorkoutEditDTO[] = Array(50)
-    .fill(null)
-    .map((_, index) => ({
-      name: `Demo Workout ${index + 1}`,
-      notes: `This is a note for Demo Workout ${index + 1}`,
-      isTemplate: Math.random() < 0.5,
-      ownerId: user[0]?.id,
-      crudOperation: "create",
-      workoutExercises: Array.from({ length: 10 }, (_, exerciseIndex) => {
-        const randomExercise =
-          exercises[Math.floor(Math.random() * (exercises.length - 1))];
-        return createWorkoutExercise({
-          order: exerciseIndex + 1,
-          exercise: randomExercise,
-        });
-      }),
-    }));
+//   const demoWorkouts: IWorkoutEditDTO[] = Array(50)
+//     .fill(null)
+//     .map((_, index) => ({
+//       name: `Demo Workout ${index + 1}`,
+//       notes: `This is a note for Demo Workout ${index + 1}`,
+//       isTemplate: Math.random() < 0.5,
+//       ownerId: user[0]?.id,
+//       crudOperation: "create",
+//       workoutExercises: Array.from({ length: 10 }, (_, exerciseIndex) => {
+//         const randomExercise =
+//           exercises[Math.floor(Math.random() * (exercises.length - 1))];
+//         return createWorkoutExercise({
+//           order: exerciseIndex + 1,
+//           exercise: randomExercise,
+//         });
+//       }),
+//     }));
 
-  const workoutPromises = demoWorkouts.map((workout) => {
-    const validatedData = workoutValidation
-      .createFactorySchema({ toSanitize: false })
-      .parse(workout);
+//   const workoutPromises = demoWorkouts.map((workout) => {
+//     const validatedData = workoutValidation
+//       .createFactorySchema({ toSanitize: false })
+//       .parse(workout);
 
-    return workoutsService.create(validatedData);
-  });
+//     return workoutsService.create(validatedData);
+//   });
 
-  await Promise.allSettled(workoutPromises);
+//   await Promise.allSettled(workoutPromises);
 
-  return "Workouts seeded successfully";
-};
+//   return "Workouts seeded successfully";
+// };
 
-seedWorkouts()
-  .then((result) => {
-  })
-  .catch((error) => {
-    console.error("Error seeding workouts:", error);
-  });
+// seedWorkouts()
+//   .then((result) => {
+//   })
+//   .catch((error) => {
+//     console.error("Error seeding workouts:", error);
+//   });
 
