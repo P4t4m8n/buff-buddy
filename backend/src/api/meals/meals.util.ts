@@ -9,11 +9,7 @@ const buildWhereClause = (filter: TMealQuery): Prisma.MealWhereInput => {
   }
 
   if (filter.mealType) {
-    where.userMeals = {
-      some: {
-        meal: { mealType: { in: filter.mealType as unknown as MealType[] } }, //TS is fun
-      },
-    };
+    where.mealType = { equals: filter.mealType };
   }
 
   return where;

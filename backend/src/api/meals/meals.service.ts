@@ -1,59 +1,62 @@
+//Lib
 import { prisma } from "../../../prisma/prisma";
-
+//Utils
 import { mealsUtil } from "./meals.util";
-import { mealsSQL } from "./meals.sql";
-
-import type { IMealDTO } from "../../../../shared/models/meal.model";
+import { mealSQL } from "./meals.sql";
+import { dbUtil } from "../../shared/utils/db.util";
+//Types
 import type {
   TMealCreateValidatedInput,
   TMealUpdateValidatedInput,
   TMealQuery,
 } from "../../../../shared/validations/meal.validations";
-import type { Meal } from "../../../prisma/generated/prisma";
+import type { IMeal } from "./meals.model";
 
-const get = async ({ filter }: { filter: TMealQuery }) => {
+const get = (filter: TMealQuery): Promise<[IMeal[], number]> => {
   const where = mealsUtil.buildWhereClause(filter);
 
-  const take = filter.take ?? 100;
-  const skip = filter.skip && filter.skip > 1 ? (filter.skip - 1) * take : 0;
+  const { skip, take } = dbUtil.buildSkipTakeClause(filter);
 
-  return await prisma.meal.findMany({
-    where,
-    take,
-    skip,
-    select: mealsSQL.MEALS_SELECT,
+  return prisma.$transaction([
+    prisma.meal.findMany({
+      where,
+      skip,
+      take,
+      select: mealSQL.MEALS_SELECT,
+    }),
+    prisma.meal.count({ where }),
+  ]);
+};
+
+const getById = (id: string): Promise<IMeal | null> => {
+  return prisma.meal.findUnique({
+    where: { id },
+    select: mealSQL.MEALS_SELECT,
   });
 };
 
-const getById = async (mealId: string) => {
-  return await prisma.meal.findUnique({
-    where: { id: mealId },
-    select: mealsSQL.MEALS_SELECT,
+const create = (dto: TMealCreateValidatedInput): Promise<IMeal> => {
+  return prisma.meal.create({
+    data: mealSQL.getMealCreate(dto),
+    select: mealSQL.MEALS_SELECT,
   });
 };
 
-const create = async (dto: TMealCreateValidatedInput): Promise<IMealDTO> => {
-  return await prisma.meal.create({
-    data: mealsSQL.getMealCreate(dto),
-    select: mealsSQL.MEALS_SELECT,
+const update = (id: string, dto: TMealUpdateValidatedInput): Promise<IMeal> => {
+  return prisma.meal.update({
+    where: { id },
+    data: mealSQL.getMealUpdate(dto),
+    select: mealSQL.MEALS_SELECT,
   });
 };
 
-const update = async (dto: TMealUpdateValidatedInput): Promise<IMealDTO> => {
-  return await prisma.meal.update({
-    where: { id: dto.id },
-    data: mealsSQL.getMealUpdate(dto),
-    select: mealsSQL.MEALS_SELECT,
+const remove = (id: string, ownerId?: string): Promise<IMeal | void> => {
+  return prisma.meal.delete({
+    where: { id, ownerId },
   });
 };
 
-const remove = async (mealId: string): Promise<Meal> => {
-  return await prisma.meal.delete({
-    where: { id: mealId },
-  });
-};
-
-export const mealsService = {
+export const mealService = {
   get,
   getById,
   create,

@@ -14,10 +14,10 @@ describe("Food Items API", () => {
 
   beforeAll(async () => {
     const userCredentials: IAuthSignUpDTO = {
-      email: `test-exercise-user-${Date.now()}@example.com`,
+      email: `test-foodItem-user-${Date.now()}@example.com`,
       password: "Password123!",
       confirmPassword: "Password123!",
-      firstName: "Exercise",
+      firstName: "foodItem",
       lastName: "Tester",
     };
     const userRes = await request(app)
@@ -750,9 +750,9 @@ describe("Food Items API", () => {
       const foodItem: IFoodItemDTO = res.body.data;
       testFoodItems.push(foodItem);
 
-      const deleteRes = await request(app).delete(
-        `/api/v1/food-items/${foodItem.id}`
-      );
+      const deleteRes = await request(app)
+        .delete(`/api/v1/food-items/${foodItem.id}`)
+        .set("Cookie", `token=${authToken}`);
       expect(deleteRes.status).toBe(200);
       expect(deleteRes.body.message).toBe("FoodItem deleted successfully");
 
@@ -775,6 +775,7 @@ describe("Food Items API", () => {
       if (!id) continue;
       await request(app)
         .delete(`/api/v1/food-items/${id}`)
+        .set("Cookie", `token=${authToken}`)
         .catch(() => {});
     }
     if (testUserId) {

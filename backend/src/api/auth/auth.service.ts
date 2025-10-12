@@ -63,7 +63,7 @@ const signIn = async (
   }
 
   const match = await authUtil.verifyCredentials({
-    password: (dto as TSignInInput)?.password ,
+    password: (dto as TSignInInput)?.password,
     passwordHash: user?.passwordHash,
     googleId: (dto as TGoogleOAuthInput)?.googleId,
     userGoogleId: user.googleId,
@@ -74,13 +74,14 @@ const signIn = async (
   }
 
   const token = authUtil.generateToken({ userId: user.id, isAdmin: false });
-  const { lastName, firstName, id, email } = user;
+  const { lastName, firstName, id, email, imgUrl } = user;
   return {
     user: {
       id,
       firstName,
       lastName,
       email,
+      imgUrl,
     },
     token,
   };

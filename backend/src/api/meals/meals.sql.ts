@@ -30,7 +30,7 @@ const getMealCreate = (dto: TMealCreateValidatedInput): Prisma.MealCreateInput =
   return {
     name: dto.name,
     mealType: dto.mealType,
-    notes: dto.note,
+    notes: dto.notes,
     owner: {
       connect: {
         id: dto.ownerId,
@@ -59,7 +59,7 @@ const getMealUpdate = (dto: TMealUpdateValidatedInput): Prisma.MealUpdateInput =
     ...dbUtil.cleanData({
       name: dto.name,
       mealType: dto.mealType,
-      notes: dto.note,
+      notes: dto.notes,
     }),
     mealFoodItems: {
       create: mealFoodItemToAdd.map((item) => ({
@@ -82,7 +82,7 @@ const getMealUpdate = (dto: TMealUpdateValidatedInput): Prisma.MealUpdateInput =
   };
 };
 
-export const mealsSQL = {
+export const mealSQL = {
   MEALS_SELECT,
   getMealCreate,
   getMealUpdate,

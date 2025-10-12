@@ -1,5 +1,10 @@
 import type { MealType } from "../../backend/prisma/generated/prisma";
-import type { IBaseFilter, IItemImage, TCrudOperation } from "./app.model";
+import type {
+  IBaseFilter,
+  IImageDTO,
+  TCrudOperation,
+  IImageEditDTO,
+} from "./app.model";
 import type { IEntity } from "./entity.model";
 import type { IFoodItemDTO } from "./foodItem.model";
 import type { IUserDTO } from "./user.model";
@@ -7,18 +12,19 @@ import type { IUserDTO } from "./user.model";
 interface IMealBase extends IEntity {
   owner?: IUserDTO | null;
   name?: string | null;
-  mealType: MealType;
+  mealType?: MealType;
   notes?: string | null;
 }
 
 export interface IMealDTO extends IMealBase {
   mealFoodItems: IMealFoodItemDTO[];
-  images?: IItemImage[];
+  images: IImageDTO[];
 }
 
 export interface IMealEditDTO extends IMealBase {
   mealFoodItems?: IMealFoodItemEditDTO[];
   ownerId?: string | null;
+  images?: IImageEditDTO[];
 }
 
 export interface IMealFoodItemDTO extends IEntity {
@@ -31,8 +37,6 @@ export interface IMealFoodItemEditDTO extends IMealFoodItemDTO {
 }
 
 export interface IMealFilter extends IBaseFilter {
-  skip: number;
-  take: number;
   name?: string;
   mealType?: MealType;
 }

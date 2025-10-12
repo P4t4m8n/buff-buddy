@@ -164,12 +164,13 @@ export const genericControllerFactory = <
 
     remove: async (req: Request, res: Response) => {
       try {
+        const userId = _authUser();
 
         const validatedId = validationUtil
           .IDSchemaFactory({ toSanitize: true })
           .parse(req.params.id);
 
-        await service.remove(validatedId);
+        await service.remove(validatedId, userId);
 
         res.status(200).json({
           message: `${entityName} deleted successfully`,

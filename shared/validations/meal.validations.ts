@@ -7,6 +7,7 @@ import { MEAL_TYPES } from "../consts/meal.consts";
 import type { IToSanitize } from "../models/app.model";
 import type { IValidation } from "../models/validation.model";
 import type { IMealEditDTO, IMealFilter } from "../models/meal.model";
+import { MealType } from "../../backend/prisma/generated/prisma";
 
 const createMealFoodItemFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
@@ -26,7 +27,7 @@ const updateMealFoodItemFactorySchema = ({ toSanitize }: IToSanitize) => {
   return createMealFoodItemFactorySchema({ toSanitize })
     .partial()
     .extend({
-      id: validationUtil.IDSchemaFactory({ toSanitize }),
+      id: validationUtil.IDSchemaFactory({ toSanitize }).optional(),
     });
 };
 
@@ -38,9 +39,11 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
       maxLength: 255,
       toSanitize,
     }),
-    mealType: z.enum(MEAL_TYPES),
+    mealType: z.enum(MEAL_TYPES, {
+      error: () => ({ message: "mealType is invalid." }),
+    }),
     ownerId: validationUtil.IDSchemaFactory({ toSanitize }),
-    note: validationUtil
+    notes: validationUtil
       .stringSchemaFactory({
         fieldName: "Meal note",
         minLength: 0,
@@ -49,7 +52,9 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
       })
       .optional(),
     mealFoodItems: z
-      .array(createMealFoodItemFactorySchema({ toSanitize }))
+      .array(createMealFoodItemFactorySchema({ toSanitize }), {
+        error: () => ({ message: "At least one food item is required" }),
+      })
       .min(1, "At least one food item is required"),
   });
 };
@@ -58,7 +63,7 @@ const updateFactorySchema = ({ toSanitize }: IToSanitize) => {
   return createFactorySchema({ toSanitize })
     .partial()
     .extend({
-      id: validationUtil.IDSchemaFactory({ toSanitize }),
+      id: validationUtil.IDSchemaFactory({ toSanitize }).optional(),
       mealFoodItems: z
         .array(updateMealFoodItemFactorySchema({ toSanitize }))
         .optional(),
@@ -66,7 +71,7 @@ const updateFactorySchema = ({ toSanitize }: IToSanitize) => {
 };
 
 const QuerySchema = validationUtil.FilterSchema.extend({
-  mealType: z.enum(MEAL_TYPES).optional(),
+  mealType: z.enum(MealType).optional(),
   ownerId: validationUtil.IDSchemaFactory({ toSanitize: false }).optional(),
   name: validationUtil
     .stringSchemaFactory({

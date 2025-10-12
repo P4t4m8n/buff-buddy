@@ -92,5 +92,8 @@
   "files.associations": {
     "*.env": "env",
     "*.env.production": "env"
-  }
+  },
+  "[prisma]": {
+  "editor.defaultFormatter": "Prisma.prisma"
+},
 }

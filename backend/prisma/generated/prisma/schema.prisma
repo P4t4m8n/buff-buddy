@@ -304,10 +304,11 @@ model Meal {
   name          String?
   mealType      MealType       @default(breakfast)
   ownerId       String
-  owner         User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  owner         User           @relation(fields: [ownerId], references: [id], onDelete: SetNull)
   mealFoodItems MealFoodItem[]
   userMeals     UserMeal[]
   notes         String?
+  images        Image[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 }
@@ -332,4 +333,17 @@ model UserMeal {
   dateConsumed DateTime @default(now())
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+model Image {
+  id          String   @id @default(cuid())
+  url         String   @unique
+  publicId    String   @unique
+  description String?
+  altText     String?
+  mealId      String?
+  meal        Meal?    @relation(fields: [mealId], references: [id], onDelete: Cascade)
+  isPrimary   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

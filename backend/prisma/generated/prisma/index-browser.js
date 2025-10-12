@@ -353,6 +353,18 @@ exports.Prisma.UserMealScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ImageScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  publicId: 'publicId',
+  description: 'description',
+  altText: 'altText',
+  mealId: 'mealId',
+  isPrimary: 'isPrimary',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -421,7 +433,8 @@ exports.Prisma.ModelName = {
   FoodItemCategory: 'FoodItemCategory',
   Meal: 'Meal',
   MealFoodItem: 'MealFoodItem',
-  UserMeal: 'UserMeal'
+  UserMeal: 'UserMeal',
+  Image: 'Image'
 };
 
 /**
