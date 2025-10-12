@@ -40,6 +40,7 @@ export const workoutStart = async (req: Request, res: Response) => {
       userWorkouts,
       programWorkout,
     });
+    console.dir(plannedUserWorkout, { depth: 2, colors: true });
     res.status(200).json({
       message: "Workout start was successfully planed",
       data: plannedUserWorkout,

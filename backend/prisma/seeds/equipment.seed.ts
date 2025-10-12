@@ -12,7 +12,7 @@ const seedEquipment = async () => {
     path.join(__dirname, "jsons", "equipment.json"),
     "utf-8"
   );
-  const equipment: IEquipmentJson[] = JSON.parse(equipmentJson);
+  const equipment: IEquipmentJson[] =await JSON.parse(equipmentJson);
 
   const equipmentPromises = [];
   for (const item of equipment) {

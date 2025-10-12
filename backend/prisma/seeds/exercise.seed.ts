@@ -19,7 +19,7 @@ export const seedExercises = async () => {
 
     const exercisesPromises = data.map((exercise) => {
       const validatedData = exerciseValidation
-        .createFactorySchema({ toSanitize: false })
+        .createFactorySchema({ toSanitize: true })
         .parse(exercise);
 
       return exerciseService.create(validatedData);

@@ -5,7 +5,7 @@ import type { IWorkoutFilter } from "../../../shared/models/workout.model";
 
 const PAGINATION_FILTER: IBaseFilter = {
   skip: 0,
-  take: 10,
+  take: 100,
 };
 
 const INITIAL_WORKOUT_FILTER: IWorkoutFilter = {
@@ -16,7 +16,6 @@ const INITIAL_WORKOUT_FILTER: IWorkoutFilter = {
   workoutName: "",
   programId: "",
   exerciseId: "",
-  isTemplate: "",
 };
 
 const INITIAL_EXERCISE_FILTER: IExerciseFilter = {

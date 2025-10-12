@@ -1,199 +1,1604 @@
 [
   {
-    "name": "Stiff Legged Deadlift",
+    "id": "cmggfzzug0000hdisod8zs1xy",
+    "name": "stiff legged deadlift",
     "youtubeUrl": "https://www.youtube.com/watch?v=cYKYGwcg0U8",
     "type": "strength",
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [{ "name": "gluteus_maximus" }, { "name": "hamstrings" }]
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "hamstrings",
+        "aliases": [
+          {
+            "name": "hamstrings",
+            "language": "en"
+          },
+          {
+            "name": "hams",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "gluteus_maximus",
+        "aliases": [
+          {
+            "name": "glutes",
+            "language": "en"
+          },
+          {
+            "name": "gluteus_maximus",
+            "language": "en"
+          },
+          {
+            "name": "butt",
+            "language": "en"
+          },
+          {
+            "name": "buttocks",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
   },
   {
-    "name": "Squat",
-    "youtubeUrl": "https://www.youtube.com/watch?v=i7J5h7BJ07g&list=PLyqKj7LwU2RuAg-us4mzap6izNcc1fuRW&index=5",
+    "id": "cmggfzzv30001hdisvo3uobm4",
+    "name": "squat",
+    "youtubeUrl": "https://www.youtube.com/watch?v=i7J5h7BJ07g&amp;list=PLyqKj7LwU2RuAg-us4mzap6izNcc1fuRW&amp;index=5",
     "type": "strength",
     "isCompounded": true,
-    "equipment": [{ "name": "dumbbell" }, { "name": "barbell" }],
+    "equipment": [
+      {
+        "name": "barbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      },
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
     "muscles": [
-      { "name": "quadriceps_femoris" },
-      { "name": "hamstrings" },
-      { "name": "gluteus_maximus" }
-    ]
+      {
+        "name": "hamstrings",
+        "aliases": [
+          {
+            "name": "hamstrings",
+            "language": "en"
+          },
+          {
+            "name": "hams",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "gluteus_maximus",
+        "aliases": [
+          {
+            "name": "glutes",
+            "language": "en"
+          },
+          {
+            "name": "gluteus_maximus",
+            "language": "en"
+          },
+          {
+            "name": "butt",
+            "language": "en"
+          },
+          {
+            "name": "buttocks",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "quadriceps_femoris",
+        "aliases": [
+          {
+            "name": "quads",
+            "language": "en"
+          },
+          {
+            "name": "quadriceps",
+            "language": "en"
+          },
+          {
+            "name": "quad",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
   },
   {
-    "name": "Stair Calves Rises",
-    "youtubeUrl": "https://www.youtube.com/watch?v=__qfDhdByMY&list=PLyqKj7LwU2RtQyn5wWMJbD0rCV-cSkiK3&index=5",
-    "type": "strength",
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [{ "name": "gastrocnemius" }]
-  },
-  {
-    "name": "Sissy Squat",
-    "youtubeUrl": "https://www.youtube.com/watch?v=Kwcpzy1C6UE",
-    "type": "strength",
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [{ "name": "quadriceps_femoris" }]
-  },
-  {
-    "name": "Hip Thrust",
-    "youtubeUrl": "https://www.youtube.com/watch?v=EF7jXP17DPE&list=PLyqKj7LwU2RtZnGDmtpyhDdvUHFvVyZnA",
-    "type": "strength",
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [{ "name": "gluteus_maximus" }]
-  },
-  {
-    "name": "Underhand Pullup",
-    "youtubeUrl": "https://www.youtube.com/watch?v=9JC1EwqezGY&list=PLyqKj7LwU2RsCtKw3UlE85HYgPM3-xoO1&index=32",
-    "type": "strength",
-    "isCompounded": true,
-    "equipment": [{ "name": "pull_up_bar" }],
-    "muscles": [
-      { "name": "latissimus_dorsi" },
-      { "name": "trapezius" },
-      { "name": "biceps_brachii" }
-    ]
-  },
-  {
-    "name": "Dumbbell Pullover",
+    "id": "cmggfzzvc0002hdisiwmfi86s",
+    "name": "dumbbell pullover",
     "youtubeUrl": "https://www.youtube.com/watch?v=jQjWlIwG4sI&list=PLyqKj7LwU2RsCtKw3UlE85HYgPM3-xoO1&index=9",
     "type": "strength",
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [{ "name": "latissimus_dorsi" }]
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "latissimus_dorsi",
+        "aliases": [
+          {
+            "name": "lats",
+            "language": "en"
+          },
+          {
+            "name": "lat",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
   },
   {
-    "name": "Single Arm Supported Dumbbell Row",
+    "id": "cmggfzzvh0003hdis6jbvbgk8",
+    "name": "underhand pullup",
+    "youtubeUrl": "https://www.youtube.com/watch?v=9JC1EwqezGY&list=PLyqKj7LwU2RsCtKw3UlE85HYgPM3-xoO1&index=32",
+    "type": "strength",
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "pull_up_bar",
+        "categories": [
+          {
+            "name": "pull-up & dip equipment"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "latissimus_dorsi",
+        "aliases": [
+          {
+            "name": "lats",
+            "language": "en"
+          },
+          {
+            "name": "lat",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "trapezius",
+        "aliases": [
+          {
+            "name": "traps",
+            "language": "en"
+          },
+          {
+            "name": "upper_traps",
+            "language": "en"
+          },
+          {
+            "name": "mid_traps",
+            "language": "en"
+          },
+          {
+            "name": "lower_traps",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "biceps_brachii",
+        "aliases": [
+          {
+            "name": "biceps",
+            "language": "en"
+          },
+          {
+            "name": "biceps_brachii",
+            "language": "en"
+          },
+          {
+            "name": "biiceps",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
+  },
+  {
+    "id": "cmggfzzvk0004hdiszy4uz9n4",
+    "name": "sissy squat",
+    "youtubeUrl": "https://www.youtube.com/watch?v=Kwcpzy1C6UE",
+    "type": "strength",
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "quadriceps_femoris",
+        "aliases": [
+          {
+            "name": "quads",
+            "language": "en"
+          },
+          {
+            "name": "quadriceps",
+            "language": "en"
+          },
+          {
+            "name": "quad",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
+  },
+  {
+    "id": "cmggfzzvk0005hdisknfhm9mc",
+    "name": "single arm supported dumbbell row",
     "youtubeUrl": "https://www.youtube.com/watch?v=DMo3HJoawrU&list=PLyqKj7LwU2RsCtKw3UlE85HYgPM3-xoO1&index=23",
     "type": "strength",
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [{ "name": "latissimus_dorsi" }, { "name": "trapezius" }]
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "latissimus_dorsi",
+        "aliases": [
+          {
+            "name": "lats",
+            "language": "en"
+          },
+          {
+            "name": "lat",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "trapezius",
+        "aliases": [
+          {
+            "name": "traps",
+            "language": "en"
+          },
+          {
+            "name": "upper_traps",
+            "language": "en"
+          },
+          {
+            "name": "mid_traps",
+            "language": "en"
+          },
+          {
+            "name": "lower_traps",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
   },
   {
-    "name": "Dumbbell Shrug",
+    "id": "cmggfzzvn0006hdis1rc7e0ym",
+    "name": "dumbbell shrug",
     "youtubeUrl": "https://www.youtube.com/watch?v=_t3lrPI6Ns4&list=PLyqKj7LwU2RvynkwL93EcfuPUaDrWNOEc&index=9",
     "type": "strength",
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [{ "name": "trapezius" }]
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "trapezius",
+        "aliases": [
+          {
+            "name": "traps",
+            "language": "en"
+          },
+          {
+            "name": "upper_traps",
+            "language": "en"
+          },
+          {
+            "name": "mid_traps",
+            "language": "en"
+          },
+          {
+            "name": "lower_traps",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
   },
   {
+    "id": "cmggfzzvr0007hdisc8632d28",
     "name": "dumbbell deadlift",
     "youtubeUrl": "https://www.youtube.com/watch?v=gLogcYIvgRA",
     "type": "strength",
-    "isCompounded": true,
-    "equipment": [{ "name": "dumbbell" }],
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
     "muscles": [
-      { "name": "hamstrings" },
-      { "name": "gluteus_maximus" },
-      { "name": "quadriceps_femoris" },
-      { "name": "erector_spinae" }
-    ]
+      {
+        "name": "hamstrings",
+        "aliases": [
+          {
+            "name": "hamstrings",
+            "language": "en"
+          },
+          {
+            "name": "hams",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "erector_spinae",
+        "aliases": [
+          {
+            "name": "lower_back",
+            "language": "en"
+          },
+          {
+            "name": "erector_spinae",
+            "language": "en"
+          },
+          {
+            "name": "spinal_erectors",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "gluteus_maximus",
+        "aliases": [
+          {
+            "name": "glutes",
+            "language": "en"
+          },
+          {
+            "name": "gluteus_maximus",
+            "language": "en"
+          },
+          {
+            "name": "butt",
+            "language": "en"
+          },
+          {
+            "name": "buttocks",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "quadriceps_femoris",
+        "aliases": [
+          {
+            "name": "quads",
+            "language": "en"
+          },
+          {
+            "name": "quadriceps",
+            "language": "en"
+          },
+          {
+            "name": "quad",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
   },
   {
-    "name": "Incline Dumbbell Curl",
-    "youtubeUrl": "https://www.youtube.com/watch?v=aTYlqC_JacQ&list=PLyqKj7LwU2Rt1cwOsHwdXa2TiRzjA6uoB&index=14",
-    "type": "strength",
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [{ "name": "biceps_brachii" }]
-  },
-  {
-    "name": "Incline Dumbbell Flye",
-    "youtubeUrl": "https://www.youtube.com/watch?v=8oR5hBwbIBc&list=PLyqKj7LwU2RuyZwWCIiDHuFZGN11QW3Ff&index=12",
-    "type": "strength",
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [{ "name": "pectoralis_major" }]
-  },
-  {
-    "name": "Incline Dumbbell Press",
+    "id": "cmggfzzvs0008hdisaiewcdd0",
+    "name": "incline dumbbell press",
     "youtubeUrl": "https://www.youtube.com/watch?v=5CECBjd7HLQ&list=PLyqKj7LwU2RuyZwWCIiDHuFZGN11QW3Ff&index=13",
     "type": "strength",
-    "isCompounded": true,
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [{ "name": "pectoralis_major" }]
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "pectoralis_major",
+        "aliases": [
+          {
+            "name": "chest",
+            "language": "en"
+          },
+          {
+            "name": "pecs",
+            "language": "en"
+          },
+          {
+            "name": "pectoralis",
+            "language": "en"
+          },
+          {
+            "name": "breast",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
   },
   {
-    "name": "Bent Lateral Raise",
-    "youtubeUrl": "https://www.youtube.com/watch?v=34gVHrkaiz0&list=PLyqKj7LwU2Rv-tzrJev2STMTIGt_JeugT",
+    "id": "cmggfzzvw0009hdistnt5svtu",
+    "name": "stair calves rises",
+    "youtubeUrl": "https://www.youtube.com/watch?v=__qfDhdByMY&list=PLyqKj7LwU2RtQyn5wWMJbD0rCV-cSkiK3&index=5",
     "type": "strength",
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [{ "name": "posterior_deltoid" }]
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "gastrocnemius",
+        "aliases": [
+          {
+            "name": "gastrocnemius",
+            "language": "en"
+          },
+          {
+            "name": "calf",
+            "language": "en"
+          },
+          {
+            "name": "calves",
+            "language": "en"
+          },
+          {
+            "name": "gastroc",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
   },
   {
-    "name": "Lateral Raise",
+    "id": "cmggfzzvy000ahdis2a4ox9v2",
+    "name": "lateral raise",
     "youtubeUrl": "https://www.youtube.com/watch?v=OuG1smZTsQQ&list=PLyqKj7LwU2RuNVJBl0CtfZdxQ99IhKCcu&index=5",
     "type": "strength",
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [{ "name": "lateral_deltoid" }]
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "lateral_deltoid",
+        "aliases": [
+          {
+            "name": "side_delts",
+            "language": "en"
+          },
+          {
+            "name": "lateral_deltoid",
+            "language": "en"
+          },
+          {
+            "name": "middle_deltoid",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
   },
   {
-    "name": "Dumbbell Upright Row",
+    "id": "cmggfzzvz000bhdispu1vvvv7",
+    "name": "dumbbell upright row",
     "youtubeUrl": "https://www.youtube.com/watch?v=Ub6QruNKfbY&list=PLyqKj7LwU2RuNVJBl0CtfZdxQ99IhKCcu&index=4",
     "type": "strength",
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [{ "name": "lateral_deltoid" }, { "name": "trapezius" }]
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "lateral_deltoid",
+        "aliases": [
+          {
+            "name": "side_delts",
+            "language": "en"
+          },
+          {
+            "name": "lateral_deltoid",
+            "language": "en"
+          },
+          {
+            "name": "middle_deltoid",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "trapezius",
+        "aliases": [
+          {
+            "name": "traps",
+            "language": "en"
+          },
+          {
+            "name": "upper_traps",
+            "language": "en"
+          },
+          {
+            "name": "mid_traps",
+            "language": "en"
+          },
+          {
+            "name": "lower_traps",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
   },
   {
-    "name": "Dumbbell Skullcrusher",
-    "youtubeUrl": "https://www.youtube.com/watch?v=HurmGkvE5s0",
+    "id": "cmggfzzw5000chdis4689p2so",
+    "name": "incline dumbbell flye",
+    "youtubeUrl": "https://www.youtube.com/watch?v=8oR5hBwbIBc&list=PLyqKj7LwU2RuyZwWCIiDHuFZGN11QW3Ff&index=12",
     "type": "strength",
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [{ "name": "triceps_brachii" }]
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "pectoralis_major",
+        "aliases": [
+          {
+            "name": "chest",
+            "language": "en"
+          },
+          {
+            "name": "pecs",
+            "language": "en"
+          },
+          {
+            "name": "pectoralis",
+            "language": "en"
+          },
+          {
+            "name": "breast",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
   },
   {
-    "name": "Deficit Pushup",
+    "id": "cmggfzzw5000dhdisnay7w9vm",
+    "name": "incline dumbbell curl",
+    "youtubeUrl": "https://www.youtube.com/watch?v=aTYlqC_JacQ&list=PLyqKj7LwU2Rt1cwOsHwdXa2TiRzjA6uoB&index=14",
+    "type": "strength",
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "biceps_brachii",
+        "aliases": [
+          {
+            "name": "biceps",
+            "language": "en"
+          },
+          {
+            "name": "biceps_brachii",
+            "language": "en"
+          },
+          {
+            "name": "biiceps",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
+  },
+  {
+    "id": "cmggfzzw7000ehdis3zli5nru",
+    "name": "bent lateral raise",
+    "youtubeUrl": "https://www.youtube.com/watch?v=34gVHrkaiz0&list=PLyqKj7LwU2Rv-tzrJev2STMTIGt_JeugT",
+    "type": "strength",
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "posterior_deltoid",
+        "aliases": [
+          {
+            "name": "rear_delts",
+            "language": "en"
+          },
+          {
+            "name": "rear_deltoid",
+            "language": "en"
+          },
+          {
+            "name": "posterior_deltoid",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
+  },
+  {
+    "id": "cmggfzzw7000fhdisf1ycma7y",
+    "name": "deficit pushup",
     "youtubeUrl": "https://www.youtube.com/watch?v=gmNlqsE3Onc",
     "type": "strength",
-    "isCompounded": true,
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [{ "name": "pectoralis_major" }, { "name": "triceps_brachii" }]
-  },
-  {
-    "name": "Dumbbell Row to Chest",
-    "youtubeUrl": "https://www.youtube.com/watch?v=UPGuwx7GQ9s&list=PLyqKj7LwU2RsCtKw3UlE85HYgPM3-xoO1&index=6",
-    "type": "strength",
-    "equipment": [{ "name": "dumbbell" }],
-    "isCompounded": true,
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
     "muscles": [
-      { "name": "latissimus_dorsi" },
-      { "name": "trapezius" },
-      { "name": "rhomboids" }
-    ]
+      {
+        "name": "pectoralis_major",
+        "aliases": [
+          {
+            "name": "chest",
+            "language": "en"
+          },
+          {
+            "name": "pecs",
+            "language": "en"
+          },
+          {
+            "name": "pectoralis",
+            "language": "en"
+          },
+          {
+            "name": "breast",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "triceps_brachii",
+        "aliases": [
+          {
+            "name": "triceps",
+            "language": "en"
+          },
+          {
+            "name": "triceps_brachii",
+            "language": "en"
+          },
+          {
+            "name": "tri",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
   },
   {
-    "name": "Standing Dumbbell Shoulder Press",
-    "youtubeUrl": "https://www.youtube.com/watch?v=Raemd3qWgJc&list=PLyqKj7LwU2RtjiVutSXk5uC2h7KVMu1Az&index=10",
-    "type": "strength",
-    "isCompounded": true,
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [
-      { "name": "anterior_deltoid" },
-      { "name": "lateral_deltoid" },
-      { "name": "posterior_deltoid" }
-    ]
-  },
-  {
+    "id": "cmggfzzwa000ghdisfemo3s2c",
     "name": "recumbent cross trainer",
     "youtubeUrl": "https://www.youtube.com/watch?v=yCZGRUKk2_g",
     "type": "cardio",
-    "equipment": [{ "name": "functional_trainer" }],
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "functional_trainer",
+        "categories": [
+          {
+            "name": "cable machines"
+          }
+        ]
+      }
+    ],
     "muscles": [
-      { "name": "gluteus_maximus" },
-      { "name": "hamstrings" },
-      { "name": "gastrocnemius" }
-    ]
+      {
+        "name": "hamstrings",
+        "aliases": [
+          {
+            "name": "hamstrings",
+            "language": "en"
+          },
+          {
+            "name": "hams",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "gluteus_maximus",
+        "aliases": [
+          {
+            "name": "glutes",
+            "language": "en"
+          },
+          {
+            "name": "gluteus_maximus",
+            "language": "en"
+          },
+          {
+            "name": "butt",
+            "language": "en"
+          },
+          {
+            "name": "buttocks",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "gastrocnemius",
+        "aliases": [
+          {
+            "name": "gastrocnemius",
+            "language": "en"
+          },
+          {
+            "name": "calf",
+            "language": "en"
+          },
+          {
+            "name": "calves",
+            "language": "en"
+          },
+          {
+            "name": "gastroc",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
   },
   {
+    "id": "cmggfzzwa000hhdis5d4pc04c",
+    "name": "hip thrust",
+    "youtubeUrl": "https://www.youtube.com/watch?v=EF7jXP17DPE&list=PLyqKj7LwU2RtZnGDmtpyhDdvUHFvVyZnA",
+    "type": "strength",
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "gluteus_maximus",
+        "aliases": [
+          {
+            "name": "glutes",
+            "language": "en"
+          },
+          {
+            "name": "gluteus_maximus",
+            "language": "en"
+          },
+          {
+            "name": "butt",
+            "language": "en"
+          },
+          {
+            "name": "buttocks",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
+  },
+  {
+    "id": "cmggfzzwb000ihdis8ux78kpt",
+    "name": "dumbbell skullcrusher",
+    "youtubeUrl": "https://www.youtube.com/watch?v=HurmGkvE5s0",
+    "type": "strength",
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "triceps_brachii",
+        "aliases": [
+          {
+            "name": "triceps",
+            "language": "en"
+          },
+          {
+            "name": "triceps_brachii",
+            "language": "en"
+          },
+          {
+            "name": "tri",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
+  },
+  {
+    "id": "cmggfzzwc000jhdisjtlhuip2",
     "name": "spinning",
     "youtubeUrl": "https://www.youtube.com/watch?v=xukv_ew5t1q",
     "type": "cardio",
-    "equipment": [{ "name": "spin_bike" }],
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "spin_bike",
+        "categories": [
+          {
+            "name": "cardio equipment"
+          }
+        ]
+      }
+    ],
     "muscles": [
-      { "name": "quadriceps_femoris" },
-      { "name": "gluteus_maximus" },
-      { "name": "gastrocnemius" }
-    ]
+      {
+        "name": "gluteus_maximus",
+        "aliases": [
+          {
+            "name": "glutes",
+            "language": "en"
+          },
+          {
+            "name": "gluteus_maximus",
+            "language": "en"
+          },
+          {
+            "name": "butt",
+            "language": "en"
+          },
+          {
+            "name": "buttocks",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "quadriceps_femoris",
+        "aliases": [
+          {
+            "name": "quads",
+            "language": "en"
+          },
+          {
+            "name": "quadriceps",
+            "language": "en"
+          },
+          {
+            "name": "quad",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "gastrocnemius",
+        "aliases": [
+          {
+            "name": "gastrocnemius",
+            "language": "en"
+          },
+          {
+            "name": "calf",
+            "language": "en"
+          },
+          {
+            "name": "calves",
+            "language": "en"
+          },
+          {
+            "name": "gastroc",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
   },
   {
+    "id": "cmggfzzwd000khdis59uojgut",
     "name": "dumbbell bench wrist curl",
     "youtubeUrl": "https://www.youtube.com/watch?v=2wppcjbe03o&list=plyqkj7lwu2rvqpfrgpwoyz-jj2xog_3zx&index=2",
     "type": "strength",
-    "equipment": [{ "name": "dumbbell" }],
-    "muscles": [{ "name": "forearms_general" }]
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "forearms_general",
+        "aliases": [
+          {
+            "name": "forearms",
+            "language": "en"
+          },
+          {
+            "name": "forearm",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
+  },
+  {
+    "id": "cmggfzzwj000lhdisiaca4fix",
+    "name": "dumbbell row to chest",
+    "youtubeUrl": "https://www.youtube.com/watch?v=UPGuwx7GQ9s&list=PLyqKj7LwU2RsCtKw3UlE85HYgPM3-xoO1&index=6",
+    "type": "strength",
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "rhomboids",
+        "aliases": [
+          {
+            "name": "rhomboid",
+            "language": "en"
+          },
+          {
+            "name": "rhomboids",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "latissimus_dorsi",
+        "aliases": [
+          {
+            "name": "lats",
+            "language": "en"
+          },
+          {
+            "name": "lat",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "trapezius",
+        "aliases": [
+          {
+            "name": "traps",
+            "language": "en"
+          },
+          {
+            "name": "upper_traps",
+            "language": "en"
+          },
+          {
+            "name": "mid_traps",
+            "language": "en"
+          },
+          {
+            "name": "lower_traps",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
+  },
+  {
+    "id": "cmggfzzwl000mhdis8bgm23gp",
+    "name": "standing dumbbell shoulder press",
+    "youtubeUrl": "https://www.youtube.com/watch?v=Raemd3qWgJc&list=PLyqKj7LwU2RtjiVutSXk5uC2h7KVMu1Az&index=10",
+    "type": "strength",
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "anterior_deltoid",
+        "aliases": [
+          {
+            "name": "front_delts",
+            "language": "en"
+          },
+          {
+            "name": "front_deltoid",
+            "language": "en"
+          },
+          {
+            "name": "anterior_deltoid",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "lateral_deltoid",
+        "aliases": [
+          {
+            "name": "side_delts",
+            "language": "en"
+          },
+          {
+            "name": "lateral_deltoid",
+            "language": "en"
+          },
+          {
+            "name": "middle_deltoid",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "posterior_deltoid",
+        "aliases": [
+          {
+            "name": "rear_delts",
+            "language": "en"
+          },
+          {
+            "name": "rear_deltoid",
+            "language": "en"
+          },
+          {
+            "name": "posterior_deltoid",
+            "language": "en"
+          }
+        ]
+      }
+    ],
+    "owner": null,
+    "ownerId": null
+  },
+  {
+    "id": "cmgj70w6w0000hdbcjnxtavux",
+    "name": "test",
+    "youtubeUrl": "https://www.youtube.com/watch?v=HHYVRw24HLg",
+    "type": "strength",
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "low_row",
+        "categories": [
+          {
+            "name": "cable machines"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "triceps_brachii",
+        "aliases": [
+          {
+            "name": "triceps",
+            "language": "en"
+          },
+          {
+            "name": "triceps_brachii",
+            "language": "en"
+          },
+          {
+            "name": "tri",
+            "language": "en"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cmgjlcrgf0000hdj8h66ikr0h",
+    "name": "decline sit-ups",
+    "youtubeUrl": "https://www.youtube.com/watch?v=NDpaL4moVhc",
+    "type": "strength",
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      },
+      {
+        "name": "incline_bench",
+        "categories": [
+          {
+            "name": "benches & racks"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "rectus_abdominis",
+        "aliases": [
+          {
+            "name": "abs",
+            "language": "en"
+          },
+          {
+            "name": "six_pack",
+            "language": "en"
+          },
+          {
+            "name": "rectus_abdominis",
+            "language": "en"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cmgjlfwdg0001hdj8bsww1c59",
+    "name": "bench dip",
+    "youtubeUrl": "https://www.youtube.com/watch?v=4ua3MzaU0QU",
+    "type": "strength",
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "kettlebell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      },
+      {
+        "name": "incline_bench",
+        "categories": [
+          {
+            "name": "benches & racks"
+          }
+        ]
+      },
+      {
+        "name": "flat_bench",
+        "categories": [
+          {
+            "name": "benches & racks"
+          }
+        ]
+      },
+      {
+        "name": "decline_bench",
+        "categories": [
+          {
+            "name": "benches & racks"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "pectoralis_major",
+        "aliases": [
+          {
+            "name": "chest",
+            "language": "en"
+          },
+          {
+            "name": "pecs",
+            "language": "en"
+          },
+          {
+            "name": "pectoralis",
+            "language": "en"
+          },
+          {
+            "name": "breast",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "triceps_brachii",
+        "aliases": [
+          {
+            "name": "triceps",
+            "language": "en"
+          },
+          {
+            "name": "triceps_brachii",
+            "language": "en"
+          },
+          {
+            "name": "tri",
+            "language": "en"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cmgmfny0p0000hd9gqhi3dado",
+    "name": "split squat",
+    "youtubeUrl": "https://www.youtube.com/watch?v=LHX34TpJxbQ",
+    "type": "strength",
+    "isCompounded": true,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "gluteus_minimus",
+        "aliases": []
+      },
+      {
+        "name": "hamstrings",
+        "aliases": [
+          {
+            "name": "hamstrings",
+            "language": "en"
+          },
+          {
+            "name": "hams",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "gluteus_maximus",
+        "aliases": [
+          {
+            "name": "glutes",
+            "language": "en"
+          },
+          {
+            "name": "gluteus_maximus",
+            "language": "en"
+          },
+          {
+            "name": "butt",
+            "language": "en"
+          },
+          {
+            "name": "buttocks",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "gluteus_medius",
+        "aliases": [
+          {
+            "name": "glute_medius",
+            "language": "en"
+          },
+          {
+            "name": "glute_med",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "quadriceps_femoris",
+        "aliases": [
+          {
+            "name": "quads",
+            "language": "en"
+          },
+          {
+            "name": "quadriceps",
+            "language": "en"
+          },
+          {
+            "name": "quad",
+            "language": "en"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cmgmfx48k0001hd9g5hwggpoi",
+    "name": "side bends",
+    "youtubeUrl": "https://www.youtube.com/watch?v=BDXhn8ta3Vo",
+    "type": "strength",
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "external_oblique",
+        "aliases": [
+          {
+            "name": "obliques",
+            "language": "en"
+          },
+          {
+            "name": "external_oblique",
+            "language": "en"
+          },
+          {
+            "name": "oblique",
+            "language": "en"
+          }
+        ]
+      },
+      {
+        "name": "internal_oblique",
+        "aliases": [
+          {
+            "name": "internal_oblique",
+            "language": "en"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cmgmg0rxr0002hd9gx8rmsv4p",
+    "name": "dumbbell bench wrist crul",
+    "youtubeUrl": "https://www.youtube.com/watch?v=2wPpcJBe03o",
+    "type": "strength",
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      },
+      {
+        "name": "incline_bench",
+        "categories": [
+          {
+            "name": "benches & racks"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "forearms_general",
+        "aliases": [
+          {
+            "name": "forearms",
+            "language": "en"
+          },
+          {
+            "name": "forearm",
+            "language": "en"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cmgmg88ys000chd9geaomm3vz",
+    "name": "hammer curl",
+    "youtubeUrl": "https://www.youtube.com/watch?v=XOEL4MgekYE&amp;list=PLyqKj7LwU2Rt1cwOsHwdXa2TiRzjA6uoB&amp;index=13",
+    "type": "strength",
+    "isCompounded": false,
+    "equipment": [
+      {
+        "name": "dumbbell",
+        "categories": [
+          {
+            "name": "free weights"
+          }
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "name": "biceps_brachii",
+        "aliases": [
+          {
+            "name": "biceps",
+            "language": "en"
+          },
+          {
+            "name": "biceps_brachii",
+            "language": "en"
+          },
+          {
+            "name": "biiceps",
+            "language": "en"
+          }
+        ]
+      }
+    ]
   }
 ]

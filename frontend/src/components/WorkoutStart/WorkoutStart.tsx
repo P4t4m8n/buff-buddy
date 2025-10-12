@@ -1,16 +1,21 @@
+//Lib
+import { useMemo } from "react";
+//Hooks
 import { useWorkoutStart } from "../../hooks/features/workoutStart/useWorkoutStart";
 import { usePageBack } from "../../hooks/shared/usePageBack";
-
+//Context
+import { WorkoutStartContext } from "../../hooks/context/WorkoutStartContext";
+//Compo
+import WorkoutStartExerciseItem from "./WorkoutStartExercise";
+//UI
 import Button from "../../components/UI/Button";
 import GenericSaveButton from "../../components/UI/GenericSaveButton";
 import Loader from "../../components/UI/loader/Loader";
 import DateInput from "../../components/UI/Form/DateInput/DateInput";
-import { WorkoutStartContext } from "../../hooks/context/WorkoutStartContext";
-import { useMemo } from "react";
+import GenericList from "../../components/UI/GenericList";
+//Types
 import type { IUserWorkoutExercisesEditDTO } from "../../../../shared/models/userWorkout";
 import type { TValidationError } from "../../models/errors.model";
-import GenericList from "../../components/UI/GenericList";
-import WorkoutStartExerciseItem from "./WorkoutStartExercise";
 
 interface IWorkoutStartProps {
   workoutId?: string;
@@ -27,6 +32,7 @@ export default function WorkoutStart({ workoutId }: IWorkoutStartProps) {
     errors,
     isSaving,
   } = useWorkoutStartHook;
+    console.log("🚀 ~ WorkoutStart ~ workoutStart:", workoutStart)
 
   const { userWorkoutExercises, workout } = workoutStart ?? {};
 

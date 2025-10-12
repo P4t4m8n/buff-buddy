@@ -26,6 +26,7 @@ type TWorkoutGoalData = {
   minRestTime: number;
   maxRestTime: number;
 };
+
 type TWorkoutLevelData = {
   minWeight: number;
   weightJump: number;
@@ -44,6 +45,7 @@ const workoutGoals: TWorkoutGoals = {
     maxRestTime: 120,
   },
 };
+
 const workoutLevels: TWorkoutLevels = {
   beginner: {
     minWeight: 0.5,
@@ -93,6 +95,7 @@ const createUserWorkoutPlan = ({
             workoutGoalData,
           }),
           exercise: workoutExercise.exercise,
+          order: workoutExercise.order,
         };
       }
 
@@ -106,6 +109,7 @@ const createUserWorkoutPlan = ({
           workoutGoalData,
         }),
         exercise: workoutExercise.exercise,
+        order: workoutExercise.order,
       };
     }) ?? [];
 
