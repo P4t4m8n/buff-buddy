@@ -32,7 +32,6 @@ export default function WorkoutStart({ workoutId }: IWorkoutStartProps) {
     errors,
     isSaving,
   } = useWorkoutStartHook;
-    console.log("🚀 ~ WorkoutStart ~ workoutStart:", workoutStart)
 
   const { userWorkoutExercises, workout } = workoutStart ?? {};
 

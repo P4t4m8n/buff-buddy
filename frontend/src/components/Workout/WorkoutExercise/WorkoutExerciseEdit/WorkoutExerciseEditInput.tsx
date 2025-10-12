@@ -2,10 +2,10 @@
 import InputWithError from "../../../UI/Form/InputWithError";
 import TextArea from "../../../UI/Form/TextArea";
 import Label from "../../../UI/Form/Label";
+import CheckBox from "../../../UI/Form/CheckBox";
 //Types
 import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
 import type { TErrors } from "../../../../models/errors.model";
-import CheckBox from "../../../UI/Form/CheckBox";
 
 interface WorkoutExerciseEditInputProps {
   workoutExerciseToEdit?: IWorkoutExerciseEditDTO | null;
@@ -21,12 +21,7 @@ export default function WorkoutExerciseEditInput({
   handleInputChange,
   workoutExerciseErrors,
 }: WorkoutExerciseEditInputProps) {
-  const {
-    order,
-    notes,
-    isBodyWeight,
-    hasWarmup,
-  } = workoutExerciseToEdit ?? {};
+  const { order, notes, isBodyWeight, hasWarmup } = workoutExerciseToEdit ?? {};
   return (
     <div className=" flex flex-col items gap-4 w-full justify-around ">
       <InputWithError
@@ -37,7 +32,6 @@ export default function WorkoutExerciseEditInput({
           value: order && order >= 1 ? order : workoutExerciseLength ?? 1,
           className:
             "border w-[4ch] aspect-square rounded text-center order-2  ",
-        
           onChange: handleInputChange,
         }}
         labelProps={{

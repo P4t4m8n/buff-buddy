@@ -1,5 +1,5 @@
 //Components
-import WorkoutExerciseEditListItem from "../WorkoutExerciseEditListItem";
+import WorkoutExerciseEditListItem from "./WorkoutExerciseEditListItem";
 //UI
 import GenericList from "../../../UI/GenericList";
 //Types

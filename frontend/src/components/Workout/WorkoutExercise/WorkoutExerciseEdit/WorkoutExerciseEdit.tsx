@@ -104,11 +104,14 @@ export default function WorkoutExerciseEdit({
             handleInputChange={handleInputChange}
             workoutExerciseErrors={workoutExerciseErrors}
           />
+          <ul className="w-fit h-fit">
+
           <ExercisePreview
             item={exercise}
             selectExercise={selectExercise}
             actionType="workoutEdit"
-          />
+            />
+            </ul>
         </>
       ) : (
         <GenericModel

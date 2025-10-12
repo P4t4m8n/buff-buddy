@@ -1,6 +1,11 @@
-import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
-import GenericModel from "../../../UI/GenericModel";
+//Utils
+import { toTitle } from "../../../../utils/toTitle";
+//Components
 import WorkoutExerciseEdit from "./WorkoutExerciseEdit";
+//UI
+import GenericModel from "../../../UI/GenericModel";
+//Types
+import type { IWorkoutExerciseEditDTO } from "../../../../../../shared/models/workout.model";
 
 interface WorkoutExerciseEditListItemProps {
   item?: IWorkoutExerciseEditDTO;
@@ -18,7 +23,7 @@ export default function WorkoutExerciseEditListItem({
       className=" w-full flex  border items-center rounded p-1 gap-2"
     >
       <p className="text-center">{order}.</p>
-      <h5 className="font-medium text-xl">{name}</h5>
+      <h5 className="font-medium text-xl">{toTitle(name)}</h5>
       <GenericModel
         Model={WorkoutExerciseEdit}
         modelProps={{ handleWorkoutExercises, workoutExercise }}
