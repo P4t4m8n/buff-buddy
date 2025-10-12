@@ -1,23 +1,24 @@
 import { FOOD_ITEMS_INFOS } from "../consts/foodItem.consts";
-import type { IBaseFilter, TCrudOperation } from "./app.model";
+import type { IBaseFilter, ICrudOperation, TCrudOperation } from "./app.model";
 import type { IEntity, IEntityDates } from "./entity.model";
 
-interface IFoddItemBase extends IEntity, IEntityDates {
-  carbohydrates?: string | number | null;
-  fats?: string | number | null;
-  fiber?: string | number | null;
-  sugar?: string | number | null;
-  sodium?: string | number | null;
-  cholesterol?: string | number | null;
-  saturatedFat?: string | number | null;
-  calories?: string | number | null;
-  protein?: string | number | null;
+interface IFoodItemBase extends IEntity, IEntityDates {
   barcode?: string | number | null;
   name?: string;
+  servingSize?: number | null;
+  calories?: string | number | null;
+  proteins?: string | number | null;
+  carbohydrates?: string | number | null;
+  sugars?: string | number | null;
+  fat?: string | number | null;
+  saturatedFat?: string | number | null;
+  fiber?: string | number | null;
+  salt?: string | number | null;
+  cholesterol?: string | number | null;
 }
 
-export interface IFoodItemDTO extends IFoddItemBase {
-  images?:  string[];
+export interface IFoodItemDTO extends IFoodItemBase {
+  images?: IFoodItemImgDto[];
   labels?: IFoodItemLabelDto[];
   brand?: IFoodItemBrandDto | null;
   categories: IFoodItemCategoryDto[];
@@ -25,13 +26,14 @@ export interface IFoodItemDTO extends IFoddItemBase {
 /*
  * Brand is an array on edit, to handle crud operation on it.
  */
-export interface IFoodItemEditDTO extends Partial<IFoddItemBase> {
+export interface IFoodItemEditDTO extends Partial<IFoodItemBase> {
   brand?: IFoodItemBrandEditDto[];
   labels?: IFoodItemLabelEditDto[];
-  images?: string[];
+  images?: IFoodItemImgEditDto[];
   categories?: IFoodItemCategoryEditDto[];
   allergens?: IFoodItemAllergensEditDto[];
   ingredients?: IFoodItemIngredientsEditDto[];
+  ownerId?: string | null;
 }
 
 export interface IFoodItemFilter extends IBaseFilter {
@@ -42,8 +44,17 @@ export interface IFoodItemFilter extends IBaseFilter {
 }
 
 export interface IFoodItemImgDto extends IEntity, IEntityDates {
-  foodItemId: string;
-  url: string;
+  foodItemId?: string;
+  url?: string;
+  altText?: string | null;
+}
+export interface IFoodItemImgEditDto
+  extends IEntity,
+    IEntityDates,
+    ICrudOperation {
+  foodItemId?: string | null;
+  url?: string;
+  altText?: string | null;
 }
 
 /*

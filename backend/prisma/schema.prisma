@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "generated/prisma"
+  provider        = "prisma-client-js"
+  output          = "generated/prisma"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -275,6 +276,7 @@ model FoodItemLabel {
 model FoodItemImg {
   id         String   @id @default(cuid())
   url        String   @unique
+  altText    String?  @default("Food Image")
   foodItemId String
   foodItem   FoodItem @relation(fields: [foodItemId], references: [id], onDelete: Cascade)
   createdAt  DateTime @default(now())
@@ -331,90 +333,3 @@ model UserMeal {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
-
-/**
- * Deprecated models for more complex cardio sets
- */
-
-// model CoreCardioSet {
-//   id                String                       @id @default(cuid())
-//   warmupTime        Int? //in seconds
-//   avgHeartRate      Int?
-//   workTime          CoreCardioSetWorkoutTime[] //in seconds
-//   avgSpeed          CoreCardioSetAvgSpeed[] //in km/h
-//   distance          CoreCardioSetDistance[] //in meters
-//   calorieTarget     CoreCardioSetCalorieTarget[]
-//   createdAt         DateTime                     @default(now())
-//   updatedAt         DateTime                     @updatedAt
-// }
-
-// model CoreCardioSetCalorieTarget {
-//   id              String        @id @default(cuid())
-//   coreCardioSetId String
-//   coreCardioSet   CoreCardioSet @relation(fields: [coreCardioSetId], references: [id], onDelete: Cascade)
-//   calorieTarget   Int? // in kcal
-//   createdAt       DateTime      @default(now())
-//   updatedAt       DateTime      @updatedAt
-// }
-
-// model CoreCardioSetDistance {
-//   id              String        @id @default(cuid())
-//   coreCardioSetId String
-//   coreCardioSet   CoreCardioSet @relation(fields: [coreCardioSetId], references: [id], onDelete: Cascade)
-//   distance        Float? // in km
-//   createdAt       DateTime      @default(now())
-//   updatedAt       DateTime      @updatedAt
-// }
-
-// model CoreCardioSetAvgSpeed {
-//   id              String        @id @default(cuid())
-//   coreCardioSetId String
-//   coreCardioSet   CoreCardioSet @relation(fields: [coreCardioSetId], references: [id], onDelete: Cascade)
-//   avgSpeed        Float? // in km/h
-//   createdAt       DateTime      @default(now())
-//   updatedAt       DateTime      @updatedAt
-// }
-
-// model CoreCardioSetWorkoutTime {
-//   id              String        @id @default(cuid())
-//   coreCardioSetId String
-//   coreCardioSet   CoreCardioSet @relation(fields: [coreCardioSetId], references: [id], onDelete: Cascade)
-//   workTime        Int? //in seconds
-//   createdAt       DateTime      @default(now())
-//   updatedAt       DateTime      @updatedAt
-// }
-
-/**
- * Deprecated models for more complex strength sets
- */
-
-// model CoreStrengthSet {
-//   id           String  @id @default(cuid())
-//   restTime     Int     @default(60)
-//   numberOfSets Int     @default(1)
-//   hasWarmup    Boolean @default(false)
-
-//   reps      CoreStrengthSetReps[]
-//   weight    CoreStrengthSetWeight[]
-//   createdAt DateTime                @default(now())
-//   updatedAt DateTime                @updatedAt
-// }
-
-// model CoreStrengthSetReps {
-//   id                String          @id @default(cuid())
-//   coreStrengthSetId String
-//   coreStrengthSet   CoreStrengthSet @relation(fields: [coreStrengthSetId], references: [id], onDelete: Cascade)
-//   reps              Int             @default(0)
-//   createdAt         DateTime        @default(now())
-//   updatedAt         DateTime        @updatedAt
-// }
-
-// model CoreStrengthSetWeight {
-//   id                String          @id @default(cuid())
-//   coreStrengthSetId String
-//   coreStrengthSet   CoreStrengthSet @relation(fields: [coreStrengthSetId], references: [id], onDelete: Cascade)
-//   isBodyWeight      Boolean         @default(false)
-//   weight            Float?          @default(0)
-//   createdAt         DateTime        @default(now())
-//   updatedAt         DateTime        @updatedAt
-// }

@@ -1,6 +1,6 @@
 import { dbUtil } from "../../shared/utils/db.util";
 
-import { foodItemSQL } from "../foodItem/foodItem.sql";
+import { foodItemSQL } from "../foodItems/foodItems.sql";
 import { userSQL } from "../users/users.sql";
 
 import type {

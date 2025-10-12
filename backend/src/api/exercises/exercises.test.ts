@@ -517,6 +517,7 @@ describe("Exercises API", () => {
     let equipmentB: IEquipment[] = [];
     let exerciseId: string;
     let baseExercise: IExerciseEditDTO;
+    
     beforeAll(async () => {
       musclesA = [muscles[0], muscles[1]];
       musclesB = [muscles[2], muscles[3]];

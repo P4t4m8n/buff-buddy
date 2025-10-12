@@ -9,15 +9,18 @@ import type {
 describe("Auth API", () => {
   const testUsers: IUserDTO[] = [];
   let mainAuthToken: string;
-  const mainUserCredentials: IAuthSignInDTO = {
-    email: `test@test.com`,
+  const mainUserCredentials: IAuthSignUpDTO = {
+    email: `main-test-user@test.com`,
     password: "Aa123456",
+    confirmPassword: "Aa123456",
+    firstName: "Main",
+    lastName: "User",
   };
   let mainUser: IUserDTO;
 
   beforeAll(async () => {
     const res = await request(app)
-      .post("/api/v1/auth/sign-in")
+      .post("/api/v1/auth/sign-up")
       .send(mainUserCredentials);
     mainUser = res.body.data;
     mainAuthToken = res.headers["set-cookie"][0].split(";")[0].split("=")[1];
@@ -40,7 +43,7 @@ describe("Auth API", () => {
       expect(res.status).toBe(201);
       expect(res.body.message).toBe("User created successfully");
       const user: IUserDTO = res.body.data;
-      testUsers.push(user); // Add to cleanup queue
+      testUsers.push(user);
 
       expect(user).toHaveProperty("id");
       expect(user.email).toBe(userCredentials.email.toLowerCase());
@@ -53,7 +56,7 @@ describe("Auth API", () => {
     it("should reject sign-up with an existing email", async () => {
       const existingUser = testUsers[0];
       const res = await request(app).post("/api/v1/auth/sign-up").send({
-        email: "test@test.com",
+        email: mainUser.email,
         password: "Password123!",
         confirmPassword: "Password123!",
         firstName: "Another",
@@ -244,6 +247,7 @@ describe("Auth API", () => {
   });
 
   afterAll(async () => {
+ 
     for (const user of testUsers) {
       if (user.id) {
         await request(app)
@@ -254,5 +258,11 @@ describe("Auth API", () => {
           });
       }
     }
+    await request(app)
+      .delete(`/api/v1/auth/delete-user/${mainUser?.id}`)
+      .set("Cookie", `token=${mainAuthToken}`)
+      .catch((err) => {
+        console.error(`Failed to delete user ${mainUser.id}:`, err.message);
+      });
   });
 });

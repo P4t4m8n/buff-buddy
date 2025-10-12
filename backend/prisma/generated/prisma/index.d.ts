@@ -3753,7 +3753,7 @@ export namespace Prisma {
   type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
 
   type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: UserCountAggregateInputType | true
     }
 
@@ -4209,6 +4209,7 @@ export namespace Prisma {
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4231,6 +4232,7 @@ export namespace Prisma {
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4283,6 +4285,7 @@ export namespace Prisma {
      * Filter by unique combinations of Users.
      */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4335,6 +4338,7 @@ export namespace Prisma {
      * Filter by unique combinations of Users.
      */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4382,6 +4386,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4404,6 +4409,7 @@ export namespace Prisma {
      * The data needed to create a User.
      */
     data: XOR<UserCreateInput, UserUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4460,6 +4466,7 @@ export namespace Prisma {
      * Choose, which User to update.
      */
     where: UserWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4534,6 +4541,7 @@ export namespace Prisma {
      * In case the User was found with the provided `where` argument, update it with this data.
      */
     update: XOR<UserUpdateInput, UserUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4556,6 +4564,7 @@ export namespace Prisma {
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5016,7 +5025,7 @@ export namespace Prisma {
   type ExerciseGetPayload<S extends boolean | null | undefined | ExerciseDefaultArgs> = $Result.GetResult<Prisma.$ExercisePayload, S>
 
   type ExerciseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ExerciseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<ExerciseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ExerciseCountAggregateInputType | true
     }
 
@@ -5469,6 +5478,7 @@ export namespace Prisma {
      * Filter, which Exercise to fetch.
      */
     where: ExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5491,6 +5501,7 @@ export namespace Prisma {
      * Filter, which Exercise to fetch.
      */
     where: ExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5543,6 +5554,7 @@ export namespace Prisma {
      * Filter by unique combinations of Exercises.
      */
     distinct?: ExerciseScalarFieldEnum | ExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5595,6 +5607,7 @@ export namespace Prisma {
      * Filter by unique combinations of Exercises.
      */
     distinct?: ExerciseScalarFieldEnum | ExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5642,6 +5655,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: ExerciseScalarFieldEnum | ExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5664,6 +5678,7 @@ export namespace Prisma {
      * The data needed to create a Exercise.
      */
     data: XOR<ExerciseCreateInput, ExerciseUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5724,6 +5739,7 @@ export namespace Prisma {
      * Choose, which Exercise to update.
      */
     where: ExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5802,6 +5818,7 @@ export namespace Prisma {
      * In case the Exercise was found with the provided `where` argument, update it with this data.
      */
     update: XOR<ExerciseUpdateInput, ExerciseUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5824,6 +5841,7 @@ export namespace Prisma {
      * Filter which Exercise to delete.
      */
     where: ExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6205,7 +6223,7 @@ export namespace Prisma {
   type MuscleGetPayload<S extends boolean | null | undefined | MuscleDefaultArgs> = $Result.GetResult<Prisma.$MusclePayload, S>
 
   type MuscleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<MuscleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<MuscleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: MuscleCountAggregateInputType | true
     }
 
@@ -6652,6 +6670,7 @@ export namespace Prisma {
      * Filter, which Muscle to fetch.
      */
     where: MuscleWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6674,6 +6693,7 @@ export namespace Prisma {
      * Filter, which Muscle to fetch.
      */
     where: MuscleWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6726,6 +6746,7 @@ export namespace Prisma {
      * Filter by unique combinations of Muscles.
      */
     distinct?: MuscleScalarFieldEnum | MuscleScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6778,6 +6799,7 @@ export namespace Prisma {
      * Filter by unique combinations of Muscles.
      */
     distinct?: MuscleScalarFieldEnum | MuscleScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6825,6 +6847,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: MuscleScalarFieldEnum | MuscleScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6847,6 +6870,7 @@ export namespace Prisma {
      * The data needed to create a Muscle.
      */
     data: XOR<MuscleCreateInput, MuscleUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6903,6 +6927,7 @@ export namespace Prisma {
      * Choose, which Muscle to update.
      */
     where: MuscleWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6977,6 +7002,7 @@ export namespace Prisma {
      * In case the Muscle was found with the provided `where` argument, update it with this data.
      */
     update: XOR<MuscleUpdateInput, MuscleUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6999,6 +7025,7 @@ export namespace Prisma {
      * Filter which Muscle to delete.
      */
     where: MuscleWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -7316,7 +7343,7 @@ export namespace Prisma {
   type MuscleAliasGetPayload<S extends boolean | null | undefined | MuscleAliasDefaultArgs> = $Result.GetResult<Prisma.$MuscleAliasPayload, S>
 
   type MuscleAliasCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<MuscleAliasFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<MuscleAliasFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: MuscleAliasCountAggregateInputType | true
     }
 
@@ -7763,6 +7790,7 @@ export namespace Prisma {
      * Filter, which MuscleAlias to fetch.
      */
     where: MuscleAliasWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -7785,6 +7813,7 @@ export namespace Prisma {
      * Filter, which MuscleAlias to fetch.
      */
     where: MuscleAliasWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -7837,6 +7866,7 @@ export namespace Prisma {
      * Filter by unique combinations of MuscleAliases.
      */
     distinct?: MuscleAliasScalarFieldEnum | MuscleAliasScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -7889,6 +7919,7 @@ export namespace Prisma {
      * Filter by unique combinations of MuscleAliases.
      */
     distinct?: MuscleAliasScalarFieldEnum | MuscleAliasScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -7936,6 +7967,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: MuscleAliasScalarFieldEnum | MuscleAliasScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -7958,6 +7990,7 @@ export namespace Prisma {
      * The data needed to create a MuscleAlias.
      */
     data: XOR<MuscleAliasCreateInput, MuscleAliasUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -8018,6 +8051,7 @@ export namespace Prisma {
      * Choose, which MuscleAlias to update.
      */
     where: MuscleAliasWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -8096,6 +8130,7 @@ export namespace Prisma {
      * In case the MuscleAlias was found with the provided `where` argument, update it with this data.
      */
     update: XOR<MuscleAliasUpdateInput, MuscleAliasUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -8118,6 +8153,7 @@ export namespace Prisma {
      * Filter which MuscleAlias to delete.
      */
     where: MuscleAliasWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -8362,7 +8398,7 @@ export namespace Prisma {
   type EquipmentGetPayload<S extends boolean | null | undefined | EquipmentDefaultArgs> = $Result.GetResult<Prisma.$EquipmentPayload, S>
 
   type EquipmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<EquipmentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<EquipmentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: EquipmentCountAggregateInputType | true
     }
 
@@ -8808,6 +8844,7 @@ export namespace Prisma {
      * Filter, which Equipment to fetch.
      */
     where: EquipmentWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -8830,6 +8867,7 @@ export namespace Prisma {
      * Filter, which Equipment to fetch.
      */
     where: EquipmentWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -8882,6 +8920,7 @@ export namespace Prisma {
      * Filter by unique combinations of Equipment.
      */
     distinct?: EquipmentScalarFieldEnum | EquipmentScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -8934,6 +8973,7 @@ export namespace Prisma {
      * Filter by unique combinations of Equipment.
      */
     distinct?: EquipmentScalarFieldEnum | EquipmentScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -8981,6 +9021,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: EquipmentScalarFieldEnum | EquipmentScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -9003,6 +9044,7 @@ export namespace Prisma {
      * The data needed to create a Equipment.
      */
     data: XOR<EquipmentCreateInput, EquipmentUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -9059,6 +9101,7 @@ export namespace Prisma {
      * Choose, which Equipment to update.
      */
     where: EquipmentWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -9133,6 +9176,7 @@ export namespace Prisma {
      * In case the Equipment was found with the provided `where` argument, update it with this data.
      */
     update: XOR<EquipmentUpdateInput, EquipmentUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -9155,6 +9199,7 @@ export namespace Prisma {
      * Filter which Equipment to delete.
      */
     where: EquipmentWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -9444,7 +9489,7 @@ export namespace Prisma {
   type EquipmentCategoryGetPayload<S extends boolean | null | undefined | EquipmentCategoryDefaultArgs> = $Result.GetResult<Prisma.$EquipmentCategoryPayload, S>
 
   type EquipmentCategoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<EquipmentCategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<EquipmentCategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: EquipmentCategoryCountAggregateInputType | true
     }
 
@@ -9889,6 +9934,7 @@ export namespace Prisma {
      * Filter, which EquipmentCategory to fetch.
      */
     where: EquipmentCategoryWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -9911,6 +9957,7 @@ export namespace Prisma {
      * Filter, which EquipmentCategory to fetch.
      */
     where: EquipmentCategoryWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -9963,6 +10010,7 @@ export namespace Prisma {
      * Filter by unique combinations of EquipmentCategories.
      */
     distinct?: EquipmentCategoryScalarFieldEnum | EquipmentCategoryScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -10015,6 +10063,7 @@ export namespace Prisma {
      * Filter by unique combinations of EquipmentCategories.
      */
     distinct?: EquipmentCategoryScalarFieldEnum | EquipmentCategoryScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -10062,6 +10111,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: EquipmentCategoryScalarFieldEnum | EquipmentCategoryScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -10084,6 +10134,7 @@ export namespace Prisma {
      * The data needed to create a EquipmentCategory.
      */
     data: XOR<EquipmentCategoryCreateInput, EquipmentCategoryUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -10140,6 +10191,7 @@ export namespace Prisma {
      * Choose, which EquipmentCategory to update.
      */
     where: EquipmentCategoryWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -10214,6 +10266,7 @@ export namespace Prisma {
      * In case the EquipmentCategory was found with the provided `where` argument, update it with this data.
      */
     update: XOR<EquipmentCategoryUpdateInput, EquipmentCategoryUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -10236,6 +10289,7 @@ export namespace Prisma {
      * Filter which EquipmentCategory to delete.
      */
     where: EquipmentCategoryWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -10671,7 +10725,7 @@ export namespace Prisma {
   type UserCardioSetGetPayload<S extends boolean | null | undefined | UserCardioSetDefaultArgs> = $Result.GetResult<Prisma.$UserCardioSetPayload, S>
 
   type UserCardioSetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserCardioSetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<UserCardioSetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: UserCardioSetCountAggregateInputType | true
     }
 
@@ -11125,6 +11179,7 @@ export namespace Prisma {
      * Filter, which UserCardioSet to fetch.
      */
     where: UserCardioSetWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11147,6 +11202,7 @@ export namespace Prisma {
      * Filter, which UserCardioSet to fetch.
      */
     where: UserCardioSetWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11199,6 +11255,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserCardioSets.
      */
     distinct?: UserCardioSetScalarFieldEnum | UserCardioSetScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11251,6 +11308,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserCardioSets.
      */
     distinct?: UserCardioSetScalarFieldEnum | UserCardioSetScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11298,6 +11356,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: UserCardioSetScalarFieldEnum | UserCardioSetScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11320,6 +11379,7 @@ export namespace Prisma {
      * The data needed to create a UserCardioSet.
      */
     data: XOR<UserCardioSetCreateInput, UserCardioSetUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11380,6 +11440,7 @@ export namespace Prisma {
      * Choose, which UserCardioSet to update.
      */
     where: UserCardioSetWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11458,6 +11519,7 @@ export namespace Prisma {
      * In case the UserCardioSet was found with the provided `where` argument, update it with this data.
      */
     update: XOR<UserCardioSetUpdateInput, UserCardioSetUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11480,6 +11542,7 @@ export namespace Prisma {
      * Filter which UserCardioSet to delete.
      */
     where: UserCardioSetWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11891,7 +11954,7 @@ export namespace Prisma {
   type UserStrengthSetGetPayload<S extends boolean | null | undefined | UserStrengthSetDefaultArgs> = $Result.GetResult<Prisma.$UserStrengthSetPayload, S>
 
   type UserStrengthSetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserStrengthSetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<UserStrengthSetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: UserStrengthSetCountAggregateInputType | true
     }
 
@@ -12346,6 +12409,7 @@ export namespace Prisma {
      * Filter, which UserStrengthSet to fetch.
      */
     where: UserStrengthSetWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -12368,6 +12432,7 @@ export namespace Prisma {
      * Filter, which UserStrengthSet to fetch.
      */
     where: UserStrengthSetWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -12420,6 +12485,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserStrengthSets.
      */
     distinct?: UserStrengthSetScalarFieldEnum | UserStrengthSetScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -12472,6 +12538,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserStrengthSets.
      */
     distinct?: UserStrengthSetScalarFieldEnum | UserStrengthSetScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -12519,6 +12586,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: UserStrengthSetScalarFieldEnum | UserStrengthSetScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -12541,6 +12609,7 @@ export namespace Prisma {
      * The data needed to create a UserStrengthSet.
      */
     data: XOR<UserStrengthSetCreateInput, UserStrengthSetUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -12601,6 +12670,7 @@ export namespace Prisma {
      * Choose, which UserStrengthSet to update.
      */
     where: UserStrengthSetWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -12679,6 +12749,7 @@ export namespace Prisma {
      * In case the UserStrengthSet was found with the provided `where` argument, update it with this data.
      */
     update: XOR<UserStrengthSetUpdateInput, UserStrengthSetUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -12701,6 +12772,7 @@ export namespace Prisma {
      * Filter which UserStrengthSet to delete.
      */
     where: UserStrengthSetWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13014,7 +13086,7 @@ export namespace Prisma {
   type ProgramGetPayload<S extends boolean | null | undefined | ProgramDefaultArgs> = $Result.GetResult<Prisma.$ProgramPayload, S>
 
   type ProgramCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ProgramFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<ProgramFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ProgramCountAggregateInputType | true
     }
 
@@ -13466,6 +13538,7 @@ export namespace Prisma {
      * Filter, which Program to fetch.
      */
     where: ProgramWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13488,6 +13561,7 @@ export namespace Prisma {
      * Filter, which Program to fetch.
      */
     where: ProgramWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13540,6 +13614,7 @@ export namespace Prisma {
      * Filter by unique combinations of Programs.
      */
     distinct?: ProgramScalarFieldEnum | ProgramScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13592,6 +13667,7 @@ export namespace Prisma {
      * Filter by unique combinations of Programs.
      */
     distinct?: ProgramScalarFieldEnum | ProgramScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13639,6 +13715,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: ProgramScalarFieldEnum | ProgramScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13661,6 +13738,7 @@ export namespace Prisma {
      * The data needed to create a Program.
      */
     data: XOR<ProgramCreateInput, ProgramUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13721,6 +13799,7 @@ export namespace Prisma {
      * Choose, which Program to update.
      */
     where: ProgramWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13799,6 +13878,7 @@ export namespace Prisma {
      * In case the Program was found with the provided `where` argument, update it with this data.
      */
     update: XOR<ProgramUpdateInput, ProgramUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13821,6 +13901,7 @@ export namespace Prisma {
      * Filter which Program to delete.
      */
     where: ProgramWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14165,7 +14246,7 @@ export namespace Prisma {
   type ProgramWorkoutGetPayload<S extends boolean | null | undefined | ProgramWorkoutDefaultArgs> = $Result.GetResult<Prisma.$ProgramWorkoutPayload, S>
 
   type ProgramWorkoutCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ProgramWorkoutFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<ProgramWorkoutFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ProgramWorkoutCountAggregateInputType | true
     }
 
@@ -14615,6 +14696,7 @@ export namespace Prisma {
      * Filter, which ProgramWorkout to fetch.
      */
     where: ProgramWorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14637,6 +14719,7 @@ export namespace Prisma {
      * Filter, which ProgramWorkout to fetch.
      */
     where: ProgramWorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14689,6 +14772,7 @@ export namespace Prisma {
      * Filter by unique combinations of ProgramWorkouts.
      */
     distinct?: ProgramWorkoutScalarFieldEnum | ProgramWorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14741,6 +14825,7 @@ export namespace Prisma {
      * Filter by unique combinations of ProgramWorkouts.
      */
     distinct?: ProgramWorkoutScalarFieldEnum | ProgramWorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14788,6 +14873,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: ProgramWorkoutScalarFieldEnum | ProgramWorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14810,6 +14896,7 @@ export namespace Prisma {
      * The data needed to create a ProgramWorkout.
      */
     data: XOR<ProgramWorkoutCreateInput, ProgramWorkoutUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14870,6 +14957,7 @@ export namespace Prisma {
      * Choose, which ProgramWorkout to update.
      */
     where: ProgramWorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14948,6 +15036,7 @@ export namespace Prisma {
      * In case the ProgramWorkout was found with the provided `where` argument, update it with this data.
      */
     update: XOR<ProgramWorkoutUpdateInput, ProgramWorkoutUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14970,6 +15059,7 @@ export namespace Prisma {
      * Filter which ProgramWorkout to delete.
      */
     where: ProgramWorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -15262,7 +15352,7 @@ export namespace Prisma {
   type WorkoutGetPayload<S extends boolean | null | undefined | WorkoutDefaultArgs> = $Result.GetResult<Prisma.$WorkoutPayload, S>
 
   type WorkoutCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<WorkoutFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<WorkoutFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: WorkoutCountAggregateInputType | true
     }
 
@@ -15713,6 +15803,7 @@ export namespace Prisma {
      * Filter, which Workout to fetch.
      */
     where: WorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -15735,6 +15826,7 @@ export namespace Prisma {
      * Filter, which Workout to fetch.
      */
     where: WorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -15787,6 +15879,7 @@ export namespace Prisma {
      * Filter by unique combinations of Workouts.
      */
     distinct?: WorkoutScalarFieldEnum | WorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -15839,6 +15932,7 @@ export namespace Prisma {
      * Filter by unique combinations of Workouts.
      */
     distinct?: WorkoutScalarFieldEnum | WorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -15886,6 +15980,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: WorkoutScalarFieldEnum | WorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -15908,6 +16003,7 @@ export namespace Prisma {
      * The data needed to create a Workout.
      */
     data: XOR<WorkoutCreateInput, WorkoutUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -15968,6 +16064,7 @@ export namespace Prisma {
      * Choose, which Workout to update.
      */
     where: WorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -16046,6 +16143,7 @@ export namespace Prisma {
      * In case the Workout was found with the provided `where` argument, update it with this data.
      */
     update: XOR<WorkoutUpdateInput, WorkoutUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -16068,6 +16166,7 @@ export namespace Prisma {
      * Filter which Workout to delete.
      */
     where: WorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -16526,7 +16625,7 @@ export namespace Prisma {
   type WorkoutExerciseGetPayload<S extends boolean | null | undefined | WorkoutExerciseDefaultArgs> = $Result.GetResult<Prisma.$WorkoutExercisePayload, S>
 
   type WorkoutExerciseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<WorkoutExerciseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<WorkoutExerciseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: WorkoutExerciseCountAggregateInputType | true
     }
 
@@ -16979,6 +17078,7 @@ export namespace Prisma {
      * Filter, which WorkoutExercise to fetch.
      */
     where: WorkoutExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17001,6 +17101,7 @@ export namespace Prisma {
      * Filter, which WorkoutExercise to fetch.
      */
     where: WorkoutExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17053,6 +17154,7 @@ export namespace Prisma {
      * Filter by unique combinations of WorkoutExercises.
      */
     distinct?: WorkoutExerciseScalarFieldEnum | WorkoutExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17105,6 +17207,7 @@ export namespace Prisma {
      * Filter by unique combinations of WorkoutExercises.
      */
     distinct?: WorkoutExerciseScalarFieldEnum | WorkoutExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17152,6 +17255,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: WorkoutExerciseScalarFieldEnum | WorkoutExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17174,6 +17278,7 @@ export namespace Prisma {
      * The data needed to create a WorkoutExercise.
      */
     data: XOR<WorkoutExerciseCreateInput, WorkoutExerciseUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17234,6 +17339,7 @@ export namespace Prisma {
      * Choose, which WorkoutExercise to update.
      */
     where: WorkoutExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17312,6 +17418,7 @@ export namespace Prisma {
      * In case the WorkoutExercise was found with the provided `where` argument, update it with this data.
      */
     update: XOR<WorkoutExerciseUpdateInput, WorkoutExerciseUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17334,6 +17441,7 @@ export namespace Prisma {
      * Filter which WorkoutExercise to delete.
      */
     where: WorkoutExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17618,7 +17726,7 @@ export namespace Prisma {
   type UserWorkoutExerciseGetPayload<S extends boolean | null | undefined | UserWorkoutExerciseDefaultArgs> = $Result.GetResult<Prisma.$UserWorkoutExercisePayload, S>
 
   type UserWorkoutExerciseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserWorkoutExerciseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<UserWorkoutExerciseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: UserWorkoutExerciseCountAggregateInputType | true
     }
 
@@ -18066,6 +18174,7 @@ export namespace Prisma {
      * Filter, which UserWorkoutExercise to fetch.
      */
     where: UserWorkoutExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18088,6 +18197,7 @@ export namespace Prisma {
      * Filter, which UserWorkoutExercise to fetch.
      */
     where: UserWorkoutExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18140,6 +18250,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserWorkoutExercises.
      */
     distinct?: UserWorkoutExerciseScalarFieldEnum | UserWorkoutExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18192,6 +18303,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserWorkoutExercises.
      */
     distinct?: UserWorkoutExerciseScalarFieldEnum | UserWorkoutExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18239,6 +18351,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: UserWorkoutExerciseScalarFieldEnum | UserWorkoutExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18261,6 +18374,7 @@ export namespace Prisma {
      * The data needed to create a UserWorkoutExercise.
      */
     data: XOR<UserWorkoutExerciseCreateInput, UserWorkoutExerciseUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18321,6 +18435,7 @@ export namespace Prisma {
      * Choose, which UserWorkoutExercise to update.
      */
     where: UserWorkoutExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18399,6 +18514,7 @@ export namespace Prisma {
      * In case the UserWorkoutExercise was found with the provided `where` argument, update it with this data.
      */
     update: XOR<UserWorkoutExerciseUpdateInput, UserWorkoutExerciseUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18421,6 +18537,7 @@ export namespace Prisma {
      * Filter which UserWorkoutExercise to delete.
      */
     where: UserWorkoutExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18757,7 +18874,7 @@ export namespace Prisma {
   type UserWorkoutGetPayload<S extends boolean | null | undefined | UserWorkoutDefaultArgs> = $Result.GetResult<Prisma.$UserWorkoutPayload, S>
 
   type UserWorkoutCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserWorkoutFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<UserWorkoutFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: UserWorkoutCountAggregateInputType | true
     }
 
@@ -19207,6 +19324,7 @@ export namespace Prisma {
      * Filter, which UserWorkout to fetch.
      */
     where: UserWorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19229,6 +19347,7 @@ export namespace Prisma {
      * Filter, which UserWorkout to fetch.
      */
     where: UserWorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19281,6 +19400,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserWorkouts.
      */
     distinct?: UserWorkoutScalarFieldEnum | UserWorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19333,6 +19453,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserWorkouts.
      */
     distinct?: UserWorkoutScalarFieldEnum | UserWorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19380,6 +19501,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: UserWorkoutScalarFieldEnum | UserWorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19402,6 +19524,7 @@ export namespace Prisma {
      * The data needed to create a UserWorkout.
      */
     data: XOR<UserWorkoutCreateInput, UserWorkoutUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19462,6 +19585,7 @@ export namespace Prisma {
      * Choose, which UserWorkout to update.
      */
     where: UserWorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19540,6 +19664,7 @@ export namespace Prisma {
      * In case the UserWorkout was found with the provided `where` argument, update it with this data.
      */
     update: XOR<UserWorkoutUpdateInput, UserWorkoutUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19562,6 +19687,7 @@ export namespace Prisma {
      * Filter which UserWorkout to delete.
      */
     where: UserWorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20097,7 +20223,7 @@ export namespace Prisma {
   type FoodItemGetPayload<S extends boolean | null | undefined | FoodItemDefaultArgs> = $Result.GetResult<Prisma.$FoodItemPayload, S>
 
   type FoodItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<FoodItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<FoodItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: FoodItemCountAggregateInputType | true
     }
 
@@ -20558,6 +20684,7 @@ export namespace Prisma {
      * Filter, which FoodItem to fetch.
      */
     where: FoodItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20580,6 +20707,7 @@ export namespace Prisma {
      * Filter, which FoodItem to fetch.
      */
     where: FoodItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20632,6 +20760,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItems.
      */
     distinct?: FoodItemScalarFieldEnum | FoodItemScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20684,6 +20813,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItems.
      */
     distinct?: FoodItemScalarFieldEnum | FoodItemScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20731,6 +20861,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: FoodItemScalarFieldEnum | FoodItemScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20753,6 +20884,7 @@ export namespace Prisma {
      * The data needed to create a FoodItem.
      */
     data: XOR<FoodItemCreateInput, FoodItemUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20813,6 +20945,7 @@ export namespace Prisma {
      * Choose, which FoodItem to update.
      */
     where: FoodItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20891,6 +21024,7 @@ export namespace Prisma {
      * In case the FoodItem was found with the provided `where` argument, update it with this data.
      */
     update: XOR<FoodItemUpdateInput, FoodItemUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20913,6 +21047,7 @@ export namespace Prisma {
      * Filter which FoodItem to delete.
      */
     where: FoodItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -21269,7 +21404,7 @@ export namespace Prisma {
   type FoodItemLabelGetPayload<S extends boolean | null | undefined | FoodItemLabelDefaultArgs> = $Result.GetResult<Prisma.$FoodItemLabelPayload, S>
 
   type FoodItemLabelCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<FoodItemLabelFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<FoodItemLabelFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: FoodItemLabelCountAggregateInputType | true
     }
 
@@ -21714,6 +21849,7 @@ export namespace Prisma {
      * Filter, which FoodItemLabel to fetch.
      */
     where: FoodItemLabelWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -21736,6 +21872,7 @@ export namespace Prisma {
      * Filter, which FoodItemLabel to fetch.
      */
     where: FoodItemLabelWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -21788,6 +21925,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItemLabels.
      */
     distinct?: FoodItemLabelScalarFieldEnum | FoodItemLabelScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -21840,6 +21978,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItemLabels.
      */
     distinct?: FoodItemLabelScalarFieldEnum | FoodItemLabelScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -21887,6 +22026,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: FoodItemLabelScalarFieldEnum | FoodItemLabelScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -21909,6 +22049,7 @@ export namespace Prisma {
      * The data needed to create a FoodItemLabel.
      */
     data: XOR<FoodItemLabelCreateInput, FoodItemLabelUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -21965,6 +22106,7 @@ export namespace Prisma {
      * Choose, which FoodItemLabel to update.
      */
     where: FoodItemLabelWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -22039,6 +22181,7 @@ export namespace Prisma {
      * In case the FoodItemLabel was found with the provided `where` argument, update it with this data.
      */
     update: XOR<FoodItemLabelUpdateInput, FoodItemLabelUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -22061,6 +22204,7 @@ export namespace Prisma {
      * Filter which FoodItemLabel to delete.
      */
     where: FoodItemLabelWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -22133,6 +22277,7 @@ export namespace Prisma {
   export type FoodItemImgMinAggregateOutputType = {
     id: string | null
     url: string | null
+    altText: string | null
     foodItemId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -22141,6 +22286,7 @@ export namespace Prisma {
   export type FoodItemImgMaxAggregateOutputType = {
     id: string | null
     url: string | null
+    altText: string | null
     foodItemId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -22149,6 +22295,7 @@ export namespace Prisma {
   export type FoodItemImgCountAggregateOutputType = {
     id: number
     url: number
+    altText: number
     foodItemId: number
     createdAt: number
     updatedAt: number
@@ -22159,6 +22306,7 @@ export namespace Prisma {
   export type FoodItemImgMinAggregateInputType = {
     id?: true
     url?: true
+    altText?: true
     foodItemId?: true
     createdAt?: true
     updatedAt?: true
@@ -22167,6 +22315,7 @@ export namespace Prisma {
   export type FoodItemImgMaxAggregateInputType = {
     id?: true
     url?: true
+    altText?: true
     foodItemId?: true
     createdAt?: true
     updatedAt?: true
@@ -22175,6 +22324,7 @@ export namespace Prisma {
   export type FoodItemImgCountAggregateInputType = {
     id?: true
     url?: true
+    altText?: true
     foodItemId?: true
     createdAt?: true
     updatedAt?: true
@@ -22256,6 +22406,7 @@ export namespace Prisma {
   export type FoodItemImgGroupByOutputType = {
     id: string
     url: string
+    altText: string | null
     foodItemId: string
     createdAt: Date
     updatedAt: Date
@@ -22281,6 +22432,7 @@ export namespace Prisma {
   export type FoodItemImgSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
+    altText?: boolean
     foodItemId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -22290,6 +22442,7 @@ export namespace Prisma {
   export type FoodItemImgSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
+    altText?: boolean
     foodItemId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -22299,6 +22452,7 @@ export namespace Prisma {
   export type FoodItemImgSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
+    altText?: boolean
     foodItemId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -22308,12 +22462,13 @@ export namespace Prisma {
   export type FoodItemImgSelectScalar = {
     id?: boolean
     url?: boolean
+    altText?: boolean
     foodItemId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type FoodItemImgOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "foodItemId" | "createdAt" | "updatedAt", ExtArgs["result"]["foodItemImg"]>
+  export type FoodItemImgOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "altText" | "foodItemId" | "createdAt" | "updatedAt", ExtArgs["result"]["foodItemImg"]>
   export type FoodItemImgInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     foodItem?: boolean | FoodItemDefaultArgs<ExtArgs>
   }
@@ -22332,6 +22487,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       url: string
+      altText: string | null
       foodItemId: string
       createdAt: Date
       updatedAt: Date
@@ -22342,7 +22498,7 @@ export namespace Prisma {
   type FoodItemImgGetPayload<S extends boolean | null | undefined | FoodItemImgDefaultArgs> = $Result.GetResult<Prisma.$FoodItemImgPayload, S>
 
   type FoodItemImgCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<FoodItemImgFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<FoodItemImgFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: FoodItemImgCountAggregateInputType | true
     }
 
@@ -22761,6 +22917,7 @@ export namespace Prisma {
   interface FoodItemImgFieldRefs {
     readonly id: FieldRef<"FoodItemImg", 'String'>
     readonly url: FieldRef<"FoodItemImg", 'String'>
+    readonly altText: FieldRef<"FoodItemImg", 'String'>
     readonly foodItemId: FieldRef<"FoodItemImg", 'String'>
     readonly createdAt: FieldRef<"FoodItemImg", 'DateTime'>
     readonly updatedAt: FieldRef<"FoodItemImg", 'DateTime'>
@@ -22788,6 +22945,7 @@ export namespace Prisma {
      * Filter, which FoodItemImg to fetch.
      */
     where: FoodItemImgWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -22810,6 +22968,7 @@ export namespace Prisma {
      * Filter, which FoodItemImg to fetch.
      */
     where: FoodItemImgWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -22862,6 +23021,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItemImgs.
      */
     distinct?: FoodItemImgScalarFieldEnum | FoodItemImgScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -22914,6 +23074,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItemImgs.
      */
     distinct?: FoodItemImgScalarFieldEnum | FoodItemImgScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -22961,6 +23122,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: FoodItemImgScalarFieldEnum | FoodItemImgScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -22983,6 +23145,7 @@ export namespace Prisma {
      * The data needed to create a FoodItemImg.
      */
     data: XOR<FoodItemImgCreateInput, FoodItemImgUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -23043,6 +23206,7 @@ export namespace Prisma {
      * Choose, which FoodItemImg to update.
      */
     where: FoodItemImgWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -23121,6 +23285,7 @@ export namespace Prisma {
      * In case the FoodItemImg was found with the provided `where` argument, update it with this data.
      */
     update: XOR<FoodItemImgUpdateInput, FoodItemImgUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -23143,6 +23308,7 @@ export namespace Prisma {
      * Filter which FoodItemImg to delete.
      */
     where: FoodItemImgWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -23384,7 +23550,7 @@ export namespace Prisma {
   type FoodItemBrandGetPayload<S extends boolean | null | undefined | FoodItemBrandDefaultArgs> = $Result.GetResult<Prisma.$FoodItemBrandPayload, S>
 
   type FoodItemBrandCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<FoodItemBrandFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<FoodItemBrandFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: FoodItemBrandCountAggregateInputType | true
     }
 
@@ -23829,6 +23995,7 @@ export namespace Prisma {
      * Filter, which FoodItemBrand to fetch.
      */
     where: FoodItemBrandWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -23851,6 +24018,7 @@ export namespace Prisma {
      * Filter, which FoodItemBrand to fetch.
      */
     where: FoodItemBrandWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -23903,6 +24071,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItemBrands.
      */
     distinct?: FoodItemBrandScalarFieldEnum | FoodItemBrandScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -23955,6 +24124,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItemBrands.
      */
     distinct?: FoodItemBrandScalarFieldEnum | FoodItemBrandScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -24002,6 +24172,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: FoodItemBrandScalarFieldEnum | FoodItemBrandScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -24024,6 +24195,7 @@ export namespace Prisma {
      * The data needed to create a FoodItemBrand.
      */
     data: XOR<FoodItemBrandCreateInput, FoodItemBrandUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -24080,6 +24252,7 @@ export namespace Prisma {
      * Choose, which FoodItemBrand to update.
      */
     where: FoodItemBrandWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -24154,6 +24327,7 @@ export namespace Prisma {
      * In case the FoodItemBrand was found with the provided `where` argument, update it with this data.
      */
     update: XOR<FoodItemBrandUpdateInput, FoodItemBrandUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -24176,6 +24350,7 @@ export namespace Prisma {
      * Filter which FoodItemBrand to delete.
      */
     where: FoodItemBrandWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -24441,7 +24616,7 @@ export namespace Prisma {
   type FoodItemCategoryGetPayload<S extends boolean | null | undefined | FoodItemCategoryDefaultArgs> = $Result.GetResult<Prisma.$FoodItemCategoryPayload, S>
 
   type FoodItemCategoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<FoodItemCategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<FoodItemCategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: FoodItemCategoryCountAggregateInputType | true
     }
 
@@ -24886,6 +25061,7 @@ export namespace Prisma {
      * Filter, which FoodItemCategory to fetch.
      */
     where: FoodItemCategoryWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -24908,6 +25084,7 @@ export namespace Prisma {
      * Filter, which FoodItemCategory to fetch.
      */
     where: FoodItemCategoryWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -24960,6 +25137,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItemCategories.
      */
     distinct?: FoodItemCategoryScalarFieldEnum | FoodItemCategoryScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -25012,6 +25190,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItemCategories.
      */
     distinct?: FoodItemCategoryScalarFieldEnum | FoodItemCategoryScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -25059,6 +25238,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: FoodItemCategoryScalarFieldEnum | FoodItemCategoryScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -25081,6 +25261,7 @@ export namespace Prisma {
      * The data needed to create a FoodItemCategory.
      */
     data: XOR<FoodItemCategoryCreateInput, FoodItemCategoryUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -25137,6 +25318,7 @@ export namespace Prisma {
      * Choose, which FoodItemCategory to update.
      */
     where: FoodItemCategoryWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -25211,6 +25393,7 @@ export namespace Prisma {
      * In case the FoodItemCategory was found with the provided `where` argument, update it with this data.
      */
     update: XOR<FoodItemCategoryUpdateInput, FoodItemCategoryUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -25233,6 +25416,7 @@ export namespace Prisma {
      * Filter which FoodItemCategory to delete.
      */
     where: FoodItemCategoryWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -25546,7 +25730,7 @@ export namespace Prisma {
   type MealGetPayload<S extends boolean | null | undefined | MealDefaultArgs> = $Result.GetResult<Prisma.$MealPayload, S>
 
   type MealCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<MealFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<MealFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: MealCountAggregateInputType | true
     }
 
@@ -25996,6 +26180,7 @@ export namespace Prisma {
      * Filter, which Meal to fetch.
      */
     where: MealWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26018,6 +26203,7 @@ export namespace Prisma {
      * Filter, which Meal to fetch.
      */
     where: MealWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26070,6 +26256,7 @@ export namespace Prisma {
      * Filter by unique combinations of Meals.
      */
     distinct?: MealScalarFieldEnum | MealScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26122,6 +26309,7 @@ export namespace Prisma {
      * Filter by unique combinations of Meals.
      */
     distinct?: MealScalarFieldEnum | MealScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26169,6 +26357,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: MealScalarFieldEnum | MealScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26191,6 +26380,7 @@ export namespace Prisma {
      * The data needed to create a Meal.
      */
     data: XOR<MealCreateInput, MealUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26251,6 +26441,7 @@ export namespace Prisma {
      * Choose, which Meal to update.
      */
     where: MealWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26329,6 +26520,7 @@ export namespace Prisma {
      * In case the Meal was found with the provided `where` argument, update it with this data.
      */
     update: XOR<MealUpdateInput, MealUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26351,6 +26543,7 @@ export namespace Prisma {
      * Filter which Meal to delete.
      */
     where: MealWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26709,7 +26902,7 @@ export namespace Prisma {
   type MealFoodItemGetPayload<S extends boolean | null | undefined | MealFoodItemDefaultArgs> = $Result.GetResult<Prisma.$MealFoodItemPayload, S>
 
   type MealFoodItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<MealFoodItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<MealFoodItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: MealFoodItemCountAggregateInputType | true
     }
 
@@ -27157,6 +27350,7 @@ export namespace Prisma {
      * Filter, which MealFoodItem to fetch.
      */
     where: MealFoodItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27179,6 +27373,7 @@ export namespace Prisma {
      * Filter, which MealFoodItem to fetch.
      */
     where: MealFoodItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27231,6 +27426,7 @@ export namespace Prisma {
      * Filter by unique combinations of MealFoodItems.
      */
     distinct?: MealFoodItemScalarFieldEnum | MealFoodItemScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27283,6 +27479,7 @@ export namespace Prisma {
      * Filter by unique combinations of MealFoodItems.
      */
     distinct?: MealFoodItemScalarFieldEnum | MealFoodItemScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27330,6 +27527,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: MealFoodItemScalarFieldEnum | MealFoodItemScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27352,6 +27550,7 @@ export namespace Prisma {
      * The data needed to create a MealFoodItem.
      */
     data: XOR<MealFoodItemCreateInput, MealFoodItemUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27412,6 +27611,7 @@ export namespace Prisma {
      * Choose, which MealFoodItem to update.
      */
     where: MealFoodItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27490,6 +27690,7 @@ export namespace Prisma {
      * In case the MealFoodItem was found with the provided `where` argument, update it with this data.
      */
     update: XOR<MealFoodItemUpdateInput, MealFoodItemUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27512,6 +27713,7 @@ export namespace Prisma {
      * Filter which MealFoodItem to delete.
      */
     where: MealFoodItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27788,7 +27990,7 @@ export namespace Prisma {
   type UserMealGetPayload<S extends boolean | null | undefined | UserMealDefaultArgs> = $Result.GetResult<Prisma.$UserMealPayload, S>
 
   type UserMealCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserMealFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<UserMealFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: UserMealCountAggregateInputType | true
     }
 
@@ -28236,6 +28438,7 @@ export namespace Prisma {
      * Filter, which UserMeal to fetch.
      */
     where: UserMealWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28258,6 +28461,7 @@ export namespace Prisma {
      * Filter, which UserMeal to fetch.
      */
     where: UserMealWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28310,6 +28514,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserMeals.
      */
     distinct?: UserMealScalarFieldEnum | UserMealScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28362,6 +28567,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserMeals.
      */
     distinct?: UserMealScalarFieldEnum | UserMealScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28409,6 +28615,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: UserMealScalarFieldEnum | UserMealScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28431,6 +28638,7 @@ export namespace Prisma {
      * The data needed to create a UserMeal.
      */
     data: XOR<UserMealCreateInput, UserMealUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28491,6 +28699,7 @@ export namespace Prisma {
      * Choose, which UserMeal to update.
      */
     where: UserMealWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28569,6 +28778,7 @@ export namespace Prisma {
      * In case the UserMeal was found with the provided `where` argument, update it with this data.
      */
     update: XOR<UserMealUpdateInput, UserMealUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28591,6 +28801,7 @@ export namespace Prisma {
      * Filter which UserMeal to delete.
      */
     where: UserMealWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28654,6 +28865,14 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const RelationLoadStrategy: {
+    query: 'query',
+    join: 'join'
+  };
+
+  export type RelationLoadStrategy = (typeof RelationLoadStrategy)[keyof typeof RelationLoadStrategy]
 
 
   export const ExerciseScalarFieldEnum: {
@@ -28868,6 +29087,7 @@ export namespace Prisma {
   export const FoodItemImgScalarFieldEnum: {
     id: 'id',
     url: 'url',
+    altText: 'altText',
     foodItemId: 'foodItemId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -30324,6 +30544,7 @@ export namespace Prisma {
     NOT?: FoodItemImgWhereInput | FoodItemImgWhereInput[]
     id?: StringFilter<"FoodItemImg"> | string
     url?: StringFilter<"FoodItemImg"> | string
+    altText?: StringNullableFilter<"FoodItemImg"> | string | null
     foodItemId?: StringFilter<"FoodItemImg"> | string
     createdAt?: DateTimeFilter<"FoodItemImg"> | Date | string
     updatedAt?: DateTimeFilter<"FoodItemImg"> | Date | string
@@ -30333,6 +30554,7 @@ export namespace Prisma {
   export type FoodItemImgOrderByWithRelationInput = {
     id?: SortOrder
     url?: SortOrder
+    altText?: SortOrderInput | SortOrder
     foodItemId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -30345,6 +30567,7 @@ export namespace Prisma {
     AND?: FoodItemImgWhereInput | FoodItemImgWhereInput[]
     OR?: FoodItemImgWhereInput[]
     NOT?: FoodItemImgWhereInput | FoodItemImgWhereInput[]
+    altText?: StringNullableFilter<"FoodItemImg"> | string | null
     foodItemId?: StringFilter<"FoodItemImg"> | string
     createdAt?: DateTimeFilter<"FoodItemImg"> | Date | string
     updatedAt?: DateTimeFilter<"FoodItemImg"> | Date | string
@@ -30354,6 +30577,7 @@ export namespace Prisma {
   export type FoodItemImgOrderByWithAggregationInput = {
     id?: SortOrder
     url?: SortOrder
+    altText?: SortOrderInput | SortOrder
     foodItemId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -30368,6 +30592,7 @@ export namespace Prisma {
     NOT?: FoodItemImgScalarWhereWithAggregatesInput | FoodItemImgScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"FoodItemImg"> | string
     url?: StringWithAggregatesFilter<"FoodItemImg"> | string
+    altText?: StringNullableWithAggregatesFilter<"FoodItemImg"> | string | null
     foodItemId?: StringWithAggregatesFilter<"FoodItemImg"> | string
     createdAt?: DateTimeWithAggregatesFilter<"FoodItemImg"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"FoodItemImg"> | Date | string
@@ -32010,6 +32235,7 @@ export namespace Prisma {
   export type FoodItemImgCreateInput = {
     id?: string
     url: string
+    altText?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     foodItem: FoodItemCreateNestedOneWithoutImagesInput
@@ -32018,6 +32244,7 @@ export namespace Prisma {
   export type FoodItemImgUncheckedCreateInput = {
     id?: string
     url: string
+    altText?: string | null
     foodItemId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32026,6 +32253,7 @@ export namespace Prisma {
   export type FoodItemImgUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     foodItem?: FoodItemUpdateOneRequiredWithoutImagesNestedInput
@@ -32034,6 +32262,7 @@ export namespace Prisma {
   export type FoodItemImgUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
     foodItemId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32042,6 +32271,7 @@ export namespace Prisma {
   export type FoodItemImgCreateManyInput = {
     id?: string
     url: string
+    altText?: string | null
     foodItemId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32050,6 +32280,7 @@ export namespace Prisma {
   export type FoodItemImgUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32057,6 +32288,7 @@ export namespace Prisma {
   export type FoodItemImgUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
     foodItemId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -33521,6 +33753,7 @@ export namespace Prisma {
   export type FoodItemImgCountOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
+    altText?: SortOrder
     foodItemId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -33529,6 +33762,7 @@ export namespace Prisma {
   export type FoodItemImgMaxOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
+    altText?: SortOrder
     foodItemId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -33537,6 +33771,7 @@ export namespace Prisma {
   export type FoodItemImgMinOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
+    altText?: SortOrder
     foodItemId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -38042,6 +38277,7 @@ export namespace Prisma {
   export type FoodItemImgCreateWithoutFoodItemInput = {
     id?: string
     url: string
+    altText?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -38049,6 +38285,7 @@ export namespace Prisma {
   export type FoodItemImgUncheckedCreateWithoutFoodItemInput = {
     id?: string
     url: string
+    altText?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -38190,6 +38427,7 @@ export namespace Prisma {
     NOT?: FoodItemImgScalarWhereInput | FoodItemImgScalarWhereInput[]
     id?: StringFilter<"FoodItemImg"> | string
     url?: StringFilter<"FoodItemImg"> | string
+    altText?: StringNullableFilter<"FoodItemImg"> | string | null
     foodItemId?: StringFilter<"FoodItemImg"> | string
     createdAt?: DateTimeFilter<"FoodItemImg"> | Date | string
     updatedAt?: DateTimeFilter<"FoodItemImg"> | Date | string
@@ -39895,6 +40133,7 @@ export namespace Prisma {
   export type FoodItemImgCreateManyFoodItemInput = {
     id?: string
     url: string
+    altText?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -39968,6 +40207,7 @@ export namespace Prisma {
   export type FoodItemImgUpdateWithoutFoodItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39975,6 +40215,7 @@ export namespace Prisma {
   export type FoodItemImgUncheckedUpdateWithoutFoodItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39982,6 +40223,7 @@ export namespace Prisma {
   export type FoodItemImgUncheckedUpdateManyWithoutFoodItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

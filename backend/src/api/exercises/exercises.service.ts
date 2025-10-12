@@ -2,6 +2,7 @@ import { prisma } from "../../../prisma/prisma";
 
 import { exerciseSQL } from "./exercise.sql";
 import { exerciseUtil } from "./exercise.util";
+import { dbUtil } from "../../shared/utils/db.util";
 
 import type { Prisma } from "../../../prisma/generated/prisma";
 import type {
@@ -15,8 +16,8 @@ const get = (filter: TExerciseQuery): Promise<[IExercise[], number]> => {
   const where: Prisma.ExerciseWhereInput =
     exerciseUtil.buildWhereClause(filter);
 
-  const take = filter.take ? parseInt(filter.take.toString()) : 10;
-  const skip = (filter?.skip ?? 0) * take;
+  const { skip, take } = dbUtil.buildSkipTakeClause(filter);
+
 
   return prisma.$transaction([
     prisma.exercise.findMany({

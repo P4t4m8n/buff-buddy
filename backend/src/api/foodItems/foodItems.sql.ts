@@ -21,9 +21,21 @@ const FOOD_ITEM_SQL: Prisma.FoodItemSelect = {
   fiber: true,
   salt: true,
   cholesterol: true,
-  brand: true,
-  categories: true,
-  labels: true,
+  brand: {
+    select: {
+      name: true,
+    },
+  },
+  categories: {
+    select: {
+      name: true,
+    },
+  },
+  labels: {
+    select: {
+      name: true,
+    },
+  },
   images: true,
 };
 
@@ -46,9 +58,9 @@ const getFoodItemCreate = (
 
   if (dto.images?.length) {
     baseInput.images = {
-      connectOrCreate: dto.images.map((url) => ({
-        where: { url },
-        create: { url, createdAt: new Date() },
+      connectOrCreate: dto.images.map((image) => ({
+        where: { url: image.url },
+        create: { url: image.url, altText: image.altText },
       })),
     };
   }
@@ -65,7 +77,7 @@ const getFoodItemCreate = (
     baseInput.brand = {
       connectOrCreate: {
         where: { name: dto.brand[0].name },
-        create: { name: dto.brand[0].name, createdAt: new Date() },
+        create: { name: dto.brand[0].name },
       },
     };
   }
@@ -74,7 +86,7 @@ const getFoodItemCreate = (
     baseInput.categories = {
       connectOrCreate: (dto?.categories ?? []).map(({ name }) => ({
         where: { name },
-        create: { name, createdAt: new Date() },
+        create: { name },
       })),
     };
   }
@@ -95,22 +107,25 @@ const handleFoodItemInfoUpdate = (
   );
 
   //TODO:Theoretically name must exist, maybe add name validation also here?
-  if (infoToConnect?.length) {
-    baseInput[key] = {
-      connectOrCreate: infoToConnect.map((info) => ({
-        where: { name: info?.name! },
-        create: { name: info?.name!, createdAt: new Date() },
-      })),
-    };
-  }
+  // if (infoToConnect?.length) {
+  //   baseInput[key] = {
+  //     connectOrCreate: infoToConnect.map((info) => ({
+  //       where: { name: info?.name! },
+  //       create: { name: info?.name!, createdAt: new Date() },
+  //     })),
+  //   };
+  // }
 
-  if (infoToDisconnect?.length) {
-    baseInput[key] = {
-      disconnect: infoToDisconnect.map((info) => ({
-        name: info?.name!,
-      })),
-    };
-  }
+  baseInput[key] = {
+    connectOrCreate: infoToConnect?.map((info) => ({
+      where: { name: info?.name! },
+      create: { name: info?.name!, createdAt: new Date() },
+    })),
+    disconnect: infoToDisconnect?.map((info) => ({
+      name: info?.name!,
+    })),
+  };
+  return;
 };
 
 const getFoodItemUpdate = (
@@ -132,13 +147,14 @@ const getFoodItemUpdate = (
 
   if (dto.images?.length) {
     baseInput.images = {
-      connectOrCreate: dto.images.map((url) => ({
-        where: { url },
-        create: { url, createdAt: new Date() },
+      connectOrCreate: dto.images.map((image) => ({
+        where: { url: image.url },
+        create: { url: image.url, altText: image.altText },
       })),
     };
   }
 
+  debugger;
   handleFoodItemInfoUpdate(baseInput, "labels", dto?.labels);
   handleFoodItemInfoUpdate(baseInput, "categories", dto?.categories);
 
@@ -153,19 +169,19 @@ const getFoodItemUpdate = (
     baseInput.brand = {
       connectOrCreate: {
         where: { name: brandToConnect[0]?.name! },
-        create: { name: brandToConnect[0]?.name!, createdAt: new Date() },
+        create: { name: brandToConnect[0]?.name! },
       },
     };
   }
 
-  if (brandToDisconnect?.length) {
-    baseInput.brand = {
-      disconnect: {
-        name: brandToDisconnect[0]?.name!,
-      },
-    };
-  }
-
+  // if (brandToDisconnect?.length) {
+  //   baseInput.brand = {
+  //     ...baseInput.brand,
+  //     disconnect: {
+  //       name: brandToDisconnect[0]?.name!,
+  //     },
+  //   };
+  // }
   return baseInput;
 };
 

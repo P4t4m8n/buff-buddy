@@ -39,6 +39,31 @@ const updateFoodItemInfoFactorySchema = ({ toSanitize }: IToSanitize) => {
   });
 };
 
+const foodItemImgFactorySchema = ({ toSanitize }: IToSanitize) => {
+  const sanitizer = validationUtil.createSanitizer(toSanitize);
+
+  return z.object({
+    url: z
+      .url()
+      .transform((val) => sanitizer(val))
+      .optional(),
+    altText: validationUtil
+      .stringSchemaFactory({
+        fieldName: "Food image alt text",
+        minLength: 0,
+        maxLength: 255,
+        toSanitize,
+        toLowerCase: true,
+      })
+      .optional()
+      .nullable(),
+    foodItemId: validationUtil
+      .IDSchemaFactory({ toSanitize })
+      .optional()
+      .nullable(),
+  });
+};
+
 const createFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
     name: validationUtil.stringSchemaFactory({
@@ -50,6 +75,8 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
     barcode: validationUtil.stringSchemaFactory({
       fieldName: "Food barcode",
       minLength: 1,
+      maxLength: 100000000000,
+
       toSanitize,
     }),
     servingSize: validationUtil
@@ -58,7 +85,7 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
         minLength: 0,
         maxLength: 100000000000,
       })
-      .optional(),
+      .optional().nullable(),
     calories: validationUtil
       .numberValidation({
         fieldName: "Food calories",
@@ -108,13 +135,7 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
         maxLength: 1000000,
       })
       .optional(),
-    sugar: validationUtil
-      .numberValidation({
-        fieldName: "Food sugar",
-        minLength: 0,
-        maxLength: 1000000,
-      })
-      .optional(),
+
     salt: validationUtil
       .numberValidation({
         fieldName: "Food salt",
@@ -148,7 +169,11 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
         createFoodItemInfoFactorySchema({ toSanitize, foodInfo: "labels" })
       )
       .optional(),
-    images: z.array(z.string().url()).min(0).optional(),
+    images: z.array(foodItemImgFactorySchema({ toSanitize })).optional(),
+    ownerId: validationUtil
+      .IDSchemaFactory({ toSanitize })
+      .optional()
+      .nullable(),
   });
 };
 
@@ -156,7 +181,6 @@ const updateFactorySchema = ({ toSanitize }: IToSanitize) => {
   return createFactorySchema({ toSanitize })
     .partial()
     .extend({
-      id: validationUtil.IDSchemaFactory({ toSanitize }),
       brand: z
         .array(updateFoodItemInfoFactorySchema({ toSanitize }))
         .optional()

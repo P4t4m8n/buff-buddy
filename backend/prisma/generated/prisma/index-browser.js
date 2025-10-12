@@ -133,6 +133,11 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.RelationLoadStrategy = {
+  query: 'query',
+  join: 'join'
+};
+
 exports.Prisma.ExerciseScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -300,6 +305,7 @@ exports.Prisma.FoodItemLabelScalarFieldEnum = {
 exports.Prisma.FoodItemImgScalarFieldEnum = {
   id: 'id',
   url: 'url',
+  altText: 'altText',
   foodItemId: 'foodItemId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

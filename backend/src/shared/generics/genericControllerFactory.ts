@@ -42,11 +42,11 @@ export const genericControllerFactory = <
     getAll: async (req: Request, res: Response) => {
       try {
         let userId = undefined;
-        
+
         if (isAuth) userId = _authUser();
-        
+
         const filter = validation.QuerySchema.parse(req.query);
-        
+
         const [itemsData, count] = await service.get(filter, userId);
 
         const meta: IGetMetaData = dbUtil.buildMetaData({
@@ -164,6 +164,7 @@ export const genericControllerFactory = <
 
     remove: async (req: Request, res: Response) => {
       try {
+
         const validatedId = validationUtil
           .IDSchemaFactory({ toSanitize: true })
           .parse(req.params.id);

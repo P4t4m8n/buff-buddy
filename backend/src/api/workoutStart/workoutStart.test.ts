@@ -489,7 +489,6 @@ describe("WorkoutPlanner API", () => {
         );
 
         const userWorkoutRes = res.body.data as IUserWorkoutEditDTO;
-        // console.dir(userWorkoutRes, { colors: true, depth: 5 });
 
         userWorkoutRes?.userWorkoutExercises?.[0].userStrengthSets
           ?.filter((uss) => !uss.isWarmup)
