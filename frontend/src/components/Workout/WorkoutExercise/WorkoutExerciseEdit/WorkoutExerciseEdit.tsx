@@ -104,14 +104,16 @@ export default function WorkoutExerciseEdit({
             handleInputChange={handleInputChange}
             workoutExerciseErrors={workoutExerciseErrors}
           />
+          {
+            //INFO:Exercise preview is used in a list . adding UL here to fix li mark error
+          }{" "}
           <ul className="w-fit h-fit">
-
-          <ExercisePreview
-            item={exercise}
-            selectExercise={selectExercise}
-            actionType="workoutEdit"
+            <ExercisePreview
+              item={exercise}
+              selectExercise={selectExercise}
+              actionType="workoutEdit"
             />
-            </ul>
+          </ul>
         </>
       ) : (
         <GenericModel
