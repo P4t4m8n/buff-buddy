@@ -1341,7 +1341,7 @@ describe("Meals API", () => {
         .set("Cookie", `token=${authToken}`);
 
       expect(res.status).toBe(400);
-     await request(app)
+      await request(app)
         .delete(`/api/v1/meals/${otherMealId}`)
         .set("Cookie", `token=${otherAuthToken}`);
 
@@ -1352,9 +1352,9 @@ describe("Meals API", () => {
   });
 
   afterAll(async () => {
-    if (testUserId) {
+    for (const meal of testMeals) {
       await request(app)
-        .delete(`/api/v1/auth/delete-user/${testUserId}`)
+        .delete(`/api/v1/meals/${meal.id}`)
         .set("Cookie", `token=${authToken}`)
         .catch((err) => {
           console.error(err);
@@ -1370,9 +1370,9 @@ describe("Meals API", () => {
         });
     }
 
-    for (const meal of testMeals) {
+    if (testUserId) {
       await request(app)
-        .delete(`/api/v1/meals/${meal.id}`)
+        .delete(`/api/v1/auth/delete-user/${testUserId}`)
         .set("Cookie", `token=${authToken}`)
         .catch((err) => {
           console.error(err);

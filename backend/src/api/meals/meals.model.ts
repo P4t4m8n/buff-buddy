@@ -6,6 +6,6 @@ export interface IMeal extends IModel {
   name?: string | null;
   mealType?: MealType;
   ownerId?: string | null;
-  owner?: IUser;
+  owner?: IUser|null;
   notes?: string | null;
 }

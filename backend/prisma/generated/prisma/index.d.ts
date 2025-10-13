@@ -25725,7 +25725,7 @@ export namespace Prisma {
     id: string
     name: string | null
     mealType: $Enums.MealType
-    ownerId: string
+    ownerId: string | null
     notes: string | null
     createdAt: Date
     updatedAt: Date
@@ -25756,7 +25756,7 @@ export namespace Prisma {
     notes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | Meal$ownerArgs<ExtArgs>
     mealFoodItems?: boolean | Meal$mealFoodItemsArgs<ExtArgs>
     userMeals?: boolean | Meal$userMealsArgs<ExtArgs>
     images?: boolean | Meal$imagesArgs<ExtArgs>
@@ -25771,7 +25771,7 @@ export namespace Prisma {
     notes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | Meal$ownerArgs<ExtArgs>
   }, ExtArgs["result"]["meal"]>
 
   export type MealSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -25782,7 +25782,7 @@ export namespace Prisma {
     notes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | Meal$ownerArgs<ExtArgs>
   }, ExtArgs["result"]["meal"]>
 
   export type MealSelectScalar = {
@@ -25797,23 +25797,23 @@ export namespace Prisma {
 
   export type MealOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "mealType" | "ownerId" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["meal"]>
   export type MealInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | Meal$ownerArgs<ExtArgs>
     mealFoodItems?: boolean | Meal$mealFoodItemsArgs<ExtArgs>
     userMeals?: boolean | Meal$userMealsArgs<ExtArgs>
     images?: boolean | Meal$imagesArgs<ExtArgs>
     _count?: boolean | MealCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MealIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | Meal$ownerArgs<ExtArgs>
   }
   export type MealIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | Meal$ownerArgs<ExtArgs>
   }
 
   export type $MealPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Meal"
     objects: {
-      owner: Prisma.$UserPayload<ExtArgs>
+      owner: Prisma.$UserPayload<ExtArgs> | null
       mealFoodItems: Prisma.$MealFoodItemPayload<ExtArgs>[]
       userMeals: Prisma.$UserMealPayload<ExtArgs>[]
       images: Prisma.$ImagePayload<ExtArgs>[]
@@ -25822,7 +25822,7 @@ export namespace Prisma {
       id: string
       name: string | null
       mealType: $Enums.MealType
-      ownerId: string
+      ownerId: string | null
       notes: string | null
       createdAt: Date
       updatedAt: Date
@@ -26220,7 +26220,7 @@ export namespace Prisma {
    */
   export interface Prisma__MealClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    owner<T extends Meal$ownerArgs<ExtArgs> = {}>(args?: Subset<T, Meal$ownerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     mealFoodItems<T extends Meal$mealFoodItemsArgs<ExtArgs> = {}>(args?: Subset<T, Meal$mealFoodItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MealFoodItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     userMeals<T extends Meal$userMealsArgs<ExtArgs> = {}>(args?: Subset<T, Meal$userMealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     images<T extends Meal$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Meal$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -26662,6 +26662,25 @@ export namespace Prisma {
      * Limit how many Meals to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Meal.owner
+   */
+  export type Meal$ownerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -31986,11 +32005,11 @@ export namespace Prisma {
     id?: StringFilter<"Meal"> | string
     name?: StringNullableFilter<"Meal"> | string | null
     mealType?: EnumMealTypeFilter<"Meal"> | $Enums.MealType
-    ownerId?: StringFilter<"Meal"> | string
+    ownerId?: StringNullableFilter<"Meal"> | string | null
     notes?: StringNullableFilter<"Meal"> | string | null
     createdAt?: DateTimeFilter<"Meal"> | Date | string
     updatedAt?: DateTimeFilter<"Meal"> | Date | string
-    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     mealFoodItems?: MealFoodItemListRelationFilter
     userMeals?: UserMealListRelationFilter
     images?: ImageListRelationFilter
@@ -32000,7 +32019,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
     mealType?: SortOrder
-    ownerId?: SortOrder
+    ownerId?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -32017,11 +32036,11 @@ export namespace Prisma {
     NOT?: MealWhereInput | MealWhereInput[]
     name?: StringNullableFilter<"Meal"> | string | null
     mealType?: EnumMealTypeFilter<"Meal"> | $Enums.MealType
-    ownerId?: StringFilter<"Meal"> | string
+    ownerId?: StringNullableFilter<"Meal"> | string | null
     notes?: StringNullableFilter<"Meal"> | string | null
     createdAt?: DateTimeFilter<"Meal"> | Date | string
     updatedAt?: DateTimeFilter<"Meal"> | Date | string
-    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     mealFoodItems?: MealFoodItemListRelationFilter
     userMeals?: UserMealListRelationFilter
     images?: ImageListRelationFilter
@@ -32031,7 +32050,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
     mealType?: SortOrder
-    ownerId?: SortOrder
+    ownerId?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -32047,7 +32066,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Meal"> | string
     name?: StringNullableWithAggregatesFilter<"Meal"> | string | null
     mealType?: EnumMealTypeWithAggregatesFilter<"Meal"> | $Enums.MealType
-    ownerId?: StringWithAggregatesFilter<"Meal"> | string
+    ownerId?: StringNullableWithAggregatesFilter<"Meal"> | string | null
     notes?: StringNullableWithAggregatesFilter<"Meal"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Meal"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Meal"> | Date | string
@@ -33766,7 +33785,7 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    owner: UserCreateNestedOneWithoutMealsInput
+    owner?: UserCreateNestedOneWithoutMealsInput
     mealFoodItems?: MealFoodItemCreateNestedManyWithoutMealInput
     userMeals?: UserMealCreateNestedManyWithoutMealInput
     images?: ImageCreateNestedManyWithoutMealInput
@@ -33776,7 +33795,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     mealType?: $Enums.MealType
-    ownerId: string
+    ownerId?: string | null
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -33792,7 +33811,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    owner?: UserUpdateOneRequiredWithoutMealsNestedInput
+    owner?: UserUpdateOneWithoutMealsNestedInput
     mealFoodItems?: MealFoodItemUpdateManyWithoutMealNestedInput
     userMeals?: UserMealUpdateManyWithoutMealNestedInput
     images?: ImageUpdateManyWithoutMealNestedInput
@@ -33802,7 +33821,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
-    ownerId?: StringFieldUpdateOperationsInput | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -33815,7 +33834,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     mealType?: $Enums.MealType
-    ownerId: string
+    ownerId?: string | null
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -33834,7 +33853,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
-    ownerId?: StringFieldUpdateOperationsInput | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37015,10 +37034,12 @@ export namespace Prisma {
     set?: $Enums.MealType
   }
 
-  export type UserUpdateOneRequiredWithoutMealsNestedInput = {
+  export type UserUpdateOneWithoutMealsNestedInput = {
     create?: XOR<UserCreateWithoutMealsInput, UserUncheckedCreateWithoutMealsInput>
     connectOrCreate?: UserCreateOrConnectWithoutMealsInput
     upsert?: UserUpsertWithoutMealsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMealsInput, UserUpdateWithoutMealsInput>, UserUncheckedUpdateWithoutMealsInput>
   }
@@ -37771,7 +37792,7 @@ export namespace Prisma {
     id?: StringFilter<"Meal"> | string
     name?: StringNullableFilter<"Meal"> | string | null
     mealType?: EnumMealTypeFilter<"Meal"> | $Enums.MealType
-    ownerId?: StringFilter<"Meal"> | string
+    ownerId?: StringNullableFilter<"Meal"> | string | null
     notes?: StringNullableFilter<"Meal"> | string | null
     createdAt?: DateTimeFilter<"Meal"> | Date | string
     updatedAt?: DateTimeFilter<"Meal"> | Date | string
@@ -40558,7 +40579,7 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    owner: UserCreateNestedOneWithoutMealsInput
+    owner?: UserCreateNestedOneWithoutMealsInput
     userMeals?: UserMealCreateNestedManyWithoutMealInput
     images?: ImageCreateNestedManyWithoutMealInput
   }
@@ -40567,7 +40588,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     mealType?: $Enums.MealType
-    ownerId: string
+    ownerId?: string | null
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -40647,7 +40668,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    owner?: UserUpdateOneRequiredWithoutMealsNestedInput
+    owner?: UserUpdateOneWithoutMealsNestedInput
     userMeals?: UserMealUpdateManyWithoutMealNestedInput
     images?: ImageUpdateManyWithoutMealNestedInput
   }
@@ -40656,7 +40677,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
-    ownerId?: StringFieldUpdateOperationsInput | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40726,7 +40747,7 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    owner: UserCreateNestedOneWithoutMealsInput
+    owner?: UserCreateNestedOneWithoutMealsInput
     mealFoodItems?: MealFoodItemCreateNestedManyWithoutMealInput
     images?: ImageCreateNestedManyWithoutMealInput
   }
@@ -40735,7 +40756,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     mealType?: $Enums.MealType
-    ownerId: string
+    ownerId?: string | null
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -40807,7 +40828,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    owner?: UserUpdateOneRequiredWithoutMealsNestedInput
+    owner?: UserUpdateOneWithoutMealsNestedInput
     mealFoodItems?: MealFoodItemUpdateManyWithoutMealNestedInput
     images?: ImageUpdateManyWithoutMealNestedInput
   }
@@ -40816,7 +40837,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
-    ownerId?: StringFieldUpdateOperationsInput | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40878,7 +40899,7 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    owner: UserCreateNestedOneWithoutMealsInput
+    owner?: UserCreateNestedOneWithoutMealsInput
     mealFoodItems?: MealFoodItemCreateNestedManyWithoutMealInput
     userMeals?: UserMealCreateNestedManyWithoutMealInput
   }
@@ -40887,7 +40908,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     mealType?: $Enums.MealType
-    ownerId: string
+    ownerId?: string | null
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -40918,7 +40939,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    owner?: UserUpdateOneRequiredWithoutMealsNestedInput
+    owner?: UserUpdateOneWithoutMealsNestedInput
     mealFoodItems?: MealFoodItemUpdateManyWithoutMealNestedInput
     userMeals?: UserMealUpdateManyWithoutMealNestedInput
   }
@@ -40927,7 +40948,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
-    ownerId?: StringFieldUpdateOperationsInput | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

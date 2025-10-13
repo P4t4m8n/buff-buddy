@@ -175,7 +175,7 @@ describe("Auth API", () => {
         .send({ email: userCredentials.email, password: "WrongPassword!" });
 
       expect(res.status).toBe(409);
-      expect(res.body.message).toBe("Bad Request");
+      expect(res.body.message).toBe("Wrong credentials");
     });
 
     it("should reject sign-in with a non-existent email", async () => {
@@ -184,7 +184,7 @@ describe("Auth API", () => {
         .send({ email: "nosuchuser@example.com", password: "Password123!" });
 
       expect(res.status).toBe(409);
-      expect(res.body.message).toBe("Bad Request");
+      expect(res.body.message).toBe("Wrong credentials");
     });
   });
 

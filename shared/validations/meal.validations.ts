@@ -7,7 +7,6 @@ import { MEAL_TYPES } from "../consts/meal.consts";
 import type { IToSanitize } from "../models/app.model";
 import type { IValidation } from "../models/validation.model";
 import type { IMealEditDTO, IMealFilter } from "../models/meal.model";
-import { MealType } from "../../backend/prisma/generated/prisma";
 
 const createMealFoodItemFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
@@ -71,7 +70,7 @@ const updateFactorySchema = ({ toSanitize }: IToSanitize) => {
 };
 
 const QuerySchema = validationUtil.FilterSchema.extend({
-  mealType: z.enum(MealType).optional(),
+  mealType: z.enum(MEAL_TYPES).optional(),
   ownerId: validationUtil.IDSchemaFactory({ toSanitize: false }).optional(),
   name: validationUtil
     .stringSchemaFactory({

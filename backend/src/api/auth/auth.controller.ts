@@ -128,13 +128,13 @@ const googleCallback = async (req: Request, res: Response) => {
 const deleteUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-
+    
     const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
-
+    
     if (!userId) {
       throw AppError.create("User not authenticated", 401);
     }
-
+    debugger
     await authService.deleteUser(id);
     res.clearCookie("token", COOKIE).status(200).json({
       message: "User deleted successfully",
