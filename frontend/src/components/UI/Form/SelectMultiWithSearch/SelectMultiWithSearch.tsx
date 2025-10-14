@@ -7,6 +7,8 @@ import GenericList from "../../GenericList";
 import LabelWithError from "../LabelWithError";
 import OptionModelList from "./OptionModelList";
 import OptionSelectedItem from "./OptionSelectedItem";
+import { toTitle } from "../../../../utils/toTitle";
+import type { ISelectAddComponentProps } from "../../../../models/select.model";
 
 interface ISelectMultiWithSearchProps<T, P> {
   options: T[];
@@ -17,6 +19,7 @@ interface ISelectMultiWithSearchProps<T, P> {
   handleSelect: (option: T, inputName?: P) => void;
   filterBy: (option: T) => string;
   isLoading?: boolean;
+  AddComponent?: React.ComponentType<ISelectAddComponentProps>;
 }
 
 export default function SelectMultiWithSearch<T, P>({
@@ -28,6 +31,7 @@ export default function SelectMultiWithSearch<T, P>({
   error,
   filterBy,
   isLoading,
+  AddComponent,
 }: ISelectMultiWithSearchProps<T, P>) {
   const {
     optionsList,
@@ -100,7 +104,7 @@ export default function SelectMultiWithSearch<T, P>({
         />
       );
     }
-    return <p className="text-gray-500">No selected options</p>;
+    return <p className="text-gray-500">No selected {toTitle(inputName)}</p>;
   };
 
   return (
@@ -122,6 +126,7 @@ export default function SelectMultiWithSearch<T, P>({
           optionsList={optionsList}
           handleOptionAdd={handleOptionAdd}
           filterBy={filterBy}
+          AddComponent={AddComponent}
         />
       ) : null}
     </div>

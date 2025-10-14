@@ -24,6 +24,7 @@ import { ROUTES_STORE } from "./consts/routes.const";
 //Types
 import type { ReactNode } from "react";
 import AuthPage from "./pages/AuthPage";
+import FoodItemPage from "./pages/FoodItem/FoodItemPage";
 
 interface RouteConfig {
   path: string;
@@ -38,6 +39,23 @@ export const renderRoutes = (routes: RouteConfig[]) => {
     </Route>
   ));
 };
+
+const FOOD_ITEMS_ROUTES = [
+  {
+    path: ROUTES_STORE.FOOD_ITEM_PAGE_ROUTE,
+    element: <FoodItemPage />,
+    children: [
+      {
+        path: ROUTES_STORE.FOOD_ITEM_EDIT_ROUTE,
+        element: <FoodItemEditPage />,
+      },
+      {
+        path: ROUTES_STORE.FOOD_ITEM_EDIT_WITH_ID_ROUTE,
+        element: <FoodItemEditPage />,
+      },
+    ],
+  },
+];
 
 export const ROUTES: RouteConfig[] = [
   {
@@ -116,8 +134,14 @@ export const ROUTES: RouteConfig[] = [
     element: <AdminPage />,
   },
   {
-    path: "/diet",
+    path: ROUTES_STORE.DIET_PAGE_ROUTE,
     element: <DietPage />,
+    children: [
+      {
+        path: ROUTES_STORE.DIET_PAGE_ROUTE + ROUTES_STORE.MEALS_PAGE_ROUTE,
+        element: <MealPage />,
+      },
+    ],
   },
   {
     path: "/meals",
@@ -135,12 +159,5 @@ export const ROUTES: RouteConfig[] = [
     path: "/meals/:mealIdParams",
     element: <MealEditPage />,
   },
-  {
-    path: "/foodItem/edit",
-    element: <FoodItemEditPage />,
-  },
-  {
-    path: "/foodItem/edit/:foodItemId",
-    element: <FoodItemEditPage />,
-  },
+  ...FOOD_ITEMS_ROUTES,
 ];

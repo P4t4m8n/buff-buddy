@@ -1,4 +1,4 @@
-import type { IEntity, IEntityDates } from "./entity.model";
+import type { IID, IEntityDates } from "./entity.model";
 import type { IProgramDTO } from "./program.model";
 import type { IUserDTO } from "./user.model";
 import type {
@@ -12,7 +12,7 @@ import type {
 import type { IWorkoutDTO, IWorkoutExerciseDTO } from "./workout.model";
 import type { IBaseFilter } from "./app.model";
 
-interface IUserWorkoutBase extends IEntity, IEntityDates {
+interface IUserWorkoutBase extends IID, IEntityDates {
   dateCompleted?: Date | null | string;
 }
 

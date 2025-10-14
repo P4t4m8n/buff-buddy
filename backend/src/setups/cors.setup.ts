@@ -9,7 +9,7 @@ const ORIGINS = [
   "http://localhost:5173",
   "https://localhost:5173",
   "https://127.0.0.1:5173",
-  "http://10.0.0.4:5173",
+  "http://10.0.0.8:5173",
 ];
 
 export const setupCors = (app: Express): void => {

@@ -1,11 +1,11 @@
 import { dbUtil } from "../../shared/utils/db.util";
 
-import type { IFoodItemInfoEditBase } from "../../../../shared/models/foodItem.model";
 import type {
   TFoodItemCreateValidatedInput,
   TFoodItemUpdateValidatedInput,
 } from "../../../../shared/validations/foodItem.validation";
 import type { Prisma } from "../../../prisma/generated/prisma";
+import { IFoodItemInfoEditDTO } from "../../../../shared/models/foodItem.model";
 
 const FOOD_ITEM_SQL: Prisma.FoodItemSelect = {
   id: true,
@@ -73,7 +73,7 @@ const getFoodItemCreate = (
     };
   }
 
-  if (dto.brand) {
+  if (dto?.brand.length) {
     baseInput.brand = {
       connectOrCreate: {
         where: { name: dto.brand[0].name },
@@ -97,7 +97,7 @@ const getFoodItemCreate = (
 const handleFoodItemInfoUpdate = (
   baseInput: Prisma.FoodItemUpdateInput,
   key: "labels" | "categories",
-  infos?: Array<IFoodItemInfoEditBase | undefined> | undefined
+  infos?: Array<IFoodItemInfoEditDTO | undefined> | undefined
 ) => {
   const infoToConnect = infos?.filter(
     (info) => info?.crudOperation === "create"
@@ -154,7 +154,6 @@ const getFoodItemUpdate = (
     };
   }
 
-  debugger;
   handleFoodItemInfoUpdate(baseInput, "labels", dto?.labels);
   handleFoodItemInfoUpdate(baseInput, "categories", dto?.categories);
 

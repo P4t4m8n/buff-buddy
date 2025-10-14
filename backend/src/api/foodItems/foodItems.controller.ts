@@ -16,6 +16,7 @@ import {
   IFoodItemFilter,
 } from "../../../../shared/models/foodItem.model";
 import type { IFoodItem } from "./foodItems.model";
+import { dbUtil } from "../../shared/utils/db.util";
 
 const getFoodItemByBarcode = async (req: Request, res: Response) => {
   try {
@@ -32,6 +33,43 @@ const getFoodItemByBarcode = async (req: Request, res: Response) => {
     res.status(200).json({
       message: "Food item retrieved successfully",
       data: foodItem,
+    });
+  } catch (error) {
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
+    });
+  }
+};
+
+const getFoodItemsInfos = async (req: Request, res: Response) => {
+  try {
+    const foodItemInfoType = req.params.type;
+
+    const validateType =
+      foodItemValidation.FoodItemInfoTypeValidation.parse(foodItemInfoType);
+
+    const [itemsData, count] = await foodItemService.getFoodItemInfo(
+      validateType,
+      {}
+    );
+
+    const meta = dbUtil.buildMetaData({
+      count,
+      take: 100000,
+      skip: 0,
+    });
+
+    res.setHeader("X-Total-Count", meta.total.toString());
+    res.setHeader("X-Total-Pages", meta.totalPages.toString());
+    res.setHeader("X-Current-Page", meta.currentPage.toString());
+    res.setHeader("X-Per-Page", meta.perPage.toString());
+
+    res.status(200).json({
+      message: `${validateType}s retrieved successfully`,
+      data: itemsData,
+      meta,
     });
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);
@@ -60,4 +98,5 @@ const foodItemGenericController = genericControllerFactory<
 export const foodItemController = {
   ...foodItemGenericController,
   getFoodItemByBarcode,
+  getFoodItemsInfos,
 };

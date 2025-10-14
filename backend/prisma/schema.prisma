@@ -33,6 +33,8 @@ enum MealType {
   snack
 }
 
+
+
 enum WorkoutGoal {
   hypertrophy
 }
@@ -304,7 +306,7 @@ model Meal {
   name          String?
   mealType      MealType       @default(breakfast)
   ownerId       String?
-  owner         User?           @relation(fields: [ownerId], references: [id], onDelete: SetNull)
+  owner         User?          @relation(fields: [ownerId], references: [id], onDelete: SetNull)
   mealFoodItems MealFoodItem[]
   userMeals     UserMeal[]
   notes         String?

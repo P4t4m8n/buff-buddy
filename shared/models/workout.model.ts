@@ -1,11 +1,11 @@
 import type { ExerciseType } from "../../backend/prisma/generated/prisma";
 import type { IUserDTO } from "./user.model";
 import type { IExerciseDTO } from "./exercise.model";
-import type { IEntity, IEntityDates } from "./entity.model";
+import type { IID, IEntityDates } from "./entity.model";
 import type { IBaseFilter, TCrudOperation } from "./app.model";
 import type { IProgramDTO } from "./program.model";
 
-interface IWorkoutBase extends IEntity, IEntityDates {
+interface IWorkoutBase extends IID, IEntityDates {
   name?: string | null;
   notes?: string | null;
   isTemplate?: boolean;
@@ -24,7 +24,7 @@ export interface IWorkoutEditDTO extends IWorkoutBase {
   crudOperation?: TCrudOperation;
 }
 
-export interface IWorkoutExerciseDTO extends IEntity, IEntityDates {
+export interface IWorkoutExerciseDTO extends IID, IEntityDates {
   order?: number | null;
   notes?: string | null;
   exercise?: IExerciseDTO;
@@ -33,7 +33,7 @@ export interface IWorkoutExerciseDTO extends IEntity, IEntityDates {
   restTime?: number | null;
 }
 
-export interface IWorkoutExerciseEditDTO extends IEntity {
+export interface IWorkoutExerciseEditDTO extends IID {
   order?: number | null;
   notes?: string | null;
   exerciseData?: {

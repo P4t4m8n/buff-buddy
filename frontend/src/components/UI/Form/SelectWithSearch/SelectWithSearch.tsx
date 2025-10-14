@@ -14,7 +14,7 @@ import type {
   ISelectItemComponentProps,
 } from "../../../../models/select.model";
 import { getTempId } from "../../../../../../shared/utils/getTempId";
-import type { IEntity } from "../../../../../../shared/models/entity.model";
+import type { IID } from "../../../../../../shared/models/entity.model";
 
 interface SelectWithSearchProps<T, P> {
   options: readonly T[];
@@ -85,7 +85,7 @@ export default function SelectWithSearch<T, P>({
             ) : null}
             {optionsList.map((option) => (
               <React.Fragment
-                key={getTempId("select-index", option as IEntity)}
+                key={getTempId("select-index", option as IID)}
               >
                 <SelectItemComponent item={option} onClick={onOptionClick} />
               </React.Fragment>

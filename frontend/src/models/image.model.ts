@@ -1,6 +1,6 @@
-import type { IEntity } from "../../../shared/models/entity.model";
+import type { IID } from "../../../shared/models/entity.model";
 
-export interface IImageDTO extends IEntity {
+export interface IImageDTO extends IID {
   publicId: string;
   imgUrl: string;
 }

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { IEntity } from "../../../shared/models/entity.model";
+import type { IID } from "../../../shared/models/entity.model";
 import type { ICON_MODE } from "../consts/UI.const";
 import type { LABEL_POSITION } from "../consts/styles";
 import type { TButtonLinkStyle } from "./styles.model";
@@ -10,7 +10,7 @@ export interface IAppNav {
   icon?: ReactNode;
 }
 
-export interface IBaseNameAndId extends IEntity {
+export interface IBaseNameAndId extends IID {
   name?: string;
 }
 
@@ -34,8 +34,6 @@ export interface IButtonProps
   buttonStyle?: TButtonLinkStyle | null;
 }
 
-
-
 interface IFilterInput<Filter> {
   name: keyof Filter;
   label: string;
@@ -45,4 +43,15 @@ export interface IFilterTextInput<Filter> extends IFilterInput<Filter> {
 }
 export interface IFilterCheckboxInput<Filter> extends IFilterInput<Filter> {
   isChecked: boolean | undefined;
+}
+
+export interface IItemPreviewProps<DTO, ActionRoute> {
+  item: DTO;
+  actionType?: ActionRoute;
+  deleteItem?: (id?: string) => Promise<void>;
+  selectItem?: (
+    e: React.MouseEvent<HTMLButtonElement>,
+    workout?: DTO,
+    isCopy?: boolean
+  ) => void;
 }

@@ -4,10 +4,10 @@ import { EXERCISE_INFO } from "../consts/exercise.consts";
 import type { IBaseFilter } from "./app.model";
 import type { IMuscleEditDTO, IMuscleDTO } from "./muscle.model";
 import type { IEquipmentDTO, IEquipmentEditDTO } from "./equipment.model";
-import type { IEntity, IEntityDates } from "./entity.model";
+import type { IID, IEntityDates } from "./entity.model";
 import type { ExerciseType } from "../../backend/prisma/generated/prisma";
 
-interface IExerciseBase extends IEntity, IEntityDates {
+interface IExerciseBase extends IID, IEntityDates {
   name?: string;
   youtubeUrl?: string | null;
   isCompounded?: boolean | null;

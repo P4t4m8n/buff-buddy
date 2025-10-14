@@ -1,9 +1,10 @@
 import { DAY_OF_WEEK, CRUD_OPERATIONS } from "../consts/app.consts";
-import type { IEntity, IEntityDates } from "./entity.model";
+import type { IID, IEntityDates } from "./entity.model";
 
 export interface IBaseFilter {
   skip?: number;
   take?: number;
+  order?: "desc" | "asc";
 }
 
 export type TDayOfWeek = (typeof DAY_OF_WEEK)[number];
@@ -25,7 +26,7 @@ export interface IToSanitize {
   toSanitize?: boolean;
 }
 
-export interface IImageDTO extends IEntity, IEntityDates {
+export interface IImageDTO extends IID, IEntityDates {
   url?: string | null;
   publicId?: string | null;
   description?: string | null;

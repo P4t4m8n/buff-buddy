@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import FoodItemsIndex from "../../FoodItem/FoodItemsIndex";
+import FoodItemsList from "../../FoodItem/FoodItemsList";
 
 import NumberInputWIthError from "../../UI/Form/NumberInputWIthError";
 import Loader from "../../UI/loader/Loader";
@@ -103,7 +103,7 @@ export default function MealFoodItemEditModel({
           </Button>
         </div>
       ) : (
-        <FoodItemsIndex onSelectFoodItem={onSelectFoodItem} />
+        <FoodItemsList onSelectFoodItem={onSelectFoodItem} />
       )}
     </div>
   );

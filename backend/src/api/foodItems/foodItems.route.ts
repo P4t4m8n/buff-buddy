@@ -10,6 +10,8 @@ foodItemRoutes.get(
   foodItemController.getFoodItemByBarcode
 );
 
+foodItemRoutes.get("/info/:type", foodItemController.getFoodItemsInfos);
+
 foodItemRoutes.post("/edit", foodItemController.create);
 foodItemRoutes.put("/edit/:id", foodItemController.update);
 

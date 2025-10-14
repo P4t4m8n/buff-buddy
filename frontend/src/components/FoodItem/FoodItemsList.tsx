@@ -24,7 +24,7 @@ interface IFoodItemsIndexProps {
   onSelectFoodItem?: (e: React.MouseEvent, foodItem: IFoodItemDTO) => void;
 }
 //TODO: Add fetching error handling
-export default function FoodItemsIndex({
+export default function FoodItemsList({
   onSelectFoodItem,
 }: IFoodItemsIndexProps) {
   const [filter, setFilter] = useState<IFoodItemFilter | null>(INITIAL_FILTER);
@@ -54,7 +54,7 @@ export default function FoodItemsIndex({
       <div className="flex items-center gap-4">
         <p>didn't find one? add</p>
         <GenericModel
-          isOverlay={false}
+          isOverlay={true}
           Model={FoodItemEdit}
           mode="create"
           buttonProps={{

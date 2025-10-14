@@ -1,4 +1,4 @@
-import NumberInputWIthError from "../UI/Form/NumberInputWIthError";
+import NumberInputWIthError from "../../UI/Form/NumberInputWIthError";
 
 interface INutritionEditNumberProps {
   item: [string, string | number | unknown];

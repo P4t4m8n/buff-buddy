@@ -92,7 +92,12 @@
     );
   }
 }
-
+@utility grid-stack {
+  grid-area: 1/1/-1/-1;
+}
+@utility grid-stack-auto {
+  grid-area: auto;
+}
 
 @utility flex-center {
   display: flex;

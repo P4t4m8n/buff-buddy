@@ -8,5 +8,9 @@ export const usePageBack = () => {
     navigate(-1);
   };
 
-  return { onBack };
+  const navBack = () => {
+    navigate(-1);
+  }
+
+  return { onBack,navBack };
 };

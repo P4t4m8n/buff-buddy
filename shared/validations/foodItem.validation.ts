@@ -2,12 +2,8 @@ import { z } from "zod";
 
 import { validationUtil } from "./util.validation";
 import type { IToSanitize } from "../models/app.model";
-import type {
-  IFoodItemEditDTO,
-  IFoodItemFilter,
-  TFoodItemInfo,
-} from "../models/foodItem.model";
-import type { IValidation } from "../models/validation.model";
+import type { TFoodItemInfo } from "../models/foodItem.model";
+import { FOOD_ITEMS_INFOS } from "../consts/foodItem.consts";
 
 const createFoodItemInfoFactorySchema = ({
   toSanitize,
@@ -85,7 +81,8 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
         minLength: 0,
         maxLength: 100000000000,
       })
-      .optional().nullable(),
+      .optional()
+      .nullable(),
     calories: validationUtil
       .numberValidation({
         fieldName: "Food calories",
@@ -169,6 +166,8 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
         createFoodItemInfoFactorySchema({ toSanitize, foodInfo: "labels" })
       )
       .optional(),
+    crudOperation: validationUtil.CrudOperationSchema,
+
     images: z.array(foodItemImgFactorySchema({ toSanitize })).optional(),
     ownerId: validationUtil
       .IDSchemaFactory({ toSanitize })
@@ -209,17 +208,14 @@ const FoodItemIdBarcodeSchema = z.object({
   barcode: validationUtil.stringSchemaFactory({ toSanitize: false }),
 });
 
-export const foodItemValidation: IValidation<
-  IFoodItemEditDTO,
-  IFoodItemFilter,
-  TFoodItemCreateValidatedInput,
-  TFoodItemUpdateValidatedInput,
-  TFoodItemQuery
-> & { FoodItemIdBarcodeSchema: typeof FoodItemIdBarcodeSchema } = {
+const FoodItemInfoTypeValidation = z.enum(FOOD_ITEMS_INFOS);
+
+export const foodItemValidation = {
   createFactorySchema,
   updateFactorySchema,
   QuerySchema,
   FoodItemIdBarcodeSchema,
+  FoodItemInfoTypeValidation,
 };
 
 export type TFoodItemCreateValidatedInput = z.infer<

@@ -5,11 +5,11 @@ import type {
   TCrudOperation,
   IImageEditDTO,
 } from "./app.model";
-import type { IEntity } from "./entity.model";
+import type { IID } from "./entity.model";
 import type { IFoodItemDTO } from "./foodItem.model";
 import type { IUserDTO } from "./user.model";
 
-interface IMealBase extends IEntity {
+interface IMealBase extends IID {
   owner?: IUserDTO | null;
   name?: string | null;
   mealType?: MealType;
@@ -27,7 +27,7 @@ export interface IMealEditDTO extends IMealBase {
   images?: IImageEditDTO[];
 }
 
-export interface IMealFoodItemDTO extends IEntity {
+export interface IMealFoodItemDTO extends IID {
   foodItem?: IFoodItemDTO | null;
   quantity?: number | null;
 }

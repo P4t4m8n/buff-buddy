@@ -4,11 +4,11 @@ import { queryClient } from "../../lib/queryClient";
 
 import type { THttpResponse } from "../../models/apiService.model";
 import type { IBaseFilter } from "../../../../shared/models/app.model";
-import type { IEntity } from "../../../../shared/models/entity.model";
+import type { IID } from "../../../../shared/models/entity.model";
 
 interface IUseItemMutationProps<
-  EditDTO extends object & IEntity,
-  DTO extends IEntity
+  EditDTO extends object & IID,
+  DTO extends IID
 > {
   listKey: (string | IBaseFilter | null | undefined)[];
   itemIdKey: string[];
@@ -17,8 +17,8 @@ interface IUseItemMutationProps<
 }
 
 export default function useItemMutation<
-  EditDTO extends object & IEntity,
-  DTO extends IEntity
+  EditDTO extends object & IID,
+  DTO extends IID
 >({
   listKey,
   itemIdKey,

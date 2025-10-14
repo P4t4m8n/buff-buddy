@@ -10,7 +10,11 @@ import type {
   TFoodItemQuery,
 } from "../../../../shared/validations/foodItem.validation";
 import type { Prisma } from "../../../prisma/generated/prisma";
-import type { IFoodItem } from "./foodItems.model";
+import type { IFoodItem, IFoodItemInfo } from "./foodItems.model";
+import {
+  IFoodItemInfoFilter,
+  TFoodItemInfo,
+} from "../../../../shared/models/foodItem.model";
 
 const get = (filter: TFoodItemQuery): Promise<[IFoodItem[], number]> => {
   const where: Prisma.FoodItemWhereInput =
@@ -45,6 +49,7 @@ const getByBarCode = (barcode: string): Promise<IFoodItem | null> => {
   });
 };
 const create = (dto: TFoodItemCreateValidatedInput): Promise<IFoodItem> => {
+  console.log("🚀 ~ create ~ dto:", dto)
   return prisma.foodItem.create({
     data: foodItemSQL.getFoodItemCreate(dto),
     select: foodItemSQL.FOOD_ITEM_SQL,
@@ -63,6 +68,28 @@ const update = (
 const remove = (id: string): Promise<IFoodItem | void> => {
   return prisma.foodItem.delete({ where: { id } });
 };
+const getFoodItemInfo = (type: TFoodItemInfo, _: IFoodItemInfoFilter) => {
+  switch (type) {
+    case "brand":
+      return prisma.$transaction([
+        prisma.foodItemBrand.findMany({}),
+        prisma.foodItemBrand.count({}),
+      ]);
+    case "categories":
+      return prisma.$transaction([
+        prisma.foodItemCategory.findMany({}),
+        prisma.foodItemCategory.count({}),
+      ]);
+    case "labels":
+      return prisma.$transaction([
+        prisma.foodItemLabel.findMany({}),
+        prisma.foodItemLabel.count({}),
+      ]);
+
+    default:
+      throw new Error("Invalid food item info type");
+  }
+};
 export const foodItemService = {
   get,
   getById,
@@ -70,4 +97,5 @@ export const foodItemService = {
   create,
   update,
   remove,
+  getFoodItemInfo,
 };

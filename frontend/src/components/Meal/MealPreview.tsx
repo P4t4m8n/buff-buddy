@@ -1,28 +1,30 @@
 import { toTitle } from "../../utils/toTitle";
-import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
 
-import Button from "../UI/Button";
-import GenericTags from "../UI/GenericTags";
-import LinkComponent from "../UI/Link";
+import DietMealEditActions from "./MealPreview/MealPreviewActions/DietMealEditActions";
+import MealListActions from "./MealPreview/MealPreviewActions/MealListActions";
 
-import type { IMealDTO } from "../../../../shared/models/meal.model";
+import GenericCarousel from "../UI/GenericCarousel";
+import Tag from "../UI/Tag";
 
-interface IMealPreviewProps {
-  item: IMealDTO;
-  onDelete: (e: React.MouseEvent, id?: string) => Promise<void>;
-}
-export default function MealPreview({
-  item: meal,
-  onDelete,
-}: IMealPreviewProps) {
-  const { name, mealType, mealFoodItems, images, id: mealId } = meal;
+import type { IMealPreviewProps } from "../../models/meal.model";
+
+export default function MealPreview(props: IMealPreviewProps) {
+  const { name, mealType, mealFoodItems, images } = props.item;
 
   const imgUrl =
     images?.filter((img) => img?.isPrimary)?.[0].url ??
     "/images/placeholder.webp";
 
-  const labels = mealFoodItems.map((m) => m.foodItem?.labels)?.flat() ?? [];
-  const categories = mealFoodItems.map((m) => m.foodItem?.categories).flat();
+  const labels =
+    mealFoodItems
+      .map((m) => m.foodItem?.labels)
+      ?.flat()
+      .map((m) => m?.name ?? "") ?? [];
+  const categories = mealFoodItems
+    .map((m) => m.foodItem?.categories)
+    .flat()
+    .map((m) => m?.name ?? "");
+
   return (
     <li className="border gap-x-4 gap-y-2 p-mobile rounded grid grid-cols-[5rem_calc(100%-6rem)] grid-rows-[1.5rem_1.5rem_2.5rem_2.5rem]">
       <img
@@ -36,45 +38,35 @@ export default function MealPreview({
         <p>Type: {mealType}</p>
       </span>
 
-      <div className="inline-flex gap-4 items-center">
-        <h5>Labels:</h5>
-        <GenericTags
-          items={labels}
-          getTag={(item) => item?.name ?? ""}
-          getKey={(item) => item?.name ?? ""}
-        />
-      </div>
+      <GenericCarousel
+        listName="Labels"
+        items={labels ?? []}
+        props={{}}
+        ItemComponent={Tag}
+        getKey={(item) => item}
+      />
+      <GenericCarousel
+        listName="Categories"
+        items={categories ?? []}
+        props={{}}
+        ItemComponent={Tag}
+        getKey={(item) => item}
+      />
 
-      <div className="inline-flex gap-4 items-center">
-        <h5>Categories:</h5>
-        <GenericTags
-          items={categories}
-          getTag={(item) => item?.name ?? ""}
-          getKey={(item) => item?.name ?? ""}
-        />
-      </div>
-
-      <div className="inline-flex col-span-full gap-4">
-        <Button
-          buttonStyle="model"
-          className="mr-auto"
-          onClick={(e) => onDelete(e, mealId)}
-        >
-          {ModelButtonIcon("delete")}
-        </Button>
-        <LinkComponent
-          to={`/meals/${mealId}`}
-          className=""
-          linkStyle="model"
-          mode="details"
-        />
-        <LinkComponent
-          to={`/meals/edit/${mealId}`}
-          className=""
-          mode="edit"
-          linkStyle="model"
-        />
-      </div>
+      <DynamicAction {...props} />
     </li>
   );
 }
+
+const DynamicAction = (props: IMealPreviewProps) => {
+  const { actionType } = props;
+
+  switch (actionType) {
+    case "dietEdit":
+      return <DietMealEditActions {...props} />;
+    case "mealList":
+      return <MealListActions {...props} />;
+    default:
+      return null;
+  }
+};

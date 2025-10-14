@@ -1,11 +1,13 @@
 import type { IBaseFilter } from "../../../shared/models/app.model";
 import type { IExerciseFilter } from "../../../shared/models/exercise.model";
+import type { IMealFilter } from "../../../shared/models/meal.model";
 import type { IProgramFilter } from "../../../shared/models/program.model";
 import type { IWorkoutFilter } from "../../../shared/models/workout.model";
 
 const PAGINATION_FILTER: IBaseFilter = {
   skip: 0,
   take: 10,
+  order: "desc",
 };
 
 const INITIAL_WORKOUT_FILTER: IWorkoutFilter = {
@@ -30,9 +32,15 @@ const INITIAL_PROGRAM_FILTER: IProgramFilter = {
   isActive: true,
 };
 
+const INITIAL_MEAL_FILTER: IMealFilter = {
+  ...PAGINATION_FILTER,
+  name: "",
+};
+
 export const INITIAL_FILTERS = {
   PAGINATION_FILTER,
   INITIAL_WORKOUT_FILTER,
   INITIAL_EXERCISE_FILTER,
   INITIAL_PROGRAM_FILTER,
+  INITIAL_MEAL_FILTER,
 };
