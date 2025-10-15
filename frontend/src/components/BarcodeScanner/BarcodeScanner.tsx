@@ -63,7 +63,7 @@ export default function BarcodeScanner({
       }
 
       if (errorMessage.includes("NotAllowedError")) {
-        const clientError = ClientError.create(
+        const permissionDeniedError = ClientError.create(
           "Camera permission denied",
           400,
           true,
@@ -71,9 +71,17 @@ export default function BarcodeScanner({
             scannerError: "Camera permission denied",
           }
         );
-        handleError({ error: clientError, emitToToast: true });
+        handleError({ error: permissionDeniedError, emitToToast: true });
         return;
       }
+
+      const unknownError = ClientError.create(
+        "Barcode scanner error",
+        500,
+        false
+      );
+      handleError({ error: unknownError, emitToToast: true });
+      return;
     },
     []
   );
