@@ -7,7 +7,7 @@ import { getTempId } from "../../../../shared/utils/getTempId";
 import Button from "./Button";
 import Input from "./Form/Input";
 import Label from "./Form/Label";
-import { IconPlus } from "./Icons/IconPlus";
+import  IconPlus  from "./Icons/IconPlus";
 import { IconSearch } from "./Icons/IconSearch";
 //Types
 import type {

@@ -1,6 +1,6 @@
 import { toTitle } from "../../../../utils/toTitle";
 import Button from "../../Button";
-import {IconPlus} from "../../Icons/IconPlus";
+import IconPlus from "../../Icons/IconPlus";
 
 interface IOptionsModelListItemProps<T> {
   item: T;

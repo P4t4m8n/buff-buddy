@@ -6,7 +6,7 @@ import type {
 import { formUtil } from "../../../utils/form.util";
 import { toTitle } from "../../../utils/toTitle";
 import InputWithError from "../../UI/Form/InputWithError";
-import { IconPlus } from "../../UI/Icons/IconPlus";
+import  IconPlus  from "../../UI/Icons/IconPlus";
 import Button from "../../UI/Button";
 
 interface IFoodItemEditAddInfoProps {

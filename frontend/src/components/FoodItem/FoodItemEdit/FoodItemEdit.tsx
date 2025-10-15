@@ -121,7 +121,7 @@ export default function FoodItemEdit({
             name: name,
             id: name + foodItemToEditId,
             placeholder: "",
-            value: value,
+            value: value??"",
             className: "h-10 pl-2 ",
             onChange: onInputChange,
           }}

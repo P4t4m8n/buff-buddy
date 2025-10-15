@@ -6,7 +6,7 @@ import Button from "../UI/Button";
 
 import InputWithError from "../UI/Form/InputWithError";
 //Icons
-import { IconPlus } from "../UI/Icons/IconPlus";
+import  IconPlus  from "../UI/Icons/IconPlus";
 import { IconSearch } from "../UI/Icons/IconSearch";
 //Types
 import type { IWorkoutFilter } from "../../../../shared/models/workout.model";

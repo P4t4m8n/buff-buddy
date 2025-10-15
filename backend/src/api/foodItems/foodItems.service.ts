@@ -49,7 +49,6 @@ const getByBarCode = (barcode: string): Promise<IFoodItem | null> => {
   });
 };
 const create = (dto: TFoodItemCreateValidatedInput): Promise<IFoodItem> => {
-  console.log("🚀 ~ create ~ dto:", dto)
   return prisma.foodItem.create({
     data: foodItemSQL.getFoodItemCreate(dto),
     select: foodItemSQL.FOOD_ITEM_SQL,
