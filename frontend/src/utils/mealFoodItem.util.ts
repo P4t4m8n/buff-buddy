@@ -16,7 +16,8 @@ const dtoToEditDto = (dto: IMealFoodItemDTO): IMealFoodItemEditDTO => ({
   id: dto.id,
   foodItemId: dto.foodItem?.id || null,
   quantity: dto.quantity || null,
-  crudOperation: "update",
+  crudOperation: "read",
+  foodItem: dto.foodItem,
 });
 
 export const mealFoodItemUtil = {

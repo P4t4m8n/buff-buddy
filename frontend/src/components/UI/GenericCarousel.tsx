@@ -28,7 +28,7 @@ export default function GenericCarousel<T, Props>({
       const element = scrollContainerRef.current;
       if (!element) return;
 
-      //INFO: is the total scrollable width greater than the visible width?
+      //INFO: is the total scrollable width greater than the visible width
       const hasOverflow = element.scrollWidth > element.clientWidth;
       setIsOverflowing(hasOverflow);
     };

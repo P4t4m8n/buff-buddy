@@ -22,6 +22,7 @@ import type { Prisma } from "../../../prisma/generated/prisma";
  * - name: the canonical name of the muscle
  * - aliases: related alias entries with their name and language
  */
+
 const MUSCLE_SELECT: Prisma.MuscleSelect = {
   name: true,
   aliases: {

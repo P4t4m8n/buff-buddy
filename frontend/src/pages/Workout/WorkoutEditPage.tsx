@@ -1,5 +1,5 @@
 //Lib
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 //Hooks
 import { useWorkoutEdit } from "../../hooks/features/workout/useWorkoutEdit";
 //Components
@@ -7,11 +7,12 @@ import WorkoutEdit from "../../components/Workout/WorkoutEdit";
 //UI
 import Loader from "../../components/UI/loader/Loader";
 import BackButton from "../../components/UI/BackButton";
+import { usePageBack } from "../../hooks/shared/usePageBack";
 
 export default function WorkoutEditPage() {
   const { workoutId } = useParams<{ workoutId?: string }>();
 
-  const navigate = useNavigate();
+  const { navBack } = usePageBack();
   const {
     workoutToEdit,
     isLoading,
@@ -31,12 +32,12 @@ export default function WorkoutEditPage() {
     e.stopPropagation();
     const res = await saveWorkout();
     if (!res) return; //INFO?? Error is handled in the hook
-    navigate(-1);
+    navBack();
   };
 
   const onCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    navigate(-1);
+    navBack();
   };
 
   const isUpdate = !workoutToEdit.id?.startsWith("temp");

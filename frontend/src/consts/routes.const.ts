@@ -37,9 +37,9 @@ export const DIET_ROUTES = {
 };
 
 const MEALS_PAGE_ROUTE = "/meals";
-const MEAL_EDIT_ROUTE = "/meals/edit";
-const MEAL_EDIT_WITH_ID_ROUTE = "/meals/edit/:mealId";
-const MEAL_DETAILS_ROUTE = "/meals/:mealId";
+const MEAL_EDIT_ROUTE = MEALS_PAGE_ROUTE + "/edit";
+const MEAL_EDIT_WITH_ID_ROUTE = MEAL_EDIT_ROUTE + "/:mealId";
+const MEAL_DETAILS_ROUTE = MEALS_PAGE_ROUTE + "/:id";
 
 export const MEAL_ROUTES = {
   MEALS_PAGE_ROUTE,
@@ -66,6 +66,23 @@ export const AUTH_ROUTES = {
   AUTH_PAGE_ROUTE,
 };
 
+const WORKOUT_PAGE_ROUTE = "/workouts";
+const WORKOUT_EDIT_ROUTE = "/workouts/edit";
+const WORKOUT_EDIT_WITH_ID_ROUTE = "/workouts/edit/:workoutId";
+const WORKOUT_DETAILS_ROUTE = "/workouts/:workoutId";
+const WORKOUT_LIST_ROUTE = "/workouts/workout-list";
+
+const WORKOUT_START_ROUTE = "/workouts/workout-start/:programId/:workoutId";
+
+export const WORKOUT_ROUTES = {
+  WORKOUT_PAGE_ROUTE,
+  WORKOUT_EDIT_ROUTE,
+  WORKOUT_EDIT_WITH_ID_ROUTE,
+  WORKOUT_DETAILS_ROUTE,
+  WORKOUT_START_ROUTE,
+  WORKOUT_LIST_ROUTE,
+};
+
 export const ROUTES_STORE = {
   HOME_ROUTE,
   ...PROGRAM_ROUTES,
@@ -74,4 +91,5 @@ export const ROUTES_STORE = {
   ...DIET_ROUTES,
   ...FOOD_ITEM_ROUTES,
   ...EXERCISE_ROUTES,
+  ...WORKOUT_ROUTES,
 };

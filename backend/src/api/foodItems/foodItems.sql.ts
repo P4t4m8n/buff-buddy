@@ -73,7 +73,7 @@ const getFoodItemCreate = (
     };
   }
 
-  if (dto?.brand.length) {
+  if (dto?.brand?.length) {
     baseInput.brand = {
       connectOrCreate: {
         where: { name: dto.brand[0].name },

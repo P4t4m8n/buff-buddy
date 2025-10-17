@@ -21,7 +21,7 @@ interface GenericItemEditInfoSelectProps<
   ): UseQueryResult<THttpResponse<DTO[]>, Error>;
   filter?: Filter | null;
   inputName: InputNameType;
-  selectedList?: DTO[];
+  selectedList?: DTO[]|null;
   mutationError?: string;
   parentModelRef?: React.RefObject<HTMLFormElement | null> | undefined;
   handleSelectInfo: (option: DTO, inputName?: InputNameType) => void;

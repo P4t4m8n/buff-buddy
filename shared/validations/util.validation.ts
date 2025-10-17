@@ -30,6 +30,7 @@ const createSanitizer = (toSanitize = false) => {
  *                                  Throws if 'sanitize-html' cannot be required when enabled.
  * @returns {ZodType<string>} A Zod string schema
  */
+
 const stringSchemaFactory = ({
   minLength = 0,
   maxLength = 100,
@@ -46,6 +47,7 @@ const stringSchemaFactory = ({
     .string({
       error: createFieldErrorHandler(fieldName),
     })
+
     .transform<string>((val) => sanitizer(val))
     .transform<string>((val) => val.trim())
     .transform<string>((val) => val.replace(/\s+/g, " "))

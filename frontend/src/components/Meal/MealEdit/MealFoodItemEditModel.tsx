@@ -1,41 +1,35 @@
-import { useEffect, useState } from "react";
-
+//Components
 import FoodItemsList from "../../FoodItem/FoodItemsList";
-
+import FoodItemPreview from "../../FoodItem/FoodItemPreview";
+//UI
 import NumberInputWIthError from "../../UI/Form/NumberInputWIthError";
 import Loader from "../../UI/loader/Loader";
-
-import { formUtil } from "../../../utils/form.util";
-import { mealFoodItemUtil } from "../../../utils/mealFoodItem.util";
-
-import type { IMealFoodItemEditDTO } from "../../../../../shared/models/meal.model";
-import type { IModelProps } from "../../../models/model.model";
-import type { IFoodItemDTO } from "../../../../../shared/models/foodItem.model";
-import FoodItemPreview from "../../FoodItem/FoodItemPreview";
 import Button from "../../UI/Button";
 import IconArrow from "../../UI/Icons/IconArrow";
+//Utils
+import { formUtil } from "../../../utils/form.util";
+//Types
+import type { IModelProps } from "../../../models/model.model";
+import type { IFoodItemDTO } from "../../../../../shared/models/foodItem.model";
+import type { IUseMealFoodItemEditProps } from "../../../models/meal.model";
+import useMealFoodItemEdit from "../../../hooks/features/meal/useMealFoodItemEdit";
 
-interface IMealFoodItemsEditProps extends IModelProps<HTMLDivElement> {
-  mealFoodItem?: IMealFoodItemEditDTO;
-  handleMealFoodItem: (mealFoodItem: IMealFoodItemEditDTO) => void;
-}
+interface IMealFoodItemsEditProps
+  extends IModelProps<HTMLDivElement>,
+    IUseMealFoodItemEditProps {}
 
 export default function MealFoodItemEditModel({
-  mealFoodItem,
-  handleMealFoodItem,
+  setIsOpen,
+  handleModel,
   ...props
 }: IMealFoodItemsEditProps) {
-  const [foodItemToEdit, setFoodIItemToEdit] =
-    useState<IMealFoodItemEditDTO | null>(null);
-
-  const { setIsOpen, handleModel } = props;
-
-  useEffect(() => {
-    const _mealFoodItem = mealFoodItem
-      ? mealFoodItemUtil.dtoToEditDto(mealFoodItem)
-      : mealFoodItemUtil.getEmpty();
-    setFoodIItemToEdit(_mealFoodItem);
-  }, [mealFoodItem]);
+  const {
+    foodItemToEdit,
+    selectFoodItem,
+    deselectFoodItem,
+    saveToMeal,
+    setFoodItemToEdit,
+  } = useMealFoodItemEdit(props);
 
   if (!foodItemToEdit) {
     return <Loader />;
@@ -43,31 +37,21 @@ export default function MealFoodItemEditModel({
 
   const onSelectFoodItem = (e: React.MouseEvent, foodItem: IFoodItemDTO) => {
     e.preventDefault();
-    setFoodIItemToEdit((prev) => ({
-      ...prev,
-      foodItem,
-      foodItemId: foodItem.id,
-    }));
+    selectFoodItem(foodItem);
   };
 
-  const onDeselectFoodItem = (e: React.MouseEvent, _: IFoodItemDTO) => {
+  const onDeselectFoodItem = (e: React.MouseEvent, foodItem: IFoodItemDTO) => {
     e.preventDefault();
-
-    setFoodIItemToEdit((prev) => ({
-      ...prev,
-      foodItem: null,
-      foodItemId: null,
-    }));
+    deselectFoodItem(foodItem);
   };
 
   const OnSaveToMeal = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!foodItemToEdit) return;
-    handleMealFoodItem(foodItemToEdit);
+    saveToMeal();
     if (setIsOpen) setIsOpen(false);
   };
 
-  const { id: foodItemToEditId, foodItem } = foodItemToEdit;
+  const { id: foodItemToEditId, foodItem, quantity } = foodItemToEdit;
 
   return (
     <div
@@ -85,8 +69,9 @@ export default function MealFoodItemEditModel({
           <NumberInputWIthError
             label="quantity"
             name="quantity"
+            value={quantity || ""}
             inputId={foodItemToEditId}
-            onChange={(e) => formUtil.handleInputChange(e, setFoodIItemToEdit)}
+            onChange={(e) => formUtil.handleInputChange(e, setFoodItemToEdit)}
           />
           <FoodItemPreview
             item={foodItem}

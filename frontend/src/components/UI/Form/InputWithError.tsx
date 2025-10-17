@@ -37,6 +37,9 @@ function InputWithError({
   const labelStyle = twMerge(labelErrorStyle, labelProps.className ?? "");
   const { labelPosition, ..._labelProps } = labelProps;
 
+
+
+
   return (
     <Input
       placeholder=""
@@ -52,6 +55,7 @@ function InputWithError({
         {error ? error : labelProps.children}
       </Label>
       {children}
+      
     </Input>
   );
 }

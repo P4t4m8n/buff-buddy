@@ -94,7 +94,7 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
       .numberValidation({
         fieldName: "Food protein",
         minLength: 0,
-        maxLength: 1000000,
+        maxLength: 1000000000,
       })
       .optional(),
     carbohydrates: validationUtil
@@ -154,7 +154,7 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
           foodInfo: "brand",
         })
       )
-      .optional()
+      .optional().nullable()
       .default([{ name: "Unknown", crudOperation: "create" }]),
     categories: z
       .array(

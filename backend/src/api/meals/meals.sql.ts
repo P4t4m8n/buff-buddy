@@ -24,9 +24,21 @@ const MEALS_SELECT: Prisma.MealSelect = {
       },
     },
   },
+  images: {
+    select: {
+      id: true,
+      url: true,
+      description: true,
+      altText: true,
+      isPrimary: true,
+      publicId: true,
+    },
+  },
 };
 
-const getMealCreate = (dto: TMealCreateValidatedInput): Prisma.MealCreateInput => {
+const getMealCreate = (
+  dto: TMealCreateValidatedInput
+): Prisma.MealCreateInput => {
   return {
     name: dto.name,
     mealType: dto.mealType,
@@ -45,7 +57,9 @@ const getMealCreate = (dto: TMealCreateValidatedInput): Prisma.MealCreateInput =
   };
 };
 
-const getMealUpdate = (dto: TMealUpdateValidatedInput): Prisma.MealUpdateInput => {
+const getMealUpdate = (
+  dto: TMealUpdateValidatedInput
+): Prisma.MealUpdateInput => {
   const mealFoodItemToAdd =
     dto.mealFoodItems?.filter((item) => item.crudOperation === "create") ?? [];
 

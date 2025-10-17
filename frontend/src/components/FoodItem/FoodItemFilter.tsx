@@ -1,7 +1,6 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 
 import BarcodeScannerModel from "../BarcodeScanner/BarcodeScannerModel";
-import Input from "../UI/Form/Input";
 import InputWithError from "../UI/Form/InputWithError";
 
 import type { IFoodItemFilter } from "../../../../shared/models/foodItem.model";
@@ -20,14 +19,29 @@ function FoodItemFilterMemo({
 }: IFoodItemFilterProps) {
   const { barcode, name } = filter ?? {};
 
+
+
+  const foodNameInput = useMemo(
+    () => ({ label: "Food Name", name: "name", value: name }),
+    [name]
+  );
+
+  const barcodeInput = useMemo(
+    () => ({ label: "Barcode or Name", name: "barcode", value: barcode }),
+    [barcode]
+  );
+
   return (
-    <form className="border border-main-orange p-4 grid gap-2 ">
+    <form
+      className="border rounded border-main-orange p-4 grid gap-2
+     w-[calc(100%-2rem)] max-w-[40rem] justify-items-center justify-self-center "
+    >
       <h2>Search for items</h2>
       <InputWithError
         inputProps={{
-          value: name ?? "",
+          value: foodNameInput.value ?? "",
           type: "text",
-          name: "name",
+          name: foodNameInput.name,
           id: "name-foodItem-filter",
           placeholder: "",
           onChange,
@@ -35,7 +49,7 @@ function FoodItemFilterMemo({
         }}
         labelProps={{
           htmlFor: "name-foodItem-filter",
-          children: "Meal Name",
+          children: foodNameInput.label,
           isMoveUpEffect: true,
         }}
         divStyle="h-fit w-full "
@@ -45,15 +59,24 @@ function FoodItemFilterMemo({
           getBarcode={onBarcodeSet}
           getBarcodeError={getBarcodeError}
         />
-        <Input
-          type="string"
-          name="barcode"
-          id={"barcode" + barcode}
-          className=" w-full bg-black-300 h-full rounded"
+
+        <InputWithError
+          inputProps={{
+            value: barcodeInput.value ?? "",
+            type: "text",
+            name: barcodeInput.name,
+            id: "name-foodItem-filter",
+            placeholder: "",
+            onChange,
+            className: " w-full bg-black-300 h-full rounded border-0",
+          }}
+          labelProps={{
+            htmlFor: "name-foodItem-filter",
+            className: "hidden",
+            isMoveUpEffect: false,
+          }}
           divStyle="w-full h-full"
-          value={barcode ?? ""}
-          onChange={onChange}
-        ></Input>
+        />
       </div>
     </form>
   );

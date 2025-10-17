@@ -30,7 +30,7 @@ export interface IFoodItemDTO extends IFoodItemBase {
 export interface IFoodItemEditDTO
   extends Partial<IFoodItemBase>,
     ICrudOperation {
-  brand?: IFoodItemInfoEditDTO[];
+  brand?: IFoodItemInfoEditDTO[]|null;
   labels?: IFoodItemInfoEditDTO[];
   images?: IFoodItemImgEditDto[];
   categories?: IFoodItemInfoEditDTO[];
@@ -41,9 +41,10 @@ export interface IFoodItemEditDTO
 
 export interface IFoodItemFilter extends IBaseFilter {
   name?: string | null;
-  calories?: string | number | null;
-  protein?: string | number | null;
   barcode?: string | null;
+  labels?: string[] | null;
+  categories?: string[] | null;
+  brand?: string | null;
 }
 
 export interface IFoodItemImgDto extends IEntity {

@@ -18,6 +18,7 @@ import GenericSaveButton from "../../UI/GenericSaveButton";
 //Types
 import type { IModelProps } from "../../../models/model.model";
 import type { TFoodItemInfo } from "../../../../../shared/models/foodItem.model";
+import { useCallback, useMemo } from "react";
 
 interface IFoodItemEditProps extends IModelProps<HTMLFormElement> {
   foodItemId?: string;
@@ -58,46 +59,69 @@ export default function FoodItemEdit({
     ...rest
   } = foodItemToEdit;
 
-  const numberInputs: [string, string | number | unknown][] =
-    Object.entries(rest);
+  const onSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
+      const isSuccess = await saveFoodItem();
 
-    const isSuccess = await saveFoodItem();
+      if (!isSuccess || !setIsOpen) {
+        console.warn(
+          "Could not save food item or no setIsOpen function provided, this should not happen"
+        );
+        return;
+      }
+      if (isSuccess && setIsOpen) setIsOpen(false);
+    },
+    [setIsOpen]
+  );
 
-    if (!isSuccess || !setIsOpen) {
-      console.warn(
-        "Could not save food item or no setIsOpen function provided, this should not happen"
-      );
-      return;
-    }
-    if (isSuccess && setIsOpen) setIsOpen(false);
-  };
+  const numberInputs: [string, string | number | unknown][] = useMemo(
+    () => Object.entries(rest),
+    [rest]
+  );
 
-  const foodItemInfos = [
-    {
+  const brandInfo = useMemo(
+    () => ({
       inputName: "brand",
       selectedList: brand,
       queryHook: useFoodItemBrandsQuery,
-    },
-    {
+    }),
+    [brand]
+  );
+
+  const categoriesInfo = useMemo(
+    () => ({
       inputName: "categories",
       selectedList: categories,
       queryHook: useFoodItemCategoriesQuery,
-    },
-    {
+    }),
+    [categories]
+  );
+
+  const labelsInfo = useMemo(
+    () => ({
       inputName: "labels",
       selectedList: labels,
       queryHook: useFoodItemLabelsQuery,
-    },
-  ];
+    }),
+    [labels]
+  );
 
-  const inputs = [
-    { label: "Food Name", name: "name", value: name },
-    { label: "Barcode or Name", name: "barcode", value: barcode?.toString() },
-  ];
+  const foodNameInput = useMemo(
+    () => ({ label: "Food Name", name: "name", value: name }),
+    [name]
+  );
+
+  const barcodeInput = useMemo(
+    () => ({ label: "Barcode or Name", name: "barcode", value: barcode }),
+    [barcode]
+  );
+
+  const foodItemInfos = [brandInfo, categoriesInfo, labelsInfo];
+
+  const inputs = [foodNameInput, barcodeInput];
 
   return (
     <form
@@ -121,7 +145,7 @@ export default function FoodItemEdit({
             name: name,
             id: name + foodItemToEditId,
             placeholder: "",
-            value: value??"",
+            value: value ?? "",
             className: "h-10 pl-2 ",
             onChange: onInputChange,
           }}

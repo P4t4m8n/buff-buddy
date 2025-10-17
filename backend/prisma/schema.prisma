@@ -33,8 +33,6 @@ enum MealType {
   snack
 }
 
-
-
 enum WorkoutGoal {
   hypertrophy
 }

@@ -1,16 +1,16 @@
-import type { IMealEditDTO } from "../../../shared/models/meal.model";
+import type { IMealEditDTO, IMealDTO } from "../../../shared/models/meal.model";
 import { getTempId } from "../../../shared/utils/getTempId";
 import { mealFoodItemUtil } from "./mealFoodItem.util";
 
-const getEmpty = (ownerId?: string): IMealEditDTO => ({
+const getEmpty = (): IMealEditDTO => ({
   id: getTempId(),
   name: "",
-  ownerId: ownerId ?? null,
+  ownerId: null,
   mealType: "breakfast",
   mealFoodItems: [],
 });
 
-const dtoToEditDto = (dto: IMealEditDTO): IMealEditDTO => ({
+const dtoToEditDto = ({ dto }: { dto: IMealDTO }): IMealEditDTO => ({
   ...dto,
   ownerId: dto.owner?.id || null,
   mealFoodItems:
