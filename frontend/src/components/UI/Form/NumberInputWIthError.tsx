@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import { toTitle } from "../../../utils/toTitle";
+import toTitle  from "../../../utils/toTitle";
 import Input from "./Input";
 import LabelWithError from "./LabelWithError";
 

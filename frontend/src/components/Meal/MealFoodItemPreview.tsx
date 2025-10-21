@@ -3,7 +3,7 @@ import type {
   IMealFoodItemEditDTO,
 } from "../../../../shared/models/meal.model";
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
-import { toTitle } from "../../utils/toTitle";
+import toTitle  from "../../utils/toTitle";
 import Button from "../UI/Button";
 import GenericModel from "../UI/GenericModel";
 import MealFoodItemEditModel from "./MealEdit/MealFoodItemEditModel";

@@ -1,3 +1,5 @@
+//Hooks
+import useMealFoodItemEdit from "../../../hooks/features/meal/useMealFoodItemEdit";
 //Components
 import FoodItemsList from "../../FoodItem/FoodItemsList";
 import FoodItemPreview from "../../FoodItem/FoodItemPreview";
@@ -12,7 +14,6 @@ import { formUtil } from "../../../utils/form.util";
 import type { IModelProps } from "../../../models/model.model";
 import type { IFoodItemDTO } from "../../../../../shared/models/foodItem.model";
 import type { IUseMealFoodItemEditProps } from "../../../models/meal.model";
-import useMealFoodItemEdit from "../../../hooks/features/meal/useMealFoodItemEdit";
 
 interface IMealFoodItemsEditProps
   extends IModelProps<HTMLDivElement>,

@@ -3,7 +3,7 @@ import { Fragment, useEffect, useRef, useState } from "react";
 //UI
 import Button from "./Button";
 import IconArrow from "./Icons/IconArrow";
-import { toTitle } from "../../utils/toTitle";
+import toTitle  from "../../utils/toTitle";
 
 interface IGenericCarouselProps<T, Props> {
   items?: T[];

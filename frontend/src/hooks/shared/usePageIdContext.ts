@@ -1,4 +1,6 @@
 import { useContext } from "react";
 import { PageIdContext } from "../context/PageIdContext";
 
-export const usePageId = () => useContext(PageIdContext);
+const usePageId = () => useContext(PageIdContext);
+
+export default usePageId;

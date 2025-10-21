@@ -1,6 +1,6 @@
 //Utils
 import type { JSX } from "react";
-import { toTitle } from "../../utils/toTitle";
+import toTitle  from "../../utils/toTitle";
 //UI
 import BackButton from "./BackButton";
 import Button from "./Button";

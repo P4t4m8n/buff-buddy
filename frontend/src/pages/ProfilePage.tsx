@@ -8,7 +8,7 @@ import PageHeader from "../components/UI/PageHeader";
 import LinkComponent from "../components/UI/Link";
 import GenericList from "../components/UI/GenericList";
 import { getIcon, type TIconName } from "../utils/GetIcon";
-import { toTitle } from "../utils/toTitle";
+import toTitle  from "../utils/toTitle";
 import type React from "react";
 import Button from "../components/UI/Button";
 

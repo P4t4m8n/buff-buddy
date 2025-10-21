@@ -6,6 +6,7 @@ import { MEAL_TYPES } from "../../../../../shared/consts/meal.consts";
 //Components
 import MealFoodItemEditModel from "./MealFoodItemEditModel";
 import MealFoodItemPreview from "../MealFoodItemPreview";
+import MealNutritionDetails from "../MealNutritionDetails/MealNutritionDetails";
 //UI
 import Loader from "../../UI/loader/Loader";
 import InputWithError from "../../UI/Form/InputWithError";
@@ -16,8 +17,6 @@ import Button from "../../UI/Button";
 import GenericList from "../../UI/GenericList";
 import GenericSaveButton from "../../UI/GenericSaveButton";
 import TextAreaWithError from "../../UI/Form/TextAreaWithError";
-import type { IMealFoodItemDTO } from "../../../../../shared/models/meal.model";
-import type { IFoodItemDTO } from "../../../../../shared/models/foodItem.model";
 
 interface IMealEditProps {
   mealIdParams?: string;
@@ -34,7 +33,6 @@ export default function MealEdit({ mealIdParams }: IMealEditProps) {
     isLoading,
     isSaving,
   } = useMealEdit({ mealId: mealIdParams });
-  console.log("🚀 ~ MealEdit ~ errors:", errors);
 
   const { onBack } = usePageBack();
 
@@ -65,21 +63,13 @@ export default function MealEdit({ mealIdParams }: IMealEditProps) {
 
   const cleanMealFoodItems =
     mealFoodItems?.filter((m) => m.crudOperation !== "delete") ?? [];
-  const totalProtein = mealToEdit?.mealFoodItems?.reduce(
-    (total, item) =>
-      total +
-      (Number(item?.quantity ?? 1) / 100) *
-        Number(item?.foodItem?.proteins ?? 0),
-    0
-  );
-  console.log("🚀 ~ MealEdit ~ totalProtein:", totalProtein);
 
   return (
     <form
       onSubmit={onSubmit}
       className="text-main-orange grid  gap-4 bg-black-900 p-4 "
     >
-      <header className="grid gap-4">
+      <header className="flex flex-col gap-4">
         <InputWithError
           inputProps={{
             value: mealName || "",
@@ -116,6 +106,7 @@ export default function MealEdit({ mealIdParams }: IMealEditProps) {
           SelectItemComponent={GenericSelectItem}
         />
       </header>
+      <MealNutritionDetails mealFoodItems={cleanMealFoodItems } route="edit"/>
       <div className="grid grid-cols-[calc(50%-2rem)_25%_25%] h-10 grid-rows-1 gap-4 ">
         <GenericModel
           Model={MealFoodItemEditModel}

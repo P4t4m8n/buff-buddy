@@ -1,4 +1,4 @@
-import { toTitle } from "../../../utils/toTitle";
+import toTitle  from "../../../utils/toTitle";
 
 import Button from "../../UI/Button";
 import IconPlus from "../../UI/Icons/IconPlus";

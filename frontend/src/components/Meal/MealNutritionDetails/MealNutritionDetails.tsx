@@ -1,50 +1,36 @@
+//Lib
 import { memo } from "react";
-import type { IMealFoodItemDTO } from "../../../../../shared/models/meal.model";
-import GenericModel from "../../UI/GenericModel";
+//Utils
+import { mealUtil } from "../../../utils/meal.util";
+//Components
 import MealNutritionExtraDetailsModel from "./MealNutritionExtraDetailsModel";
-import type { TNutritionKey } from "../../../models/meal.model";
-
-const calcNutrition = (
-  quantity?: number | string | null,
-  valuePer100g?: number | string | null
-) => {
-  return (Number(quantity ?? 1) / 100) * Number(valuePer100g ?? 0);
-};
-
-const calcTotalNutrition = (mealFoodItems?: IMealFoodItemDTO[]) => {
-  const totals: Partial<Record<TNutritionKey, number>> = {
-    calories: 0,
-    proteins: 0,
-    carbohydrates: 0,
-    sugars: 0,
-    fat: 0,
-    saturatedFat: 0,
-    fiber: 0,
-    salt: 0,
-    cholesterol: 0,
-  };
-
-  const keys = Object.keys(totals) as Array<TNutritionKey>;
-  mealFoodItems?.forEach((item) => {
-    keys.forEach((key) => {
-      const itemValue = calcNutrition(item?.quantity, item?.foodItem?.[key]);
-      totals[key] = Math.round(((totals[key] ?? 0) + itemValue) * 100) / 100;
-    });
-  });
-
-  return totals;
-};
+//UI
+import GenericModel from "../../UI/GenericModel";
+//Types
+import type { IMealFoodItemDTO } from "../../../../../shared/models/meal.model";
+import type { IUserDTO } from "../../../../../shared/models/user.model";
 
 interface IMealsDetailsHeroProps {
   mealFoodItems: IMealFoodItemDTO[];
+  notes?: string | null;
+  owner?: IUserDTO | null;
+  route?: "edit" | "details";
 }
 
-function MealNutritionDetailsMemo({ mealFoodItems }: IMealsDetailsHeroProps) {
-  const totalNutrition = calcTotalNutrition(mealFoodItems);
+function MealNutritionDetailsMemo({
+  mealFoodItems,
+  notes,
+  owner,
+  route = "details",
+}: IMealsDetailsHeroProps) {
+  const totalNutrition = mealUtil.calcTotalNutrition(mealFoodItems);
+
+  const editStyle = "grid grid-cols-3 gap-4";
+  const detailsStyle = "flex flex-col gap-6 h-full";
 
   return (
-    <div className="flex flex-col gap-6 h-full">
-      <span className="border-l-4 border-l-amber-400 px-2 flex items-end gap-2">
+    <div className={route === "edit" ? editStyle : detailsStyle}>
+      <span className="border-l-4 border-l-amber-400 px-2 flex items-end gap-2 ">
         <p className="text-2xl">{totalNutrition.calories} </p>
         <p className="text-amber-400/75">Calories</p>
       </span>
@@ -53,24 +39,33 @@ function MealNutritionDetailsMemo({ mealFoodItems }: IMealsDetailsHeroProps) {
         <p className="text-main-orange/65">gr</p>
         <p className="pl-2 text-green-500/75">Protein</p>
       </span>
-      <span className="border-l-4 border-l-pink-500 px-2 flex items-end gap-2">
+      <span className="border-l-4 border-l-pink-500 px-2 flex items-end gap-2 ">
         <p className="text-2xl">{totalNutrition.carbohydrates} </p>
         <p className="text-pink-500/75 text-ba">Carbs</p>
       </span>
 
       <GenericModel
         Model={MealNutritionExtraDetailsModel}
-        modelProps={{totalNutrition}}
+        modelProps={{ totalNutrition, notes, owner }}
         isOverlay={true}
         buttonProps={{
           children: "More Details",
           className:
-            "text-lg border rounded bg-gradient-to-b from-black-800 to-black-500 w-full mt-auto",
+            "text-lg border rounded bg-gradient-to-b from-black-800 to-black-500 w-full md:max-w-40 mt-auto col-span-full",
         }}
       />
-      
     </div>
   );
 }
 
-export default memo(MealNutritionDetailsMemo);
+const arePropsEqual = (
+  prevProps: IMealsDetailsHeroProps,
+  nextProps: IMealsDetailsHeroProps
+) => {
+  if (prevProps.mealFoodItems !== nextProps.mealFoodItems) {
+    return false;
+  }
+  return true;
+};
+
+export default memo(MealNutritionDetailsMemo, arePropsEqual);

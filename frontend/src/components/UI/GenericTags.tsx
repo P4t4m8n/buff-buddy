@@ -1,4 +1,4 @@
-import { toTitle } from "../../utils/toTitle";
+import toTitle  from "../../utils/toTitle";
 import Button from "./Button";
 import GenericList from "./GenericList";
 import IconTrash from "./Icons/IconTrash";

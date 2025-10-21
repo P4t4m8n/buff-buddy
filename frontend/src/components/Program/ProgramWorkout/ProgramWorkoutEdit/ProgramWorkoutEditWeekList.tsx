@@ -7,7 +7,7 @@ import { DAY_OF_WEEK } from "../../../../../../shared/consts/app.consts";
 //UI
 import GenericList from "../../../UI/GenericList";
 //Utils
-import { toTitle } from "../../../../utils/toTitle";
+import toTitle from "../../../../utils/toTitle";
 //Types
 import type {
   IProgramWorkoutEditDTO,

@@ -49,7 +49,6 @@ export default function MealList({
     useQuery: useMealsQuery,
     removeFn: mealService.remove,
   });
-  console.log("🚀 ~ MealList ~ items:", items);
 
   const itemComponentProps = useMemo(() => {
     return actionType === "dietEdit"

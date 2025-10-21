@@ -1,8 +1,10 @@
+import type { IUserDTO } from "../../../../../shared/models/user.model";
 import type { TNutritionKey } from "../../../models/meal.model";
 import type { IModelProps } from "../../../models/model.model";
-import { toTitle } from "../../../utils/toTitle";
+import toTitle  from "../../../utils/toTitle";
 import Button from "../../UI/Button";
 import IconPlus from "../../UI/Icons/IconPlus";
+import MealDetailsOwner from "./MealDetailsOwner";
 
 const nutritionStyling: Record<
   TNutritionKey,
@@ -60,12 +62,16 @@ const nutrientsWithGrams: TNutritionKey[] = [
 interface IMealNutritionExtraDetailsModelProps
   extends IModelProps<HTMLDivElement> {
   totalNutrition: Partial<Record<TNutritionKey, number>>;
+  notes?: string | null;
+  owner?: IUserDTO | null;
 }
 export default function MealNutritionExtraDetailsModel({
   totalNutrition,
-  modelRef,
-  handleModel,
+  notes,
+  owner,
+  ...props
 }: IMealNutritionExtraDetailsModelProps) {
+  const { modelRef, handleModel } = props;
   const totalNutritionArr = (
     Object.entries(totalNutrition) as [TNutritionKey, number][]
   ).map(([key, value]) => {
@@ -87,16 +93,23 @@ export default function MealNutritionExtraDetailsModel({
   return (
     <div
       ref={modelRef}
-      className=" border rounded p-4 bg-black-500 w-[calc(100%-1rem)]
+      className=" border rounded grid grid-cols-[1fr_2rem] gap-4 p-4 bg-black-500 w-[calc(100%-1rem)]
                    max-w-96"
     >
+      <ul className="grid gap-4">{totalNutritionArr}</ul>
       <Button
-        className="border rounded-full p-1 stroke-main-orange float-end "
+        className="border h-fit w-fit rounded-full p-1 stroke-main-orange float-end "
         onClick={handleModel}
       >
         <IconPlus className="w-6 h-6 rotate-45" />
       </Button>
-      <ul className="grid   gap-4">{totalNutritionArr}</ul>
+      {owner ? <MealDetailsOwner owner={owner} /> : null}
+      {notes ? (
+        <article className="col-span-2">
+          <h4>Notes:</h4>
+          <p className="ml-2">{notes}</p>
+        </article>
+      ) : null}
     </div>
   );
 }

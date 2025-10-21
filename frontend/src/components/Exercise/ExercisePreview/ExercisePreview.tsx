@@ -3,7 +3,7 @@ import WorkoutExerciseEditListActions from "./ExerciseActions/WorkoutExerciseEdi
 import ExerciseListActions from "./ExerciseActions/ExerciseListActions";
 import WorkoutExerciseSelectedActions from "./ExerciseActions/WorkoutExerciseSelectedActions";
 //Utils
-import { toTitle } from "../../../utils/toTitle";
+import toTitle  from "../../../utils/toTitle";
 //UI
 import GenericCarousel from "../../UI/GenericCarousel";
 import Tag from "../../UI/Tag";

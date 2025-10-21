@@ -1,6 +1,6 @@
 import type { IMealFoodItemDTO } from "../../../../../shared/models/meal.model";
 import { FOOD_ITEM_ROUTES, MEAL_ROUTES } from "../../../consts/routes.const";
-import { toTitle } from "../../../utils/toTitle";
+import toTitle  from "../../../utils/toTitle";
 import LinkComponent from "../../UI/Link";
 
 interface IMealFoodItemDetailsListItemProps {

@@ -1,4 +1,4 @@
-import { toTitle } from "../../../utils/toTitle";
+import toTitle  from "../../../utils/toTitle";
 
 import DietMealEditActions from "./MealPreviewActions/DietMealEditActions";
 import MealListActions from "./MealPreviewActions/MealListActions";

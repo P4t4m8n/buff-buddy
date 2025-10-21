@@ -1,4 +1,4 @@
-import { toTitle } from "../../utils/toTitle";
+import toTitle  from "../../utils/toTitle";
 
 export default function Tag({ item }: { item?: string }) {
   return (

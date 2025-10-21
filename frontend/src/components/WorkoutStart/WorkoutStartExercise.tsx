@@ -18,7 +18,7 @@ import type { IUserCardioSetEditDTO } from "../../../../shared/models/userCardio
 import type { IUserStrengthSetEditDTO } from "../../../../shared/models/userStrengthSet.model";
 import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
 import type { IWorkoutStartExerciseItemProps } from "../../models/workoutStart.model";
-import { toTitle } from "../../utils/toTitle";
+import toTitle  from "../../utils/toTitle";
 import { useWorkoutStartContext } from "../../hooks/features/workoutStart/useWorkoutStartContext";
 import type { IUserWorkoutExercisesEditDTO } from "../../../../shared/models/userWorkout";
 import IconCheckMark from "../UI/Icons/IconCheckMark";

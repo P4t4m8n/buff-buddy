@@ -7,7 +7,7 @@ import GenericList from "../../GenericList";
 import LabelWithError from "../LabelWithError";
 import OptionModelList from "./OptionModelList";
 import OptionSelectedItem from "./OptionSelectedItem";
-import { toTitle } from "../../../../utils/toTitle";
+import toTitle  from "../../../../utils/toTitle";
 import type { ISelectAddComponentProps } from "../../../../models/select.model";
 
 interface ISelectMultiWithSearchProps<T, P> {

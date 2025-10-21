@@ -1,6 +1,6 @@
 //Utils
 import { calendarUtil } from "../../../../utils/calendar.util";
-import { toTitle } from "../../../../utils/toTitle";
+import toTitle  from "../../../../utils/toTitle";
 import { getTempId } from "../../../../../../shared/utils/getTempId";
 //Components
 import WorkoutEditModel from "../../../Workout/WorkoutEditModel";

@@ -1,7 +1,7 @@
 //Consts
 import { DAY_OF_WEEK } from "../../../shared/consts/app.consts";
 //Utils
-import { toTitle } from "./toTitle";
+import toTitle  from "./toTitle";
 //Types
 import type { TDayOfWeek } from "../../../shared/models/app.model";
 import type { IDateRange } from "../models/calendar.model";

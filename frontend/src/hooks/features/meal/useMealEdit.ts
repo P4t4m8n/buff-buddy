@@ -39,7 +39,6 @@ export const useMealEdit = ({ mealId }: { mealId?: string }) => {
     dtoToEditDto: mealUtil.dtoToEditDto,
     getEmpty: mealUtil.getEmpty,
   });
-    console.log("🚀 ~ useMealEdit ~ mealToEdit:", mealToEdit)
   const { errors, handleError, setSingleFiledError } =
     useErrors<IMealEditDTO>();
 
@@ -58,14 +57,11 @@ export const useMealEdit = ({ mealId }: { mealId?: string }) => {
       
       const factory = _getValidationFactory(mealToEdit.id);
       
-      console.log("🚀 ~ saveMeal ~ mealToEdit:", mealToEdit)
       const validatedData = factory({ toSanitize: false }).parse(mealToEdit);
-      console.log("🚀 ~ saveMeal ~ validatedData:", validatedData)
 
       const { data } = await mutateAsync(validatedData);
       return data;
     } catch (error) {
-      console.log("🚀 ~ saveMeal ~ error:", error)
       handleError({ error, emitToToast: true });
     }
   };
@@ -131,7 +127,6 @@ export const useMealEdit = ({ mealId }: { mealId?: string }) => {
       mealFoodItems: mealFoodItems.toSpliced(idx, 1),
     };
     
-    console.log("🚀 ~ removeMealFoodItem ~ mealFoodItemId:", mealFoodItemId)
       const itemToDelete: IMealFoodItemEditDTO = {
         ...mealFoodItem,
         crudOperation: "delete",
