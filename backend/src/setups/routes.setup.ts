@@ -12,6 +12,7 @@ import { mealsRoutes } from "../api/meals/meals.routes";
 import { workoutPlannerRoutes } from "../api/workoutStart/workoutStart.routes";
 //Types
 import type { Express, Response } from "express";
+import { userMealsRoutes } from "../api/userMeal/userMeal.routes";
 
 const ROUTES = [
   "auth",
@@ -21,6 +22,7 @@ const ROUTES = [
   "user-workouts",
   "food-items",
   "meals",
+  "user-meal",
   "workout-start",
 ] as const;
 type RouteName = (typeof ROUTES)[number];
@@ -35,6 +37,7 @@ export function setupRoutes(app: Express) {
     ["food-items", foodItemRoutes],
     ["meals", mealsRoutes],
     ["workout-start", workoutPlannerRoutes],
+    ["user-meal", userMealsRoutes],
   ]);
   const apiVersion = process.env.CURRENT_API_VERSION || "1";
   const baseUrl = `/api/v${apiVersion}`;

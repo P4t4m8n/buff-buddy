@@ -6,7 +6,6 @@ import { MEAL_TYPES } from "../consts/meal.consts";
 
 import type { IToSanitize } from "../models/app.model";
 
-
 const createMealFoodItemFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
     crudOperation: z
@@ -48,7 +47,9 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
         maxLength: 1000,
         toSanitize,
       })
-      .optional().nullable().nullish(),
+      .optional()
+      .nullable()
+      .nullish(),
     mealFoodItems: z
       .array(createMealFoodItemFactorySchema({ toSanitize }), {
         error: () => ({ message: "At least one food item is required" }),
@@ -84,6 +85,8 @@ const QuerySchema = validationUtil.FilterSchema.extend({
 export const mealValidation = {
   createFactorySchema,
   updateFactorySchema,
+  createMealFoodItemFactorySchema,
+  updateMealFoodItemFactorySchema,
   QuerySchema,
 };
 

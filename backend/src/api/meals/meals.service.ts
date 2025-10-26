@@ -50,7 +50,7 @@ const update = (id: string, dto: TMealUpdateValidatedInput): Promise<IMeal> => {
   });
 };
 
-const remove = (id: string, ownerId?: string): Promise<IMeal | void> => {
+const remove = (id: string, ownerId?: string) => {
   return prisma.meal.delete({
     where: { id, ownerId },
   });

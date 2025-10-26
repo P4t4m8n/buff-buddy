@@ -347,8 +347,18 @@ exports.Prisma.MealFoodItemScalarFieldEnum = {
 exports.Prisma.UserMealScalarFieldEnum = {
   id: 'id',
   mealId: 'mealId',
-  userId: 'userId',
   dateConsumed: 'dateConsumed',
+  notes: 'notes',
+  ownerId: 'ownerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserMealItemScalarFieldEnum = {
+  id: 'id',
+  userMealId: 'userMealId',
+  foodItemId: 'foodItemId',
+  quantity: 'quantity',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -434,6 +444,7 @@ exports.Prisma.ModelName = {
   Meal: 'Meal',
   MealFoodItem: 'MealFoodItem',
   UserMeal: 'UserMeal',
+  UserMealItem: 'UserMealItem',
   Image: 'Image'
 };
 
