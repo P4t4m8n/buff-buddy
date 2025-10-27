@@ -22,7 +22,7 @@ const buildDTO = (data: IUserWorkout): IUserWorkoutDTO => {
     userWorkoutExercises: data.userWorkoutExercises.map((uw) => {
       const uwe: IUserWorkoutExercisesDTO = {
         id: uw.id,
-        ...workoutExerciseUtils.buildDTO(uw.workoutExercise),
+        ...workoutExerciseUtils.buildDTO(uw?.workoutExercise),
       };
       const userStrengthSets = uw?.userStrengthSets?.map((us) =>
         userStrengthSetsUtil.buildDTO(us)

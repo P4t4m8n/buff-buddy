@@ -134,7 +134,6 @@ const deleteUser = async (req: Request, res: Response) => {
     if (!userId) {
       throw AppError.create("User not authenticated", 401);
     }
-    debugger
     await authService.deleteUser(id);
     res.clearCookie("token", COOKIE).status(200).json({
       message: "User deleted successfully",

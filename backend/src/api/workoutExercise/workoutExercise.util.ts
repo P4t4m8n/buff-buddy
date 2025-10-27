@@ -1,7 +1,7 @@
 import type { IWorkoutExerciseDTO } from "../../../../shared/models/workout.model";
-import type { IWorkoutExercise } from "../workouts/workouts.models";
+import { IWorkoutExercise } from "./workoutExercise.mode";
 
-const buildDTO = (workoutExercise: IWorkoutExercise): IWorkoutExerciseDTO => {
+const buildDTO = (workoutExercise?: IWorkoutExercise): IWorkoutExerciseDTO => {
   return {
     ...workoutExercise,
   };

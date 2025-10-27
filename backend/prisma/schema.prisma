@@ -66,6 +66,7 @@ model Exercise {
   youtubeUrl       String
   notes            String?
   isCompounded     Boolean           @default(false)
+  isSeparateHands  Boolean           @default(false)
   type             ExerciseType      @default(strength)
   equipment        Equipment[]
   muscles          Muscle[]
@@ -207,6 +208,10 @@ model WorkoutExercise {
   notes                String?
   hasWarmup            Boolean               @default(false)
   isBodyWeight         Boolean               @default(false)
+  numberOfSets         Int?
+  maxNumberOfReps      Int?
+  isDropSet            Boolean               @default(false)
+  isMyoReps            Boolean               @default(false)
   restTime             Int                   @default(60)
   exerciseId           String
   exercise             Exercise              @relation(fields: [exerciseId], references: [id], onDelete: Cascade)

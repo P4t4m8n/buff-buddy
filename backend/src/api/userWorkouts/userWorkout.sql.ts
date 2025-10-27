@@ -1,4 +1,4 @@
-import { exerciseSQL } from "../exercises/exercise.sql";
+
 import { programsSQL } from "../programs/program.sql";
 import { userCardioSetsSQL } from "../userSets/userCardioSets/userCardioSets.sql";
 import { userStrengthSetsSQL } from "../userSets/userStrengthSets/userStrengthSets.sql";
@@ -6,18 +6,12 @@ import { userStrengthSetsSQL } from "../userSets/userStrengthSets/userStrengthSe
 import type { Prisma } from "../../../prisma/generated/prisma";
 import type { TUserWorkoutCreateValidatedInput } from "../../../../shared/validations/userWorkout.validations";
 import { userSQL } from "../users/users.sql";
+import { workoutExerciseSQL } from "../workoutExercise/workoutExercise.sql";
 
-const USER_WORKOUT_EXERCISE_SELECT = {
+const USER_WORKOUT_EXERCISE_SELECT: Prisma.UserWorkoutExerciseSelect = {
   id: true,
   workoutExercise: {
-    select: {
-      id: true,
-      order: true,
-      notes: true,
-      exercise: {
-        select: exerciseSQL.EXERCISE_SELECT,
-      },
-    },
+    select: workoutExerciseSQL.WORKOUT_EXERCISE_SELECT,
   },
   userCardioSets: {
     select: userCardioSetsSQL.CORE_CARDIO_SET_SELECT,
@@ -27,7 +21,7 @@ const USER_WORKOUT_EXERCISE_SELECT = {
   },
 };
 
-const USER_WORKOUT_SELECT = {
+const USER_WORKOUT_SELECT: Prisma.UserWorkoutSelect = {
   id: true,
   dateCompleted: true,
   program: {

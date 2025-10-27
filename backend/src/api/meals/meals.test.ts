@@ -988,7 +988,6 @@ describe("Meals API", () => {
       const res = await request(app)
         .get("/api/v1/meals?mealType=snack")
         .set("Cookie", `token=${authToken}`);
-      debugger;
       expect(res.status).toBe(200);
       expect(res.body.data.length).toBe(5);
       res.body.data.forEach((meal: IMealDTO) => {

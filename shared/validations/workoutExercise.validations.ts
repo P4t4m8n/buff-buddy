@@ -75,6 +75,10 @@ const workoutExerciseFactorySchema = ({
     isActive: z.coerce.boolean().default(true),
     hasWarmup: validationUtil.BooleanSchema,
     isBodyWeight: validationUtil.BooleanSchema,
+    numberOfSets: validationUtil.numberValidation({}).optional(),
+    maxNumberOfReps: validationUtil.numberValidation({}).optional(),
+    isDropSet: validationUtil.BooleanSchema.optional(),
+    isMyoReps: validationUtil.BooleanSchema.optional(),
     crudOperation: z
       .optional(validationUtil.CrudOperationEnumSchema)
       .default("read"),

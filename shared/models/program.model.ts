@@ -5,11 +5,11 @@ import type {
 } from "../../backend/prisma/generated/prisma";
 import { WORKOUT_GOALS, WORKOUT_LEVELS } from "../consts/program.consts";
 import type { IBaseFilter, TCrudOperation, TDayOfWeek } from "./app.model";
-import type { IID } from "./entity.model";
+import type { IEntity } from "./entity.model";
 import type { IUserDTO } from "./user.model";
 import type { IWorkoutDTO, IWorkoutEditDTO } from "./workout.model";
 
-export interface IProgramBase extends IID {
+export interface IProgramBase extends IEntity {
   name?: string | null | undefined;
   notes?: string | null;
   startDate?: Date | string | null;
@@ -41,7 +41,7 @@ export type TProgramWorkoutEditRecord = Record<
   IProgramWorkoutEditDTO[]
 >;
 
-interface IProgramWorkoutBase extends IID {
+interface IProgramWorkoutBase extends IEntity {
   daysOfWeek?: DaysOfWeek[];
   programId?: string;
   workoutLevel?: WorkoutLevel | null;

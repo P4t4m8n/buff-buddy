@@ -61,6 +61,7 @@ const EXERCISE_SELECT: Prisma.ExerciseSelect = {
   youtubeUrl: true,
   type: true,
   isCompounded: true,
+  isSeparateHands: true,
   equipment: {
     select: EQUIPMENT_SELECT,
   },
@@ -94,7 +95,7 @@ const getExerciseCreate = (
     name: dto.name,
     youtubeUrl: dto.youtubeUrl,
     type: dto.type,
-    isCompounded:dto.isCompounded,
+    isCompounded: dto.isCompounded,
     equipment: {
       connect: dto.equipment.map((e) => ({ name: e.name })),
     },

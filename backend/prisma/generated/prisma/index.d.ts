@@ -621,8 +621,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.17.0
-   * Query Engine version: c0aafc03b8ef6cdced8654b9a817999e02457d6a
+   * Prisma Client JS version: 6.18.0
+   * Query Engine version: 34b5a692b7bd79939a9a2c3ef97d816e749cda2f
    */
   export type PrismaVersion = {
     client: string
@@ -635,6 +635,7 @@ export namespace Prisma {
    */
 
 
+  export import Bytes = runtime.Bytes
   export import JsonObject = runtime.JsonObject
   export import JsonArray = runtime.JsonArray
   export import JsonValue = runtime.JsonValue
@@ -4991,6 +4992,7 @@ export namespace Prisma {
     youtubeUrl: string | null
     notes: string | null
     isCompounded: boolean | null
+    isSeparateHands: boolean | null
     type: $Enums.ExerciseType | null
     ownerId: string | null
     createdAt: Date | null
@@ -5003,6 +5005,7 @@ export namespace Prisma {
     youtubeUrl: string | null
     notes: string | null
     isCompounded: boolean | null
+    isSeparateHands: boolean | null
     type: $Enums.ExerciseType | null
     ownerId: string | null
     createdAt: Date | null
@@ -5015,6 +5018,7 @@ export namespace Prisma {
     youtubeUrl: number
     notes: number
     isCompounded: number
+    isSeparateHands: number
     type: number
     ownerId: number
     createdAt: number
@@ -5029,6 +5033,7 @@ export namespace Prisma {
     youtubeUrl?: true
     notes?: true
     isCompounded?: true
+    isSeparateHands?: true
     type?: true
     ownerId?: true
     createdAt?: true
@@ -5041,6 +5046,7 @@ export namespace Prisma {
     youtubeUrl?: true
     notes?: true
     isCompounded?: true
+    isSeparateHands?: true
     type?: true
     ownerId?: true
     createdAt?: true
@@ -5053,6 +5059,7 @@ export namespace Prisma {
     youtubeUrl?: true
     notes?: true
     isCompounded?: true
+    isSeparateHands?: true
     type?: true
     ownerId?: true
     createdAt?: true
@@ -5138,6 +5145,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes: string | null
     isCompounded: boolean
+    isSeparateHands: boolean
     type: $Enums.ExerciseType
     ownerId: string | null
     createdAt: Date
@@ -5167,6 +5175,7 @@ export namespace Prisma {
     youtubeUrl?: boolean
     notes?: boolean
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: boolean
     ownerId?: boolean
     createdAt?: boolean
@@ -5184,6 +5193,7 @@ export namespace Prisma {
     youtubeUrl?: boolean
     notes?: boolean
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: boolean
     ownerId?: boolean
     createdAt?: boolean
@@ -5197,6 +5207,7 @@ export namespace Prisma {
     youtubeUrl?: boolean
     notes?: boolean
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: boolean
     ownerId?: boolean
     createdAt?: boolean
@@ -5210,13 +5221,14 @@ export namespace Prisma {
     youtubeUrl?: boolean
     notes?: boolean
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: boolean
     ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "youtubeUrl" | "notes" | "isCompounded" | "type" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["exercise"]>
+  export type ExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "youtubeUrl" | "notes" | "isCompounded" | "isSeparateHands" | "type" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["exercise"]>
   export type ExerciseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     equipment?: boolean | Exercise$equipmentArgs<ExtArgs>
     muscles?: boolean | Exercise$musclesArgs<ExtArgs>
@@ -5245,6 +5257,7 @@ export namespace Prisma {
       youtubeUrl: string
       notes: string | null
       isCompounded: boolean
+      isSeparateHands: boolean
       type: $Enums.ExerciseType
       ownerId: string | null
       createdAt: Date
@@ -5681,6 +5694,7 @@ export namespace Prisma {
     readonly youtubeUrl: FieldRef<"Exercise", 'String'>
     readonly notes: FieldRef<"Exercise", 'String'>
     readonly isCompounded: FieldRef<"Exercise", 'Boolean'>
+    readonly isSeparateHands: FieldRef<"Exercise", 'Boolean'>
     readonly type: FieldRef<"Exercise", 'ExerciseType'>
     readonly ownerId: FieldRef<"Exercise", 'String'>
     readonly createdAt: FieldRef<"Exercise", 'DateTime'>
@@ -16538,11 +16552,15 @@ export namespace Prisma {
 
   export type WorkoutExerciseAvgAggregateOutputType = {
     order: number | null
+    numberOfSets: number | null
+    maxNumberOfReps: number | null
     restTime: number | null
   }
 
   export type WorkoutExerciseSumAggregateOutputType = {
     order: number | null
+    numberOfSets: number | null
+    maxNumberOfReps: number | null
     restTime: number | null
   }
 
@@ -16552,6 +16570,10 @@ export namespace Prisma {
     notes: string | null
     hasWarmup: boolean | null
     isBodyWeight: boolean | null
+    numberOfSets: number | null
+    maxNumberOfReps: number | null
+    isDropSet: boolean | null
+    isMyoReps: boolean | null
     restTime: number | null
     exerciseId: string | null
     workoutId: string | null
@@ -16565,6 +16587,10 @@ export namespace Prisma {
     notes: string | null
     hasWarmup: boolean | null
     isBodyWeight: boolean | null
+    numberOfSets: number | null
+    maxNumberOfReps: number | null
+    isDropSet: boolean | null
+    isMyoReps: boolean | null
     restTime: number | null
     exerciseId: string | null
     workoutId: string | null
@@ -16578,6 +16604,10 @@ export namespace Prisma {
     notes: number
     hasWarmup: number
     isBodyWeight: number
+    numberOfSets: number
+    maxNumberOfReps: number
+    isDropSet: number
+    isMyoReps: number
     restTime: number
     exerciseId: number
     workoutId: number
@@ -16589,11 +16619,15 @@ export namespace Prisma {
 
   export type WorkoutExerciseAvgAggregateInputType = {
     order?: true
+    numberOfSets?: true
+    maxNumberOfReps?: true
     restTime?: true
   }
 
   export type WorkoutExerciseSumAggregateInputType = {
     order?: true
+    numberOfSets?: true
+    maxNumberOfReps?: true
     restTime?: true
   }
 
@@ -16603,6 +16637,10 @@ export namespace Prisma {
     notes?: true
     hasWarmup?: true
     isBodyWeight?: true
+    numberOfSets?: true
+    maxNumberOfReps?: true
+    isDropSet?: true
+    isMyoReps?: true
     restTime?: true
     exerciseId?: true
     workoutId?: true
@@ -16616,6 +16654,10 @@ export namespace Prisma {
     notes?: true
     hasWarmup?: true
     isBodyWeight?: true
+    numberOfSets?: true
+    maxNumberOfReps?: true
+    isDropSet?: true
+    isMyoReps?: true
     restTime?: true
     exerciseId?: true
     workoutId?: true
@@ -16629,6 +16671,10 @@ export namespace Prisma {
     notes?: true
     hasWarmup?: true
     isBodyWeight?: true
+    numberOfSets?: true
+    maxNumberOfReps?: true
+    isDropSet?: true
+    isMyoReps?: true
     restTime?: true
     exerciseId?: true
     workoutId?: true
@@ -16729,6 +16775,10 @@ export namespace Prisma {
     notes: string | null
     hasWarmup: boolean
     isBodyWeight: boolean
+    numberOfSets: number | null
+    maxNumberOfReps: number | null
+    isDropSet: boolean
+    isMyoReps: boolean
     restTime: number
     exerciseId: string
     workoutId: string
@@ -16761,6 +16811,10 @@ export namespace Prisma {
     notes?: boolean
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: boolean
+    maxNumberOfReps?: boolean
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: boolean
     exerciseId?: boolean
     workoutId?: boolean
@@ -16778,6 +16832,10 @@ export namespace Prisma {
     notes?: boolean
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: boolean
+    maxNumberOfReps?: boolean
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: boolean
     exerciseId?: boolean
     workoutId?: boolean
@@ -16793,6 +16851,10 @@ export namespace Prisma {
     notes?: boolean
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: boolean
+    maxNumberOfReps?: boolean
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: boolean
     exerciseId?: boolean
     workoutId?: boolean
@@ -16808,6 +16870,10 @@ export namespace Prisma {
     notes?: boolean
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: boolean
+    maxNumberOfReps?: boolean
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: boolean
     exerciseId?: boolean
     workoutId?: boolean
@@ -16815,7 +16881,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type WorkoutExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order" | "notes" | "hasWarmup" | "isBodyWeight" | "restTime" | "exerciseId" | "workoutId" | "createdAt" | "updatedAt", ExtArgs["result"]["workoutExercise"]>
+  export type WorkoutExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order" | "notes" | "hasWarmup" | "isBodyWeight" | "numberOfSets" | "maxNumberOfReps" | "isDropSet" | "isMyoReps" | "restTime" | "exerciseId" | "workoutId" | "createdAt" | "updatedAt", ExtArgs["result"]["workoutExercise"]>
   export type WorkoutExerciseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     exercise?: boolean | ExerciseDefaultArgs<ExtArgs>
     workout?: boolean | WorkoutDefaultArgs<ExtArgs>
@@ -16844,6 +16910,10 @@ export namespace Prisma {
       notes: string | null
       hasWarmup: boolean
       isBodyWeight: boolean
+      numberOfSets: number | null
+      maxNumberOfReps: number | null
+      isDropSet: boolean
+      isMyoReps: boolean
       restTime: number
       exerciseId: string
       workoutId: string
@@ -17280,6 +17350,10 @@ export namespace Prisma {
     readonly notes: FieldRef<"WorkoutExercise", 'String'>
     readonly hasWarmup: FieldRef<"WorkoutExercise", 'Boolean'>
     readonly isBodyWeight: FieldRef<"WorkoutExercise", 'Boolean'>
+    readonly numberOfSets: FieldRef<"WorkoutExercise", 'Int'>
+    readonly maxNumberOfReps: FieldRef<"WorkoutExercise", 'Int'>
+    readonly isDropSet: FieldRef<"WorkoutExercise", 'Boolean'>
+    readonly isMyoReps: FieldRef<"WorkoutExercise", 'Boolean'>
     readonly restTime: FieldRef<"WorkoutExercise", 'Int'>
     readonly exerciseId: FieldRef<"WorkoutExercise", 'String'>
     readonly workoutId: FieldRef<"WorkoutExercise", 'String'>
@@ -31490,6 +31564,7 @@ export namespace Prisma {
     youtubeUrl: 'youtubeUrl',
     notes: 'notes',
     isCompounded: 'isCompounded',
+    isSeparateHands: 'isSeparateHands',
     type: 'type',
     ownerId: 'ownerId',
     createdAt: 'createdAt',
@@ -31629,6 +31704,10 @@ export namespace Prisma {
     notes: 'notes',
     hasWarmup: 'hasWarmup',
     isBodyWeight: 'isBodyWeight',
+    numberOfSets: 'numberOfSets',
+    maxNumberOfReps: 'maxNumberOfReps',
+    isDropSet: 'isDropSet',
+    isMyoReps: 'isMyoReps',
     restTime: 'restTime',
     exerciseId: 'exerciseId',
     workoutId: 'workoutId',
@@ -32059,6 +32138,7 @@ export namespace Prisma {
     youtubeUrl?: StringFilter<"Exercise"> | string
     notes?: StringNullableFilter<"Exercise"> | string | null
     isCompounded?: BoolFilter<"Exercise"> | boolean
+    isSeparateHands?: BoolFilter<"Exercise"> | boolean
     type?: EnumExerciseTypeFilter<"Exercise"> | $Enums.ExerciseType
     ownerId?: StringNullableFilter<"Exercise"> | string | null
     createdAt?: DateTimeFilter<"Exercise"> | Date | string
@@ -32075,6 +32155,7 @@ export namespace Prisma {
     youtubeUrl?: SortOrder
     notes?: SortOrderInput | SortOrder
     isCompounded?: SortOrder
+    isSeparateHands?: SortOrder
     type?: SortOrder
     ownerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -32094,6 +32175,7 @@ export namespace Prisma {
     youtubeUrl?: StringFilter<"Exercise"> | string
     notes?: StringNullableFilter<"Exercise"> | string | null
     isCompounded?: BoolFilter<"Exercise"> | boolean
+    isSeparateHands?: BoolFilter<"Exercise"> | boolean
     type?: EnumExerciseTypeFilter<"Exercise"> | $Enums.ExerciseType
     ownerId?: StringNullableFilter<"Exercise"> | string | null
     createdAt?: DateTimeFilter<"Exercise"> | Date | string
@@ -32110,6 +32192,7 @@ export namespace Prisma {
     youtubeUrl?: SortOrder
     notes?: SortOrderInput | SortOrder
     isCompounded?: SortOrder
+    isSeparateHands?: SortOrder
     type?: SortOrder
     ownerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -32128,6 +32211,7 @@ export namespace Prisma {
     youtubeUrl?: StringWithAggregatesFilter<"Exercise"> | string
     notes?: StringNullableWithAggregatesFilter<"Exercise"> | string | null
     isCompounded?: BoolWithAggregatesFilter<"Exercise"> | boolean
+    isSeparateHands?: BoolWithAggregatesFilter<"Exercise"> | boolean
     type?: EnumExerciseTypeWithAggregatesFilter<"Exercise"> | $Enums.ExerciseType
     ownerId?: StringNullableWithAggregatesFilter<"Exercise"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Exercise"> | Date | string
@@ -32794,6 +32878,10 @@ export namespace Prisma {
     notes?: StringNullableFilter<"WorkoutExercise"> | string | null
     hasWarmup?: BoolFilter<"WorkoutExercise"> | boolean
     isBodyWeight?: BoolFilter<"WorkoutExercise"> | boolean
+    numberOfSets?: IntNullableFilter<"WorkoutExercise"> | number | null
+    maxNumberOfReps?: IntNullableFilter<"WorkoutExercise"> | number | null
+    isDropSet?: BoolFilter<"WorkoutExercise"> | boolean
+    isMyoReps?: BoolFilter<"WorkoutExercise"> | boolean
     restTime?: IntFilter<"WorkoutExercise"> | number
     exerciseId?: StringFilter<"WorkoutExercise"> | string
     workoutId?: StringFilter<"WorkoutExercise"> | string
@@ -32810,6 +32898,10 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     hasWarmup?: SortOrder
     isBodyWeight?: SortOrder
+    numberOfSets?: SortOrderInput | SortOrder
+    maxNumberOfReps?: SortOrderInput | SortOrder
+    isDropSet?: SortOrder
+    isMyoReps?: SortOrder
     restTime?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
@@ -32829,6 +32921,10 @@ export namespace Prisma {
     notes?: StringNullableFilter<"WorkoutExercise"> | string | null
     hasWarmup?: BoolFilter<"WorkoutExercise"> | boolean
     isBodyWeight?: BoolFilter<"WorkoutExercise"> | boolean
+    numberOfSets?: IntNullableFilter<"WorkoutExercise"> | number | null
+    maxNumberOfReps?: IntNullableFilter<"WorkoutExercise"> | number | null
+    isDropSet?: BoolFilter<"WorkoutExercise"> | boolean
+    isMyoReps?: BoolFilter<"WorkoutExercise"> | boolean
     restTime?: IntFilter<"WorkoutExercise"> | number
     exerciseId?: StringFilter<"WorkoutExercise"> | string
     workoutId?: StringFilter<"WorkoutExercise"> | string
@@ -32845,6 +32941,10 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     hasWarmup?: SortOrder
     isBodyWeight?: SortOrder
+    numberOfSets?: SortOrderInput | SortOrder
+    maxNumberOfReps?: SortOrderInput | SortOrder
+    isDropSet?: SortOrder
+    isMyoReps?: SortOrder
     restTime?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
@@ -32866,6 +32966,10 @@ export namespace Prisma {
     notes?: StringNullableWithAggregatesFilter<"WorkoutExercise"> | string | null
     hasWarmup?: BoolWithAggregatesFilter<"WorkoutExercise"> | boolean
     isBodyWeight?: BoolWithAggregatesFilter<"WorkoutExercise"> | boolean
+    numberOfSets?: IntNullableWithAggregatesFilter<"WorkoutExercise"> | number | null
+    maxNumberOfReps?: IntNullableWithAggregatesFilter<"WorkoutExercise"> | number | null
+    isDropSet?: BoolWithAggregatesFilter<"WorkoutExercise"> | boolean
+    isMyoReps?: BoolWithAggregatesFilter<"WorkoutExercise"> | boolean
     restTime?: IntWithAggregatesFilter<"WorkoutExercise"> | number
     exerciseId?: StringWithAggregatesFilter<"WorkoutExercise"> | string
     workoutId?: StringWithAggregatesFilter<"WorkoutExercise"> | string
@@ -33809,6 +33913,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -33824,6 +33929,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     ownerId?: string | null
     createdAt?: Date | string
@@ -33839,6 +33945,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -33854,6 +33961,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -33869,6 +33977,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     ownerId?: string | null
     createdAt?: Date | string
@@ -33881,6 +33990,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -33892,6 +34002,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34616,6 +34727,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -34630,6 +34745,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     exerciseId: string
     workoutId: string
@@ -34644,6 +34763,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34658,6 +34781,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
@@ -34672,6 +34799,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     exerciseId: string
     workoutId: string
@@ -34685,6 +34816,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34696,6 +34831,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
@@ -35809,6 +35948,7 @@ export namespace Prisma {
     youtubeUrl?: SortOrder
     notes?: SortOrder
     isCompounded?: SortOrder
+    isSeparateHands?: SortOrder
     type?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
@@ -35821,6 +35961,7 @@ export namespace Prisma {
     youtubeUrl?: SortOrder
     notes?: SortOrder
     isCompounded?: SortOrder
+    isSeparateHands?: SortOrder
     type?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
@@ -35833,6 +35974,7 @@ export namespace Prisma {
     youtubeUrl?: SortOrder
     notes?: SortOrder
     isCompounded?: SortOrder
+    isSeparateHands?: SortOrder
     type?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
@@ -36384,6 +36526,10 @@ export namespace Prisma {
     notes?: SortOrder
     hasWarmup?: SortOrder
     isBodyWeight?: SortOrder
+    numberOfSets?: SortOrder
+    maxNumberOfReps?: SortOrder
+    isDropSet?: SortOrder
+    isMyoReps?: SortOrder
     restTime?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
@@ -36393,6 +36539,8 @@ export namespace Prisma {
 
   export type WorkoutExerciseAvgOrderByAggregateInput = {
     order?: SortOrder
+    numberOfSets?: SortOrder
+    maxNumberOfReps?: SortOrder
     restTime?: SortOrder
   }
 
@@ -36402,6 +36550,10 @@ export namespace Prisma {
     notes?: SortOrder
     hasWarmup?: SortOrder
     isBodyWeight?: SortOrder
+    numberOfSets?: SortOrder
+    maxNumberOfReps?: SortOrder
+    isDropSet?: SortOrder
+    isMyoReps?: SortOrder
     restTime?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
@@ -36415,6 +36567,10 @@ export namespace Prisma {
     notes?: SortOrder
     hasWarmup?: SortOrder
     isBodyWeight?: SortOrder
+    numberOfSets?: SortOrder
+    maxNumberOfReps?: SortOrder
+    isDropSet?: SortOrder
+    isMyoReps?: SortOrder
     restTime?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
@@ -36424,6 +36580,8 @@ export namespace Prisma {
 
   export type WorkoutExerciseSumOrderByAggregateInput = {
     order?: SortOrder
+    numberOfSets?: SortOrder
+    maxNumberOfReps?: SortOrder
     restTime?: SortOrder
   }
 
@@ -39307,6 +39465,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -39321,6 +39480,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -39510,6 +39670,7 @@ export namespace Prisma {
     youtubeUrl?: StringFilter<"Exercise"> | string
     notes?: StringNullableFilter<"Exercise"> | string | null
     isCompounded?: BoolFilter<"Exercise"> | boolean
+    isSeparateHands?: BoolFilter<"Exercise"> | boolean
     type?: EnumExerciseTypeFilter<"Exercise"> | $Enums.ExerciseType
     ownerId?: StringNullableFilter<"Exercise"> | string | null
     createdAt?: DateTimeFilter<"Exercise"> | Date | string
@@ -39566,6 +39727,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -39579,6 +39744,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     workoutId: string
     createdAt?: Date | string
@@ -39715,6 +39884,10 @@ export namespace Prisma {
     notes?: StringNullableFilter<"WorkoutExercise"> | string | null
     hasWarmup?: BoolFilter<"WorkoutExercise"> | boolean
     isBodyWeight?: BoolFilter<"WorkoutExercise"> | boolean
+    numberOfSets?: IntNullableFilter<"WorkoutExercise"> | number | null
+    maxNumberOfReps?: IntNullableFilter<"WorkoutExercise"> | number | null
+    isDropSet?: BoolFilter<"WorkoutExercise"> | boolean
+    isMyoReps?: BoolFilter<"WorkoutExercise"> | boolean
     restTime?: IntFilter<"WorkoutExercise"> | number
     exerciseId?: StringFilter<"WorkoutExercise"> | string
     workoutId?: StringFilter<"WorkoutExercise"> | string
@@ -39775,6 +39948,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -39789,6 +39963,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     ownerId?: string | null
     createdAt?: Date | string
@@ -39930,6 +40105,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -39944,6 +40120,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     ownerId?: string | null
     createdAt?: Date | string
@@ -40522,6 +40699,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -40535,6 +40716,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     exerciseId: string
     createdAt?: Date | string
@@ -40711,6 +40896,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -40725,6 +40911,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     ownerId?: string | null
     createdAt?: Date | string
@@ -40810,6 +40997,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40824,6 +41012,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40899,6 +41088,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -40912,6 +41105,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     exerciseId: string
     workoutId: string
@@ -41046,6 +41243,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41059,6 +41260,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
@@ -42945,6 +43150,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -43114,6 +43320,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43128,6 +43335,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43142,6 +43350,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43153,6 +43362,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     workoutId: string
     createdAt?: Date | string
@@ -43214,6 +43427,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43227,6 +43444,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     workoutId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43240,6 +43461,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     workoutId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43260,6 +43485,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43274,6 +43500,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43288,6 +43515,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43324,6 +43552,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43338,6 +43567,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43352,6 +43582,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43482,6 +43713,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     exerciseId: string
     createdAt?: Date | string
@@ -43512,6 +43747,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43525,6 +43764,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     exerciseId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43538,6 +43781,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     exerciseId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

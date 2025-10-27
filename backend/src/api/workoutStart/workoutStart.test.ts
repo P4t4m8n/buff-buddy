@@ -18,31 +18,50 @@ import {
   IUserWorkoutEditDTO,
 } from "../../../../shared/models/userWorkout";
 import { IEquipment, IMuscle } from "../exercises/exercises.model";
+import testUtil from "../../shared/utils/test.util";
+
+const STRENGTH_EXERCISE_NAMES = [
+  "strength 1",
+  "strength 2",
+  "strength is compounded",
+  "strength is separateHands",
+] as const;
+
+type TStrengthExerciseNames = (typeof STRENGTH_EXERCISE_NAMES)[number];
+
+const WORKOUT_NAMES = [
+  "workout for default get",
+  "workout for reps",
+  "workout for weight",
+] as const;
+
+type TWorkoutNames = (typeof WORKOUT_NAMES)[number];
 
 describe("WorkoutPlanner API", () => {
-  const testWorkouts: IWorkoutDTO[] = [];
-  const testCardioExercises: IExerciseDTO[] = [];
-  const testStrengthExercises: IExerciseDTO[] = [];
+  const testWorkouts: Record<TWorkoutNames, IWorkoutDTO> = {} as Record<
+    TWorkoutNames,
+    IWorkoutDTO
+  >;
+  const testStrengthExercises: Record<TStrengthExerciseNames, IExerciseDTO> =
+    {} as Record<TStrengthExerciseNames, IExerciseDTO>;
+
   const testPrograms: IProgramDTO[] = [];
   const testUserWorkouts: IUserWorkoutDTO[] = [];
+
   let testUserId: string;
   let authToken: string;
-  let workoutTwoId: string | undefined;
-  let workoutOneId: string | undefined;
+
   let muscles: IMuscle[] = [];
   let equipment: IEquipment[] = [];
+
   const userWorkoutBaseUrl = "/api/v1/user-workouts";
   const userWorkoutEditBaseUrl = userWorkoutBaseUrl + "/edit";
   const baseUrl = "/api/v1/workout-start";
 
   beforeAll(async () => {
-    const userCredentials = {
-      email: `test-userWorkout-${Date.now()}@example.com`,
-      password: "Password123!",
-      confirmPassword: "Password123!",
-      firstName: "test-userWorkout",
-      lastName: "API",
-    };
+    const userCredentials = testUtil.getUserCredentials({
+      testName: "userWorkout",
+    });
     const userRes = await request(app)
       .post("/api/v1/auth/sign-up")
       .send(userCredentials);
@@ -76,32 +95,23 @@ describe("WorkoutPlanner API", () => {
         muscles: muscles.sort(() => 0.5 - Math.random()).slice(0, 2),
         ownerId: testUserId,
       },
-    ];
-
-    const cardioExercises: IExerciseEditDTO[] = [
       {
-        name: "cardio 1",
-        youtubeUrl: "https://www.youtube.com/watch?v=_l3ySVKYVJ8",
-        type: "cardio",
-        equipment: [{ name: "cable_machine", crudOperation: "create" }],
-        muscles: [
-          { name: "chest", crudOperation: "create" },
-          { name: "triceps", crudOperation: "create" },
-          { name: "abductors", crudOperation: "create" },
-        ],
+        name: "strength is Compounded",
+        youtubeUrl: "https://www.youtube.com/watch?v=ykJmrZ5yhOo",
+        type: "strength",
+        equipment: equipment.sort(() => 0.5 - Math.random()).slice(0, 1),
+        muscles: muscles.sort(() => 0.5 - Math.random()).slice(0, 2),
         ownerId: testUserId,
+        isCompounded: true,
       },
       {
-        name: "cardio 2",
-        youtubeUrl: "https://www.youtube.com/watch?v=pSHjTRCQxIw",
-        type: "cardio",
-        equipment: [{ name: "air_bike", crudOperation: "create" }],
-        muscles: [
-          { name: "triceps", crudOperation: "create" },
-          { name: "abs", crudOperation: "create" },
-          { name: "rotator_cuff", crudOperation: "create" },
-        ],
+        name: "strength is SeparateHands",
+        youtubeUrl: "https://www.youtube.com/watch?v=ykJmrZfg0Oo",
+        type: "strength",
+        equipment: equipment.sort(() => 0.5 - Math.random()).slice(0, 1),
+        muscles: muscles.sort(() => 0.5 - Math.random()).slice(0, 2),
         ownerId: testUserId,
+        isSeparateHands: true,
       },
     ];
 
@@ -110,115 +120,76 @@ describe("WorkoutPlanner API", () => {
         .post("/api/v1/exercises/edit")
         .set("Cookie", `token=${authToken}`)
         .send(exercise);
-      if (exerciseRes.body?.data?.id) {
-        testStrengthExercises.push(exerciseRes.body.data);
+      const exerciseData: IExerciseDTO = exerciseRes.body.data;
+      if (exerciseData.id) {
+        testStrengthExercises[exerciseData.name as TStrengthExerciseNames] =
+          exerciseData;
       }
     }
 
     const workouts: IWorkoutEditDTO[] = [
       {
-        name: "Full Body Test Workout 1",
+        name: "workout for default get",
         notes: "A workout for testing purposes.",
         crudOperation: "create",
+        isTemplate: true,
         ownerId: testUserId,
-
         workoutExercises: [
           {
             order: 1,
             notes: "First exercise 1",
             exerciseData: {
-              type: testStrengthExercises[0].type ?? "strength",
-              id: testStrengthExercises[0].id!,
+              type: testStrengthExercises["strength 1"]?.type ?? "strength",
+              id: testStrengthExercises["strength 1"]?.id!,
             },
             crudOperation: "create",
-            isBodyWeight: true,
+            isBodyWeight: false,
             hasWarmup: true,
+            numberOfSets: 3,
           },
-          // {
-          //   order: 2,
-          //   notes: "2nd exercise 1",
-          //   exerciseData: {
-          //     type: testStrengthExercises[1].type ?? "strength",
-          //     id: testStrengthExercises[1].id!,
-          //   },
-          //   crudOperation: "create",
-          // },
         ],
       },
       {
-        name: "Full Body Test Workout 2 ",
+        name: "workout for reps",
         notes: "A workout for testing purposes.",
         crudOperation: "create",
         ownerId: testUserId,
-
         workoutExercises: [
           {
             order: 1,
             notes: "First exercise 2",
             exerciseData: {
-              type: testStrengthExercises[1].type!,
-              id: testStrengthExercises[1].id!,
+              type: testStrengthExercises["strength 2"].type!,
+              id: testStrengthExercises["strength 2"].id!,
             },
             crudOperation: "create",
+            isBodyWeight: false,
+            hasWarmup: false,
+            numberOfSets: 3,
           },
         ],
       },
-      // {
-      //   name: "Full Body Test Workout 3",
-      //   notes: "A workout for testing purposes.",
-      //   crudOperation: "create",
-      //   workoutExercises: [
-      //     {
-      //       order: 1,
-      //       notes: "First exercise 4",
-      //       exerciseData: {
-      //         type: testStrengthExercises[3].type!,
-      //         id: testStrengthExercises[3].id!,
-      //       },
-      //       crudOperation: "create",
-      //       isBodyWeight: true,
-      //       hasWarmup: true,
-      //     },
-      //     {
-      //       order: 2,
-      //       notes: "2nd exercise 3",
-      //       exerciseData: {
-      //         type: testStrengthExercises[2].type!,
-      //         id: testStrengthExercises[2].id!,
-      //       },
-      //       crudOperation: "create",
-      //       isBodyWeight: true,
-      //       hasWarmup: true,
-      //     },
-      //   ],
-      // },
-      // {
-      //   name: "Full Body Test Workout 4",
-      //   notes: "A workout for testing purposes.",
-      //   crudOperation: "create",
-      //   workoutExercises: [
-      //     {
-      //       order: 1,
-      //       notes: "First exercise",
-      //       exerciseData: {
-      //         type: testStrengthExercises[0].type!,
-      //         id: testStrengthExercises[0].id!,
-      //       },
-      //       crudOperation: "create",
-      //       isBodyWeight: true,
-      //       hasWarmup: true,
-      //     },
-      //     {
-      //       order: 2,
-      //       notes: "2nd exercise 4",
-      //       exerciseData: {
-      //         type: testStrengthExercises[2].type!,
-      //         id: testStrengthExercises[2].id!,
-      //       },
-      //       crudOperation: "create",
-      //     },
-      //   ],
-      // },
+      {
+        name: "workout for weight",
+        notes: "A workout for testing purposes.",
+        crudOperation: "create",
+        ownerId: testUserId,
+        workoutExercises: [
+          {
+            order: 1,
+            notes: "First exercise 3",
+            exerciseData: {
+              type: testStrengthExercises["strength is compounded"].type!,
+              id: testStrengthExercises["strength is compounded"].id!,
+            },
+            crudOperation: "create",
+            isBodyWeight: false,
+            hasWarmup: false,
+            numberOfSets: 3,
+            maxNumberOfReps: 10,
+          },
+        ],
+      },
     ];
 
     for (const workout of workouts) {
@@ -227,61 +198,44 @@ describe("WorkoutPlanner API", () => {
         .set("Cookie", `token=${authToken}`)
         .send(workout);
       const workoutData: IWorkoutDTO = workoutRes.body.data;
-      testWorkouts.push(workoutData);
+      testWorkouts[workoutData.name as TWorkoutNames] = workoutData;
     }
 
-    workoutTwoId = testWorkouts.find(
-      (tw) => tw.name === "full body test workout 2"
-    )?.id;
-
-    workoutOneId = testWorkouts.find(
-      (tw) => tw.name === "full body test workout 1"
-    )?.id;
     const newProgram: IProgramEditDTO = {
-      name: "My New Lifting Program",
-      notes: "3-day split for strength.",
+      name: "test program 1",
+      notes: "A program for testing purposes.",
       startDate: "2025-08-01",
       endDate: "2025-10-31",
       ownerId: testUserId,
-
       isActive: true,
       programWorkouts: [
         {
           daysOfWeek: ["monday", "friday"],
           crudOperation: "create",
           workout: {
-            id: workoutOneId,
+            id: testWorkouts["workout for default get"].id,
           },
           workoutLevel: "beginner",
           workoutGoal: "hypertrophy",
         },
         {
-          daysOfWeek: ["monday", "friday"],
+          daysOfWeek: ["sunday"],
           crudOperation: "create",
           workout: {
-            id: workoutTwoId,
+            id: testWorkouts["workout for reps"].id,
           },
           workoutLevel: "beginner",
           workoutGoal: "hypertrophy",
         },
-        // {
-        //   daysOfWeek: ["monday", "friday"],
-        //   crudOperation: "create",
-        //   workout: {
-        //     id: testWorkouts[2].id,
-        //   },
-        //   level: "beginner",
-        //   workoutGoal: "hypertrophy",
-        // },
-        // {
-        //   daysOfWeek: ["monday", "friday"],
-        //   crudOperation: "create",
-        //   workout: {
-        //     id: testWorkouts[3].id,
-        //   },
-        //   level: "beginner",
-        //   workoutGoal: "hypertrophy",
-        // },
+        {
+          daysOfWeek: ["tuesday"],
+          crudOperation: "create",
+          workout: {
+            id: testWorkouts["workout for weight"].id,
+          },
+          workoutLevel: "beginner",
+          workoutGoal: "hypertrophy",
+        },
       ],
     };
 
@@ -291,229 +245,256 @@ describe("WorkoutPlanner API", () => {
       .send(newProgram);
 
     testPrograms.push(programRes.body.data);
-
-    const userWorkouts: IUserWorkoutEditDTO[] = [
-      {
-        dateCompleted: new Date("09/17/2025"),
-        ownerId: testUserId,
-        workoutId: workoutOneId,
-        programId: testPrograms[0].id,
-        userWorkoutExercises: [
-          {
-            workoutExerciseId:
-              testPrograms?.[0]?.programWorkouts?.find(
-                (pw) => pw?.workout?.name === "full body test workout 1"
-              )?.workout?.workoutExercises?.[0]?.id ?? "",
-            userStrengthSets: [
-              {
-                reps: 9,
-                weight: 5,
-                crudOperation: "create",
-                order: 1,
-              },
-              {
-                reps: 8,
-                weight: 5,
-                crudOperation: "create",
-                order: 2,
-              },
-              {
-                reps: 7,
-                weight: 5,
-                crudOperation: "create",
-                order: 3,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        dateCompleted: new Date("09/18/2025"),
-        ownerId: testUserId,
-        workoutId: workoutTwoId,
-        programId: testPrograms[0].id,
-        userWorkoutExercises: [
-          {
-            workoutExerciseId:
-              testPrograms?.[0]?.programWorkouts?.find(
-                (pw) => pw?.workout?.name === "full body test workout 2"
-              )?.workout?.workoutExercises?.[0]?.id ?? "",
-            userStrengthSets: [
-              {
-                reps: 15,
-                weight: 5,
-                crudOperation: "create",
-                order: 1,
-              },
-              {
-                reps: 15,
-                weight: 5,
-                crudOperation: "create",
-                order: 2,
-              },
-              {
-                reps: 15,
-                weight: 5,
-                crudOperation: "create",
-                order: 3,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        dateCompleted: new Date("09/19/2025"),
-        ownerId: testUserId,
-        workoutId: workoutTwoId,
-        programId: testPrograms[0].id,
-        userWorkoutExercises: [
-          {
-            workoutExerciseId:
-              testPrograms?.[0]?.programWorkouts?.find(
-                (pw) => pw?.workout?.name === "full body test workout 2"
-              )?.workout?.workoutExercises?.[0]?.id ?? "",
-            userStrengthSets: [
-              {
-                reps: 15,
-                weight: 5,
-                crudOperation: "create",
-                order: 1,
-              },
-              {
-                reps: 15,
-                weight: 5,
-                crudOperation: "create",
-                order: 2,
-              },
-              {
-                reps: 15,
-                weight: 5,
-                crudOperation: "create",
-                order: 3,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        dateCompleted: new Date("09/20/2025"),
-        ownerId: testUserId,
-        workoutId: workoutTwoId,
-        programId: testPrograms[0].id,
-        userWorkoutExercises: [
-          {
-            workoutExerciseId:
-              testPrograms?.[0]?.programWorkouts?.find(
-                (pw) => pw?.workout?.name === "full body test workout 2"
-              )?.workout?.workoutExercises?.[0]?.id ?? "",
-            userStrengthSets: [
-              {
-                reps: 15,
-                weight: 5,
-                crudOperation: "create",
-                order: 1,
-              },
-              {
-                reps: 15,
-                weight: 5,
-                crudOperation: "create",
-                order: 2,
-              },
-              {
-                reps: 15,
-                weight: 5,
-                crudOperation: "create",
-                order: 3,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        dateCompleted: new Date("09/21/2025"),
-        ownerId: testUserId,
-        workoutId: workoutTwoId,
-        programId: testPrograms[0].id,
-        userWorkoutExercises: [
-          {
-            workoutExerciseId:
-              testPrograms?.[0]?.programWorkouts?.find(
-                (pw) => pw?.workout?.name === "full body test workout 2"
-              )?.workout?.workoutExercises?.[0]?.id ?? "",
-            userStrengthSets: [
-              {
-                reps: 15,
-                weight: 5,
-                crudOperation: "create",
-                order: 1,
-              },
-              {
-                reps: 15,
-                weight: 5,
-                crudOperation: "create",
-                order: 2,
-              },
-              {
-                reps: 15,
-                weight: 5,
-                crudOperation: "create",
-                order: 3,
-              },
-            ],
-          },
-        ],
-      },
-    ];
-
-    for (const usw of userWorkouts) {
-      const userWorkoutRes = await request(app)
-        .post(userWorkoutEditBaseUrl)
-        .set("Cookie", `token=${authToken}`)
-        .send(usw);
-      const workoutData: IUserWorkoutDTO = userWorkoutRes.body.data;
-      testUserWorkouts.push(workoutData);
-    }
   });
 
   describe("GET /api/v1/workout-start/:workoutId", () => {
+    it("should GET the default workout start", async () => {
+      const res = await request(app)
+        .get(`${baseUrl}/${testWorkouts["workout for default get"].id}`)
+        .set("Cookie", `token=${authToken}`);
+      expect(res.status).toBe(200);
+      const userWorkout: IUserWorkoutEditDTO = res.body.data;
+      const { userWorkoutExercises } = userWorkout;
+      const is8Reps = userWorkoutExercises?.every((uwe) =>
+        uwe.userStrengthSets
+          ?.filter((uss) => !uss.isWarmup)
+          ?.every((uss) => uss.goalSet?.reps === 8)
+      );
+      expect(is8Reps).toBe(true);
+
+      const is0Weight = userWorkoutExercises?.every((uwe) =>
+        uwe.userStrengthSets
+          ?.filter((uss) => !uss.isWarmup)
+          .every((uss) => uss.goalSet?.weight === 0.5)
+      );
+      expect(is0Weight).toBe(true);
+
+      expect(
+        userWorkoutExercises?.some((uwe) =>
+          uwe.userStrengthSets?.some((uss) => uss.isWarmup)
+        )
+      ).toBe(true);
+    });
+
     it(
       "should GET the planed workout start with increased reps",
       async () => {
-        const res = await request(app)
-          .get(`${baseUrl}/${workoutOneId}`)
+        //Get default workout start
+        const workoutStartDefaultRes = await request(app)
+          .get(`${baseUrl}/${testWorkouts["workout for reps"].id}`)
           .set("Cookie", `token=${authToken}`);
 
-        expect(res.status).toBe(200);
-        expect(res.body.message).toMatch(
+        const workoutStartDefault = workoutStartDefaultRes.body
+          .data as IUserWorkoutEditDTO;
+        const workoutStartDefaultEdit: IUserWorkoutEditDTO = {
+          ...workoutStartDefault,
+          userWorkoutExercises: workoutStartDefault?.userWorkoutExercises?.map(
+            (uwe) => {
+              return {
+                ...uwe,
+                workoutExerciseId: uwe.workoutExerciseId,
+                userStrengthSets: uwe.userStrengthSets
+                  ?.filter((uss) => !uss.isWarmup)
+                  .sort((a, b) => (a.order! < b.order! ? -1 : 1))
+                  .map((uss, idx) => {
+                    return {
+                      ...uss,
+                      crudOperation: "create",
+                      reps: 10 - idx,
+                      weight: 5.5,
+                      isCompleted: true,
+                    };
+                  }),
+              };
+            }
+          ),
+        };
+
+        //Create a new workout-start with data
+        await request(app)
+          .post(userWorkoutEditBaseUrl)
+          .set("Cookie", `token=${authToken}`)
+          .send(workoutStartDefaultEdit);
+
+        //Get the workout start with previous data first check of increase reps
+        const updatedWorkoutStartRes = await request(app)
+          .get(`${baseUrl}/${testWorkouts["workout for reps"].id}`)
+          .set("Cookie", `token=${authToken}`);
+
+        expect(updatedWorkoutStartRes.status).toBe(200);
+        expect(updatedWorkoutStartRes.body.message).toMatch(
+          "Workout start was successfully planed"
+        );
+        debugger;
+
+        const updatedWorkoutStart = updatedWorkoutStartRes.body
+          .data as IUserWorkoutEditDTO;
+
+        updatedWorkoutStart?.userWorkoutExercises?.[0].userStrengthSets
+          ?.filter((uss) => !uss.isWarmup)
+          .sort((a, b) => (a.order! < b.order! ? -1 : 1))
+          .forEach((uss, idx) => expect(uss.goalSet?.reps).toBe(11 - idx));
+
+        const workoutStartPlannedEdit: IUserWorkoutEditDTO = {
+          ...updatedWorkoutStart,
+          userWorkoutExercises: updatedWorkoutStart?.userWorkoutExercises?.map(
+            (uwe) => {
+              return {
+                ...uwe,
+                workoutExerciseId: uwe.workoutExerciseId,
+                userStrengthSets: uwe.userStrengthSets
+                  ?.filter((uss) => !uss.isWarmup)
+                  .sort((a, b) => (a.order! < b.order! ? -1 : 1))
+                  .map((uss, idx) => {
+                    return {
+                      ...uss,
+                      crudOperation: "create",
+                      reps: uss?.goalSet?.reps ?? 0,
+                      weight: 5.5,
+                      isCompleted: true,
+                    };
+                  }),
+              };
+            }
+          ),
+        };
+
+        await request(app)
+          .post(userWorkoutEditBaseUrl)
+          .set("Cookie", `token=${authToken}`)
+          .send(workoutStartPlannedEdit);
+
+        const updatedWorkoutStartPlannedRes = await request(app)
+          .get(`${baseUrl}/${testWorkouts["workout for reps"].id}`)
+          .set("Cookie", `token=${authToken}`);
+
+        const updatedWorkoutStartPlanned = updatedWorkoutStartPlannedRes.body
+          .data as IUserWorkoutEditDTO;
+
+        updatedWorkoutStartPlanned?.userWorkoutExercises?.[0].userStrengthSets
+          ?.filter((uss) => !uss.isWarmup)
+          .sort((a, b) => (a.order! < b.order! ? -1 : 1))
+          .forEach((uss, idx) => expect(uss.goalSet?.reps).toBe(12 - idx));
+
+        const workoutStart2ndPlannedEdit: IUserWorkoutEditDTO = {
+          ...updatedWorkoutStartPlanned,
+          userWorkoutExercises:
+            updatedWorkoutStartPlanned?.userWorkoutExercises?.map((uwe) => {
+              return {
+                ...uwe,
+                workoutExerciseId: uwe.workoutExerciseId,
+                userStrengthSets: uwe.userStrengthSets
+                  ?.filter((uss) => !uss.isWarmup)
+                  .sort((a, b) => (a.order! < b.order! ? -1 : 1))
+                  .map((uss, idx) => {
+                    return {
+                      ...uss,
+                      crudOperation: "create",
+                      reps: 15 - (idx > 1 ? 1 : 0),
+                      weight: 5.5,
+                      isCompleted: true,
+                    };
+                  }),
+              };
+            }),
+        };
+
+        await request(app)
+          .post(userWorkoutEditBaseUrl)
+          .set("Cookie", `token=${authToken}`)
+          .send(workoutStart2ndPlannedEdit);
+
+        const updatedWorkoutStart2ndPlannedRes = await request(app)
+          .get(`${baseUrl}/${testWorkouts["workout for reps"].id}`)
+          .set("Cookie", `token=${authToken}`);
+
+        const updatedWorkoutStart2ndPlanned = updatedWorkoutStart2ndPlannedRes
+          .body.data as IUserWorkoutEditDTO;
+
+        updatedWorkoutStart2ndPlanned?.userWorkoutExercises?.[0].userStrengthSets
+          ?.filter((uss) => !uss.isWarmup)
+          .sort((a, b) => (a.order! < b.order! ? -1 : 1))
+          .forEach((uss, idx) => expect(uss.goalSet?.reps).toBe(15));
+      },
+      60 * 60 * 1000
+    );
+
+    it(
+      "should GET the planed workout start with increased weight",
+      async () => {
+        //Get default workout start
+
+        const x = await logStrengthIncrease(
+          baseUrl,
+          testWorkouts["workout for weight"].id!,
+          authToken,
+          userWorkoutEditBaseUrl,
+          5
+        );
+        //Get the workout start with previous data first check of increase reps
+        const updatedWorkoutStartRes = await request(app)
+          .get(`${baseUrl}/${testWorkouts["workout for weight"].id}`)
+          .set("Cookie", `token=${authToken}`);
+
+        expect(updatedWorkoutStartRes.status).toBe(200);
+        expect(updatedWorkoutStartRes.body.message).toMatch(
           "Workout start was successfully planed"
         );
 
-        const userWorkoutRes = res.body.data as IUserWorkoutEditDTO;
+        const updatedWorkoutStart = updatedWorkoutStartRes.body
+          .data as IUserWorkoutEditDTO;
 
-        userWorkoutRes?.userWorkoutExercises?.[0].userStrengthSets
+        updatedWorkoutStart?.userWorkoutExercises?.[0].userStrengthSets
           ?.filter((uss) => !uss.isWarmup)
-          .forEach((uss, idx) => expect(uss.goalSet?.reps).toBe(10 - idx));
-      },
-      60 * 60
-    );
+          .sort((a, b) => (a.order! < b.order! ? -1 : 1))
+          .forEach((uss) => expect(uss.goalSet?.weight).toBe(5.5));
+        //END OF FIRST PART
 
-    it("should GET the planed workout start with increased weight", async () => {
-      const workoutId = testWorkouts.find(
-        (tw) => tw.name === "full body test workout 2"
-      )?.id;
-      const res = await request(app)
-        .get(`${baseUrl}/${workoutId}`)
-        .set("Cookie", `token=${authToken}`);
-      expect(res.status).toBe(200);
-      expect(res.body.message).toMatch("Workout start was successfully planed");
-      const userWorkoutRes = res.body.data as IUserWorkoutEditDTO;
-      userWorkoutRes.userWorkoutExercises?.[0].userStrengthSets
-        ?.filter((uss) => !uss.isWarmup)
-        .forEach((uss) => {
-          expect(uss.goalSet?.reps).toBe(8);
-          expect(uss.goalSet?.weight).toBe(5.5);
-        });
-    });
+        const y = await logStrengthIncrease(
+          baseUrl,
+          testWorkouts["workout for weight"].id!,
+          authToken,
+          userWorkoutEditBaseUrl,
+          5.5
+        );
+        debugger;
+
+        const updatedWorkoutStartPlannedRes = await request(app)
+          .get(`${baseUrl}/${testWorkouts["workout for weight"].id}`)
+          .set("Cookie", `token=${authToken}`);
+
+        const updatedWorkoutStartPlanned = updatedWorkoutStartPlannedRes.body
+          .data as IUserWorkoutEditDTO;
+
+        updatedWorkoutStartPlanned?.userWorkoutExercises?.[0].userStrengthSets
+          ?.filter((uss) => !uss.isWarmup)
+          .sort((a, b) => (a.order! < b.order! ? -1 : 1))
+          .forEach((uss, idx) => expect(uss.goalSet?.weight).toBe(6));
+
+        //END OF SECOND PART
+
+        await logStrengthIncrease(
+          baseUrl,
+          testWorkouts["workout for weight"].id!,
+          authToken,
+          userWorkoutEditBaseUrl,
+          7
+        );
+
+        const updatedWorkoutStart2ndPlannedRes = await request(app)
+          .get(`${baseUrl}/${testWorkouts["workout for weight"].id}`)
+          .set("Cookie", `token=${authToken}`);
+
+        const updatedWorkoutStart2ndPlanned = updatedWorkoutStart2ndPlannedRes
+          .body.data as IUserWorkoutEditDTO;
+
+        updatedWorkoutStart2ndPlanned?.userWorkoutExercises?.[0].userStrengthSets
+          ?.filter((uss) => !uss.isWarmup)
+          .sort((a, b) => (a.order! < b.order! ? -1 : 1))
+          .forEach((uss, idx) => expect(uss.goalSet?.weight).toBe(7.5));
+      },
+      60 * 60 * 1000
+    );
   });
 
   afterAll(async () => {
@@ -528,18 +509,19 @@ describe("WorkoutPlanner API", () => {
       }
     }
 
-    if (testWorkouts.length > 0) {
-      for (const { id } of testWorkouts) {
+    if (testWorkouts) {
+      for (const workout of Object.values(testWorkouts)) {
         await request(app)
-          .delete(`/api/v1/workouts/${id}`)
+          .delete(`/api/v1/workouts/${workout.id}`)
           .set("Cookie", `token=${authToken}`)
           .catch((err) => {
             console.error(err);
           });
       }
     }
-    if (testStrengthExercises.length > 0) {
-      for (const exercise of testStrengthExercises) {
+
+    if (testStrengthExercises) {
+      for (const exercise of Object.values(testStrengthExercises)) {
         await request(app)
           .delete(`/api/v1/exercises/${exercise.id}`)
           .set("Cookie", `token=${authToken}`)
@@ -570,3 +552,69 @@ describe("WorkoutPlanner API", () => {
     }
   });
 });
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+const logStrengthIncrease = async (
+  baseUrl: string,
+  workoutId: string,
+  authToken: string,
+  userWorkoutEditBaseUrl: string,
+  weight: number
+) => {
+  const results: IUserWorkoutEditDTO[] = [];
+
+  for (let i = 0; i < 3; i++) {
+    const res = await logStrengthIncreaseItem(
+      baseUrl,
+      workoutId,
+      authToken,
+      userWorkoutEditBaseUrl,
+      weight
+    );
+    results.push(res);
+    await sleep(100);
+  }
+
+  return results;
+};
+
+const logStrengthIncreaseItem = async (
+  baseUrl: string,
+  workoutId: string,
+  authToken: string,
+  userWorkoutEditBaseUrl: string,
+  weight: number
+): Promise<IUserWorkoutEditDTO> => {
+  const userWorkout: IUserWorkoutEditDTO = await request(app)
+    .get(`${baseUrl}/${workoutId}`)
+    .set("Cookie", `token=${authToken}`)
+    .then((res) => res.body.data);
+
+  const updatedUserWorkout: IUserWorkoutEditDTO = {
+    ...userWorkout,
+    userWorkoutExercises: userWorkout?.userWorkoutExercises?.map((uwe) => {
+      return {
+        ...uwe,
+        workoutExerciseId: uwe.workoutExerciseId,
+        userStrengthSets: uwe.userStrengthSets
+          ?.filter((uss) => !uss.isWarmup)
+          .sort((a, b) => (a.order! < b.order! ? -1 : 1))
+          .map((uss, idx) => {
+            return {
+              ...uss,
+              crudOperation: "create",
+              reps: 10,
+              weight,
+              isCompleted: true,
+            };
+          }),
+      };
+    }),
+  };
+
+  return await request(app)
+    .post(userWorkoutEditBaseUrl)
+    .set("Cookie", `token=${authToken}`)
+    .send(updatedUserWorkout)
+    .then((res) => res.body.data);
+};

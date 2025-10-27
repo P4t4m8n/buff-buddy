@@ -107,7 +107,8 @@ const createFactorySchema = ({ toSanitize = false }: IToSanitize) => {
       })
       .optional(),
     type: ExerciseTypeSchema,
-    isCompounded: validationUtil.BooleanSchema.default(false),
+    isCompounded: validationUtil.BooleanSchema.optional(),
+    isSeparateHands: validationUtil.BooleanSchema.optional(),
     equipment: z
       .array(
         exerciseInfoFactorySchema({ toSanitize, name: "Equipment name" }),

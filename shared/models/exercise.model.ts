@@ -4,13 +4,14 @@ import { EXERCISE_INFO } from "../consts/exercise.consts";
 import type { IBaseFilter } from "./app.model";
 import type { IMuscleEditDTO, IMuscleDTO } from "./muscle.model";
 import type { IEquipmentDTO, IEquipmentEditDTO } from "./equipment.model";
-import type { IID, IEntityDates } from "./entity.model";
+import type { IEntity } from "./entity.model";
 import type { ExerciseType } from "../../backend/prisma/generated/prisma";
 
-interface IExerciseBase extends IID, IEntityDates {
+interface IExerciseBase extends IEntity {
   name?: string;
   youtubeUrl?: string | null;
   isCompounded?: boolean | null;
+  isSeparateHands?: boolean | null;
   type?: ExerciseType | null;
   ownerId?: string | null;
 }
