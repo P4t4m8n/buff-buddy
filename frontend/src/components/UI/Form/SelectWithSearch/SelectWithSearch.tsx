@@ -51,7 +51,7 @@ export default function SelectWithSearch<T, P>({
     modelPositionClass
   );
   const selectedDivStyle = twMerge(
-    "inline-flex items-center  w-full border rounded px-2 h-10",
+    "inline-flex items-center  w-full border rounded p-2 h-fit",
     error
       ? "border-error-red text-error-red fill-error-red"
       : "fill-main-orange"

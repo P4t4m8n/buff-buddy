@@ -41,7 +41,6 @@ export default function ExerciseEdit({
     onInputChange,
   } = useExerciseEdit({ exerciseId });
 
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -61,14 +60,22 @@ export default function ExerciseEdit({
     return <Loader loaderType="screen" isFullScreen={false} />;
   }
 
-  const { id, muscles, equipment, type, name, youtubeUrl, isCompounded } =
-    exerciseToEdit || {};
+  const {
+    id,
+    muscles,
+    equipment,
+    type,
+    name,
+    youtubeUrl,
+    isCompounded,
+    isSeparateHands,
+  } = exerciseToEdit || {};
 
   return (
     <form
       ref={modelRef}
       onSubmit={onSubmit}
-      className="bg-black-500 p-4 grid gap-4 rounded w-[calc(100%-1rem)]
+      className="bg-black-500 p-4 grid gap-4  rounded w-[calc(100%-1rem)]
                    max-w-96 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 border"
     >
       <Input hidden defaultValue={id} name="id" />
@@ -98,13 +105,24 @@ export default function ExerciseEdit({
         parentId={id}
         onInputChange={onInputChange}
       />
+      <div className=" inline-flex justify-between w-full">
+
+
       <CheckBox
         name="isCompounded"
         id={"isCompounded"}
         defaultChecked={!!isCompounded}
-        labelText="Compound Movement"
+        labelText="Compound Move"
         error={errors?.isCompounded}
-      />
+        />
+      <CheckBox
+        name="isSeparateHands"
+        id={"isSeparateHands"}
+        defaultChecked={!!isSeparateHands}
+        labelText="Separate Hands"
+        error={errors?.isSeparateHands}
+        />
+        </div>
 
       <SelectWithSearch
         options={EXERCISE_TYPES}

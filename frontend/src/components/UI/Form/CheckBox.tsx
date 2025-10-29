@@ -14,7 +14,7 @@ export default function CheckBox({
 }: ICheckBoxProps) {
   return (
     <InputWithError
-      divStyle="flex f items-center gap-2"
+      divStyle="flex items-center gap-2"
       inputProps={{
         ...props,
         hidden: true,
@@ -24,7 +24,7 @@ export default function CheckBox({
       labelProps={{
         labelPosition: "input",
         className:
-          "peer-checked:border-main-orange peer-checked:[&>svg]:w-5 peer-checked:[&>svg]:h-5 peer-checked:[&>svg]:p-1 border border-gray-400 transition-all px-2 py-1 rounded flex items-center duration-500 gap-2 w-fit cursor-pointer",
+          "peer-checked:border-main-orange peer-checked:[&>svg]:w-5 peer-checked:[&>svg]:h-5 peer-checked:gap-2 peer-checked:[&>svg]:p-1 border border-gray-400 transition-all px-2 py-1 rounded flex items-center duration-500 w-fit cursor-pointer",
         htmlFor: props.id,
         children: (
           <>

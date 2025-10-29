@@ -21,7 +21,7 @@ export default function OptionsModelListItem<T>({
         type="button"
       >
         <p className="text-xs">{toTitle(filterBy(item))}</p>
-        <IconPlus className=" h-full aspect-square stroke-main-orange ml-auto" />
+        <IconPlus className=" h-4 aspect-square stroke-main-orange ml-auto" />
       </Button>
     </li>
   );

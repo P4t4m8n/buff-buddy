@@ -22,7 +22,7 @@ export default function OptionModelList<T>({
   AddComponent,
 }: IOptionModelListProps<T>) {
   const modelStyle = twMerge(
-    "absolute shadow-[0px_0px_6px_1px_rgba(0,0,0,1)] border rounded p-2 w-full grid grid-rows-[2rem_auto_1fr] z-50 gap-[.5rem] h-96 bg-black-300 ",
+    "absolute shadow-[0px_0px_6px_1px_rgba(0,0,0,1)] border rounded p-2 w-full grid grid-rows-[2rem_auto_1fr] z-50 gap-[.5rem] h-40 bg-black-300 ",
     modelPositionClass
   );
   return (

@@ -81,7 +81,7 @@ export default function SelectMultiWithSearch<T, P>({
   );
 
   const selectedDivStyle = twMerge(
-    "inline-flex items-center gap-2 w-full border rounded pl-2 h-fit py-2",
+    "flex items-center gap-2 w-full border rounded p-2 h-fit",
     error ? "border-error-red" : ""
   );
 
@@ -104,7 +104,7 @@ export default function SelectMultiWithSearch<T, P>({
         />
       );
     }
-    return <p className="text-gray-500">No selected {toTitle(inputName)}</p>;
+    return <p className="text-gray-500 text-sm">No selected {toTitle(inputName)}</p>;
   };
 
   return (
@@ -113,7 +113,7 @@ export default function SelectMultiWithSearch<T, P>({
       <div className={selectedDivStyle}>
         {getSelectedElement()}
         <Button
-          className=" cursor-pointer h-8 aspect-square ml-auto"
+          className=" cursor-pointer h-6 aspect-square ml-auto"
           onClick={handleModelWithPosition}
         >
           <IconArrow className={iconArrowStyle} />
