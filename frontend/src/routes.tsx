@@ -16,9 +16,9 @@ import ProgramEditPage from "./pages/Program/ProgramEditPage";
 import MealPage from "./pages/Meal/MealPage";
 import MealEditPage from "./pages/Meal/MealEditPage";
 import FoodItemEditPage from "./pages/FoodItem/FoodItemEditPage";
-import ExercisePage from "./pages/Exercise/ExercisePage";
-import ExerciseEditPage from "./pages/Exercise/ExerciseEditPage";
-import ExerciseDetailsPage from "./pages/Exercise/ExerciseDetailsPage";
+import ExercisePage from "./pages/Exercisedddd/ExercisePage";
+import ExerciseEditPage from "./pages/Exercisedddd/ExerciseEditPage";
+import ExerciseDetailsPage from "./pages/Exercisedddd/ExerciseDetailsPage";
 //Consts
 import { ROUTES_STORE } from "./consts/routes.const";
 //Types
