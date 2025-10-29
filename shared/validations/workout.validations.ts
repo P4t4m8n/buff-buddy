@@ -81,7 +81,7 @@ const QuerySchema = validationUtil.FilterSchema.extend({
   isTemplate: z
     .string()
     .transform((val) => {
-      return val === "on" ? true : val === "off" ? false : undefined;
+      return val === "true" ? true : val === "false" ? false : undefined;
     })
     .optional(),
 });

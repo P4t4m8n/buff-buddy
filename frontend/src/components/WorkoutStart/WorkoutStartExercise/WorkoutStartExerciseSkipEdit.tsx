@@ -1,10 +1,10 @@
 import { useRef } from "react";
 
-import Button from "../UI/Button";
-import Label from "../UI/Form/Label";
-import TextArea from "../UI/Form/TextArea";
+import Button from "../../UI/Button";
+import Label from "../../UI/Form/Label";
+import TextArea from "../../UI/Form/TextArea";
 
-import type { IModelProps } from "../../models/model.model";
+import type { IModelProps } from "../../../models/model.model";
 
 interface IWorkoutStartExerciseSkipEditProps
   extends IModelProps<HTMLDivElement> {

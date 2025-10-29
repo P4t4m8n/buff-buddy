@@ -1,4 +1,4 @@
-import NumberInputWIthError from "../../UI/Form/NumberInputWIthError";
+import NumberInputWIthError from "../../../UI/Form/NumberInputWIthError";
 
 interface INumberInput {
   name: string;
@@ -46,7 +46,7 @@ export default function WorkoutStartUserStrengthSetsInput({
         onChange={handleUserSetsChange!}
         inputId={userSetId}
         error={input.error}
-        label={input.label}
+        labelText={input.label}
       />
     );
   };

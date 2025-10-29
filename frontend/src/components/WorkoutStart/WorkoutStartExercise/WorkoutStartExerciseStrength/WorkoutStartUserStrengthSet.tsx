@@ -1,19 +1,20 @@
-import GenericModel from "../../UI/GenericModel";
+import GenericModel from "../../../UI/GenericModel";
 
-import type { IUserStrengthSetEditDTO } from "../../../../../shared/models/userStrengthSet.model";
-import type { TWorkoutStartUserSetsProps } from "../../../models/workoutStart.model";
+import type { IUserStrengthSetEditDTO } from "../../../../../../shared/models/userStrengthSet.model";
+import type { TWorkoutStartUserSetsProps } from "../../../../models/workoutStart.model";
 import WorkoutStartUserStrengthSetLog, {
   type IWorkoutStartUserStrengthSetLogProps,
 } from "./WorkoutStartUserStrengthSetLog";
-import IconCheckMark from "../../UI/Icons/IconCheckMark";
-import IconInactive from "../../UI/Icons/IconInactive";
-import IconSkip from "../../UI/Icons/IconSkip";
+import IconCheckMark from "../../../UI/Icons/IconCheckMark";
+import IconInactive from "../../../UI/Icons/IconInactive";
+import IconSkip from "../../../UI/Icons/IconSkip";
 
 export default function WorkoutStartUserStrengthSet({
   item: userSet,
   errors: serverErrors,
 }: TWorkoutStartUserSetsProps<IUserStrengthSetEditDTO>) {
-  const { isWarmup, goalSet, isCompleted, skippedReason } = userSet ?? {};
+  const { isWarmup, goalSet, isCompleted, skippedReason, reps, weight } =
+    userSet ?? {};
 
   if (isCompleted) {
   }
@@ -26,13 +27,13 @@ export default function WorkoutStartUserStrengthSet({
         <span className="flex flex-col items-center">
           <h5 className="text-sm">Reps</h5>
           <p className="border rounded  w-9 aspect-square flex-center">
-            {goalReps}
+            {reps ?? goalReps}
           </p>
         </span>
         <span className="flex flex-col items-center">
           <h5 className="text-sm">Weight</h5>
           <p className="border rounded  w-9  aspect-square flex-center">
-            {goalWeight || "BW"}
+            {weight ?? (goalWeight || "BW")}
           </p>
         </span>
         <div className="grid justify-items-center text-sm ">

@@ -1,6 +1,6 @@
-import Button from "../UI/Button";
+import Button from "../../UI/Button";
 
-import type { IModelProps } from "../../models/model.model";
+import type { IModelProps } from "../../../models/model.model";
 
 interface IWorkoutStartExerciseSkipDetailsModelProps
   extends IModelProps<HTMLDivElement> {

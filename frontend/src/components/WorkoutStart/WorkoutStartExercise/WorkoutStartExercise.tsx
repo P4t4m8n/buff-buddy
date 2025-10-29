@@ -1,28 +1,28 @@
 import { memo, useCallback, useMemo } from "react";
 import { twMerge } from "tailwind-merge";
 
-import { useModel } from "../../hooks/shared/useModel";
+import { useModel } from "../../../hooks/shared/useModel";
 
 import WorkoutStartExerciseItemNotes from "./WorkoutStartExerciseItemNotes";
 import WorkoutStartUserStrengthSet from "./WorkoutStartExerciseStrength/WorkoutStartUserStrengthSet";
 import WorkoutStartUserCardioSets from "./WorkoutStartExerciseCardio/WorkoutStartUserCardioSets";
 import WorkoutStartExerciseVideo from "./WorkoutStartExerciseVideo";
+
+import GenericModel from "../../UI/GenericModel";
+import Button from "../../UI/Button";
+import IconArrow from "../../UI/Icons/IconArrow";
+import GenericList from "../../UI/GenericList";
+
+import type { IUserCardioSetEditDTO } from "../../../../../shared/models/userCardioSet.model";
+import type { IUserStrengthSetEditDTO } from "../../../../../shared/models/userStrengthSet.model";
+import type { ExerciseType } from "../../../../../backend/prisma/generated/prisma";
+import type { IWorkoutStartExerciseItemProps } from "../../../models/workoutStart.model";
+import toTitle from "../../../utils/toTitle";
+import { useWorkoutStartContext } from "../../../hooks/features/workoutStart/useWorkoutStartContext";
+import type { IUserWorkoutExercisesEditDTO } from "../../../../../shared/models/userWorkout";
+import IconCheckMark from "../../UI/Icons/IconCheckMark";
+import IconInactive from "../../UI/Icons/IconInactive";
 import WorkoutStartExerciseSkipEdit from "./WorkoutStartExerciseSkipEdit";
-
-import GenericModel from "../UI/GenericModel";
-import Button from "../UI/Button";
-import IconArrow from "../UI/Icons/IconArrow";
-import GenericList from "../UI/GenericList";
-
-import type { IUserCardioSetEditDTO } from "../../../../shared/models/userCardioSet.model";
-import type { IUserStrengthSetEditDTO } from "../../../../shared/models/userStrengthSet.model";
-import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
-import type { IWorkoutStartExerciseItemProps } from "../../models/workoutStart.model";
-import toTitle from "../../utils/toTitle";
-import { useWorkoutStartContext } from "../../hooks/features/workoutStart/useWorkoutStartContext";
-import type { IUserWorkoutExercisesEditDTO } from "../../../../shared/models/userWorkout";
-import IconCheckMark from "../UI/Icons/IconCheckMark";
-import IconInactive from "../UI/Icons/IconInactive";
 
 function WorkoutStartExercise({ item }: IWorkoutStartExerciseItemProps) {
   const { isOpen, handleModel } = useModel({});

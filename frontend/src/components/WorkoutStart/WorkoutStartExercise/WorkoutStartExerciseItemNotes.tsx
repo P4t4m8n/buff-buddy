@@ -1,6 +1,6 @@
-import { useModel } from "../../hooks/shared/useModel";
-import Button from "../UI/Button";
-import IconArrow from "../UI/Icons/IconArrow";
+import { useModel } from "../../../hooks/shared/useModel";
+import Button from "../../UI/Button";
+import IconArrow from "../../UI/Icons/IconArrow";
 
 interface IWorkoutExerciseItemNotsProps {
   notes?: string | null;

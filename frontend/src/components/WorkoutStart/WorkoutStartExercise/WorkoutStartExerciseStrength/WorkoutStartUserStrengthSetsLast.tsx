@@ -1,8 +1,8 @@
-import GenericModel from "../../UI/GenericModel";
-import IconCheckMark from "../../UI/Icons/IconCheckMark";
-import IconInactive from "../../UI/Icons/IconInactive";
+import GenericModel from "../../../UI/GenericModel";
+import IconCheckMark from "../../../UI/Icons/IconCheckMark";
+import IconInactive from "../../../UI/Icons/IconInactive";
 import WorkoutStartExerciseSkipDetailsModel from "../WorkoutStartExerciseSkipDetailsModel";
-import type { IUserStrengthLastSet } from "../../../../../shared/models/userStrengthSet.model";
+import type { IUserStrengthLastSet } from "../../../../../../shared/models/userStrengthSet.model";
 
 interface IWorkoutStartUserSetsLastProps extends IUserStrengthLastSet {
   isWarmup?: boolean | null;
@@ -46,7 +46,7 @@ export default function WorkoutStartUserStrengthSetsLast({
           </span>
           <span className="flex flex-col gap-1 text-center">
             <h5>Weight</h5>
-            <p className=" leading-4">{lastWeight}</p>
+            <p className=" leading-4">{lastWeight || "Body Weight"}</p>
           </span>
         </>
       )}

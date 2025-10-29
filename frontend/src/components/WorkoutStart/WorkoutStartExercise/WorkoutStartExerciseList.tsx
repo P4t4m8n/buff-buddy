@@ -2,14 +2,14 @@ import { useMemo } from "react";
 
 import WorkoutStartExerciseItem from "./WorkoutStartExercise";
 
-import GenericList from "../UI/GenericList";
+import GenericList from "../../UI/GenericList";
 
 import type {
   IUserWorkoutDTO,
   IUserWorkoutExercisesEditDTO,
-} from "../../../../shared/models/userWorkout";
-import type { TErrors, TValidationError } from "../../models/errors.model";
-import type { TItemProps } from "../../models/workoutStart.model";
+} from "../../../../../shared/models/userWorkout";
+import type { TErrors, TValidationError } from "../../../models/errors.model";
+import type { TItemProps } from "../../../models/workoutStart.model";
 
 interface IWorkoutStartExerciseListProps {
   userWorkoutExercises: IUserWorkoutExercisesEditDTO[];

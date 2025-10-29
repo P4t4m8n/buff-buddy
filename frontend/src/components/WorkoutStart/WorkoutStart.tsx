@@ -5,7 +5,7 @@ import { useMemo } from "react";
 //Context
 import { WorkoutStartContext } from "../../hooks/context/WorkoutStartContext";
 //Components
-import WorkoutStartExerciseItem from "./WorkoutStartExercise";
+import WorkoutStartExercise from "./WorkoutStartExercise/WorkoutStartExercise";
 //UI
 import Button from "../../components/UI/Button";
 import GenericSaveButton from "../../components/UI/GenericSaveButton";
@@ -77,9 +77,9 @@ export default function WorkoutStart({ workoutId }: IWorkoutStartProps) {
       <WorkoutStartContext value={useWorkoutStartHook}>
         <GenericList
           items={sortedWorkoutExercises}
-          ItemComponent={WorkoutStartExerciseItem}
+          ItemComponent={WorkoutStartExercise}
           getKey={(we) => we.userWorkoutExercise.id!}
-          ulStyle=" flex flex-col h-full  gap-2 px-mobile overflow-y-auto"
+          ulStyle=" flex flex-col h-full  gap-2 px-mobile "
         />
       </WorkoutStartContext>
 

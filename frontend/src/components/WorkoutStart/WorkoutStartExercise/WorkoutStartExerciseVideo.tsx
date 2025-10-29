@@ -1,6 +1,6 @@
-import { useModel } from "../../hooks/shared/useModel";
-import Button from "../UI/Button";
-import YoutubePlayer from "../UI/YoutubePlayer";
+import { useModel } from "../../../hooks/shared/useModel";
+import Button from "../../UI/Button";
+import YoutubePlayer from "../../UI/YoutubePlayer";
 
 interface IWorkoutStartExerciseVideoProps {
   youtubeUrl?: string | null;

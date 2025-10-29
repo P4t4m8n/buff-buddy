@@ -1,5 +1,5 @@
-import type { IUserCardioLastSet } from "../../../../../shared/models/userCardioSet.model";
-import GenericList from "../../UI/GenericList";
+import type { IUserCardioLastSet } from "../../../../../../shared/models/userCardioSet.model";
+import GenericList from "../../../UI/GenericList";
 
 interface IWorkoutStartUserCardioLastProps {
   lastSet?: IUserCardioLastSet | null;
