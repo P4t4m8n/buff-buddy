@@ -19,7 +19,7 @@ export default function NutritionEditNumber({
         name={name}
         inputId={inputId}
         value={(value as string) ?? 0}
-        label={name}
+        labelText={name}
       />
     </li>
   );

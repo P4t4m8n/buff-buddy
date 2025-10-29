@@ -68,7 +68,7 @@ export default function MealFoodItemEditModel({
       {foodItem ? (
         <div className="flex flex-col gap-4">
           <NumberInputWIthError
-            label="quantity"
+            labelText="quantity"
             name="quantity"
             value={quantity || ""}
             inputId={foodItemToEditId}
