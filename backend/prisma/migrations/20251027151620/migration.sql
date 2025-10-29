@@ -1,5 +1,0 @@
--- AlterTable
-ALTER TABLE "WorkoutExercise" ALTER COLUMN "maxNumberOfReps" DROP NOT NULL,
-ALTER COLUMN "maxNumberOfReps" DROP DEFAULT,
-ALTER COLUMN "numberOfSets" DROP NOT NULL,
-ALTER COLUMN "numberOfSets" DROP DEFAULT;
