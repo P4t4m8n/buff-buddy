@@ -9,25 +9,29 @@ import { exerciseValidation } from "../../../shared/validations/exercise.validat
 import type { IExerciseEditDTO } from "../../../shared/models/exercise.model";
 
 export const seedExercises = async () => {
+  const exerciseJson = fs.readFileSync(
+    path.join(__dirname, "jsons", "exercises.json"),
+    "utf-8"
+  );
+
+  const data: IExerciseEditDTO[] = JSON.parse(exerciseJson);
+
+  const exercisesPromises = data.map((exercise) => {
+    return seedExercise(exercise);
+  });
+
+  await Promise.all(exercisesPromises);
+
+  return "Exercises seeded successfully";
+};
+
+const seedExercise = async (exercise: IExerciseEditDTO) => {
   try {
-    const exerciseJson = fs.readFileSync(
-      path.join(__dirname, "jsons", "exercises.json"),
-      "utf-8"
-    );
+    const validatedData = exerciseValidation
+      .createFactorySchema({ toSanitize: true })
+      .parse(exercise);
 
-    const data: IExerciseEditDTO[] = JSON.parse(exerciseJson);
-
-    const exercisesPromises = data.map((exercise) => {
-      const validatedData = exerciseValidation
-        .createFactorySchema({ toSanitize: true })
-        .parse(exercise);
-
-      return exerciseService.create(validatedData);
-    });
-
-    await Promise.all(exercisesPromises);
-
-    return "Exercises seeded successfully";
+    return await exerciseService.create(validatedData);
   } catch (error) {
     const err = AppError.handleResponse(error);
     console.error(" ~ seedExercises ~ err:", err);

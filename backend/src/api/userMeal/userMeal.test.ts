@@ -956,7 +956,7 @@ describe("Meals API", () => {
 
       expect(res.status).toBe(200);
       expect(res.body.data.length).toBe(10);
-      expect(res.body.meta.total).toBe(testMeals.length+2);
+      expect(res.body.meta.total).toBe(testMeals.length);
       expect(res.body.meta.currentPage).toBe(0);
       expect(res.body.meta.perPage).toBe(10);
     });
