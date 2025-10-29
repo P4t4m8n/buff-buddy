@@ -55,3 +55,21 @@ export interface IItemPreviewProps<DTO, ActionRoute> {
     isCopy?: boolean
   ) => void;
 }
+
+export interface ICheckBoxProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  divStyle?: string;
+  labelText?: string;
+  error?: string;
+}
+
+export interface INumberInputWithErrorProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  name?: string;
+  inputId?: string;
+  value?: number | string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
+  divStyle?: string;
+  labelText?: string;
+}

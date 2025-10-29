@@ -2,7 +2,7 @@ import type {
   IProgramDTO,
   IProgramEditDTO,
 } from "../../../shared/models/program.model";
-import { getTempId } from "../../../shared/utils/getTempId";
+import  getTempId  from "../../../shared/utils/getTempId";
 import { workoutUtil } from "./workout.util";
 
 const dtoToEditDto = ({ dto }: { dto: IProgramDTO }): IProgramEditDTO => {

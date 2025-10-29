@@ -3,7 +3,7 @@ import type {
   IMealDTO,
   IMealFoodItemDTO,
 } from "../../../shared/models/meal.model";
-import { getTempId } from "../../../shared/utils/getTempId";
+import  getTempId  from "../../../shared/utils/getTempId";
 import type { TNutritionKey } from "../models/meal.model";
 import { mealFoodItemUtil } from "./mealFoodItem.util";
 

@@ -1,20 +1,18 @@
+import { twMerge } from "tailwind-merge";
+import type { ICheckBoxProps } from "../../../models/UI.model";
 import IconCheckMark from "../Icons/IconCheckMark";
 import InputWithError from "./InputWithError";
 
-interface ICheckBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  divStyle?: string;
-  labelText?: string;
-  error?: string;
-}
 export default function CheckBox({
   divStyle,
   labelText,
   error,
   ...props
 }: ICheckBoxProps) {
+  const ContainerStyle = twMerge("flex items-center gap-2", divStyle);
   return (
     <InputWithError
-      divStyle="flex items-center gap-2"
+      divStyle={ContainerStyle}
       inputProps={{
         ...props,
         hidden: true,

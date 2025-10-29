@@ -146,6 +146,7 @@ export default function WorkoutStartUserStrengthSetLog({
             skippedReason,
             userSetId,
             handleUserSetSkip,
+            handleParentModel: handleModel,
           }}
           buttonProps={{
             className: "text-black hover:text-black w-full  text-black",

@@ -96,6 +96,7 @@ const getExerciseCreate = (
     youtubeUrl: dto.youtubeUrl,
     type: dto.type,
     isCompounded: dto.isCompounded,
+    isSeparateHands: dto.isSeparateHands,
     equipment: {
       connect: dto.equipment.map((e) => ({ name: e.name })),
     },
@@ -124,7 +125,15 @@ const getExerciseCreate = (
 const getExerciseUpdate = (
   dto: TExerciseUpdateValidatedInput
 ): Prisma.ExerciseUpdateInput => {
-  const { muscles, equipment, name, youtubeUrl, type, isCompounded } = dto;
+  const {
+    muscles,
+    equipment,
+    name,
+    youtubeUrl,
+    type,
+    isCompounded,
+    isSeparateHands,
+  } = dto;
   const muscleToDelete: Prisma.MuscleWhereUniqueInput[] = [];
   const musclesToConnect: Prisma.MuscleWhereUniqueInput[] = [];
 
@@ -165,6 +174,7 @@ const getExerciseUpdate = (
     youtubeUrl,
     type,
     isCompounded,
+    isSeparateHands,
   });
   return {
     ...cleanData,

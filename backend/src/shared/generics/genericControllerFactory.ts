@@ -42,7 +42,7 @@ export const genericControllerFactory = <
     getAll: async (req: Request, res: Response) => {
       try {
         let userId = undefined;
-
+        
         if (isAuth) userId = _authUser();
 
         const filter = validation.QuerySchema.parse(req.query);

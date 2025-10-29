@@ -18,7 +18,7 @@ import type { IUserCardioSetEditDTO } from "../../../../shared/models/userCardio
 import type { IUserStrengthSetEditDTO } from "../../../../shared/models/userStrengthSet.model";
 import type { ExerciseType } from "../../../../backend/prisma/generated/prisma";
 import type { IWorkoutStartExerciseItemProps } from "../../models/workoutStart.model";
-import toTitle  from "../../utils/toTitle";
+import toTitle from "../../utils/toTitle";
 import { useWorkoutStartContext } from "../../hooks/features/workoutStart/useWorkoutStartContext";
 import type { IUserWorkoutExercisesEditDTO } from "../../../../shared/models/userWorkout";
 import IconCheckMark from "../UI/Icons/IconCheckMark";
@@ -31,18 +31,14 @@ function WorkoutStartExercise({ item }: IWorkoutStartExerciseItemProps) {
   const { skipAllExerciseSets, completeAllExerciseSets } = context ?? {};
 
   const { userWorkoutExercise, errors } = item;
-  const {
-    id: userWorkoutExerciseId,
-    exercise,
-    notes,
-    skippedReason,
-  } = userWorkoutExercise;
+  const { id: userWorkoutExerciseId, exercise, notes } = userWorkoutExercise;
 
   const { youtubeUrl, name: exerciseName, type } = exercise ?? {};
 
   const getExerciseConfig = useCallback(
     (type: ExerciseType, userWorkoutExercise: IUserWorkoutExercisesEditDTO) => {
       const { userStrengthSets, userCardioSets } = userWorkoutExercise ?? {};
+
       switch (type) {
         case "strength":
           return {
@@ -54,6 +50,9 @@ function WorkoutStartExercise({ item }: IWorkoutStartExerciseItemProps) {
             isFinished: userStrengthSets
               ?.filter((set) => !set.isWarmup)
               .every((set) => set?.isCompleted),
+            isSkipped: userStrengthSets?.every(
+              (set) => set?.skippedReason?.length
+            ),
           };
         case "cardio":
           return {
@@ -86,9 +85,10 @@ function WorkoutStartExercise({ item }: IWorkoutStartExerciseItemProps) {
 
   const liStyle = twMerge(
     "border rounded gap-4 px-mobile transition-all duration-300 w-full relative",
-    exerciseConfig?.isFinished ? "border-green-500" : "",
-    isOpen ? "h-fit  z-10" : "h-20 min-h-20 overflow-hidden",
-    isError ? "border-error-red " : ""
+    exerciseConfig?.isFinished ? "border-success-green" : "",
+    exerciseConfig?.isSkipped ? "border-warning-yellow" : "",
+    isError ? "border-error-red " : "",
+    isOpen ? "h-fit  z-10" : "h-20 min-h-20 overflow-hidden"
   );
 
   const divClass = twMerge(
@@ -106,6 +106,15 @@ function WorkoutStartExercise({ item }: IWorkoutStartExerciseItemProps) {
     "w-8 aspect-square ml-auto transition-all duration-300 stroke-none fill-main-orange",
     isOpen ? "rotate-180" : ""
   );
+
+  //INFO:I think i found to worst way to clean duplications
+  const skippedReason =
+    Array.from(
+      new Set([
+        ...(exerciseConfig?.userSetListData?.map((set) => set.skippedReason) ??
+          []),
+      ])
+    ).join(", ") ?? "";
 
   return (
     <li className={liStyle}>
@@ -146,7 +155,8 @@ function WorkoutStartExercise({ item }: IWorkoutStartExerciseItemProps) {
             modelProps={{
               skippedReason,
               handleUserSetSkip: skipAllExerciseSets!,
-              userWorkoutExerciseId,
+              userSetId: userWorkoutExerciseId,
+              handleParentModel: handleModel,
             }}
             buttonProps={{
               className:

@@ -1,5 +1,5 @@
 //Components
-import WorkoutEditModel from "../../Workout/WorkoutEditModel";
+import WorkoutEditModel from "../../Workout/WorkoutEdit/WorkoutEditModel";
 //UI
 import GenericModel from "../../UI/GenericModel";
 import IconStart from "../../UI/Icons/IconStart";

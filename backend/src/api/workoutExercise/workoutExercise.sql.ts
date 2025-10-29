@@ -15,6 +15,7 @@ const WORKOUT_EXERCISE_SELECT: Prisma.WorkoutExerciseSelect = {
   isBodyWeight: true,
   isDropSet: true,
   isMyoReps: true,
+  restTime: true,
   numberOfSets: true,
   maxNumberOfReps: true,
   exercise: {

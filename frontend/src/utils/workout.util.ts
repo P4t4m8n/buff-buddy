@@ -1,9 +1,10 @@
-import { getTempId } from "../../../shared/utils/getTempId";
-
+//Utils
+import getTempId from "../../../shared/utils/getTempId";
+import { workoutExerciseUtil } from "./workoutExercises.util";
+//Types
 import type {
   IWorkoutDTO,
   IWorkoutEditDTO,
-  IWorkoutExerciseEditDTO,
 } from "../../../shared/models/workout.model";
 
 const dtoToEditDto = ({
@@ -27,24 +28,13 @@ const dtoToEditDto = ({
     sourceWorkoutId: isCopy ? dto.id : null,
     ownerId: dto.owner?.id,
     crudOperation: isCopy ? "create" : isEdit ? "update" : "read",
-    workoutExercises: (dto.workoutExercises || []).map((we) => {
-      const workoutExerciseId = isCopy ? getTempId() : we.id;
-      const workoutExerciseEdit: IWorkoutExerciseEditDTO = {
-        id: workoutExerciseId,
-        order: we.order,
-        notes: we.notes || "",
-        exercise: we.exercise,
-        isBodyWeight: we.isBodyWeight,
-        hasWarmup: we.hasWarmup,
-        crudOperation: isCopy ? "create" : isEdit ? "update" : "read",
-        exerciseData: {
-          id: we?.exercise?.id!,
-          type: we?.exercise?.type!,
-        },
-      };
-
-      return workoutExerciseEdit;
-    }),
+    workoutExercises: (dto.workoutExercises || []).map((we) =>
+      workoutExerciseUtil.dtoToEditDto({
+        we,
+        isCopy,
+        isEdit,
+      })
+    ),
   };
 };
 

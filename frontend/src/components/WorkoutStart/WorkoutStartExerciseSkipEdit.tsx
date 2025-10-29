@@ -5,21 +5,21 @@ import Label from "../UI/Form/Label";
 import TextArea from "../UI/Form/TextArea";
 
 import type { IModelProps } from "../../models/model.model";
-import type { IHandleUserSetSkipProps } from "../../models/workoutStart.model";
 
 interface IWorkoutStartExerciseSkipEditProps
   extends IModelProps<HTMLDivElement> {
-  handleUserSetSkip?: ({
-    userSetId,
-    skippedReason,
-  }: IHandleUserSetSkipProps) => void;
+  handleUserSetSkip?: (userSetId: string, skippedReason: string) => void;
   skippedReason?: string | null;
   userSetId?: string;
+  handleParentModel?: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
 }
 export default function WorkoutStartExerciseSkipEdit({
   handleUserSetSkip,
   skippedReason,
   userSetId,
+  handleParentModel,
   ...modelProps
 }: IWorkoutStartExerciseSkipEditProps) {
   const { setIsOpen, modelRef } = modelProps;
@@ -43,22 +43,21 @@ export default function WorkoutStartExerciseSkipEdit({
 
     const { current } = textAreaRef;
 
-    if (!current  || !userSetId) {
+    if (!current || !userSetId) {
       console.warn("Skipped user exercise textarea props not defined"); //INFO Debugging
       return;
     }
 
     const value = current.value;
 
-    handleUserSetSkip!({
-      skippedReason: value,
-      userSetId,
-    });
+    handleUserSetSkip!(userSetId, value);
 
     if (!setIsOpen) {
       console.warn("setIsOpen is not defined, skipping close action");
       return;
     }
+
+    if (handleParentModel) handleParentModel(e);
     setIsOpen(false);
   };
 
@@ -66,7 +65,7 @@ export default function WorkoutStartExerciseSkipEdit({
     <div
       ref={modelRef}
       className="bg-black-500 p-4 grid gap-4 rounded w-[calc(100%-1rem)]
-                   max-w-96 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 border"
+                   max-w-96 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 border "
     >
       <TextArea
         ref={textAreaRef}
@@ -75,7 +74,7 @@ export default function WorkoutStartExerciseSkipEdit({
         id={textAreaId}
         rows={3}
         placeholder=""
-        className="w-full h-full block peer outline-offset-0 pl-2 peer resize-none font-extralight text-xl pt-2"
+        className="w-full h-full block peer outline-offset-0 pl-2 peer resize-none font-extralight text-xl pt-2 text-main-orange"
         divStyle="border-1 relative rounded h-full  "
       >
         <Label

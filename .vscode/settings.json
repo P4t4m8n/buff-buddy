@@ -1,7 +1,6 @@
 {
   "better-comments.highlightPlainText": true,
   "better-comments.multilineComments": true,
-  
 
   "better-comments.tags": [
     {
@@ -91,9 +90,10 @@
   "peacock.color": "#065384",
   "files.associations": {
     "*.env": "env",
-    "*.env.production": "env"
+    "*.env.production": "env",
+    "*.css": "tailwindcss"
   },
   "[prisma]": {
-  "editor.defaultFormatter": "Prisma.prisma"
-},
+    "editor.defaultFormatter": "Prisma.prisma"
+  }
 }

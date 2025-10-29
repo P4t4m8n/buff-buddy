@@ -33,6 +33,7 @@
 
   --color-error-red: rgb(252, 46, 32);
   --color-success-green: rgb(22, 163, 74);
+  --color-warning-yellow: rgb(202, 138, 4);
 
   --color-gray-400: hsl(0, 0%, 29%);
   --color-gray-300: #b5b5b5;
@@ -246,4 +247,3 @@ input[type="number"] {
     background-color: rgba(var(--color-main-orange-rgb), 0.75) !important;
   }
 }
-

@@ -1,5 +1,5 @@
 //Hooks
-import { useWorkoutExerciseEdit } from "../../../../hooks/features/program/useWorkoutExerciseEdit";
+import { useWorkoutExerciseEdit } from "../../../../hooks/features/workout/useWorkoutExerciseEdit";
 import { useErrors } from "../../../../hooks/shared/useErrors";
 //Validations
 import { workoutExerciseValidation } from "../../../../../../shared/validations/workoutExercise.validations";
@@ -89,7 +89,8 @@ export default function WorkoutExerciseEdit({
     if (setIsOpen) setIsOpen(false);
   };
 
-  const { exercise } = workoutExerciseToEdit ?? {};
+  const { exercise, exerciseData, crudOperation, id, ...rest } =
+    workoutExerciseToEdit ?? {};
 
   return (
     <div
@@ -100,15 +101,20 @@ export default function WorkoutExerciseEdit({
       {exercise ? (
         <>
           <WorkoutExerciseEditInput
-            workoutExerciseToEdit={workoutExerciseToEdit}
+            workoutExerciseToEdit={rest}
             handleInputChange={handleInputChange}
             workoutExerciseErrors={workoutExerciseErrors}
           />
-          <ExercisePreview
-            item={exercise}
-            selectExercise={selectExercise}
-            actionType="workoutEdit"
-          />
+          {/*
+           * INFO:Ul added as the preview is a LI to prevent dom errors
+           */}
+          <ul>
+            <ExercisePreview
+              item={exercise}
+              selectExercise={selectExercise}
+              actionType="workoutEdit"
+            />
+          </ul>
         </>
       ) : (
         <GenericModel

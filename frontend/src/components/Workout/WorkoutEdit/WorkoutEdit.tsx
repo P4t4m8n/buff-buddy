@@ -1,18 +1,18 @@
 //Components
-import WorkoutExerciseEdit from "./WorkoutExercise/WorkoutExerciseEdit/WorkoutExerciseEdit";
-import WorkoutExerciseEditList from "./WorkoutExercise/WorkoutExerciseEdit/WorkoutExerciseEditList";
+import WorkoutExerciseEdit from "../WorkoutExercise/WorkoutExerciseEdit/WorkoutExerciseEdit";
+import WorkoutExerciseEditList from ".././WorkoutExercise/WorkoutExerciseEdit/WorkoutExerciseEditList";
 import WorkoutEditInputs from "./WorkoutEditInputs";
 //UI
-import Button from "../UI/Button";
-import GenericModel from "../UI/GenericModel";
-import GenericSaveButton from "../UI/GenericSaveButton";
-import Loader from "../UI/loader/Loader";
+import Button from "../../UI/Button";
+import GenericModel from "../../UI/GenericModel";
+import GenericSaveButton from "../../UI/GenericSaveButton";
+import Loader from "../../UI/loader/Loader";
 //Types
 import type {
   IWorkoutEditDTO,
   IWorkoutExerciseEditDTO,
-} from "../../../../shared/models/workout.model";
-import type { TErrors } from "../../models/errors.model";
+} from "../../../../../shared/models/workout.model";
+import type { TErrors } from "../../../models/errors.model";
 
 interface IWorkoutEditProps {
   workoutToEdit?: IWorkoutEditDTO | null;

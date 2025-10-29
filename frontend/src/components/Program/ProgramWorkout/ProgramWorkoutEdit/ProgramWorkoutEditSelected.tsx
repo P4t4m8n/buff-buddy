@@ -1,9 +1,9 @@
 //Utils
 import { calendarUtil } from "../../../../utils/calendar.util";
 import toTitle  from "../../../../utils/toTitle";
-import { getTempId } from "../../../../../../shared/utils/getTempId";
+import  getTempId  from "../../../../../../shared/utils/getTempId";
 //Components
-import WorkoutEditModel from "../../../Workout/WorkoutEditModel";
+import WorkoutEditModel from "../../../Workout/WorkoutEdit/WorkoutEditModel";
 //UI
 import Button from "../../../UI/Button";
 import CheckboxMulti from "../../../UI/Form/CheckboxMulti";

@@ -1,18 +1,9 @@
 import { twMerge } from "tailwind-merge";
-import toTitle  from "../../../utils/toTitle";
+import toTitle from "../../../utils/toTitle";
 import Input from "./Input";
 import LabelWithError from "./LabelWithError";
+import type { INumberInputWithErrorProps } from "../../../models/UI.model";
 
-interface INumberInputWithErrorProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-  name?: string;
-  inputId?: string;
-  value?: number | string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string;
-  divStyle?: string;
-  label?: string;
-}
 export default function NumberInputWIthError({
   name,
   inputId,
@@ -20,7 +11,8 @@ export default function NumberInputWIthError({
   value,
   onChange,
   divStyle,
-  label,
+  labelText,
+  className,
 }: INumberInputWithErrorProps) {
   const containerStyle = divStyle
     ? divStyle
@@ -29,7 +21,7 @@ export default function NumberInputWIthError({
   const inputBase = "border w-input aspect-square rounded text-center ";
   const errorStyle = error ? "border-error-red animate-pulse" : "";
 
-  const inputStyle = twMerge(inputBase, errorStyle);
+  const inputStyle = twMerge(inputBase, errorStyle, className);
 
   const id = `${name}-${inputId}`;
 
@@ -49,7 +41,7 @@ export default function NumberInputWIthError({
         isMoveUpEffect={false}
         error={error}
         htmlFor={id}
-        labelText={toTitle(label)}
+        labelText={toTitle(labelText)}
       />
     </Input>
   );

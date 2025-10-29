@@ -1,11 +1,11 @@
 //UI
-import InputWithError from "../UI/Form/InputWithError";
-import Label from "../UI/Form/Label";
-import SwitchInput from "../UI/Form/SwitchInput";
-import TextArea from "../UI/Form/TextArea";
+import InputWithError from "../../UI/Form/InputWithError";
+import Label from "../../UI/Form/Label";
+import SwitchInput from "../../UI/Form/SwitchInput";
+import TextArea from "../../UI/Form/TextArea";
 //Types
-import type { IWorkoutEditDTO } from "../../../../shared/models/workout.model";
-import type { TErrors } from "../../models/errors.model";
+import type { IWorkoutEditDTO } from "../../../../../shared/models/workout.model";
+import type { TErrors } from "../../../models/errors.model";
 
 interface IWorkoutEditInputsProps {
   handleInputChange: (
@@ -53,7 +53,7 @@ export default function WorkoutEditInputs({
         id={"notes-" + workoutToEditId}
         rows={3}
         placeholder=""
-        className="w-full h-full block peer outline-offset-0 p-2 resize-none border-1 rounded  "
+        className="w-full h-full block peer outline-offset-0 p-2 resize-none border rounded  "
         divStyle="  h-auto col-span-full relative group "
         onChange={handleInputChange}
       >

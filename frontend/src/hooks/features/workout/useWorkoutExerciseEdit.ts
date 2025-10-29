@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { workoutExerciseUtils } from "../../../utils/workoutExercises.util";
+import { workoutExerciseUtil } from "../../../utils/workoutExercises.util";
 
 import type { IWorkoutExerciseEditDTO } from "../../../../../shared/models/workout.model";
 import type { IExerciseDTO } from "../../../../../shared/models/exercise.model";
@@ -45,7 +45,7 @@ export const useWorkoutExerciseEdit = (
     setWorkoutExerciseToEdit(
       workoutExercise
         ? workoutExercise
-        : workoutExerciseUtils.getEmpty(workoutExercisesLength)
+        : workoutExerciseUtil.getEmpty(workoutExercisesLength)
     );
   };
 

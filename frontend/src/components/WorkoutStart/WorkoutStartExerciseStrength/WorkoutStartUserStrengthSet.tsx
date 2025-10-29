@@ -7,12 +7,13 @@ import WorkoutStartUserStrengthSetLog, {
 } from "./WorkoutStartUserStrengthSetLog";
 import IconCheckMark from "../../UI/Icons/IconCheckMark";
 import IconInactive from "../../UI/Icons/IconInactive";
+import IconSkip from "../../UI/Icons/IconSkip";
 
 export default function WorkoutStartUserStrengthSet({
   item: userSet,
   errors: serverErrors,
 }: TWorkoutStartUserSetsProps<IUserStrengthSetEditDTO>) {
-  const { isWarmup, goalSet, isCompleted } = userSet ?? {};
+  const { isWarmup, goalSet, isCompleted, skippedReason } = userSet ?? {};
 
   if (isCompleted) {
   }
@@ -36,14 +37,18 @@ export default function WorkoutStartUserStrengthSet({
         </span>
         <div className="grid justify-items-center text-sm ">
           <h5>Status</h5>
-          {isCompleted ? (
+          {skippedReason ? (
+            <IconSkip className="w-6 aspect-square fill-warning-yellow" />
+          ) : isCompleted ? (
             <IconCheckMark className="w-6 aspect-square fill-success-green" />
           ) : (
             <IconInactive className="w-6 aspect-square fill-error-red" />
           )}
         </div>
       </div>
-      {isWarmup ? <div className="w-16"></div> : (
+      {isWarmup ? (
+        <div className="w-16"></div>
+      ) : (
         <GenericModel<HTMLDivElement, IWorkoutStartUserStrengthSetLogProps>
           buttonProps={{
             buttonStyle: "save",

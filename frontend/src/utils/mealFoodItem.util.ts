@@ -2,7 +2,7 @@ import type {
   IMealFoodItemDTO,
   IMealFoodItemEditDTO,
 } from "../../../shared/models/meal.model";
-import { getTempId } from "../../../shared/utils/getTempId";
+import  getTempId  from "../../../shared/utils/getTempId";
 
 const getEmpty = (): IMealFoodItemEditDTO => {
   return {

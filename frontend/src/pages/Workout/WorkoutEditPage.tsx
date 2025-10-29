@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 //Hooks
 import { useWorkoutEdit } from "../../hooks/features/workout/useWorkoutEdit";
 //Components
-import WorkoutEdit from "../../components/Workout/WorkoutEdit";
+import WorkoutEdit from "../../components/Workout/WorkoutEdit/WorkoutEdit";
 //UI
 import Loader from "../../components/UI/loader/Loader";
 import BackButton from "../../components/UI/BackButton";

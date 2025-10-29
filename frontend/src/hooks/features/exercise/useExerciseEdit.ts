@@ -76,6 +76,8 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
       const name = formData.get("name") as string;
       const youtubeUrl = formData.get("youtubeUrl") as string;
       const isCompounded = formData.get("isCompounded") === "on" ? true : false;
+      const isSeparateHands =
+        formData.get("isSeparateHands") === "on" ? true : false;
 
       const res = await mutateAsync({
         ...exerciseToEdit,
@@ -83,6 +85,7 @@ export const useExerciseEdit = ({ exerciseId }: IUseExerciseProps) => {
         youtubeUrl,
         ownerId,
         isCompounded,
+        isSeparateHands,
       });
 
       return !!res.data.id;

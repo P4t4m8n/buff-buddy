@@ -3,7 +3,7 @@ import WorkoutExerciseEditListActions from "./ExerciseActions/WorkoutExerciseEdi
 import ExerciseListActions from "./ExerciseActions/ExerciseListActions";
 import WorkoutExerciseSelectedActions from "./ExerciseActions/WorkoutExerciseSelectedActions";
 //Utils
-import toTitle  from "../../../utils/toTitle";
+import toTitle from "../../../utils/toTitle";
 //UI
 import GenericCarousel from "../../UI/GenericCarousel";
 import Tag from "../../UI/Tag";
@@ -11,14 +11,19 @@ import Tag from "../../UI/Tag";
 import type { IExercisePreviewProps } from "../../../models/exercise.model";
 
 export default function ExercisePreview(props: IExercisePreviewProps) {
-  const { muscles, id, name, equipment } = props.item;
+  const { muscles, id, name, equipment, isCompounded } = props.item;
 
   const musclesName = muscles?.map((muscle) => muscle.name);
   const equipmentName = equipment?.map((equip) => equip.name);
 
+  const compoundText = isCompounded ? " Compound" : "Isolation";
+
   return (
     <li key={id} className="shadow-border rounded p-2 flex flex-col gap-4 ">
-      <h3 className=" truncate text-ellipsis underline ">{toTitle(name)}</h3>
+      <span className="inline-flex justify-between">
+        <h3 className=" truncate text-ellipsis underline ">{toTitle(name)}</h3>
+        <p>{compoundText}</p>
+      </span>
 
       <GenericCarousel
         listName="Muscles used"

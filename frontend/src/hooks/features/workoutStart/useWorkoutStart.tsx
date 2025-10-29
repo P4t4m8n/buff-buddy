@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { useErrors } from "../../shared/useErrors";
+import { useAuthStore } from "../../../store/auth.store";
 
 import { localStorageService } from "../../../services/localStorage.service";
 import { workoutStartService } from "../../../services/workoutStart.service";
@@ -12,8 +13,6 @@ import type {
 } from "../../../../../shared/models/userWorkout";
 import type { IDateRange } from "../../../models/calendar.model";
 import type { ExerciseType } from "../../../../../backend/prisma/generated/prisma";
-import type { IHandleUserSetSkipProps } from "../../../models/workoutStart.model";
-import { useAuthStore } from "../../../store/auth.store";
 
 interface IUseWorkoutStartProps {
   workoutId?: string;
@@ -185,10 +184,7 @@ export const useWorkoutStart = ({
     []
   );
 
-  const handleUserSetSkip = ({
-    userSetId,
-    skippedReason,
-  }: IHandleUserSetSkipProps) => {
+  const handleUserSetSkip = (userSetId: string, skippedReason: string) => {
     setWorkoutStart((prev) => {
       const userWorkoutExercise = prev?.userWorkoutExercises?.find(
         (we) =>
@@ -337,10 +333,10 @@ export const useWorkoutStart = ({
     });
   };
 
-  const skipAllExerciseSets = ({
-    userWorkoutExerciseId,
-    skippedReason,
-  }: Omit<IHandleUserSetSkipProps, "userSetId">) => {
+  const skipAllExerciseSets = (
+    userWorkoutExerciseId: string,
+    skippedReason: string
+  ) => {
     setWorkoutStart((prev) => {
       if (!prev) return null;
       const userWorkoutExercises = prev.userWorkoutExercises?.map((we) => {

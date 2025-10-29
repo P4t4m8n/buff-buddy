@@ -3,7 +3,7 @@ import type {
   IFoodItemDTO,
   IFoodItemInfoEditDTO,
 } from "../../../shared/models/foodItem.model";
-import { getTempId } from "../../../shared/utils/getTempId";
+import  getTempId  from "../../../shared/utils/getTempId";
 
 const getEmpty = ({
   barcode,

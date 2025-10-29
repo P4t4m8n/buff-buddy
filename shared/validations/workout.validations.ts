@@ -80,7 +80,9 @@ const QuerySchema = validationUtil.FilterSchema.extend({
   exerciseId: z.string().optional(),
   isTemplate: z
     .string()
-    .transform((val) => val === "true")
+    .transform((val) => {
+      return val === "on" ? true : val === "off" ? false : undefined;
+    })
     .optional(),
 });
 

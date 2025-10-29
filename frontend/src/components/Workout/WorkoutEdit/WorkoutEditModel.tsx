@@ -1,11 +1,11 @@
 //Hooks
-import { useWorkoutEdit } from "../../hooks/features/workout/useWorkoutEdit";
+import { useWorkoutEdit } from "../../../hooks/features/workout/useWorkoutEdit";
 //Components
 import WorkoutEdit from "./WorkoutEdit";
 //UI
-import PageHeader from "../UI/PageHeader";
+import PageHeader from "../../UI/PageHeader";
 //Types
-import type { IWorkoutEditModelProps } from "../../models/model.model";
+import type { IWorkoutEditModelProps } from "../../../models/model.model";
 
 export default function WorkoutEditModel({
   workoutId,
@@ -14,7 +14,6 @@ export default function WorkoutEditModel({
   afterSubmit,
   setIsOpen,
 }: IWorkoutEditModelProps) {
-
   const {
     workoutToEdit,
     isLoading,

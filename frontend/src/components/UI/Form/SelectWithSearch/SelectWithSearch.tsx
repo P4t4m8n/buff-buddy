@@ -13,7 +13,7 @@ import type {
   ISelectAddComponentProps,
   ISelectItemComponentProps,
 } from "../../../../models/select.model";
-import { getTempId } from "../../../../../../shared/utils/getTempId";
+import  getTempId  from "../../../../../../shared/utils/getTempId";
 import type { IID } from "../../../../../../shared/models/entity.model";
 
 interface SelectWithSearchProps<T, P> {
