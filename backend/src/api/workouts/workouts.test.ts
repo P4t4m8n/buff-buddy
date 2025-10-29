@@ -31,21 +31,34 @@ describe("Workouts API", () => {
       firstName: "Workout",
       lastName: "Tester",
     };
-    const userRes = await request(app)
-      .post("/api/v1/auth/sign-up")
-      .send(userCredentials);
-    testUserId = userRes.body.data.id;
-    authToken = userRes.headers["set-cookie"][0].split(";")[0].split("=")[1];
+    try {
+      const userRes = await request(app)
+        .post("/api/v1/auth/sign-up")
+        .send(userCredentials);
+      testUserId = userRes.body.data.id;
+      authToken = userRes.headers["set-cookie"][0].split(";")[0].split("=")[1];
+    } catch (error) {
+      console.error(`User signup failed: ${error}`);
+    }
 
-    const musclesRes = await request(app)
-      .get("/api/v1/exercises/muscles/list")
-      .set("Cookie", `token=${authToken}`);
-    muscles = musclesRes.body.data;
+    try {
+      const musclesRes = await request(app)
+        .get("/api/v1/exercises/muscles/list")
+        .set("Cookie", `token=${authToken}`);
+      muscles = musclesRes.body.data;
+    } catch (error) {
+      console.error(`Fetching muscles failed: ${error}`);
+    }
 
-    const equipmentRes = await request(app)
-      .get("/api/v1/exercises/equipment/list")
-      .set("Cookie", `token=${authToken}`);
-    equipment = equipmentRes.body.data;
+    try {
+      const equipmentRes = await request(app)
+        .get("/api/v1/exercises/equipment/list")
+        .set("Cookie", `token=${authToken}`);
+      equipment = equipmentRes.body.data;
+    } catch (error) {
+      console.error(`Fetching equipment failed: ${error}`);
+    }
+
     const exercises: IExerciseEditDTO[] = [
       {
         name: "strength 1",
@@ -62,6 +75,24 @@ describe("Workouts API", () => {
         equipment: equipment.sort(() => 0.5 - Math.random()).slice(0, 1),
         muscles: muscles.sort(() => 0.5 - Math.random()).slice(0, 2),
         ownerId: testUserId,
+      },
+      {
+        name: "strength isCompounded",
+        youtubeUrl: "https://www.youtube.com/watch?v=ykJmrZ5450Oo",
+        type: "strength",
+        equipment: equipment.sort(() => 0.5 - Math.random()).slice(0, 1),
+        muscles: muscles.sort(() => 0.5 - Math.random()).slice(0, 2),
+        ownerId: testUserId,
+        isCompounded: true,
+      },
+      {
+        name: "strength isSeparateHands",
+        youtubeUrl: "https://www.youtube.com/watch?v=ykJmrZ5htOo",
+        type: "strength",
+        equipment: equipment.sort(() => 0.5 - Math.random()).slice(0, 1),
+        muscles: muscles.sort(() => 0.5 - Math.random()).slice(0, 2),
+        ownerId: testUserId,
+        isSeparateHands: true,
       },
       {
         name: "cardio 1",
@@ -92,6 +123,9 @@ describe("Workouts API", () => {
 
   describe("POST /api/v1/workouts/edit", () => {
     it("should create a new workout successfully", async () => {
+      const exerciseData = testExercises.find(
+        (e) => e.name === "strength iscompounded"
+      );
       const newWorkout: IWorkoutEditDTO = {
         name: "Full Body Test Workout",
         notes: "A workout for testing purposes.",
@@ -102,12 +136,16 @@ describe("Workouts API", () => {
             order: 1,
             notes: "First exercise",
             exerciseData: {
-              type: testExercises[0].type!,
-              id: testExercises[0].id!,
+              type: exerciseData?.type!,
+              id: exerciseData?.id!,
             },
             hasWarmup: true,
             isBodyWeight: true,
             crudOperation: "create",
+            numberOfSets: 3,
+            maxNumberOfReps: 15,
+            isDropSet: false,
+            isMyoReps: false,
           },
         ],
       };
@@ -159,6 +197,10 @@ describe("Workouts API", () => {
               id: testExercises[0].id!,
             },
             crudOperation: "create",
+            numberOfSets: 3,
+            maxNumberOfReps: 15,
+            isDropSet: false,
+            isMyoReps: false,
           },
         ],
       };
@@ -188,6 +230,10 @@ describe("Workouts API", () => {
               id: "invalid-exercise-id",
             },
             crudOperation: "create",
+            numberOfSets: 3,
+            maxNumberOfReps: 15,
+            isDropSet: false,
+            isMyoReps: false,
           },
         ],
       };
@@ -216,6 +262,10 @@ describe("Workouts API", () => {
               id: testExercises[0].id!,
             },
             crudOperation: "create",
+            numberOfSets: 3,
+            maxNumberOfReps: 15,
+            isDropSet: false,
+            isMyoReps: false,
           },
         ],
       };
@@ -244,6 +294,10 @@ describe("Workouts API", () => {
               id: testExercises[0].id!,
             },
             crudOperation: "create",
+            numberOfSets: 3,
+            maxNumberOfReps: 15,
+            isDropSet: false,
+            isMyoReps: false,
           },
         ],
       };
@@ -267,6 +321,10 @@ describe("Workouts API", () => {
           id: testExercises[0].id!,
         },
         crudOperation: "create" as const,
+        numberOfSets: 3,
+        maxNumberOfReps: 15,
+        isDropSet: false,
+        isMyoReps: false,
       }));
 
       const invalidWorkout: Partial<IWorkoutEditDTO> = {
@@ -301,6 +359,10 @@ describe("Workouts API", () => {
               id: testExercises[0].id!,
             },
             crudOperation: "create",
+            numberOfSets: 3,
+            maxNumberOfReps: 15,
+            isDropSet: false,
+            isMyoReps: false,
           },
         ],
       };
@@ -334,6 +396,10 @@ describe("Workouts API", () => {
               id: testExercises[0].id!,
             },
             crudOperation: "create",
+            numberOfSets: 3,
+            maxNumberOfReps: 15,
+            isDropSet: false,
+            isMyoReps: false,
           },
         ],
       };
@@ -365,6 +431,10 @@ describe("Workouts API", () => {
               id: testExercises[0].id!,
             },
             crudOperation: "create",
+            numberOfSets: 3,
+            maxNumberOfReps: 15,
+            isDropSet: false,
+            isMyoReps: false,
           },
         ],
       };
@@ -395,6 +465,10 @@ describe("Workouts API", () => {
               id: testExercises[0].id!,
             },
             crudOperation: "create",
+            numberOfSets: 3,
+            maxNumberOfReps: 15,
+            isDropSet: false,
+            isMyoReps: false,
           },
         ],
       };
@@ -424,6 +498,10 @@ describe("Workouts API", () => {
               id: testExercises[0].id!,
             },
             crudOperation: "create",
+            numberOfSets: 3,
+            maxNumberOfReps: 15,
+            isDropSet: false,
+            isMyoReps: false,
           },
         ],
       };
@@ -438,6 +516,10 @@ describe("Workouts API", () => {
 
   describe("GET /api/v1/workouts", () => {
     beforeAll(async () => {
+      const cardioExercise = testExercises.find((ex) => ex.type === "cardio");
+      const strengthExercise = testExercises.find(
+        (ex) => ex.type === "strength"
+      );
       const workoutsToCreate: IWorkoutEditDTO[] = [
         {
           name: "Cardio Blast",
@@ -449,10 +531,14 @@ describe("Workouts API", () => {
             {
               order: 1,
               exerciseData: {
-                type: testExercises.find((ex) => ex.type === "cardio")?.type!,
-                id: testExercises.find((ex) => ex.type === "cardio")?.id!,
+                type: cardioExercise?.type!,
+                id: cardioExercise?.id!,
               },
               crudOperation: "create",
+              numberOfSets: 3,
+              maxNumberOfReps: 15,
+              isDropSet: false,
+              isMyoReps: false,
             },
           ],
         },
@@ -467,10 +553,14 @@ describe("Workouts API", () => {
             {
               order: 1,
               exerciseData: {
-                type: testExercises.find((ex) => ex.type === "strength")?.type!,
-                id: testExercises.find((ex) => ex.type === "strength")?.id!,
+                type: strengthExercise?.type!,
+                id: strengthExercise?.id!,
               },
               crudOperation: "create",
+              numberOfSets: 3,
+              maxNumberOfReps: 15,
+              isDropSet: false,
+              isMyoReps: false,
             },
           ],
         },
@@ -484,10 +574,14 @@ describe("Workouts API", () => {
             {
               order: 1,
               exerciseData: {
-                type: testExercises.find((ex) => ex.type === "cardio")?.type!,
-                id: testExercises.find((ex) => ex.type === "cardio")?.id!,
+                type: cardioExercise?.type!,
+                id: cardioExercise?.id!,
               },
               crudOperation: "create",
+              numberOfSets: 3,
+              maxNumberOfReps: 15,
+              isDropSet: false,
+              isMyoReps: false,
             },
           ],
         },
@@ -572,6 +666,9 @@ describe("Workouts API", () => {
     let workoutId: string;
 
     beforeAll(async () => {
+      const strengthExercises = testExercises.filter(
+        (ex) => ex.type != "strength"
+      );
       const workout: IWorkoutEditDTO = {
         name: "Workout To Get",
         notes: "A workout for getting by ID.",
@@ -582,10 +679,26 @@ describe("Workouts API", () => {
           {
             order: 1,
             exerciseData: {
-              type: testExercises[0].type!,
-              id: testExercises[0].id!,
+              type: strengthExercises[0]?.type!,
+              id: strengthExercises[0].id!,
             },
             crudOperation: "create",
+            numberOfSets: 3,
+            maxNumberOfReps: 15,
+            isDropSet: false,
+            isMyoReps: false,
+          },
+          {
+            order: 1,
+            exerciseData: {
+              type: strengthExercises[1]?.type!,
+              id: strengthExercises[1].id!,
+            },
+            crudOperation: "create",
+            numberOfSets: 3,
+            maxNumberOfReps: 15,
+            isDropSet: false,
+            isMyoReps: false,
           },
         ],
       };
@@ -623,6 +736,11 @@ describe("Workouts API", () => {
   describe("PUT /api/v1/workouts/edit/:id", () => {
     let workoutId: string;
     let originalWorkoutExercises: IWorkoutExerciseDTO[];
+    let strengthExercises: IExerciseDTO[] = [];
+
+    beforeAll(async () => {
+      strengthExercises = testExercises.filter((ex) => ex.type === "strength");
+    });
 
     beforeEach(async () => {
       const workout: IWorkoutEditDTO = {
@@ -634,21 +752,29 @@ describe("Workouts API", () => {
         workoutExercises: [
           {
             order: 1,
-            notes: "Initial exercise str",
+            notes: strengthExercises[0].name,
             exerciseData: {
-              type: testExercises[1].type!,
-              id: testExercises[1].id!,
+              type: strengthExercises[0].type!,
+              id: strengthExercises[0].id!,
             },
             crudOperation: "create",
+            numberOfSets: 3,
+            maxNumberOfReps: 15,
+            isDropSet: false,
+            isMyoReps: false,
           },
           {
             order: 2,
-            notes: "Initial exercise car",
+            notes: strengthExercises[1].name,
             exerciseData: {
-              type: testExercises[0].type!,
-              id: testExercises[0].id!,
+              type: strengthExercises[1].type!,
+              id: strengthExercises[1].id!,
             },
             crudOperation: "create",
+            numberOfSets: 4,
+            maxNumberOfReps: 10,
+            isDropSet: true,
+            isMyoReps: true,
           },
         ],
       };
@@ -710,11 +836,17 @@ describe("Workouts API", () => {
     });
 
     it("should perform CRUD operations on workoutExercises", async () => {
-      const strengthExercise = originalWorkoutExercises.find(
-        (e) => e.notes === "initial exercise str"
+      const strengthExerciseZero = originalWorkoutExercises.find(
+        (e) => e.notes === strengthExercises[0].name
       );
-      const cardioExercise = originalWorkoutExercises.find(
-        (e) => e.notes === "initial exercise car"
+      const strengthExerciseOne = originalWorkoutExercises.find(
+        (e) => e.notes === strengthExercises[1].name
+      );
+
+      const strengthExerciseNew = testExercises.find(
+        (e) =>
+          e.name !== strengthExercises[1].name &&
+          e.name !== strengthExercises[0].name
       );
 
       const updateData: IWorkoutEditDTO = {
@@ -722,34 +854,46 @@ describe("Workouts API", () => {
 
         workoutExercises: [
           {
-            id: strengthExercise?.id,
-            notes: "Updated strength exercise",
+            id: strengthExerciseZero?.id,
+            notes: "Updated strength exercise zero",
             crudOperation: "update",
-
-            order: 3,
+            numberOfSets: 5,
+            maxNumberOfReps: 5,
+            isDropSet: true,
+            isMyoReps: true,
+            order: 2,
             exerciseData: {
-              id: testExercises[1].id!,
-              type: testExercises[1].type!,
+              id: strengthExerciseOne?.exercise?.id!,
+              type: strengthExerciseOne?.exercise?.type!,
             },
           },
           {
-            id: cardioExercise?.id!,
-            notes: "Updated cardio exercise",
+            id: strengthExerciseOne?.id,
+            notes: "Updated strength exercise one",
             crudOperation: "update",
+            numberOfSets: 9,
+            maxNumberOfReps: 9,
+            isDropSet: false,
+            isMyoReps: false,
             order: 1,
             exerciseData: {
-              id: testExercises[0].id!,
-              type: testExercises[0].type!,
+              id: strengthExerciseZero?.exercise?.id!,
+              type: strengthExerciseZero?.exercise?.type!,
             },
           },
+
           {
             notes: "New exercise",
             crudOperation: "create",
             order: 2,
             exerciseData: {
-              id: testExercises[2].id!,
-              type: testExercises[2].type!,
+              id: strengthExerciseNew?.id!,
+              type: strengthExerciseNew?.type!,
             },
+            numberOfSets: 3,
+            maxNumberOfReps: 15,
+            isDropSet: false,
+            isMyoReps: false,
           },
         ],
       };
@@ -761,6 +905,58 @@ describe("Workouts API", () => {
 
       expect(res.status).toBe(200);
       expect(res.body.data.workoutExercises).toHaveLength(3);
+
+      const updatedWorkoutExercises: IWorkoutExerciseDTO[] =
+        res.body.data.workoutExercises;
+
+      const ids = updatedWorkoutExercises.map((e) => e.id).filter(Boolean);
+      expect(new Set(ids).size).toBe(ids.length);
+
+      const updatedZero = updatedWorkoutExercises.find(
+        (e) => e?.id === strengthExerciseZero?.id
+      );
+      const updatedOne = updatedWorkoutExercises.find(
+        (e) => e?.id === strengthExerciseOne?.id
+      );
+      const createdNew = updatedWorkoutExercises.find(
+        (e) => e.notes === "new exercise"
+      );
+
+      expect(updatedZero).toBeDefined();
+      expect(updatedOne).toBeDefined();
+      expect(createdNew).toBeDefined();
+
+      expect(updatedZero?.notes).toBe("updated strength exercise zero");
+      expect(updatedZero?.numberOfSets).toBe(5);
+      expect(updatedZero?.maxNumberOfReps).toBe(5);
+      expect(updatedZero?.isDropSet).toBe(true);
+      expect(updatedZero?.isMyoReps).toBe(true);
+      expect(updatedZero?.order).toBe(2);
+      expect(updatedZero?.exercise?.id).toBe(strengthExerciseOne?.exercise?.id);
+      expect(updatedZero?.exercise?.type).toBe(
+        strengthExerciseOne?.exercise?.type
+      );
+
+      expect(updatedOne?.notes).toBe("updated strength exercise one");
+      expect(updatedOne?.numberOfSets).toBe(9);
+      expect(updatedOne?.maxNumberOfReps).toBe(9);
+      expect(updatedOne?.isDropSet).toBe(false);
+      expect(updatedOne?.isMyoReps).toBe(false);
+      expect(updatedOne?.order).toBe(1);
+      expect(updatedOne?.exercise?.id).toBe(strengthExerciseZero?.exercise?.id);
+      expect(updatedOne?.exercise?.type).toBe(
+        strengthExerciseZero?.exercise?.type
+      );
+
+      expect(createdNew?.id).toBeDefined();
+      expect(createdNew?.notes).toBe("new exercise");
+      expect(createdNew?.numberOfSets).toBe(3);
+      expect(createdNew?.maxNumberOfReps).toBe(15);
+      expect(createdNew?.isDropSet).toBe(false);
+      expect(createdNew?.isMyoReps).toBe(false);
+      expect(createdNew?.order).toBe(2);
+      expect(createdNew?.exercise?.id).toBe(strengthExerciseNew?.id);
+      expect(createdNew?.exercise?.type).toBe(strengthExerciseNew?.type);
     });
 
     it("should sanitize HTML in updated workout name", async () => {
@@ -853,6 +1049,10 @@ describe("Workouts API", () => {
               id: testExercises[0].id!,
             },
             crudOperation: "create",
+            numberOfSets: 3,
+            maxNumberOfReps: 15,
+            isDropSet: false,
+            isMyoReps: false,
           },
         ],
       };

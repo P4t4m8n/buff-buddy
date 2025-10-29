@@ -43,8 +43,10 @@ describe("UserWorkout API", () => {
     const userRes = await request(app)
       .post("/api/v1/auth/sign-up")
       .send(userCredentials);
+
     testUserId = userRes.body.data.id;
     authToken = userRes.headers["set-cookie"][0].split(";")[0].split("=")[1];
+
     const musclesRes = await request(app)
       .get("/api/v1/exercises/muscles/list")
       .set("Cookie", `token=${authToken}`);
@@ -54,6 +56,7 @@ describe("UserWorkout API", () => {
       .get("/api/v1/exercises/equipment/list")
       .set("Cookie", `token=${authToken}`);
     equipment = equipmentRes.body.data;
+
     const strengthExercises: IExerciseEditDTO[] = [
       {
         name: "strength 1",
@@ -169,14 +172,14 @@ describe("UserWorkout API", () => {
       },
     ];
 
+    debugger;
     for (const workout of workouts) {
       const workoutRes = await request(app)
-        .post("/api/v1/workouts/edit")
-        .set("Cookie", `token=${authToken}`)
+      .post("/api/v1/workouts/edit")
+      .set("Cookie", `token=${authToken}`)
         .send(workout);
       testWorkouts.push(workoutRes.body.data);
     }
-
     const newProgram: IProgramEditDTO = {
       name: "UserWorkout Test Program",
       notes: "Program for testing user workouts.",
@@ -929,6 +932,15 @@ describe("UserWorkout API", () => {
   });
 
   afterAll(async () => {
+    for (const id of testPrograms) {
+      await request(app)
+        .delete(`/api/v1/programs/${id}`)
+        .set("Cookie", `token=${authToken}`)
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+
     if (testWorkouts.length > 0) {
       for (const { id } of testWorkouts) {
         await request(app)
@@ -951,15 +963,6 @@ describe("UserWorkout API", () => {
     for (const exercise of testCardioExercises) {
       await request(app)
         .delete(`/api/v1/exercises/${exercise.id}`)
-        .set("Cookie", `token=${authToken}`)
-        .catch((err) => {
-          console.error(err);
-        });
-    }
-
-    for (const id of testPrograms) {
-      await request(app)
-        .delete(`/api/v1/programs/${id}`)
         .set("Cookie", `token=${authToken}`)
         .catch((err) => {
           console.error(err);

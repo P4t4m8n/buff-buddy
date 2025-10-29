@@ -123,6 +123,16 @@ export type MealFoodItem = $Result.DefaultSelection<Prisma.$MealFoodItemPayload>
  * 
  */
 export type UserMeal = $Result.DefaultSelection<Prisma.$UserMealPayload>
+/**
+ * Model UserMealItem
+ * 
+ */
+export type UserMealItem = $Result.DefaultSelection<Prisma.$UserMealItemPayload>
+/**
+ * Model Image
+ * 
+ */
+export type Image = $Result.DefaultSelection<Prisma.$ImagePayload>
 
 /**
  * Enums
@@ -533,6 +543,26 @@ export class PrismaClient<
     * ```
     */
   get userMeal(): Prisma.UserMealDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userMealItem`: Exposes CRUD operations for the **UserMealItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserMealItems
+    * const userMealItems = await prisma.userMealItem.findMany()
+    * ```
+    */
+  get userMealItem(): Prisma.UserMealItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.image`: Exposes CRUD operations for the **Image** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Images
+    * const images = await prisma.image.findMany()
+    * ```
+    */
+  get image(): Prisma.ImageDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -591,8 +621,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.17.0
-   * Query Engine version: c0aafc03b8ef6cdced8654b9a817999e02457d6a
+   * Prisma Client JS version: 6.18.0
+   * Query Engine version: 34b5a692b7bd79939a9a2c3ef97d816e749cda2f
    */
   export type PrismaVersion = {
     client: string
@@ -605,6 +635,7 @@ export namespace Prisma {
    */
 
 
+  export import Bytes = runtime.Bytes
   export import JsonObject = runtime.JsonObject
   export import JsonArray = runtime.JsonArray
   export import JsonValue = runtime.JsonValue
@@ -994,7 +1025,9 @@ export namespace Prisma {
     FoodItemCategory: 'FoodItemCategory',
     Meal: 'Meal',
     MealFoodItem: 'MealFoodItem',
-    UserMeal: 'UserMeal'
+    UserMeal: 'UserMeal',
+    UserMealItem: 'UserMealItem',
+    Image: 'Image'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1013,7 +1046,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "exercise" | "muscle" | "muscleAlias" | "equipment" | "equipmentCategory" | "userCardioSet" | "userStrengthSet" | "program" | "programWorkout" | "workout" | "workoutExercise" | "userWorkoutExercise" | "userWorkout" | "foodItem" | "foodItemLabel" | "foodItemImg" | "foodItemBrand" | "foodItemCategory" | "meal" | "mealFoodItem" | "userMeal"
+      modelProps: "user" | "exercise" | "muscle" | "muscleAlias" | "equipment" | "equipmentCategory" | "userCardioSet" | "userStrengthSet" | "program" | "programWorkout" | "workout" | "workoutExercise" | "userWorkoutExercise" | "userWorkout" | "foodItem" | "foodItemLabel" | "foodItemImg" | "foodItemBrand" | "foodItemCategory" | "meal" | "mealFoodItem" | "userMeal" | "userMealItem" | "image"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2645,6 +2678,154 @@ export namespace Prisma {
           }
         }
       }
+      UserMealItem: {
+        payload: Prisma.$UserMealItemPayload<ExtArgs>
+        fields: Prisma.UserMealItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserMealItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserMealItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealItemPayload>
+          }
+          findFirst: {
+            args: Prisma.UserMealItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserMealItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealItemPayload>
+          }
+          findMany: {
+            args: Prisma.UserMealItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealItemPayload>[]
+          }
+          create: {
+            args: Prisma.UserMealItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealItemPayload>
+          }
+          createMany: {
+            args: Prisma.UserMealItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserMealItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealItemPayload>[]
+          }
+          delete: {
+            args: Prisma.UserMealItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealItemPayload>
+          }
+          update: {
+            args: Prisma.UserMealItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserMealItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserMealItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserMealItemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealItemPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserMealItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMealItemPayload>
+          }
+          aggregate: {
+            args: Prisma.UserMealItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserMealItem>
+          }
+          groupBy: {
+            args: Prisma.UserMealItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserMealItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserMealItemCountArgs<ExtArgs>
+            result: $Utils.Optional<UserMealItemCountAggregateOutputType> | number
+          }
+        }
+      }
+      Image: {
+        payload: Prisma.$ImagePayload<ExtArgs>
+        fields: Prisma.ImageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ImageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ImageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>
+          }
+          findFirst: {
+            args: Prisma.ImageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ImageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>
+          }
+          findMany: {
+            args: Prisma.ImageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>[]
+          }
+          create: {
+            args: Prisma.ImageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>
+          }
+          createMany: {
+            args: Prisma.ImageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ImageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>[]
+          }
+          delete: {
+            args: Prisma.ImageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>
+          }
+          update: {
+            args: Prisma.ImageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>
+          }
+          deleteMany: {
+            args: Prisma.ImageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ImageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ImageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>[]
+          }
+          upsert: {
+            args: Prisma.ImageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>
+          }
+          aggregate: {
+            args: Prisma.ImageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateImage>
+          }
+          groupBy: {
+            args: Prisma.ImageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ImageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ImageCountArgs<ExtArgs>
+            result: $Utils.Optional<ImageCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2763,6 +2944,8 @@ export namespace Prisma {
     meal?: MealOmit
     mealFoodItem?: MealFoodItemOmit
     userMeal?: UserMealOmit
+    userMealItem?: UserMealItemOmit
+    image?: ImageOmit
   }
 
   /* Types for Logging */
@@ -3273,6 +3456,7 @@ export namespace Prisma {
     categories: number
     labels: number
     mealFoodItem: number
+    userMealItem: number
     images: number
   }
 
@@ -3280,6 +3464,7 @@ export namespace Prisma {
     categories?: boolean | FoodItemCountOutputTypeCountCategoriesArgs
     labels?: boolean | FoodItemCountOutputTypeCountLabelsArgs
     mealFoodItem?: boolean | FoodItemCountOutputTypeCountMealFoodItemArgs
+    userMealItem?: boolean | FoodItemCountOutputTypeCountUserMealItemArgs
     images?: boolean | FoodItemCountOutputTypeCountImagesArgs
   }
 
@@ -3313,6 +3498,13 @@ export namespace Prisma {
    */
   export type FoodItemCountOutputTypeCountMealFoodItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MealFoodItemWhereInput
+  }
+
+  /**
+   * FoodItemCountOutputType without action
+   */
+  export type FoodItemCountOutputTypeCountUserMealItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserMealItemWhereInput
   }
 
   /**
@@ -3423,11 +3615,13 @@ export namespace Prisma {
   export type MealCountOutputType = {
     mealFoodItems: number
     userMeals: number
+    images: number
   }
 
   export type MealCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     mealFoodItems?: boolean | MealCountOutputTypeCountMealFoodItemsArgs
     userMeals?: boolean | MealCountOutputTypeCountUserMealsArgs
+    images?: boolean | MealCountOutputTypeCountImagesArgs
   }
 
   // Custom InputTypes
@@ -3453,6 +3647,44 @@ export namespace Prisma {
    */
   export type MealCountOutputTypeCountUserMealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserMealWhereInput
+  }
+
+  /**
+   * MealCountOutputType without action
+   */
+  export type MealCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ImageWhereInput
+  }
+
+
+  /**
+   * Count Type UserMealCountOutputType
+   */
+
+  export type UserMealCountOutputType = {
+    userMealItems: number
+  }
+
+  export type UserMealCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userMealItems?: boolean | UserMealCountOutputTypeCountUserMealItemsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserMealCountOutputType without action
+   */
+  export type UserMealCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMealCountOutputType
+     */
+    select?: UserMealCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserMealCountOutputType without action
+   */
+  export type UserMealCountOutputTypeCountUserMealItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserMealItemWhereInput
   }
 
 
@@ -3753,7 +3985,7 @@ export namespace Prisma {
   type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
 
   type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: UserCountAggregateInputType | true
     }
 
@@ -4209,6 +4441,7 @@ export namespace Prisma {
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4231,6 +4464,7 @@ export namespace Prisma {
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4283,6 +4517,7 @@ export namespace Prisma {
      * Filter by unique combinations of Users.
      */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4335,6 +4570,7 @@ export namespace Prisma {
      * Filter by unique combinations of Users.
      */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4382,6 +4618,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4404,6 +4641,7 @@ export namespace Prisma {
      * The data needed to create a User.
      */
     data: XOR<UserCreateInput, UserUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4460,6 +4698,7 @@ export namespace Prisma {
      * Choose, which User to update.
      */
     where: UserWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4534,6 +4773,7 @@ export namespace Prisma {
      * In case the User was found with the provided `where` argument, update it with this data.
      */
     update: XOR<UserUpdateInput, UserUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4556,6 +4796,7 @@ export namespace Prisma {
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -4751,6 +4992,7 @@ export namespace Prisma {
     youtubeUrl: string | null
     notes: string | null
     isCompounded: boolean | null
+    isSeparateHands: boolean | null
     type: $Enums.ExerciseType | null
     ownerId: string | null
     createdAt: Date | null
@@ -4763,6 +5005,7 @@ export namespace Prisma {
     youtubeUrl: string | null
     notes: string | null
     isCompounded: boolean | null
+    isSeparateHands: boolean | null
     type: $Enums.ExerciseType | null
     ownerId: string | null
     createdAt: Date | null
@@ -4775,6 +5018,7 @@ export namespace Prisma {
     youtubeUrl: number
     notes: number
     isCompounded: number
+    isSeparateHands: number
     type: number
     ownerId: number
     createdAt: number
@@ -4789,6 +5033,7 @@ export namespace Prisma {
     youtubeUrl?: true
     notes?: true
     isCompounded?: true
+    isSeparateHands?: true
     type?: true
     ownerId?: true
     createdAt?: true
@@ -4801,6 +5046,7 @@ export namespace Prisma {
     youtubeUrl?: true
     notes?: true
     isCompounded?: true
+    isSeparateHands?: true
     type?: true
     ownerId?: true
     createdAt?: true
@@ -4813,6 +5059,7 @@ export namespace Prisma {
     youtubeUrl?: true
     notes?: true
     isCompounded?: true
+    isSeparateHands?: true
     type?: true
     ownerId?: true
     createdAt?: true
@@ -4898,6 +5145,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes: string | null
     isCompounded: boolean
+    isSeparateHands: boolean
     type: $Enums.ExerciseType
     ownerId: string | null
     createdAt: Date
@@ -4927,6 +5175,7 @@ export namespace Prisma {
     youtubeUrl?: boolean
     notes?: boolean
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: boolean
     ownerId?: boolean
     createdAt?: boolean
@@ -4944,6 +5193,7 @@ export namespace Prisma {
     youtubeUrl?: boolean
     notes?: boolean
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: boolean
     ownerId?: boolean
     createdAt?: boolean
@@ -4957,6 +5207,7 @@ export namespace Prisma {
     youtubeUrl?: boolean
     notes?: boolean
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: boolean
     ownerId?: boolean
     createdAt?: boolean
@@ -4970,13 +5221,14 @@ export namespace Prisma {
     youtubeUrl?: boolean
     notes?: boolean
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: boolean
     ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "youtubeUrl" | "notes" | "isCompounded" | "type" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["exercise"]>
+  export type ExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "youtubeUrl" | "notes" | "isCompounded" | "isSeparateHands" | "type" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["exercise"]>
   export type ExerciseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     equipment?: boolean | Exercise$equipmentArgs<ExtArgs>
     muscles?: boolean | Exercise$musclesArgs<ExtArgs>
@@ -5005,6 +5257,7 @@ export namespace Prisma {
       youtubeUrl: string
       notes: string | null
       isCompounded: boolean
+      isSeparateHands: boolean
       type: $Enums.ExerciseType
       ownerId: string | null
       createdAt: Date
@@ -5016,7 +5269,7 @@ export namespace Prisma {
   type ExerciseGetPayload<S extends boolean | null | undefined | ExerciseDefaultArgs> = $Result.GetResult<Prisma.$ExercisePayload, S>
 
   type ExerciseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ExerciseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<ExerciseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ExerciseCountAggregateInputType | true
     }
 
@@ -5441,6 +5694,7 @@ export namespace Prisma {
     readonly youtubeUrl: FieldRef<"Exercise", 'String'>
     readonly notes: FieldRef<"Exercise", 'String'>
     readonly isCompounded: FieldRef<"Exercise", 'Boolean'>
+    readonly isSeparateHands: FieldRef<"Exercise", 'Boolean'>
     readonly type: FieldRef<"Exercise", 'ExerciseType'>
     readonly ownerId: FieldRef<"Exercise", 'String'>
     readonly createdAt: FieldRef<"Exercise", 'DateTime'>
@@ -5469,6 +5723,7 @@ export namespace Prisma {
      * Filter, which Exercise to fetch.
      */
     where: ExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5491,6 +5746,7 @@ export namespace Prisma {
      * Filter, which Exercise to fetch.
      */
     where: ExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5543,6 +5799,7 @@ export namespace Prisma {
      * Filter by unique combinations of Exercises.
      */
     distinct?: ExerciseScalarFieldEnum | ExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5595,6 +5852,7 @@ export namespace Prisma {
      * Filter by unique combinations of Exercises.
      */
     distinct?: ExerciseScalarFieldEnum | ExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5642,6 +5900,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: ExerciseScalarFieldEnum | ExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5664,6 +5923,7 @@ export namespace Prisma {
      * The data needed to create a Exercise.
      */
     data: XOR<ExerciseCreateInput, ExerciseUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5724,6 +5984,7 @@ export namespace Prisma {
      * Choose, which Exercise to update.
      */
     where: ExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5802,6 +6063,7 @@ export namespace Prisma {
      * In case the Exercise was found with the provided `where` argument, update it with this data.
      */
     update: XOR<ExerciseUpdateInput, ExerciseUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -5824,6 +6086,7 @@ export namespace Prisma {
      * Filter which Exercise to delete.
      */
     where: ExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6205,7 +6468,7 @@ export namespace Prisma {
   type MuscleGetPayload<S extends boolean | null | undefined | MuscleDefaultArgs> = $Result.GetResult<Prisma.$MusclePayload, S>
 
   type MuscleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<MuscleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<MuscleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: MuscleCountAggregateInputType | true
     }
 
@@ -6652,6 +6915,7 @@ export namespace Prisma {
      * Filter, which Muscle to fetch.
      */
     where: MuscleWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6674,6 +6938,7 @@ export namespace Prisma {
      * Filter, which Muscle to fetch.
      */
     where: MuscleWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6726,6 +6991,7 @@ export namespace Prisma {
      * Filter by unique combinations of Muscles.
      */
     distinct?: MuscleScalarFieldEnum | MuscleScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6778,6 +7044,7 @@ export namespace Prisma {
      * Filter by unique combinations of Muscles.
      */
     distinct?: MuscleScalarFieldEnum | MuscleScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6825,6 +7092,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: MuscleScalarFieldEnum | MuscleScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6847,6 +7115,7 @@ export namespace Prisma {
      * The data needed to create a Muscle.
      */
     data: XOR<MuscleCreateInput, MuscleUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6903,6 +7172,7 @@ export namespace Prisma {
      * Choose, which Muscle to update.
      */
     where: MuscleWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6977,6 +7247,7 @@ export namespace Prisma {
      * In case the Muscle was found with the provided `where` argument, update it with this data.
      */
     update: XOR<MuscleUpdateInput, MuscleUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -6999,6 +7270,7 @@ export namespace Prisma {
      * Filter which Muscle to delete.
      */
     where: MuscleWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -7316,7 +7588,7 @@ export namespace Prisma {
   type MuscleAliasGetPayload<S extends boolean | null | undefined | MuscleAliasDefaultArgs> = $Result.GetResult<Prisma.$MuscleAliasPayload, S>
 
   type MuscleAliasCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<MuscleAliasFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<MuscleAliasFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: MuscleAliasCountAggregateInputType | true
     }
 
@@ -7763,6 +8035,7 @@ export namespace Prisma {
      * Filter, which MuscleAlias to fetch.
      */
     where: MuscleAliasWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -7785,6 +8058,7 @@ export namespace Prisma {
      * Filter, which MuscleAlias to fetch.
      */
     where: MuscleAliasWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -7837,6 +8111,7 @@ export namespace Prisma {
      * Filter by unique combinations of MuscleAliases.
      */
     distinct?: MuscleAliasScalarFieldEnum | MuscleAliasScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -7889,6 +8164,7 @@ export namespace Prisma {
      * Filter by unique combinations of MuscleAliases.
      */
     distinct?: MuscleAliasScalarFieldEnum | MuscleAliasScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -7936,6 +8212,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: MuscleAliasScalarFieldEnum | MuscleAliasScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -7958,6 +8235,7 @@ export namespace Prisma {
      * The data needed to create a MuscleAlias.
      */
     data: XOR<MuscleAliasCreateInput, MuscleAliasUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -8018,6 +8296,7 @@ export namespace Prisma {
      * Choose, which MuscleAlias to update.
      */
     where: MuscleAliasWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -8096,6 +8375,7 @@ export namespace Prisma {
      * In case the MuscleAlias was found with the provided `where` argument, update it with this data.
      */
     update: XOR<MuscleAliasUpdateInput, MuscleAliasUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -8118,6 +8398,7 @@ export namespace Prisma {
      * Filter which MuscleAlias to delete.
      */
     where: MuscleAliasWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -8362,7 +8643,7 @@ export namespace Prisma {
   type EquipmentGetPayload<S extends boolean | null | undefined | EquipmentDefaultArgs> = $Result.GetResult<Prisma.$EquipmentPayload, S>
 
   type EquipmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<EquipmentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<EquipmentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: EquipmentCountAggregateInputType | true
     }
 
@@ -8808,6 +9089,7 @@ export namespace Prisma {
      * Filter, which Equipment to fetch.
      */
     where: EquipmentWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -8830,6 +9112,7 @@ export namespace Prisma {
      * Filter, which Equipment to fetch.
      */
     where: EquipmentWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -8882,6 +9165,7 @@ export namespace Prisma {
      * Filter by unique combinations of Equipment.
      */
     distinct?: EquipmentScalarFieldEnum | EquipmentScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -8934,6 +9218,7 @@ export namespace Prisma {
      * Filter by unique combinations of Equipment.
      */
     distinct?: EquipmentScalarFieldEnum | EquipmentScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -8981,6 +9266,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: EquipmentScalarFieldEnum | EquipmentScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -9003,6 +9289,7 @@ export namespace Prisma {
      * The data needed to create a Equipment.
      */
     data: XOR<EquipmentCreateInput, EquipmentUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -9059,6 +9346,7 @@ export namespace Prisma {
      * Choose, which Equipment to update.
      */
     where: EquipmentWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -9133,6 +9421,7 @@ export namespace Prisma {
      * In case the Equipment was found with the provided `where` argument, update it with this data.
      */
     update: XOR<EquipmentUpdateInput, EquipmentUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -9155,6 +9444,7 @@ export namespace Prisma {
      * Filter which Equipment to delete.
      */
     where: EquipmentWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -9444,7 +9734,7 @@ export namespace Prisma {
   type EquipmentCategoryGetPayload<S extends boolean | null | undefined | EquipmentCategoryDefaultArgs> = $Result.GetResult<Prisma.$EquipmentCategoryPayload, S>
 
   type EquipmentCategoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<EquipmentCategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<EquipmentCategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: EquipmentCategoryCountAggregateInputType | true
     }
 
@@ -9889,6 +10179,7 @@ export namespace Prisma {
      * Filter, which EquipmentCategory to fetch.
      */
     where: EquipmentCategoryWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -9911,6 +10202,7 @@ export namespace Prisma {
      * Filter, which EquipmentCategory to fetch.
      */
     where: EquipmentCategoryWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -9963,6 +10255,7 @@ export namespace Prisma {
      * Filter by unique combinations of EquipmentCategories.
      */
     distinct?: EquipmentCategoryScalarFieldEnum | EquipmentCategoryScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -10015,6 +10308,7 @@ export namespace Prisma {
      * Filter by unique combinations of EquipmentCategories.
      */
     distinct?: EquipmentCategoryScalarFieldEnum | EquipmentCategoryScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -10062,6 +10356,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: EquipmentCategoryScalarFieldEnum | EquipmentCategoryScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -10084,6 +10379,7 @@ export namespace Prisma {
      * The data needed to create a EquipmentCategory.
      */
     data: XOR<EquipmentCategoryCreateInput, EquipmentCategoryUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -10140,6 +10436,7 @@ export namespace Prisma {
      * Choose, which EquipmentCategory to update.
      */
     where: EquipmentCategoryWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -10214,6 +10511,7 @@ export namespace Prisma {
      * In case the EquipmentCategory was found with the provided `where` argument, update it with this data.
      */
     update: XOR<EquipmentCategoryUpdateInput, EquipmentCategoryUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -10236,6 +10534,7 @@ export namespace Prisma {
      * Filter which EquipmentCategory to delete.
      */
     where: EquipmentCategoryWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -10671,7 +10970,7 @@ export namespace Prisma {
   type UserCardioSetGetPayload<S extends boolean | null | undefined | UserCardioSetDefaultArgs> = $Result.GetResult<Prisma.$UserCardioSetPayload, S>
 
   type UserCardioSetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserCardioSetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<UserCardioSetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: UserCardioSetCountAggregateInputType | true
     }
 
@@ -11125,6 +11424,7 @@ export namespace Prisma {
      * Filter, which UserCardioSet to fetch.
      */
     where: UserCardioSetWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11147,6 +11447,7 @@ export namespace Prisma {
      * Filter, which UserCardioSet to fetch.
      */
     where: UserCardioSetWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11199,6 +11500,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserCardioSets.
      */
     distinct?: UserCardioSetScalarFieldEnum | UserCardioSetScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11251,6 +11553,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserCardioSets.
      */
     distinct?: UserCardioSetScalarFieldEnum | UserCardioSetScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11298,6 +11601,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: UserCardioSetScalarFieldEnum | UserCardioSetScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11320,6 +11624,7 @@ export namespace Prisma {
      * The data needed to create a UserCardioSet.
      */
     data: XOR<UserCardioSetCreateInput, UserCardioSetUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11380,6 +11685,7 @@ export namespace Prisma {
      * Choose, which UserCardioSet to update.
      */
     where: UserCardioSetWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11458,6 +11764,7 @@ export namespace Prisma {
      * In case the UserCardioSet was found with the provided `where` argument, update it with this data.
      */
     update: XOR<UserCardioSetUpdateInput, UserCardioSetUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11480,6 +11787,7 @@ export namespace Prisma {
      * Filter which UserCardioSet to delete.
      */
     where: UserCardioSetWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -11891,7 +12199,7 @@ export namespace Prisma {
   type UserStrengthSetGetPayload<S extends boolean | null | undefined | UserStrengthSetDefaultArgs> = $Result.GetResult<Prisma.$UserStrengthSetPayload, S>
 
   type UserStrengthSetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserStrengthSetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<UserStrengthSetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: UserStrengthSetCountAggregateInputType | true
     }
 
@@ -12346,6 +12654,7 @@ export namespace Prisma {
      * Filter, which UserStrengthSet to fetch.
      */
     where: UserStrengthSetWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -12368,6 +12677,7 @@ export namespace Prisma {
      * Filter, which UserStrengthSet to fetch.
      */
     where: UserStrengthSetWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -12420,6 +12730,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserStrengthSets.
      */
     distinct?: UserStrengthSetScalarFieldEnum | UserStrengthSetScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -12472,6 +12783,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserStrengthSets.
      */
     distinct?: UserStrengthSetScalarFieldEnum | UserStrengthSetScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -12519,6 +12831,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: UserStrengthSetScalarFieldEnum | UserStrengthSetScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -12541,6 +12854,7 @@ export namespace Prisma {
      * The data needed to create a UserStrengthSet.
      */
     data: XOR<UserStrengthSetCreateInput, UserStrengthSetUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -12601,6 +12915,7 @@ export namespace Prisma {
      * Choose, which UserStrengthSet to update.
      */
     where: UserStrengthSetWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -12679,6 +12994,7 @@ export namespace Prisma {
      * In case the UserStrengthSet was found with the provided `where` argument, update it with this data.
      */
     update: XOR<UserStrengthSetUpdateInput, UserStrengthSetUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -12701,6 +13017,7 @@ export namespace Prisma {
      * Filter which UserStrengthSet to delete.
      */
     where: UserStrengthSetWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13014,7 +13331,7 @@ export namespace Prisma {
   type ProgramGetPayload<S extends boolean | null | undefined | ProgramDefaultArgs> = $Result.GetResult<Prisma.$ProgramPayload, S>
 
   type ProgramCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ProgramFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<ProgramFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ProgramCountAggregateInputType | true
     }
 
@@ -13466,6 +13783,7 @@ export namespace Prisma {
      * Filter, which Program to fetch.
      */
     where: ProgramWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13488,6 +13806,7 @@ export namespace Prisma {
      * Filter, which Program to fetch.
      */
     where: ProgramWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13540,6 +13859,7 @@ export namespace Prisma {
      * Filter by unique combinations of Programs.
      */
     distinct?: ProgramScalarFieldEnum | ProgramScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13592,6 +13912,7 @@ export namespace Prisma {
      * Filter by unique combinations of Programs.
      */
     distinct?: ProgramScalarFieldEnum | ProgramScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13639,6 +13960,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: ProgramScalarFieldEnum | ProgramScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13661,6 +13983,7 @@ export namespace Prisma {
      * The data needed to create a Program.
      */
     data: XOR<ProgramCreateInput, ProgramUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13721,6 +14044,7 @@ export namespace Prisma {
      * Choose, which Program to update.
      */
     where: ProgramWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13799,6 +14123,7 @@ export namespace Prisma {
      * In case the Program was found with the provided `where` argument, update it with this data.
      */
     update: XOR<ProgramUpdateInput, ProgramUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -13821,6 +14146,7 @@ export namespace Prisma {
      * Filter which Program to delete.
      */
     where: ProgramWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14165,7 +14491,7 @@ export namespace Prisma {
   type ProgramWorkoutGetPayload<S extends boolean | null | undefined | ProgramWorkoutDefaultArgs> = $Result.GetResult<Prisma.$ProgramWorkoutPayload, S>
 
   type ProgramWorkoutCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ProgramWorkoutFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<ProgramWorkoutFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ProgramWorkoutCountAggregateInputType | true
     }
 
@@ -14615,6 +14941,7 @@ export namespace Prisma {
      * Filter, which ProgramWorkout to fetch.
      */
     where: ProgramWorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14637,6 +14964,7 @@ export namespace Prisma {
      * Filter, which ProgramWorkout to fetch.
      */
     where: ProgramWorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14689,6 +15017,7 @@ export namespace Prisma {
      * Filter by unique combinations of ProgramWorkouts.
      */
     distinct?: ProgramWorkoutScalarFieldEnum | ProgramWorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14741,6 +15070,7 @@ export namespace Prisma {
      * Filter by unique combinations of ProgramWorkouts.
      */
     distinct?: ProgramWorkoutScalarFieldEnum | ProgramWorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14788,6 +15118,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: ProgramWorkoutScalarFieldEnum | ProgramWorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14810,6 +15141,7 @@ export namespace Prisma {
      * The data needed to create a ProgramWorkout.
      */
     data: XOR<ProgramWorkoutCreateInput, ProgramWorkoutUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14870,6 +15202,7 @@ export namespace Prisma {
      * Choose, which ProgramWorkout to update.
      */
     where: ProgramWorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14948,6 +15281,7 @@ export namespace Prisma {
      * In case the ProgramWorkout was found with the provided `where` argument, update it with this data.
      */
     update: XOR<ProgramWorkoutUpdateInput, ProgramWorkoutUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -14970,6 +15304,7 @@ export namespace Prisma {
      * Filter which ProgramWorkout to delete.
      */
     where: ProgramWorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -15262,7 +15597,7 @@ export namespace Prisma {
   type WorkoutGetPayload<S extends boolean | null | undefined | WorkoutDefaultArgs> = $Result.GetResult<Prisma.$WorkoutPayload, S>
 
   type WorkoutCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<WorkoutFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<WorkoutFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: WorkoutCountAggregateInputType | true
     }
 
@@ -15713,6 +16048,7 @@ export namespace Prisma {
      * Filter, which Workout to fetch.
      */
     where: WorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -15735,6 +16071,7 @@ export namespace Prisma {
      * Filter, which Workout to fetch.
      */
     where: WorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -15787,6 +16124,7 @@ export namespace Prisma {
      * Filter by unique combinations of Workouts.
      */
     distinct?: WorkoutScalarFieldEnum | WorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -15839,6 +16177,7 @@ export namespace Prisma {
      * Filter by unique combinations of Workouts.
      */
     distinct?: WorkoutScalarFieldEnum | WorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -15886,6 +16225,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: WorkoutScalarFieldEnum | WorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -15908,6 +16248,7 @@ export namespace Prisma {
      * The data needed to create a Workout.
      */
     data: XOR<WorkoutCreateInput, WorkoutUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -15968,6 +16309,7 @@ export namespace Prisma {
      * Choose, which Workout to update.
      */
     where: WorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -16046,6 +16388,7 @@ export namespace Prisma {
      * In case the Workout was found with the provided `where` argument, update it with this data.
      */
     update: XOR<WorkoutUpdateInput, WorkoutUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -16068,6 +16411,7 @@ export namespace Prisma {
      * Filter which Workout to delete.
      */
     where: WorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -16208,11 +16552,15 @@ export namespace Prisma {
 
   export type WorkoutExerciseAvgAggregateOutputType = {
     order: number | null
+    numberOfSets: number | null
+    maxNumberOfReps: number | null
     restTime: number | null
   }
 
   export type WorkoutExerciseSumAggregateOutputType = {
     order: number | null
+    numberOfSets: number | null
+    maxNumberOfReps: number | null
     restTime: number | null
   }
 
@@ -16222,6 +16570,10 @@ export namespace Prisma {
     notes: string | null
     hasWarmup: boolean | null
     isBodyWeight: boolean | null
+    numberOfSets: number | null
+    maxNumberOfReps: number | null
+    isDropSet: boolean | null
+    isMyoReps: boolean | null
     restTime: number | null
     exerciseId: string | null
     workoutId: string | null
@@ -16235,6 +16587,10 @@ export namespace Prisma {
     notes: string | null
     hasWarmup: boolean | null
     isBodyWeight: boolean | null
+    numberOfSets: number | null
+    maxNumberOfReps: number | null
+    isDropSet: boolean | null
+    isMyoReps: boolean | null
     restTime: number | null
     exerciseId: string | null
     workoutId: string | null
@@ -16248,6 +16604,10 @@ export namespace Prisma {
     notes: number
     hasWarmup: number
     isBodyWeight: number
+    numberOfSets: number
+    maxNumberOfReps: number
+    isDropSet: number
+    isMyoReps: number
     restTime: number
     exerciseId: number
     workoutId: number
@@ -16259,11 +16619,15 @@ export namespace Prisma {
 
   export type WorkoutExerciseAvgAggregateInputType = {
     order?: true
+    numberOfSets?: true
+    maxNumberOfReps?: true
     restTime?: true
   }
 
   export type WorkoutExerciseSumAggregateInputType = {
     order?: true
+    numberOfSets?: true
+    maxNumberOfReps?: true
     restTime?: true
   }
 
@@ -16273,6 +16637,10 @@ export namespace Prisma {
     notes?: true
     hasWarmup?: true
     isBodyWeight?: true
+    numberOfSets?: true
+    maxNumberOfReps?: true
+    isDropSet?: true
+    isMyoReps?: true
     restTime?: true
     exerciseId?: true
     workoutId?: true
@@ -16286,6 +16654,10 @@ export namespace Prisma {
     notes?: true
     hasWarmup?: true
     isBodyWeight?: true
+    numberOfSets?: true
+    maxNumberOfReps?: true
+    isDropSet?: true
+    isMyoReps?: true
     restTime?: true
     exerciseId?: true
     workoutId?: true
@@ -16299,6 +16671,10 @@ export namespace Prisma {
     notes?: true
     hasWarmup?: true
     isBodyWeight?: true
+    numberOfSets?: true
+    maxNumberOfReps?: true
+    isDropSet?: true
+    isMyoReps?: true
     restTime?: true
     exerciseId?: true
     workoutId?: true
@@ -16399,6 +16775,10 @@ export namespace Prisma {
     notes: string | null
     hasWarmup: boolean
     isBodyWeight: boolean
+    numberOfSets: number | null
+    maxNumberOfReps: number | null
+    isDropSet: boolean
+    isMyoReps: boolean
     restTime: number
     exerciseId: string
     workoutId: string
@@ -16431,6 +16811,10 @@ export namespace Prisma {
     notes?: boolean
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: boolean
+    maxNumberOfReps?: boolean
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: boolean
     exerciseId?: boolean
     workoutId?: boolean
@@ -16448,6 +16832,10 @@ export namespace Prisma {
     notes?: boolean
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: boolean
+    maxNumberOfReps?: boolean
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: boolean
     exerciseId?: boolean
     workoutId?: boolean
@@ -16463,6 +16851,10 @@ export namespace Prisma {
     notes?: boolean
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: boolean
+    maxNumberOfReps?: boolean
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: boolean
     exerciseId?: boolean
     workoutId?: boolean
@@ -16478,6 +16870,10 @@ export namespace Prisma {
     notes?: boolean
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: boolean
+    maxNumberOfReps?: boolean
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: boolean
     exerciseId?: boolean
     workoutId?: boolean
@@ -16485,7 +16881,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type WorkoutExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order" | "notes" | "hasWarmup" | "isBodyWeight" | "restTime" | "exerciseId" | "workoutId" | "createdAt" | "updatedAt", ExtArgs["result"]["workoutExercise"]>
+  export type WorkoutExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order" | "notes" | "hasWarmup" | "isBodyWeight" | "numberOfSets" | "maxNumberOfReps" | "isDropSet" | "isMyoReps" | "restTime" | "exerciseId" | "workoutId" | "createdAt" | "updatedAt", ExtArgs["result"]["workoutExercise"]>
   export type WorkoutExerciseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     exercise?: boolean | ExerciseDefaultArgs<ExtArgs>
     workout?: boolean | WorkoutDefaultArgs<ExtArgs>
@@ -16514,6 +16910,10 @@ export namespace Prisma {
       notes: string | null
       hasWarmup: boolean
       isBodyWeight: boolean
+      numberOfSets: number | null
+      maxNumberOfReps: number | null
+      isDropSet: boolean
+      isMyoReps: boolean
       restTime: number
       exerciseId: string
       workoutId: string
@@ -16526,7 +16926,7 @@ export namespace Prisma {
   type WorkoutExerciseGetPayload<S extends boolean | null | undefined | WorkoutExerciseDefaultArgs> = $Result.GetResult<Prisma.$WorkoutExercisePayload, S>
 
   type WorkoutExerciseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<WorkoutExerciseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<WorkoutExerciseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: WorkoutExerciseCountAggregateInputType | true
     }
 
@@ -16950,6 +17350,10 @@ export namespace Prisma {
     readonly notes: FieldRef<"WorkoutExercise", 'String'>
     readonly hasWarmup: FieldRef<"WorkoutExercise", 'Boolean'>
     readonly isBodyWeight: FieldRef<"WorkoutExercise", 'Boolean'>
+    readonly numberOfSets: FieldRef<"WorkoutExercise", 'Int'>
+    readonly maxNumberOfReps: FieldRef<"WorkoutExercise", 'Int'>
+    readonly isDropSet: FieldRef<"WorkoutExercise", 'Boolean'>
+    readonly isMyoReps: FieldRef<"WorkoutExercise", 'Boolean'>
     readonly restTime: FieldRef<"WorkoutExercise", 'Int'>
     readonly exerciseId: FieldRef<"WorkoutExercise", 'String'>
     readonly workoutId: FieldRef<"WorkoutExercise", 'String'>
@@ -16979,6 +17383,7 @@ export namespace Prisma {
      * Filter, which WorkoutExercise to fetch.
      */
     where: WorkoutExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17001,6 +17406,7 @@ export namespace Prisma {
      * Filter, which WorkoutExercise to fetch.
      */
     where: WorkoutExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17053,6 +17459,7 @@ export namespace Prisma {
      * Filter by unique combinations of WorkoutExercises.
      */
     distinct?: WorkoutExerciseScalarFieldEnum | WorkoutExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17105,6 +17512,7 @@ export namespace Prisma {
      * Filter by unique combinations of WorkoutExercises.
      */
     distinct?: WorkoutExerciseScalarFieldEnum | WorkoutExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17152,6 +17560,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: WorkoutExerciseScalarFieldEnum | WorkoutExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17174,6 +17583,7 @@ export namespace Prisma {
      * The data needed to create a WorkoutExercise.
      */
     data: XOR<WorkoutExerciseCreateInput, WorkoutExerciseUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17234,6 +17644,7 @@ export namespace Prisma {
      * Choose, which WorkoutExercise to update.
      */
     where: WorkoutExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17312,6 +17723,7 @@ export namespace Prisma {
      * In case the WorkoutExercise was found with the provided `where` argument, update it with this data.
      */
     update: XOR<WorkoutExerciseUpdateInput, WorkoutExerciseUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17334,6 +17746,7 @@ export namespace Prisma {
      * Filter which WorkoutExercise to delete.
      */
     where: WorkoutExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -17618,7 +18031,7 @@ export namespace Prisma {
   type UserWorkoutExerciseGetPayload<S extends boolean | null | undefined | UserWorkoutExerciseDefaultArgs> = $Result.GetResult<Prisma.$UserWorkoutExercisePayload, S>
 
   type UserWorkoutExerciseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserWorkoutExerciseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<UserWorkoutExerciseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: UserWorkoutExerciseCountAggregateInputType | true
     }
 
@@ -18066,6 +18479,7 @@ export namespace Prisma {
      * Filter, which UserWorkoutExercise to fetch.
      */
     where: UserWorkoutExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18088,6 +18502,7 @@ export namespace Prisma {
      * Filter, which UserWorkoutExercise to fetch.
      */
     where: UserWorkoutExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18140,6 +18555,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserWorkoutExercises.
      */
     distinct?: UserWorkoutExerciseScalarFieldEnum | UserWorkoutExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18192,6 +18608,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserWorkoutExercises.
      */
     distinct?: UserWorkoutExerciseScalarFieldEnum | UserWorkoutExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18239,6 +18656,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: UserWorkoutExerciseScalarFieldEnum | UserWorkoutExerciseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18261,6 +18679,7 @@ export namespace Prisma {
      * The data needed to create a UserWorkoutExercise.
      */
     data: XOR<UserWorkoutExerciseCreateInput, UserWorkoutExerciseUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18321,6 +18740,7 @@ export namespace Prisma {
      * Choose, which UserWorkoutExercise to update.
      */
     where: UserWorkoutExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18399,6 +18819,7 @@ export namespace Prisma {
      * In case the UserWorkoutExercise was found with the provided `where` argument, update it with this data.
      */
     update: XOR<UserWorkoutExerciseUpdateInput, UserWorkoutExerciseUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18421,6 +18842,7 @@ export namespace Prisma {
      * Filter which UserWorkoutExercise to delete.
      */
     where: UserWorkoutExerciseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -18757,7 +19179,7 @@ export namespace Prisma {
   type UserWorkoutGetPayload<S extends boolean | null | undefined | UserWorkoutDefaultArgs> = $Result.GetResult<Prisma.$UserWorkoutPayload, S>
 
   type UserWorkoutCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserWorkoutFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<UserWorkoutFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: UserWorkoutCountAggregateInputType | true
     }
 
@@ -19207,6 +19629,7 @@ export namespace Prisma {
      * Filter, which UserWorkout to fetch.
      */
     where: UserWorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19229,6 +19652,7 @@ export namespace Prisma {
      * Filter, which UserWorkout to fetch.
      */
     where: UserWorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19281,6 +19705,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserWorkouts.
      */
     distinct?: UserWorkoutScalarFieldEnum | UserWorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19333,6 +19758,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserWorkouts.
      */
     distinct?: UserWorkoutScalarFieldEnum | UserWorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19380,6 +19806,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: UserWorkoutScalarFieldEnum | UserWorkoutScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19402,6 +19829,7 @@ export namespace Prisma {
      * The data needed to create a UserWorkout.
      */
     data: XOR<UserWorkoutCreateInput, UserWorkoutUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19462,6 +19890,7 @@ export namespace Prisma {
      * Choose, which UserWorkout to update.
      */
     where: UserWorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19540,6 +19969,7 @@ export namespace Prisma {
      * In case the UserWorkout was found with the provided `where` argument, update it with this data.
      */
     update: XOR<UserWorkoutUpdateInput, UserWorkoutUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19562,6 +19992,7 @@ export namespace Prisma {
      * Filter which UserWorkout to delete.
      */
     where: UserWorkoutWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -19985,6 +20416,7 @@ export namespace Prisma {
     categories?: boolean | FoodItem$categoriesArgs<ExtArgs>
     labels?: boolean | FoodItem$labelsArgs<ExtArgs>
     mealFoodItem?: boolean | FoodItem$mealFoodItemArgs<ExtArgs>
+    userMealItem?: boolean | FoodItem$userMealItemArgs<ExtArgs>
     images?: boolean | FoodItem$imagesArgs<ExtArgs>
     _count?: boolean | FoodItemCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["foodItem"]>
@@ -20054,6 +20486,7 @@ export namespace Prisma {
     categories?: boolean | FoodItem$categoriesArgs<ExtArgs>
     labels?: boolean | FoodItem$labelsArgs<ExtArgs>
     mealFoodItem?: boolean | FoodItem$mealFoodItemArgs<ExtArgs>
+    userMealItem?: boolean | FoodItem$userMealItemArgs<ExtArgs>
     images?: boolean | FoodItem$imagesArgs<ExtArgs>
     _count?: boolean | FoodItemCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -20071,6 +20504,7 @@ export namespace Prisma {
       categories: Prisma.$FoodItemCategoryPayload<ExtArgs>[]
       labels: Prisma.$FoodItemLabelPayload<ExtArgs>[]
       mealFoodItem: Prisma.$MealFoodItemPayload<ExtArgs>[]
+      userMealItem: Prisma.$UserMealItemPayload<ExtArgs>[]
       images: Prisma.$FoodItemImgPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -20097,7 +20531,7 @@ export namespace Prisma {
   type FoodItemGetPayload<S extends boolean | null | undefined | FoodItemDefaultArgs> = $Result.GetResult<Prisma.$FoodItemPayload, S>
 
   type FoodItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<FoodItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<FoodItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: FoodItemCountAggregateInputType | true
     }
 
@@ -20488,6 +20922,7 @@ export namespace Prisma {
     categories<T extends FoodItem$categoriesArgs<ExtArgs> = {}>(args?: Subset<T, FoodItem$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FoodItemCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     labels<T extends FoodItem$labelsArgs<ExtArgs> = {}>(args?: Subset<T, FoodItem$labelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FoodItemLabelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     mealFoodItem<T extends FoodItem$mealFoodItemArgs<ExtArgs> = {}>(args?: Subset<T, FoodItem$mealFoodItemArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MealFoodItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userMealItem<T extends FoodItem$userMealItemArgs<ExtArgs> = {}>(args?: Subset<T, FoodItem$userMealItemArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMealItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     images<T extends FoodItem$imagesArgs<ExtArgs> = {}>(args?: Subset<T, FoodItem$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FoodItemImgPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -20558,6 +20993,7 @@ export namespace Prisma {
      * Filter, which FoodItem to fetch.
      */
     where: FoodItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20580,6 +21016,7 @@ export namespace Prisma {
      * Filter, which FoodItem to fetch.
      */
     where: FoodItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20632,6 +21069,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItems.
      */
     distinct?: FoodItemScalarFieldEnum | FoodItemScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20684,6 +21122,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItems.
      */
     distinct?: FoodItemScalarFieldEnum | FoodItemScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20731,6 +21170,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: FoodItemScalarFieldEnum | FoodItemScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20753,6 +21193,7 @@ export namespace Prisma {
      * The data needed to create a FoodItem.
      */
     data: XOR<FoodItemCreateInput, FoodItemUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20813,6 +21254,7 @@ export namespace Prisma {
      * Choose, which FoodItem to update.
      */
     where: FoodItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20891,6 +21333,7 @@ export namespace Prisma {
      * In case the FoodItem was found with the provided `where` argument, update it with this data.
      */
     update: XOR<FoodItemUpdateInput, FoodItemUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -20913,6 +21356,7 @@ export namespace Prisma {
      * Filter which FoodItem to delete.
      */
     where: FoodItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -21018,6 +21462,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MealFoodItemScalarFieldEnum | MealFoodItemScalarFieldEnum[]
+  }
+
+  /**
+   * FoodItem.userMealItem
+   */
+  export type FoodItem$userMealItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMealItem
+     */
+    select?: UserMealItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMealItem
+     */
+    omit?: UserMealItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealItemInclude<ExtArgs> | null
+    where?: UserMealItemWhereInput
+    orderBy?: UserMealItemOrderByWithRelationInput | UserMealItemOrderByWithRelationInput[]
+    cursor?: UserMealItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserMealItemScalarFieldEnum | UserMealItemScalarFieldEnum[]
   }
 
   /**
@@ -21269,7 +21737,7 @@ export namespace Prisma {
   type FoodItemLabelGetPayload<S extends boolean | null | undefined | FoodItemLabelDefaultArgs> = $Result.GetResult<Prisma.$FoodItemLabelPayload, S>
 
   type FoodItemLabelCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<FoodItemLabelFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<FoodItemLabelFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: FoodItemLabelCountAggregateInputType | true
     }
 
@@ -21714,6 +22182,7 @@ export namespace Prisma {
      * Filter, which FoodItemLabel to fetch.
      */
     where: FoodItemLabelWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -21736,6 +22205,7 @@ export namespace Prisma {
      * Filter, which FoodItemLabel to fetch.
      */
     where: FoodItemLabelWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -21788,6 +22258,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItemLabels.
      */
     distinct?: FoodItemLabelScalarFieldEnum | FoodItemLabelScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -21840,6 +22311,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItemLabels.
      */
     distinct?: FoodItemLabelScalarFieldEnum | FoodItemLabelScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -21887,6 +22359,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: FoodItemLabelScalarFieldEnum | FoodItemLabelScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -21909,6 +22382,7 @@ export namespace Prisma {
      * The data needed to create a FoodItemLabel.
      */
     data: XOR<FoodItemLabelCreateInput, FoodItemLabelUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -21965,6 +22439,7 @@ export namespace Prisma {
      * Choose, which FoodItemLabel to update.
      */
     where: FoodItemLabelWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -22039,6 +22514,7 @@ export namespace Prisma {
      * In case the FoodItemLabel was found with the provided `where` argument, update it with this data.
      */
     update: XOR<FoodItemLabelUpdateInput, FoodItemLabelUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -22061,6 +22537,7 @@ export namespace Prisma {
      * Filter which FoodItemLabel to delete.
      */
     where: FoodItemLabelWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -22133,6 +22610,7 @@ export namespace Prisma {
   export type FoodItemImgMinAggregateOutputType = {
     id: string | null
     url: string | null
+    altText: string | null
     foodItemId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -22141,6 +22619,7 @@ export namespace Prisma {
   export type FoodItemImgMaxAggregateOutputType = {
     id: string | null
     url: string | null
+    altText: string | null
     foodItemId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -22149,6 +22628,7 @@ export namespace Prisma {
   export type FoodItemImgCountAggregateOutputType = {
     id: number
     url: number
+    altText: number
     foodItemId: number
     createdAt: number
     updatedAt: number
@@ -22159,6 +22639,7 @@ export namespace Prisma {
   export type FoodItemImgMinAggregateInputType = {
     id?: true
     url?: true
+    altText?: true
     foodItemId?: true
     createdAt?: true
     updatedAt?: true
@@ -22167,6 +22648,7 @@ export namespace Prisma {
   export type FoodItemImgMaxAggregateInputType = {
     id?: true
     url?: true
+    altText?: true
     foodItemId?: true
     createdAt?: true
     updatedAt?: true
@@ -22175,6 +22657,7 @@ export namespace Prisma {
   export type FoodItemImgCountAggregateInputType = {
     id?: true
     url?: true
+    altText?: true
     foodItemId?: true
     createdAt?: true
     updatedAt?: true
@@ -22256,6 +22739,7 @@ export namespace Prisma {
   export type FoodItemImgGroupByOutputType = {
     id: string
     url: string
+    altText: string | null
     foodItemId: string
     createdAt: Date
     updatedAt: Date
@@ -22281,6 +22765,7 @@ export namespace Prisma {
   export type FoodItemImgSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
+    altText?: boolean
     foodItemId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -22290,6 +22775,7 @@ export namespace Prisma {
   export type FoodItemImgSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
+    altText?: boolean
     foodItemId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -22299,6 +22785,7 @@ export namespace Prisma {
   export type FoodItemImgSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
+    altText?: boolean
     foodItemId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -22308,12 +22795,13 @@ export namespace Prisma {
   export type FoodItemImgSelectScalar = {
     id?: boolean
     url?: boolean
+    altText?: boolean
     foodItemId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type FoodItemImgOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "foodItemId" | "createdAt" | "updatedAt", ExtArgs["result"]["foodItemImg"]>
+  export type FoodItemImgOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "altText" | "foodItemId" | "createdAt" | "updatedAt", ExtArgs["result"]["foodItemImg"]>
   export type FoodItemImgInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     foodItem?: boolean | FoodItemDefaultArgs<ExtArgs>
   }
@@ -22332,6 +22820,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       url: string
+      altText: string | null
       foodItemId: string
       createdAt: Date
       updatedAt: Date
@@ -22342,7 +22831,7 @@ export namespace Prisma {
   type FoodItemImgGetPayload<S extends boolean | null | undefined | FoodItemImgDefaultArgs> = $Result.GetResult<Prisma.$FoodItemImgPayload, S>
 
   type FoodItemImgCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<FoodItemImgFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<FoodItemImgFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: FoodItemImgCountAggregateInputType | true
     }
 
@@ -22761,6 +23250,7 @@ export namespace Prisma {
   interface FoodItemImgFieldRefs {
     readonly id: FieldRef<"FoodItemImg", 'String'>
     readonly url: FieldRef<"FoodItemImg", 'String'>
+    readonly altText: FieldRef<"FoodItemImg", 'String'>
     readonly foodItemId: FieldRef<"FoodItemImg", 'String'>
     readonly createdAt: FieldRef<"FoodItemImg", 'DateTime'>
     readonly updatedAt: FieldRef<"FoodItemImg", 'DateTime'>
@@ -22788,6 +23278,7 @@ export namespace Prisma {
      * Filter, which FoodItemImg to fetch.
      */
     where: FoodItemImgWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -22810,6 +23301,7 @@ export namespace Prisma {
      * Filter, which FoodItemImg to fetch.
      */
     where: FoodItemImgWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -22862,6 +23354,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItemImgs.
      */
     distinct?: FoodItemImgScalarFieldEnum | FoodItemImgScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -22914,6 +23407,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItemImgs.
      */
     distinct?: FoodItemImgScalarFieldEnum | FoodItemImgScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -22961,6 +23455,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: FoodItemImgScalarFieldEnum | FoodItemImgScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -22983,6 +23478,7 @@ export namespace Prisma {
      * The data needed to create a FoodItemImg.
      */
     data: XOR<FoodItemImgCreateInput, FoodItemImgUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -23043,6 +23539,7 @@ export namespace Prisma {
      * Choose, which FoodItemImg to update.
      */
     where: FoodItemImgWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -23121,6 +23618,7 @@ export namespace Prisma {
      * In case the FoodItemImg was found with the provided `where` argument, update it with this data.
      */
     update: XOR<FoodItemImgUpdateInput, FoodItemImgUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -23143,6 +23641,7 @@ export namespace Prisma {
      * Filter which FoodItemImg to delete.
      */
     where: FoodItemImgWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -23384,7 +23883,7 @@ export namespace Prisma {
   type FoodItemBrandGetPayload<S extends boolean | null | undefined | FoodItemBrandDefaultArgs> = $Result.GetResult<Prisma.$FoodItemBrandPayload, S>
 
   type FoodItemBrandCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<FoodItemBrandFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<FoodItemBrandFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: FoodItemBrandCountAggregateInputType | true
     }
 
@@ -23829,6 +24328,7 @@ export namespace Prisma {
      * Filter, which FoodItemBrand to fetch.
      */
     where: FoodItemBrandWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -23851,6 +24351,7 @@ export namespace Prisma {
      * Filter, which FoodItemBrand to fetch.
      */
     where: FoodItemBrandWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -23903,6 +24404,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItemBrands.
      */
     distinct?: FoodItemBrandScalarFieldEnum | FoodItemBrandScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -23955,6 +24457,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItemBrands.
      */
     distinct?: FoodItemBrandScalarFieldEnum | FoodItemBrandScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -24002,6 +24505,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: FoodItemBrandScalarFieldEnum | FoodItemBrandScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -24024,6 +24528,7 @@ export namespace Prisma {
      * The data needed to create a FoodItemBrand.
      */
     data: XOR<FoodItemBrandCreateInput, FoodItemBrandUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -24080,6 +24585,7 @@ export namespace Prisma {
      * Choose, which FoodItemBrand to update.
      */
     where: FoodItemBrandWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -24154,6 +24660,7 @@ export namespace Prisma {
      * In case the FoodItemBrand was found with the provided `where` argument, update it with this data.
      */
     update: XOR<FoodItemBrandUpdateInput, FoodItemBrandUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -24176,6 +24683,7 @@ export namespace Prisma {
      * Filter which FoodItemBrand to delete.
      */
     where: FoodItemBrandWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -24441,7 +24949,7 @@ export namespace Prisma {
   type FoodItemCategoryGetPayload<S extends boolean | null | undefined | FoodItemCategoryDefaultArgs> = $Result.GetResult<Prisma.$FoodItemCategoryPayload, S>
 
   type FoodItemCategoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<FoodItemCategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<FoodItemCategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: FoodItemCategoryCountAggregateInputType | true
     }
 
@@ -24886,6 +25394,7 @@ export namespace Prisma {
      * Filter, which FoodItemCategory to fetch.
      */
     where: FoodItemCategoryWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -24908,6 +25417,7 @@ export namespace Prisma {
      * Filter, which FoodItemCategory to fetch.
      */
     where: FoodItemCategoryWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -24960,6 +25470,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItemCategories.
      */
     distinct?: FoodItemCategoryScalarFieldEnum | FoodItemCategoryScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -25012,6 +25523,7 @@ export namespace Prisma {
      * Filter by unique combinations of FoodItemCategories.
      */
     distinct?: FoodItemCategoryScalarFieldEnum | FoodItemCategoryScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -25059,6 +25571,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: FoodItemCategoryScalarFieldEnum | FoodItemCategoryScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -25081,6 +25594,7 @@ export namespace Prisma {
      * The data needed to create a FoodItemCategory.
      */
     data: XOR<FoodItemCategoryCreateInput, FoodItemCategoryUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -25137,6 +25651,7 @@ export namespace Prisma {
      * Choose, which FoodItemCategory to update.
      */
     where: FoodItemCategoryWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -25211,6 +25726,7 @@ export namespace Prisma {
      * In case the FoodItemCategory was found with the provided `where` argument, update it with this data.
      */
     update: XOR<FoodItemCategoryUpdateInput, FoodItemCategoryUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -25233,6 +25749,7 @@ export namespace Prisma {
      * Filter which FoodItemCategory to delete.
      */
     where: FoodItemCategoryWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -25441,7 +25958,7 @@ export namespace Prisma {
     id: string
     name: string | null
     mealType: $Enums.MealType
-    ownerId: string
+    ownerId: string | null
     notes: string | null
     createdAt: Date
     updatedAt: Date
@@ -25472,9 +25989,10 @@ export namespace Prisma {
     notes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | Meal$ownerArgs<ExtArgs>
     mealFoodItems?: boolean | Meal$mealFoodItemsArgs<ExtArgs>
     userMeals?: boolean | Meal$userMealsArgs<ExtArgs>
+    images?: boolean | Meal$imagesArgs<ExtArgs>
     _count?: boolean | MealCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["meal"]>
 
@@ -25486,7 +26004,7 @@ export namespace Prisma {
     notes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | Meal$ownerArgs<ExtArgs>
   }, ExtArgs["result"]["meal"]>
 
   export type MealSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -25497,7 +26015,7 @@ export namespace Prisma {
     notes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | Meal$ownerArgs<ExtArgs>
   }, ExtArgs["result"]["meal"]>
 
   export type MealSelectScalar = {
@@ -25512,30 +26030,32 @@ export namespace Prisma {
 
   export type MealOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "mealType" | "ownerId" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["meal"]>
   export type MealInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | Meal$ownerArgs<ExtArgs>
     mealFoodItems?: boolean | Meal$mealFoodItemsArgs<ExtArgs>
     userMeals?: boolean | Meal$userMealsArgs<ExtArgs>
+    images?: boolean | Meal$imagesArgs<ExtArgs>
     _count?: boolean | MealCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MealIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | Meal$ownerArgs<ExtArgs>
   }
   export type MealIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | Meal$ownerArgs<ExtArgs>
   }
 
   export type $MealPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Meal"
     objects: {
-      owner: Prisma.$UserPayload<ExtArgs>
+      owner: Prisma.$UserPayload<ExtArgs> | null
       mealFoodItems: Prisma.$MealFoodItemPayload<ExtArgs>[]
       userMeals: Prisma.$UserMealPayload<ExtArgs>[]
+      images: Prisma.$ImagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string | null
       mealType: $Enums.MealType
-      ownerId: string
+      ownerId: string | null
       notes: string | null
       createdAt: Date
       updatedAt: Date
@@ -25546,7 +26066,7 @@ export namespace Prisma {
   type MealGetPayload<S extends boolean | null | undefined | MealDefaultArgs> = $Result.GetResult<Prisma.$MealPayload, S>
 
   type MealCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<MealFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<MealFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: MealCountAggregateInputType | true
     }
 
@@ -25933,9 +26453,10 @@ export namespace Prisma {
    */
   export interface Prisma__MealClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    owner<T extends Meal$ownerArgs<ExtArgs> = {}>(args?: Subset<T, Meal$ownerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     mealFoodItems<T extends Meal$mealFoodItemsArgs<ExtArgs> = {}>(args?: Subset<T, Meal$mealFoodItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MealFoodItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     userMeals<T extends Meal$userMealsArgs<ExtArgs> = {}>(args?: Subset<T, Meal$userMealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    images<T extends Meal$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Meal$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -25996,6 +26517,7 @@ export namespace Prisma {
      * Filter, which Meal to fetch.
      */
     where: MealWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26018,6 +26540,7 @@ export namespace Prisma {
      * Filter, which Meal to fetch.
      */
     where: MealWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26070,6 +26593,7 @@ export namespace Prisma {
      * Filter by unique combinations of Meals.
      */
     distinct?: MealScalarFieldEnum | MealScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26122,6 +26646,7 @@ export namespace Prisma {
      * Filter by unique combinations of Meals.
      */
     distinct?: MealScalarFieldEnum | MealScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26169,6 +26694,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: MealScalarFieldEnum | MealScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26191,6 +26717,7 @@ export namespace Prisma {
      * The data needed to create a Meal.
      */
     data: XOR<MealCreateInput, MealUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26251,6 +26778,7 @@ export namespace Prisma {
      * Choose, which Meal to update.
      */
     where: MealWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26329,6 +26857,7 @@ export namespace Prisma {
      * In case the Meal was found with the provided `where` argument, update it with this data.
      */
     update: XOR<MealUpdateInput, MealUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26351,6 +26880,7 @@ export namespace Prisma {
      * Filter which Meal to delete.
      */
     where: MealWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -26365,6 +26895,25 @@ export namespace Prisma {
      * Limit how many Meals to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Meal.owner
+   */
+  export type Meal$ownerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -26413,6 +26962,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserMealScalarFieldEnum | UserMealScalarFieldEnum[]
+  }
+
+  /**
+   * Meal.images
+   */
+  export type Meal$imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    where?: ImageWhereInput
+    orderBy?: ImageOrderByWithRelationInput | ImageOrderByWithRelationInput[]
+    cursor?: ImageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ImageScalarFieldEnum | ImageScalarFieldEnum[]
   }
 
   /**
@@ -26709,7 +27282,7 @@ export namespace Prisma {
   type MealFoodItemGetPayload<S extends boolean | null | undefined | MealFoodItemDefaultArgs> = $Result.GetResult<Prisma.$MealFoodItemPayload, S>
 
   type MealFoodItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<MealFoodItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<MealFoodItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: MealFoodItemCountAggregateInputType | true
     }
 
@@ -27157,6 +27730,7 @@ export namespace Prisma {
      * Filter, which MealFoodItem to fetch.
      */
     where: MealFoodItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27179,6 +27753,7 @@ export namespace Prisma {
      * Filter, which MealFoodItem to fetch.
      */
     where: MealFoodItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27231,6 +27806,7 @@ export namespace Prisma {
      * Filter by unique combinations of MealFoodItems.
      */
     distinct?: MealFoodItemScalarFieldEnum | MealFoodItemScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27283,6 +27859,7 @@ export namespace Prisma {
      * Filter by unique combinations of MealFoodItems.
      */
     distinct?: MealFoodItemScalarFieldEnum | MealFoodItemScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27330,6 +27907,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: MealFoodItemScalarFieldEnum | MealFoodItemScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27352,6 +27930,7 @@ export namespace Prisma {
      * The data needed to create a MealFoodItem.
      */
     data: XOR<MealFoodItemCreateInput, MealFoodItemUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27412,6 +27991,7 @@ export namespace Prisma {
      * Choose, which MealFoodItem to update.
      */
     where: MealFoodItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27490,6 +28070,7 @@ export namespace Prisma {
      * In case the MealFoodItem was found with the provided `where` argument, update it with this data.
      */
     update: XOR<MealFoodItemUpdateInput, MealFoodItemUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27512,6 +28093,7 @@ export namespace Prisma {
      * Filter which MealFoodItem to delete.
      */
     where: MealFoodItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -27560,8 +28142,9 @@ export namespace Prisma {
   export type UserMealMinAggregateOutputType = {
     id: string | null
     mealId: string | null
-    userId: string | null
     dateConsumed: Date | null
+    notes: string | null
+    ownerId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -27569,8 +28152,9 @@ export namespace Prisma {
   export type UserMealMaxAggregateOutputType = {
     id: string | null
     mealId: string | null
-    userId: string | null
     dateConsumed: Date | null
+    notes: string | null
+    ownerId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -27578,8 +28162,9 @@ export namespace Prisma {
   export type UserMealCountAggregateOutputType = {
     id: number
     mealId: number
-    userId: number
     dateConsumed: number
+    notes: number
+    ownerId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -27589,8 +28174,9 @@ export namespace Prisma {
   export type UserMealMinAggregateInputType = {
     id?: true
     mealId?: true
-    userId?: true
     dateConsumed?: true
+    notes?: true
+    ownerId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -27598,8 +28184,9 @@ export namespace Prisma {
   export type UserMealMaxAggregateInputType = {
     id?: true
     mealId?: true
-    userId?: true
     dateConsumed?: true
+    notes?: true
+    ownerId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -27607,8 +28194,9 @@ export namespace Prisma {
   export type UserMealCountAggregateInputType = {
     id?: true
     mealId?: true
-    userId?: true
     dateConsumed?: true
+    notes?: true
+    ownerId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -27689,8 +28277,9 @@ export namespace Prisma {
   export type UserMealGroupByOutputType = {
     id: string
     mealId: string
-    userId: string
     dateConsumed: Date
+    notes: string | null
+    ownerId: string
     createdAt: Date
     updatedAt: Date
     _count: UserMealCountAggregateOutputType | null
@@ -27715,70 +28304,80 @@ export namespace Prisma {
   export type UserMealSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     mealId?: boolean
-    userId?: boolean
     dateConsumed?: boolean
+    notes?: boolean
+    ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     meal?: boolean | MealDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    userMealItems?: boolean | UserMeal$userMealItemsArgs<ExtArgs>
+    _count?: boolean | UserMealCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userMeal"]>
 
   export type UserMealSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     mealId?: boolean
-    userId?: boolean
     dateConsumed?: boolean
+    notes?: boolean
+    ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     meal?: boolean | MealDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userMeal"]>
 
   export type UserMealSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     mealId?: boolean
-    userId?: boolean
     dateConsumed?: boolean
+    notes?: boolean
+    ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     meal?: boolean | MealDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userMeal"]>
 
   export type UserMealSelectScalar = {
     id?: boolean
     mealId?: boolean
-    userId?: boolean
     dateConsumed?: boolean
+    notes?: boolean
+    ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserMealOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "mealId" | "userId" | "dateConsumed" | "createdAt" | "updatedAt", ExtArgs["result"]["userMeal"]>
+  export type UserMealOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "mealId" | "dateConsumed" | "notes" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["userMeal"]>
   export type UserMealInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meal?: boolean | MealDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    userMealItems?: boolean | UserMeal$userMealItemsArgs<ExtArgs>
+    _count?: boolean | UserMealCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserMealIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meal?: boolean | MealDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type UserMealIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meal?: boolean | MealDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $UserMealPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UserMeal"
     objects: {
       meal: Prisma.$MealPayload<ExtArgs>
-      user: Prisma.$UserPayload<ExtArgs>
+      owner: Prisma.$UserPayload<ExtArgs>
+      userMealItems: Prisma.$UserMealItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       mealId: string
-      userId: string
       dateConsumed: Date
+      notes: string | null
+      ownerId: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["userMeal"]>
@@ -27788,7 +28387,7 @@ export namespace Prisma {
   type UserMealGetPayload<S extends boolean | null | undefined | UserMealDefaultArgs> = $Result.GetResult<Prisma.$UserMealPayload, S>
 
   type UserMealCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserMealFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    Omit<UserMealFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: UserMealCountAggregateInputType | true
     }
 
@@ -28176,7 +28775,8 @@ export namespace Prisma {
   export interface Prisma__UserMealClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     meal<T extends MealDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MealDefaultArgs<ExtArgs>>): Prisma__MealClient<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    userMealItems<T extends UserMeal$userMealItemsArgs<ExtArgs> = {}>(args?: Subset<T, UserMeal$userMealItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMealItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -28208,8 +28808,9 @@ export namespace Prisma {
   interface UserMealFieldRefs {
     readonly id: FieldRef<"UserMeal", 'String'>
     readonly mealId: FieldRef<"UserMeal", 'String'>
-    readonly userId: FieldRef<"UserMeal", 'String'>
     readonly dateConsumed: FieldRef<"UserMeal", 'DateTime'>
+    readonly notes: FieldRef<"UserMeal", 'String'>
+    readonly ownerId: FieldRef<"UserMeal", 'String'>
     readonly createdAt: FieldRef<"UserMeal", 'DateTime'>
     readonly updatedAt: FieldRef<"UserMeal", 'DateTime'>
   }
@@ -28236,6 +28837,7 @@ export namespace Prisma {
      * Filter, which UserMeal to fetch.
      */
     where: UserMealWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28258,6 +28860,7 @@ export namespace Prisma {
      * Filter, which UserMeal to fetch.
      */
     where: UserMealWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28310,6 +28913,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserMeals.
      */
     distinct?: UserMealScalarFieldEnum | UserMealScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28362,6 +28966,7 @@ export namespace Prisma {
      * Filter by unique combinations of UserMeals.
      */
     distinct?: UserMealScalarFieldEnum | UserMealScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28409,6 +29014,7 @@ export namespace Prisma {
      */
     skip?: number
     distinct?: UserMealScalarFieldEnum | UserMealScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28431,6 +29037,7 @@ export namespace Prisma {
      * The data needed to create a UserMeal.
      */
     data: XOR<UserMealCreateInput, UserMealUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28491,6 +29098,7 @@ export namespace Prisma {
      * Choose, which UserMeal to update.
      */
     where: UserMealWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28569,6 +29177,7 @@ export namespace Prisma {
      * In case the UserMeal was found with the provided `where` argument, update it with this data.
      */
     update: XOR<UserMealUpdateInput, UserMealUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28591,6 +29200,7 @@ export namespace Prisma {
      * Filter which UserMeal to delete.
      */
     where: UserMealWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
   }
 
   /**
@@ -28605,6 +29215,30 @@ export namespace Prisma {
      * Limit how many UserMeals to delete.
      */
     limit?: number
+  }
+
+  /**
+   * UserMeal.userMealItems
+   */
+  export type UserMeal$userMealItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMealItem
+     */
+    select?: UserMealItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMealItem
+     */
+    omit?: UserMealItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealItemInclude<ExtArgs> | null
+    where?: UserMealItemWhereInput
+    orderBy?: UserMealItemOrderByWithRelationInput | UserMealItemOrderByWithRelationInput[]
+    cursor?: UserMealItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserMealItemScalarFieldEnum | UserMealItemScalarFieldEnum[]
   }
 
   /**
@@ -28623,6 +29257,2266 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserMealInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserMealItem
+   */
+
+  export type AggregateUserMealItem = {
+    _count: UserMealItemCountAggregateOutputType | null
+    _avg: UserMealItemAvgAggregateOutputType | null
+    _sum: UserMealItemSumAggregateOutputType | null
+    _min: UserMealItemMinAggregateOutputType | null
+    _max: UserMealItemMaxAggregateOutputType | null
+  }
+
+  export type UserMealItemAvgAggregateOutputType = {
+    quantity: number | null
+  }
+
+  export type UserMealItemSumAggregateOutputType = {
+    quantity: number | null
+  }
+
+  export type UserMealItemMinAggregateOutputType = {
+    id: string | null
+    userMealId: string | null
+    foodItemId: string | null
+    quantity: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserMealItemMaxAggregateOutputType = {
+    id: string | null
+    userMealId: string | null
+    foodItemId: string | null
+    quantity: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserMealItemCountAggregateOutputType = {
+    id: number
+    userMealId: number
+    foodItemId: number
+    quantity: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserMealItemAvgAggregateInputType = {
+    quantity?: true
+  }
+
+  export type UserMealItemSumAggregateInputType = {
+    quantity?: true
+  }
+
+  export type UserMealItemMinAggregateInputType = {
+    id?: true
+    userMealId?: true
+    foodItemId?: true
+    quantity?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserMealItemMaxAggregateInputType = {
+    id?: true
+    userMealId?: true
+    foodItemId?: true
+    quantity?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserMealItemCountAggregateInputType = {
+    id?: true
+    userMealId?: true
+    foodItemId?: true
+    quantity?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserMealItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserMealItem to aggregate.
+     */
+    where?: UserMealItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserMealItems to fetch.
+     */
+    orderBy?: UserMealItemOrderByWithRelationInput | UserMealItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserMealItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserMealItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserMealItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserMealItems
+    **/
+    _count?: true | UserMealItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserMealItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserMealItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserMealItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserMealItemMaxAggregateInputType
+  }
+
+  export type GetUserMealItemAggregateType<T extends UserMealItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserMealItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserMealItem[P]>
+      : GetScalarType<T[P], AggregateUserMealItem[P]>
+  }
+
+
+
+
+  export type UserMealItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserMealItemWhereInput
+    orderBy?: UserMealItemOrderByWithAggregationInput | UserMealItemOrderByWithAggregationInput[]
+    by: UserMealItemScalarFieldEnum[] | UserMealItemScalarFieldEnum
+    having?: UserMealItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserMealItemCountAggregateInputType | true
+    _avg?: UserMealItemAvgAggregateInputType
+    _sum?: UserMealItemSumAggregateInputType
+    _min?: UserMealItemMinAggregateInputType
+    _max?: UserMealItemMaxAggregateInputType
+  }
+
+  export type UserMealItemGroupByOutputType = {
+    id: string
+    userMealId: string
+    foodItemId: string
+    quantity: number
+    createdAt: Date
+    updatedAt: Date
+    _count: UserMealItemCountAggregateOutputType | null
+    _avg: UserMealItemAvgAggregateOutputType | null
+    _sum: UserMealItemSumAggregateOutputType | null
+    _min: UserMealItemMinAggregateOutputType | null
+    _max: UserMealItemMaxAggregateOutputType | null
+  }
+
+  type GetUserMealItemGroupByPayload<T extends UserMealItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserMealItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserMealItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserMealItemGroupByOutputType[P]>
+            : GetScalarType<T[P], UserMealItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserMealItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userMealId?: boolean
+    foodItemId?: boolean
+    quantity?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userMeal?: boolean | UserMealDefaultArgs<ExtArgs>
+    foodItem?: boolean | FoodItemDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userMealItem"]>
+
+  export type UserMealItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userMealId?: boolean
+    foodItemId?: boolean
+    quantity?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userMeal?: boolean | UserMealDefaultArgs<ExtArgs>
+    foodItem?: boolean | FoodItemDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userMealItem"]>
+
+  export type UserMealItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userMealId?: boolean
+    foodItemId?: boolean
+    quantity?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userMeal?: boolean | UserMealDefaultArgs<ExtArgs>
+    foodItem?: boolean | FoodItemDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userMealItem"]>
+
+  export type UserMealItemSelectScalar = {
+    id?: boolean
+    userMealId?: boolean
+    foodItemId?: boolean
+    quantity?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserMealItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userMealId" | "foodItemId" | "quantity" | "createdAt" | "updatedAt", ExtArgs["result"]["userMealItem"]>
+  export type UserMealItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userMeal?: boolean | UserMealDefaultArgs<ExtArgs>
+    foodItem?: boolean | FoodItemDefaultArgs<ExtArgs>
+  }
+  export type UserMealItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userMeal?: boolean | UserMealDefaultArgs<ExtArgs>
+    foodItem?: boolean | FoodItemDefaultArgs<ExtArgs>
+  }
+  export type UserMealItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userMeal?: boolean | UserMealDefaultArgs<ExtArgs>
+    foodItem?: boolean | FoodItemDefaultArgs<ExtArgs>
+  }
+
+  export type $UserMealItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserMealItem"
+    objects: {
+      userMeal: Prisma.$UserMealPayload<ExtArgs>
+      foodItem: Prisma.$FoodItemPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userMealId: string
+      foodItemId: string
+      quantity: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userMealItem"]>
+    composites: {}
+  }
+
+  type UserMealItemGetPayload<S extends boolean | null | undefined | UserMealItemDefaultArgs> = $Result.GetResult<Prisma.$UserMealItemPayload, S>
+
+  type UserMealItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserMealItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: UserMealItemCountAggregateInputType | true
+    }
+
+  export interface UserMealItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserMealItem'], meta: { name: 'UserMealItem' } }
+    /**
+     * Find zero or one UserMealItem that matches the filter.
+     * @param {UserMealItemFindUniqueArgs} args - Arguments to find a UserMealItem
+     * @example
+     * // Get one UserMealItem
+     * const userMealItem = await prisma.userMealItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserMealItemFindUniqueArgs>(args: SelectSubset<T, UserMealItemFindUniqueArgs<ExtArgs>>): Prisma__UserMealItemClient<$Result.GetResult<Prisma.$UserMealItemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserMealItem that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserMealItemFindUniqueOrThrowArgs} args - Arguments to find a UserMealItem
+     * @example
+     * // Get one UserMealItem
+     * const userMealItem = await prisma.userMealItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserMealItemFindUniqueOrThrowArgs>(args: SelectSubset<T, UserMealItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserMealItemClient<$Result.GetResult<Prisma.$UserMealItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserMealItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMealItemFindFirstArgs} args - Arguments to find a UserMealItem
+     * @example
+     * // Get one UserMealItem
+     * const userMealItem = await prisma.userMealItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserMealItemFindFirstArgs>(args?: SelectSubset<T, UserMealItemFindFirstArgs<ExtArgs>>): Prisma__UserMealItemClient<$Result.GetResult<Prisma.$UserMealItemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserMealItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMealItemFindFirstOrThrowArgs} args - Arguments to find a UserMealItem
+     * @example
+     * // Get one UserMealItem
+     * const userMealItem = await prisma.userMealItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserMealItemFindFirstOrThrowArgs>(args?: SelectSubset<T, UserMealItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserMealItemClient<$Result.GetResult<Prisma.$UserMealItemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserMealItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMealItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserMealItems
+     * const userMealItems = await prisma.userMealItem.findMany()
+     * 
+     * // Get first 10 UserMealItems
+     * const userMealItems = await prisma.userMealItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userMealItemWithIdOnly = await prisma.userMealItem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserMealItemFindManyArgs>(args?: SelectSubset<T, UserMealItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMealItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserMealItem.
+     * @param {UserMealItemCreateArgs} args - Arguments to create a UserMealItem.
+     * @example
+     * // Create one UserMealItem
+     * const UserMealItem = await prisma.userMealItem.create({
+     *   data: {
+     *     // ... data to create a UserMealItem
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserMealItemCreateArgs>(args: SelectSubset<T, UserMealItemCreateArgs<ExtArgs>>): Prisma__UserMealItemClient<$Result.GetResult<Prisma.$UserMealItemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserMealItems.
+     * @param {UserMealItemCreateManyArgs} args - Arguments to create many UserMealItems.
+     * @example
+     * // Create many UserMealItems
+     * const userMealItem = await prisma.userMealItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserMealItemCreateManyArgs>(args?: SelectSubset<T, UserMealItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserMealItems and returns the data saved in the database.
+     * @param {UserMealItemCreateManyAndReturnArgs} args - Arguments to create many UserMealItems.
+     * @example
+     * // Create many UserMealItems
+     * const userMealItem = await prisma.userMealItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserMealItems and only return the `id`
+     * const userMealItemWithIdOnly = await prisma.userMealItem.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserMealItemCreateManyAndReturnArgs>(args?: SelectSubset<T, UserMealItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMealItemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserMealItem.
+     * @param {UserMealItemDeleteArgs} args - Arguments to delete one UserMealItem.
+     * @example
+     * // Delete one UserMealItem
+     * const UserMealItem = await prisma.userMealItem.delete({
+     *   where: {
+     *     // ... filter to delete one UserMealItem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserMealItemDeleteArgs>(args: SelectSubset<T, UserMealItemDeleteArgs<ExtArgs>>): Prisma__UserMealItemClient<$Result.GetResult<Prisma.$UserMealItemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserMealItem.
+     * @param {UserMealItemUpdateArgs} args - Arguments to update one UserMealItem.
+     * @example
+     * // Update one UserMealItem
+     * const userMealItem = await prisma.userMealItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserMealItemUpdateArgs>(args: SelectSubset<T, UserMealItemUpdateArgs<ExtArgs>>): Prisma__UserMealItemClient<$Result.GetResult<Prisma.$UserMealItemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserMealItems.
+     * @param {UserMealItemDeleteManyArgs} args - Arguments to filter UserMealItems to delete.
+     * @example
+     * // Delete a few UserMealItems
+     * const { count } = await prisma.userMealItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserMealItemDeleteManyArgs>(args?: SelectSubset<T, UserMealItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserMealItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMealItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserMealItems
+     * const userMealItem = await prisma.userMealItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserMealItemUpdateManyArgs>(args: SelectSubset<T, UserMealItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserMealItems and returns the data updated in the database.
+     * @param {UserMealItemUpdateManyAndReturnArgs} args - Arguments to update many UserMealItems.
+     * @example
+     * // Update many UserMealItems
+     * const userMealItem = await prisma.userMealItem.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserMealItems and only return the `id`
+     * const userMealItemWithIdOnly = await prisma.userMealItem.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserMealItemUpdateManyAndReturnArgs>(args: SelectSubset<T, UserMealItemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMealItemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserMealItem.
+     * @param {UserMealItemUpsertArgs} args - Arguments to update or create a UserMealItem.
+     * @example
+     * // Update or create a UserMealItem
+     * const userMealItem = await prisma.userMealItem.upsert({
+     *   create: {
+     *     // ... data to create a UserMealItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserMealItem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserMealItemUpsertArgs>(args: SelectSubset<T, UserMealItemUpsertArgs<ExtArgs>>): Prisma__UserMealItemClient<$Result.GetResult<Prisma.$UserMealItemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserMealItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMealItemCountArgs} args - Arguments to filter UserMealItems to count.
+     * @example
+     * // Count the number of UserMealItems
+     * const count = await prisma.userMealItem.count({
+     *   where: {
+     *     // ... the filter for the UserMealItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserMealItemCountArgs>(
+      args?: Subset<T, UserMealItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserMealItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserMealItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMealItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserMealItemAggregateArgs>(args: Subset<T, UserMealItemAggregateArgs>): Prisma.PrismaPromise<GetUserMealItemAggregateType<T>>
+
+    /**
+     * Group by UserMealItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMealItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserMealItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserMealItemGroupByArgs['orderBy'] }
+        : { orderBy?: UserMealItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserMealItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserMealItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserMealItem model
+   */
+  readonly fields: UserMealItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserMealItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserMealItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    userMeal<T extends UserMealDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserMealDefaultArgs<ExtArgs>>): Prisma__UserMealClient<$Result.GetResult<Prisma.$UserMealPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    foodItem<T extends FoodItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FoodItemDefaultArgs<ExtArgs>>): Prisma__FoodItemClient<$Result.GetResult<Prisma.$FoodItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserMealItem model
+   */
+  interface UserMealItemFieldRefs {
+    readonly id: FieldRef<"UserMealItem", 'String'>
+    readonly userMealId: FieldRef<"UserMealItem", 'String'>
+    readonly foodItemId: FieldRef<"UserMealItem", 'String'>
+    readonly quantity: FieldRef<"UserMealItem", 'Int'>
+    readonly createdAt: FieldRef<"UserMealItem", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserMealItem", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserMealItem findUnique
+   */
+  export type UserMealItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMealItem
+     */
+    select?: UserMealItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMealItem
+     */
+    omit?: UserMealItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealItemInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMealItem to fetch.
+     */
+    where: UserMealItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserMealItem findUniqueOrThrow
+   */
+  export type UserMealItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMealItem
+     */
+    select?: UserMealItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMealItem
+     */
+    omit?: UserMealItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealItemInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMealItem to fetch.
+     */
+    where: UserMealItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserMealItem findFirst
+   */
+  export type UserMealItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMealItem
+     */
+    select?: UserMealItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMealItem
+     */
+    omit?: UserMealItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealItemInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMealItem to fetch.
+     */
+    where?: UserMealItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserMealItems to fetch.
+     */
+    orderBy?: UserMealItemOrderByWithRelationInput | UserMealItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserMealItems.
+     */
+    cursor?: UserMealItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserMealItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserMealItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserMealItems.
+     */
+    distinct?: UserMealItemScalarFieldEnum | UserMealItemScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserMealItem findFirstOrThrow
+   */
+  export type UserMealItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMealItem
+     */
+    select?: UserMealItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMealItem
+     */
+    omit?: UserMealItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealItemInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMealItem to fetch.
+     */
+    where?: UserMealItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserMealItems to fetch.
+     */
+    orderBy?: UserMealItemOrderByWithRelationInput | UserMealItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserMealItems.
+     */
+    cursor?: UserMealItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserMealItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserMealItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserMealItems.
+     */
+    distinct?: UserMealItemScalarFieldEnum | UserMealItemScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserMealItem findMany
+   */
+  export type UserMealItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMealItem
+     */
+    select?: UserMealItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMealItem
+     */
+    omit?: UserMealItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealItemInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMealItems to fetch.
+     */
+    where?: UserMealItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserMealItems to fetch.
+     */
+    orderBy?: UserMealItemOrderByWithRelationInput | UserMealItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserMealItems.
+     */
+    cursor?: UserMealItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserMealItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserMealItems.
+     */
+    skip?: number
+    distinct?: UserMealItemScalarFieldEnum | UserMealItemScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserMealItem create
+   */
+  export type UserMealItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMealItem
+     */
+    select?: UserMealItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMealItem
+     */
+    omit?: UserMealItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserMealItem.
+     */
+    data: XOR<UserMealItemCreateInput, UserMealItemUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserMealItem createMany
+   */
+  export type UserMealItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserMealItems.
+     */
+    data: UserMealItemCreateManyInput | UserMealItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserMealItem createManyAndReturn
+   */
+  export type UserMealItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMealItem
+     */
+    select?: UserMealItemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMealItem
+     */
+    omit?: UserMealItemOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserMealItems.
+     */
+    data: UserMealItemCreateManyInput | UserMealItemCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealItemIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserMealItem update
+   */
+  export type UserMealItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMealItem
+     */
+    select?: UserMealItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMealItem
+     */
+    omit?: UserMealItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserMealItem.
+     */
+    data: XOR<UserMealItemUpdateInput, UserMealItemUncheckedUpdateInput>
+    /**
+     * Choose, which UserMealItem to update.
+     */
+    where: UserMealItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserMealItem updateMany
+   */
+  export type UserMealItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserMealItems.
+     */
+    data: XOR<UserMealItemUpdateManyMutationInput, UserMealItemUncheckedUpdateManyInput>
+    /**
+     * Filter which UserMealItems to update
+     */
+    where?: UserMealItemWhereInput
+    /**
+     * Limit how many UserMealItems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserMealItem updateManyAndReturn
+   */
+  export type UserMealItemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMealItem
+     */
+    select?: UserMealItemSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMealItem
+     */
+    omit?: UserMealItemOmit<ExtArgs> | null
+    /**
+     * The data used to update UserMealItems.
+     */
+    data: XOR<UserMealItemUpdateManyMutationInput, UserMealItemUncheckedUpdateManyInput>
+    /**
+     * Filter which UserMealItems to update
+     */
+    where?: UserMealItemWhereInput
+    /**
+     * Limit how many UserMealItems to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealItemIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserMealItem upsert
+   */
+  export type UserMealItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMealItem
+     */
+    select?: UserMealItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMealItem
+     */
+    omit?: UserMealItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserMealItem to update in case it exists.
+     */
+    where: UserMealItemWhereUniqueInput
+    /**
+     * In case the UserMealItem found by the `where` argument doesn't exist, create a new UserMealItem with this data.
+     */
+    create: XOR<UserMealItemCreateInput, UserMealItemUncheckedCreateInput>
+    /**
+     * In case the UserMealItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserMealItemUpdateInput, UserMealItemUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserMealItem delete
+   */
+  export type UserMealItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMealItem
+     */
+    select?: UserMealItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMealItem
+     */
+    omit?: UserMealItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealItemInclude<ExtArgs> | null
+    /**
+     * Filter which UserMealItem to delete.
+     */
+    where: UserMealItemWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserMealItem deleteMany
+   */
+  export type UserMealItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserMealItems to delete
+     */
+    where?: UserMealItemWhereInput
+    /**
+     * Limit how many UserMealItems to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserMealItem without action
+   */
+  export type UserMealItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMealItem
+     */
+    select?: UserMealItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMealItem
+     */
+    omit?: UserMealItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMealItemInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Image
+   */
+
+  export type AggregateImage = {
+    _count: ImageCountAggregateOutputType | null
+    _min: ImageMinAggregateOutputType | null
+    _max: ImageMaxAggregateOutputType | null
+  }
+
+  export type ImageMinAggregateOutputType = {
+    id: string | null
+    url: string | null
+    publicId: string | null
+    description: string | null
+    altText: string | null
+    mealId: string | null
+    isPrimary: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ImageMaxAggregateOutputType = {
+    id: string | null
+    url: string | null
+    publicId: string | null
+    description: string | null
+    altText: string | null
+    mealId: string | null
+    isPrimary: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ImageCountAggregateOutputType = {
+    id: number
+    url: number
+    publicId: number
+    description: number
+    altText: number
+    mealId: number
+    isPrimary: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ImageMinAggregateInputType = {
+    id?: true
+    url?: true
+    publicId?: true
+    description?: true
+    altText?: true
+    mealId?: true
+    isPrimary?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ImageMaxAggregateInputType = {
+    id?: true
+    url?: true
+    publicId?: true
+    description?: true
+    altText?: true
+    mealId?: true
+    isPrimary?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ImageCountAggregateInputType = {
+    id?: true
+    url?: true
+    publicId?: true
+    description?: true
+    altText?: true
+    mealId?: true
+    isPrimary?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ImageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Image to aggregate.
+     */
+    where?: ImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Images to fetch.
+     */
+    orderBy?: ImageOrderByWithRelationInput | ImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Images from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Images.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Images
+    **/
+    _count?: true | ImageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ImageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ImageMaxAggregateInputType
+  }
+
+  export type GetImageAggregateType<T extends ImageAggregateArgs> = {
+        [P in keyof T & keyof AggregateImage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateImage[P]>
+      : GetScalarType<T[P], AggregateImage[P]>
+  }
+
+
+
+
+  export type ImageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ImageWhereInput
+    orderBy?: ImageOrderByWithAggregationInput | ImageOrderByWithAggregationInput[]
+    by: ImageScalarFieldEnum[] | ImageScalarFieldEnum
+    having?: ImageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ImageCountAggregateInputType | true
+    _min?: ImageMinAggregateInputType
+    _max?: ImageMaxAggregateInputType
+  }
+
+  export type ImageGroupByOutputType = {
+    id: string
+    url: string
+    publicId: string
+    description: string | null
+    altText: string | null
+    mealId: string | null
+    isPrimary: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: ImageCountAggregateOutputType | null
+    _min: ImageMinAggregateOutputType | null
+    _max: ImageMaxAggregateOutputType | null
+  }
+
+  type GetImageGroupByPayload<T extends ImageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ImageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ImageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ImageGroupByOutputType[P]>
+            : GetScalarType<T[P], ImageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ImageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    publicId?: boolean
+    description?: boolean
+    altText?: boolean
+    mealId?: boolean
+    isPrimary?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    meal?: boolean | Image$mealArgs<ExtArgs>
+  }, ExtArgs["result"]["image"]>
+
+  export type ImageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    publicId?: boolean
+    description?: boolean
+    altText?: boolean
+    mealId?: boolean
+    isPrimary?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    meal?: boolean | Image$mealArgs<ExtArgs>
+  }, ExtArgs["result"]["image"]>
+
+  export type ImageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    publicId?: boolean
+    description?: boolean
+    altText?: boolean
+    mealId?: boolean
+    isPrimary?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    meal?: boolean | Image$mealArgs<ExtArgs>
+  }, ExtArgs["result"]["image"]>
+
+  export type ImageSelectScalar = {
+    id?: boolean
+    url?: boolean
+    publicId?: boolean
+    description?: boolean
+    altText?: boolean
+    mealId?: boolean
+    isPrimary?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ImageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "publicId" | "description" | "altText" | "mealId" | "isPrimary" | "createdAt" | "updatedAt", ExtArgs["result"]["image"]>
+  export type ImageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meal?: boolean | Image$mealArgs<ExtArgs>
+  }
+  export type ImageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meal?: boolean | Image$mealArgs<ExtArgs>
+  }
+  export type ImageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meal?: boolean | Image$mealArgs<ExtArgs>
+  }
+
+  export type $ImagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Image"
+    objects: {
+      meal: Prisma.$MealPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      url: string
+      publicId: string
+      description: string | null
+      altText: string | null
+      mealId: string | null
+      isPrimary: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["image"]>
+    composites: {}
+  }
+
+  type ImageGetPayload<S extends boolean | null | undefined | ImageDefaultArgs> = $Result.GetResult<Prisma.$ImagePayload, S>
+
+  type ImageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ImageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: ImageCountAggregateInputType | true
+    }
+
+  export interface ImageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Image'], meta: { name: 'Image' } }
+    /**
+     * Find zero or one Image that matches the filter.
+     * @param {ImageFindUniqueArgs} args - Arguments to find a Image
+     * @example
+     * // Get one Image
+     * const image = await prisma.image.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ImageFindUniqueArgs>(args: SelectSubset<T, ImageFindUniqueArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Image that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ImageFindUniqueOrThrowArgs} args - Arguments to find a Image
+     * @example
+     * // Get one Image
+     * const image = await prisma.image.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ImageFindUniqueOrThrowArgs>(args: SelectSubset<T, ImageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Image that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageFindFirstArgs} args - Arguments to find a Image
+     * @example
+     * // Get one Image
+     * const image = await prisma.image.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ImageFindFirstArgs>(args?: SelectSubset<T, ImageFindFirstArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Image that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageFindFirstOrThrowArgs} args - Arguments to find a Image
+     * @example
+     * // Get one Image
+     * const image = await prisma.image.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ImageFindFirstOrThrowArgs>(args?: SelectSubset<T, ImageFindFirstOrThrowArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Images that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Images
+     * const images = await prisma.image.findMany()
+     * 
+     * // Get first 10 Images
+     * const images = await prisma.image.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const imageWithIdOnly = await prisma.image.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ImageFindManyArgs>(args?: SelectSubset<T, ImageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Image.
+     * @param {ImageCreateArgs} args - Arguments to create a Image.
+     * @example
+     * // Create one Image
+     * const Image = await prisma.image.create({
+     *   data: {
+     *     // ... data to create a Image
+     *   }
+     * })
+     * 
+     */
+    create<T extends ImageCreateArgs>(args: SelectSubset<T, ImageCreateArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Images.
+     * @param {ImageCreateManyArgs} args - Arguments to create many Images.
+     * @example
+     * // Create many Images
+     * const image = await prisma.image.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ImageCreateManyArgs>(args?: SelectSubset<T, ImageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Images and returns the data saved in the database.
+     * @param {ImageCreateManyAndReturnArgs} args - Arguments to create many Images.
+     * @example
+     * // Create many Images
+     * const image = await prisma.image.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Images and only return the `id`
+     * const imageWithIdOnly = await prisma.image.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ImageCreateManyAndReturnArgs>(args?: SelectSubset<T, ImageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Image.
+     * @param {ImageDeleteArgs} args - Arguments to delete one Image.
+     * @example
+     * // Delete one Image
+     * const Image = await prisma.image.delete({
+     *   where: {
+     *     // ... filter to delete one Image
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ImageDeleteArgs>(args: SelectSubset<T, ImageDeleteArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Image.
+     * @param {ImageUpdateArgs} args - Arguments to update one Image.
+     * @example
+     * // Update one Image
+     * const image = await prisma.image.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ImageUpdateArgs>(args: SelectSubset<T, ImageUpdateArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Images.
+     * @param {ImageDeleteManyArgs} args - Arguments to filter Images to delete.
+     * @example
+     * // Delete a few Images
+     * const { count } = await prisma.image.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ImageDeleteManyArgs>(args?: SelectSubset<T, ImageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Images.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Images
+     * const image = await prisma.image.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ImageUpdateManyArgs>(args: SelectSubset<T, ImageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Images and returns the data updated in the database.
+     * @param {ImageUpdateManyAndReturnArgs} args - Arguments to update many Images.
+     * @example
+     * // Update many Images
+     * const image = await prisma.image.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Images and only return the `id`
+     * const imageWithIdOnly = await prisma.image.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ImageUpdateManyAndReturnArgs>(args: SelectSubset<T, ImageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Image.
+     * @param {ImageUpsertArgs} args - Arguments to update or create a Image.
+     * @example
+     * // Update or create a Image
+     * const image = await prisma.image.upsert({
+     *   create: {
+     *     // ... data to create a Image
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Image we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ImageUpsertArgs>(args: SelectSubset<T, ImageUpsertArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Images.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageCountArgs} args - Arguments to filter Images to count.
+     * @example
+     * // Count the number of Images
+     * const count = await prisma.image.count({
+     *   where: {
+     *     // ... the filter for the Images we want to count
+     *   }
+     * })
+    **/
+    count<T extends ImageCountArgs>(
+      args?: Subset<T, ImageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ImageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Image.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ImageAggregateArgs>(args: Subset<T, ImageAggregateArgs>): Prisma.PrismaPromise<GetImageAggregateType<T>>
+
+    /**
+     * Group by Image.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ImageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ImageGroupByArgs['orderBy'] }
+        : { orderBy?: ImageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ImageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetImageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Image model
+   */
+  readonly fields: ImageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Image.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ImageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    meal<T extends Image$mealArgs<ExtArgs> = {}>(args?: Subset<T, Image$mealArgs<ExtArgs>>): Prisma__MealClient<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Image model
+   */
+  interface ImageFieldRefs {
+    readonly id: FieldRef<"Image", 'String'>
+    readonly url: FieldRef<"Image", 'String'>
+    readonly publicId: FieldRef<"Image", 'String'>
+    readonly description: FieldRef<"Image", 'String'>
+    readonly altText: FieldRef<"Image", 'String'>
+    readonly mealId: FieldRef<"Image", 'String'>
+    readonly isPrimary: FieldRef<"Image", 'Boolean'>
+    readonly createdAt: FieldRef<"Image", 'DateTime'>
+    readonly updatedAt: FieldRef<"Image", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Image findUnique
+   */
+  export type ImageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * Filter, which Image to fetch.
+     */
+    where: ImageWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Image findUniqueOrThrow
+   */
+  export type ImageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * Filter, which Image to fetch.
+     */
+    where: ImageWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Image findFirst
+   */
+  export type ImageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * Filter, which Image to fetch.
+     */
+    where?: ImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Images to fetch.
+     */
+    orderBy?: ImageOrderByWithRelationInput | ImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Images.
+     */
+    cursor?: ImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Images from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Images.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Images.
+     */
+    distinct?: ImageScalarFieldEnum | ImageScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Image findFirstOrThrow
+   */
+  export type ImageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * Filter, which Image to fetch.
+     */
+    where?: ImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Images to fetch.
+     */
+    orderBy?: ImageOrderByWithRelationInput | ImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Images.
+     */
+    cursor?: ImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Images from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Images.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Images.
+     */
+    distinct?: ImageScalarFieldEnum | ImageScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Image findMany
+   */
+  export type ImageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * Filter, which Images to fetch.
+     */
+    where?: ImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Images to fetch.
+     */
+    orderBy?: ImageOrderByWithRelationInput | ImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Images.
+     */
+    cursor?: ImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Images from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Images.
+     */
+    skip?: number
+    distinct?: ImageScalarFieldEnum | ImageScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Image create
+   */
+  export type ImageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Image.
+     */
+    data: XOR<ImageCreateInput, ImageUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Image createMany
+   */
+  export type ImageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Images.
+     */
+    data: ImageCreateManyInput | ImageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Image createManyAndReturn
+   */
+  export type ImageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * The data used to create many Images.
+     */
+    data: ImageCreateManyInput | ImageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Image update
+   */
+  export type ImageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Image.
+     */
+    data: XOR<ImageUpdateInput, ImageUncheckedUpdateInput>
+    /**
+     * Choose, which Image to update.
+     */
+    where: ImageWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Image updateMany
+   */
+  export type ImageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Images.
+     */
+    data: XOR<ImageUpdateManyMutationInput, ImageUncheckedUpdateManyInput>
+    /**
+     * Filter which Images to update
+     */
+    where?: ImageWhereInput
+    /**
+     * Limit how many Images to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Image updateManyAndReturn
+   */
+  export type ImageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * The data used to update Images.
+     */
+    data: XOR<ImageUpdateManyMutationInput, ImageUncheckedUpdateManyInput>
+    /**
+     * Filter which Images to update
+     */
+    where?: ImageWhereInput
+    /**
+     * Limit how many Images to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Image upsert
+   */
+  export type ImageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Image to update in case it exists.
+     */
+    where: ImageWhereUniqueInput
+    /**
+     * In case the Image found by the `where` argument doesn't exist, create a new Image with this data.
+     */
+    create: XOR<ImageCreateInput, ImageUncheckedCreateInput>
+    /**
+     * In case the Image was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ImageUpdateInput, ImageUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Image delete
+   */
+  export type ImageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * Filter which Image to delete.
+     */
+    where: ImageWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * Image deleteMany
+   */
+  export type ImageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Images to delete
+     */
+    where?: ImageWhereInput
+    /**
+     * Limit how many Images to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Image.meal
+   */
+  export type Image$mealArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meal
+     */
+    select?: MealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meal
+     */
+    omit?: MealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MealInclude<ExtArgs> | null
+    where?: MealWhereInput
+  }
+
+  /**
+   * Image without action
+   */
+  export type ImageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
   }
 
 
@@ -28656,12 +31550,21 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const RelationLoadStrategy: {
+    query: 'query',
+    join: 'join'
+  };
+
+  export type RelationLoadStrategy = (typeof RelationLoadStrategy)[keyof typeof RelationLoadStrategy]
+
+
   export const ExerciseScalarFieldEnum: {
     id: 'id',
     name: 'name',
     youtubeUrl: 'youtubeUrl',
     notes: 'notes',
     isCompounded: 'isCompounded',
+    isSeparateHands: 'isSeparateHands',
     type: 'type',
     ownerId: 'ownerId',
     createdAt: 'createdAt',
@@ -28801,6 +31704,10 @@ export namespace Prisma {
     notes: 'notes',
     hasWarmup: 'hasWarmup',
     isBodyWeight: 'isBodyWeight',
+    numberOfSets: 'numberOfSets',
+    maxNumberOfReps: 'maxNumberOfReps',
+    isDropSet: 'isDropSet',
+    isMyoReps: 'isMyoReps',
     restTime: 'restTime',
     exerciseId: 'exerciseId',
     workoutId: 'workoutId',
@@ -28868,6 +31775,7 @@ export namespace Prisma {
   export const FoodItemImgScalarFieldEnum: {
     id: 'id',
     url: 'url',
+    altText: 'altText',
     foodItemId: 'foodItemId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -28924,13 +31832,41 @@ export namespace Prisma {
   export const UserMealScalarFieldEnum: {
     id: 'id',
     mealId: 'mealId',
-    userId: 'userId',
     dateConsumed: 'dateConsumed',
+    notes: 'notes',
+    ownerId: 'ownerId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type UserMealScalarFieldEnum = (typeof UserMealScalarFieldEnum)[keyof typeof UserMealScalarFieldEnum]
+
+
+  export const UserMealItemScalarFieldEnum: {
+    id: 'id',
+    userMealId: 'userMealId',
+    foodItemId: 'foodItemId',
+    quantity: 'quantity',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserMealItemScalarFieldEnum = (typeof UserMealItemScalarFieldEnum)[keyof typeof UserMealItemScalarFieldEnum]
+
+
+  export const ImageScalarFieldEnum: {
+    id: 'id',
+    url: 'url',
+    publicId: 'publicId',
+    description: 'description',
+    altText: 'altText',
+    mealId: 'mealId',
+    isPrimary: 'isPrimary',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ImageScalarFieldEnum = (typeof ImageScalarFieldEnum)[keyof typeof ImageScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -29202,6 +32138,7 @@ export namespace Prisma {
     youtubeUrl?: StringFilter<"Exercise"> | string
     notes?: StringNullableFilter<"Exercise"> | string | null
     isCompounded?: BoolFilter<"Exercise"> | boolean
+    isSeparateHands?: BoolFilter<"Exercise"> | boolean
     type?: EnumExerciseTypeFilter<"Exercise"> | $Enums.ExerciseType
     ownerId?: StringNullableFilter<"Exercise"> | string | null
     createdAt?: DateTimeFilter<"Exercise"> | Date | string
@@ -29218,6 +32155,7 @@ export namespace Prisma {
     youtubeUrl?: SortOrder
     notes?: SortOrderInput | SortOrder
     isCompounded?: SortOrder
+    isSeparateHands?: SortOrder
     type?: SortOrder
     ownerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -29237,6 +32175,7 @@ export namespace Prisma {
     youtubeUrl?: StringFilter<"Exercise"> | string
     notes?: StringNullableFilter<"Exercise"> | string | null
     isCompounded?: BoolFilter<"Exercise"> | boolean
+    isSeparateHands?: BoolFilter<"Exercise"> | boolean
     type?: EnumExerciseTypeFilter<"Exercise"> | $Enums.ExerciseType
     ownerId?: StringNullableFilter<"Exercise"> | string | null
     createdAt?: DateTimeFilter<"Exercise"> | Date | string
@@ -29253,6 +32192,7 @@ export namespace Prisma {
     youtubeUrl?: SortOrder
     notes?: SortOrderInput | SortOrder
     isCompounded?: SortOrder
+    isSeparateHands?: SortOrder
     type?: SortOrder
     ownerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -29271,6 +32211,7 @@ export namespace Prisma {
     youtubeUrl?: StringWithAggregatesFilter<"Exercise"> | string
     notes?: StringNullableWithAggregatesFilter<"Exercise"> | string | null
     isCompounded?: BoolWithAggregatesFilter<"Exercise"> | boolean
+    isSeparateHands?: BoolWithAggregatesFilter<"Exercise"> | boolean
     type?: EnumExerciseTypeWithAggregatesFilter<"Exercise"> | $Enums.ExerciseType
     ownerId?: StringNullableWithAggregatesFilter<"Exercise"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Exercise"> | Date | string
@@ -29937,6 +32878,10 @@ export namespace Prisma {
     notes?: StringNullableFilter<"WorkoutExercise"> | string | null
     hasWarmup?: BoolFilter<"WorkoutExercise"> | boolean
     isBodyWeight?: BoolFilter<"WorkoutExercise"> | boolean
+    numberOfSets?: IntNullableFilter<"WorkoutExercise"> | number | null
+    maxNumberOfReps?: IntNullableFilter<"WorkoutExercise"> | number | null
+    isDropSet?: BoolFilter<"WorkoutExercise"> | boolean
+    isMyoReps?: BoolFilter<"WorkoutExercise"> | boolean
     restTime?: IntFilter<"WorkoutExercise"> | number
     exerciseId?: StringFilter<"WorkoutExercise"> | string
     workoutId?: StringFilter<"WorkoutExercise"> | string
@@ -29953,6 +32898,10 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     hasWarmup?: SortOrder
     isBodyWeight?: SortOrder
+    numberOfSets?: SortOrderInput | SortOrder
+    maxNumberOfReps?: SortOrderInput | SortOrder
+    isDropSet?: SortOrder
+    isMyoReps?: SortOrder
     restTime?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
@@ -29972,6 +32921,10 @@ export namespace Prisma {
     notes?: StringNullableFilter<"WorkoutExercise"> | string | null
     hasWarmup?: BoolFilter<"WorkoutExercise"> | boolean
     isBodyWeight?: BoolFilter<"WorkoutExercise"> | boolean
+    numberOfSets?: IntNullableFilter<"WorkoutExercise"> | number | null
+    maxNumberOfReps?: IntNullableFilter<"WorkoutExercise"> | number | null
+    isDropSet?: BoolFilter<"WorkoutExercise"> | boolean
+    isMyoReps?: BoolFilter<"WorkoutExercise"> | boolean
     restTime?: IntFilter<"WorkoutExercise"> | number
     exerciseId?: StringFilter<"WorkoutExercise"> | string
     workoutId?: StringFilter<"WorkoutExercise"> | string
@@ -29988,6 +32941,10 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     hasWarmup?: SortOrder
     isBodyWeight?: SortOrder
+    numberOfSets?: SortOrderInput | SortOrder
+    maxNumberOfReps?: SortOrderInput | SortOrder
+    isDropSet?: SortOrder
+    isMyoReps?: SortOrder
     restTime?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
@@ -30009,6 +32966,10 @@ export namespace Prisma {
     notes?: StringNullableWithAggregatesFilter<"WorkoutExercise"> | string | null
     hasWarmup?: BoolWithAggregatesFilter<"WorkoutExercise"> | boolean
     isBodyWeight?: BoolWithAggregatesFilter<"WorkoutExercise"> | boolean
+    numberOfSets?: IntNullableWithAggregatesFilter<"WorkoutExercise"> | number | null
+    maxNumberOfReps?: IntNullableWithAggregatesFilter<"WorkoutExercise"> | number | null
+    isDropSet?: BoolWithAggregatesFilter<"WorkoutExercise"> | boolean
+    isMyoReps?: BoolWithAggregatesFilter<"WorkoutExercise"> | boolean
     restTime?: IntWithAggregatesFilter<"WorkoutExercise"> | number
     exerciseId?: StringWithAggregatesFilter<"WorkoutExercise"> | string
     workoutId?: StringWithAggregatesFilter<"WorkoutExercise"> | string
@@ -30168,6 +33129,7 @@ export namespace Prisma {
     categories?: FoodItemCategoryListRelationFilter
     labels?: FoodItemLabelListRelationFilter
     mealFoodItem?: MealFoodItemListRelationFilter
+    userMealItem?: UserMealItemListRelationFilter
     images?: FoodItemImgListRelationFilter
   }
 
@@ -30192,6 +33154,7 @@ export namespace Prisma {
     categories?: FoodItemCategoryOrderByRelationAggregateInput
     labels?: FoodItemLabelOrderByRelationAggregateInput
     mealFoodItem?: MealFoodItemOrderByRelationAggregateInput
+    userMealItem?: UserMealItemOrderByRelationAggregateInput
     images?: FoodItemImgOrderByRelationAggregateInput
   }
 
@@ -30219,6 +33182,7 @@ export namespace Prisma {
     categories?: FoodItemCategoryListRelationFilter
     labels?: FoodItemLabelListRelationFilter
     mealFoodItem?: MealFoodItemListRelationFilter
+    userMealItem?: UserMealItemListRelationFilter
     images?: FoodItemImgListRelationFilter
   }, "id" | "barcode" | "name">
 
@@ -30324,6 +33288,7 @@ export namespace Prisma {
     NOT?: FoodItemImgWhereInput | FoodItemImgWhereInput[]
     id?: StringFilter<"FoodItemImg"> | string
     url?: StringFilter<"FoodItemImg"> | string
+    altText?: StringNullableFilter<"FoodItemImg"> | string | null
     foodItemId?: StringFilter<"FoodItemImg"> | string
     createdAt?: DateTimeFilter<"FoodItemImg"> | Date | string
     updatedAt?: DateTimeFilter<"FoodItemImg"> | Date | string
@@ -30333,6 +33298,7 @@ export namespace Prisma {
   export type FoodItemImgOrderByWithRelationInput = {
     id?: SortOrder
     url?: SortOrder
+    altText?: SortOrderInput | SortOrder
     foodItemId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -30345,6 +33311,7 @@ export namespace Prisma {
     AND?: FoodItemImgWhereInput | FoodItemImgWhereInput[]
     OR?: FoodItemImgWhereInput[]
     NOT?: FoodItemImgWhereInput | FoodItemImgWhereInput[]
+    altText?: StringNullableFilter<"FoodItemImg"> | string | null
     foodItemId?: StringFilter<"FoodItemImg"> | string
     createdAt?: DateTimeFilter<"FoodItemImg"> | Date | string
     updatedAt?: DateTimeFilter<"FoodItemImg"> | Date | string
@@ -30354,6 +33321,7 @@ export namespace Prisma {
   export type FoodItemImgOrderByWithAggregationInput = {
     id?: SortOrder
     url?: SortOrder
+    altText?: SortOrderInput | SortOrder
     foodItemId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -30368,6 +33336,7 @@ export namespace Prisma {
     NOT?: FoodItemImgScalarWhereWithAggregatesInput | FoodItemImgScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"FoodItemImg"> | string
     url?: StringWithAggregatesFilter<"FoodItemImg"> | string
+    altText?: StringNullableWithAggregatesFilter<"FoodItemImg"> | string | null
     foodItemId?: StringWithAggregatesFilter<"FoodItemImg"> | string
     createdAt?: DateTimeWithAggregatesFilter<"FoodItemImg"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"FoodItemImg"> | Date | string
@@ -30480,26 +33449,28 @@ export namespace Prisma {
     id?: StringFilter<"Meal"> | string
     name?: StringNullableFilter<"Meal"> | string | null
     mealType?: EnumMealTypeFilter<"Meal"> | $Enums.MealType
-    ownerId?: StringFilter<"Meal"> | string
+    ownerId?: StringNullableFilter<"Meal"> | string | null
     notes?: StringNullableFilter<"Meal"> | string | null
     createdAt?: DateTimeFilter<"Meal"> | Date | string
     updatedAt?: DateTimeFilter<"Meal"> | Date | string
-    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     mealFoodItems?: MealFoodItemListRelationFilter
     userMeals?: UserMealListRelationFilter
+    images?: ImageListRelationFilter
   }
 
   export type MealOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
     mealType?: SortOrder
-    ownerId?: SortOrder
+    ownerId?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     owner?: UserOrderByWithRelationInput
     mealFoodItems?: MealFoodItemOrderByRelationAggregateInput
     userMeals?: UserMealOrderByRelationAggregateInput
+    images?: ImageOrderByRelationAggregateInput
   }
 
   export type MealWhereUniqueInput = Prisma.AtLeast<{
@@ -30509,20 +33480,21 @@ export namespace Prisma {
     NOT?: MealWhereInput | MealWhereInput[]
     name?: StringNullableFilter<"Meal"> | string | null
     mealType?: EnumMealTypeFilter<"Meal"> | $Enums.MealType
-    ownerId?: StringFilter<"Meal"> | string
+    ownerId?: StringNullableFilter<"Meal"> | string | null
     notes?: StringNullableFilter<"Meal"> | string | null
     createdAt?: DateTimeFilter<"Meal"> | Date | string
     updatedAt?: DateTimeFilter<"Meal"> | Date | string
-    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     mealFoodItems?: MealFoodItemListRelationFilter
     userMeals?: UserMealListRelationFilter
+    images?: ImageListRelationFilter
   }, "id">
 
   export type MealOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
     mealType?: SortOrder
-    ownerId?: SortOrder
+    ownerId?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -30538,7 +33510,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Meal"> | string
     name?: StringNullableWithAggregatesFilter<"Meal"> | string | null
     mealType?: EnumMealTypeWithAggregatesFilter<"Meal"> | $Enums.MealType
-    ownerId?: StringWithAggregatesFilter<"Meal"> | string
+    ownerId?: StringNullableWithAggregatesFilter<"Meal"> | string | null
     notes?: StringNullableWithAggregatesFilter<"Meal"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Meal"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Meal"> | Date | string
@@ -30615,23 +33587,27 @@ export namespace Prisma {
     NOT?: UserMealWhereInput | UserMealWhereInput[]
     id?: StringFilter<"UserMeal"> | string
     mealId?: StringFilter<"UserMeal"> | string
-    userId?: StringFilter<"UserMeal"> | string
     dateConsumed?: DateTimeFilter<"UserMeal"> | Date | string
+    notes?: StringNullableFilter<"UserMeal"> | string | null
+    ownerId?: StringFilter<"UserMeal"> | string
     createdAt?: DateTimeFilter<"UserMeal"> | Date | string
     updatedAt?: DateTimeFilter<"UserMeal"> | Date | string
     meal?: XOR<MealScalarRelationFilter, MealWhereInput>
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    userMealItems?: UserMealItemListRelationFilter
   }
 
   export type UserMealOrderByWithRelationInput = {
     id?: SortOrder
     mealId?: SortOrder
-    userId?: SortOrder
     dateConsumed?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    ownerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     meal?: MealOrderByWithRelationInput
-    user?: UserOrderByWithRelationInput
+    owner?: UserOrderByWithRelationInput
+    userMealItems?: UserMealItemOrderByRelationAggregateInput
   }
 
   export type UserMealWhereUniqueInput = Prisma.AtLeast<{
@@ -30640,19 +33616,22 @@ export namespace Prisma {
     OR?: UserMealWhereInput[]
     NOT?: UserMealWhereInput | UserMealWhereInput[]
     mealId?: StringFilter<"UserMeal"> | string
-    userId?: StringFilter<"UserMeal"> | string
     dateConsumed?: DateTimeFilter<"UserMeal"> | Date | string
+    notes?: StringNullableFilter<"UserMeal"> | string | null
+    ownerId?: StringFilter<"UserMeal"> | string
     createdAt?: DateTimeFilter<"UserMeal"> | Date | string
     updatedAt?: DateTimeFilter<"UserMeal"> | Date | string
     meal?: XOR<MealScalarRelationFilter, MealWhereInput>
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    userMealItems?: UserMealItemListRelationFilter
   }, "id">
 
   export type UserMealOrderByWithAggregationInput = {
     id?: SortOrder
     mealId?: SortOrder
-    userId?: SortOrder
     dateConsumed?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    ownerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserMealCountOrderByAggregateInput
@@ -30666,10 +33645,151 @@ export namespace Prisma {
     NOT?: UserMealScalarWhereWithAggregatesInput | UserMealScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"UserMeal"> | string
     mealId?: StringWithAggregatesFilter<"UserMeal"> | string
-    userId?: StringWithAggregatesFilter<"UserMeal"> | string
     dateConsumed?: DateTimeWithAggregatesFilter<"UserMeal"> | Date | string
+    notes?: StringNullableWithAggregatesFilter<"UserMeal"> | string | null
+    ownerId?: StringWithAggregatesFilter<"UserMeal"> | string
     createdAt?: DateTimeWithAggregatesFilter<"UserMeal"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"UserMeal"> | Date | string
+  }
+
+  export type UserMealItemWhereInput = {
+    AND?: UserMealItemWhereInput | UserMealItemWhereInput[]
+    OR?: UserMealItemWhereInput[]
+    NOT?: UserMealItemWhereInput | UserMealItemWhereInput[]
+    id?: StringFilter<"UserMealItem"> | string
+    userMealId?: StringFilter<"UserMealItem"> | string
+    foodItemId?: StringFilter<"UserMealItem"> | string
+    quantity?: IntFilter<"UserMealItem"> | number
+    createdAt?: DateTimeFilter<"UserMealItem"> | Date | string
+    updatedAt?: DateTimeFilter<"UserMealItem"> | Date | string
+    userMeal?: XOR<UserMealScalarRelationFilter, UserMealWhereInput>
+    foodItem?: XOR<FoodItemScalarRelationFilter, FoodItemWhereInput>
+  }
+
+  export type UserMealItemOrderByWithRelationInput = {
+    id?: SortOrder
+    userMealId?: SortOrder
+    foodItemId?: SortOrder
+    quantity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userMeal?: UserMealOrderByWithRelationInput
+    foodItem?: FoodItemOrderByWithRelationInput
+  }
+
+  export type UserMealItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: UserMealItemWhereInput | UserMealItemWhereInput[]
+    OR?: UserMealItemWhereInput[]
+    NOT?: UserMealItemWhereInput | UserMealItemWhereInput[]
+    userMealId?: StringFilter<"UserMealItem"> | string
+    foodItemId?: StringFilter<"UserMealItem"> | string
+    quantity?: IntFilter<"UserMealItem"> | number
+    createdAt?: DateTimeFilter<"UserMealItem"> | Date | string
+    updatedAt?: DateTimeFilter<"UserMealItem"> | Date | string
+    userMeal?: XOR<UserMealScalarRelationFilter, UserMealWhereInput>
+    foodItem?: XOR<FoodItemScalarRelationFilter, FoodItemWhereInput>
+  }, "id">
+
+  export type UserMealItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    userMealId?: SortOrder
+    foodItemId?: SortOrder
+    quantity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserMealItemCountOrderByAggregateInput
+    _avg?: UserMealItemAvgOrderByAggregateInput
+    _max?: UserMealItemMaxOrderByAggregateInput
+    _min?: UserMealItemMinOrderByAggregateInput
+    _sum?: UserMealItemSumOrderByAggregateInput
+  }
+
+  export type UserMealItemScalarWhereWithAggregatesInput = {
+    AND?: UserMealItemScalarWhereWithAggregatesInput | UserMealItemScalarWhereWithAggregatesInput[]
+    OR?: UserMealItemScalarWhereWithAggregatesInput[]
+    NOT?: UserMealItemScalarWhereWithAggregatesInput | UserMealItemScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserMealItem"> | string
+    userMealId?: StringWithAggregatesFilter<"UserMealItem"> | string
+    foodItemId?: StringWithAggregatesFilter<"UserMealItem"> | string
+    quantity?: IntWithAggregatesFilter<"UserMealItem"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"UserMealItem"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserMealItem"> | Date | string
+  }
+
+  export type ImageWhereInput = {
+    AND?: ImageWhereInput | ImageWhereInput[]
+    OR?: ImageWhereInput[]
+    NOT?: ImageWhereInput | ImageWhereInput[]
+    id?: StringFilter<"Image"> | string
+    url?: StringFilter<"Image"> | string
+    publicId?: StringFilter<"Image"> | string
+    description?: StringNullableFilter<"Image"> | string | null
+    altText?: StringNullableFilter<"Image"> | string | null
+    mealId?: StringNullableFilter<"Image"> | string | null
+    isPrimary?: BoolFilter<"Image"> | boolean
+    createdAt?: DateTimeFilter<"Image"> | Date | string
+    updatedAt?: DateTimeFilter<"Image"> | Date | string
+    meal?: XOR<MealNullableScalarRelationFilter, MealWhereInput> | null
+  }
+
+  export type ImageOrderByWithRelationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    publicId?: SortOrder
+    description?: SortOrderInput | SortOrder
+    altText?: SortOrderInput | SortOrder
+    mealId?: SortOrderInput | SortOrder
+    isPrimary?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    meal?: MealOrderByWithRelationInput
+  }
+
+  export type ImageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    url?: string
+    publicId?: string
+    AND?: ImageWhereInput | ImageWhereInput[]
+    OR?: ImageWhereInput[]
+    NOT?: ImageWhereInput | ImageWhereInput[]
+    description?: StringNullableFilter<"Image"> | string | null
+    altText?: StringNullableFilter<"Image"> | string | null
+    mealId?: StringNullableFilter<"Image"> | string | null
+    isPrimary?: BoolFilter<"Image"> | boolean
+    createdAt?: DateTimeFilter<"Image"> | Date | string
+    updatedAt?: DateTimeFilter<"Image"> | Date | string
+    meal?: XOR<MealNullableScalarRelationFilter, MealWhereInput> | null
+  }, "id" | "url" | "publicId">
+
+  export type ImageOrderByWithAggregationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    publicId?: SortOrder
+    description?: SortOrderInput | SortOrder
+    altText?: SortOrderInput | SortOrder
+    mealId?: SortOrderInput | SortOrder
+    isPrimary?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ImageCountOrderByAggregateInput
+    _max?: ImageMaxOrderByAggregateInput
+    _min?: ImageMinOrderByAggregateInput
+  }
+
+  export type ImageScalarWhereWithAggregatesInput = {
+    AND?: ImageScalarWhereWithAggregatesInput | ImageScalarWhereWithAggregatesInput[]
+    OR?: ImageScalarWhereWithAggregatesInput[]
+    NOT?: ImageScalarWhereWithAggregatesInput | ImageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Image"> | string
+    url?: StringWithAggregatesFilter<"Image"> | string
+    publicId?: StringWithAggregatesFilter<"Image"> | string
+    description?: StringNullableWithAggregatesFilter<"Image"> | string | null
+    altText?: StringNullableWithAggregatesFilter<"Image"> | string | null
+    mealId?: StringNullableWithAggregatesFilter<"Image"> | string | null
+    isPrimary?: BoolWithAggregatesFilter<"Image"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Image"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Image"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -30687,7 +33807,7 @@ export namespace Prisma {
     workouts?: WorkoutCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
     meals?: MealCreateNestedManyWithoutOwnerInput
-    userMeals?: UserMealCreateNestedManyWithoutUserInput
+    userMeals?: UserMealCreateNestedManyWithoutOwnerInput
     exercises?: ExerciseCreateNestedManyWithoutOwnerInput
   }
 
@@ -30706,7 +33826,7 @@ export namespace Prisma {
     workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
     meals?: MealUncheckedCreateNestedManyWithoutOwnerInput
-    userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
+    userMeals?: UserMealUncheckedCreateNestedManyWithoutOwnerInput
     exercises?: ExerciseUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -30725,7 +33845,7 @@ export namespace Prisma {
     workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
     meals?: MealUpdateManyWithoutOwnerNestedInput
-    userMeals?: UserMealUpdateManyWithoutUserNestedInput
+    userMeals?: UserMealUpdateManyWithoutOwnerNestedInput
     exercises?: ExerciseUpdateManyWithoutOwnerNestedInput
   }
 
@@ -30744,7 +33864,7 @@ export namespace Prisma {
     workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
-    userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
+    userMeals?: UserMealUncheckedUpdateManyWithoutOwnerNestedInput
     exercises?: ExerciseUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -30793,6 +33913,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -30808,6 +33929,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     ownerId?: string | null
     createdAt?: Date | string
@@ -30823,6 +33945,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30838,6 +33961,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30853,6 +33977,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     ownerId?: string | null
     createdAt?: Date | string
@@ -30865,6 +33990,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30876,6 +34002,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31600,6 +34727,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -31614,6 +34745,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     exerciseId: string
     workoutId: string
@@ -31628,6 +34763,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31642,6 +34781,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
@@ -31656,6 +34799,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     exerciseId: string
     workoutId: string
@@ -31669,6 +34816,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31680,6 +34831,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
@@ -31826,6 +34981,7 @@ export namespace Prisma {
     categories?: FoodItemCategoryCreateNestedManyWithoutFoodItemsInput
     labels?: FoodItemLabelCreateNestedManyWithoutFoodItemsInput
     mealFoodItem?: MealFoodItemCreateNestedManyWithoutFoodItemInput
+    userMealItem?: UserMealItemCreateNestedManyWithoutFoodItemInput
     images?: FoodItemImgCreateNestedManyWithoutFoodItemInput
   }
 
@@ -31849,6 +35005,7 @@ export namespace Prisma {
     categories?: FoodItemCategoryUncheckedCreateNestedManyWithoutFoodItemsInput
     labels?: FoodItemLabelUncheckedCreateNestedManyWithoutFoodItemsInput
     mealFoodItem?: MealFoodItemUncheckedCreateNestedManyWithoutFoodItemInput
+    userMealItem?: UserMealItemUncheckedCreateNestedManyWithoutFoodItemInput
     images?: FoodItemImgUncheckedCreateNestedManyWithoutFoodItemInput
   }
 
@@ -31872,6 +35029,7 @@ export namespace Prisma {
     categories?: FoodItemCategoryUpdateManyWithoutFoodItemsNestedInput
     labels?: FoodItemLabelUpdateManyWithoutFoodItemsNestedInput
     mealFoodItem?: MealFoodItemUpdateManyWithoutFoodItemNestedInput
+    userMealItem?: UserMealItemUpdateManyWithoutFoodItemNestedInput
     images?: FoodItemImgUpdateManyWithoutFoodItemNestedInput
   }
 
@@ -31895,6 +35053,7 @@ export namespace Prisma {
     categories?: FoodItemCategoryUncheckedUpdateManyWithoutFoodItemsNestedInput
     labels?: FoodItemLabelUncheckedUpdateManyWithoutFoodItemsNestedInput
     mealFoodItem?: MealFoodItemUncheckedUpdateManyWithoutFoodItemNestedInput
+    userMealItem?: UserMealItemUncheckedUpdateManyWithoutFoodItemNestedInput
     images?: FoodItemImgUncheckedUpdateManyWithoutFoodItemNestedInput
   }
 
@@ -32010,6 +35169,7 @@ export namespace Prisma {
   export type FoodItemImgCreateInput = {
     id?: string
     url: string
+    altText?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     foodItem: FoodItemCreateNestedOneWithoutImagesInput
@@ -32018,6 +35178,7 @@ export namespace Prisma {
   export type FoodItemImgUncheckedCreateInput = {
     id?: string
     url: string
+    altText?: string | null
     foodItemId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32026,6 +35187,7 @@ export namespace Prisma {
   export type FoodItemImgUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     foodItem?: FoodItemUpdateOneRequiredWithoutImagesNestedInput
@@ -32034,6 +35196,7 @@ export namespace Prisma {
   export type FoodItemImgUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
     foodItemId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32042,6 +35205,7 @@ export namespace Prisma {
   export type FoodItemImgCreateManyInput = {
     id?: string
     url: string
+    altText?: string | null
     foodItemId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32050,6 +35214,7 @@ export namespace Prisma {
   export type FoodItemImgUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32057,6 +35222,7 @@ export namespace Prisma {
   export type FoodItemImgUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
     foodItemId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32175,21 +35341,23 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    owner: UserCreateNestedOneWithoutMealsInput
+    owner?: UserCreateNestedOneWithoutMealsInput
     mealFoodItems?: MealFoodItemCreateNestedManyWithoutMealInput
     userMeals?: UserMealCreateNestedManyWithoutMealInput
+    images?: ImageCreateNestedManyWithoutMealInput
   }
 
   export type MealUncheckedCreateInput = {
     id?: string
     name?: string | null
     mealType?: $Enums.MealType
-    ownerId: string
+    ownerId?: string | null
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     mealFoodItems?: MealFoodItemUncheckedCreateNestedManyWithoutMealInput
     userMeals?: UserMealUncheckedCreateNestedManyWithoutMealInput
+    images?: ImageUncheckedCreateNestedManyWithoutMealInput
   }
 
   export type MealUpdateInput = {
@@ -32199,28 +35367,30 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    owner?: UserUpdateOneRequiredWithoutMealsNestedInput
+    owner?: UserUpdateOneWithoutMealsNestedInput
     mealFoodItems?: MealFoodItemUpdateManyWithoutMealNestedInput
     userMeals?: UserMealUpdateManyWithoutMealNestedInput
+    images?: ImageUpdateManyWithoutMealNestedInput
   }
 
   export type MealUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
-    ownerId?: StringFieldUpdateOperationsInput | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mealFoodItems?: MealFoodItemUncheckedUpdateManyWithoutMealNestedInput
     userMeals?: UserMealUncheckedUpdateManyWithoutMealNestedInput
+    images?: ImageUncheckedUpdateManyWithoutMealNestedInput
   }
 
   export type MealCreateManyInput = {
     id?: string
     name?: string | null
     mealType?: $Enums.MealType
-    ownerId: string
+    ownerId?: string | null
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32239,7 +35409,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
-    ownerId?: StringFieldUpdateOperationsInput | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32309,44 +35479,53 @@ export namespace Prisma {
   export type UserMealCreateInput = {
     id?: string
     dateConsumed?: Date | string
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     meal: MealCreateNestedOneWithoutUserMealsInput
-    user: UserCreateNestedOneWithoutUserMealsInput
+    owner: UserCreateNestedOneWithoutUserMealsInput
+    userMealItems?: UserMealItemCreateNestedManyWithoutUserMealInput
   }
 
   export type UserMealUncheckedCreateInput = {
     id?: string
     mealId: string
-    userId: string
     dateConsumed?: Date | string
+    notes?: string | null
+    ownerId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    userMealItems?: UserMealItemUncheckedCreateNestedManyWithoutUserMealInput
   }
 
   export type UserMealUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     meal?: MealUpdateOneRequiredWithoutUserMealsNestedInput
-    user?: UserUpdateOneRequiredWithoutUserMealsNestedInput
+    owner?: UserUpdateOneRequiredWithoutUserMealsNestedInput
+    userMealItems?: UserMealItemUpdateManyWithoutUserMealNestedInput
   }
 
   export type UserMealUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     mealId?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userMealItems?: UserMealItemUncheckedUpdateManyWithoutUserMealNestedInput
   }
 
   export type UserMealCreateManyInput = {
     id?: string
     mealId: string
-    userId: string
     dateConsumed?: Date | string
+    notes?: string | null
+    ownerId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -32354,6 +35533,7 @@ export namespace Prisma {
   export type UserMealUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32361,8 +35541,153 @@ export namespace Prisma {
   export type UserMealUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     mealId?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMealItemCreateInput = {
+    id?: string
+    quantity?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userMeal: UserMealCreateNestedOneWithoutUserMealItemsInput
+    foodItem: FoodItemCreateNestedOneWithoutUserMealItemInput
+  }
+
+  export type UserMealItemUncheckedCreateInput = {
+    id?: string
+    userMealId: string
+    foodItemId: string
+    quantity?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserMealItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userMeal?: UserMealUpdateOneRequiredWithoutUserMealItemsNestedInput
+    foodItem?: FoodItemUpdateOneRequiredWithoutUserMealItemNestedInput
+  }
+
+  export type UserMealItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userMealId?: StringFieldUpdateOperationsInput | string
+    foodItemId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMealItemCreateManyInput = {
+    id?: string
+    userMealId: string
+    foodItemId: string
+    quantity?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserMealItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMealItemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userMealId?: StringFieldUpdateOperationsInput | string
+    foodItemId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImageCreateInput = {
+    id?: string
+    url: string
+    publicId: string
+    description?: string | null
+    altText?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    meal?: MealCreateNestedOneWithoutImagesInput
+  }
+
+  export type ImageUncheckedCreateInput = {
+    id?: string
+    url: string
+    publicId: string
+    description?: string | null
+    altText?: string | null
+    mealId?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ImageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    publicId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meal?: MealUpdateOneWithoutImagesNestedInput
+  }
+
+  export type ImageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    publicId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
+    mealId?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImageCreateManyInput = {
+    id?: string
+    url: string
+    publicId: string
+    description?: string | null
+    altText?: string | null
+    mealId?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ImageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    publicId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    publicId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
+    mealId?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32623,6 +35948,7 @@ export namespace Prisma {
     youtubeUrl?: SortOrder
     notes?: SortOrder
     isCompounded?: SortOrder
+    isSeparateHands?: SortOrder
     type?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
@@ -32635,6 +35961,7 @@ export namespace Prisma {
     youtubeUrl?: SortOrder
     notes?: SortOrder
     isCompounded?: SortOrder
+    isSeparateHands?: SortOrder
     type?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
@@ -32647,6 +35974,7 @@ export namespace Prisma {
     youtubeUrl?: SortOrder
     notes?: SortOrder
     isCompounded?: SortOrder
+    isSeparateHands?: SortOrder
     type?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
@@ -33198,6 +36526,10 @@ export namespace Prisma {
     notes?: SortOrder
     hasWarmup?: SortOrder
     isBodyWeight?: SortOrder
+    numberOfSets?: SortOrder
+    maxNumberOfReps?: SortOrder
+    isDropSet?: SortOrder
+    isMyoReps?: SortOrder
     restTime?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
@@ -33207,6 +36539,8 @@ export namespace Prisma {
 
   export type WorkoutExerciseAvgOrderByAggregateInput = {
     order?: SortOrder
+    numberOfSets?: SortOrder
+    maxNumberOfReps?: SortOrder
     restTime?: SortOrder
   }
 
@@ -33216,6 +36550,10 @@ export namespace Prisma {
     notes?: SortOrder
     hasWarmup?: SortOrder
     isBodyWeight?: SortOrder
+    numberOfSets?: SortOrder
+    maxNumberOfReps?: SortOrder
+    isDropSet?: SortOrder
+    isMyoReps?: SortOrder
     restTime?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
@@ -33229,6 +36567,10 @@ export namespace Prisma {
     notes?: SortOrder
     hasWarmup?: SortOrder
     isBodyWeight?: SortOrder
+    numberOfSets?: SortOrder
+    maxNumberOfReps?: SortOrder
+    isDropSet?: SortOrder
+    isMyoReps?: SortOrder
     restTime?: SortOrder
     exerciseId?: SortOrder
     workoutId?: SortOrder
@@ -33238,6 +36580,8 @@ export namespace Prisma {
 
   export type WorkoutExerciseSumOrderByAggregateInput = {
     order?: SortOrder
+    numberOfSets?: SortOrder
+    maxNumberOfReps?: SortOrder
     restTime?: SortOrder
   }
 
@@ -33377,6 +36721,12 @@ export namespace Prisma {
     none?: MealFoodItemWhereInput
   }
 
+  export type UserMealItemListRelationFilter = {
+    every?: UserMealItemWhereInput
+    some?: UserMealItemWhereInput
+    none?: UserMealItemWhereInput
+  }
+
   export type FoodItemImgListRelationFilter = {
     every?: FoodItemImgWhereInput
     some?: FoodItemImgWhereInput
@@ -33392,6 +36742,10 @@ export namespace Prisma {
   }
 
   export type MealFoodItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserMealItemOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -33521,6 +36875,7 @@ export namespace Prisma {
   export type FoodItemImgCountOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
+    altText?: SortOrder
     foodItemId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -33529,6 +36884,7 @@ export namespace Prisma {
   export type FoodItemImgMaxOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
+    altText?: SortOrder
     foodItemId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -33537,6 +36893,7 @@ export namespace Prisma {
   export type FoodItemImgMinOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
+    altText?: SortOrder
     foodItemId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -33589,6 +36946,16 @@ export namespace Prisma {
     in?: $Enums.MealType[] | ListEnumMealTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.MealType[] | ListEnumMealTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumMealTypeFilter<$PrismaModel> | $Enums.MealType
+  }
+
+  export type ImageListRelationFilter = {
+    every?: ImageWhereInput
+    some?: ImageWhereInput
+    none?: ImageWhereInput
+  }
+
+  export type ImageOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type MealCountOrderByAggregateInput = {
@@ -33674,8 +37041,9 @@ export namespace Prisma {
   export type UserMealCountOrderByAggregateInput = {
     id?: SortOrder
     mealId?: SortOrder
-    userId?: SortOrder
     dateConsumed?: SortOrder
+    notes?: SortOrder
+    ownerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33683,8 +37051,9 @@ export namespace Prisma {
   export type UserMealMaxOrderByAggregateInput = {
     id?: SortOrder
     mealId?: SortOrder
-    userId?: SortOrder
     dateConsumed?: SortOrder
+    notes?: SortOrder
+    ownerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33692,8 +37061,90 @@ export namespace Prisma {
   export type UserMealMinOrderByAggregateInput = {
     id?: SortOrder
     mealId?: SortOrder
-    userId?: SortOrder
     dateConsumed?: SortOrder
+    notes?: SortOrder
+    ownerId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserMealScalarRelationFilter = {
+    is?: UserMealWhereInput
+    isNot?: UserMealWhereInput
+  }
+
+  export type UserMealItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    userMealId?: SortOrder
+    foodItemId?: SortOrder
+    quantity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserMealItemAvgOrderByAggregateInput = {
+    quantity?: SortOrder
+  }
+
+  export type UserMealItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userMealId?: SortOrder
+    foodItemId?: SortOrder
+    quantity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserMealItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    userMealId?: SortOrder
+    foodItemId?: SortOrder
+    quantity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserMealItemSumOrderByAggregateInput = {
+    quantity?: SortOrder
+  }
+
+  export type MealNullableScalarRelationFilter = {
+    is?: MealWhereInput | null
+    isNot?: MealWhereInput | null
+  }
+
+  export type ImageCountOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    publicId?: SortOrder
+    description?: SortOrder
+    altText?: SortOrder
+    mealId?: SortOrder
+    isPrimary?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ImageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    publicId?: SortOrder
+    description?: SortOrder
+    altText?: SortOrder
+    mealId?: SortOrder
+    isPrimary?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ImageMinOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    publicId?: SortOrder
+    description?: SortOrder
+    altText?: SortOrder
+    mealId?: SortOrder
+    isPrimary?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33726,10 +37177,10 @@ export namespace Prisma {
     connect?: MealWhereUniqueInput | MealWhereUniqueInput[]
   }
 
-  export type UserMealCreateNestedManyWithoutUserInput = {
-    create?: XOR<UserMealCreateWithoutUserInput, UserMealUncheckedCreateWithoutUserInput> | UserMealCreateWithoutUserInput[] | UserMealUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserMealCreateOrConnectWithoutUserInput | UserMealCreateOrConnectWithoutUserInput[]
-    createMany?: UserMealCreateManyUserInputEnvelope
+  export type UserMealCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<UserMealCreateWithoutOwnerInput, UserMealUncheckedCreateWithoutOwnerInput> | UserMealCreateWithoutOwnerInput[] | UserMealUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: UserMealCreateOrConnectWithoutOwnerInput | UserMealCreateOrConnectWithoutOwnerInput[]
+    createMany?: UserMealCreateManyOwnerInputEnvelope
     connect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
   }
 
@@ -33768,10 +37219,10 @@ export namespace Prisma {
     connect?: MealWhereUniqueInput | MealWhereUniqueInput[]
   }
 
-  export type UserMealUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<UserMealCreateWithoutUserInput, UserMealUncheckedCreateWithoutUserInput> | UserMealCreateWithoutUserInput[] | UserMealUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserMealCreateOrConnectWithoutUserInput | UserMealCreateOrConnectWithoutUserInput[]
-    createMany?: UserMealCreateManyUserInputEnvelope
+  export type UserMealUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<UserMealCreateWithoutOwnerInput, UserMealUncheckedCreateWithoutOwnerInput> | UserMealCreateWithoutOwnerInput[] | UserMealUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: UserMealCreateOrConnectWithoutOwnerInput | UserMealCreateOrConnectWithoutOwnerInput[]
+    createMany?: UserMealCreateManyOwnerInputEnvelope
     connect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
   }
 
@@ -33854,17 +37305,17 @@ export namespace Prisma {
     deleteMany?: MealScalarWhereInput | MealScalarWhereInput[]
   }
 
-  export type UserMealUpdateManyWithoutUserNestedInput = {
-    create?: XOR<UserMealCreateWithoutUserInput, UserMealUncheckedCreateWithoutUserInput> | UserMealCreateWithoutUserInput[] | UserMealUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserMealCreateOrConnectWithoutUserInput | UserMealCreateOrConnectWithoutUserInput[]
-    upsert?: UserMealUpsertWithWhereUniqueWithoutUserInput | UserMealUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: UserMealCreateManyUserInputEnvelope
+  export type UserMealUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<UserMealCreateWithoutOwnerInput, UserMealUncheckedCreateWithoutOwnerInput> | UserMealCreateWithoutOwnerInput[] | UserMealUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: UserMealCreateOrConnectWithoutOwnerInput | UserMealCreateOrConnectWithoutOwnerInput[]
+    upsert?: UserMealUpsertWithWhereUniqueWithoutOwnerInput | UserMealUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: UserMealCreateManyOwnerInputEnvelope
     set?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
     disconnect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
     delete?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
     connect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
-    update?: UserMealUpdateWithWhereUniqueWithoutUserInput | UserMealUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: UserMealUpdateManyWithWhereWithoutUserInput | UserMealUpdateManyWithWhereWithoutUserInput[]
+    update?: UserMealUpdateWithWhereUniqueWithoutOwnerInput | UserMealUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: UserMealUpdateManyWithWhereWithoutOwnerInput | UserMealUpdateManyWithWhereWithoutOwnerInput[]
     deleteMany?: UserMealScalarWhereInput | UserMealScalarWhereInput[]
   }
 
@@ -33938,17 +37389,17 @@ export namespace Prisma {
     deleteMany?: MealScalarWhereInput | MealScalarWhereInput[]
   }
 
-  export type UserMealUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<UserMealCreateWithoutUserInput, UserMealUncheckedCreateWithoutUserInput> | UserMealCreateWithoutUserInput[] | UserMealUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserMealCreateOrConnectWithoutUserInput | UserMealCreateOrConnectWithoutUserInput[]
-    upsert?: UserMealUpsertWithWhereUniqueWithoutUserInput | UserMealUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: UserMealCreateManyUserInputEnvelope
+  export type UserMealUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<UserMealCreateWithoutOwnerInput, UserMealUncheckedCreateWithoutOwnerInput> | UserMealCreateWithoutOwnerInput[] | UserMealUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: UserMealCreateOrConnectWithoutOwnerInput | UserMealCreateOrConnectWithoutOwnerInput[]
+    upsert?: UserMealUpsertWithWhereUniqueWithoutOwnerInput | UserMealUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: UserMealCreateManyOwnerInputEnvelope
     set?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
     disconnect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
     delete?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
     connect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
-    update?: UserMealUpdateWithWhereUniqueWithoutUserInput | UserMealUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: UserMealUpdateManyWithWhereWithoutUserInput | UserMealUpdateManyWithWhereWithoutUserInput[]
+    update?: UserMealUpdateWithWhereUniqueWithoutOwnerInput | UserMealUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: UserMealUpdateManyWithWhereWithoutOwnerInput | UserMealUpdateManyWithWhereWithoutOwnerInput[]
     deleteMany?: UserMealScalarWhereInput | UserMealScalarWhereInput[]
   }
 
@@ -34948,6 +38399,13 @@ export namespace Prisma {
     connect?: MealFoodItemWhereUniqueInput | MealFoodItemWhereUniqueInput[]
   }
 
+  export type UserMealItemCreateNestedManyWithoutFoodItemInput = {
+    create?: XOR<UserMealItemCreateWithoutFoodItemInput, UserMealItemUncheckedCreateWithoutFoodItemInput> | UserMealItemCreateWithoutFoodItemInput[] | UserMealItemUncheckedCreateWithoutFoodItemInput[]
+    connectOrCreate?: UserMealItemCreateOrConnectWithoutFoodItemInput | UserMealItemCreateOrConnectWithoutFoodItemInput[]
+    createMany?: UserMealItemCreateManyFoodItemInputEnvelope
+    connect?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+  }
+
   export type FoodItemImgCreateNestedManyWithoutFoodItemInput = {
     create?: XOR<FoodItemImgCreateWithoutFoodItemInput, FoodItemImgUncheckedCreateWithoutFoodItemInput> | FoodItemImgCreateWithoutFoodItemInput[] | FoodItemImgUncheckedCreateWithoutFoodItemInput[]
     connectOrCreate?: FoodItemImgCreateOrConnectWithoutFoodItemInput | FoodItemImgCreateOrConnectWithoutFoodItemInput[]
@@ -34972,6 +38430,13 @@ export namespace Prisma {
     connectOrCreate?: MealFoodItemCreateOrConnectWithoutFoodItemInput | MealFoodItemCreateOrConnectWithoutFoodItemInput[]
     createMany?: MealFoodItemCreateManyFoodItemInputEnvelope
     connect?: MealFoodItemWhereUniqueInput | MealFoodItemWhereUniqueInput[]
+  }
+
+  export type UserMealItemUncheckedCreateNestedManyWithoutFoodItemInput = {
+    create?: XOR<UserMealItemCreateWithoutFoodItemInput, UserMealItemUncheckedCreateWithoutFoodItemInput> | UserMealItemCreateWithoutFoodItemInput[] | UserMealItemUncheckedCreateWithoutFoodItemInput[]
+    connectOrCreate?: UserMealItemCreateOrConnectWithoutFoodItemInput | UserMealItemCreateOrConnectWithoutFoodItemInput[]
+    createMany?: UserMealItemCreateManyFoodItemInputEnvelope
+    connect?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
   }
 
   export type FoodItemImgUncheckedCreateNestedManyWithoutFoodItemInput = {
@@ -35031,6 +38496,20 @@ export namespace Prisma {
     deleteMany?: MealFoodItemScalarWhereInput | MealFoodItemScalarWhereInput[]
   }
 
+  export type UserMealItemUpdateManyWithoutFoodItemNestedInput = {
+    create?: XOR<UserMealItemCreateWithoutFoodItemInput, UserMealItemUncheckedCreateWithoutFoodItemInput> | UserMealItemCreateWithoutFoodItemInput[] | UserMealItemUncheckedCreateWithoutFoodItemInput[]
+    connectOrCreate?: UserMealItemCreateOrConnectWithoutFoodItemInput | UserMealItemCreateOrConnectWithoutFoodItemInput[]
+    upsert?: UserMealItemUpsertWithWhereUniqueWithoutFoodItemInput | UserMealItemUpsertWithWhereUniqueWithoutFoodItemInput[]
+    createMany?: UserMealItemCreateManyFoodItemInputEnvelope
+    set?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+    disconnect?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+    delete?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+    connect?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+    update?: UserMealItemUpdateWithWhereUniqueWithoutFoodItemInput | UserMealItemUpdateWithWhereUniqueWithoutFoodItemInput[]
+    updateMany?: UserMealItemUpdateManyWithWhereWithoutFoodItemInput | UserMealItemUpdateManyWithWhereWithoutFoodItemInput[]
+    deleteMany?: UserMealItemScalarWhereInput | UserMealItemScalarWhereInput[]
+  }
+
   export type FoodItemImgUpdateManyWithoutFoodItemNestedInput = {
     create?: XOR<FoodItemImgCreateWithoutFoodItemInput, FoodItemImgUncheckedCreateWithoutFoodItemInput> | FoodItemImgCreateWithoutFoodItemInput[] | FoodItemImgUncheckedCreateWithoutFoodItemInput[]
     connectOrCreate?: FoodItemImgCreateOrConnectWithoutFoodItemInput | FoodItemImgCreateOrConnectWithoutFoodItemInput[]
@@ -35083,6 +38562,20 @@ export namespace Prisma {
     update?: MealFoodItemUpdateWithWhereUniqueWithoutFoodItemInput | MealFoodItemUpdateWithWhereUniqueWithoutFoodItemInput[]
     updateMany?: MealFoodItemUpdateManyWithWhereWithoutFoodItemInput | MealFoodItemUpdateManyWithWhereWithoutFoodItemInput[]
     deleteMany?: MealFoodItemScalarWhereInput | MealFoodItemScalarWhereInput[]
+  }
+
+  export type UserMealItemUncheckedUpdateManyWithoutFoodItemNestedInput = {
+    create?: XOR<UserMealItemCreateWithoutFoodItemInput, UserMealItemUncheckedCreateWithoutFoodItemInput> | UserMealItemCreateWithoutFoodItemInput[] | UserMealItemUncheckedCreateWithoutFoodItemInput[]
+    connectOrCreate?: UserMealItemCreateOrConnectWithoutFoodItemInput | UserMealItemCreateOrConnectWithoutFoodItemInput[]
+    upsert?: UserMealItemUpsertWithWhereUniqueWithoutFoodItemInput | UserMealItemUpsertWithWhereUniqueWithoutFoodItemInput[]
+    createMany?: UserMealItemCreateManyFoodItemInputEnvelope
+    set?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+    disconnect?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+    delete?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+    connect?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+    update?: UserMealItemUpdateWithWhereUniqueWithoutFoodItemInput | UserMealItemUpdateWithWhereUniqueWithoutFoodItemInput[]
+    updateMany?: UserMealItemUpdateManyWithWhereWithoutFoodItemInput | UserMealItemUpdateManyWithWhereWithoutFoodItemInput[]
+    deleteMany?: UserMealItemScalarWhereInput | UserMealItemScalarWhereInput[]
   }
 
   export type FoodItemImgUncheckedUpdateManyWithoutFoodItemNestedInput = {
@@ -35251,6 +38744,13 @@ export namespace Prisma {
     connect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
   }
 
+  export type ImageCreateNestedManyWithoutMealInput = {
+    create?: XOR<ImageCreateWithoutMealInput, ImageUncheckedCreateWithoutMealInput> | ImageCreateWithoutMealInput[] | ImageUncheckedCreateWithoutMealInput[]
+    connectOrCreate?: ImageCreateOrConnectWithoutMealInput | ImageCreateOrConnectWithoutMealInput[]
+    createMany?: ImageCreateManyMealInputEnvelope
+    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+  }
+
   export type MealFoodItemUncheckedCreateNestedManyWithoutMealInput = {
     create?: XOR<MealFoodItemCreateWithoutMealInput, MealFoodItemUncheckedCreateWithoutMealInput> | MealFoodItemCreateWithoutMealInput[] | MealFoodItemUncheckedCreateWithoutMealInput[]
     connectOrCreate?: MealFoodItemCreateOrConnectWithoutMealInput | MealFoodItemCreateOrConnectWithoutMealInput[]
@@ -35265,14 +38765,23 @@ export namespace Prisma {
     connect?: UserMealWhereUniqueInput | UserMealWhereUniqueInput[]
   }
 
+  export type ImageUncheckedCreateNestedManyWithoutMealInput = {
+    create?: XOR<ImageCreateWithoutMealInput, ImageUncheckedCreateWithoutMealInput> | ImageCreateWithoutMealInput[] | ImageUncheckedCreateWithoutMealInput[]
+    connectOrCreate?: ImageCreateOrConnectWithoutMealInput | ImageCreateOrConnectWithoutMealInput[]
+    createMany?: ImageCreateManyMealInputEnvelope
+    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+  }
+
   export type EnumMealTypeFieldUpdateOperationsInput = {
     set?: $Enums.MealType
   }
 
-  export type UserUpdateOneRequiredWithoutMealsNestedInput = {
+  export type UserUpdateOneWithoutMealsNestedInput = {
     create?: XOR<UserCreateWithoutMealsInput, UserUncheckedCreateWithoutMealsInput>
     connectOrCreate?: UserCreateOrConnectWithoutMealsInput
     upsert?: UserUpsertWithoutMealsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMealsInput, UserUpdateWithoutMealsInput>, UserUncheckedUpdateWithoutMealsInput>
   }
@@ -35305,6 +38814,20 @@ export namespace Prisma {
     deleteMany?: UserMealScalarWhereInput | UserMealScalarWhereInput[]
   }
 
+  export type ImageUpdateManyWithoutMealNestedInput = {
+    create?: XOR<ImageCreateWithoutMealInput, ImageUncheckedCreateWithoutMealInput> | ImageCreateWithoutMealInput[] | ImageUncheckedCreateWithoutMealInput[]
+    connectOrCreate?: ImageCreateOrConnectWithoutMealInput | ImageCreateOrConnectWithoutMealInput[]
+    upsert?: ImageUpsertWithWhereUniqueWithoutMealInput | ImageUpsertWithWhereUniqueWithoutMealInput[]
+    createMany?: ImageCreateManyMealInputEnvelope
+    set?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    disconnect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    delete?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    update?: ImageUpdateWithWhereUniqueWithoutMealInput | ImageUpdateWithWhereUniqueWithoutMealInput[]
+    updateMany?: ImageUpdateManyWithWhereWithoutMealInput | ImageUpdateManyWithWhereWithoutMealInput[]
+    deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
+  }
+
   export type MealFoodItemUncheckedUpdateManyWithoutMealNestedInput = {
     create?: XOR<MealFoodItemCreateWithoutMealInput, MealFoodItemUncheckedCreateWithoutMealInput> | MealFoodItemCreateWithoutMealInput[] | MealFoodItemUncheckedCreateWithoutMealInput[]
     connectOrCreate?: MealFoodItemCreateOrConnectWithoutMealInput | MealFoodItemCreateOrConnectWithoutMealInput[]
@@ -35331,6 +38854,20 @@ export namespace Prisma {
     update?: UserMealUpdateWithWhereUniqueWithoutMealInput | UserMealUpdateWithWhereUniqueWithoutMealInput[]
     updateMany?: UserMealUpdateManyWithWhereWithoutMealInput | UserMealUpdateManyWithWhereWithoutMealInput[]
     deleteMany?: UserMealScalarWhereInput | UserMealScalarWhereInput[]
+  }
+
+  export type ImageUncheckedUpdateManyWithoutMealNestedInput = {
+    create?: XOR<ImageCreateWithoutMealInput, ImageUncheckedCreateWithoutMealInput> | ImageCreateWithoutMealInput[] | ImageUncheckedCreateWithoutMealInput[]
+    connectOrCreate?: ImageCreateOrConnectWithoutMealInput | ImageCreateOrConnectWithoutMealInput[]
+    upsert?: ImageUpsertWithWhereUniqueWithoutMealInput | ImageUpsertWithWhereUniqueWithoutMealInput[]
+    createMany?: ImageCreateManyMealInputEnvelope
+    set?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    disconnect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    delete?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    update?: ImageUpdateWithWhereUniqueWithoutMealInput | ImageUpdateWithWhereUniqueWithoutMealInput[]
+    updateMany?: ImageUpdateManyWithWhereWithoutMealInput | ImageUpdateManyWithWhereWithoutMealInput[]
+    deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
   }
 
   export type MealCreateNestedOneWithoutMealFoodItemsInput = {
@@ -35373,6 +38910,20 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type UserMealItemCreateNestedManyWithoutUserMealInput = {
+    create?: XOR<UserMealItemCreateWithoutUserMealInput, UserMealItemUncheckedCreateWithoutUserMealInput> | UserMealItemCreateWithoutUserMealInput[] | UserMealItemUncheckedCreateWithoutUserMealInput[]
+    connectOrCreate?: UserMealItemCreateOrConnectWithoutUserMealInput | UserMealItemCreateOrConnectWithoutUserMealInput[]
+    createMany?: UserMealItemCreateManyUserMealInputEnvelope
+    connect?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+  }
+
+  export type UserMealItemUncheckedCreateNestedManyWithoutUserMealInput = {
+    create?: XOR<UserMealItemCreateWithoutUserMealInput, UserMealItemUncheckedCreateWithoutUserMealInput> | UserMealItemCreateWithoutUserMealInput[] | UserMealItemUncheckedCreateWithoutUserMealInput[]
+    connectOrCreate?: UserMealItemCreateOrConnectWithoutUserMealInput | UserMealItemCreateOrConnectWithoutUserMealInput[]
+    createMany?: UserMealItemCreateManyUserMealInputEnvelope
+    connect?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+  }
+
   export type MealUpdateOneRequiredWithoutUserMealsNestedInput = {
     create?: XOR<MealCreateWithoutUserMealsInput, MealUncheckedCreateWithoutUserMealsInput>
     connectOrCreate?: MealCreateOrConnectWithoutUserMealsInput
@@ -35387,6 +38938,78 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutUserMealsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserMealsInput, UserUpdateWithoutUserMealsInput>, UserUncheckedUpdateWithoutUserMealsInput>
+  }
+
+  export type UserMealItemUpdateManyWithoutUserMealNestedInput = {
+    create?: XOR<UserMealItemCreateWithoutUserMealInput, UserMealItemUncheckedCreateWithoutUserMealInput> | UserMealItemCreateWithoutUserMealInput[] | UserMealItemUncheckedCreateWithoutUserMealInput[]
+    connectOrCreate?: UserMealItemCreateOrConnectWithoutUserMealInput | UserMealItemCreateOrConnectWithoutUserMealInput[]
+    upsert?: UserMealItemUpsertWithWhereUniqueWithoutUserMealInput | UserMealItemUpsertWithWhereUniqueWithoutUserMealInput[]
+    createMany?: UserMealItemCreateManyUserMealInputEnvelope
+    set?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+    disconnect?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+    delete?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+    connect?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+    update?: UserMealItemUpdateWithWhereUniqueWithoutUserMealInput | UserMealItemUpdateWithWhereUniqueWithoutUserMealInput[]
+    updateMany?: UserMealItemUpdateManyWithWhereWithoutUserMealInput | UserMealItemUpdateManyWithWhereWithoutUserMealInput[]
+    deleteMany?: UserMealItemScalarWhereInput | UserMealItemScalarWhereInput[]
+  }
+
+  export type UserMealItemUncheckedUpdateManyWithoutUserMealNestedInput = {
+    create?: XOR<UserMealItemCreateWithoutUserMealInput, UserMealItemUncheckedCreateWithoutUserMealInput> | UserMealItemCreateWithoutUserMealInput[] | UserMealItemUncheckedCreateWithoutUserMealInput[]
+    connectOrCreate?: UserMealItemCreateOrConnectWithoutUserMealInput | UserMealItemCreateOrConnectWithoutUserMealInput[]
+    upsert?: UserMealItemUpsertWithWhereUniqueWithoutUserMealInput | UserMealItemUpsertWithWhereUniqueWithoutUserMealInput[]
+    createMany?: UserMealItemCreateManyUserMealInputEnvelope
+    set?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+    disconnect?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+    delete?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+    connect?: UserMealItemWhereUniqueInput | UserMealItemWhereUniqueInput[]
+    update?: UserMealItemUpdateWithWhereUniqueWithoutUserMealInput | UserMealItemUpdateWithWhereUniqueWithoutUserMealInput[]
+    updateMany?: UserMealItemUpdateManyWithWhereWithoutUserMealInput | UserMealItemUpdateManyWithWhereWithoutUserMealInput[]
+    deleteMany?: UserMealItemScalarWhereInput | UserMealItemScalarWhereInput[]
+  }
+
+  export type UserMealCreateNestedOneWithoutUserMealItemsInput = {
+    create?: XOR<UserMealCreateWithoutUserMealItemsInput, UserMealUncheckedCreateWithoutUserMealItemsInput>
+    connectOrCreate?: UserMealCreateOrConnectWithoutUserMealItemsInput
+    connect?: UserMealWhereUniqueInput
+  }
+
+  export type FoodItemCreateNestedOneWithoutUserMealItemInput = {
+    create?: XOR<FoodItemCreateWithoutUserMealItemInput, FoodItemUncheckedCreateWithoutUserMealItemInput>
+    connectOrCreate?: FoodItemCreateOrConnectWithoutUserMealItemInput
+    connect?: FoodItemWhereUniqueInput
+  }
+
+  export type UserMealUpdateOneRequiredWithoutUserMealItemsNestedInput = {
+    create?: XOR<UserMealCreateWithoutUserMealItemsInput, UserMealUncheckedCreateWithoutUserMealItemsInput>
+    connectOrCreate?: UserMealCreateOrConnectWithoutUserMealItemsInput
+    upsert?: UserMealUpsertWithoutUserMealItemsInput
+    connect?: UserMealWhereUniqueInput
+    update?: XOR<XOR<UserMealUpdateToOneWithWhereWithoutUserMealItemsInput, UserMealUpdateWithoutUserMealItemsInput>, UserMealUncheckedUpdateWithoutUserMealItemsInput>
+  }
+
+  export type FoodItemUpdateOneRequiredWithoutUserMealItemNestedInput = {
+    create?: XOR<FoodItemCreateWithoutUserMealItemInput, FoodItemUncheckedCreateWithoutUserMealItemInput>
+    connectOrCreate?: FoodItemCreateOrConnectWithoutUserMealItemInput
+    upsert?: FoodItemUpsertWithoutUserMealItemInput
+    connect?: FoodItemWhereUniqueInput
+    update?: XOR<XOR<FoodItemUpdateToOneWithWhereWithoutUserMealItemInput, FoodItemUpdateWithoutUserMealItemInput>, FoodItemUncheckedUpdateWithoutUserMealItemInput>
+  }
+
+  export type MealCreateNestedOneWithoutImagesInput = {
+    create?: XOR<MealCreateWithoutImagesInput, MealUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: MealCreateOrConnectWithoutImagesInput
+    connect?: MealWhereUniqueInput
+  }
+
+  export type MealUpdateOneWithoutImagesNestedInput = {
+    create?: XOR<MealCreateWithoutImagesInput, MealUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: MealCreateOrConnectWithoutImagesInput
+    upsert?: MealUpsertWithoutImagesInput
+    disconnect?: MealWhereInput | boolean
+    delete?: MealWhereInput | boolean
+    connect?: MealWhereUniqueInput
+    update?: XOR<XOR<MealUpdateToOneWithWhereWithoutImagesInput, MealUpdateWithoutImagesInput>, MealUncheckedUpdateWithoutImagesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -35781,6 +39404,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     mealFoodItems?: MealFoodItemCreateNestedManyWithoutMealInput
     userMeals?: UserMealCreateNestedManyWithoutMealInput
+    images?: ImageCreateNestedManyWithoutMealInput
   }
 
   export type MealUncheckedCreateWithoutOwnerInput = {
@@ -35792,6 +39416,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     mealFoodItems?: MealFoodItemUncheckedCreateNestedManyWithoutMealInput
     userMeals?: UserMealUncheckedCreateNestedManyWithoutMealInput
+    images?: ImageUncheckedCreateNestedManyWithoutMealInput
   }
 
   export type MealCreateOrConnectWithoutOwnerInput = {
@@ -35804,29 +39429,33 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserMealCreateWithoutUserInput = {
+  export type UserMealCreateWithoutOwnerInput = {
     id?: string
     dateConsumed?: Date | string
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     meal: MealCreateNestedOneWithoutUserMealsInput
+    userMealItems?: UserMealItemCreateNestedManyWithoutUserMealInput
   }
 
-  export type UserMealUncheckedCreateWithoutUserInput = {
+  export type UserMealUncheckedCreateWithoutOwnerInput = {
     id?: string
     mealId: string
     dateConsumed?: Date | string
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    userMealItems?: UserMealItemUncheckedCreateNestedManyWithoutUserMealInput
   }
 
-  export type UserMealCreateOrConnectWithoutUserInput = {
+  export type UserMealCreateOrConnectWithoutOwnerInput = {
     where: UserMealWhereUniqueInput
-    create: XOR<UserMealCreateWithoutUserInput, UserMealUncheckedCreateWithoutUserInput>
+    create: XOR<UserMealCreateWithoutOwnerInput, UserMealUncheckedCreateWithoutOwnerInput>
   }
 
-  export type UserMealCreateManyUserInputEnvelope = {
-    data: UserMealCreateManyUserInput | UserMealCreateManyUserInput[]
+  export type UserMealCreateManyOwnerInputEnvelope = {
+    data: UserMealCreateManyOwnerInput | UserMealCreateManyOwnerInput[]
     skipDuplicates?: boolean
   }
 
@@ -35836,6 +39465,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -35850,6 +39480,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -35979,26 +39610,26 @@ export namespace Prisma {
     id?: StringFilter<"Meal"> | string
     name?: StringNullableFilter<"Meal"> | string | null
     mealType?: EnumMealTypeFilter<"Meal"> | $Enums.MealType
-    ownerId?: StringFilter<"Meal"> | string
+    ownerId?: StringNullableFilter<"Meal"> | string | null
     notes?: StringNullableFilter<"Meal"> | string | null
     createdAt?: DateTimeFilter<"Meal"> | Date | string
     updatedAt?: DateTimeFilter<"Meal"> | Date | string
   }
 
-  export type UserMealUpsertWithWhereUniqueWithoutUserInput = {
+  export type UserMealUpsertWithWhereUniqueWithoutOwnerInput = {
     where: UserMealWhereUniqueInput
-    update: XOR<UserMealUpdateWithoutUserInput, UserMealUncheckedUpdateWithoutUserInput>
-    create: XOR<UserMealCreateWithoutUserInput, UserMealUncheckedCreateWithoutUserInput>
+    update: XOR<UserMealUpdateWithoutOwnerInput, UserMealUncheckedUpdateWithoutOwnerInput>
+    create: XOR<UserMealCreateWithoutOwnerInput, UserMealUncheckedCreateWithoutOwnerInput>
   }
 
-  export type UserMealUpdateWithWhereUniqueWithoutUserInput = {
+  export type UserMealUpdateWithWhereUniqueWithoutOwnerInput = {
     where: UserMealWhereUniqueInput
-    data: XOR<UserMealUpdateWithoutUserInput, UserMealUncheckedUpdateWithoutUserInput>
+    data: XOR<UserMealUpdateWithoutOwnerInput, UserMealUncheckedUpdateWithoutOwnerInput>
   }
 
-  export type UserMealUpdateManyWithWhereWithoutUserInput = {
+  export type UserMealUpdateManyWithWhereWithoutOwnerInput = {
     where: UserMealScalarWhereInput
-    data: XOR<UserMealUpdateManyMutationInput, UserMealUncheckedUpdateManyWithoutUserInput>
+    data: XOR<UserMealUpdateManyMutationInput, UserMealUncheckedUpdateManyWithoutOwnerInput>
   }
 
   export type UserMealScalarWhereInput = {
@@ -36007,8 +39638,9 @@ export namespace Prisma {
     NOT?: UserMealScalarWhereInput | UserMealScalarWhereInput[]
     id?: StringFilter<"UserMeal"> | string
     mealId?: StringFilter<"UserMeal"> | string
-    userId?: StringFilter<"UserMeal"> | string
     dateConsumed?: DateTimeFilter<"UserMeal"> | Date | string
+    notes?: StringNullableFilter<"UserMeal"> | string | null
+    ownerId?: StringFilter<"UserMeal"> | string
     createdAt?: DateTimeFilter<"UserMeal"> | Date | string
     updatedAt?: DateTimeFilter<"UserMeal"> | Date | string
   }
@@ -36038,6 +39670,7 @@ export namespace Prisma {
     youtubeUrl?: StringFilter<"Exercise"> | string
     notes?: StringNullableFilter<"Exercise"> | string | null
     isCompounded?: BoolFilter<"Exercise"> | boolean
+    isSeparateHands?: BoolFilter<"Exercise"> | boolean
     type?: EnumExerciseTypeFilter<"Exercise"> | $Enums.ExerciseType
     ownerId?: StringNullableFilter<"Exercise"> | string | null
     createdAt?: DateTimeFilter<"Exercise"> | Date | string
@@ -36094,6 +39727,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -36107,6 +39744,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     workoutId: string
     createdAt?: Date | string
@@ -36139,7 +39780,7 @@ export namespace Prisma {
     workouts?: WorkoutCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
     meals?: MealCreateNestedManyWithoutOwnerInput
-    userMeals?: UserMealCreateNestedManyWithoutUserInput
+    userMeals?: UserMealCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUncheckedCreateWithoutExercisesInput = {
@@ -36157,7 +39798,7 @@ export namespace Prisma {
     workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
     meals?: MealUncheckedCreateNestedManyWithoutOwnerInput
-    userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
+    userMeals?: UserMealUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type UserCreateOrConnectWithoutExercisesInput = {
@@ -36243,6 +39884,10 @@ export namespace Prisma {
     notes?: StringNullableFilter<"WorkoutExercise"> | string | null
     hasWarmup?: BoolFilter<"WorkoutExercise"> | boolean
     isBodyWeight?: BoolFilter<"WorkoutExercise"> | boolean
+    numberOfSets?: IntNullableFilter<"WorkoutExercise"> | number | null
+    maxNumberOfReps?: IntNullableFilter<"WorkoutExercise"> | number | null
+    isDropSet?: BoolFilter<"WorkoutExercise"> | boolean
+    isMyoReps?: BoolFilter<"WorkoutExercise"> | boolean
     restTime?: IntFilter<"WorkoutExercise"> | number
     exerciseId?: StringFilter<"WorkoutExercise"> | string
     workoutId?: StringFilter<"WorkoutExercise"> | string
@@ -36276,7 +39921,7 @@ export namespace Prisma {
     workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
     meals?: MealUpdateManyWithoutOwnerNestedInput
-    userMeals?: UserMealUpdateManyWithoutUserNestedInput
+    userMeals?: UserMealUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutExercisesInput = {
@@ -36294,7 +39939,7 @@ export namespace Prisma {
     workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
-    userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
+    userMeals?: UserMealUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type ExerciseCreateWithoutMusclesInput = {
@@ -36303,6 +39948,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -36317,6 +39963,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     ownerId?: string | null
     createdAt?: Date | string
@@ -36458,6 +40105,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -36472,6 +40120,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     ownerId?: string | null
     createdAt?: Date | string
@@ -36751,7 +40400,7 @@ export namespace Prisma {
     workouts?: WorkoutCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
     meals?: MealCreateNestedManyWithoutOwnerInput
-    userMeals?: UserMealCreateNestedManyWithoutUserInput
+    userMeals?: UserMealCreateNestedManyWithoutOwnerInput
     exercises?: ExerciseCreateNestedManyWithoutOwnerInput
   }
 
@@ -36769,7 +40418,7 @@ export namespace Prisma {
     workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
     meals?: MealUncheckedCreateNestedManyWithoutOwnerInput
-    userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
+    userMeals?: UserMealUncheckedCreateNestedManyWithoutOwnerInput
     exercises?: ExerciseUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -36849,7 +40498,7 @@ export namespace Prisma {
     workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
     meals?: MealUpdateManyWithoutOwnerNestedInput
-    userMeals?: UserMealUpdateManyWithoutUserNestedInput
+    userMeals?: UserMealUpdateManyWithoutOwnerNestedInput
     exercises?: ExerciseUpdateManyWithoutOwnerNestedInput
   }
 
@@ -36867,7 +40516,7 @@ export namespace Prisma {
     workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
-    userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
+    userMeals?: UserMealUncheckedUpdateManyWithoutOwnerNestedInput
     exercises?: ExerciseUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -37017,7 +40666,7 @@ export namespace Prisma {
     programs?: ProgramCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
     meals?: MealCreateNestedManyWithoutOwnerInput
-    userMeals?: UserMealCreateNestedManyWithoutUserInput
+    userMeals?: UserMealCreateNestedManyWithoutOwnerInput
     exercises?: ExerciseCreateNestedManyWithoutOwnerInput
   }
 
@@ -37035,7 +40684,7 @@ export namespace Prisma {
     programs?: ProgramUncheckedCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
     meals?: MealUncheckedCreateNestedManyWithoutOwnerInput
-    userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
+    userMeals?: UserMealUncheckedCreateNestedManyWithoutOwnerInput
     exercises?: ExerciseUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -37050,6 +40699,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -37063,6 +40716,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     exerciseId: string
     createdAt?: Date | string
@@ -37163,7 +40820,7 @@ export namespace Prisma {
     programs?: ProgramUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
     meals?: MealUpdateManyWithoutOwnerNestedInput
-    userMeals?: UserMealUpdateManyWithoutUserNestedInput
+    userMeals?: UserMealUpdateManyWithoutOwnerNestedInput
     exercises?: ExerciseUpdateManyWithoutOwnerNestedInput
   }
 
@@ -37181,7 +40838,7 @@ export namespace Prisma {
     programs?: ProgramUncheckedUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
-    userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
+    userMeals?: UserMealUncheckedUpdateManyWithoutOwnerNestedInput
     exercises?: ExerciseUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -37239,6 +40896,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -37253,6 +40911,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     ownerId?: string | null
     createdAt?: Date | string
@@ -37338,6 +40997,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37352,6 +41012,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37427,6 +41088,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -37440,6 +41105,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     exerciseId: string
     workoutId: string
@@ -37574,6 +41243,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37587,6 +41260,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     exerciseId?: StringFieldUpdateOperationsInput | string
     workoutId?: StringFieldUpdateOperationsInput | string
@@ -37708,7 +41385,7 @@ export namespace Prisma {
     programs?: ProgramCreateNestedManyWithoutOwnerInput
     workouts?: WorkoutCreateNestedManyWithoutOwnerInput
     meals?: MealCreateNestedManyWithoutOwnerInput
-    userMeals?: UserMealCreateNestedManyWithoutUserInput
+    userMeals?: UserMealCreateNestedManyWithoutOwnerInput
     exercises?: ExerciseCreateNestedManyWithoutOwnerInput
   }
 
@@ -37726,7 +41403,7 @@ export namespace Prisma {
     programs?: ProgramUncheckedCreateNestedManyWithoutOwnerInput
     workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
     meals?: MealUncheckedCreateNestedManyWithoutOwnerInput
-    userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
+    userMeals?: UserMealUncheckedCreateNestedManyWithoutOwnerInput
     exercises?: ExerciseUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -37846,7 +41523,7 @@ export namespace Prisma {
     programs?: ProgramUpdateManyWithoutOwnerNestedInput
     workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
     meals?: MealUpdateManyWithoutOwnerNestedInput
-    userMeals?: UserMealUpdateManyWithoutUserNestedInput
+    userMeals?: UserMealUpdateManyWithoutOwnerNestedInput
     exercises?: ExerciseUpdateManyWithoutOwnerNestedInput
   }
 
@@ -37864,7 +41541,7 @@ export namespace Prisma {
     programs?: ProgramUncheckedUpdateManyWithoutOwnerNestedInput
     workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     meals?: MealUncheckedUpdateManyWithoutOwnerNestedInput
-    userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
+    userMeals?: UserMealUncheckedUpdateManyWithoutOwnerNestedInput
     exercises?: ExerciseUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -38039,9 +41716,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserMealItemCreateWithoutFoodItemInput = {
+    id?: string
+    quantity?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userMeal: UserMealCreateNestedOneWithoutUserMealItemsInput
+  }
+
+  export type UserMealItemUncheckedCreateWithoutFoodItemInput = {
+    id?: string
+    userMealId: string
+    quantity?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserMealItemCreateOrConnectWithoutFoodItemInput = {
+    where: UserMealItemWhereUniqueInput
+    create: XOR<UserMealItemCreateWithoutFoodItemInput, UserMealItemUncheckedCreateWithoutFoodItemInput>
+  }
+
+  export type UserMealItemCreateManyFoodItemInputEnvelope = {
+    data: UserMealItemCreateManyFoodItemInput | UserMealItemCreateManyFoodItemInput[]
+    skipDuplicates?: boolean
+  }
+
   export type FoodItemImgCreateWithoutFoodItemInput = {
     id?: string
     url: string
+    altText?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -38049,6 +41753,7 @@ export namespace Prisma {
   export type FoodItemImgUncheckedCreateWithoutFoodItemInput = {
     id?: string
     url: string
+    altText?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -38168,6 +41873,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"MealFoodItem"> | Date | string
   }
 
+  export type UserMealItemUpsertWithWhereUniqueWithoutFoodItemInput = {
+    where: UserMealItemWhereUniqueInput
+    update: XOR<UserMealItemUpdateWithoutFoodItemInput, UserMealItemUncheckedUpdateWithoutFoodItemInput>
+    create: XOR<UserMealItemCreateWithoutFoodItemInput, UserMealItemUncheckedCreateWithoutFoodItemInput>
+  }
+
+  export type UserMealItemUpdateWithWhereUniqueWithoutFoodItemInput = {
+    where: UserMealItemWhereUniqueInput
+    data: XOR<UserMealItemUpdateWithoutFoodItemInput, UserMealItemUncheckedUpdateWithoutFoodItemInput>
+  }
+
+  export type UserMealItemUpdateManyWithWhereWithoutFoodItemInput = {
+    where: UserMealItemScalarWhereInput
+    data: XOR<UserMealItemUpdateManyMutationInput, UserMealItemUncheckedUpdateManyWithoutFoodItemInput>
+  }
+
+  export type UserMealItemScalarWhereInput = {
+    AND?: UserMealItemScalarWhereInput | UserMealItemScalarWhereInput[]
+    OR?: UserMealItemScalarWhereInput[]
+    NOT?: UserMealItemScalarWhereInput | UserMealItemScalarWhereInput[]
+    id?: StringFilter<"UserMealItem"> | string
+    userMealId?: StringFilter<"UserMealItem"> | string
+    foodItemId?: StringFilter<"UserMealItem"> | string
+    quantity?: IntFilter<"UserMealItem"> | number
+    createdAt?: DateTimeFilter<"UserMealItem"> | Date | string
+    updatedAt?: DateTimeFilter<"UserMealItem"> | Date | string
+  }
+
   export type FoodItemImgUpsertWithWhereUniqueWithoutFoodItemInput = {
     where: FoodItemImgWhereUniqueInput
     update: XOR<FoodItemImgUpdateWithoutFoodItemInput, FoodItemImgUncheckedUpdateWithoutFoodItemInput>
@@ -38190,6 +41923,7 @@ export namespace Prisma {
     NOT?: FoodItemImgScalarWhereInput | FoodItemImgScalarWhereInput[]
     id?: StringFilter<"FoodItemImg"> | string
     url?: StringFilter<"FoodItemImg"> | string
+    altText?: StringNullableFilter<"FoodItemImg"> | string | null
     foodItemId?: StringFilter<"FoodItemImg"> | string
     createdAt?: DateTimeFilter<"FoodItemImg"> | Date | string
     updatedAt?: DateTimeFilter<"FoodItemImg"> | Date | string
@@ -38214,6 +41948,7 @@ export namespace Prisma {
     brand?: FoodItemBrandCreateNestedOneWithoutFoodItemsInput
     categories?: FoodItemCategoryCreateNestedManyWithoutFoodItemsInput
     mealFoodItem?: MealFoodItemCreateNestedManyWithoutFoodItemInput
+    userMealItem?: UserMealItemCreateNestedManyWithoutFoodItemInput
     images?: FoodItemImgCreateNestedManyWithoutFoodItemInput
   }
 
@@ -38236,6 +41971,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     categories?: FoodItemCategoryUncheckedCreateNestedManyWithoutFoodItemsInput
     mealFoodItem?: MealFoodItemUncheckedCreateNestedManyWithoutFoodItemInput
+    userMealItem?: UserMealItemUncheckedCreateNestedManyWithoutFoodItemInput
     images?: FoodItemImgUncheckedCreateNestedManyWithoutFoodItemInput
   }
 
@@ -38302,6 +42038,7 @@ export namespace Prisma {
     categories?: FoodItemCategoryCreateNestedManyWithoutFoodItemsInput
     labels?: FoodItemLabelCreateNestedManyWithoutFoodItemsInput
     mealFoodItem?: MealFoodItemCreateNestedManyWithoutFoodItemInput
+    userMealItem?: UserMealItemCreateNestedManyWithoutFoodItemInput
   }
 
   export type FoodItemUncheckedCreateWithoutImagesInput = {
@@ -38324,6 +42061,7 @@ export namespace Prisma {
     categories?: FoodItemCategoryUncheckedCreateNestedManyWithoutFoodItemsInput
     labels?: FoodItemLabelUncheckedCreateNestedManyWithoutFoodItemsInput
     mealFoodItem?: MealFoodItemUncheckedCreateNestedManyWithoutFoodItemInput
+    userMealItem?: UserMealItemUncheckedCreateNestedManyWithoutFoodItemInput
   }
 
   export type FoodItemCreateOrConnectWithoutImagesInput = {
@@ -38362,6 +42100,7 @@ export namespace Prisma {
     categories?: FoodItemCategoryUpdateManyWithoutFoodItemsNestedInput
     labels?: FoodItemLabelUpdateManyWithoutFoodItemsNestedInput
     mealFoodItem?: MealFoodItemUpdateManyWithoutFoodItemNestedInput
+    userMealItem?: UserMealItemUpdateManyWithoutFoodItemNestedInput
   }
 
   export type FoodItemUncheckedUpdateWithoutImagesInput = {
@@ -38384,6 +42123,7 @@ export namespace Prisma {
     categories?: FoodItemCategoryUncheckedUpdateManyWithoutFoodItemsNestedInput
     labels?: FoodItemLabelUncheckedUpdateManyWithoutFoodItemsNestedInput
     mealFoodItem?: MealFoodItemUncheckedUpdateManyWithoutFoodItemNestedInput
+    userMealItem?: UserMealItemUncheckedUpdateManyWithoutFoodItemNestedInput
   }
 
   export type FoodItemCreateWithoutBrandInput = {
@@ -38405,6 +42145,7 @@ export namespace Prisma {
     categories?: FoodItemCategoryCreateNestedManyWithoutFoodItemsInput
     labels?: FoodItemLabelCreateNestedManyWithoutFoodItemsInput
     mealFoodItem?: MealFoodItemCreateNestedManyWithoutFoodItemInput
+    userMealItem?: UserMealItemCreateNestedManyWithoutFoodItemInput
     images?: FoodItemImgCreateNestedManyWithoutFoodItemInput
   }
 
@@ -38427,6 +42168,7 @@ export namespace Prisma {
     categories?: FoodItemCategoryUncheckedCreateNestedManyWithoutFoodItemsInput
     labels?: FoodItemLabelUncheckedCreateNestedManyWithoutFoodItemsInput
     mealFoodItem?: MealFoodItemUncheckedCreateNestedManyWithoutFoodItemInput
+    userMealItem?: UserMealItemUncheckedCreateNestedManyWithoutFoodItemInput
     images?: FoodItemImgUncheckedCreateNestedManyWithoutFoodItemInput
   }
 
@@ -38475,6 +42217,7 @@ export namespace Prisma {
     brand?: FoodItemBrandCreateNestedOneWithoutFoodItemsInput
     labels?: FoodItemLabelCreateNestedManyWithoutFoodItemsInput
     mealFoodItem?: MealFoodItemCreateNestedManyWithoutFoodItemInput
+    userMealItem?: UserMealItemCreateNestedManyWithoutFoodItemInput
     images?: FoodItemImgCreateNestedManyWithoutFoodItemInput
   }
 
@@ -38497,6 +42240,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     labels?: FoodItemLabelUncheckedCreateNestedManyWithoutFoodItemsInput
     mealFoodItem?: MealFoodItemUncheckedCreateNestedManyWithoutFoodItemInput
+    userMealItem?: UserMealItemUncheckedCreateNestedManyWithoutFoodItemInput
     images?: FoodItemImgUncheckedCreateNestedManyWithoutFoodItemInput
   }
 
@@ -38535,7 +42279,7 @@ export namespace Prisma {
     programs?: ProgramCreateNestedManyWithoutOwnerInput
     workouts?: WorkoutCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutCreateNestedManyWithoutOwnerInput
-    userMeals?: UserMealCreateNestedManyWithoutUserInput
+    userMeals?: UserMealCreateNestedManyWithoutOwnerInput
     exercises?: ExerciseCreateNestedManyWithoutOwnerInput
   }
 
@@ -38553,7 +42297,7 @@ export namespace Prisma {
     programs?: ProgramUncheckedCreateNestedManyWithoutOwnerInput
     workouts?: WorkoutUncheckedCreateNestedManyWithoutOwnerInput
     userWorkout?: UserWorkoutUncheckedCreateNestedManyWithoutOwnerInput
-    userMeals?: UserMealUncheckedCreateNestedManyWithoutUserInput
+    userMeals?: UserMealUncheckedCreateNestedManyWithoutOwnerInput
     exercises?: ExerciseUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -38591,17 +42335,21 @@ export namespace Prisma {
   export type UserMealCreateWithoutMealInput = {
     id?: string
     dateConsumed?: Date | string
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutUserMealsInput
+    owner: UserCreateNestedOneWithoutUserMealsInput
+    userMealItems?: UserMealItemCreateNestedManyWithoutUserMealInput
   }
 
   export type UserMealUncheckedCreateWithoutMealInput = {
     id?: string
-    userId: string
     dateConsumed?: Date | string
+    notes?: string | null
+    ownerId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    userMealItems?: UserMealItemUncheckedCreateNestedManyWithoutUserMealInput
   }
 
   export type UserMealCreateOrConnectWithoutMealInput = {
@@ -38611,6 +42359,38 @@ export namespace Prisma {
 
   export type UserMealCreateManyMealInputEnvelope = {
     data: UserMealCreateManyMealInput | UserMealCreateManyMealInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ImageCreateWithoutMealInput = {
+    id?: string
+    url: string
+    publicId: string
+    description?: string | null
+    altText?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ImageUncheckedCreateWithoutMealInput = {
+    id?: string
+    url: string
+    publicId: string
+    description?: string | null
+    altText?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ImageCreateOrConnectWithoutMealInput = {
+    where: ImageWhereUniqueInput
+    create: XOR<ImageCreateWithoutMealInput, ImageUncheckedCreateWithoutMealInput>
+  }
+
+  export type ImageCreateManyMealInputEnvelope = {
+    data: ImageCreateManyMealInput | ImageCreateManyMealInput[]
     skipDuplicates?: boolean
   }
 
@@ -38639,7 +42419,7 @@ export namespace Prisma {
     programs?: ProgramUpdateManyWithoutOwnerNestedInput
     workouts?: WorkoutUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUpdateManyWithoutOwnerNestedInput
-    userMeals?: UserMealUpdateManyWithoutUserNestedInput
+    userMeals?: UserMealUpdateManyWithoutOwnerNestedInput
     exercises?: ExerciseUpdateManyWithoutOwnerNestedInput
   }
 
@@ -38657,7 +42437,7 @@ export namespace Prisma {
     programs?: ProgramUncheckedUpdateManyWithoutOwnerNestedInput
     workouts?: WorkoutUncheckedUpdateManyWithoutOwnerNestedInput
     userWorkout?: UserWorkoutUncheckedUpdateManyWithoutOwnerNestedInput
-    userMeals?: UserMealUncheckedUpdateManyWithoutUserNestedInput
+    userMeals?: UserMealUncheckedUpdateManyWithoutOwnerNestedInput
     exercises?: ExerciseUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -38693,6 +42473,37 @@ export namespace Prisma {
     data: XOR<UserMealUpdateManyMutationInput, UserMealUncheckedUpdateManyWithoutMealInput>
   }
 
+  export type ImageUpsertWithWhereUniqueWithoutMealInput = {
+    where: ImageWhereUniqueInput
+    update: XOR<ImageUpdateWithoutMealInput, ImageUncheckedUpdateWithoutMealInput>
+    create: XOR<ImageCreateWithoutMealInput, ImageUncheckedCreateWithoutMealInput>
+  }
+
+  export type ImageUpdateWithWhereUniqueWithoutMealInput = {
+    where: ImageWhereUniqueInput
+    data: XOR<ImageUpdateWithoutMealInput, ImageUncheckedUpdateWithoutMealInput>
+  }
+
+  export type ImageUpdateManyWithWhereWithoutMealInput = {
+    where: ImageScalarWhereInput
+    data: XOR<ImageUpdateManyMutationInput, ImageUncheckedUpdateManyWithoutMealInput>
+  }
+
+  export type ImageScalarWhereInput = {
+    AND?: ImageScalarWhereInput | ImageScalarWhereInput[]
+    OR?: ImageScalarWhereInput[]
+    NOT?: ImageScalarWhereInput | ImageScalarWhereInput[]
+    id?: StringFilter<"Image"> | string
+    url?: StringFilter<"Image"> | string
+    publicId?: StringFilter<"Image"> | string
+    description?: StringNullableFilter<"Image"> | string | null
+    altText?: StringNullableFilter<"Image"> | string | null
+    mealId?: StringNullableFilter<"Image"> | string | null
+    isPrimary?: BoolFilter<"Image"> | boolean
+    createdAt?: DateTimeFilter<"Image"> | Date | string
+    updatedAt?: DateTimeFilter<"Image"> | Date | string
+  }
+
   export type MealCreateWithoutMealFoodItemsInput = {
     id?: string
     name?: string | null
@@ -38700,19 +42511,21 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    owner: UserCreateNestedOneWithoutMealsInput
+    owner?: UserCreateNestedOneWithoutMealsInput
     userMeals?: UserMealCreateNestedManyWithoutMealInput
+    images?: ImageCreateNestedManyWithoutMealInput
   }
 
   export type MealUncheckedCreateWithoutMealFoodItemsInput = {
     id?: string
     name?: string | null
     mealType?: $Enums.MealType
-    ownerId: string
+    ownerId?: string | null
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     userMeals?: UserMealUncheckedCreateNestedManyWithoutMealInput
+    images?: ImageUncheckedCreateNestedManyWithoutMealInput
   }
 
   export type MealCreateOrConnectWithoutMealFoodItemsInput = {
@@ -38739,6 +42552,7 @@ export namespace Prisma {
     brand?: FoodItemBrandCreateNestedOneWithoutFoodItemsInput
     categories?: FoodItemCategoryCreateNestedManyWithoutFoodItemsInput
     labels?: FoodItemLabelCreateNestedManyWithoutFoodItemsInput
+    userMealItem?: UserMealItemCreateNestedManyWithoutFoodItemInput
     images?: FoodItemImgCreateNestedManyWithoutFoodItemInput
   }
 
@@ -38761,6 +42575,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     categories?: FoodItemCategoryUncheckedCreateNestedManyWithoutFoodItemsInput
     labels?: FoodItemLabelUncheckedCreateNestedManyWithoutFoodItemsInput
+    userMealItem?: UserMealItemUncheckedCreateNestedManyWithoutFoodItemInput
     images?: FoodItemImgUncheckedCreateNestedManyWithoutFoodItemInput
   }
 
@@ -38787,19 +42602,21 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    owner?: UserUpdateOneRequiredWithoutMealsNestedInput
+    owner?: UserUpdateOneWithoutMealsNestedInput
     userMeals?: UserMealUpdateManyWithoutMealNestedInput
+    images?: ImageUpdateManyWithoutMealNestedInput
   }
 
   export type MealUncheckedUpdateWithoutMealFoodItemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
-    ownerId?: StringFieldUpdateOperationsInput | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userMeals?: UserMealUncheckedUpdateManyWithoutMealNestedInput
+    images?: ImageUncheckedUpdateManyWithoutMealNestedInput
   }
 
   export type FoodItemUpsertWithoutMealFoodItemInput = {
@@ -38832,6 +42649,7 @@ export namespace Prisma {
     brand?: FoodItemBrandUpdateOneWithoutFoodItemsNestedInput
     categories?: FoodItemCategoryUpdateManyWithoutFoodItemsNestedInput
     labels?: FoodItemLabelUpdateManyWithoutFoodItemsNestedInput
+    userMealItem?: UserMealItemUpdateManyWithoutFoodItemNestedInput
     images?: FoodItemImgUpdateManyWithoutFoodItemNestedInput
   }
 
@@ -38854,6 +42672,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categories?: FoodItemCategoryUncheckedUpdateManyWithoutFoodItemsNestedInput
     labels?: FoodItemLabelUncheckedUpdateManyWithoutFoodItemsNestedInput
+    userMealItem?: UserMealItemUncheckedUpdateManyWithoutFoodItemNestedInput
     images?: FoodItemImgUncheckedUpdateManyWithoutFoodItemNestedInput
   }
 
@@ -38864,19 +42683,21 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    owner: UserCreateNestedOneWithoutMealsInput
+    owner?: UserCreateNestedOneWithoutMealsInput
     mealFoodItems?: MealFoodItemCreateNestedManyWithoutMealInput
+    images?: ImageCreateNestedManyWithoutMealInput
   }
 
   export type MealUncheckedCreateWithoutUserMealsInput = {
     id?: string
     name?: string | null
     mealType?: $Enums.MealType
-    ownerId: string
+    ownerId?: string | null
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     mealFoodItems?: MealFoodItemUncheckedCreateNestedManyWithoutMealInput
+    images?: ImageUncheckedCreateNestedManyWithoutMealInput
   }
 
   export type MealCreateOrConnectWithoutUserMealsInput = {
@@ -38925,6 +42746,32 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutUserMealsInput, UserUncheckedCreateWithoutUserMealsInput>
   }
 
+  export type UserMealItemCreateWithoutUserMealInput = {
+    id?: string
+    quantity?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    foodItem: FoodItemCreateNestedOneWithoutUserMealItemInput
+  }
+
+  export type UserMealItemUncheckedCreateWithoutUserMealInput = {
+    id?: string
+    foodItemId: string
+    quantity?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserMealItemCreateOrConnectWithoutUserMealInput = {
+    where: UserMealItemWhereUniqueInput
+    create: XOR<UserMealItemCreateWithoutUserMealInput, UserMealItemUncheckedCreateWithoutUserMealInput>
+  }
+
+  export type UserMealItemCreateManyUserMealInputEnvelope = {
+    data: UserMealItemCreateManyUserMealInput | UserMealItemCreateManyUserMealInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MealUpsertWithoutUserMealsInput = {
     update: XOR<MealUpdateWithoutUserMealsInput, MealUncheckedUpdateWithoutUserMealsInput>
     create: XOR<MealCreateWithoutUserMealsInput, MealUncheckedCreateWithoutUserMealsInput>
@@ -38943,19 +42790,21 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    owner?: UserUpdateOneRequiredWithoutMealsNestedInput
+    owner?: UserUpdateOneWithoutMealsNestedInput
     mealFoodItems?: MealFoodItemUpdateManyWithoutMealNestedInput
+    images?: ImageUpdateManyWithoutMealNestedInput
   }
 
   export type MealUncheckedUpdateWithoutUserMealsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
-    ownerId?: StringFieldUpdateOperationsInput | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mealFoodItems?: MealFoodItemUncheckedUpdateManyWithoutMealNestedInput
+    images?: ImageUncheckedUpdateManyWithoutMealNestedInput
   }
 
   export type UserUpsertWithoutUserMealsInput = {
@@ -39005,6 +42854,250 @@ export namespace Prisma {
     exercises?: ExerciseUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
+  export type UserMealItemUpsertWithWhereUniqueWithoutUserMealInput = {
+    where: UserMealItemWhereUniqueInput
+    update: XOR<UserMealItemUpdateWithoutUserMealInput, UserMealItemUncheckedUpdateWithoutUserMealInput>
+    create: XOR<UserMealItemCreateWithoutUserMealInput, UserMealItemUncheckedCreateWithoutUserMealInput>
+  }
+
+  export type UserMealItemUpdateWithWhereUniqueWithoutUserMealInput = {
+    where: UserMealItemWhereUniqueInput
+    data: XOR<UserMealItemUpdateWithoutUserMealInput, UserMealItemUncheckedUpdateWithoutUserMealInput>
+  }
+
+  export type UserMealItemUpdateManyWithWhereWithoutUserMealInput = {
+    where: UserMealItemScalarWhereInput
+    data: XOR<UserMealItemUpdateManyMutationInput, UserMealItemUncheckedUpdateManyWithoutUserMealInput>
+  }
+
+  export type UserMealCreateWithoutUserMealItemsInput = {
+    id?: string
+    dateConsumed?: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    meal: MealCreateNestedOneWithoutUserMealsInput
+    owner: UserCreateNestedOneWithoutUserMealsInput
+  }
+
+  export type UserMealUncheckedCreateWithoutUserMealItemsInput = {
+    id?: string
+    mealId: string
+    dateConsumed?: Date | string
+    notes?: string | null
+    ownerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserMealCreateOrConnectWithoutUserMealItemsInput = {
+    where: UserMealWhereUniqueInput
+    create: XOR<UserMealCreateWithoutUserMealItemsInput, UserMealUncheckedCreateWithoutUserMealItemsInput>
+  }
+
+  export type FoodItemCreateWithoutUserMealItemInput = {
+    id?: string
+    barcode: string
+    name: string
+    servingSize?: number | null
+    calories?: number | null
+    proteins?: number | null
+    carbohydrates?: number | null
+    sugars?: number | null
+    fat?: number | null
+    saturatedFat?: number | null
+    fiber?: number | null
+    salt?: number | null
+    cholesterol?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    brand?: FoodItemBrandCreateNestedOneWithoutFoodItemsInput
+    categories?: FoodItemCategoryCreateNestedManyWithoutFoodItemsInput
+    labels?: FoodItemLabelCreateNestedManyWithoutFoodItemsInput
+    mealFoodItem?: MealFoodItemCreateNestedManyWithoutFoodItemInput
+    images?: FoodItemImgCreateNestedManyWithoutFoodItemInput
+  }
+
+  export type FoodItemUncheckedCreateWithoutUserMealItemInput = {
+    id?: string
+    barcode: string
+    name: string
+    servingSize?: number | null
+    calories?: number | null
+    proteins?: number | null
+    carbohydrates?: number | null
+    sugars?: number | null
+    fat?: number | null
+    saturatedFat?: number | null
+    fiber?: number | null
+    salt?: number | null
+    cholesterol?: number | null
+    brandId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    categories?: FoodItemCategoryUncheckedCreateNestedManyWithoutFoodItemsInput
+    labels?: FoodItemLabelUncheckedCreateNestedManyWithoutFoodItemsInput
+    mealFoodItem?: MealFoodItemUncheckedCreateNestedManyWithoutFoodItemInput
+    images?: FoodItemImgUncheckedCreateNestedManyWithoutFoodItemInput
+  }
+
+  export type FoodItemCreateOrConnectWithoutUserMealItemInput = {
+    where: FoodItemWhereUniqueInput
+    create: XOR<FoodItemCreateWithoutUserMealItemInput, FoodItemUncheckedCreateWithoutUserMealItemInput>
+  }
+
+  export type UserMealUpsertWithoutUserMealItemsInput = {
+    update: XOR<UserMealUpdateWithoutUserMealItemsInput, UserMealUncheckedUpdateWithoutUserMealItemsInput>
+    create: XOR<UserMealCreateWithoutUserMealItemsInput, UserMealUncheckedCreateWithoutUserMealItemsInput>
+    where?: UserMealWhereInput
+  }
+
+  export type UserMealUpdateToOneWithWhereWithoutUserMealItemsInput = {
+    where?: UserMealWhereInput
+    data: XOR<UserMealUpdateWithoutUserMealItemsInput, UserMealUncheckedUpdateWithoutUserMealItemsInput>
+  }
+
+  export type UserMealUpdateWithoutUserMealItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meal?: MealUpdateOneRequiredWithoutUserMealsNestedInput
+    owner?: UserUpdateOneRequiredWithoutUserMealsNestedInput
+  }
+
+  export type UserMealUncheckedUpdateWithoutUserMealItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mealId?: StringFieldUpdateOperationsInput | string
+    dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FoodItemUpsertWithoutUserMealItemInput = {
+    update: XOR<FoodItemUpdateWithoutUserMealItemInput, FoodItemUncheckedUpdateWithoutUserMealItemInput>
+    create: XOR<FoodItemCreateWithoutUserMealItemInput, FoodItemUncheckedCreateWithoutUserMealItemInput>
+    where?: FoodItemWhereInput
+  }
+
+  export type FoodItemUpdateToOneWithWhereWithoutUserMealItemInput = {
+    where?: FoodItemWhereInput
+    data: XOR<FoodItemUpdateWithoutUserMealItemInput, FoodItemUncheckedUpdateWithoutUserMealItemInput>
+  }
+
+  export type FoodItemUpdateWithoutUserMealItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    barcode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    servingSize?: NullableFloatFieldUpdateOperationsInput | number | null
+    calories?: NullableFloatFieldUpdateOperationsInput | number | null
+    proteins?: NullableFloatFieldUpdateOperationsInput | number | null
+    carbohydrates?: NullableFloatFieldUpdateOperationsInput | number | null
+    sugars?: NullableFloatFieldUpdateOperationsInput | number | null
+    fat?: NullableFloatFieldUpdateOperationsInput | number | null
+    saturatedFat?: NullableFloatFieldUpdateOperationsInput | number | null
+    fiber?: NullableFloatFieldUpdateOperationsInput | number | null
+    salt?: NullableFloatFieldUpdateOperationsInput | number | null
+    cholesterol?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    brand?: FoodItemBrandUpdateOneWithoutFoodItemsNestedInput
+    categories?: FoodItemCategoryUpdateManyWithoutFoodItemsNestedInput
+    labels?: FoodItemLabelUpdateManyWithoutFoodItemsNestedInput
+    mealFoodItem?: MealFoodItemUpdateManyWithoutFoodItemNestedInput
+    images?: FoodItemImgUpdateManyWithoutFoodItemNestedInput
+  }
+
+  export type FoodItemUncheckedUpdateWithoutUserMealItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    barcode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    servingSize?: NullableFloatFieldUpdateOperationsInput | number | null
+    calories?: NullableFloatFieldUpdateOperationsInput | number | null
+    proteins?: NullableFloatFieldUpdateOperationsInput | number | null
+    carbohydrates?: NullableFloatFieldUpdateOperationsInput | number | null
+    sugars?: NullableFloatFieldUpdateOperationsInput | number | null
+    fat?: NullableFloatFieldUpdateOperationsInput | number | null
+    saturatedFat?: NullableFloatFieldUpdateOperationsInput | number | null
+    fiber?: NullableFloatFieldUpdateOperationsInput | number | null
+    salt?: NullableFloatFieldUpdateOperationsInput | number | null
+    cholesterol?: NullableFloatFieldUpdateOperationsInput | number | null
+    brandId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories?: FoodItemCategoryUncheckedUpdateManyWithoutFoodItemsNestedInput
+    labels?: FoodItemLabelUncheckedUpdateManyWithoutFoodItemsNestedInput
+    mealFoodItem?: MealFoodItemUncheckedUpdateManyWithoutFoodItemNestedInput
+    images?: FoodItemImgUncheckedUpdateManyWithoutFoodItemNestedInput
+  }
+
+  export type MealCreateWithoutImagesInput = {
+    id?: string
+    name?: string | null
+    mealType?: $Enums.MealType
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner?: UserCreateNestedOneWithoutMealsInput
+    mealFoodItems?: MealFoodItemCreateNestedManyWithoutMealInput
+    userMeals?: UserMealCreateNestedManyWithoutMealInput
+  }
+
+  export type MealUncheckedCreateWithoutImagesInput = {
+    id?: string
+    name?: string | null
+    mealType?: $Enums.MealType
+    ownerId?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    mealFoodItems?: MealFoodItemUncheckedCreateNestedManyWithoutMealInput
+    userMeals?: UserMealUncheckedCreateNestedManyWithoutMealInput
+  }
+
+  export type MealCreateOrConnectWithoutImagesInput = {
+    where: MealWhereUniqueInput
+    create: XOR<MealCreateWithoutImagesInput, MealUncheckedCreateWithoutImagesInput>
+  }
+
+  export type MealUpsertWithoutImagesInput = {
+    update: XOR<MealUpdateWithoutImagesInput, MealUncheckedUpdateWithoutImagesInput>
+    create: XOR<MealCreateWithoutImagesInput, MealUncheckedCreateWithoutImagesInput>
+    where?: MealWhereInput
+  }
+
+  export type MealUpdateToOneWithWhereWithoutImagesInput = {
+    where?: MealWhereInput
+    data: XOR<MealUpdateWithoutImagesInput, MealUncheckedUpdateWithoutImagesInput>
+  }
+
+  export type MealUpdateWithoutImagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneWithoutMealsNestedInput
+    mealFoodItems?: MealFoodItemUpdateManyWithoutMealNestedInput
+    userMeals?: UserMealUpdateManyWithoutMealNestedInput
+  }
+
+  export type MealUncheckedUpdateWithoutImagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    mealType?: EnumMealTypeFieldUpdateOperationsInput | $Enums.MealType
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mealFoodItems?: MealFoodItemUncheckedUpdateManyWithoutMealNestedInput
+    userMeals?: UserMealUncheckedUpdateManyWithoutMealNestedInput
+  }
+
   export type ProgramCreateManyOwnerInput = {
     id?: string
     name: string
@@ -39042,10 +43135,11 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type UserMealCreateManyUserInput = {
+  export type UserMealCreateManyOwnerInput = {
     id?: string
     mealId: string
     dateConsumed?: Date | string
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -39056,6 +43150,7 @@ export namespace Prisma {
     youtubeUrl: string
     notes?: string | null
     isCompounded?: boolean
+    isSeparateHands?: boolean
     type?: $Enums.ExerciseType
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -39166,6 +43261,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mealFoodItems?: MealFoodItemUpdateManyWithoutMealNestedInput
     userMeals?: UserMealUpdateManyWithoutMealNestedInput
+    images?: ImageUpdateManyWithoutMealNestedInput
   }
 
   export type MealUncheckedUpdateWithoutOwnerInput = {
@@ -39177,6 +43273,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mealFoodItems?: MealFoodItemUncheckedUpdateManyWithoutMealNestedInput
     userMeals?: UserMealUncheckedUpdateManyWithoutMealNestedInput
+    images?: ImageUncheckedUpdateManyWithoutMealNestedInput
   }
 
   export type MealUncheckedUpdateManyWithoutOwnerInput = {
@@ -39188,26 +43285,31 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserMealUpdateWithoutUserInput = {
+  export type UserMealUpdateWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     meal?: MealUpdateOneRequiredWithoutUserMealsNestedInput
+    userMealItems?: UserMealItemUpdateManyWithoutUserMealNestedInput
   }
 
-  export type UserMealUncheckedUpdateWithoutUserInput = {
+  export type UserMealUncheckedUpdateWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     mealId?: StringFieldUpdateOperationsInput | string
     dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userMealItems?: UserMealItemUncheckedUpdateManyWithoutUserMealNestedInput
   }
 
-  export type UserMealUncheckedUpdateManyWithoutUserInput = {
+  export type UserMealUncheckedUpdateManyWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     mealId?: StringFieldUpdateOperationsInput | string
     dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39218,6 +43320,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39232,6 +43335,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39246,6 +43350,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39257,6 +43362,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     workoutId: string
     createdAt?: Date | string
@@ -39318,6 +43427,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39331,6 +43444,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     workoutId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39344,6 +43461,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     workoutId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39364,6 +43485,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39378,6 +43500,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39392,6 +43515,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39428,6 +43552,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39442,6 +43567,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39456,6 +43582,7 @@ export namespace Prisma {
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     isCompounded?: BoolFieldUpdateOperationsInput | boolean
+    isSeparateHands?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumExerciseTypeFieldUpdateOperationsInput | $Enums.ExerciseType
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39586,6 +43713,10 @@ export namespace Prisma {
     notes?: string | null
     hasWarmup?: boolean
     isBodyWeight?: boolean
+    numberOfSets?: number | null
+    maxNumberOfReps?: number | null
+    isDropSet?: boolean
+    isMyoReps?: boolean
     restTime?: number
     exerciseId: string
     createdAt?: Date | string
@@ -39616,6 +43747,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39629,6 +43764,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     exerciseId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39642,6 +43781,10 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     hasWarmup?: BoolFieldUpdateOperationsInput | boolean
     isBodyWeight?: BoolFieldUpdateOperationsInput | boolean
+    numberOfSets?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumberOfReps?: NullableIntFieldUpdateOperationsInput | number | null
+    isDropSet?: BoolFieldUpdateOperationsInput | boolean
+    isMyoReps?: BoolFieldUpdateOperationsInput | boolean
     restTime?: IntFieldUpdateOperationsInput | number
     exerciseId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39892,9 +44035,18 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type UserMealItemCreateManyFoodItemInput = {
+    id?: string
+    userMealId: string
+    quantity?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type FoodItemImgCreateManyFoodItemInput = {
     id?: string
     url: string
+    altText?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -39965,9 +44117,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserMealItemUpdateWithoutFoodItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userMeal?: UserMealUpdateOneRequiredWithoutUserMealItemsNestedInput
+  }
+
+  export type UserMealItemUncheckedUpdateWithoutFoodItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userMealId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMealItemUncheckedUpdateManyWithoutFoodItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userMealId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FoodItemImgUpdateWithoutFoodItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39975,6 +44152,7 @@ export namespace Prisma {
   export type FoodItemImgUncheckedUpdateWithoutFoodItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39982,6 +44160,7 @@ export namespace Prisma {
   export type FoodItemImgUncheckedUpdateManyWithoutFoodItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -40005,6 +44184,7 @@ export namespace Prisma {
     brand?: FoodItemBrandUpdateOneWithoutFoodItemsNestedInput
     categories?: FoodItemCategoryUpdateManyWithoutFoodItemsNestedInput
     mealFoodItem?: MealFoodItemUpdateManyWithoutFoodItemNestedInput
+    userMealItem?: UserMealItemUpdateManyWithoutFoodItemNestedInput
     images?: FoodItemImgUpdateManyWithoutFoodItemNestedInput
   }
 
@@ -40027,6 +44207,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categories?: FoodItemCategoryUncheckedUpdateManyWithoutFoodItemsNestedInput
     mealFoodItem?: MealFoodItemUncheckedUpdateManyWithoutFoodItemNestedInput
+    userMealItem?: UserMealItemUncheckedUpdateManyWithoutFoodItemNestedInput
     images?: FoodItemImgUncheckedUpdateManyWithoutFoodItemNestedInput
   }
 
@@ -40086,6 +44267,7 @@ export namespace Prisma {
     categories?: FoodItemCategoryUpdateManyWithoutFoodItemsNestedInput
     labels?: FoodItemLabelUpdateManyWithoutFoodItemsNestedInput
     mealFoodItem?: MealFoodItemUpdateManyWithoutFoodItemNestedInput
+    userMealItem?: UserMealItemUpdateManyWithoutFoodItemNestedInput
     images?: FoodItemImgUpdateManyWithoutFoodItemNestedInput
   }
 
@@ -40108,6 +44290,7 @@ export namespace Prisma {
     categories?: FoodItemCategoryUncheckedUpdateManyWithoutFoodItemsNestedInput
     labels?: FoodItemLabelUncheckedUpdateManyWithoutFoodItemsNestedInput
     mealFoodItem?: MealFoodItemUncheckedUpdateManyWithoutFoodItemNestedInput
+    userMealItem?: UserMealItemUncheckedUpdateManyWithoutFoodItemNestedInput
     images?: FoodItemImgUncheckedUpdateManyWithoutFoodItemNestedInput
   }
 
@@ -40148,6 +44331,7 @@ export namespace Prisma {
     brand?: FoodItemBrandUpdateOneWithoutFoodItemsNestedInput
     labels?: FoodItemLabelUpdateManyWithoutFoodItemsNestedInput
     mealFoodItem?: MealFoodItemUpdateManyWithoutFoodItemNestedInput
+    userMealItem?: UserMealItemUpdateManyWithoutFoodItemNestedInput
     images?: FoodItemImgUpdateManyWithoutFoodItemNestedInput
   }
 
@@ -40170,6 +44354,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     labels?: FoodItemLabelUncheckedUpdateManyWithoutFoodItemsNestedInput
     mealFoodItem?: MealFoodItemUncheckedUpdateManyWithoutFoodItemNestedInput
+    userMealItem?: UserMealItemUncheckedUpdateManyWithoutFoodItemNestedInput
     images?: FoodItemImgUncheckedUpdateManyWithoutFoodItemNestedInput
   }
 
@@ -40202,8 +44387,20 @@ export namespace Prisma {
 
   export type UserMealCreateManyMealInput = {
     id?: string
-    userId: string
     dateConsumed?: Date | string
+    notes?: string | null
+    ownerId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ImageCreateManyMealInput = {
+    id?: string
+    url: string
+    publicId: string
+    description?: string | null
+    altText?: string | null
+    isPrimary?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -40235,23 +44432,93 @@ export namespace Prisma {
   export type UserMealUpdateWithoutMealInput = {
     id?: StringFieldUpdateOperationsInput | string
     dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutUserMealsNestedInput
+    owner?: UserUpdateOneRequiredWithoutUserMealsNestedInput
+    userMealItems?: UserMealItemUpdateManyWithoutUserMealNestedInput
   }
 
   export type UserMealUncheckedUpdateWithoutMealInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userMealItems?: UserMealItemUncheckedUpdateManyWithoutUserMealNestedInput
   }
 
   export type UserMealUncheckedUpdateManyWithoutMealInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     dateConsumed?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImageUpdateWithoutMealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    publicId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImageUncheckedUpdateWithoutMealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    publicId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImageUncheckedUpdateManyWithoutMealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    publicId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMealItemCreateManyUserMealInput = {
+    id?: string
+    foodItemId: string
+    quantity?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserMealItemUpdateWithoutUserMealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    foodItem?: FoodItemUpdateOneRequiredWithoutUserMealItemNestedInput
+  }
+
+  export type UserMealItemUncheckedUpdateWithoutUserMealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    foodItemId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMealItemUncheckedUpdateManyWithoutUserMealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    foodItemId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

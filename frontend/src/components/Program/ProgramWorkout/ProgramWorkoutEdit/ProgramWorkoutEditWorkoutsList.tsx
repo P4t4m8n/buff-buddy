@@ -3,7 +3,7 @@ import WorkoutList from "../../../Workout/WorkoutList";
 //UI
 import PageHeader from "../../../UI/PageHeader";
 import GenericModel from "../../../UI/GenericModel";
-import WorkoutEditModel from "../../../Workout/WorkoutEditModel";
+import WorkoutEditModel from "../../../Workout/WorkoutEdit/WorkoutEditModel";
 //Types
 import type { IWorkoutDTO } from "../../../../../../shared/models/workout.model";
 

@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 
-import { toTitle } from "../../utils/toTitle";
+import toTitle  from "../../utils/toTitle";
 import { ActiveButtonIcon } from "../../utils/ActiveButtonIcon.util";
 import { calendarUtil } from "../../utils/calendar.util";
 

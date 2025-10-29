@@ -44,9 +44,9 @@ export const genericControllerFactory = <
         let userId = undefined;
         
         if (isAuth) userId = _authUser();
-        
+
         const filter = validation.QuerySchema.parse(req.query);
-        
+
         const [itemsData, count] = await service.get(filter, userId);
 
         const meta: IGetMetaData = dbUtil.buildMetaData({
@@ -164,11 +164,13 @@ export const genericControllerFactory = <
 
     remove: async (req: Request, res: Response) => {
       try {
+        const userId = _authUser();
+
         const validatedId = validationUtil
           .IDSchemaFactory({ toSanitize: true })
           .parse(req.params.id);
 
-        await service.remove(validatedId);
+        await service.remove(validatedId, userId);
 
         res.status(200).json({
           message: `${entityName} deleted successfully`,

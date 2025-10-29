@@ -4,19 +4,19 @@ import { useMutationKeyStore } from "../../store/mutationKeys.store";
 
 import useItemMutation from "../queryHooks/useItemMutation";
 
-import type { IEntity } from "../../../../shared/models/entity.model";
+import type { IID } from "../../../../shared/models/entity.model";
 import type { THttpResponse } from "../../models/apiService.model";
 import type { TStoreKeys } from "../../models/mutationKeyStore.model";
 
-interface IUseIdQuery<DTO extends IEntity> {
+interface IUseIdQuery<DTO extends IID> {
   data: THttpResponse<DTO | null> | undefined;
   isLoading: boolean;
   error: Error | null;
 }
 
 interface IItemMutationParams<
-  EditDTO extends IEntity & object,
-  DTO extends IEntity
+  EditDTO extends IID & object,
+  DTO extends IID
 > {
   storeMutationKey: TStoreKeys;
   itemId?: string;
@@ -32,11 +32,11 @@ interface IItemMutationParams<
     isEdit?: boolean;
     isCopy?: boolean;
   }) => EditDTO;
-  getEmpty: () => EditDTO;
+  getEmpty: (...args: any[]) => EditDTO;
 }
 export const useItemEdit = <
-  EditDTO extends IEntity & object,
-  DTO extends IEntity
+  EditDTO extends IID & object,
+  DTO extends IID
 >({
   storeMutationKey,
   itemId,

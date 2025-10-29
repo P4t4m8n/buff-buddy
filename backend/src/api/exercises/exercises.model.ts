@@ -7,6 +7,7 @@ export interface IExercise {
   type: ExerciseType;
   equipment?: IEquipment[];
   isCompounded: boolean | null;
+  isSeparateHands: boolean | null;
   muscles?: IMuscle[];
   ownerId: string | null;
 }

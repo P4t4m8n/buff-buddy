@@ -2,12 +2,12 @@
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 //Util
-import { getTempId } from "../../../../shared/utils/getTempId";
+import  getTempId  from "../../../../shared/utils/getTempId";
 //UI
 import Button from "./Button";
 import Input from "./Form/Input";
 import Label from "./Form/Label";
-import { IconPlus } from "./Icons/IconPlus";
+import IconPlus from "./Icons/IconPlus";
 import { IconSearch } from "./Icons/IconSearch";
 //Types
 import type {
@@ -21,6 +21,7 @@ interface IGenericFilterProps<Filter> {
   checkBoxInputs: IFilterCheckboxInput<Filter>[];
   onSearch: (e: React.FormEvent<HTMLFormElement>) => void;
   onResetForm: () => void;
+  children?: React.ReactNode;
 }
 export default function GenericFilter<Filter>({
   isLoading,
@@ -28,6 +29,7 @@ export default function GenericFilter<Filter>({
   checkBoxInputs,
   onSearch,
   onResetForm,
+  children,
 }: IGenericFilterProps<Filter>) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -95,6 +97,7 @@ export default function GenericFilter<Filter>({
               </Input>
             );
           })}
+          {children ? children : null}
           <div className="flex mt-auto gap-8 w-full">
             <Button
               type="reset"

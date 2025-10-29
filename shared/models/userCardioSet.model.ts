@@ -1,7 +1,7 @@
 import type { TCrudOperation } from "./app.model";
-import type { IEntity, IEntityDates } from "./entity.model";
+import type { IID, IEntityDates } from "./entity.model";
 
-export interface IUserCardioSetDTO extends IEntity, IEntityDates {
+export interface IUserCardioSetDTO extends IID, IEntityDates {
   workTime?: number | null; // Actual work time in seconds
   avgHeartRate?: number | null; // Actual average heart rate during the set
   avgSpeed?: number | null; // Actual average speed during the set

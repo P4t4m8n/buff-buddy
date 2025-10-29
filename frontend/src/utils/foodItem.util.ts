@@ -1,24 +1,30 @@
 import type {
   IFoodItemEditDTO,
   IFoodItemDTO,
-  IFoodItemInfoEditBase,
+  IFoodItemInfoEditDTO,
 } from "../../../shared/models/foodItem.model";
-import { getTempId } from "../../../shared/utils/getTempId";
+import  getTempId  from "../../../shared/utils/getTempId";
 
-const getEmpty = (): IFoodItemEditDTO => {
+const getEmpty = ({
+  barcode,
+  name,
+}: {
+  barcode?: string;
+  name?: string;
+}): IFoodItemEditDTO => {
   return {
     id: getTempId(),
     carbohydrates: 0,
-    fats: 0,
+    fat: 0,
     fiber: 0,
-    sugar: 0,
-    sodium: 0,
+    sugars: 0,
+    salt: 0,
     cholesterol: 0,
     saturatedFat: 0,
-    name: "",
-    barcode: "",
+    name,
+    barcode,
     calories: 0,
-    protein: 0,
+    proteins: 0,
     brand: [],
     images: [],
     labels: [],
@@ -26,7 +32,7 @@ const getEmpty = (): IFoodItemEditDTO => {
   };
 };
 
-const getEmptyInfo = (): IFoodItemInfoEditBase => {
+const getEmptyInfo = (): IFoodItemInfoEditDTO => {
   return {
     id: getTempId(),
     name: "",
@@ -34,7 +40,7 @@ const getEmptyInfo = (): IFoodItemInfoEditBase => {
   };
 };
 
-const dtoToEditDto = (dto: IFoodItemDTO): IFoodItemEditDTO => {
+const dtoToEditDto = ({ dto }: { dto: IFoodItemDTO }): IFoodItemEditDTO => {
   return {
     ...dto,
     brand: dto.brand ? [{ ...dto.brand }] : [],

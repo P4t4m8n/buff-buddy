@@ -1,25 +1,11 @@
-import type { IExercise } from "../exercises/exercises.model";
+import { IModel } from "../../shared/models/db.model";
 import type { IUser } from "../users/users.model";
+import type { IWorkoutExercise } from "../workoutExercise/workoutExercise.mode";
 
-export interface IWorkoutExercise {
-  id: string;
-  order: number;
-  notes: string | null;
-  exercise: IExercise;
-  hasWarmup?: boolean;
-  isBodyWeight?: boolean;
-  restTime?: number | null;
-}
-
-export interface IWorkoutBase {
-  id: string;
+export interface IWorkout extends IModel {
+  owner?: IUser | null;
+  workoutExercises?: IWorkoutExercise[] | null;
   name?: string | null;
   notes?: string | null;
   isTemplate?: boolean;
-}
-
-export interface IWorkout extends IWorkoutBase {
-  owner?: IUser | null;
-  workoutExercises?: IWorkoutExercise[] | null;
-  notes?: string | null;
 }

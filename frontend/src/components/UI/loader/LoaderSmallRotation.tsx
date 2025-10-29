@@ -1,13 +1,29 @@
 import { twMerge } from "tailwind-merge";
 
-export default function LoaderSmallRotation() {
-  const after = `after:content-[''] after:absolute after:inset-0 after:rounded-[50%] after:border-[.25rem]
-                 after:border-t-main-orange after:border-r-main-orange after:border-b-transparent after:border-l-main-orange
-                 after:animate-rotation after:duration-1000 after:linear after:w-4 after:h-4 after:m-auto`;
+interface ILoaderSmallRotationProps {
+  spinnerSize?: number;
+}
 
-  const span = `w-8 h-8 aspect-square rounded-[50%] inline-block relative border-[.25rem] border-t-white
-                border-r-white border-b-transparent border-l-white animate-rotation duration-1000 linear`;
+export default function LoaderSmallRotation({
+  spinnerSize = 2,
+}: ILoaderSmallRotationProps) {
+  const spinnerClasses = twMerge(`
+    relative inline-block aspect-square rounded-[50%]
+    border-[.25rem] border-t-white border-r-white border-b-transparent border-l-white
+    animate-rotation duration-1000 linear
+    w-[var(--spinner-size)] h-[var(--spinner-size)]
 
-  const style = twMerge(span, after);
-  return <span className={style}></span>;
+    after:content-[''] after:absolute after:inset-0 after:m-auto after:rounded-[50%]
+    after:border-[.25rem] after:border-t-main-orange after:border-r-main-orange 
+    after:border-b-transparent after:border-l-main-orange
+    after:animate-rotation after:duration-1000 after:linear
+    after:w-[var(--inner-spinner-size)] after:h-[var(--inner-spinner-size)]
+  `);
+
+  const dynamicStyles = {
+    "--spinner-size": `${spinnerSize}rem`,
+    "--inner-spinner-size": `${spinnerSize / 2}rem`,
+  } as React.CSSProperties;
+
+  return <span className={spinnerClasses} style={dynamicStyles}></span>;
 }

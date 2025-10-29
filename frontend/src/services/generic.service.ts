@@ -3,11 +3,11 @@ import { apiService } from "./api.service";
 
 import type { IValidation } from "../../../shared/models/validation.model";
 import type { THttpResponse } from "../models/apiService.model";
-import type { IEntity } from "../../../shared/models/entity.model";
+import type { IID } from "../../../shared/models/entity.model";
 
 export const genericServiceFactory = <
-  DTO extends IEntity,
-  EditDTO extends IEntity,
+  DTO extends IID,
+  EditDTO extends IID,
   Filter,
   CreateValidatedInput,
   UpdateValidatedInput,

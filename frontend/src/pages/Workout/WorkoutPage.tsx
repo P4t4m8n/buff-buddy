@@ -5,7 +5,7 @@ import { useProgramsQuery } from "../../hooks/features/program/useProgramsQuery"
 import { useGenericPage } from "../../hooks/shared/useGenericPage";
 //Utils
 import { calendarUtil } from "../../utils/calendar.util";
-import { toTitle } from "../../utils/toTitle";
+import toTitle  from "../../utils/toTitle";
 //Components
 import ProgramWorkoutPreview from "../../components/Program/ProgramWorkout/ProgramWorkoutPreview";
 //UI

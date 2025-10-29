@@ -1,4 +1,4 @@
-import { toTitle } from "../../../../utils/toTitle";
+import toTitle  from "../../../../utils/toTitle";
 
 import GenericModel from "../../../UI/GenericModel";
 import YoutubePlayer from "../../../UI/YoutubePlayer";

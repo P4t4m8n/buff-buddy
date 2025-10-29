@@ -2,7 +2,7 @@
 import { Link } from "react-router";
 //Utils
 import { calendarUtil } from "../../utils/calendar.util";
-import { toTitle } from "../../utils/toTitle";
+import toTitle  from "../../utils/toTitle";
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
 //UI
 import Button from "../UI/Button";

@@ -1,6 +1,6 @@
 import { dbUtil } from "../../shared/utils/db.util";
 
-import { foodItemSQL } from "../foodItem/foodItem.sql";
+import { foodItemSQL } from "../foodItems/foodItems.sql";
 import { userSQL } from "../users/users.sql";
 
 import type {
@@ -24,13 +24,25 @@ const MEALS_SELECT: Prisma.MealSelect = {
       },
     },
   },
+  images: {
+    select: {
+      id: true,
+      url: true,
+      description: true,
+      altText: true,
+      isPrimary: true,
+      publicId: true,
+    },
+  },
 };
 
-const getMealCreate = (dto: TMealCreateValidatedInput): Prisma.MealCreateInput => {
+const getMealCreate = (
+  dto: TMealCreateValidatedInput
+): Prisma.MealCreateInput => {
   return {
     name: dto.name,
     mealType: dto.mealType,
-    notes: dto.note,
+    notes: dto.notes,
     owner: {
       connect: {
         id: dto.ownerId,
@@ -45,7 +57,9 @@ const getMealCreate = (dto: TMealCreateValidatedInput): Prisma.MealCreateInput =
   };
 };
 
-const getMealUpdate = (dto: TMealUpdateValidatedInput): Prisma.MealUpdateInput => {
+const getMealUpdate = (
+  dto: TMealUpdateValidatedInput
+): Prisma.MealUpdateInput => {
   const mealFoodItemToAdd =
     dto.mealFoodItems?.filter((item) => item.crudOperation === "create") ?? [];
 
@@ -59,7 +73,7 @@ const getMealUpdate = (dto: TMealUpdateValidatedInput): Prisma.MealUpdateInput =
     ...dbUtil.cleanData({
       name: dto.name,
       mealType: dto.mealType,
-      notes: dto.note,
+      notes: dto.notes,
     }),
     mealFoodItems: {
       create: mealFoodItemToAdd.map((item) => ({
@@ -82,7 +96,7 @@ const getMealUpdate = (dto: TMealUpdateValidatedInput): Prisma.MealUpdateInput =
   };
 };
 
-export const mealsSQL = {
+export const mealSQL = {
   MEALS_SELECT,
   getMealCreate,
   getMealUpdate,

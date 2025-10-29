@@ -1,26 +1,17 @@
-import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
+import MealList from "../../components/Meal/MealList/MealList";
 
-import MealList from "../../components/Meal/MealList";
-
-import LinkComponent from "../../components/UI/Link";
+import PageHeader from "../../components/UI/PageHeader";
+import { MEAL_ROUTES } from "../../consts/routes.const";
+import PageList from "../../components/UI/PageList";
 
 export default function MealPage() {
   return (
-    <div className=" h-main flex flex-col gap-4 ">
-      <header className="p-mobile shadow-border-b">
-        <span className="text-center">
-          <h2 className="text-3xl font-bold text-main-black ">Your Meals</h2>
-          <p className="text-gray-300 text-lg">
-            Manage, edit, or create new meals to reach your goals!
-          </p>
-        </span>
-        <LinkComponent linkStyle="model" className="w-fit" to={"edit"}>
-          {ModelButtonIcon("edit")}
-        </LinkComponent>
-      </header>
-      <div className="p-mobile grid gap-4 overflow-y-auto">
-        <MealList />
-      </div>
-    </div>
+    <PageList
+      header={
+        <PageHeader pageName="meal" editLink={MEAL_ROUTES.MEAL_EDIT_ROUTE} />
+      }
+    >
+      <MealList actionType="mealList" />
+    </PageList>
   );
 }

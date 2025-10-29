@@ -3,6 +3,7 @@ import type {
   IMealFoodItemEditDTO,
 } from "../../../../shared/models/meal.model";
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
+import toTitle  from "../../utils/toTitle";
 import Button from "../UI/Button";
 import GenericModel from "../UI/GenericModel";
 import MealFoodItemEditModel from "./MealEdit/MealFoodItemEditModel";
@@ -19,8 +20,8 @@ export default function MealFoodItemPreview({
 }: IMealFoodItemPreviewProps) {
   const { quantity, foodItem, id: mealFoodItemId } = mealFoodItem;
 
-  const {  name: foodItemName, brand } = foodItem ?? {};
-  const img = "/images/placeholder.webp";
+  const { name: foodItemName, brand, images } = foodItem ?? {};
+  const img = images?.[0]?.url ? images?.[0]?.url : "/images/placeholder.webp";
   const brandName = brand?.name ?? "";
 
   const onDelete = (e: React.MouseEvent) => {
@@ -28,26 +29,35 @@ export default function MealFoodItemPreview({
     removeMealFoodItem(mealFoodItemId);
   };
   return (
-    <li>
-      <img className=" row-span-2 aspect-square h-full rounded" src={img} />
-      <h3 className=" truncate">{foodItemName}</h3>
-      <p className=" truncate">{brandName}</p>
+    <li className="grid grid-cols-[4rem_1fr] bg-black-300 rounded p-4 gap-4">
+      <img className=" row-span-3 aspect-square w-20 rounded" src={img} />
+      <h3 className=" truncate">{toTitle(foodItemName)}</h3>
+      <p className=" truncate">{toTitle(brandName)}</p>
 
-      <p>{quantity}</p>
-      <Button buttonStyle="warning" onClick={onDelete}>
-        {ModelButtonIcon("delete")}
-      </Button>
-      <GenericModel
-        Model={MealFoodItemEditModel}
-        modelProps={{ handleMealFoodItem, mealFoodItem }}
-        mode="create"
-        buttonProps={{
-          buttonStyle: "model",
-          className: "w-6 h-6",
-        }}
-        isOverlay={false}
-        isPortal={true}
-      />
+      <span className="inline-flex items-center">
+        <h6>Quantity:</h6>
+        <p>{quantity}gr</p>
+      </span>
+      <div className=" col-span-2 w-full grid grid-cols-2 gap-32">
+        <Button
+          onClick={onDelete}
+          buttonStyle="model"
+          className="cursor-pointer"
+        >
+          {ModelButtonIcon("delete")}
+        </Button>
+        <GenericModel
+          Model={MealFoodItemEditModel}
+          modelProps={{ handleMealFoodItem, mealFoodItem, removeMealFoodItem }}
+          mode="edit"
+          buttonProps={{
+            buttonStyle: "model",
+            className: "",
+          }}
+          isOverlay={false}
+          isPortal={true}
+        />
+      </div>
     </li>
   );
 }

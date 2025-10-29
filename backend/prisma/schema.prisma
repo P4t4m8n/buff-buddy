@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "generated/prisma"
+  provider        = "prisma-client-js"
+  output          = "generated/prisma"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -65,6 +66,7 @@ model Exercise {
   youtubeUrl       String
   notes            String?
   isCompounded     Boolean           @default(false)
+  isSeparateHands  Boolean           @default(false)
   type             ExerciseType      @default(strength)
   equipment        Equipment[]
   muscles          Muscle[]
@@ -206,6 +208,10 @@ model WorkoutExercise {
   notes                String?
   hasWarmup            Boolean               @default(false)
   isBodyWeight         Boolean               @default(false)
+  numberOfSets         Int?
+  maxNumberOfReps      Int?
+  isDropSet            Boolean               @default(false)
+  isMyoReps            Boolean               @default(false)
   restTime             Int                   @default(60)
   exerciseId           String
   exercise             Exercise              @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
@@ -259,6 +265,7 @@ model FoodItem {
   categories    FoodItemCategory[]
   labels        FoodItemLabel[]
   mealFoodItem  MealFoodItem[]
+  userMealItem  UserMealItem[]
   images        FoodItemImg[]
   createdAt     DateTime           @default(now())
   updatedAt     DateTime           @updatedAt
@@ -275,6 +282,7 @@ model FoodItemLabel {
 model FoodItemImg {
   id         String   @id @default(cuid())
   url        String   @unique
+  altText    String?  @default("Food Image")
   foodItemId String
   foodItem   FoodItem @relation(fields: [foodItemId], references: [id], onDelete: Cascade)
   createdAt  DateTime @default(now())
@@ -301,11 +309,12 @@ model Meal {
   id            String         @id @default(cuid())
   name          String?
   mealType      MealType       @default(breakfast)
-  ownerId       String
-  owner         User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId       String?
+  owner         User?          @relation(fields: [ownerId], references: [id], onDelete: SetNull)
   mealFoodItems MealFoodItem[]
   userMeals     UserMeal[]
   notes         String?
+  images        Image[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 }
@@ -322,99 +331,38 @@ model MealFoodItem {
 }
 
 model UserMeal {
-  id           String   @id @default(cuid())
-  mealId       String
-  meal         Meal     @relation(fields: [mealId], references: [id], onDelete: Cascade)
-  userId       String
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  dateConsumed DateTime @default(now())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id            String         @id @default(cuid())
+  mealId        String
+  dateConsumed  DateTime       @default(now())
+  notes         String?
+  meal          Meal           @relation(fields: [mealId], references: [id], onDelete: SetNull)
+  ownerId       String
+  owner         User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  userMealItems UserMealItem[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
-/**
- * Deprecated models for more complex cardio sets
- */
+model UserMealItem {
+  id         String   @id @default(cuid())
+  userMealId String
+  userMeal   UserMeal @relation(fields: [userMealId], references: [id], onDelete: Cascade)
+  foodItemId String
+  foodItem   FoodItem @relation(fields: [foodItemId], references: [id], onDelete: Cascade)
+  quantity   Int      @default(1) // in grams
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
 
-// model CoreCardioSet {
-//   id                String                       @id @default(cuid())
-//   warmupTime        Int? //in seconds
-//   avgHeartRate      Int?
-//   workTime          CoreCardioSetWorkoutTime[] //in seconds
-//   avgSpeed          CoreCardioSetAvgSpeed[] //in km/h
-//   distance          CoreCardioSetDistance[] //in meters
-//   calorieTarget     CoreCardioSetCalorieTarget[]
-//   createdAt         DateTime                     @default(now())
-//   updatedAt         DateTime                     @updatedAt
-// }
-
-// model CoreCardioSetCalorieTarget {
-//   id              String        @id @default(cuid())
-//   coreCardioSetId String
-//   coreCardioSet   CoreCardioSet @relation(fields: [coreCardioSetId], references: [id], onDelete: Cascade)
-//   calorieTarget   Int? // in kcal
-//   createdAt       DateTime      @default(now())
-//   updatedAt       DateTime      @updatedAt
-// }
-
-// model CoreCardioSetDistance {
-//   id              String        @id @default(cuid())
-//   coreCardioSetId String
-//   coreCardioSet   CoreCardioSet @relation(fields: [coreCardioSetId], references: [id], onDelete: Cascade)
-//   distance        Float? // in km
-//   createdAt       DateTime      @default(now())
-//   updatedAt       DateTime      @updatedAt
-// }
-
-// model CoreCardioSetAvgSpeed {
-//   id              String        @id @default(cuid())
-//   coreCardioSetId String
-//   coreCardioSet   CoreCardioSet @relation(fields: [coreCardioSetId], references: [id], onDelete: Cascade)
-//   avgSpeed        Float? // in km/h
-//   createdAt       DateTime      @default(now())
-//   updatedAt       DateTime      @updatedAt
-// }
-
-// model CoreCardioSetWorkoutTime {
-//   id              String        @id @default(cuid())
-//   coreCardioSetId String
-//   coreCardioSet   CoreCardioSet @relation(fields: [coreCardioSetId], references: [id], onDelete: Cascade)
-//   workTime        Int? //in seconds
-//   createdAt       DateTime      @default(now())
-//   updatedAt       DateTime      @updatedAt
-// }
-
-/**
- * Deprecated models for more complex strength sets
- */
-
-// model CoreStrengthSet {
-//   id           String  @id @default(cuid())
-//   restTime     Int     @default(60)
-//   numberOfSets Int     @default(1)
-//   hasWarmup    Boolean @default(false)
-
-//   reps      CoreStrengthSetReps[]
-//   weight    CoreStrengthSetWeight[]
-//   createdAt DateTime                @default(now())
-//   updatedAt DateTime                @updatedAt
-// }
-
-// model CoreStrengthSetReps {
-//   id                String          @id @default(cuid())
-//   coreStrengthSetId String
-//   coreStrengthSet   CoreStrengthSet @relation(fields: [coreStrengthSetId], references: [id], onDelete: Cascade)
-//   reps              Int             @default(0)
-//   createdAt         DateTime        @default(now())
-//   updatedAt         DateTime        @updatedAt
-// }
-
-// model CoreStrengthSetWeight {
-//   id                String          @id @default(cuid())
-//   coreStrengthSetId String
-//   coreStrengthSet   CoreStrengthSet @relation(fields: [coreStrengthSetId], references: [id], onDelete: Cascade)
-//   isBodyWeight      Boolean         @default(false)
-//   weight            Float?          @default(0)
-//   createdAt         DateTime        @default(now())
-//   updatedAt         DateTime        @updatedAt
-// }
+model Image {
+  id          String   @id @default(cuid())
+  url         String   @unique
+  publicId    String   @unique
+  description String?
+  altText     String?
+  mealId      String?
+  meal        Meal?    @relation(fields: [mealId], references: [id], onDelete: Cascade)
+  isPrimary   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

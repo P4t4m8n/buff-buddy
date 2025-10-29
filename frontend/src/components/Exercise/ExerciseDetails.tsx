@@ -1,8 +1,8 @@
 //Util
-import { toTitle } from "../../utils/toTitle";
+import toTitle  from "../../utils/toTitle";
 //Hooks
 import { useExerciseIdQuery } from "../../hooks/features/exercise/useExerciseIdQuery";
-import { useItemDetails } from "../../hooks/shared/useItemDetails";
+import useItemDetails from "../../hooks/shared/useItemDetails";
 //UI
 import Button from "../UI/Button";
 import YoutubePlayer from "../UI/YoutubePlayer";
@@ -49,7 +49,9 @@ export default function ExerciseDetails({
           <h3>{toTitle(name)}</h3>
           <YoutubePlayer youtubeUrl={youtubeUrl!} />
           <p>{toTitle(type)}</p>
-          <p className="">{isCompounded ? "Compound movement" : "Isolation movement"}</p>
+          <p className="">
+            {isCompounded ? "Compound movement" : "Isolation movement"}
+          </p>
           <GenericCarousel
             listName="Muscles used"
             items={musclesName ?? []}

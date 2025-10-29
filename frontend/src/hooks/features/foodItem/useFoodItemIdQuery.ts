@@ -1,20 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-import type { IFoodItemDTO } from "../../../../../shared/models/foodItem.model";
+//Services
 import { foodItemService } from "../../../services/foodItems.service";
-import { useErrors } from "../../shared/useErrors";
+//Hooks
+import useQueryIdHook from "../../queryHooks/useQueryIdHook";
+//Consts
+import { QUERY_KEYS } from "../../../consts/queryKeys.consts";
 
 export const useFoodItemIdQuery = (id?: string) => {
-  const { handleError } = useErrors<IFoodItemDTO>();
-  const { data, isLoading } = useQuery({
-    queryKey: ["foodItemId", id],
-    queryFn: () => foodItemService.getById(id),
-    enabled: !!id,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    throwOnError: (error, _) => {
-      handleError({ error });
-      return true;
-    },
+  return useQueryIdHook({
+    id,
+    queryKey: QUERY_KEYS.FOOD_ITEM_ID_QUERY_KEY,
+    queryFn: foodItemService.getById,
   });
-  return { data, isLoading };
 };

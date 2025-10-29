@@ -1,16 +1,16 @@
-import type { IEntity, IEntityDates } from "./entity.model";
+import type { IID, IEntityDates } from "./entity.model";
 import type { IBaseFilter, ICrudOperation, TCrudOperation } from "./app.model";
 
-interface IMusclesAliasEditDTO extends IEntity, IEntityDates {
+interface IMusclesAliasEditDTO extends IID, IEntityDates {
   name?: string;
   language?: string | null;
   crudOperation?: TCrudOperation;
 }
 
-export interface IMuscleDTO extends IEntity, IEntityDates {
+export interface IMuscleDTO extends IID, IEntityDates {
   name: string;
 }
-export interface IMuscleEditDTO extends IEntity, IEntityDates, ICrudOperation {
+export interface IMuscleEditDTO extends IID, IEntityDates, ICrudOperation {
   name?: string;
   aliases?: IMusclesAliasEditDTO[];
 }

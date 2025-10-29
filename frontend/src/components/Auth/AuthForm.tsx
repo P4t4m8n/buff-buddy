@@ -105,7 +105,7 @@ export default function AuthForm({ isSignUp }: IAuthFormProps) {
       <Button
         type="submit"
         disabled={isLoading}
-        className="w-full bg-gradient-to-r from-orange-500 to-red-500 
+        className="w-full bg-liner-to-r from-orange-500 to-red-500 
                text-white hover:text-black font-bold h-12 rounded transition-all duration-200
                disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
       >

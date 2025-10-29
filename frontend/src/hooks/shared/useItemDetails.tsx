@@ -11,7 +11,7 @@ interface IUseItemDetailsProps<DTO> {
   itemId?: string;
 }
 
-export const useItemDetails = <DTO,>({
+const useItemDetails = <DTO,>({
   useIdQuery,
   itemId,
 }: IUseItemDetailsProps<DTO>) => {
@@ -27,3 +27,5 @@ export const useItemDetails = <DTO,>({
 
   return { item, isLoading };
 };
+
+export default useItemDetails;

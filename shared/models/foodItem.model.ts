@@ -1,72 +1,72 @@
 import { FOOD_ITEMS_INFOS } from "../consts/foodItem.consts";
-import type { IBaseFilter, TCrudOperation } from "./app.model";
-import type { IEntity, IEntityDates } from "./entity.model";
+import type { IBaseFilter, ICrudOperation } from "./app.model";
+import type { IEntity, IName } from "./entity.model";
 
-interface IFoddItemBase extends IEntity, IEntityDates {
-  carbohydrates?: string | number | null;
-  fats?: string | number | null;
-  fiber?: string | number | null;
-  sugar?: string | number | null;
-  sodium?: string | number | null;
-  cholesterol?: string | number | null;
-  saturatedFat?: string | number | null;
-  calories?: string | number | null;
-  protein?: string | number | null;
+interface IFoodItemBase extends IEntity, IName {
   barcode?: string | number | null;
   name?: string;
+  servingSize?: number | null;
+  calories?: string | number | null;
+  proteins?: string | number | null;
+  carbohydrates?: string | number | null;
+  sugars?: string | number | null;
+  fat?: string | number | null;
+  saturatedFat?: string | number | null;
+  fiber?: string | number | null;
+  salt?: string | number | null;
+  cholesterol?: string | number | null;
 }
 
-export interface IFoodItemDTO extends IFoddItemBase {
-  images?:  string[];
-  labels?: IFoodItemLabelDto[];
-  brand?: IFoodItemBrandDto | null;
-  categories: IFoodItemCategoryDto[];
+export interface IFoodItemDTO extends IFoodItemBase {
+  images?: IFoodItemImgDto[];
+  labels?: IFoodItemInfoDTO[];
+  brand?: IFoodItemInfoDTO | null;
+  categories?: IFoodItemInfoDTO[];
 }
 /*
  * Brand is an array on edit, to handle crud operation on it.
+ * Maybe remove it as it one to one relation?
  */
-export interface IFoodItemEditDTO extends Partial<IFoddItemBase> {
-  brand?: IFoodItemBrandEditDto[];
-  labels?: IFoodItemLabelEditDto[];
-  images?: string[];
-  categories?: IFoodItemCategoryEditDto[];
-  allergens?: IFoodItemAllergensEditDto[];
-  ingredients?: IFoodItemIngredientsEditDto[];
+export interface IFoodItemEditDTO
+  extends Partial<IFoodItemBase>,
+    ICrudOperation {
+  brand?: IFoodItemInfoEditDTO[]|null;
+  labels?: IFoodItemInfoEditDTO[];
+  images?: IFoodItemImgEditDto[];
+  categories?: IFoodItemInfoEditDTO[];
+  allergens?: IFoodItemInfoEditDTO[];
+  ingredients?: IFoodItemInfoEditDTO[];
+  ownerId?: string | null;
 }
 
 export interface IFoodItemFilter extends IBaseFilter {
   name?: string | null;
-  calories?: string | number | null;
-  protein?: string | number | null;
   barcode?: string | null;
+  labels?: string[] | null;
+  categories?: string[] | null;
+  brand?: string | null;
 }
 
-export interface IFoodItemImgDto extends IEntity, IEntityDates {
-  foodItemId: string;
-  url: string;
+export interface IFoodItemImgDto extends IEntity {
+  foodItemId?: string;
+  url?: string;
+  altText?: string | null;
+}
+export interface IFoodItemImgEditDto extends IEntity, ICrudOperation {
+  foodItemId?: string | null;
+  url?: string;
+  altText?: string | null;
 }
 
-/*
- * Future me, this part can be simplified, but keeping this
- * structure to match the rest of the app using the crudOperation
- * for junction tables and nested relations
- */
-interface IFoodItemInfoBase extends IEntity, IEntityDates {
+export interface IFoodItemInfoDTO extends IEntity, IName {
   name?: string;
 }
-export interface IFoodItemInfoEditBase extends IEntity, IEntityDates {
-  name?: string;
-  crudOperation?: TCrudOperation;
-}
-
-export interface IFoodItemBrandDto extends IFoodItemInfoBase {}
-export interface IFoodItemLabelDto extends IFoodItemInfoBase {}
-export interface IFoodItemCategoryDto extends IFoodItemInfoBase {}
-
-export interface IFoodItemBrandEditDto extends IFoodItemInfoEditBase {}
-export interface IFoodItemLabelEditDto extends IFoodItemInfoEditBase {}
-export interface IFoodItemCategoryEditDto extends IFoodItemInfoEditBase {}
-export interface IFoodItemAllergensEditDto extends IFoodItemInfoEditBase {}
-export interface IFoodItemIngredientsEditDto extends IFoodItemInfoEditBase {}
+export interface IFoodItemInfoEditDTO
+  extends IFoodItemInfoDTO,
+    ICrudOperation {}
 
 export type TFoodItemInfo = (typeof FOOD_ITEMS_INFOS)[number];
+
+export interface IFoodItemInfoFilter extends IBaseFilter {
+  name?: string | null;
+}

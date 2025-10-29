@@ -8,6 +8,7 @@ interface PaginationProps {
 
 export default function Pagination({ meta, onPaginate }: PaginationProps) {
   const { totalPages = 1, currentPage = 1 } = meta || {};
+if (!totalPages || totalPages <= 1) return null;
 
   const text = `Showing page ${currentPage + 1} of ${totalPages}`;
   const linkStyle = "flex-center p-1 w-fit h-fit";

@@ -1,7 +1,7 @@
 import type { ISelectItemComponentProps } from "../../../../models/select.model";
-import { toTitle } from "../../../../utils/toTitle";
+import toTitle  from "../../../../utils/toTitle";
 import Button from "../../Button";
-import {IconPlus} from "../../Icons/IconPlus";
+import IconPlus from "../../Icons/IconPlus";
 
 export default function GenericSelectItem<T>({
   item,

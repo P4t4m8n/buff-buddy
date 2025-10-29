@@ -7,17 +7,21 @@ export type TLoaderTypes = "default" | "spinner" | "screen" | "cards-pulse";
 interface ILoaderProps {
   loaderType?: TLoaderTypes;
   isFullScreen?: boolean;
+  spinnerSize?: number;
 }
 
 export default function Loader(props: ILoaderProps = {}) {
-
   return <GetLoader {...props} />;
 }
 
-const GetLoader = ({ loaderType = "default", isFullScreen }: ILoaderProps) => {
+const GetLoader = ({
+  loaderType = "default",
+  isFullScreen,
+  ...props
+}: ILoaderProps) => {
   switch (loaderType) {
     case "spinner":
-      return <LoaderSmallRotation />;
+      return <LoaderSmallRotation {...props} />;
     case "screen":
       const height = isFullScreen ? "h-screen" : "h-full";
       const style = twMerge(
@@ -39,7 +43,7 @@ const GetLoader = ({ loaderType = "default", isFullScreen }: ILoaderProps) => {
         <GenericList
           items={array}
           ItemComponent={PulseItem}
-          getKey={(item) => item+" loader"}
+          getKey={(item) => item + " loader"}
           ulStyle="grid grid-cols-[repeat(auto-fit,minmax(18rem,1fr))] 
                    h-main overflow-auto gap-4 p-mobile md:p-desktop"
         />

@@ -1,7 +1,7 @@
 import type { TCrudOperation } from "./app.model";
-import type { IEntity, IEntityDates } from "./entity.model";
+import type { IID, IEntityDates } from "./entity.model";
 
-export interface IUserStrengthSetDTO extends IEntity, IEntityDates {
+export interface IUserStrengthSetDTO extends IID, IEntityDates {
   lastSet?: IUserStrengthLastSet | null;
   goalSet?: IGoalSet | null;
   reps?: number | null; // Actual number of repetitions performed

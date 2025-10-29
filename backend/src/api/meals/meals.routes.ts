@@ -2,20 +2,14 @@ import { Router } from "express";
 
 import { requireAuth } from "../../middlewares/auth.middleware";
 
-import {
-  getMeals,
-  getMealById,
-  createMeal,
-  updateMeal,
-  deleteMeal,
-} from "./meals.controller";
+import { mealController } from "./meals.controller";
 
 export const mealsRoutes = Router();
 
-mealsRoutes.get("/", requireAuth, getMeals);
-mealsRoutes.get("/:id", requireAuth, getMealById);
+mealsRoutes.get("/", requireAuth, mealController.getAll);
+mealsRoutes.get("/:id", requireAuth, mealController.getById);
 
-mealsRoutes.post("/edit", requireAuth, createMeal);
-mealsRoutes.put("/edit/:id", requireAuth, updateMeal);
+mealsRoutes.post("/edit", requireAuth, mealController.create);
+mealsRoutes.put("/edit/:id", requireAuth, mealController.update);
 
-mealsRoutes.delete("/:id", requireAuth, deleteMeal);
+mealsRoutes.delete("/:id", requireAuth, mealController.remove);

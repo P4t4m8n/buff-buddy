@@ -7,11 +7,12 @@ import { exerciseRoutes } from "../api/exercises/exercises.routes";
 import { programsRoutes } from "../api/programs/programs.routes";
 import { workoutRoutes } from "../api/workouts/workouts.routes";
 import { userWorkoutsRoutes } from "../api/userWorkouts/userWorkouts.routes";
-import { foodItemRoutes } from "../api/foodItem/foodItem.route";
+import { foodItemRoutes } from "../api/foodItems/foodItems.route";
 import { mealsRoutes } from "../api/meals/meals.routes";
 import { workoutPlannerRoutes } from "../api/workoutStart/workoutStart.routes";
 //Types
 import type { Express, Response } from "express";
+import { userMealsRoutes } from "../api/userMeal/userMeal.routes";
 
 const ROUTES = [
   "auth",
@@ -21,6 +22,7 @@ const ROUTES = [
   "user-workouts",
   "food-items",
   "meals",
+  "user-meal",
   "workout-start",
 ] as const;
 type RouteName = (typeof ROUTES)[number];
@@ -35,6 +37,7 @@ export function setupRoutes(app: Express) {
     ["food-items", foodItemRoutes],
     ["meals", mealsRoutes],
     ["workout-start", workoutPlannerRoutes],
+    ["user-meal", userMealsRoutes],
   ]);
   const apiVersion = process.env.CURRENT_API_VERSION || "1";
   const baseUrl = `/api/v${apiVersion}`;

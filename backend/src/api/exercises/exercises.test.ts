@@ -53,6 +53,7 @@ describe("Exercises API", () => {
         muscles: randomMuscles,
         ownerId: testUserId,
         isCompounded: true,
+        isSeparateHands: false,
       };
 
       const res = await request(app)
@@ -94,6 +95,7 @@ describe("Exercises API", () => {
         muscles: randomMuscles,
         ownerId: testUserId,
         isCompounded: false,
+        isSeparateHands: false,
       };
 
       const res = await request(app)
@@ -170,6 +172,7 @@ describe("Exercises API", () => {
         muscles: [{ name: "head" }, { name: "lag" }],
         ownerId: testUserId,
         isCompounded: false,
+        isSeparateHands: false,
       };
 
       const res = await request(app)
@@ -195,6 +198,7 @@ describe("Exercises API", () => {
         muscles: randomMuscles,
         ownerId: testUserId,
         isCompounded: false,
+        isSeparateHands: false,
       };
 
       const res = await request(app)
@@ -223,6 +227,7 @@ describe("Exercises API", () => {
         muscles: randomMuscles,
         ownerId: testUserId,
         isCompounded: true,
+        isSeparateHands: false,
       };
 
       const res = await request(app)
@@ -245,6 +250,7 @@ describe("Exercises API", () => {
         muscles: randomMuscles,
         ownerId: testUserId,
         isCompounded: false,
+        isSeparateHands: false,
       };
 
       const res = await request(app)
@@ -273,6 +279,7 @@ describe("Exercises API", () => {
         muscles: randomMuscles,
         ownerId: testUserId,
         isCompounded: false,
+        isSeparateHands: false,
       };
 
       const res = await request(app)
@@ -301,6 +308,7 @@ describe("Exercises API", () => {
         muscles: randomMuscles,
         isCompounded: false,
         ownerId: testUserId,
+        isSeparateHands: false,
       };
 
       const res = await request(app)
@@ -329,6 +337,7 @@ describe("Exercises API", () => {
         muscles: randomMuscles,
         isCompounded: false,
         ownerId: testUserId,
+        isSeparateHands: false,
       };
 
       const res = await request(app)
@@ -361,6 +370,7 @@ describe("Exercises API", () => {
         muscles: randomMuscles,
         isCompounded: false,
         ownerId: testUserId,
+        isSeparateHands: false,
       };
 
       const res = await request(app)
@@ -393,6 +403,7 @@ describe("Exercises API", () => {
         muscles: randomMuscles,
         isCompounded: false,
         ownerId: testUserId,
+        isSeparateHands: false,
       };
 
       const res = await request(app)
@@ -472,6 +483,7 @@ describe("Exercises API", () => {
         muscles: randomMuscles,
         isCompounded: false,
         ownerId: testUserId,
+        isSeparateHands: false,
       };
       exercise.ownerId = testUserId;
 
@@ -517,6 +529,7 @@ describe("Exercises API", () => {
     let equipmentB: IEquipment[] = [];
     let exerciseId: string;
     let baseExercise: IExerciseEditDTO;
+
     beforeAll(async () => {
       musclesA = [muscles[0], muscles[1]];
       musclesB = [muscles[2], muscles[3]];
@@ -530,6 +543,7 @@ describe("Exercises API", () => {
         muscles: musclesA,
         isCompounded: false,
         ownerId: testUserId,
+        isSeparateHands: false,
       };
     });
 
@@ -887,6 +901,7 @@ describe("Exercises API", () => {
         muscles: randomMuscles,
         isCompounded: false,
         ownerId: testUserId,
+        isSeparateHands: false,
       };
       const res = await request(app)
         .post("/api/v1/exercises/edit")

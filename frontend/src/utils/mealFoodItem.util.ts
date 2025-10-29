@@ -2,7 +2,7 @@ import type {
   IMealFoodItemDTO,
   IMealFoodItemEditDTO,
 } from "../../../shared/models/meal.model";
-import { getTempId } from "../../../shared/utils/getTempId";
+import  getTempId  from "../../../shared/utils/getTempId";
 
 const getEmpty = (): IMealFoodItemEditDTO => {
   return {
@@ -16,7 +16,8 @@ const dtoToEditDto = (dto: IMealFoodItemDTO): IMealFoodItemEditDTO => ({
   id: dto.id,
   foodItemId: dto.foodItem?.id || null,
   quantity: dto.quantity || null,
-  crudOperation: "update",
+  crudOperation: "read",
+  foodItem: dto.foodItem,
 });
 
 export const mealFoodItemUtil = {

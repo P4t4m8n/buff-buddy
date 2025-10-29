@@ -1,6 +1,6 @@
 //Hooks
 import { useWorkoutIdQuery } from "../../hooks/features/workout/useWorkoutIdQuery";
-import { useItemDetails } from "../../hooks/shared/useItemDetails";
+import  useItemDetails  from "../../hooks/shared/useItemDetails";
 //UI
 import BackButton from "../UI/BackButton";
 import ItemNotFound from "../UI/ItemNotFound";

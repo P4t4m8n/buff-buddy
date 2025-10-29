@@ -1,5 +1,5 @@
 import type { Dispatch } from "react";
-import { toTitle } from "../../../../../utils/toTitle";
+import toTitle  from "../../../../../utils/toTitle";
 import DateInputDateControlButton from "./DateInputDateControlButton";
 import { MONTHS } from "../../../../../../../shared/consts/app.consts";
 

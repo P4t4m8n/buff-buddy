@@ -39,14 +39,7 @@ const userStrengthSkippedSetFactorySchema = ({
           message: "Weight must not be provided when skippedReason is present.",
         });
       }
-      if ("isBodyWeight" in data && !!data.isBodyWeight) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          path: ["isBodyWeight"],
-          message:
-            "isBodyWeight must not be provided when skippedReason is present.",
-        });
-      }
+    
     });
 };
 

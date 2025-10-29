@@ -9,7 +9,7 @@ import LinkComponent from "../UI/Link";
 //Types
 import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
 import type { TWorkoutActionRoute } from "../../models/workout.model";
-import { toTitle } from "../../utils/toTitle";
+import toTitle  from "../../utils/toTitle";
 
 interface IWorkoutPreviewProps {
   item: IWorkoutDTO;

@@ -2,12 +2,8 @@ import { z } from "zod";
 
 import { validationUtil } from "./util.validation";
 import type { IToSanitize } from "../models/app.model";
-import type {
-  IFoodItemEditDTO,
-  IFoodItemFilter,
-  TFoodItemInfo,
-} from "../models/foodItem.model";
-import type { IValidation } from "../models/validation.model";
+import type { TFoodItemInfo } from "../models/foodItem.model";
+import { FOOD_ITEMS_INFOS } from "../consts/foodItem.consts";
 
 const createFoodItemInfoFactorySchema = ({
   toSanitize,
@@ -39,6 +35,31 @@ const updateFoodItemInfoFactorySchema = ({ toSanitize }: IToSanitize) => {
   });
 };
 
+const foodItemImgFactorySchema = ({ toSanitize }: IToSanitize) => {
+  const sanitizer = validationUtil.createSanitizer(toSanitize);
+
+  return z.object({
+    url: z
+      .url()
+      .transform((val) => sanitizer(val))
+      .optional(),
+    altText: validationUtil
+      .stringSchemaFactory({
+        fieldName: "Food image alt text",
+        minLength: 0,
+        maxLength: 255,
+        toSanitize,
+        toLowerCase: true,
+      })
+      .optional()
+      .nullable(),
+    foodItemId: validationUtil
+      .IDSchemaFactory({ toSanitize })
+      .optional()
+      .nullable(),
+  });
+};
+
 const createFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({
     name: validationUtil.stringSchemaFactory({
@@ -50,6 +71,8 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
     barcode: validationUtil.stringSchemaFactory({
       fieldName: "Food barcode",
       minLength: 1,
+      maxLength: 100000000000,
+
       toSanitize,
     }),
     servingSize: validationUtil
@@ -58,7 +81,8 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
         minLength: 0,
         maxLength: 100000000000,
       })
-      .optional(),
+      .optional()
+      .nullable(),
     calories: validationUtil
       .numberValidation({
         fieldName: "Food calories",
@@ -70,7 +94,7 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
       .numberValidation({
         fieldName: "Food protein",
         minLength: 0,
-        maxLength: 1000000,
+        maxLength: 1000000000,
       })
       .optional(),
     carbohydrates: validationUtil
@@ -108,13 +132,7 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
         maxLength: 1000000,
       })
       .optional(),
-    sugar: validationUtil
-      .numberValidation({
-        fieldName: "Food sugar",
-        minLength: 0,
-        maxLength: 1000000,
-      })
-      .optional(),
+
     salt: validationUtil
       .numberValidation({
         fieldName: "Food salt",
@@ -136,7 +154,7 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
           foodInfo: "brand",
         })
       )
-      .optional()
+      .optional().nullable()
       .default([{ name: "Unknown", crudOperation: "create" }]),
     categories: z
       .array(
@@ -148,7 +166,13 @@ const createFactorySchema = ({ toSanitize }: IToSanitize) => {
         createFoodItemInfoFactorySchema({ toSanitize, foodInfo: "labels" })
       )
       .optional(),
-    images: z.array(z.string().url()).min(0).optional(),
+    crudOperation: validationUtil.CrudOperationSchema,
+
+    images: z.array(foodItemImgFactorySchema({ toSanitize })).optional(),
+    ownerId: validationUtil
+      .IDSchemaFactory({ toSanitize })
+      .optional()
+      .nullable(),
   });
 };
 
@@ -156,7 +180,6 @@ const updateFactorySchema = ({ toSanitize }: IToSanitize) => {
   return createFactorySchema({ toSanitize })
     .partial()
     .extend({
-      id: validationUtil.IDSchemaFactory({ toSanitize }),
       brand: z
         .array(updateFoodItemInfoFactorySchema({ toSanitize }))
         .optional()
@@ -185,17 +208,14 @@ const FoodItemIdBarcodeSchema = z.object({
   barcode: validationUtil.stringSchemaFactory({ toSanitize: false }),
 });
 
-export const foodItemValidation: IValidation<
-  IFoodItemEditDTO,
-  IFoodItemFilter,
-  TFoodItemCreateValidatedInput,
-  TFoodItemUpdateValidatedInput,
-  TFoodItemQuery
-> & { FoodItemIdBarcodeSchema: typeof FoodItemIdBarcodeSchema } = {
+const FoodItemInfoTypeValidation = z.enum(FOOD_ITEMS_INFOS);
+
+export const foodItemValidation = {
   createFactorySchema,
   updateFactorySchema,
   QuerySchema,
   FoodItemIdBarcodeSchema,
+  FoodItemInfoTypeValidation,
 };
 
 export type TFoodItemCreateValidatedInput = z.infer<

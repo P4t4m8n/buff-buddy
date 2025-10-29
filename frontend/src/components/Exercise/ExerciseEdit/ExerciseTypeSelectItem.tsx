@@ -1,7 +1,7 @@
-import { toTitle } from "../../../utils/toTitle";
+import toTitle  from "../../../utils/toTitle";
 
 import Button from "../../UI/Button";
-import {IconPlus} from "../../UI/Icons/IconPlus";
+import IconPlus from "../../UI/Icons/IconPlus";
 
 import type { ISelectItemComponentProps } from "../../../models/select.model";
 import type { ExerciseType } from "../../../../../backend/prisma/generated/prisma";

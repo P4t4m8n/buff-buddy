@@ -3,4 +3,5 @@ export const MUTATION_STORE_KEYS = [
   "programsMutationKey",
   "exerciseMutationKey",
   "workoutsMutationKey",
+  "mealsMutationKey",
 ] as const;

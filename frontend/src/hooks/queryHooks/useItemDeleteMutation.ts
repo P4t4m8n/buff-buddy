@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../lib/queryClient";
 //Types
 import type { THttpResponse } from "../../models/apiService.model";
-import type { IEntity } from "../../../../shared/models/entity.model";
+import type { IID } from "../../../../shared/models/entity.model";
 import type { TKeyValue } from "../../models/mutationKeyStore.model";
 
 interface IUseItemDeleteMutationProps {
@@ -12,7 +12,7 @@ interface IUseItemDeleteMutationProps {
   removeFn?: (id?: string) => Promise<THttpResponse<void>>;
 }
 
-export const useItemDeleteMutation = <DTO extends IEntity>({
+export const useItemDeleteMutation = <DTO extends IID>({
   removeFn,
   listKey,
   itemIdKey,

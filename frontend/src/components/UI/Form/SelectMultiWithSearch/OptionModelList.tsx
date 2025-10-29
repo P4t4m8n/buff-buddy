@@ -2,6 +2,7 @@ import { twMerge } from "tailwind-merge";
 import Input from "../Input";
 import GenericList from "../../GenericList";
 import OptionsModelListItem from "./OptionsModelListItem";
+import type { ISelectAddComponentProps } from "../../../../models/select.model";
 
 interface IOptionModelListProps<T> {
   modelPositionClass?: string;
@@ -9,6 +10,7 @@ interface IOptionModelListProps<T> {
   optionsList: T[];
   handleOptionAdd: (e: React.MouseEvent<HTMLButtonElement>, option: T) => void;
   filterBy: (option: T) => string;
+  AddComponent?: React.ComponentType<ISelectAddComponentProps>;
 }
 
 export default function OptionModelList<T>({
@@ -17,9 +19,10 @@ export default function OptionModelList<T>({
   optionsList,
   handleOptionAdd,
   filterBy,
+  AddComponent,
 }: IOptionModelListProps<T>) {
   const modelStyle = twMerge(
-    "absolute shadow-[0px_0px_6px_1px_rgba(0,0,0,1)] border rounded p-2 w-full grid grid-rows-[2rem_calc(100%-2rem)] z-50 gap-[.5rem] h-42 bg-black-300 ",
+    "absolute shadow-[0px_0px_6px_1px_rgba(0,0,0,1)] border rounded p-2 w-full grid grid-rows-[2rem_auto_1fr] z-50 gap-[.5rem] h-40 bg-black-300 ",
     modelPositionClass
   );
   return (
@@ -29,6 +32,9 @@ export default function OptionModelList<T>({
         onChange={handleSearchChange}
         placeholder="Search by name"
       />
+
+      {AddComponent ? <AddComponent /> : null}
+
       <GenericList
         items={optionsList}
         ulStyle="grid  gap-2 h-full overflow-y-auto pb-4"

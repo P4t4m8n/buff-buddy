@@ -13,8 +13,8 @@ import type {
   ISelectAddComponentProps,
   ISelectItemComponentProps,
 } from "../../../../models/select.model";
-import { getTempId } from "../../../../../../shared/utils/getTempId";
-import type { IEntity } from "../../../../../../shared/models/entity.model";
+import  getTempId  from "../../../../../../shared/utils/getTempId";
+import type { IID } from "../../../../../../shared/models/entity.model";
 
 interface SelectWithSearchProps<T, P> {
   options: readonly T[];
@@ -51,7 +51,7 @@ export default function SelectWithSearch<T, P>({
     modelPositionClass
   );
   const selectedDivStyle = twMerge(
-    "inline-flex items-center  w-full border rounded px-2 h-10",
+    "inline-flex items-center  w-full border rounded p-2 h-fit",
     error
       ? "border-error-red text-error-red fill-error-red"
       : "fill-main-orange"
@@ -85,7 +85,7 @@ export default function SelectWithSearch<T, P>({
             ) : null}
             {optionsList.map((option) => (
               <React.Fragment
-                key={getTempId("select-index", option as IEntity)}
+                key={getTempId("select-index", option as IID)}
               >
                 <SelectItemComponent item={option} onClick={onOptionClick} />
               </React.Fragment>

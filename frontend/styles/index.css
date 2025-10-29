@@ -33,6 +33,7 @@
 
   --color-error-red: rgb(252, 46, 32);
   --color-success-green: rgb(22, 163, 74);
+  --color-warning-yellow: rgb(202, 138, 4);
 
   --color-gray-400: hsl(0, 0%, 29%);
   --color-gray-300: #b5b5b5;
@@ -92,7 +93,19 @@
     );
   }
 }
+@utility grid-stack {
+  grid-area: 1/1/-1/-1;
+}
+@utility grid-stack-auto {
+  grid-area: auto;
+}
 
+@utility absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 @utility flex-center {
   display: flex;
@@ -172,9 +185,65 @@ input[type="number"] {
   }
 }
 
-.barcode-scanner {
+/* .barcode-scanner {
   div:nth-of-type(2) {
     display: flex;
     background-color: red;
+  }
+} */
+
+@utility corner-border {
+  --border-length: 0.125rem;
+  background-image: linear-gradient(
+      to right,
+      var(--color-main-orange) var(--border-length),
+      transparent var(--border-length)
+    ),
+    linear-gradient(
+      to bottom,
+      var(--color-main-orange) var(--border-length),
+      transparent var(--border-length)
+    ),
+    linear-gradient(
+      to left,
+      var(--color-main-orange) var(--border-length),
+      transparent var(--border-length)
+    ),
+    linear-gradient(
+      to bottom,
+      var(--color-main-orange) var(--border-length),
+      transparent var(--border-length)
+    ),
+    linear-gradient(
+      to right,
+      var(--color-main-orange) var(--border-length),
+      transparent var(--border-length)
+    ),
+    linear-gradient(
+      to top,
+      var(--color-main-orange) var(--border-length),
+      transparent var(--border-length)
+    ),
+    linear-gradient(
+      to left,
+      var(--color-main-orange) var(--border-length),
+      transparent var(--border-length)
+    ),
+    linear-gradient(
+      to top,
+      var(--color-main-orange) var(--border-length),
+      transparent var(--border-length)
+    );
+
+  background-repeat: no-repeat;
+  background-size: 1.5rem 1.5rem;
+  background-position: top left, top left, top right, top right, bottom left,
+    bottom left, bottom right, bottom right;
+}
+
+#qr-shaded-region {
+  border-color: rgba(var(--color-main-orange-rgb), 0.25) !important;
+  & div {
+    background-color: rgba(var(--color-main-orange-rgb), 0.75) !important;
   }
 }

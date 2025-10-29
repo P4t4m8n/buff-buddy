@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.17.0
- * Query Engine version: c0aafc03b8ef6cdced8654b9a817999e02457d6a
+ * Prisma Client JS version: 6.18.0
+ * Query Engine version: 34b5a692b7bd79939a9a2c3ef97d816e749cda2f
  */
 Prisma.prismaVersion = {
-  client: "6.17.0",
-  engine: "c0aafc03b8ef6cdced8654b9a817999e02457d6a"
+  client: "6.18.0",
+  engine: "34b5a692b7bd79939a9a2c3ef97d816e749cda2f"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -133,12 +133,18 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.RelationLoadStrategy = {
+  query: 'query',
+  join: 'join'
+};
+
 exports.Prisma.ExerciseScalarFieldEnum = {
   id: 'id',
   name: 'name',
   youtubeUrl: 'youtubeUrl',
   notes: 'notes',
   isCompounded: 'isCompounded',
+  isSeparateHands: 'isSeparateHands',
   type: 'type',
   ownerId: 'ownerId',
   createdAt: 'createdAt',
@@ -248,6 +254,10 @@ exports.Prisma.WorkoutExerciseScalarFieldEnum = {
   notes: 'notes',
   hasWarmup: 'hasWarmup',
   isBodyWeight: 'isBodyWeight',
+  numberOfSets: 'numberOfSets',
+  maxNumberOfReps: 'maxNumberOfReps',
+  isDropSet: 'isDropSet',
+  isMyoReps: 'isMyoReps',
   restTime: 'restTime',
   exerciseId: 'exerciseId',
   workoutId: 'workoutId',
@@ -300,6 +310,7 @@ exports.Prisma.FoodItemLabelScalarFieldEnum = {
 exports.Prisma.FoodItemImgScalarFieldEnum = {
   id: 'id',
   url: 'url',
+  altText: 'altText',
   foodItemId: 'foodItemId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -341,8 +352,30 @@ exports.Prisma.MealFoodItemScalarFieldEnum = {
 exports.Prisma.UserMealScalarFieldEnum = {
   id: 'id',
   mealId: 'mealId',
-  userId: 'userId',
   dateConsumed: 'dateConsumed',
+  notes: 'notes',
+  ownerId: 'ownerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserMealItemScalarFieldEnum = {
+  id: 'id',
+  userMealId: 'userMealId',
+  foodItemId: 'foodItemId',
+  quantity: 'quantity',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ImageScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  publicId: 'publicId',
+  description: 'description',
+  altText: 'altText',
+  mealId: 'mealId',
+  isPrimary: 'isPrimary',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -415,7 +448,9 @@ exports.Prisma.ModelName = {
   FoodItemCategory: 'FoodItemCategory',
   Meal: 'Meal',
   MealFoodItem: 'MealFoodItem',
-  UserMeal: 'UserMeal'
+  UserMeal: 'UserMeal',
+  UserMealItem: 'UserMealItem',
+  Image: 'Image'
 };
 
 /**

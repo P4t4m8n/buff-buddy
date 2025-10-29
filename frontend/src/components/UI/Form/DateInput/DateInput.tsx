@@ -1,4 +1,4 @@
-import { toTitle } from "../../../../utils/toTitle";
+import toTitle  from "../../../../utils/toTitle";
 import Button from "../../Button";
 import IconCalendar from "../../Icons/IconCalendar";
 import DateInputDateDisplay from "./DateInputDateDisplay";
