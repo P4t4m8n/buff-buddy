@@ -3,7 +3,6 @@ import { Route } from "react-router";
 //Pages
 import HomePage from "./pages/HomePage";
 import ProgramPage from "./pages/Program/ProgramPage";
-import ExercisePage from "./pages/Exercise/ExercisePage";
 import ProfilePage from "./pages/ProfilePage";
 import AdminPage from "./pages/AdminPage";
 import ProgramDetails from "./pages/Program/ProgramDetails";
@@ -17,6 +16,7 @@ import ProgramEditPage from "./pages/Program/ProgramEditPage";
 import MealPage from "./pages/Meal/MealPage";
 import MealEditPage from "./pages/Meal/MealEditPage";
 import FoodItemEditPage from "./pages/FoodItem/FoodItemEditPage";
+import ExercisePage from "./pages/Exercise/ExercisePage";
 import ExerciseEditPage from "./pages/Exercise/ExerciseEditPage";
 import ExerciseDetailsPage from "./pages/Exercise/ExerciseDetailsPage";
 //Consts
