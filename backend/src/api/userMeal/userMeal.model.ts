@@ -6,7 +6,7 @@ import { IUser } from "../users/users.model";
 export interface IUserMeal extends IModel {
   dateConsumed: Date;
   notes?: string | null;
-  meal?: IMeal;
+  meal?: IMeal | null;
   userMealItems?: IUserMealItem[];
 }
 

@@ -1,5 +1,5 @@
 //Utils
-import { toTitle } from "../../../../utils/toTitle";
+import  toTitle  from "../../../../utils/toTitle";
 //Components
 import WorkoutExerciseEdit from "./WorkoutExerciseEdit";
 //UI

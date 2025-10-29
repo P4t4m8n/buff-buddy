@@ -28,11 +28,12 @@ export const seedExercises = async () => {
 const seedExercise = async (exercise: IExerciseEditDTO) => {
   try {
     const validatedData = exerciseValidation
-      .createFactorySchema({ toSanitize: true })
-      .parse(exercise);
-
+    .createFactorySchema({ toSanitize: true })
+    .parse(exercise);
+    
     return await exerciseService.create(validatedData);
   } catch (error) {
+    console.log("🚀 ~ seedExercise ~ exercise:", exercise)
     const err = AppError.handleResponse(error);
     console.error(" ~ seedExercises ~ err:", err);
   }

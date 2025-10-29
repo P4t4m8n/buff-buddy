@@ -15,7 +15,15 @@ const seedExerciseMuscles = async () => {
 
   const musclesPromises = [];
   for (const muscle of muscles) {
-    const musclePromise = prisma.muscle.upsert({
+    const musclePromise = await seedMuscle(muscle);
+    musclesPromises.push(musclePromise);
+  }
+  await Promise.all(musclesPromises);
+};
+
+const seedMuscle = async (muscle: IExerciseMuscleJson) => {
+  try {
+    return prisma.muscle.upsert({
       where: { name: muscle.name },
       update: {},
       create: {
@@ -28,9 +36,10 @@ const seedExerciseMuscles = async () => {
         },
       },
     });
-    musclesPromises.push(musclePromise);
+  } catch (error) {
+    console.log("🚀 ~ seedMuscle ~ error:", error);
+    console.log("🚀 ~ seedMuscle ~ muscle:", muscle);
   }
-  await Promise.all(musclesPromises);
 };
 
 seedExerciseMuscles().catch((error) => {

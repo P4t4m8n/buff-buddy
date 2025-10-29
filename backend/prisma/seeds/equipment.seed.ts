@@ -7,16 +7,25 @@ interface IEquipmentJson {
   category: string;
 }
 
-const seedEquipment = async () => {
+const seedEquipments = async () => {
   const equipmentJson = fs.readFileSync(
     path.join(__dirname, "jsons", "equipment.json"),
     "utf-8"
   );
-  const equipment: IEquipmentJson[] =await JSON.parse(equipmentJson);
+  const equipment: IEquipmentJson[] = await JSON.parse(equipmentJson);
 
   const equipmentPromises = [];
   for (const item of equipment) {
-    const equipmentPromise = prisma.equipment.upsert({
+    const equipmentPromise = await seedEquipment(item);
+    equipmentPromises.push(equipmentPromise);
+  }
+
+  await Promise.all(equipmentPromises);
+};
+
+const seedEquipment = async (item: IEquipmentJson) => {
+  try {
+    return prisma.equipment.upsert({
       where: { name: item.name },
       update: {},
       create: {
@@ -29,13 +38,13 @@ const seedEquipment = async () => {
         },
       },
     });
-    equipmentPromises.push(equipmentPromise);
+  } catch (error) {
+    console.log("🚀 ~ seedMuscle ~ error:", error);
+    console.log("🚀 ~ seedMuscle ~ muscle:", item);
   }
-
-  await Promise.all(equipmentPromises);
 };
 
-seedEquipment().catch((error) => {
+seedEquipments().catch((error) => {
   console.error("Error seeding equipment:", error);
   process.exit(1);
 });
