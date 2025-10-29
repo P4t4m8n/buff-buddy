@@ -351,9 +351,9 @@ exports.Prisma.MealFoodItemScalarFieldEnum = {
 
 exports.Prisma.UserMealScalarFieldEnum = {
   id: 'id',
-  mealId: 'mealId',
   dateConsumed: 'dateConsumed',
   notes: 'notes',
+  mealId: 'mealId',
   ownerId: 'ownerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

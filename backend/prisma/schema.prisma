@@ -332,10 +332,10 @@ model MealFoodItem {
 
 model UserMeal {
   id            String         @id @default(cuid())
-  mealId        String
   dateConsumed  DateTime       @default(now())
   notes         String?
-  meal          Meal           @relation(fields: [mealId], references: [id], onDelete: SetNull)
+  mealId        String?
+  meal          Meal?          @relation(fields: [mealId], references: [id], onDelete: SetNull)
   ownerId       String
   owner         User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   userMealItems UserMealItem[]
