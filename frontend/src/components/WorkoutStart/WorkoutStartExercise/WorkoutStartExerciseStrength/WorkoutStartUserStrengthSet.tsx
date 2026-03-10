@@ -14,8 +14,8 @@ export default function WorkoutStartUserStrengthSet({
   errors: serverErrors,
 }: TWorkoutStartUserSetsProps<IUserStrengthSetEditDTO>) {
   const { isWarmup, goalSet, isCompleted, skippedReason, reps, weight } =
-    userSet ?? {};
-
+  userSet ?? {};
+  
   if (isCompleted) {
   }
   const { reps: goalReps, weight: goalWeight } = goalSet ?? {};

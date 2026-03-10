@@ -7,7 +7,14 @@
     "outDir": "./dist",
     "rootDir": "..",
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": "..",
+    "paths": {
+      "@shared/*": ["shared/*"],
+      "@api/*": ["backend/src/api/*"],
+      "@lib/*": ["backend/src/shared/*"],
+      "@middlewares/*": ["backend/src/middlewares/*"]
+    }
   },
   "include": ["src/**/*", "prisma/**/*", "../shared/**/*"],
   "exclude": ["node_modules", "**/*.test.ts", "**/*.spec.ts", "jest.config.ts"]
