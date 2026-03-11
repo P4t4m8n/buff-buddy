@@ -1,5 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
-
+import  toTitle  from "../src/utils/toTitle";
 const API_URL = "http://localhost:3030/api/v1";
 
 // Test user credentials – created once per test file run
@@ -525,6 +525,7 @@ test.describe("Exercise update", () => {
     const exercise = await apiCreateExercise(page, testUserId, {
       name: exerciseName,
     });
+    console.log("🚀 ~ exercise:", exercise)
 
     try {
       await goToExercises(page);
@@ -555,13 +556,15 @@ test.describe("Exercise update", () => {
 
   test("can update exercise name", async ({ page }) => {
     const exerciseName = `e2e-update-${Date.now()}`;
-    const updatedName = `e2e-updated-${Date.now()}`;
+    const updatedName = `E2e Updated ${Date.now()}`;
     const exercise = await apiCreateExercise(page, testUserId, {
       name: exerciseName,
     });
 
     try {
       await goToExercises(page);
+
+      await filterExercises(page,exerciseName)
 
       // Open edit modal
       const editLink = page.locator(`a[href='/exercises/edit/${exercise.id}']`);
@@ -604,7 +607,7 @@ test.describe("Exercise update", () => {
 
 test.describe("Exercise delete", () => {
   test("can delete an exercise from the list", async ({ page }) => {
-    const exerciseName = `e2e-delete-${Date.now()}`;
+    const exerciseName = `e2e delete ${Date.now()}`;
     const exercise = await apiCreateExercise(page, testUserId, {
       name: exerciseName,
     });
@@ -613,19 +616,12 @@ test.describe("Exercise delete", () => {
 
     // Verify the exercise appears
     // Open filter, search for it
-    const filterToggle = page.locator("form button[type='button']").first();
-    await filterToggle.click();
-    await page.locator("input#name-generic-filter").fill(exerciseName);
-    await page.getByRole("button", { name: "Search" }).click();
-
-    await expect(page.getByText(new RegExp(exerciseName, "i"))).toBeVisible({
-      timeout: 5000,
-    });
+    await filterExercises(page,exerciseName)
 
     // Click the delete button on the exercise card
     // The delete button is a button within the exercise card's action nav
     const exerciseCard = page.locator("ul li").filter({
-      hasText: new RegExp(exerciseName, "i"),
+      hasText: new RegExp(toTitle( exerciseName), "i"),
     });
     const deleteBtn = exerciseCard.locator("nav button").last();
     await deleteBtn.click();

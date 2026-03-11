@@ -1,7 +1,7 @@
 {
   "better-comments.highlightPlainText": true,
   "better-comments.multilineComments": true,
-
+  "playwright.configs": ["./frontend/playwright.config.ts"],
   "better-comments.tags": [
     {
       "tag": "!",
