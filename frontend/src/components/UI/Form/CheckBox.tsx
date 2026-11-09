@@ -21,8 +21,7 @@ export default function CheckBox({
       }}
       labelProps={{
         labelPosition: "input",
-        className:
-          "peer-checked:border-main-orange peer-checked:[&>svg]:w-5 peer-checked:[&>svg]:h-5 peer-checked:gap-2 peer-checked:[&>svg]:p-1 border border-gray-400 transition-all px-2 py-1 rounded flex items-center duration-500 w-fit cursor-pointer",
+        className:        "peer-checked:border-main-orange peer-checked:[&>svg]:w-5 peer-checked:[&>svg]:h-5 peer-checked:gap-2 peer-checked:[&>svg]:p-1 border border-gray-400 transition-all px-2 py-1 rounded flex items-center duration-500 w-fit cursor-pointer",
         htmlFor: props.id,
         children: (
           <>
