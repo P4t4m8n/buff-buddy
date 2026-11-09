@@ -18,5 +18,8 @@
   },
   "dependencies": {
     "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "baseline-browser-mapping": "^2.10.0"
   }
 }

@@ -19,6 +19,7 @@ import CheckBox from "../../UI/Form/CheckBox";
 import Loader from "../../UI/loader/Loader";
 //Types
 import type { IModelProps } from "../../../models/model.model";
+import toTitle from "@/utils/toTitle";
 
 interface ExerciseEditProps extends IModelProps<HTMLFormElement> {
   exerciseId?: string;
@@ -86,7 +87,7 @@ export default function ExerciseEdit({
           name: "name",
           id: "name" + id,
           placeholder: "",
-          value: name,
+          value: toTitle(name),
           onChange: onInputChange,
           className: "h-10 pl-2",
         }}
@@ -106,23 +107,21 @@ export default function ExerciseEdit({
         onInputChange={onInputChange}
       />
       <div className=" inline-flex justify-between w-full">
-
-
-      <CheckBox
-        name="isCompounded"
-        id={"isCompounded"}
-        defaultChecked={!!isCompounded}
-        labelText="Compound Move"
-        error={errors?.isCompounded}
+        <CheckBox
+          name="isCompounded"
+          id={"isCompounded"}
+          defaultChecked={!!isCompounded}
+          labelText="Compound Move"
+          error={errors?.isCompounded}
         />
-      <CheckBox
-        name="isSeparateHands"
-        id={"isSeparateHands"}
-        defaultChecked={!!isSeparateHands}
-        labelText="Separate Hands"
-        error={errors?.isSeparateHands}
+        <CheckBox
+          name="isSeparateHands"
+          id={"isSeparateHands"}
+          defaultChecked={!!isSeparateHands}
+          labelText="Separate Hands"
+          error={errors?.isSeparateHands}
         />
-        </div>
+      </div>
 
       <SelectWithSearch
         options={EXERCISE_TYPES}

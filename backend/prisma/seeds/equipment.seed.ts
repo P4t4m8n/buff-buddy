@@ -39,8 +39,7 @@ const seedEquipment = async (item: IEquipmentJson) => {
       },
     });
   } catch (error) {
-    console.log("🚀 ~ seedMuscle ~ error:", error);
-    console.log("🚀 ~ seedMuscle ~ muscle:", item);
+
   }
 };
 

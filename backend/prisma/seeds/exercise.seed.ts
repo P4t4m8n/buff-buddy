@@ -33,7 +33,6 @@ const seedExercise = async (exercise: IExerciseEditDTO) => {
     
     return await exerciseService.create(validatedData);
   } catch (error) {
-    console.log("🚀 ~ seedExercise ~ exercise:", exercise)
     const err = AppError.handleResponse(error);
     console.error(" ~ seedExercises ~ err:", err);
   }

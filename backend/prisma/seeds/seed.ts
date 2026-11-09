@@ -17,31 +17,7 @@
 // import { workoutsService } from "../src/api/workouts/workouts.service";
 
 
-// export const seedExercises = async () => {
-//   try {
-//     const exerciseJson = fs.readFileSync(
-//       path.join(__dirname, "jsons", "exercises.json"),
-//       "utf-8"
-//     );
 
-//     const data: IExerciseDTO[] = JSON.parse(exerciseJson);
-
-//     const exercisesPromises = data.map((exercise) => {
-//       const validatedData = exerciseValidation
-//         .createExerciseFactorySchema({ toSanitize: false })
-//         .parse(exercise);
-
-//       return exerciseService.create(validatedData);
-//     });
-
-//     await Promise.all(exercisesPromises);
-
-//     return "Exercises seeded successfully";
-//   } catch (error) {
-//     const err = AppError.handleResponse(error);
-//     console.error(" ~ seedExercises ~ err:", err);
-//   }
-// };
 
 // const fixRawData = async () => {
 //   const data = fs.readFileSync(
