@@ -8,12 +8,11 @@
     "rootDir": "..",
     "strict": true,
     "skipLibCheck": true,
-    "baseUrl": "..",
     "paths": {
-      "@shared/*": ["shared/*"],
-      "@api/*": ["backend/src/api/*"],
-      "@lib/*": ["backend/src/shared/*"],
-      "@middlewares/*": ["backend/src/middlewares/*"]
+      "@shared/*": ["../shared/*"],
+      "@api/*": ["./src/api/*"],
+      "@lib/*": ["./src/shared/*"],
+      "@middlewares/*": ["./src/middlewares/*"]
     }
   },
   "include": ["src/**/*", "prisma/**/*", "../shared/**/*"],

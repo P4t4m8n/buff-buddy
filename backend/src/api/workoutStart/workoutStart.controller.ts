@@ -35,11 +35,12 @@ export const workoutStart = async (req: Request, res: Response) => {
         message: "No Program Workout found for the given ID",
       });
     }
-
+    debugger;
     const plannedUserWorkout = workoutPlannerService.createUserWorkoutPlan({
       userWorkouts,
       programWorkout,
     });
+
     res.status(200).json({
       message: "Workout start was successfully planed",
       data: plannedUserWorkout,

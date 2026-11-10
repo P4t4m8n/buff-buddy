@@ -1,0 +1,419 @@
+{
+  "userWorkoutExercises": [
+    {
+      "id": "cmol9ez5h0034uqqcu3u4vvzy",
+      "skippedReason": null,
+      "userCardioSets": [],
+      "userStrengthSets": [
+        {
+          "id": "cmol9ez5h0035uqqckpbnhvnh",
+          "reps": 20,
+          "weight": 0,
+          "isBodyWeight": true,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        },
+        {
+          "id": "cmol9ez5h0036uqqcvz8588km",
+          "reps": 16,
+          "weight": 0,
+          "isBodyWeight": true,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": true,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        }
+      ],
+      "workoutExercise": {
+        "id": "cmol9ez3h0007uqqcsj6psquy",
+        "hasWarmup": false,
+        "isBodyWeight": true,
+        "numberOfSets": 2,
+        "maxNumberOfReps": 20,
+        "isDropSet": false,
+        "isMyoReps": false,
+        "exercise": {
+          "id": "cmmkiscm40001uqyg3mu86wye",
+          "name": "deficit pushup",
+          "youtubeUrl": "https://www.youtube.com/watch?v=gmNlqsE3Onc",
+          "notes": null,
+          "isCompounded": true,
+          "isSeparateHands": false,
+          "type": "strength",
+          "ownerId": null,
+          "createdAt": "2026-03-10T11:21:40.807Z",
+          "updatedAt": "2026-03-10T11:21:40.807Z"
+        }
+      }
+    },
+    {
+      "id": "cmol9ez5h0030uqqcwipn7oji",
+      "skippedReason": null,
+      "userCardioSets": [],
+      "userStrengthSets": [
+        {
+          "id": "cmol9ez5h0031uqqc7ugi5u2y",
+          "reps": 12,
+          "weight": 10,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        },
+        {
+          "id": "cmol9ez5h0032uqqcwxfngui7",
+          "reps": 11,
+          "weight": 10,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        },
+        {
+          "id": "cmol9ez5h0033uqqco3qc2qf9",
+          "reps": 10,
+          "weight": 10,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        }
+      ],
+      "workoutExercise": {
+        "id": "cmol9ez3h0006uqqc64d3a6mv",
+        "hasWarmup": false,
+        "isBodyWeight": false,
+        "numberOfSets": 3,
+        "maxNumberOfReps": 12,
+        "isDropSet": false,
+        "isMyoReps": false,
+        "exercise": {
+          "id": "cmmkiscmu000auqygcknlagjd",
+          "name": "dumbbell skullcrusher",
+          "youtubeUrl": "https://www.youtube.com/watch?v=HurmGkvE5s0",
+          "notes": null,
+          "isCompounded": false,
+          "isSeparateHands": false,
+          "type": "strength",
+          "ownerId": null,
+          "createdAt": "2026-03-10T11:21:40.807Z",
+          "updatedAt": "2026-03-10T11:21:40.807Z"
+        }
+      }
+    },
+    {
+      "id": "cmol9ez5h002vuqqcxur6umoj",
+      "skippedReason": null,
+      "userCardioSets": [],
+      "userStrengthSets": [
+        {
+          "id": "cmol9ez5h002wuqqc3dhzp8yd",
+          "reps": 15,
+          "weight": 8,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        },
+        {
+          "id": "cmol9ez5h002xuqqce9xzvmov",
+          "reps": 15,
+          "weight": 8,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        },
+        {
+          "id": "cmol9ez5h002yuqqc26s5eabc",
+          "reps": 14,
+          "weight": 8,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        },
+        {
+          "id": "cmol9ez5h002zuqqc4109ksoa",
+          "reps": 12,
+          "weight": 8,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        }
+      ],
+      "workoutExercise": {
+        "id": "cmol9ez3h0005uqqcg1cuf5eu",
+        "hasWarmup": false,
+        "isBodyWeight": false,
+        "numberOfSets": 4,
+        "maxNumberOfReps": 15,
+        "isDropSet": false,
+        "isMyoReps": false,
+        "exercise": {
+          "id": "cmmkiscni000fuqygt2oseknh",
+          "name": "lateral raise",
+          "youtubeUrl": "https://www.youtube.com/watch?v=OuG1smZTsQQ&amp;list=PLyqKj7LwU2RuNVJBl0CtfZdxQ99IhKCcu&amp;index=5",
+          "notes": null,
+          "isCompounded": false,
+          "isSeparateHands": false,
+          "type": "strength",
+          "ownerId": null,
+          "createdAt": "2026-03-10T11:21:40.807Z",
+          "updatedAt": "2026-03-10T11:21:40.807Z"
+        }
+      }
+    },
+    {
+      "id": "cmol9ez5h002ruqqcbzg188fj",
+      "skippedReason": null,
+      "userCardioSets": [],
+      "userStrengthSets": [
+        {
+          "id": "cmol9ez5h002suqqc3ej2y001",
+          "reps": 15,
+          "weight": 12,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        },
+        {
+          "id": "cmol9ez5h002tuqqc8agxmlv9",
+          "reps": 14,
+          "weight": 12,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        },
+        {
+          "id": "cmol9ez5h002uuqqc26m9b452",
+          "reps": 12,
+          "weight": 12,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        }
+      ],
+      "workoutExercise": {
+        "id": "cmol9ez3h0004uqqc91k1wfvk",
+        "hasWarmup": false,
+        "isBodyWeight": false,
+        "numberOfSets": 3,
+        "maxNumberOfReps": 15,
+        "isDropSet": false,
+        "isMyoReps": false,
+        "exercise": {
+          "id": "cmmkisco0000ouqygksljdngc",
+          "name": "incline dumbbell flye",
+          "youtubeUrl": "https://www.youtube.com/watch?v=8oR5hBwbIBc&amp;list=PLyqKj7LwU2RuyZwWCIiDHuFZGN11QW3Ff&amp;index=12",
+          "notes": null,
+          "isCompounded": false,
+          "isSeparateHands": false,
+          "type": "strength",
+          "ownerId": null,
+          "createdAt": "2026-03-10T11:21:40.807Z",
+          "updatedAt": "2026-03-10T11:21:40.807Z"
+        }
+      }
+    },
+    {
+      "id": "cmol9ez5h002nuqqc1bd0tlgj",
+      "skippedReason": null,
+      "userCardioSets": [],
+      "userStrengthSets": [
+        {
+          "id": "cmol9ez5h002ouqqcmpsrw8o7",
+          "reps": 12,
+          "weight": 18,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        },
+        {
+          "id": "cmol9ez5h002puqqculu1t2cn",
+          "reps": 11,
+          "weight": 18,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        },
+        {
+          "id": "cmol9ez5h002quqqcar50diso",
+          "reps": 10,
+          "weight": 18,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        }
+      ],
+      "workoutExercise": {
+        "id": "cmol9ez3h0003uqqc7qsdycrz",
+        "hasWarmup": false,
+        "isBodyWeight": false,
+        "numberOfSets": 3,
+        "maxNumberOfReps": 12,
+        "isDropSet": false,
+        "isMyoReps": false,
+        "exercise": {
+          "id": "cmmkiscnc000euqygbjzohkx8",
+          "name": "standing dumbbell shoulder press",
+          "youtubeUrl": "https://www.youtube.com/watch?v=Raemd3qWgJc&amp;list=PLyqKj7LwU2RtjiVutSXk5uC2h7KVMu1Az&amp;index=10",
+          "notes": null,
+          "isCompounded": true,
+          "isSeparateHands": false,
+          "type": "strength",
+          "ownerId": null,
+          "createdAt": "2026-03-10T11:21:40.807Z",
+          "updatedAt": "2026-03-10T11:21:40.807Z"
+        }
+      }
+    },
+    {
+      "id": "cmol9ez5h002iuqqc0ebyb8nf",
+      "skippedReason": null,
+      "userCardioSets": [],
+      "userStrengthSets": [
+        {
+          "id": "cmol9ez5h002juqqcawc16kox",
+          "reps": 10,
+          "weight": 30,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        },
+        {
+          "id": "cmol9ez5h002kuqqc2cmild4x",
+          "reps": 9,
+          "weight": 32,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        },
+        {
+          "id": "cmol9ez5h002luqqcus1bwqk7",
+          "reps": 8,
+          "weight": 32,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": false,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        },
+        {
+          "id": "cmol9ez5h002muqqcbtn1e7to",
+          "reps": 7,
+          "weight": 32,
+          "isBodyWeight": false,
+          "isCompleted": true,
+          "isWarmup": false,
+          "isJointPain": false,
+          "isMuscleFailure": true,
+          "skippedReason": null,
+          "createdAt": "2026-04-30T09:06:31.157Z",
+          "updatedAt": "2026-04-30T09:06:31.157Z"
+        }
+      ],
+      "workoutExercise": {
+        "id": "cmol9ez3h0002uqqckkbiojxt",
+        "hasWarmup": true,
+        "isBodyWeight": false,
+        "numberOfSets": 4,
+        "maxNumberOfReps": 10,
+        "isDropSet": false,
+        "isMyoReps": false,
+        "exercise": {
+          "id": "cmmkiscnz000muqygzdkb5kw4",
+          "name": "incline dumbbell press",
+          "youtubeUrl": "https://www.youtube.com/watch?v=5CECBjd7HLQ&amp;list=PLyqKj7LwU2RuyZwWCIiDHuFZGN11QW3Ff&amp;index=13",
+          "notes": null,
+          "isCompounded": true,
+          "isSeparateHands": false,
+          "type": "strength",
+          "ownerId": null,
+          "createdAt": "2026-03-10T11:21:40.807Z",
+          "updatedAt": "2026-03-10T11:21:40.807Z"
+        }
+      }
+    }
+  ]
+}

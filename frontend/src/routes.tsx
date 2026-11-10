@@ -3,7 +3,6 @@ import { Route } from "react-router";
 //Pages
 import HomePage from "./pages/HomePage";
 import ProgramPage from "./pages/Program/ProgramPage";
-import ProfilePage from "./pages/ProfilePage";
 import AdminPage from "./pages/AdminPage";
 import ProgramDetails from "./pages/Program/ProgramDetails";
 import WorkoutPage from "./pages/Workout/WorkoutPage";
@@ -19,13 +18,16 @@ import FoodItemEditPage from "./pages/FoodItem/FoodItemEditPage";
 import ExercisePage from "./pages/Exercise/ExercisePage";
 import ExerciseEditPage from "./pages/Exercise/ExerciseEditPage";
 import ExerciseDetailsPage from "./pages/Exercise/ExerciseDetailsPage";
+import AuthPage from "./pages/AuthPage";
+import FoodItemPage from "./pages/FoodItem/FoodItemPage";
+import MealDetailsPage from "./pages/Meal/MealDetailsPage";
 //Consts
 import { ROUTES_STORE } from "./consts/routes.const";
 //Types
 import type { ReactNode } from "react";
-import AuthPage from "./pages/AuthPage";
-import FoodItemPage from "./pages/FoodItem/FoodItemPage";
-import MealDetailsPage from "./pages/Meal/MealDetailsPage";
+import ProfileWorkoutPage from "./pages/Profile/ProfileWorkoutPage";
+import ProfilePage from "./pages/Profile/ProfilePage";
+import ProfileExercisePage from "./pages/Profile/ProfileExercisePage";
 
 interface RouteConfig {
   path: string;
@@ -88,6 +90,21 @@ const MEAL_ROUTES: RouteConfig[] = [
   {
     path: ROUTES_STORE.MEAL_DETAILS_ROUTE,
     element: <MealDetailsPage />,
+  },
+];
+
+const PROFILE_ROUTES: RouteConfig[] = [
+  {
+    path: ROUTES_STORE.PROFILE_PAGE_ROUTE,
+    element: <ProfilePage />,
+  },
+  {
+    path: ROUTES_STORE.PROFILE_WORKOUT_ROUTE,
+    element: <ProfileWorkoutPage />,
+  },
+  {
+    path: ROUTES_STORE.PROFILE_EXERCISE_ROUTE,
+    element: <ProfileExercisePage />,
   },
 ];
 
@@ -159,10 +176,7 @@ export const ROUTES: RouteConfig[] = [
       },
     ],
   },
-  {
-    path: "/profile",
-    element: <ProfilePage />,
-  },
+
   {
     path: "/admin",
     element: <AdminPage />,
@@ -170,4 +184,5 @@ export const ROUTES: RouteConfig[] = [
   ...DIET_ROUTES,
   ...MEAL_ROUTES,
   ...FOOD_ITEMS_ROUTES,
+  ...PROFILE_ROUTES,
 ];

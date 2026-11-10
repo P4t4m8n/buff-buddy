@@ -83,6 +83,18 @@ export const WORKOUT_ROUTES = {
   WORKOUT_LIST_ROUTE,
 };
 
+const PROFILE_PAGE_ROUTE = "/profile";
+const PROFILE_WORKOUT_ROUTE = "/profile/workouts";
+const PROFILE_EXERCISE_ROUTE = "/profile/exercises";
+const PROFILE_PROGRAM_ROUTE = "/profile/programs";
+
+export const PROFILE_ROUTES = {
+  PROFILE_PAGE_ROUTE,
+  PROFILE_WORKOUT_ROUTE,
+  PROFILE_EXERCISE_ROUTE,
+  PROFILE_PROGRAM_ROUTE,
+};
+
 export const ROUTES_STORE = {
   HOME_ROUTE,
   ...PROGRAM_ROUTES,
@@ -92,4 +104,5 @@ export const ROUTES_STORE = {
   ...FOOD_ITEM_ROUTES,
   ...EXERCISE_ROUTES,
   ...WORKOUT_ROUTES,
+  ...PROFILE_ROUTES,
 };

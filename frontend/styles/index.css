@@ -23,6 +23,16 @@
       --color-black-end: rgba(20, 20, 20, 0.9); */
   --color-main-orange: rgb(255, 112, 3);
   --color-main-orange-rgb: 255, 112, 3;
+
+  --color-main: rgb(46, 91, 255);
+  --color-main-rgb: 46, 91, 255;
+
+  --color-secondary: rgb(209, 255, 0);
+  --color-secondary-rgb: 209, 255, 0;
+
+  --color-tertiary: rgb(0, 240, 255);
+  --color-tertiary-rgb: 0, 240, 255;
+
   --color-black-900: hsl(340, 60%, 1%);
   --color-black-800: hsl(0, 25%, 2%);
   --color-black-700: hsl(0, 17%, 2%);
@@ -55,8 +65,8 @@
 
   --shadow-border-t: 0 -1px 0px -0px;
   --shadow-border-b: 0 1px 0px -0px;
-  --shadow-border: rgba(255, 112, 3, 1) 0px 1px 1px 0px,
-    rgba(255, 112, 3, 1) 0px 0px 0px 1px;
+  --shadow-border:
+    rgba(255, 112, 3, 1) 0px 1px 1px 0px, rgba(255, 112, 3, 1) 0px 0px 0px 1px;
 
   --animate-rotation: rotation 1.6s linear infinite;
   --animate-rotationBack: rotationBack 0.8s linear infinite;
@@ -160,7 +170,8 @@ input[type="number"] {
 .cube {
   color: rgba(3, 233, 244, 1);
 
-  box-shadow: 0 0 5px rgba(var(--color-main-orange-rgb), 1),
+  box-shadow:
+    0 0 5px rgba(var(--color-main-orange-rgb), 1),
     0 0 25px rgba(var(--color-main-orange-rgb), 1),
     0 0 50px rgba(var(--color-main-orange-rgb), 1),
     0 0 150px rgba(var(--color-main-orange-rgb), 1);
@@ -194,7 +205,8 @@ input[type="number"] {
 
 @utility corner-border {
   --border-length: 0.125rem;
-  background-image: linear-gradient(
+  background-image:
+    linear-gradient(
       to right,
       var(--color-main-orange) var(--border-length),
       transparent var(--border-length)
@@ -237,8 +249,15 @@ input[type="number"] {
 
   background-repeat: no-repeat;
   background-size: 1.5rem 1.5rem;
-  background-position: top left, top left, top right, top right, bottom left,
-    bottom left, bottom right, bottom right;
+  background-position:
+    top left,
+    top left,
+    top right,
+    top right,
+    bottom left,
+    bottom left,
+    bottom right,
+    bottom right;
 }
 
 #qr-shaded-region {

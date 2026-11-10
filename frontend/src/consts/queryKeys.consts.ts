@@ -30,6 +30,8 @@ const FOOD_ITEM_CATEGORIES_QUERY_KEY = "foodItemCategories" as const;
 const FOOD_ITEMS_LABELS_QUERY_KEY = "foodItemLabels" as const;
 const FOOD_ITEM_BRANDS_QUERY_KEY = "foodItemBrands" as const;
 
+const USER_PROFILE_QUERY_KEY = "userProfile" as const;
+
 export const QUERY_KEYS = {
   MEALS_QUERY_KEY,
   MEAL_ID_QUERY_KEY,
@@ -61,4 +63,6 @@ export const QUERY_KEYS = {
   FOOD_ITEM_CATEGORIES_QUERY_KEY,
   FOOD_ITEMS_LABELS_QUERY_KEY,
   FOOD_ITEM_BRANDS_QUERY_KEY,
+
+  USER_PROFILE_QUERY_KEY,
 };

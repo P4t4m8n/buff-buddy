@@ -7,7 +7,7 @@ import type { TUserWorkoutCreateValidatedInput } from "../../../../shared/valida
 
 const getLastUserWorkouts = async (
   workoutId: string,
-  userId: string
+  userId: string,
 ): Promise<IUserWorkout[]> => {
   return await prisma.userWorkout.findMany({
     where: {
@@ -25,7 +25,7 @@ const getLastUserWorkouts = async (
   });
 };
 const create = async (
-  dto: TUserWorkoutCreateValidatedInput
+  dto: TUserWorkoutCreateValidatedInput,
 ): Promise<IUserWorkout> => {
   return (await prisma.userWorkout.create({
     data: userWorkoutSql.getCreateUserWork(dto),
@@ -39,11 +39,66 @@ const remove = async (id: string) => {
 };
 const getById = async (
   userWorkoutId: string,
-  userId: string
+  userId: string,
 ): Promise<IUserWorkout | null> => {
   return await prisma.userWorkout.findUnique({
     where: { id: userWorkoutId, ownerId: userId },
     select: userWorkoutSql.USER_WORKOUT_SELECT,
+  });
+};
+const getUserExercises = async (userId: string) => {
+  return await prisma.userWorkout.findMany({
+    where: { ownerId: userId },
+    select: {
+      userWorkoutExercises: {
+        select: {
+          id: true,
+          skippedReason: true,
+          userCardioSets: {
+            select: {
+              id: true,
+              warmupTime: true,
+              workTime: true,
+              avgHeartRate: true,
+              distance: true,
+              avgSpeed: true,
+              caloriesBurned: true,
+              skippedReason: true,
+              isCompleted: true,
+              createdAt: true,
+              updatedAt: true,
+            },
+          },
+          userStrengthSets: {
+            select: {
+              id: true,
+              reps: true,
+              weight: true,
+              isBodyWeight: true,
+              isCompleted: true,
+              isWarmup: true,
+              isJointPain: true,
+              isMuscleFailure: true,
+              skippedReason: true,
+              createdAt: true,
+              updatedAt: true,
+            },
+          },
+          workoutExercise: {
+            select: {
+              id: true,
+              hasWarmup: true,
+              isBodyWeight: true,
+              numberOfSets: true,
+              maxNumberOfReps: true,
+              isDropSet: true,
+              isMyoReps: true,
+              exercise: true,
+            },
+          },
+        },
+      },
+    },
   });
 };
 
@@ -52,4 +107,5 @@ export const userWorkoutService = {
   create,
   remove,
   getById,
+  getUserExercises,
 };

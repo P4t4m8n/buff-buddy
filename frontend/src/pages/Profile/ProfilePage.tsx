@@ -1,16 +1,16 @@
-import { Outlet, redirect } from "react-router";
+import { redirect } from "react-router";
 
-import { useAuthStore } from "../store/auth.store";
+import { useAuthStore } from "../../store/auth.store";
 
-import { IMAGES } from "../../../shared/consts/images.const";
+import { IMAGES } from "../../../../shared/consts/images.const";
 
-import PageHeader from "../components/UI/PageHeader";
-import LinkComponent from "../components/UI/Link";
-import GenericList from "../components/UI/GenericList";
-import { getIcon, type TIconName } from "../utils/GetIcon";
-import toTitle  from "../utils/toTitle";
+import PageHeader from "../../components/UI/PageHeader";
+import LinkComponent from "../../components/UI/Link";
+import GenericList from "../../components/UI/GenericList";
+import { getIcon, type TIconName } from "../../utils/GetIcon";
+import toTitle from "../../utils/toTitle";
 import type React from "react";
-import Button from "../components/UI/Button";
+import Button from "../../components/UI/Button";
 
 export default function ProfilePage() {
   const user = useAuthStore((state) => state.user);
@@ -26,6 +26,7 @@ export default function ProfilePage() {
 
   const img = imgUrl ?? IMAGES.USER_PLACEHOLDER_IMG;
   const profileInfoLinks = [
+    { name: "exercise", link: "exercises" },
     { name: "workout", link: "workouts" },
     { name: "program", link: "/programs" },
     { name: "diet", link: "/diets" },
@@ -35,7 +36,7 @@ export default function ProfilePage() {
     { name: "setting", link: "/settings" },
   ];
   return (
-    <section className="h-main w-full grid grid-rows-[3.5rem_7rem_11rem_auto] grid-cols-1 gap-y-4 pb-4">
+    <section className="h-main w-full grid grid-rows-[3.5rem_7rem_14rem_auto] grid-cols-1 gap-y-4 pb-4">
       <PageHeader pageName={`${firstName} profile`} />
       <div className="grid grid-cols-[5rem_1fr] grid-rows-[auto] h-fit gap-x-4 px-6 pb-4 items-center">
         <img
@@ -56,14 +57,9 @@ export default function ProfilePage() {
         items={profileInfoLinks}
         ItemComponent={ListLinkComponentWrapper}
         getKey={(item) => item.name}
-        ulStyle="border-b flex flex-col mx-4 px-2 justify-centner gap-4 h-fit pb-4"
+        ulStyle="border-b flex flex-col mx-4 px-2 justify-center gap-4 h-fit pb-4"
       />
-      <GenericList
-        items={profileControlsLinks}
-        ItemComponent={ListLinkComponentWrapper}
-        getKey={(item) => item.name}
-        ulStyle="flex flex-col mx-4 px-2 justify-centner gap-4 h-fit pb-4"
-      />
+  
       <Button
         className="self-end border rounded py-1 mx-6"
         type="button"
@@ -72,7 +68,7 @@ export default function ProfilePage() {
       >
         Sign Out
       </Button>
-      <Outlet />
+      {/* <Outlet /> */}
     </section>
   );
 }
@@ -91,17 +87,19 @@ const ListLinkComponentWrapper = ({
     className: "w-full  aspect-square stroke-main-orange fill-none  ",
   });
   return (
-    <LinkComponent
-      to={link}
-      className=" text-lg grid grid-cols-[2.5rem_1fr_1.5rem] gap-8 items-center    "
-    >
-      {icon}
-      <p>{toTitle(name + "s")}</p>
-      {getIcon({
-        iconName: "arrow",
-        className:
-          "w-full aspect-square rotate-90  stroke-none fill-main-orange ",
-      })}
-    </LinkComponent>
+    <li>
+      <LinkComponent
+        to={link}
+        className=" text-lg grid grid-cols-[2.5rem_1fr_1.5rem] gap-8 items-center    "
+      >
+        {icon}
+        <p>{toTitle(name + "s")}</p>
+        {getIcon({
+          iconName: "arrow",
+          className:
+            "w-full aspect-square rotate-90  stroke-none fill-main-orange ",
+        })}
+      </LinkComponent>
+    </li>
   );
 };

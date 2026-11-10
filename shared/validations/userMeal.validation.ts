@@ -1,7 +1,7 @@
 import z from "zod";
 import { validationUtil } from "./util.validation";
-import { IToSanitize } from "../models/app.model";
 import { mealValidation } from "./meal.validations";
+import type { IToSanitize } from "@shared/models/app.model";
 
 const createFactorySchema = ({ toSanitize }: IToSanitize) => {
   return z.object({

@@ -414,27 +414,29 @@ test.describe("Exercise create", () => {
       timeout: 10000,
     });
 
-    // Verify the exercise appears in the list
-    await goToExercises(page);
+    try {
+      // Verify the exercise appears in the list
+      await goToExercises(page);
 
-    // Open filter and search for our exercise
-    const filterToggle = page.locator("form button[type='button']").first();
-    await filterToggle.click();
-    await page.locator("input#name-generic-filter").fill(exerciseName);
-    await page.getByRole("button", { name: "Search" }).click();
+      // Open filter and search for our exercise
+      const filterToggle = page.locator("form button[type='button']").first();
+      await filterToggle.click();
+      await page.locator("input#name-generic-filter").fill(exerciseName);
+      await page.getByRole("button", { name: "Search" }).click();
 
-    await expect(page.getByText(new RegExp(exerciseName, "i"))).toBeVisible({
-      timeout: 5000,
-    });
-
-    // Cleanup: find the exercise ID and delete via API
-    const listRes = await page.request.get(
-      `${API_URL}/exercises?name=${exerciseName}`,
-    );
-    const listBody = await listRes.json();
-    const createdExercise = listBody?.data?.[0];
-    if (createdExercise?.id) {
-      await apiDeleteExercise(page, createdExercise.id);
+      await expect(page.getByText(new RegExp(exerciseName, "i"))).toBeVisible({
+        timeout: 5000,
+      });
+    } finally {
+      // Cleanup: find the exercise ID and delete via API
+      const listRes = await page.request.get(
+        `${API_URL}/exercises?name=${encodeURIComponent(exerciseName)}`,
+      );
+      const listBody = await listRes.json();
+      const createdExercise = listBody?.data?.[0];
+      if (createdExercise?.id) {
+        await apiDeleteExercise(page, createdExercise.id);
+      }
     }
   });
 
@@ -525,7 +527,6 @@ test.describe("Exercise update", () => {
     const exercise = await apiCreateExercise(page, testUserId, {
       name: exerciseName,
     });
-    console.log("🚀 ~ exercise:", exercise)
 
     try {
       await goToExercises(page);

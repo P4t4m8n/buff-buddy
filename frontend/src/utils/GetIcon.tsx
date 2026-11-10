@@ -1,3 +1,4 @@
+import IconExercise from "@/components/UI/Icons/IconExercise";
 import IconArrow from "../components/UI/Icons/IconArrow";
 import IconDiet from "../components/UI/Icons/IconDiet";
 import IconProgram from "../components/UI/Icons/IconProgram";
@@ -26,6 +27,8 @@ export const getIcon = ({
   switch (iconName) {
     case "workout":
       return <IconWorkout className={className} />;
+      case "exercise":
+      return <IconExercise className={className} />;
     case "program":
       return <IconProgram className={className} />;
     case "diet":

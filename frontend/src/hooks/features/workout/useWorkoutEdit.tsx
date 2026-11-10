@@ -16,6 +16,7 @@ import type {
   IWorkoutExerciseEditDTO,
 } from "../../../../../shared/models/workout.model";
 import { useAuthStore } from "../../../store/auth.store";
+import { useErrors } from "@/hooks/shared/useErrors";
 
 interface IUseWorkoutEditProps {
   workoutId?: string;
@@ -42,6 +43,9 @@ export const useWorkoutEdit = ({ workoutId, isCopy }: IUseWorkoutEditProps) => {
     getEmpty: workoutUtil.getEmpty,
   });
 
+  const { handleError, setSingleFiledError, errors } =
+      useErrors<IWorkoutEditDTO>();
+
   const handleWorkoutExercises = (workoutExercise: IWorkoutExerciseEditDTO) => {
     setWorkoutToEdit((prev) => {
       if (!prev) return null;
@@ -49,12 +53,12 @@ export const useWorkoutEdit = ({ workoutId, isCopy }: IUseWorkoutEditProps) => {
       const updatedWorkoutExercises = [...workoutExercises];
 
       const idx = updatedWorkoutExercises?.findIndex(
-        (ex) => ex.id === workoutExercise.id
+        (ex) => ex.id === workoutExercise.id,
       );
 
       const orderIdx =
         updatedWorkoutExercises?.findIndex(
-          (we) => we.order === workoutExercise.order
+          (we) => we.order === workoutExercise.order,
         ) ?? -1;
 
       const x = orderIdx < 0 ? updatedWorkoutExercises.length : orderIdx;
@@ -74,7 +78,7 @@ export const useWorkoutEdit = ({ workoutId, isCopy }: IUseWorkoutEditProps) => {
       if (idx === undefined || idx === -1) {
         return prev;
       }
-      if(idx>=0){
+      if (idx >= 0) {
         updatedWorkoutExercises[idx] = workoutExercise;
       }
       const [removedItem] = updatedWorkoutExercises.splice(idx, 1);
@@ -88,7 +92,7 @@ export const useWorkoutEdit = ({ workoutId, isCopy }: IUseWorkoutEditProps) => {
   };
 
   const sortAndMapWorkoutExercises = (
-    workoutExercises: IWorkoutExerciseEditDTO[]
+    workoutExercises: IWorkoutExerciseEditDTO[],
   ): IWorkoutExerciseEditDTO[] => {
     return workoutExercises.map((ex, i) => {
       const isChangeOrder = ex.order !== i + 1;
@@ -104,19 +108,23 @@ export const useWorkoutEdit = ({ workoutId, isCopy }: IUseWorkoutEditProps) => {
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     formUtil.handleInputChange(e, setWorkoutToEdit);
   };
 
   const saveWorkout = async () => {
-    if (!workoutToEdit)
-      throw ClientError.create("Workout to edit is not defined");
-    const ownerId = useAuthStore.getState().user?.id || null;
-    workoutToEdit.ownerId = ownerId;
+    try {
+      if (!workoutToEdit)
+        throw ClientError.create("Workout to edit is not defined");
+      const ownerId = useAuthStore.getState().user?.id || null;
+      workoutToEdit.ownerId = ownerId;
 
-    const { data } = await mutateAsync(workoutToEdit);
-    return data;
+      const { data } = await mutateAsync(workoutToEdit);
+      return data;
+    } catch (error) {
+      handleError({ error, emitToToast: false });
+    }
   };
 
   return {
@@ -124,7 +132,7 @@ export const useWorkoutEdit = ({ workoutId, isCopy }: IUseWorkoutEditProps) => {
     isLoading,
     isSaving,
     queryError,
-    mutationErrors,
+    mutationErrors:errors,
     handleWorkoutExercises,
     handleInputChange,
     saveWorkout,

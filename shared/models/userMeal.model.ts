@@ -1,5 +1,5 @@
 import type { MealType } from "../../backend/prisma/generated/prisma";
-import type { IBaseFilter, IImageEditDTO, ICrudOperation } from "./app.model";
+import type { IBaseFilter, ICrudOperation } from "./app.model";
 import type { IEntity } from "./entity.model";
 import type { IFoodItemDTO } from "./foodItem.model";
 import type { IMealDTO } from "./meal.model";

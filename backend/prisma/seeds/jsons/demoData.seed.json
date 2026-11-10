@@ -1,0 +1,3187 @@
+[{
+  "user": {
+    "email": "demo@buffbuddy.com",
+    "firstName": "Demo",
+    "lastName": "User",
+    "password": "Demo1234!"
+  },
+  "workouts": [
+    {
+      "name": "Push Day A",
+      "notes": "Chest & shoulders emphasis. Heavy compounds first.",
+      "isTemplate": false,
+      "workoutExercises": [
+        {
+          "order": 1,
+          "exerciseName": "incline dumbbell press",
+          "notes": "Control the negative, 2-3 sec eccentric.",
+          "hasWarmup": true,
+          "isBodyWeight": false,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 10,
+          "restTime": 90
+        },
+        {
+          "order": 2,
+          "exerciseName": "standing dumbbell shoulder press",
+          "notes": "Strict form, no leg drive.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 75
+        },
+        {
+          "order": 3,
+          "exerciseName": "incline dumbbell flye",
+          "notes": "Squeeze at the top.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 15,
+          "restTime": 60
+        },
+        {
+          "order": 4,
+          "exerciseName": "lateral raise",
+          "notes": "Light weight, high reps, focus on mind-muscle.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 15,
+          "restTime": 45
+        },
+        {
+          "order": 5,
+          "exerciseName": "dumbbell skullcrusher",
+          "notes": "Keep elbows tucked.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 60
+        },
+        {
+          "order": 6,
+          "exerciseName": "deficit pushup",
+          "notes": "Burnout set to finish.",
+          "hasWarmup": false,
+          "isBodyWeight": true,
+          "numberOfSets": 2,
+          "maxNumberOfReps": 20,
+          "restTime": 45
+        }
+      ]
+    },
+    {
+      "name": "Pull Day A",
+      "notes": "Back thickness and biceps. Focus on progressive overload.",
+      "isTemplate": false,
+      "workoutExercises": [
+        {
+          "order": 1,
+          "exerciseName": "pullup",
+          "notes": "Full range of motion, dead hang at bottom.",
+          "hasWarmup": true,
+          "isBodyWeight": true,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 8,
+          "restTime": 120
+        },
+        {
+          "order": 2,
+          "exerciseName": "single arm supported dumbbell row",
+          "notes": "Drive elbow back, squeeze at top.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 10,
+          "restTime": 75
+        },
+        {
+          "order": 3,
+          "exerciseName": "dumbbell row to chest",
+          "notes": "Targets upper back / rear delts.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 60
+        },
+        {
+          "order": 4,
+          "exerciseName": "dumbbell shrug",
+          "notes": "Hold at top for 2 seconds.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 15,
+          "restTime": 45
+        },
+        {
+          "order": 5,
+          "exerciseName": "incline dumbbell curl",
+          "notes": "Slow eccentric, full stretch at bottom.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 60
+        },
+        {
+          "order": 6,
+          "exerciseName": "dumbbell bench wrist curl",
+          "notes": "Forearm finisher.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 2,
+          "maxNumberOfReps": 20,
+          "restTime": 30
+        }
+      ]
+    },
+    {
+      "name": "Leg Day A",
+      "notes": "Quad dominant day. High volume squats.",
+      "isTemplate": false,
+      "workoutExercises": [
+        {
+          "order": 1,
+          "exerciseName": "squat",
+          "notes": "Work up to heavy sets. ATG if mobility allows.",
+          "hasWarmup": true,
+          "isBodyWeight": false,
+          "numberOfSets": 5,
+          "maxNumberOfReps": 8,
+          "restTime": 150
+        },
+        {
+          "order": 2,
+          "exerciseName": "split squat",
+          "notes": "Bulgarian style with rear foot elevated.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 10,
+          "restTime": 90
+        },
+        {
+          "order": 3,
+          "exerciseName": "sissy squat",
+          "notes": "Great VMO isolation.",
+          "hasWarmup": false,
+          "isBodyWeight": true,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 15,
+          "restTime": 60
+        },
+        {
+          "order": 4,
+          "exerciseName": "stiff legged deadlift",
+          "notes": "Hamstring stretch, don't round lower back.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 10,
+          "restTime": 75
+        },
+        {
+          "order": 5,
+          "exerciseName": "hip thrust",
+          "notes": "Pause at top, squeeze glutes.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 60
+        },
+        {
+          "order": 6,
+          "exerciseName": "stair calves rises",
+          "notes": "Full ROM, pause at bottom stretch.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 15,
+          "restTime": 45
+        }
+      ]
+    },
+    {
+      "name": "Push Day B",
+      "notes": "Lighter push day, higher reps for hypertrophy.",
+      "isTemplate": true,
+      "workoutExercises": [
+        {
+          "order": 1,
+          "exerciseName": "deficit pushup",
+          "notes": "Bodyweight warmup to get blood flowing.",
+          "hasWarmup": true,
+          "isBodyWeight": true,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 15,
+          "restTime": 60
+        },
+        {
+          "order": 2,
+          "exerciseName": "incline dumbbell press",
+          "notes": "Lighter than Day A, focus on squeeze.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 75
+        },
+        {
+          "order": 3,
+          "exerciseName": "standing dumbbell shoulder press",
+          "notes": "Moderate weight.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 75
+        },
+        {
+          "order": 4,
+          "exerciseName": "lateral raise",
+          "notes": "Drop sets on last set.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "isDropSet": true,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 15,
+          "restTime": 45
+        },
+        {
+          "order": 5,
+          "exerciseName": "dumbbell skullcrusher",
+          "notes": "Myo-reps on last set.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "isMyoReps": true,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 15,
+          "restTime": 60
+        }
+      ]
+    },
+    {
+      "name": "Pull Day B",
+      "notes": "Volume pull day. Higher reps, shorter rest.",
+      "isTemplate": true,
+      "workoutExercises": [
+        {
+          "order": 1,
+          "exerciseName": "underhand pullup",
+          "notes": "Supinated grip for bicep emphasis.",
+          "hasWarmup": true,
+          "isBodyWeight": true,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 8,
+          "restTime": 90
+        },
+        {
+          "order": 2,
+          "exerciseName": "dumbbell pullover",
+          "notes": "Feel the lat stretch.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 60
+        },
+        {
+          "order": 3,
+          "exerciseName": "single arm supported dumbbell row",
+          "notes": "High reps, pump focused.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 15,
+          "restTime": 60
+        },
+        {
+          "order": 4,
+          "exerciseName": "bent lateral raise",
+          "notes": "Rear delt focus.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 15,
+          "restTime": 45
+        },
+        {
+          "order": 5,
+          "exerciseName": "incline dumbbell curl",
+          "notes": "Stretch at bottom.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 60
+        },
+        {
+          "order": 6,
+          "exerciseName": "dumbbell upright row",
+          "notes": "Wide grip for lateral delts.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 60
+        }
+      ]
+    },
+    {
+      "name": "Leg Day B",
+      "notes": "Posterior chain focus. Glutes & hamstrings.",
+      "isTemplate": true,
+      "workoutExercises": [
+        {
+          "order": 1,
+          "exerciseName": "dumbbell deadlift",
+          "notes": "Drive through heels. Hip hinge.",
+          "hasWarmup": true,
+          "isBodyWeight": false,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 8,
+          "restTime": 120
+        },
+        {
+          "order": 2,
+          "exerciseName": "hip thrust",
+          "notes": "Heavy. Pause at top.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 10,
+          "restTime": 90
+        },
+        {
+          "order": 3,
+          "exerciseName": "split squat",
+          "notes": "Deeper range of motion today.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 75
+        },
+        {
+          "order": 4,
+          "exerciseName": "stiff legged deadlift",
+          "notes": "Lighter, feel the stretch.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 60
+        },
+        {
+          "order": 5,
+          "exerciseName": "stair calves rises",
+          "notes": "Slow reps, full stretch.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 20,
+          "restTime": 45
+        },
+        {
+          "order": 6,
+          "exerciseName": "dumbbell side bends",
+          "notes": "Core finisher.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 15,
+          "restTime": 30
+        }
+      ]
+    },
+    {
+      "name": "Cardio & Core",
+      "notes": "Active recovery / cardio day.",
+      "isTemplate": false,
+      "workoutExercises": [
+        {
+          "order": 1,
+          "exerciseName": "spinning",
+          "notes": "20 min moderate pace.",
+          "hasWarmup": true,
+          "isBodyWeight": false,
+          "numberOfSets": 1,
+          "restTime": 60
+        },
+        {
+          "order": 2,
+          "exerciseName": "recumbent cross trainer",
+          "notes": "15 min intervals: 1 min hard / 1 min easy.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 1,
+          "restTime": 60
+        },
+        {
+          "order": 3,
+          "exerciseName": "dumbbell side bends",
+          "notes": "Core work.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 20,
+          "restTime": 30
+        }
+      ]
+    },
+    {
+      "name": "Upper Body A",
+      "notes": "Compound push/pull supersets. Full upper body.",
+      "isTemplate": false,
+      "workoutExercises": [
+        {
+          "order": 1,
+          "exerciseName": "incline dumbbell press",
+          "notes": "Warm up with light set first.",
+          "hasWarmup": true,
+          "isBodyWeight": false,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 10,
+          "restTime": 90
+        },
+        {
+          "order": 2,
+          "exerciseName": "pullup",
+          "notes": "Superset with press if possible.",
+          "hasWarmup": false,
+          "isBodyWeight": true,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 8,
+          "restTime": 120
+        },
+        {
+          "order": 3,
+          "exerciseName": "standing dumbbell shoulder press",
+          "notes": "Strict form.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 75
+        },
+        {
+          "order": 4,
+          "exerciseName": "single arm supported dumbbell row",
+          "notes": "Heavy rows, squeeze at top.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 75
+        },
+        {
+          "order": 5,
+          "exerciseName": "lateral raise",
+          "notes": "Light and controlled.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 15,
+          "restTime": 45
+        },
+        {
+          "order": 6,
+          "exerciseName": "incline dumbbell curl",
+          "notes": "Full stretch at bottom.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 60
+        }
+      ]
+    },
+    {
+      "name": "Upper Body B",
+      "notes": "Lighter upper body, more isolation work.",
+      "isTemplate": false,
+      "workoutExercises": [
+        {
+          "order": 1,
+          "exerciseName": "deficit pushup",
+          "notes": "Bodyweight warmup.",
+          "hasWarmup": true,
+          "isBodyWeight": true,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 15,
+          "restTime": 60
+        },
+        {
+          "order": 2,
+          "exerciseName": "underhand pullup",
+          "notes": "Bicep emphasis grip.",
+          "hasWarmup": false,
+          "isBodyWeight": true,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 8,
+          "restTime": 90
+        },
+        {
+          "order": 3,
+          "exerciseName": "dumbbell pullover",
+          "notes": "Feel the lat stretch.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 60
+        },
+        {
+          "order": 4,
+          "exerciseName": "bent lateral raise",
+          "notes": "Rear delt focus.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 15,
+          "restTime": 45
+        },
+        {
+          "order": 5,
+          "exerciseName": "dumbbell skullcrusher",
+          "notes": "Elbows in.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 60
+        },
+        {
+          "order": 6,
+          "exerciseName": "dumbbell upright row",
+          "notes": "Wide grip for lateral delts.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 60
+        }
+      ]
+    },
+    {
+      "name": "Lower Body A",
+      "notes": "Quad dominant. Heavy squats.",
+      "isTemplate": false,
+      "workoutExercises": [
+        {
+          "order": 1,
+          "exerciseName": "squat",
+          "notes": "Ramp up to working weight.",
+          "hasWarmup": true,
+          "isBodyWeight": false,
+          "numberOfSets": 5,
+          "maxNumberOfReps": 8,
+          "restTime": 150
+        },
+        {
+          "order": 2,
+          "exerciseName": "split squat",
+          "notes": "Rear foot elevated.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 10,
+          "restTime": 90
+        },
+        {
+          "order": 3,
+          "exerciseName": "stiff legged deadlift",
+          "notes": "Hamstring stretch focus.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 10,
+          "restTime": 75
+        },
+        {
+          "order": 4,
+          "exerciseName": "hip thrust",
+          "notes": "Pause at top.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 60
+        },
+        {
+          "order": 5,
+          "exerciseName": "stair calves rises",
+          "notes": "Full ROM.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 15,
+          "restTime": 45
+        }
+      ]
+    },
+    {
+      "name": "Lower Body B",
+      "notes": "Posterior chain focus. Glutes and hamstrings.",
+      "isTemplate": false,
+      "workoutExercises": [
+        {
+          "order": 1,
+          "exerciseName": "dumbbell deadlift",
+          "notes": "Hip hinge, drive through heels.",
+          "hasWarmup": true,
+          "isBodyWeight": false,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 8,
+          "restTime": 120
+        },
+        {
+          "order": 2,
+          "exerciseName": "hip thrust",
+          "notes": "Heavy, pause at top.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 10,
+          "restTime": 90
+        },
+        {
+          "order": 3,
+          "exerciseName": "sissy squat",
+          "notes": "Bodyweight, quad isolation.",
+          "hasWarmup": false,
+          "isBodyWeight": true,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 15,
+          "restTime": 60
+        },
+        {
+          "order": 4,
+          "exerciseName": "split squat",
+          "notes": "Deep range of motion.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 12,
+          "restTime": 75
+        },
+        {
+          "order": 5,
+          "exerciseName": "stair calves rises",
+          "notes": "Slow reps.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 4,
+          "maxNumberOfReps": 20,
+          "restTime": 45
+        },
+        {
+          "order": 6,
+          "exerciseName": "dumbbell side bends",
+          "notes": "Core finisher.",
+          "hasWarmup": false,
+          "isBodyWeight": false,
+          "numberOfSets": 3,
+          "maxNumberOfReps": 15,
+          "restTime": 30
+        }
+      ]
+    }
+  ],
+  "programs": [
+    {
+      "name": "PPL 6-Day Split",
+      "notes": "Push/Pull/Legs twice per week. Monday-Saturday, Sunday rest.",
+      "isActive": true,
+      "startDate": "2026-03-02T00:00:00.000Z",
+      "endDate": "2026-06-01T00:00:00.000Z",
+      "programWorkouts": [
+        {
+          "workoutName": "Push Day A",
+          "daysOfWeek": ["monday"],
+          "workoutLevel": "beginner",
+          "workoutGoal": "hypertrophy"
+        },
+        {
+          "workoutName": "Pull Day A",
+          "daysOfWeek": ["tuesday"],
+          "workoutLevel": "beginner",
+          "workoutGoal": "hypertrophy"
+        },
+        {
+          "workoutName": "Leg Day A",
+          "daysOfWeek": ["wednesday"],
+          "workoutLevel": "beginner",
+          "workoutGoal": "hypertrophy"
+        },
+        {
+          "workoutName": "Push Day B",
+          "daysOfWeek": ["thursday"],
+          "workoutLevel": "beginner",
+          "workoutGoal": "hypertrophy"
+        },
+        {
+          "workoutName": "Pull Day B",
+          "daysOfWeek": ["friday"],
+          "workoutLevel": "beginner",
+          "workoutGoal": "hypertrophy"
+        },
+        {
+          "workoutName": "Leg Day B",
+          "daysOfWeek": ["saturday"],
+          "workoutLevel": "beginner",
+          "workoutGoal": "hypertrophy"
+        }
+      ]
+    },
+    {
+      "name": "3-Day Full Body",
+      "notes": "Full body workouts 3 days a week with cardio.",
+      "isActive": false,
+      "startDate": "2025-12-01T00:00:00.000Z",
+      "endDate": "2026-02-28T00:00:00.000Z",
+      "programWorkouts": [
+        {
+          "workoutName": "Push Day A",
+          "daysOfWeek": ["monday", "friday"],
+          "workoutLevel": "beginner",
+          "workoutGoal": "hypertrophy"
+        },
+        {
+          "workoutName": "Pull Day A",
+          "daysOfWeek": ["wednesday"],
+          "workoutLevel": "beginner",
+          "workoutGoal": "hypertrophy"
+        },
+        {
+          "workoutName": "Cardio & Core",
+          "daysOfWeek": ["saturday"],
+          "workoutLevel": "beginner",
+          "workoutGoal": "hypertrophy"
+        }
+      ]
+    },
+    {
+      "name": "Upper/Lower 4-Day Split",
+      "notes": "Upper/Lower split, 4 days per week. Alternating emphasis.",
+      "isActive": false,
+      "startDate": "2025-10-01T00:00:00.000Z",
+      "endDate": "2026-01-31T00:00:00.000Z",
+      "programWorkouts": [
+        {
+          "workoutName": "Upper Body A",
+          "daysOfWeek": ["monday"],
+          "workoutLevel": "beginner",
+          "workoutGoal": "hypertrophy"
+        },
+        {
+          "workoutName": "Lower Body A",
+          "daysOfWeek": ["tuesday"],
+          "workoutLevel": "beginner",
+          "workoutGoal": "hypertrophy"
+        },
+        {
+          "workoutName": "Upper Body B",
+          "daysOfWeek": ["thursday"],
+          "workoutLevel": "beginner",
+          "workoutGoal": "hypertrophy"
+        },
+        {
+          "workoutName": "Lower Body B",
+          "daysOfWeek": ["friday"],
+          "workoutLevel": "beginner",
+          "workoutGoal": "hypertrophy"
+        }
+      ]
+    }
+  ],
+  "userWorkouts": [
+    {
+      "_comment": "6 weeks of PPL history (Mon-Sat each week), going back from April 11, 2026",
+      "sessions": [
+        {
+          "workoutName": "Push Day A",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-04-07T08:30:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 30, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 32, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 32, "order": 3, "isCompleted": true },
+              { "reps": 7, "weight": 32, "order": 4, "isCompleted": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 12, "weight": 18, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 18, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 18, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell flye", "sets": [
+              { "reps": 15, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 12, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 15, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 15, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 14, "weight": 8, "order": 3, "isCompleted": true },
+              { "reps": 12, "weight": 8, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 12, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 20, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 16, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true, "isMuscleFailure": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Pull Day A",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-04-08T09:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "pullup", "sets": [
+              { "reps": 8, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 7, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 6, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 28, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 28, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 28, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 28, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell row to chest", "sets": [
+              { "reps": 12, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 14, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell shrug", "sets": [
+              { "reps": 15, "weight": 30, "order": 1, "isCompleted": true },
+              { "reps": 15, "weight": 30, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 30, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 12, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell bench wrist curl", "sets": [
+              { "reps": 20, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 18, "weight": 8, "order": 2, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Leg Day A",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-04-09T07:45:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "squat", "sets": [
+              { "reps": 8, "weight": 80, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 85, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 85, "order": 3, "isCompleted": true },
+              { "reps": 6, "weight": 90, "order": 4, "isCompleted": true },
+              { "reps": 5, "weight": 90, "order": 5, "isCompleted": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 10, "weight": 16, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 16, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "sissy squat", "sets": [
+              { "reps": 15, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 13, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 12, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "stiff legged deadlift", "sets": [
+              { "reps": 10, "weight": 50, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 50, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 50, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 55, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 12, "weight": 60, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 60, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 65, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 15, "weight": 20, "order": 1, "isCompleted": true },
+              { "reps": 15, "weight": 20, "order": 2, "isCompleted": true },
+              { "reps": 14, "weight": 20, "order": 3, "isCompleted": true },
+              { "reps": 12, "weight": 20, "order": 4, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Push Day A",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-04-10T08:15:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 30, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 30, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 32, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 32, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 12, "weight": 18, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 18, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 20, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell flye", "sets": [
+              { "reps": 15, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 12, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 15, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 15, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 15, "weight": 8, "order": 3, "isCompleted": true },
+              { "reps": 13, "weight": 8, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 12, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 18, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 15, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Pull Day A",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-04-11T08:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "pullup", "sets": [
+              { "reps": 8, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 8, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 7, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 6, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 30, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 30, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 30, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 30, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell row to chest", "sets": [
+              { "reps": 12, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 14, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell shrug", "sets": [
+              { "reps": 15, "weight": 32, "order": 1, "isCompleted": true },
+              { "reps": 15, "weight": 32, "order": 2, "isCompleted": true },
+              { "reps": 14, "weight": 32, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 12, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell bench wrist curl", "sets": [
+              { "reps": 20, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 20, "weight": 8, "order": 2, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Push Day A",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-03-30T08:30:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 28, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 28, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 30, "order": 3, "isCompleted": true },
+              { "reps": 7, "weight": 30, "order": 4, "isCompleted": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 12, "weight": 16, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 18, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell flye", "sets": [
+              { "reps": 15, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 12, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 15, "weight": 7, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 7, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 8, "order": 3, "isCompleted": true },
+              { "reps": 12, "weight": 8, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 12, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 18, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 14, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Pull Day A",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-03-31T09:15:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "pullup", "sets": [
+              { "reps": 7, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 6, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 6, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 26, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 26, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 26, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 26, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell row to chest", "sets": [
+              { "reps": 12, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 14, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell shrug", "sets": [
+              { "reps": 15, "weight": 28, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 28, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 30, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 12, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell bench wrist curl", "sets": [
+              { "reps": 18, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 16, "weight": 6, "order": 2, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Leg Day A",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-04-01T07:30:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "squat", "sets": [
+              { "reps": 8, "weight": 75, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 80, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 80, "order": 3, "isCompleted": true },
+              { "reps": 6, "weight": 85, "order": 4, "isCompleted": true },
+              { "reps": 5, "weight": 85, "order": 5, "isCompleted": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 10, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 14, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "sissy squat", "sets": [
+              { "reps": 12, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 11, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 10, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "stiff legged deadlift", "sets": [
+              { "reps": 10, "weight": 45, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 45, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 50, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 50, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 12, "weight": 55, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 55, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 60, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 15, "weight": 18, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 18, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 18, "order": 3, "isCompleted": true },
+              { "reps": 12, "weight": 18, "order": 4, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Push Day A",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-03-23T08:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 26, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 26, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 28, "order": 3, "isCompleted": true },
+              { "reps": 7, "weight": 28, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 12, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 16, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell flye", "sets": [
+              { "reps": 14, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 13, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 14, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 13, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 7, "order": 3, "isCompleted": true },
+              { "reps": 11, "weight": 7, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 12, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 16, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 12, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Leg Day A",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-03-25T07:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "squat", "sets": [
+              { "reps": 8, "weight": 70, "order": 1, "isCompleted": true },
+              { "reps": 7, "weight": 70, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 75, "order": 3, "isCompleted": true },
+              { "reps": 6, "weight": 75, "order": 4, "isCompleted": true },
+              { "reps": 5, "weight": 80, "order": 5, "isCompleted": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 10, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 12, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "sissy squat", "sets": [
+              { "reps": 12, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 10, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 9, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "stiff legged deadlift", "sets": [
+              { "reps": 10, "weight": 40, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 40, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 45, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 45, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 12, "weight": 50, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 50, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 55, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 15, "weight": 16, "order": 1, "isCompleted": true },
+              { "reps": 13, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 16, "order": 3, "isCompleted": true },
+              { "reps": 11, "weight": 18, "order": 4, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Cardio & Core",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-03-29T10:00:00.000Z",
+          "cardioSets": [
+            { "exerciseName": "spinning", "sets": [
+              { "workTime": 1200, "avgHeartRate": 142, "avgSpeed": 22.5, "distance": 7.5, "caloriesBurned": 280, "order": 1, "isCompleted": true }
+            ]},
+            { "exerciseName": "recumbent cross trainer", "sets": [
+              { "workTime": 900, "avgHeartRate": 155, "avgSpeed": 8.0, "distance": 2.0, "caloriesBurned": 220, "order": 1, "isCompleted": true }
+            ]}
+          ],
+          "strengthSets": [
+            { "exerciseName": "dumbbell side bends", "sets": [
+              { "reps": 20, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 18, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 16, "weight": 14, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Pull Day A",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-03-24T09:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "pullup", "sets": [
+              { "reps": 7, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 6, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 24, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 24, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 24, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 26, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell row to chest", "sets": [
+              { "reps": 11, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 12, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell shrug", "sets": [
+              { "reps": 15, "weight": 26, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 26, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 28, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 11, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 8, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell bench wrist curl", "sets": [
+              { "reps": 16, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 6, "order": 2, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Leg Day A",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-03-18T07:30:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "squat", "sets": [
+              { "reps": 8, "weight": 65, "order": 1, "isCompleted": true },
+              { "reps": 7, "weight": 65, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 70, "order": 3, "isCompleted": true },
+              { "reps": 6, "weight": 70, "order": 4, "isCompleted": true },
+              { "reps": 4, "weight": 75, "order": 5, "isCompleted": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 10, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 12, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "sissy squat", "sets": [
+              { "reps": 10, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 9, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 8, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "stiff legged deadlift", "sets": [
+              { "reps": 10, "weight": 35, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 35, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 40, "order": 3, "isCompleted": true },
+              { "reps": 7, "weight": 40, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 12, "weight": 45, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 45, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 50, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 14, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 14, "order": 3, "isCompleted": true },
+              { "reps": 10, "weight": 16, "order": 4, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Push Day A",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-03-16T08:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 24, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 24, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 26, "order": 3, "isCompleted": true },
+              { "reps": 6, "weight": 26, "order": 4, "isCompleted": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 12, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 14, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell flye", "sets": [
+              { "reps": 13, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 13, "weight": 5, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 5, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 6, "order": 3, "isCompleted": true },
+              { "reps": 10, "weight": 6, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 12, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 8, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 15, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 11, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true, "isMuscleFailure": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Pull Day A",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-03-17T08:45:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "pullup", "sets": [
+              { "reps": 6, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 4, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 22, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 22, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 22, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 24, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell row to chest", "sets": [
+              { "reps": 10, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 12, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell shrug", "sets": [
+              { "reps": 15, "weight": 24, "order": 1, "isCompleted": true },
+              { "reps": 13, "weight": 24, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 26, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 10, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 8, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell bench wrist curl", "sets": [
+              { "reps": 15, "weight": 5, "order": 1, "isCompleted": true },
+              { "reps": 13, "weight": 5, "order": 2, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Cardio & Core",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-03-22T10:30:00.000Z",
+          "cardioSets": [
+            { "exerciseName": "spinning", "sets": [
+              { "workTime": 1200, "avgHeartRate": 138, "avgSpeed": 21.0, "distance": 7.0, "caloriesBurned": 260, "order": 1, "isCompleted": true }
+            ]},
+            { "exerciseName": "recumbent cross trainer", "sets": [
+              { "workTime": 900, "avgHeartRate": 150, "avgSpeed": 7.5, "distance": 1.8, "caloriesBurned": 200, "order": 1, "isCompleted": true }
+            ]}
+          ],
+          "strengthSets": [
+            { "exerciseName": "dumbbell side bends", "sets": [
+              { "reps": 20, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 17, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 15, "weight": 12, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "_comment": "PPL B-day sessions (Thu/Fri/Sat rotations)",
+      "sessions": [
+        {
+          "workoutName": "Push Day B",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-04-03T08:30:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 15, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 14, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 12, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 12, "weight": 26, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 26, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 28, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 12, "weight": 16, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 18, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 15, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 15, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 14, "weight": 8, "order": 3, "isCompleted": true },
+              { "reps": 12, "weight": 8, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 15, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 13, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 10, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Push Day B",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-03-27T08:15:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 14, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 13, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 11, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 12, "weight": 24, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 26, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 26, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 12, "weight": 16, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 16, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 15, "weight": 7, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 7, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 8, "order": 3, "isCompleted": true },
+              { "reps": 12, "weight": 8, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 14, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 8, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Pull Day B",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-04-04T09:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "underhand pullup", "sets": [
+              { "reps": 8, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 7, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 6, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "dumbbell pullover", "sets": [
+              { "reps": 12, "weight": 16, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 18, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 15, "weight": 22, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 22, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 24, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "bent lateral raise", "sets": [
+              { "reps": 15, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 12, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell upright row", "sets": [
+              { "reps": 12, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 14, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Pull Day B",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-03-28T09:15:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "underhand pullup", "sets": [
+              { "reps": 7, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 6, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 6, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "dumbbell pullover", "sets": [
+              { "reps": 12, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 16, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 14, "weight": 20, "order": 1, "isCompleted": true },
+              { "reps": 13, "weight": 22, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 22, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "bent lateral raise", "sets": [
+              { "reps": 14, "weight": 7, "order": 1, "isCompleted": true },
+              { "reps": 13, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 8, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 12, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell upright row", "sets": [
+              { "reps": 12, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 12, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Leg Day B",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-04-05T07:30:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "dumbbell deadlift", "sets": [
+              { "reps": 8, "weight": 34, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 34, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 36, "order": 3, "isCompleted": true },
+              { "reps": 7, "weight": 36, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 10, "weight": 55, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 55, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 58, "order": 3, "isCompleted": true },
+              { "reps": 9, "weight": 58, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "stiff legged deadlift", "sets": [
+              { "reps": 12, "weight": 30, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 30, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 32, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 12, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 16, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 20, "weight": 16, "order": 1, "isCompleted": true },
+              { "reps": 18, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 17, "weight": 18, "order": 3, "isCompleted": true },
+              { "reps": 15, "weight": 18, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell side bends", "sets": [
+              { "reps": 15, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 15, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 16, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Leg Day B",
+          "programName": "PPL 6-Day Split",
+          "dateCompleted": "2026-03-22T07:45:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "dumbbell deadlift", "sets": [
+              { "reps": 8, "weight": 30, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 32, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 32, "order": 3, "isCompleted": true },
+              { "reps": 7, "weight": 34, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 10, "weight": 50, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 52, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 52, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 55, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "stiff legged deadlift", "sets": [
+              { "reps": 12, "weight": 28, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 28, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 30, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 12, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 14, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 18, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 16, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 15, "weight": 16, "order": 3, "isCompleted": true },
+              { "reps": 14, "weight": 16, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell side bends", "sets": [
+              { "reps": 15, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 14, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "_comment": "3-Day Full Body sessions (Jan 2026)",
+      "sessions": [
+        {
+          "workoutName": "Push Day A",
+          "programName": "3-Day Full Body",
+          "dateCompleted": "2026-01-05T09:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 24, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 24, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 26, "order": 3, "isCompleted": true },
+              { "reps": 7, "weight": 26, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 12, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 14, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell flye", "sets": [
+              { "reps": 14, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 13, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 14, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 13, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 6, "order": 3, "isCompleted": true },
+              { "reps": 11, "weight": 6, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 12, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 16, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 13, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Pull Day A",
+          "programName": "3-Day Full Body",
+          "dateCompleted": "2026-01-07T09:30:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "pullup", "sets": [
+              { "reps": 6, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 6, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 22, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 22, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 24, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 24, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell row to chest", "sets": [
+              { "reps": 11, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 12, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell shrug", "sets": [
+              { "reps": 15, "weight": 24, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 24, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 26, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 11, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 8, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell bench wrist curl", "sets": [
+              { "reps": 16, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 6, "order": 2, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Cardio & Core",
+          "programName": "3-Day Full Body",
+          "dateCompleted": "2026-01-10T10:00:00.000Z",
+          "cardioSets": [
+            { "exerciseName": "spinning", "sets": [
+              { "workTime": 1200, "avgHeartRate": 135, "avgSpeed": 20.0, "distance": 6.5, "caloriesBurned": 240, "order": 1, "isCompleted": true }
+            ]},
+            { "exerciseName": "recumbent cross trainer", "sets": [
+              { "workTime": 900, "avgHeartRate": 148, "avgSpeed": 7.2, "distance": 1.7, "caloriesBurned": 190, "order": 1, "isCompleted": true }
+            ]}
+          ],
+          "strengthSets": [
+            { "exerciseName": "dumbbell side bends", "sets": [
+              { "reps": 18, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 16, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 14, "weight": 12, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Push Day A",
+          "programName": "3-Day Full Body",
+          "dateCompleted": "2026-01-12T08:45:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 24, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 26, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 26, "order": 3, "isCompleted": true },
+              { "reps": 7, "weight": 26, "order": 4, "isCompleted": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 12, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 16, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell flye", "sets": [
+              { "reps": 15, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 15, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 6, "order": 3, "isCompleted": true },
+              { "reps": 12, "weight": 7, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 12, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 17, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 14, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Pull Day A",
+          "programName": "3-Day Full Body",
+          "dateCompleted": "2026-01-14T09:15:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "pullup", "sets": [
+              { "reps": 7, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 6, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 24, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 24, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 24, "order": 3, "isCompleted": true },
+              { "reps": 9, "weight": 24, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell row to chest", "sets": [
+              { "reps": 12, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 12, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell shrug", "sets": [
+              { "reps": 15, "weight": 26, "order": 1, "isCompleted": true },
+              { "reps": 15, "weight": 26, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 26, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 12, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell bench wrist curl", "sets": [
+              { "reps": 17, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 15, "weight": 6, "order": 2, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Push Day A",
+          "programName": "3-Day Full Body",
+          "dateCompleted": "2026-01-19T08:30:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 26, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 26, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 26, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 28, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 12, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 16, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell flye", "sets": [
+              { "reps": 15, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 12, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 15, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 7, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 7, "order": 3, "isCompleted": true },
+              { "reps": 12, "weight": 7, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 12, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 18, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 15, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "_comment": "Upper/Lower 4-Day sessions (Nov 2025)",
+      "sessions": [
+        {
+          "workoutName": "Upper Body A",
+          "programName": "Upper/Lower 4-Day Split",
+          "dateCompleted": "2025-11-03T09:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 8, "weight": 22, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 22, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 24, "order": 3, "isCompleted": true },
+              { "reps": 6, "weight": 24, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "pullup", "sets": [
+              { "reps": 5, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 4, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 4, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 3, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 10, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 14, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 18, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 18, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 20, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 13, "weight": 5, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 5, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 6, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 10, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 8, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Lower Body A",
+          "programName": "Upper/Lower 4-Day Split",
+          "dateCompleted": "2025-11-04T07:30:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "squat", "sets": [
+              { "reps": 8, "weight": 55, "order": 1, "isCompleted": true },
+              { "reps": 7, "weight": 55, "order": 2, "isCompleted": true },
+              { "reps": 6, "weight": 60, "order": 3, "isCompleted": true },
+              { "reps": 6, "weight": 60, "order": 4, "isCompleted": true },
+              { "reps": 5, "weight": 65, "order": 5, "isCompleted": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 10, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stiff legged deadlift", "sets": [
+              { "reps": 10, "weight": 30, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 30, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 35, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 35, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 12, "weight": 40, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 40, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 45, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 14, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 12, "order": 3, "isCompleted": true },
+              { "reps": 10, "weight": 12, "order": 4, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Upper Body B",
+          "programName": "Upper/Lower 4-Day Split",
+          "dateCompleted": "2025-11-06T09:15:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 14, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 12, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 10, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "underhand pullup", "sets": [
+              { "reps": 6, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 4, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "dumbbell pullover", "sets": [
+              { "reps": 10, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 14, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "bent lateral raise", "sets": [
+              { "reps": 13, "weight": 5, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 5, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 6, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 10, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 8, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell upright row", "sets": [
+              { "reps": 10, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 10, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Lower Body B",
+          "programName": "Upper/Lower 4-Day Split",
+          "dateCompleted": "2025-11-07T07:45:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "dumbbell deadlift", "sets": [
+              { "reps": 8, "weight": 24, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 24, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 26, "order": 3, "isCompleted": true },
+              { "reps": 7, "weight": 26, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 10, "weight": 35, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 35, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 38, "order": 3, "isCompleted": true },
+              { "reps": 9, "weight": 38, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "sissy squat", "sets": [
+              { "reps": 12, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 10, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 9, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 10, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 18, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 16, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 15, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 14, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "dumbbell side bends", "sets": [
+              { "reps": 15, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 12, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Upper Body A",
+          "programName": "Upper/Lower 4-Day Split",
+          "dateCompleted": "2025-11-10T08:45:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 9, "weight": 22, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 24, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 24, "order": 3, "isCompleted": true },
+              { "reps": 7, "weight": 24, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "pullup", "sets": [
+              { "reps": 5, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 4, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 3, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 11, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 14, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 20, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 20, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 20, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 14, "weight": 5, "order": 1, "isCompleted": true },
+              { "reps": 13, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 6, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 11, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 8, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Lower Body A",
+          "programName": "Upper/Lower 4-Day Split",
+          "dateCompleted": "2025-11-11T07:30:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "squat", "sets": [
+              { "reps": 8, "weight": 55, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 60, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 60, "order": 3, "isCompleted": true },
+              { "reps": 6, "weight": 65, "order": 4, "isCompleted": true },
+              { "reps": 5, "weight": 65, "order": 5, "isCompleted": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 10, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stiff legged deadlift", "sets": [
+              { "reps": 10, "weight": 30, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 35, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 35, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 35, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 12, "weight": 42, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 42, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 45, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 15, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 13, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 12, "order": 3, "isCompleted": true },
+              { "reps": 11, "weight": 12, "order": 4, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Upper Body B",
+          "programName": "Upper/Lower 4-Day Split",
+          "dateCompleted": "2025-11-13T09:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 15, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 13, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 11, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "underhand pullup", "sets": [
+              { "reps": 6, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "dumbbell pullover", "sets": [
+              { "reps": 11, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 14, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "bent lateral raise", "sets": [
+              { "reps": 14, "weight": 5, "order": 1, "isCompleted": true },
+              { "reps": 13, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 6, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 11, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 8, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell upright row", "sets": [
+              { "reps": 11, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 10, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Lower Body B",
+          "programName": "Upper/Lower 4-Day Split",
+          "dateCompleted": "2025-11-14T07:45:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "dumbbell deadlift", "sets": [
+              { "reps": 8, "weight": 26, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 26, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 28, "order": 3, "isCompleted": true },
+              { "reps": 7, "weight": 28, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 10, "weight": 38, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 38, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 40, "order": 3, "isCompleted": true },
+              { "reps": 9, "weight": 40, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "sissy squat", "sets": [
+              { "reps": 13, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 11, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 10, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 10, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 20, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 18, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 16, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 15, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "dumbbell side bends", "sets": [
+              { "reps": 15, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 15, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 12, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  "user": {
+    "email": "sarah@buffbuddy.com",
+    "firstName": "Sarah",
+    "lastName": "Mitchell",
+    "password": "Demo1234!"
+  },
+  "workouts": [
+    {
+      "name": "Full Body Strength",
+      "notes": "Compound-focused full body session",
+      "isTemplate": false,
+      "workoutExercises": [
+        { "order": 1, "exerciseName": "squat", "hasWarmup": true, "numberOfSets": 5, "maxNumberOfReps": 8, "restTime": 120 },
+        { "order": 2, "exerciseName": "incline dumbbell press", "numberOfSets": 4, "maxNumberOfReps": 10, "restTime": 90 },
+        { "order": 3, "exerciseName": "single arm supported dumbbell row", "numberOfSets": 4, "maxNumberOfReps": 10, "restTime": 90 },
+        { "order": 4, "exerciseName": "standing dumbbell shoulder press", "numberOfSets": 3, "maxNumberOfReps": 12, "restTime": 60 },
+        { "order": 5, "exerciseName": "hip thrust", "numberOfSets": 3, "maxNumberOfReps": 12, "restTime": 60 },
+        { "order": 6, "exerciseName": "incline dumbbell curl", "numberOfSets": 3, "maxNumberOfReps": 12, "restTime": 60 }
+      ]
+    },
+    {
+      "name": "Full Body Hypertrophy",
+      "notes": "Higher volume, moderate weight",
+      "isTemplate": false,
+      "workoutExercises": [
+        { "order": 1, "exerciseName": "dumbbell deadlift", "hasWarmup": true, "numberOfSets": 4, "maxNumberOfReps": 10, "restTime": 90 },
+        { "order": 2, "exerciseName": "deficit pushup", "isBodyWeight": true, "numberOfSets": 3, "maxNumberOfReps": 15, "restTime": 60 },
+        { "order": 3, "exerciseName": "pullup", "isBodyWeight": true, "numberOfSets": 4, "maxNumberOfReps": 8, "restTime": 90 },
+        { "order": 4, "exerciseName": "split squat", "numberOfSets": 3, "maxNumberOfReps": 12, "restTime": 60 },
+        { "order": 5, "exerciseName": "lateral raise", "numberOfSets": 4, "maxNumberOfReps": 15, "restTime": 45 },
+        { "order": 6, "exerciseName": "dumbbell skullcrusher", "numberOfSets": 3, "maxNumberOfReps": 12, "restTime": 60 },
+        { "order": 7, "exerciseName": "stair calves rises", "numberOfSets": 3, "maxNumberOfReps": 20, "restTime": 45 }
+      ]
+    },
+    {
+      "name": "Active Recovery",
+      "notes": "Light cardio and mobility",
+      "isTemplate": false,
+      "workoutExercises": [
+        { "order": 1, "exerciseName": "spinning", "numberOfSets": 1, "maxNumberOfReps": 1, "restTime": 0 },
+        { "order": 2, "exerciseName": "dumbbell side bends", "numberOfSets": 3, "maxNumberOfReps": 20, "restTime": 30 }
+      ]
+    }
+  ],
+  "programs": [
+    {
+      "name": "3x Full Body",
+      "notes": "Alternating strength and hypertrophy full body sessions, 3 days per week",
+      "isActive": true,
+      "startDate": "2026-02-01T00:00:00.000Z",
+      "endDate": "2026-06-30T00:00:00.000Z",
+      "programWorkouts": [
+        { "workoutName": "Full Body Strength", "daysOfWeek": ["monday"], "workoutLevel": "beginner", "workoutGoal": "hypertrophy" },
+        { "workoutName": "Full Body Hypertrophy", "daysOfWeek": ["wednesday"], "workoutLevel": "beginner", "workoutGoal": "hypertrophy" },
+        { "workoutName": "Active Recovery", "daysOfWeek": ["friday"], "workoutLevel": "beginner", "workoutGoal": "hypertrophy" }
+      ]
+    }
+  ],
+  "userWorkouts": [
+    {
+      "_comment": "Sarah's 3x Full Body sessions (Mar-Apr 2026)",
+      "sessions": [
+        {
+          "workoutName": "Full Body Strength",
+          "programName": "3x Full Body",
+          "dateCompleted": "2026-04-07T07:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "squat", "sets": [
+              { "reps": 8, "weight": 40, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 40, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 42, "order": 3, "isCompleted": true },
+              { "reps": 6, "weight": 42, "order": 4, "isCompleted": true },
+              { "reps": 6, "weight": 45, "order": 5, "isCompleted": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 16, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 18, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 18, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 16, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 18, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 18, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 12, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 12, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 12, "weight": 40, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 40, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 42, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 12, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Full Body Hypertrophy",
+          "programName": "3x Full Body",
+          "dateCompleted": "2026-04-09T07:30:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "dumbbell deadlift", "sets": [
+              { "reps": 10, "weight": 20, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 22, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 22, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 24, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 15, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 13, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 11, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "pullup", "sets": [
+              { "reps": 5, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 4, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 4, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 3, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 12, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 15, "weight": 5, "order": 1, "isCompleted": true },
+              { "reps": 15, "weight": 5, "order": 2, "isCompleted": true },
+              { "reps": 14, "weight": 5, "order": 3, "isCompleted": true },
+              { "reps": 13, "weight": 6, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 12, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 20, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 18, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 16, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Full Body Strength",
+          "programName": "3x Full Body",
+          "dateCompleted": "2026-04-11T07:15:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "squat", "sets": [
+              { "reps": 8, "weight": 42, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 42, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 45, "order": 3, "isCompleted": true },
+              { "reps": 7, "weight": 45, "order": 4, "isCompleted": true },
+              { "reps": 6, "weight": 45, "order": 5, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 18, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 18, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 18, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 20, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 18, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 18, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 18, "order": 3, "isCompleted": true },
+              { "reps": 9, "weight": 20, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 12, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 12, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 12, "weight": 42, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 42, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 45, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 12, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Full Body Strength",
+          "programName": "3x Full Body",
+          "dateCompleted": "2026-03-31T07:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "squat", "sets": [
+              { "reps": 8, "weight": 38, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 38, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 40, "order": 3, "isCompleted": true },
+              { "reps": 6, "weight": 40, "order": 4, "isCompleted": true },
+              { "reps": 5, "weight": 40, "order": 5, "isCompleted": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 16, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 16, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 16, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 16, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 12, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 12, "weight": 35, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 35, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 38, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 12, "weight": 5, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 6, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Full Body Hypertrophy",
+          "programName": "3x Full Body",
+          "dateCompleted": "2026-04-02T07:30:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "dumbbell deadlift", "sets": [
+              { "reps": 10, "weight": 18, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 20, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 20, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 22, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 14, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 12, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 10, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "pullup", "sets": [
+              { "reps": 4, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 4, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 3, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 3, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 12, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 15, "weight": 4, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 5, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 5, "order": 3, "isCompleted": true },
+              { "reps": 12, "weight": 5, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 12, "weight": 5, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 6, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 18, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 16, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 14, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Active Recovery",
+          "programName": "3x Full Body",
+          "dateCompleted": "2026-04-05T09:00:00.000Z",
+          "cardioSets": [
+            { "exerciseName": "spinning", "sets": [
+              { "workTime": 1500, "avgHeartRate": 128, "avgSpeed": 18.5, "distance": 7.5, "caloriesBurned": 260, "order": 1, "isCompleted": true }
+            ]}
+          ],
+          "strengthSets": [
+            { "exerciseName": "dumbbell side bends", "sets": [
+              { "reps": 20, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 18, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 16, "weight": 10, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Full Body Strength",
+          "programName": "3x Full Body",
+          "dateCompleted": "2026-03-23T07:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "squat", "sets": [
+              { "reps": 8, "weight": 35, "order": 1, "isCompleted": true },
+              { "reps": 7, "weight": 35, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 38, "order": 3, "isCompleted": true },
+              { "reps": 6, "weight": 38, "order": 4, "isCompleted": true },
+              { "reps": 5, "weight": 38, "order": 5, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 14, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 16, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 14, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 16, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 10, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 12, "weight": 30, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 32, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 32, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 11, "weight": 5, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 5, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 5, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Full Body Hypertrophy",
+          "programName": "3x Full Body",
+          "dateCompleted": "2026-03-25T07:30:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "dumbbell deadlift", "sets": [
+              { "reps": 10, "weight": 16, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 18, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 18, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 20, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 13, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 11, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 10, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "pullup", "sets": [
+              { "reps": 4, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 3, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 3, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 2, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 12, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 14, "weight": 4, "order": 1, "isCompleted": true },
+              { "reps": 13, "weight": 4, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 5, "order": 3, "isCompleted": true },
+              { "reps": 11, "weight": 5, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 11, "weight": 5, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 5, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 6, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 16, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 14, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 13, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Full Body Strength",
+          "programName": "3x Full Body",
+          "dateCompleted": "2026-03-27T07:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "squat", "sets": [
+              { "reps": 8, "weight": 35, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 38, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 38, "order": 3, "isCompleted": true },
+              { "reps": 6, "weight": 40, "order": 4, "isCompleted": true },
+              { "reps": 6, "weight": 40, "order": 5, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 16, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 16, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 16, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 16, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 12, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 12, "weight": 32, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 35, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 35, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 12, "weight": 5, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 5, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 6, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  "user": {
+    "email": "mike@buffbuddy.com",
+    "firstName": "Mike",
+    "lastName": "Torres",
+    "password": "Demo1234!"
+  },
+  "workouts": [
+    {
+      "name": "Upper Push",
+      "notes": "Chest, shoulders, triceps",
+      "isTemplate": false,
+      "workoutExercises": [
+        { "order": 1, "exerciseName": "incline dumbbell press", "hasWarmup": true, "numberOfSets": 4, "maxNumberOfReps": 10, "restTime": 90 },
+        { "order": 2, "exerciseName": "deficit pushup", "isBodyWeight": true, "numberOfSets": 3, "maxNumberOfReps": 15, "restTime": 60 },
+        { "order": 3, "exerciseName": "standing dumbbell shoulder press", "numberOfSets": 4, "maxNumberOfReps": 10, "restTime": 90 },
+        { "order": 4, "exerciseName": "incline dumbbell flye", "numberOfSets": 3, "maxNumberOfReps": 12, "restTime": 60 },
+        { "order": 5, "exerciseName": "lateral raise", "numberOfSets": 4, "maxNumberOfReps": 15, "restTime": 45 },
+        { "order": 6, "exerciseName": "dumbbell skullcrusher", "numberOfSets": 3, "maxNumberOfReps": 12, "restTime": 60 }
+      ]
+    },
+    {
+      "name": "Upper Pull",
+      "notes": "Back, biceps, rear delts",
+      "isTemplate": false,
+      "workoutExercises": [
+        { "order": 1, "exerciseName": "pullup", "isBodyWeight": true, "hasWarmup": true, "numberOfSets": 4, "maxNumberOfReps": 8, "restTime": 120 },
+        { "order": 2, "exerciseName": "single arm supported dumbbell row", "numberOfSets": 4, "maxNumberOfReps": 10, "restTime": 90 },
+        { "order": 3, "exerciseName": "dumbbell pullover", "numberOfSets": 3, "maxNumberOfReps": 12, "restTime": 60 },
+        { "order": 4, "exerciseName": "bent lateral raise", "numberOfSets": 3, "maxNumberOfReps": 15, "restTime": 45 },
+        { "order": 5, "exerciseName": "dumbbell shrug", "numberOfSets": 3, "maxNumberOfReps": 15, "restTime": 60 },
+        { "order": 6, "exerciseName": "incline dumbbell curl", "numberOfSets": 3, "maxNumberOfReps": 12, "restTime": 60 },
+        { "order": 7, "exerciseName": "dumbbell bench wrist curl", "numberOfSets": 2, "maxNumberOfReps": 20, "restTime": 30 }
+      ]
+    },
+    {
+      "name": "Legs & Core",
+      "notes": "Quad-dominant with core finisher",
+      "isTemplate": false,
+      "workoutExercises": [
+        { "order": 1, "exerciseName": "squat", "hasWarmup": true, "numberOfSets": 5, "maxNumberOfReps": 6, "restTime": 180 },
+        { "order": 2, "exerciseName": "stiff legged deadlift", "numberOfSets": 4, "maxNumberOfReps": 8, "restTime": 120 },
+        { "order": 3, "exerciseName": "split squat", "numberOfSets": 3, "maxNumberOfReps": 12, "restTime": 60 },
+        { "order": 4, "exerciseName": "hip thrust", "numberOfSets": 3, "maxNumberOfReps": 12, "restTime": 60 },
+        { "order": 5, "exerciseName": "stair calves rises", "numberOfSets": 4, "maxNumberOfReps": 20, "restTime": 45 },
+        { "order": 6, "exerciseName": "dumbbell side bends", "numberOfSets": 3, "maxNumberOfReps": 20, "restTime": 30 }
+      ]
+    },
+    {
+      "name": "Conditioning",
+      "notes": "Cardio endurance day",
+      "isTemplate": false,
+      "workoutExercises": [
+        { "order": 1, "exerciseName": "spinning", "numberOfSets": 1, "maxNumberOfReps": 1, "restTime": 0 },
+        { "order": 2, "exerciseName": "recumbent cross trainer", "numberOfSets": 1, "maxNumberOfReps": 1, "restTime": 0 }
+      ]
+    }
+  ],
+  "programs": [
+    {
+      "name": "Upper/Lower 4-Day",
+      "notes": "Classic upper/lower split, 4 days per week with conditioning",
+      "isActive": true,
+      "startDate": "2026-01-15T00:00:00.000Z",
+      "endDate": "2026-07-15T00:00:00.000Z",
+      "programWorkouts": [
+        { "workoutName": "Upper Push", "daysOfWeek": ["monday"], "workoutLevel": "beginner", "workoutGoal": "hypertrophy" },
+        { "workoutName": "Legs & Core", "daysOfWeek": ["tuesday"], "workoutLevel": "beginner", "workoutGoal": "hypertrophy" },
+        { "workoutName": "Upper Pull", "daysOfWeek": ["thursday"], "workoutLevel": "beginner", "workoutGoal": "hypertrophy" },
+        { "workoutName": "Conditioning", "daysOfWeek": ["saturday"], "workoutLevel": "beginner", "workoutGoal": "hypertrophy" }
+      ]
+    },
+    {
+      "name": "Simple Strength",
+      "notes": "3 day beginner program",
+      "isActive": false,
+      "startDate": "2025-09-01T00:00:00.000Z",
+      "endDate": "2026-01-14T00:00:00.000Z",
+      "programWorkouts": [
+        { "workoutName": "Upper Push", "daysOfWeek": ["monday"], "workoutLevel": "beginner", "workoutGoal": "hypertrophy" },
+        { "workoutName": "Legs & Core", "daysOfWeek": ["wednesday"], "workoutLevel": "beginner", "workoutGoal": "hypertrophy" },
+        { "workoutName": "Upper Pull", "daysOfWeek": ["friday"], "workoutLevel": "beginner", "workoutGoal": "hypertrophy" }
+      ]
+    }
+  ],
+  "userWorkouts": [
+    {
+      "_comment": "Mike's Upper/Lower 4-Day sessions (Mar-Apr 2026)",
+      "sessions": [
+        {
+          "workoutName": "Upper Push",
+          "programName": "Upper/Lower 4-Day",
+          "dateCompleted": "2026-04-06T17:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 32, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 32, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 34, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 34, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 20, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 18, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 15, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 10, "weight": 20, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 20, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 22, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 22, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell flye", "sets": [
+              { "reps": 12, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 14, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 15, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 15, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 14, "weight": 10, "order": 3, "isCompleted": true },
+              { "reps": 13, "weight": 12, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 12, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 14, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Legs & Core",
+          "programName": "Upper/Lower 4-Day",
+          "dateCompleted": "2026-04-07T17:30:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "squat", "sets": [
+              { "reps": 6, "weight": 80, "order": 1, "isCompleted": true },
+              { "reps": 6, "weight": 80, "order": 2, "isCompleted": true },
+              { "reps": 5, "weight": 85, "order": 3, "isCompleted": true },
+              { "reps": 5, "weight": 85, "order": 4, "isCompleted": true },
+              { "reps": 4, "weight": 90, "order": 5, "isCompleted": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "stiff legged deadlift", "sets": [
+              { "reps": 8, "weight": 50, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 50, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 55, "order": 3, "isCompleted": true },
+              { "reps": 7, "weight": 55, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 12, "weight": 18, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 18, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 20, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 12, "weight": 60, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 60, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 65, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 20, "weight": 20, "order": 1, "isCompleted": true },
+              { "reps": 20, "weight": 20, "order": 2, "isCompleted": true },
+              { "reps": 18, "weight": 22, "order": 3, "isCompleted": true },
+              { "reps": 16, "weight": 22, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell side bends", "sets": [
+              { "reps": 20, "weight": 16, "order": 1, "isCompleted": true },
+              { "reps": 18, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 16, "weight": 18, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Upper Pull",
+          "programName": "Upper/Lower 4-Day",
+          "dateCompleted": "2026-04-09T17:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "pullup", "sets": [
+              { "reps": 10, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 9, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 8, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 7, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 30, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 30, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 32, "order": 3, "isCompleted": true },
+              { "reps": 9, "weight": 32, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell pullover", "sets": [
+              { "reps": 12, "weight": 20, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 20, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 22, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "bent lateral raise", "sets": [
+              { "reps": 15, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 12, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell shrug", "sets": [
+              { "reps": 15, "weight": 30, "order": 1, "isCompleted": true },
+              { "reps": 15, "weight": 30, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 32, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 12, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 14, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell bench wrist curl", "sets": [
+              { "reps": 20, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 18, "weight": 10, "order": 2, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Conditioning",
+          "programName": "Upper/Lower 4-Day",
+          "dateCompleted": "2026-04-11T10:00:00.000Z",
+          "cardioSets": [
+            { "exerciseName": "spinning", "sets": [
+              { "workTime": 1800, "avgHeartRate": 155, "avgSpeed": 24.0, "distance": 12.0, "caloriesBurned": 420, "order": 1, "isCompleted": true }
+            ]},
+            { "exerciseName": "recumbent cross trainer", "sets": [
+              { "workTime": 1200, "avgHeartRate": 142, "avgSpeed": 8.5, "distance": 2.8, "caloriesBurned": 280, "order": 1, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Upper Push",
+          "programName": "Upper/Lower 4-Day",
+          "dateCompleted": "2026-03-30T17:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 30, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 30, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 32, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 32, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 18, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 16, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 14, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 10, "weight": 18, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 20, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 20, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 20, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell flye", "sets": [
+              { "reps": 12, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 14, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 15, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 15, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 14, "weight": 10, "order": 3, "isCompleted": true },
+              { "reps": 12, "weight": 10, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 12, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 12, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Legs & Core",
+          "programName": "Upper/Lower 4-Day",
+          "dateCompleted": "2026-03-31T17:30:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "squat", "sets": [
+              { "reps": 6, "weight": 75, "order": 1, "isCompleted": true },
+              { "reps": 6, "weight": 78, "order": 2, "isCompleted": true },
+              { "reps": 5, "weight": 80, "order": 3, "isCompleted": true },
+              { "reps": 5, "weight": 80, "order": 4, "isCompleted": true },
+              { "reps": 4, "weight": 85, "order": 5, "isCompleted": true }
+            ]},
+            { "exerciseName": "stiff legged deadlift", "sets": [
+              { "reps": 8, "weight": 45, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 48, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 50, "order": 3, "isCompleted": true },
+              { "reps": 7, "weight": 50, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 12, "weight": 16, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 18, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 12, "weight": 55, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 55, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 58, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 20, "weight": 18, "order": 1, "isCompleted": true },
+              { "reps": 18, "weight": 18, "order": 2, "isCompleted": true },
+              { "reps": 17, "weight": 20, "order": 3, "isCompleted": true },
+              { "reps": 15, "weight": 20, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell side bends", "sets": [
+              { "reps": 20, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 18, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 15, "weight": 16, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Upper Pull",
+          "programName": "Upper/Lower 4-Day",
+          "dateCompleted": "2026-04-02T17:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "pullup", "sets": [
+              { "reps": 9, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 8, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 7, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 6, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 28, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 28, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 30, "order": 3, "isCompleted": true },
+              { "reps": 9, "weight": 30, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell pullover", "sets": [
+              { "reps": 12, "weight": 18, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 18, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 20, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "bent lateral raise", "sets": [
+              { "reps": 15, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell shrug", "sets": [
+              { "reps": 15, "weight": 28, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 28, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 30, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 12, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 12, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell bench wrist curl", "sets": [
+              { "reps": 18, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 16, "weight": 10, "order": 2, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Conditioning",
+          "programName": "Upper/Lower 4-Day",
+          "dateCompleted": "2026-04-04T10:00:00.000Z",
+          "cardioSets": [
+            { "exerciseName": "spinning", "sets": [
+              { "workTime": 1800, "avgHeartRate": 150, "avgSpeed": 23.0, "distance": 11.5, "caloriesBurned": 400, "order": 1, "isCompleted": true }
+            ]},
+            { "exerciseName": "recumbent cross trainer", "sets": [
+              { "workTime": 1200, "avgHeartRate": 138, "avgSpeed": 8.0, "distance": 2.6, "caloriesBurned": 260, "order": 1, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Upper Push",
+          "programName": "Upper/Lower 4-Day",
+          "dateCompleted": "2026-03-23T17:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 28, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 30, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 30, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 30, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 17, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 15, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 13, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 10, "weight": 18, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 18, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 18, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 20, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell flye", "sets": [
+              { "reps": 12, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 12, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 12, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 15, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 8, "order": 3, "isCompleted": true },
+              { "reps": 12, "weight": 10, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 12, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 12, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Legs & Core",
+          "programName": "Upper/Lower 4-Day",
+          "dateCompleted": "2026-03-24T17:30:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "squat", "sets": [
+              { "reps": 6, "weight": 72, "order": 1, "isCompleted": true },
+              { "reps": 6, "weight": 75, "order": 2, "isCompleted": true },
+              { "reps": 5, "weight": 78, "order": 3, "isCompleted": true },
+              { "reps": 5, "weight": 78, "order": 4, "isCompleted": true },
+              { "reps": 4, "weight": 80, "order": 5, "isCompleted": true, "isMuscleFailure": true }
+            ]},
+            { "exerciseName": "stiff legged deadlift", "sets": [
+              { "reps": 8, "weight": 42, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 45, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 45, "order": 3, "isCompleted": true },
+              { "reps": 6, "weight": 48, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 12, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 16, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 12, "weight": 52, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 52, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 55, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 20, "weight": 16, "order": 1, "isCompleted": true },
+              { "reps": 18, "weight": 18, "order": 2, "isCompleted": true },
+              { "reps": 16, "weight": 18, "order": 3, "isCompleted": true },
+              { "reps": 15, "weight": 18, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell side bends", "sets": [
+              { "reps": 20, "weight": 12, "order": 1, "isCompleted": true },
+              { "reps": 17, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 15, "weight": 14, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "_comment": "Mike's Simple Strength sessions (Dec 2025)",
+      "sessions": [
+        {
+          "workoutName": "Upper Push",
+          "programName": "Simple Strength",
+          "dateCompleted": "2025-12-01T18:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 22, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 22, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 24, "order": 3, "isCompleted": true },
+              { "reps": 7, "weight": 24, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 14, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 12, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 10, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 10, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 16, "order": 3, "isCompleted": true },
+              { "reps": 7, "weight": 16, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell flye", "sets": [
+              { "reps": 12, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 14, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 13, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 6, "order": 3, "isCompleted": true },
+              { "reps": 11, "weight": 8, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 12, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 8, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Legs & Core",
+          "programName": "Simple Strength",
+          "dateCompleted": "2025-12-03T18:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "squat", "sets": [
+              { "reps": 6, "weight": 60, "order": 1, "isCompleted": true },
+              { "reps": 6, "weight": 60, "order": 2, "isCompleted": true },
+              { "reps": 5, "weight": 65, "order": 3, "isCompleted": true },
+              { "reps": 5, "weight": 65, "order": 4, "isCompleted": true },
+              { "reps": 4, "weight": 65, "order": 5, "isCompleted": true }
+            ]},
+            { "exerciseName": "stiff legged deadlift", "sets": [
+              { "reps": 8, "weight": 35, "order": 1, "isCompleted": true },
+              { "reps": 8, "weight": 35, "order": 2, "isCompleted": true },
+              { "reps": 7, "weight": 38, "order": 3, "isCompleted": true },
+              { "reps": 6, "weight": 38, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "split squat", "sets": [
+              { "reps": 10, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 12, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "hip thrust", "sets": [
+              { "reps": 12, "weight": 40, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 40, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 42, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "stair calves rises", "sets": [
+              { "reps": 18, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 16, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 14, "weight": 12, "order": 3, "isCompleted": true },
+              { "reps": 13, "weight": 12, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell side bends", "sets": [
+              { "reps": 18, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 15, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 14, "weight": 12, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Upper Pull",
+          "programName": "Simple Strength",
+          "dateCompleted": "2025-12-05T18:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "pullup", "sets": [
+              { "reps": 7, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 6, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 5, "weight": 0, "order": 4, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "single arm supported dumbbell row", "sets": [
+              { "reps": 10, "weight": 22, "order": 1, "isCompleted": true },
+              { "reps": 9, "weight": 22, "order": 2, "isCompleted": true },
+              { "reps": 8, "weight": 24, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 24, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell pullover", "sets": [
+              { "reps": 12, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 14, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 16, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "bent lateral raise", "sets": [
+              { "reps": 13, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 8, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell shrug", "sets": [
+              { "reps": 15, "weight": 22, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 22, "order": 2, "isCompleted": true },
+              { "reps": 12, "weight": 24, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell curl", "sets": [
+              { "reps": 12, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell bench wrist curl", "sets": [
+              { "reps": 16, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 6, "order": 2, "isCompleted": true }
+            ]}
+          ]
+        },
+        {
+          "workoutName": "Upper Push",
+          "programName": "Simple Strength",
+          "dateCompleted": "2025-12-08T18:00:00.000Z",
+          "strengthSets": [
+            { "exerciseName": "incline dumbbell press", "sets": [
+              { "reps": 10, "weight": 24, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 24, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 24, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 26, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "deficit pushup", "sets": [
+              { "reps": 15, "weight": 0, "order": 1, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 13, "weight": 0, "order": 2, "isCompleted": true, "isBodyWeight": true },
+              { "reps": 11, "weight": 0, "order": 3, "isCompleted": true, "isBodyWeight": true }
+            ]},
+            { "exerciseName": "standing dumbbell shoulder press", "sets": [
+              { "reps": 10, "weight": 14, "order": 1, "isCompleted": true },
+              { "reps": 10, "weight": 16, "order": 2, "isCompleted": true },
+              { "reps": 9, "weight": 16, "order": 3, "isCompleted": true },
+              { "reps": 8, "weight": 16, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "incline dumbbell flye", "sets": [
+              { "reps": 12, "weight": 10, "order": 1, "isCompleted": true },
+              { "reps": 12, "weight": 10, "order": 2, "isCompleted": true },
+              { "reps": 11, "weight": 10, "order": 3, "isCompleted": true }
+            ]},
+            { "exerciseName": "lateral raise", "sets": [
+              { "reps": 15, "weight": 6, "order": 1, "isCompleted": true },
+              { "reps": 14, "weight": 6, "order": 2, "isCompleted": true },
+              { "reps": 13, "weight": 8, "order": 3, "isCompleted": true },
+              { "reps": 12, "weight": 8, "order": 4, "isCompleted": true }
+            ]},
+            { "exerciseName": "dumbbell skullcrusher", "sets": [
+              { "reps": 12, "weight": 8, "order": 1, "isCompleted": true },
+              { "reps": 11, "weight": 8, "order": 2, "isCompleted": true },
+              { "reps": 10, "weight": 10, "order": 3, "isCompleted": true }
+            ]}
+          ]
+        }
+      ]
+    }
+  ]
+}]

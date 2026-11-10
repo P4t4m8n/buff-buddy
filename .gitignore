@@ -14,3 +14,4 @@ backend/cert/server.key
 diet-products.json
 a.json
 backend/prisma/workouts.seed.json
+backend/prisma/generated/

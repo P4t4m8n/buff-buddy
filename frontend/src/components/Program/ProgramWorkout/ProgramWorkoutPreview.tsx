@@ -9,6 +9,7 @@ import Tag from "../../UI/Tag";
 //Types
 import type { IProgramWorkoutDTO } from "../../../../../shared/models/program.model";
 import type { IWorkoutExerciseDTO } from "../../../../../shared/models/workout.model";
+import type { IWorkoutEditModelProps } from "@/models/model.model";
 
 interface IProgramWorkoutPreviewProps {
   item: IProgramWorkoutDTO;
@@ -60,9 +61,9 @@ export default function ProgramWorkoutPreview({
       />
 
       <div className="gap-2 inline-flex justify-between shadow-border-t mt-2 pt-2">
-        <GenericModel
+        <GenericModel<any, IWorkoutEditModelProps>
           Model={WorkoutEditModel}
-          modelProps={{ workout }}
+          modelProps={{ workoutId: id }}
           mode="edit"
           buttonProps={{ buttonStyle: "model" }}
         />
@@ -90,24 +91,24 @@ export default function ProgramWorkoutPreview({
 }
 
 const getCarouselArrays = (
-  workoutExercises: IWorkoutExerciseDTO[] | undefined
+  workoutExercises: IWorkoutExerciseDTO[] | undefined,
 ) => {
   const cleanedTypesUsed = mapToSet(
     workoutExercises ?? [],
-    (we) => we.exercise?.type
+    (we) => we.exercise?.type,
   );
 
   const cleanedMusclesUsed = mapToSet(workoutExercises ?? [], (we) =>
-    we.exercise?.muscles?.map((m) => m.name)
+    we.exercise?.muscles?.map((m) => m.name),
   );
 
   const cleanedEquipmentUsed = mapToSet(workoutExercises ?? [], (we) =>
-    we.exercise?.equipment?.map((m) => m.name)
+    we.exercise?.equipment?.map((m) => m.name),
   );
 
   const cleanedWorkoutExercises = mapToSet(
     workoutExercises ?? [],
-    (we) => we.exercise?.name
+    (we) => we.exercise?.name,
   );
 
   return {
@@ -121,14 +122,14 @@ const getCarouselArrays = (
 //INFO: TS is annoying because of optional values added filter to shut it up
 const mapToSet = <T, P>(
   arr: T[],
-  mapCallBack: (value: T, index: number, array: T[]) => string | P
+  mapCallBack: (value: T, index: number, array: T[]) => string | P,
 ) => {
   return [
     ...new Set(
       arr
         .map(mapCallBack)
         .flat()
-        .filter((i) => !!i)
+        .filter((i) => !!i),
     ),
   ] as string[];
 };
