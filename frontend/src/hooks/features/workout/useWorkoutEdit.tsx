@@ -4,6 +4,8 @@ import { workoutService } from "../../../services/workout.service";
 //Hooks
 import { useItemEdit } from "../../shared/useItemEdit";
 import { useWorkoutIdQuery } from "./useWorkoutIdQuery";
+//Validation
+import { workoutValidation } from "../../../../../shared/validations/workout.validations";
 //Utils
 import { workoutUtil } from "../../../utils/workout.util";
 import { formUtil } from "../../../utils/form.util";
@@ -110,7 +112,16 @@ export const useWorkoutEdit = ({ workoutId, isCopy }: IUseWorkoutEditProps) => {
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    formUtil.handleInputChange(e, setWorkoutToEdit);
+    const factory = workoutToEdit?.id?.startsWith("temp")
+      ? workoutValidation.createFactorySchema
+      : workoutValidation.updateFactorySchema;
+
+    formUtil.onInputChangeWithValidation({
+      event: e,
+      setStateToEdit: setWorkoutToEdit,
+      factory,
+      setSingleFiledError,
+    });
   };
 
   const saveWorkout = async () => {

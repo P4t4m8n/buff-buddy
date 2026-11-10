@@ -86,17 +86,17 @@ const QuerySchema = validationUtil.FilterSchema.extend({
     .optional(),
 });
 
-export const workoutValidation: IValidation<
+export const workoutValidation = {
+  createFactorySchema,
+  updateFactorySchema,
+  QuerySchema,
+} satisfies IValidation<
   IWorkoutEditDTO,
   IWorkoutFilter,
   TWorkoutCreateValidatedInput,
   TWorkoutUpdateValidatedInput,
   TWorkoutQuery
-> = {
-  createFactorySchema,
-  updateFactorySchema,
-  QuerySchema,
-};
+>;
 
 export type TWorkoutCreateValidatedInput = z.infer<
   ReturnType<typeof createFactorySchema>

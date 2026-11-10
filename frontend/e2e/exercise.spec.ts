@@ -2,8 +2,9 @@ import { test, expect, type Page } from "@playwright/test";
 import  toTitle  from "../src/utils/toTitle";
 const API_URL = "http://localhost:3030/api/v1";
 
-// Test user credentials – created once per test file run
-const TEST_EMAIL = `e2e-exercise-${Date.now()}@test.com`;
+// Test user credentials – created once per worker. The random suffix keeps
+// parallel workers that load this file in the same millisecond from colliding.
+const TEST_EMAIL = `e2e-exercise-${Date.now()}-${Math.random().toString(36).slice(2, 8)}@test.com`;
 const TEST_PASSWORD = "TestPass1";
 const TEST_FIRST_NAME = "ExTest";
 const TEST_LAST_NAME = "User";
@@ -44,7 +45,9 @@ async function apiCreateExercise(
 ) {
   const res = await page.request.post(`${API_URL}/exercises/edit`, {
     data: {
-      name: `e2e-exercise-${Date.now()}`,
+      // Exercise names are unique in the DB – the random suffix keeps parallel
+      // workers that create one in the same millisecond from colliding
+      name: `e2e-exercise-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       youtubeUrl: YOUTUBE_URL,
       type: "strength",
       isCompounded: true,

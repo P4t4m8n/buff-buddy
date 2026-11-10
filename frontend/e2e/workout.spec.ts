@@ -4,7 +4,9 @@ import toTitle from "../src/utils/toTitle";
 const API_URL = "http://localhost:3030/api/v1";
 
 // Test user credentials – created once per test file run
-const TEST_EMAIL = `e2e-workout-${Date.now()}@test.com`;
+// The random suffix keeps parallel workers that load this file in the same
+// millisecond from colliding.
+const TEST_EMAIL = `e2e-workout-${Date.now()}-${Math.random().toString(36).slice(2, 8)}@test.com`;
 const TEST_PASSWORD = "TestPass1";
 const TEST_FIRST_NAME = "WoTest";
 const TEST_LAST_NAME = "User";
@@ -41,7 +43,9 @@ async function apiCreateExercise(
 ) {
   const res = await page.request.post(`${API_URL}/exercises/edit`, {
     data: {
-      name: `e2e-wo-exercise-${Date.now()}`,
+      // Exercise names are unique in the DB, so the random suffix keeps parallel
+      // workers that create one in the same millisecond from colliding
+      name: `e2e-wo-exercise-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       youtubeUrl: "https://www.youtube.com/watch?v=rT7DgCr-3pg",
       type: "strength",
       isCompounded: true,
@@ -105,7 +109,9 @@ async function apiDeleteWorkout(page: Page, workoutId: string) {
 /** Navigate to workout list page and wait for it to load */
 async function goToWorkoutList(page: Page) {
   await page.goto("/workouts/workout-list");
-  await expect(page.getByRole("heading", { name: "Workout" })).toBeVisible({
+  await expect(
+    page.getByRole("heading", { name: "Workout", exact: true }),
+  ).toBeVisible({
     timeout: 10000,
   });
 }
@@ -169,7 +175,9 @@ test.describe("Workout list page", () => {
   }) => {
     await goToWorkoutList(page);
 
-    await expect(page.getByRole("heading", { name: "Workout" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Workout", exact: true }),
+    ).toBeVisible();
 
     // The "add new" link to /workouts/edit
     const addLink = page.locator("a[href='/workouts/edit']");
@@ -294,9 +302,11 @@ test.describe("Workout create", () => {
   });
 
   test("successfully creates a workout", async ({ page }) => {
-    const workoutName = toTitle(`E2e create wo ${Date.now()}`);
+    const workoutName = `E2e create wo ${Date.now()}`;
 
-    await page.goto("/workouts/edit");
+    // Enter through the list so the post-save "navigate back" has somewhere to go
+    await goToWorkoutList(page);
+    await page.locator("a[href='/workouts/edit']").click();
 
     await expect(page.locator("form input[name='name']")).toBeVisible({
       timeout: 5000,
@@ -308,67 +318,75 @@ test.describe("Workout create", () => {
     // Fill notes
     await page.locator("textarea[name='notes']").fill("E2e test notes");
 
-    // Click "Add Exercise" to open the exercise selection modal
+    // "Add Exercise" opens the workout-exercise modal, which immediately opens
+    // the exercise picker on top of it
     await page.getByRole("button", { name: "Add Exercise" }).click();
 
-    // The modal should show an exercise list to choose from
-    // Wait for exercises to load in the modal
-    await page.waitForTimeout(1000);
+    const picker = page.locator("section").filter({
+      has: page.getByRole("heading", { name: "Exercise Edit" }),
+    });
+    await expect(picker).toBeVisible({ timeout: 5000 });
 
-    // Select the first exercise from the list
-    const exerciseItem = page.locator("ul li").first();
+    // Find the test exercise through the picker's own filter
+    await picker.locator("form button[type='button']").first().click();
+    await picker.locator("input#name-generic-filter").fill(testExercise.name);
+    await picker.getByRole("button", { name: "Search" }).click();
 
-    // If the exercise isn't visible right away, filter for it
-    const isVisible = await exerciseItem.isVisible().catch(() => false);
+    const exerciseTitle = toTitle(testExercise.name);
+    await picker
+      .locator("ul li")
+      .filter({ hasText: exerciseTitle })
+      .getByRole("button", { name: "Select" })
+      .click();
 
-    if (!isVisible) {
-      // Filter exercises in the modal
-      const modalFilterToggle = page
-        .locator("form button[type='button']")
-        .first();
-      await modalFilterToggle.click();
-      await page
-        .locator("input#name-generic-filter")
-        .fill(toTitle("e2e-wo-exercise"));
-      await page.getByRole("button", { name: "Search" }).click();
-    }
+    // Back in the workout-exercise modal: fill the required numbers
+    await expect(picker).not.toBeVisible();
+    await page.locator("input[name='numberOfSets']").fill("3");
+    await page.locator("input[name='maxNumberOfReps']").fill("10");
+    await page.locator("input[name='restTime']").fill("60");
 
-    // Click the select button on the exercise card
-    await page.locator("ul li").first().locator("button").last().click();
+    // Save the exercise into the workout (the modal's Save is type="button",
+    // the workout form's Save is type="submit")
+    await page
+      .locator("button[type='button']")
+      .filter({ hasText: /^Save$/ })
+      .click();
 
-    await page.getByRole("button", { name: "Save" }).first().click();
-    // After selecting, we should be back in the workout edit form
-    // The exercise should appear in the workout exercises list
-    await expect(page.locator("input[name='name']")).toHaveValue(
-      workoutName,
-      {
-        timeout: 5000,
-      },
-    );
+    // Modal closes and the exercise shows up in the workout's exercise list
+    await expect(page.locator("input[name='numberOfSets']")).not.toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: exerciseTitle }),
+    ).toBeVisible({ timeout: 5000 });
+    await expect(page.locator("input[name='name']")).toHaveValue(workoutName);
 
-    // Save
+    // Save the workout
+    await page.getByRole("button", { name: "Save", exact: true }).click();
 
     // Should navigate away from edit page
-    await expect(page.locator("form input[name='name']")).toBeVisible({
+    await expect(page.locator("form input[name='name']")).not.toBeVisible({
       timeout: 10000,
     });
 
-    // Verify by searching in workout list
-    await goToWorkoutList(page);
-    await filterWorkouts(page, 'e2e');
+    try {
+      // Verify by searching in workout list
+      await goToWorkoutList(page);
+      await filterWorkouts(page, workoutName);
 
-    await expect(page.getByText(new RegExp(workoutName, "i"))).toBeVisible({
-      timeout: 5000,
-    });
-
-    // Cleanup
-    const listRes = await page.request.get(
-      `${API_URL}/workouts?workoutName=${workoutName}`,
-    );
-    const listBody = await listRes.json();
-    const created = listBody?.data?.[0];
-    if (created?.id) {
-      await apiDeleteWorkout(page, created.id);
+      await expect(
+        page.getByText(new RegExp(toTitle(workoutName), "i")),
+      ).toBeVisible({
+        timeout: 5000,
+      });
+    } finally {
+      // Cleanup
+      const listRes = await page.request.get(
+        `${API_URL}/workouts?workoutName=${encodeURIComponent(workoutName)}`,
+      );
+      const listBody = await listRes.json();
+      const created = listBody?.data?.[0];
+      if (created?.id) {
+        await apiDeleteWorkout(page, created.id);
+      }
     }
   });
 
@@ -454,11 +472,13 @@ test.describe("Workout update", () => {
         timeout: 10000,
       });
 
-      // Verify updated name in list
+      // Verify updated name in list (cards render names through toTitle)
       await goToWorkoutList(page);
       await filterWorkouts(page, updatedName);
 
-      await expect(page.getByText(new RegExp(updatedName, "i"))).toBeVisible({
+      await expect(
+        page.getByText(new RegExp(toTitle(updatedName), "i")),
+      ).toBeVisible({
         timeout: 5000,
       });
     } finally {
@@ -481,19 +501,22 @@ test.describe("Workout delete", () => {
     await goToWorkoutList(page);
     await filterWorkouts(page, workoutName);
 
-    await expect(page.getByText(new RegExp(workoutName, "i"))).toBeVisible({
+    // Cards render names through toTitle
+    const displayedName = new RegExp(toTitle(workoutName), "i");
+
+    await expect(page.getByText(displayedName)).toBeVisible({
       timeout: 5000,
     });
 
     // Click the delete button on the workout card
     const workoutCard = page.locator("ul li").filter({
-      hasText: new RegExp(workoutName, "i"),
+      hasText: displayedName,
     });
     const deleteBtn = workoutCard.locator("button").last();
     await deleteBtn.click();
 
     // Workout should disappear
-    await expect(page.getByText(new RegExp(workoutName, "i"))).not.toBeVisible({
+    await expect(page.getByText(displayedName)).not.toBeVisible({
       timeout: 10000,
     });
   });
@@ -542,14 +565,22 @@ test.describe("Workout template toggle", () => {
       timeout: 5000,
     });
 
-    // Should show "Private" by default
-    await expect(page.getByText("Private")).toBeVisible();
+    // The "Private" / "Template" text is CSS ::after content on the label, so
+    // it is not in the DOM. Assert on the label and the checkbox state instead.
+    const templateSwitch = page.locator("input[name='isTemplate']");
+    const templateLabel = page.locator(
+      "label[data-after-inactive='Private'][data-after-active='Template']",
+    );
 
-    // Click the template switch
-    await page.locator("input[name='isTemplate']").click({ force: true });
+    // Private by default
+    await expect(templateLabel).toBeVisible();
+    await expect(templateSwitch).not.toBeChecked();
 
-    // Should now show "Template"
-    await expect(page.getByText("Template")).toBeVisible();
+    // The checkbox itself is hidden, so toggle it through its label
+    await templateLabel.click();
+
+    // Now a template
+    await expect(templateSwitch).toBeChecked();
   });
 });
 
