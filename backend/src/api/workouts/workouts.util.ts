@@ -48,7 +48,10 @@ const buildWhereClause = (
     where.isTemplate = filter.isTemplate;
   }
 
-  if (userId) where.ownerId = userId;
+  //INFO: A workout is visible to its owner, or to everyone when it is public (isTemplate)
+  if (userId) {
+    where.OR = [{ ownerId: userId }, { isTemplate: true }];
+  }
   return where;
 };
 const buildDTO = (workout: IWorkout): IWorkoutDTO => ({
