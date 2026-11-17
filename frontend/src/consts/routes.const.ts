@@ -48,12 +48,14 @@ export const WORKOUT_ROUTES = {
 };
 
 const PROFILE_PAGE_ROUTE = "/profile";
+const PROFILE_EDIT_ROUTE = "/profile/edit";
 const PROFILE_WORKOUT_ROUTE = "/profile/workouts";
 const PROFILE_EXERCISE_ROUTE = "/profile/exercises";
 const PROFILE_PROGRAM_ROUTE = "/profile/programs";
 
 export const PROFILE_ROUTES = {
   PROFILE_PAGE_ROUTE,
+  PROFILE_EDIT_ROUTE,
   PROFILE_WORKOUT_ROUTE,
   PROFILE_EXERCISE_ROUTE,
   PROFILE_PROGRAM_ROUTE,

@@ -1,21 +1,9 @@
-import { INITIAL_FILTERS } from "@/consts/filters.consts";
-import { useExercisesQuery } from "@/hooks/features/exercise/useExerciseQuery";
-import { useGenericPage } from "@/hooks/shared/useGenericPage";
-import { exerciseService } from "@/services/exercise.service";
-import type {
-  IExerciseDTO,
-  IExerciseFilter,
-} from "@shared/models/exercise.model";
 import GenericList from "@/components/UI/GenericList";
 import {
   type IUserWorkoutExerciseDTO,
-  type IUserWorkoutExercisesDTO,
   type IUserWorkoutExercisesPayload,
 } from "@shared/models/userWorkout";
-import { QUERY_KEYS } from "@/consts/queryKeys.consts";
 import NoListItems from "@/components/UI/NoListItems";
-import PageHeader from "@/components/UI/PageHeader";
-import { Line } from "react-chartjs-2";
 import { useEffect, useState } from "react";
 import { apiService } from "@/services/api.service";
 import getTempId from "@shared/utils/getTempId";
@@ -94,7 +82,7 @@ export default function ProfileExercisePage() {
   );
 }
 
-function UserProfilePreview({ item }: { item: IUserWorkoutExerciseDTO [] }) {
+function UserProfilePreview(_: { item: IUserWorkoutExerciseDTO [] }) {
 
   return (
     <section>

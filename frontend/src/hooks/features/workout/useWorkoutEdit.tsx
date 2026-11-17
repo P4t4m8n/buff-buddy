@@ -30,7 +30,6 @@ export const useWorkoutEdit = ({ workoutId, isCopy }: IUseWorkoutEditProps) => {
     itemToEdit: workoutToEdit,
     setItemToEdit: setWorkoutToEdit,
     mutateAsync,
-    mutationErrors,
     queryError,
     isLoading,
     isSaving,

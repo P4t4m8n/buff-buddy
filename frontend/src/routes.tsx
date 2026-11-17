@@ -22,6 +22,7 @@ import type { ReactNode } from "react";
 import ProfileWorkoutPage from "./pages/Profile/ProfileWorkoutPage";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import ProfileExercisePage from "./pages/Profile/ProfileExercisePage";
+import ProfileEditPage from "./pages/Profile/ProfileEditPage";
 
 interface RouteConfig {
   path: string;
@@ -41,6 +42,10 @@ const PROFILE_ROUTES: RouteConfig[] = [
   {
     path: ROUTES_STORE.PROFILE_PAGE_ROUTE,
     element: <ProfilePage />,
+  },
+  {
+    path: ROUTES_STORE.PROFILE_EDIT_ROUTE,
+    element: <ProfileEditPage />,
   },
   {
     path: ROUTES_STORE.PROFILE_WORKOUT_ROUTE,

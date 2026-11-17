@@ -255,6 +255,45 @@ describe("Auth API", () => {
     });
   });
 
+  describe("PUT /api/v1/auth/update-user", () => {
+    it("should update the session user's name", async () => {
+      const { user, token } = testUsers[0];
+
+      const res = await request(app)
+        .put("/api/v1/auth/update-user")
+        .set("Cookie", `token=${token}`)
+        .send({ firstName: "Updated", lastName: "Name" });
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.id).toBe(user.id);
+      expect(res.body.data.firstName).toBe("updated");
+      expect(res.body.data.lastName).toBe("name");
+
+      const sessionRes = await request(app)
+        .get("/api/v1/auth/session-user")
+        .set("Cookie", `token=${token}`);
+      expect(sessionRes.body.data.firstName).toBe("updated");
+    });
+
+    it("should reject an empty name", async () => {
+      const res = await request(app)
+        .put("/api/v1/auth/update-user")
+        .set("Cookie", `token=${testUsers[0].token}`)
+        .send({ firstName: "", lastName: "Name" });
+
+      expect(res.status).toBe(400);
+      expect(res.body.errors.firstName).toBeDefined();
+    });
+
+    it("should return 401 if not authenticated", async () => {
+      const res = await request(app)
+        .put("/api/v1/auth/update-user")
+        .send({ firstName: "No", lastName: "Session" });
+
+      expect(res.status).toBe(401);
+    });
+  });
+
   describe("DELETE /api/v1/auth/delete-user/:id", () => {
     it("should return 403 when deleting another user", async () => {
       const otherUser = testUsers[0].user;

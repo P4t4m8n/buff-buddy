@@ -13,4 +13,5 @@ authRoutes.post("/sign-out", requireAuth, authController.signOut);
 authRoutes.get("/google/callback", authController.googleCallback);
 authRoutes.get("/session-user", authController.getSessionUser);
 
+authRoutes.put("/update-user", requireAuth, authController.updateUser);
 authRoutes.delete("/delete-user/:id", requireAuth, authController.deleteUser);

@@ -125,6 +125,33 @@ const googleCallback = async (req: Request, res: Response) => {
   }
 };
 
+const updateUser = async (req: Request, res: Response) => {
+  try {
+    const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
+
+    if (!userId) {
+      throw AppError.create("User not authenticated", 401);
+    }
+
+    const validateData = authValidation
+      .updateUserFactorySchema({ toSanitize: true })
+      .parse(req.body);
+
+    const user = await authService.updateUser(userId, validateData);
+
+    res.status(200).json({
+      message: "User updated successfully",
+      data: user,
+    });
+  } catch (error) {
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
+    });
+  }
+};
+
 const deleteUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -217,5 +244,6 @@ export const authController = {
   signOut,
   getSessionUser,
   googleCallback,
+  updateUser,
   deleteUser,
 };

@@ -65,7 +65,7 @@ export default function ProgramEditInputs({
             className: "h-10 pl-2",
           }}
           labelProps={{
-            htmlFor: "name" + programId,
+            htmlFor: "name-" + programId,
             children: "Program Name",
             isMoveUpEffect: true,
           }}

@@ -25,7 +25,6 @@ export const useProgramEdit = (programId?: string) => {
     itemToEdit: programToEdit,
     setItemToEdit: setProgramToEdit,
     mutateAsync,
-    mutationErrors,
     queryError,
     isLoading,
     isSaving,
@@ -39,7 +38,7 @@ export const useProgramEdit = (programId?: string) => {
     getEmpty: programUtil.getEmpty,
   });
 
-  const { handleError } = useErrors<IProgramDTO>();
+  const { handleError, errors } = useErrors<IProgramEditDTO>();
 
   useEffect(() => {
     if (queryError) handleError({ error: queryError, emitToToast: true });
@@ -54,14 +53,18 @@ export const useProgramEdit = (programId?: string) => {
   };
 
   const saveProgram = async () => {
-    if (!programToEdit) return false;
-    const ownerId = useAuthStore.getState().user?.id || null;
+    try {
+      if (!programToEdit) return false;
+      const ownerId = useAuthStore.getState().user?.id || null;
 
-    programToEdit.ownerId = ownerId;
-    const { data } = await mutateAsync(programToEdit);
+      programToEdit.ownerId = ownerId;
+      const { data } = await mutateAsync(programToEdit);
 
-    const { id } = data;
-    return id;
+      const { id } = data;
+      return id;
+    } catch (error) {
+      handleError({ error, emitToToast: false });
+    }
   };
 
   const handleProgramWorkouts = (programWorkout: IProgramWorkoutEditDTO) => {
@@ -116,7 +119,7 @@ export const useProgramEdit = (programId?: string) => {
     programToEdit,
     isSaving,
     isLoading,
-    mutationErrors,
+    mutationErrors: errors,
     handleDateSelect,
     saveProgram,
     handleInputChange,

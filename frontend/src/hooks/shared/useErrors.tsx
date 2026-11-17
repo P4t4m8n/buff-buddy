@@ -23,15 +23,7 @@ export const useErrors = <T extends object>() => {
       if (emitToToast) {
         emitEvent({
           type: "error",
-          cmp: (
-            <ToastError
-              error={
-                error instanceof Error
-                  ? error.message
-                  : "An unexpected error occurred"
-              }
-            />
-          ),
+          cmp: <ToastError error={getErrorMessage(error)} />,
         });
       }
       if (error instanceof ZodError) {
@@ -99,4 +91,14 @@ export const useErrors = <T extends object>() => {
     handleError,
     setSingleFiledError,
   };
+};
+
+//INFO: A ZodError's message is the raw JSON of its issues, so show the issue messages instead
+const getErrorMessage = (error: unknown): string => {
+  if (error instanceof ZodError) {
+    return [...new Set(error.issues.map((issue) => issue.message))].join(" ");
+  }
+  if (error instanceof Error) return error.message;
+  if (typeof error === "string") return error;
+  return "An unexpected error occurred";
 };

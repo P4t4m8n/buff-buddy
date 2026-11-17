@@ -7,6 +7,7 @@ import type { IUserDTO } from "../../../shared/models/user.model";
 import type {
   TSignUpInput,
   TSignInInput,
+  TUpdateUserInput,
 } from "../../../shared/validations/auth.validation";
 
 interface IAuthStore {
@@ -15,6 +16,7 @@ interface IAuthStore {
   signIn: (dto: TSignInInput) => Promise<void>;
   signUp: (dto: TSignUpInput) => Promise<void>;
   signOut: () => Promise<void>;
+  updateUser: (dto: TUpdateUserInput) => Promise<void>;
   setUser: (user?: IUserDTO | null) => void;
 }
 
@@ -52,6 +54,16 @@ export const useAuthStore = create<IAuthStore>((set) => ({
       set({ isLoadingAuth: true });
       await authService.signOut();
       set({ user: null });
+    } finally {
+      set({ isLoadingAuth: false });
+    }
+  },
+
+  updateUser: async (dto: TUpdateUserInput) => {
+    try {
+      set({ isLoadingAuth: true });
+      const { data: user } = await authService.updateUser(dto);
+      set((state) => ({ user: { ...state.user, ...user } }));
     } finally {
       set({ isLoadingAuth: false });
     }

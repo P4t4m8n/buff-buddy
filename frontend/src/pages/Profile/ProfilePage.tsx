@@ -30,10 +30,6 @@ export default function ProfilePage() {
     { name: "workout", link: "workouts" },
     { name: "program", link: "/programs" },
   ];
-  const profileControlsLinks = [
-    { name: "subscription", link: "/subscriptions" },
-    { name: "setting", link: "/settings" },
-  ];
   return (
     <section className="h-main w-full grid grid-rows-[3.5rem_7rem_14rem_auto] grid-cols-1 gap-y-4 pb-4">
       <PageHeader pageName={`${firstName} profile`} />

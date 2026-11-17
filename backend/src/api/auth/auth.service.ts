@@ -12,6 +12,7 @@ import type {
   TSignUpInput,
   TSignInInput,
   TGoogleOAuthInput,
+  TUpdateUserInput,
 } from "../../../../shared/validations/auth.validation";
 import type { IUser } from "../users/users.model";
 import type { TAuthRecordResponse } from "./auth.model";
@@ -123,6 +124,16 @@ const validateToken = async (token: string) => {
     select: userSQL.SMALL_USER_SELECT,
   });
 };
+const updateUser = async (
+  userId: string,
+  dto: TUpdateUserInput
+): Promise<IUser> => {
+  return (await prisma.user.update({
+    where: { id: userId },
+    data: { firstName: dto.firstName, lastName: dto.lastName },
+    select: userSQL.SMALL_USER_SELECT,
+  })) as IUser;
+};
 const deleteUser = async (userId: string) => {
   await prisma.user.delete({
     where: { id: userId },
@@ -133,5 +144,6 @@ export const authService = {
   signUp,
   signInWithGoogle,
   validateToken,
+  updateUser,
   deleteUser,
 };
