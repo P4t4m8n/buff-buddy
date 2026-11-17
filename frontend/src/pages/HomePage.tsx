@@ -5,7 +5,6 @@ import { PieChart } from "@mui/x-charts/PieChart";
 import IconRun from "../components/UI/Icons/IconRun";
 import IconFire from "../components/UI/Icons/IconFire";
 import IconDumbbell from "../components/UI/Icons/IconDumbbell";
-import IconFork from "../components/UI/Icons/IconFork";
 
 // Mock Data
 const dailyActivityData = {
@@ -34,7 +33,7 @@ export default function HomePage() {
       </header>
 
       {/*//INFO: Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 ">
         <StatCard
           title="Steps Today"
           value="8,452"
@@ -49,11 +48,6 @@ export default function HomePage() {
           title="Workouts This Week"
           value="4"
           icon={<IconDumbbell className="w-8 h-8 text-green-400" />}
-        />
-        <StatCard
-          title="Calories to Eat"
-          value="2,500"
-          icon={<IconFork className="w-8 h-8 text-yellow-400" />}
         />
       </div>
 

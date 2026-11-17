@@ -196,13 +196,6 @@ input[type="number"] {
   }
 }
 
-/* .barcode-scanner {
-  div:nth-of-type(2) {
-    display: flex;
-    background-color: red;
-  }
-} */
-
 @utility corner-border {
   --border-length: 0.125rem;
   background-image:

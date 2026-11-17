@@ -29,7 +29,6 @@ export default function ProfilePage() {
     { name: "exercise", link: "exercises" },
     { name: "workout", link: "workouts" },
     { name: "program", link: "/programs" },
-    { name: "diet", link: "/diets" },
   ];
   const profileControlsLinks = [
     { name: "subscription", link: "/subscriptions" },

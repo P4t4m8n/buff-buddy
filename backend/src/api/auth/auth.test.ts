@@ -7,7 +7,7 @@ import type {
 } from "../../../../shared/models/auth.model";
 
 describe("Auth API", () => {
-  const testUsers: IUserDTO[] = [];
+  const testUsers: { user: IUserDTO; token: string }[] = [];
   let mainAuthToken: string;
   const mainUserCredentials: IAuthSignUpDTO = {
     email: `main-test-user@test.com`,
@@ -43,7 +43,10 @@ describe("Auth API", () => {
       expect(res.status).toBe(201);
       expect(res.body.message).toBe("User created successfully");
       const user: IUserDTO = res.body.data;
-      testUsers.push(user);
+      testUsers.push({
+        user,
+        token: res.headers["set-cookie"][0].split(";")[0].split("=")[1],
+      });
 
       expect(user).toHaveProperty("id");
       expect(user.email).toBe(userCredentials.email.toLowerCase());
@@ -124,7 +127,10 @@ describe("Auth API", () => {
 
       expect(res.status).toBe(201);
       const user: IUserDTO = res.body.data;
-      testUsers.push(user);
+      testUsers.push({
+        user,
+        token: res.headers["set-cookie"][0].split(";")[0].split("=")[1],
+      });
       expect(user.firstName).toBe("sanitized");
       expect(user.lastName).toBe("user");
     });
@@ -146,7 +152,10 @@ describe("Auth API", () => {
           ...userCredentials,
           confirmPassword: userCredentials.password,
         });
-      testUsers.push(res.body.data);
+      testUsers.push({
+        user: res.body.data,
+        token: res.headers["set-cookie"][0].split(";")[0].split("=")[1],
+      });
     });
 
     it("should sign in a user successfully", async () => {
@@ -203,10 +212,10 @@ describe("Auth API", () => {
         .send(userCredentials);
 
       if (userRes.status === 201) {
-        testUsers.push(userRes.body.data);
         authToken = userRes.headers["set-cookie"][0]
           .split(";")[0]
           .split("=")[1];
+        testUsers.push({ user: userRes.body.data, token: authToken });
       }
       const res = await request(app)
         .post("/api/v1/auth/sign-out")
@@ -246,13 +255,32 @@ describe("Auth API", () => {
     });
   });
 
+  describe("DELETE /api/v1/auth/delete-user/:id", () => {
+    it("should return 403 when deleting another user", async () => {
+      const otherUser = testUsers[0].user;
+
+      const res = await request(app)
+        .delete(`/api/v1/auth/delete-user/${otherUser.id}`)
+        .set("Cookie", `token=${mainAuthToken}`);
+
+      expect(res.status).toBe(403);
+
+      const sessionRes = await request(app)
+        .get("/api/v1/auth/session-user")
+        .set("Cookie", `token=${testUsers[0].token}`);
+
+      expect(sessionRes.status).toBe(200);
+      expect(sessionRes.body.data.id).toBe(otherUser.id);
+    });
+  });
+
   afterAll(async () => {
  
-    for (const user of testUsers) {
+    for (const { user, token } of testUsers) {
       if (user.id) {
         await request(app)
           .delete(`/api/v1/auth/delete-user/${user.id}`)
-          .set("Cookie", `token=${mainAuthToken}`)
+          .set("Cookie", `token=${token}`)
           .catch((err) => {
             console.error(`Failed to delete user ${user.id}:`, err.message);
           });

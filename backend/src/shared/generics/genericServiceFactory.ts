@@ -7,8 +7,6 @@ const TABLE_KEYS = [
   "workout",
   "exercise",
   "program",
-  "foodItem",
-  "meal",
 ] as const;
 type TableKey = (typeof TABLE_KEYS)[number];
 
@@ -20,10 +18,6 @@ const _getDelegate = (tableKey: TableKey) => {
       return prisma.exercise;
     case "program":
       return prisma.program;
-    case "foodItem":
-      return prisma.foodItem;
-    case "meal":
-      return prisma.meal;
     default:
       const _exhaustiveCheck: never = tableKey;
       throw new Error(`Invalid table key: ${_exhaustiveCheck}`);
@@ -107,10 +101,6 @@ export const genericServiceFactory = <
       return createServiceLogic(prisma.exercise, util, sqlUtil);
     case "program":
       return createServiceLogic(prisma.program, util, sqlUtil);
-    case "foodItem":
-      return createServiceLogic(prisma.foodItem, util, sqlUtil);
-    case "meal":
-      return createServiceLogic(prisma.meal, util, sqlUtil);
     default:
       const _exhaustiveCheck: never = tableKey;
       throw new Error(`Invalid table key: ${_exhaustiveCheck}`);

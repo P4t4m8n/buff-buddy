@@ -45,17 +45,18 @@ const create = async (
 };
 const update = async (
   id: string,
-  dto: TExerciseUpdateValidatedInput
+  dto: TExerciseUpdateValidatedInput,
+  userId: string
 ): Promise<IExercise> => {
   return await prisma.exercise.update({
-    where: { id },
+    where: { id, ownerId: userId },
     data: exerciseSQL.getExerciseUpdate(dto),
     select: exerciseSQL.EXERCISE_SELECT,
   });
 };
-const remove = async (id: string): Promise<void> => {
+const remove = async (id: string, userId: string): Promise<void> => {
   await prisma.exercise.delete({
-    where: { id },
+    where: { id, ownerId: userId },
   });
 };
 const getMuscles = async (): Promise<[IMuscle[], number]> => {

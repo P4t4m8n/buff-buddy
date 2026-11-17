@@ -1087,6 +1087,101 @@ describe("Workouts API", () => {
     });
   });
 
+  describe("Workout ownership", () => {
+    let workoutId: string;
+    let otherUserId: string;
+    let otherAuthToken: string;
+
+    beforeAll(async () => {
+      const otherUserCredentials: IAuthSignUpDTO = {
+        email: `other-workout-user-${Date.now()}@example.com`,
+        password: "Password123!",
+        confirmPassword: "Password123!",
+        firstName: "Other",
+        lastName: "User",
+      };
+      const otherUserRes = await request(app)
+        .post("/api/v1/auth/sign-up")
+        .send(otherUserCredentials);
+      otherUserId = otherUserRes.body.data.id;
+      otherAuthToken = otherUserRes.headers["set-cookie"][0]
+        .split(";")[0]
+        .split("=")[1];
+
+      const workout: IWorkoutEditDTO = {
+        name: "Private Workout",
+        ownerId: testUserId,
+        crudOperation: "create",
+        workoutExercises: [
+          {
+            order: 1,
+            exerciseData: {
+              type: testExercises[0].type!,
+              id: testExercises[0].id!,
+            },
+            crudOperation: "create",
+            numberOfSets: 3,
+            maxNumberOfReps: 15,
+            isDropSet: false,
+            isMyoReps: false,
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post("/api/v1/workouts/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(workout);
+
+      workoutId = res.body.data.id;
+      testWorkouts.push(res.body.data);
+    });
+
+    it("should return 404 when getting another user's private workout", async () => {
+      const res = await request(app)
+        .get(`/api/v1/workouts/${workoutId}`)
+        .set("Cookie", `token=${otherAuthToken}`);
+
+      expect(res.status).toBe(404);
+    });
+
+    it("should not update another user's workout even when ownerId is spoofed", async () => {
+      const res = await request(app)
+        .put(`/api/v1/workouts/edit/${workoutId}`)
+        .set("Cookie", `token=${otherAuthToken}`)
+        .send({ name: "Hijacked Workout", ownerId: otherUserId });
+
+      expect(res.status).toBe(400);
+
+      const getRes = await request(app)
+        .get(`/api/v1/workouts/${workoutId}`)
+        .set("Cookie", `token=${authToken}`);
+
+      expect(getRes.status).toBe(200);
+      expect(getRes.body.data.name.toLowerCase()).toBe("private workout");
+    });
+
+    it("should return 400 when deleting another user's workout", async () => {
+      const res = await request(app)
+        .delete(`/api/v1/workouts/${workoutId}`)
+        .set("Cookie", `token=${otherAuthToken}`);
+
+      expect(res.status).toBe(400);
+
+      const getRes = await request(app)
+        .get(`/api/v1/workouts/${workoutId}`)
+        .set("Cookie", `token=${authToken}`);
+
+      expect(getRes.status).toBe(200);
+    });
+
+    afterAll(async () => {
+      await request(app)
+        .delete(`/api/v1/auth/delete-user/${otherUserId}`)
+        .set("Cookie", `token=${otherAuthToken}`);
+    });
+  });
+
   afterAll(async () => {
     for (const { id } of testWorkouts) {
       await request(app)

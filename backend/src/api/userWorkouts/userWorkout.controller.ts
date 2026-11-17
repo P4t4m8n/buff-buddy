@@ -113,9 +113,11 @@ export const getUserWorkoutById = async (req: Request, res: Response) => {
 
 export const deleteUserWorkout = async (req: Request, res: Response) => {
   try {
-    const { userWorkoutId } = _validateCredentials(req.params.userWorkoutId);
+    const { userWorkoutId, userId } = _validateCredentials(
+      req.params.userWorkoutId,
+    );
 
-    await userWorkoutService.remove(userWorkoutId);
+    await userWorkoutService.remove(userWorkoutId, userId);
     res
       .status(200)
       .json({ message: "User Workout deleted successfully", data: null });

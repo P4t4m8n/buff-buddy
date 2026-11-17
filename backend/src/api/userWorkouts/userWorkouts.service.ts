@@ -32,9 +32,9 @@ const create = async (
     select: userWorkoutSql.USER_WORKOUT_SELECT,
   })) as unknown as IUserWorkout;
 };
-const remove = async (id: string) => {
+const remove = async (id: string, userId: string) => {
   return await prisma.userWorkout.delete({
-    where: { id },
+    where: { id, ownerId: userId },
   });
 };
 const getById = async (

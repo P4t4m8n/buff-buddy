@@ -10,17 +10,11 @@ import WorkoutDetailsPage from "./pages/Workout/WorkoutDetailsPage";
 import WorkoutStartPage from "./pages/WorkoutStart/WorkoutStartPage";
 import WorkoutEditPage from "./pages/Workout/WorkoutEditPage";
 import WorkoutListPage from "./pages/Workout/WorkoutListPage";
-import DietPage from "./pages/Diet/DietPage";
 import ProgramEditPage from "./pages/Program/ProgramEditPage";
-import MealPage from "./pages/Meal/MealPage";
-import MealEditPage from "./pages/Meal/MealEditPage";
-import FoodItemEditPage from "./pages/FoodItem/FoodItemEditPage";
 import ExercisePage from "./pages/Exercise/ExercisePage";
 import ExerciseEditPage from "./pages/Exercise/ExerciseEditPage";
 import ExerciseDetailsPage from "./pages/Exercise/ExerciseDetailsPage";
 import AuthPage from "./pages/AuthPage";
-import FoodItemPage from "./pages/FoodItem/FoodItemPage";
-import MealDetailsPage from "./pages/Meal/MealDetailsPage";
 //Consts
 import { ROUTES_STORE } from "./consts/routes.const";
 //Types
@@ -42,56 +36,6 @@ export const renderRoutes = (routes: RouteConfig[]) => {
     </Route>
   ));
 };
-
-const FOOD_ITEMS_ROUTES: RouteConfig[] = [
-  {
-    path: ROUTES_STORE.FOOD_ITEM_PAGE_ROUTE,
-    element: <FoodItemPage />,
-    children: [
-      {
-        path: ROUTES_STORE.FOOD_ITEM_EDIT_ROUTE,
-        element: <FoodItemEditPage />,
-      },
-      {
-        path: ROUTES_STORE.FOOD_ITEM_EDIT_WITH_ID_ROUTE,
-        element: <FoodItemEditPage />,
-      },
-    ],
-  },
-];
-
-const DIET_ROUTES: RouteConfig[] = [
-  {
-    path: ROUTES_STORE.DIET_PAGE_ROUTE,
-    element: <DietPage />,
-    children: [
-      {
-        path: ROUTES_STORE.DIET_PAGE_ROUTE + ROUTES_STORE.MEALS_PAGE_ROUTE,
-        element: <MealPage />,
-      },
-    ],
-  },
-];
-
-const MEAL_ROUTES: RouteConfig[] = [
-  {
-    path: ROUTES_STORE.MEALS_PAGE_ROUTE,
-    element: <MealPage />,
-    children: [],
-  },
-  {
-    path: ROUTES_STORE.MEAL_EDIT_WITH_ID_ROUTE,
-    element: <MealEditPage />,
-  },
-  {
-    path: ROUTES_STORE.MEAL_EDIT_ROUTE,
-    element: <MealEditPage />,
-  },
-  {
-    path: ROUTES_STORE.MEAL_DETAILS_ROUTE,
-    element: <MealDetailsPage />,
-  },
-];
 
 const PROFILE_ROUTES: RouteConfig[] = [
   {
@@ -181,8 +125,5 @@ export const ROUTES: RouteConfig[] = [
     path: "/admin",
     element: <AdminPage />,
   },
-  ...DIET_ROUTES,
-  ...MEAL_ROUTES,
-  ...FOOD_ITEMS_ROUTES,
   ...PROFILE_ROUTES,
 ];

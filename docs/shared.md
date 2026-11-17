@@ -7,7 +7,7 @@ The `shared/` folder contains definitions and constants used by both backend and
 ## Shared folders
 
 - `shared/consts/` — application constants such as route paths, auth values, exercise values, etc.
-- `shared/models/` — TypeScript models for entities like user, workout, exercise, meal, and program
+- `shared/models/` — TypeScript models for entities like user, workout, exercise, and program
 - `shared/utils/` — small utilities such as `getTempId.ts`
 - `shared/validations/` — shared validation schemas
 

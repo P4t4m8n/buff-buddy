@@ -1,5 +1,4 @@
 import { DAY_OF_WEEK, CRUD_OPERATIONS } from "../consts/app.consts";
-import type { IID, IEntityDates } from "./entity.model";
 
 export interface IBaseFilter {
   skip?: number;
@@ -25,12 +24,3 @@ export interface IValidationProps {
 export interface IToSanitize {
   toSanitize?: boolean;
 }
-
-export interface IImageDTO extends IID, IEntityDates {
-  url?: string | null;
-  publicId?: string | null;
-  description?: string | null;
-  isPrimary?: boolean | null;
-  altText?: string | null;
-}
-export interface IImageEditDTO extends IImageDTO, ICrudOperation {}

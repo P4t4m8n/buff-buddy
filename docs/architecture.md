@@ -39,9 +39,6 @@ The backend routes mounted by `setupRoutes()` are:
 - `GET/POST /api/v1/programs/*`
 - `GET/POST /api/v1/workouts/*`
 - `GET/POST /api/v1/user-workouts/*`
-- `GET/POST /api/v1/food-items/*`
-- `GET/POST /api/v1/meals/*`
-- `GET/POST /api/v1/user-meal/*`
 - `GET/POST /api/v1/workout-start/*`
 
 ## Production behavior

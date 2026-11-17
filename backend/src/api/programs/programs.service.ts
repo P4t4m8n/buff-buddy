@@ -41,7 +41,7 @@ const getById = async (
   userId?: string
 ): Promise<IProgram | null> => {
   return await prisma.program.findUnique({
-    where: { id },
+    where: { id, ownerId: userId },
     select: programsSQL.PROGRAM_SELECT,
   });
 };
@@ -57,18 +57,19 @@ const create = async (
 };
 const update = async (
   id: string,
-  dto: TProgramUpdateValidatedInput
+  dto: TProgramUpdateValidatedInput,
+  userId: string
 ): Promise<IProgram> => {
   return await prisma.program.update({
-    where: { id },
-    data: programsSQL.getProgramUpdate({ dto, userId: dto.ownerId! }),
+    where: { id, ownerId: userId },
+    data: programsSQL.getProgramUpdate({ dto, userId }),
     select: programsSQL.PROGRAM_SELECT,
   });
 };
 
-const remove = async (id: string): Promise<null | void> => {
+const remove = async (id: string, userId: string): Promise<null | void> => {
   await prisma.program.delete({
-    where: { id },
+    where: { id, ownerId: userId },
   });
 };
 
