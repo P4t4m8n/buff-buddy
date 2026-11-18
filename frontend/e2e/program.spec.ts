@@ -24,6 +24,15 @@ const ALL_DAYS = [
 const uniqueSuffix = () =>
   `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
+/** Local "YYYY-MM-DD" date relative to today, keeps programs active whenever the tests run */
+const dayKeyFromToday = (days: number) => {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${date.getFullYear()}-${month}-${day}`;
+};
+
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
@@ -113,8 +122,8 @@ async function apiCreateProgram(
       ownerId,
       name: `e2e-program-${uniqueSuffix()}`,
       notes: "E2e program notes",
-      startDate: "2026-01-01",
-      endDate: "2026-12-31",
+      startDate: dayKeyFromToday(-180),
+      endDate: dayKeyFromToday(180),
       isActive: true,
       programWorkouts: [
         {

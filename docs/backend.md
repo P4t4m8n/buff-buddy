@@ -26,7 +26,7 @@
 Backend API logic is organized under `backend/src/api/`:
 
 - `auth/` — authentication, sessions, sign-in/up, Google callback
-- `dashboard/` — dashboard-related backend endpoints
+- `dashboard/` — home page stats (weekly plan vs completed, streak, volume, next workout, muscle and strength trends)
 - `exercises/` — exercise CRUD and details
 - `programs/` — program management
 - `users/` — user data and user management

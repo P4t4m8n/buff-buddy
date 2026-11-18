@@ -20,7 +20,7 @@
 
 ### Main page areas
 
-- `HomePage`
+- `HomePage` — dashboard of the user's program progress, from `GET /dashboard`
 - `AuthPage`
 - `Workout` pages
   - `WorkoutPage`

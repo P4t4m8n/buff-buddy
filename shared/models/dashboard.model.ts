@@ -1,64 +1,42 @@
-export interface IDashboardStats {
-  totalWorkouts: number;
-  totalExercises: number;
-  activeProgram: {
-    id: string;
-    name: string;
-  } | null;
-  currentStreak: number;
+﻿//INFO: All dates are local day keys in "YYYY-MM-DD" format
+export interface IDashboardWeekCount {
+  planned: number;
+  completed: number;
 }
 
-export interface IWorkoutHistoryItem {
-  id: string;
-  dateCompleted: string;
-  workoutName: string;
-  programName: string | null;
-  exerciseCount: number;
+export interface IDashboardWeek extends IDashboardWeekCount {
+  weekStart: string;
 }
 
-export interface IExerciseProgressPoint {
+export interface IDashboardNextWorkout {
+  programId: string;
+  workoutId: string;
+  workoutName: string | null;
   date: string;
-  maxWeight: number;
-  totalVolume: number;
-  bestReps: number;
 }
 
-export interface IExerciseProgressData {
+export interface IDashboardMuscleSets {
+  muscle: string;
+  sets: number;
+}
+
+export interface IDashboardStrengthPoint {
+  date: string;
+  estimatedOneRepMax: number;
+}
+
+export interface IDashboardStrengthProgress {
   exerciseId: string;
   exerciseName: string;
-  type: "strength" | "cardio";
-  data: IExerciseProgressPoint[];
+  points: IDashboardStrengthPoint[];
 }
 
-export interface ICardioProgressPoint {
-  date: string;
-  distance: number | null;
-  workTime: number | null;
-  avgHeartRate: number | null;
-  caloriesBurned: number | null;
-}
-
-export interface ICardioProgressData {
-  exerciseId: string;
-  exerciseName: string;
-  data: ICardioProgressPoint[];
-}
-
-export interface IMuscleGroupCount {
-  muscleName: string;
-  count: number;
-}
-
-export interface IWorkoutFrequency {
-  week: string;
-  count: number;
-}
-
-export interface IDashboardData {
-  stats: IDashboardStats;
-  recentWorkouts: IWorkoutHistoryItem[];
-  workoutFrequency: IWorkoutFrequency[];
-  muscleDistribution: IMuscleGroupCount[];
-  exerciseProgress: IExerciseProgressData[];
-  cardioProgress: ICardioProgressData[];
+export interface IDashboardDTO {
+  thisWeek: IDashboardWeekCount;
+  streak: number;
+  volume: { thisWeek: number; lastWeek: number };
+  nextWorkout: IDashboardNextWorkout | null;
+  weeklyHistory: IDashboardWeek[];
+  muscleSets: IDashboardMuscleSets[];
+  strengthProgress: IDashboardStrengthProgress[];
 }

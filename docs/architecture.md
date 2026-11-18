@@ -40,6 +40,7 @@ The backend routes mounted by `setupRoutes()` are:
 - `GET/POST /api/v1/workouts/*`
 - `GET/POST /api/v1/user-workouts/*`
 - `GET/POST /api/v1/workout-start/*`
+- `GET /api/v1/dashboard` — home page stats for the signed-in user
 
 ## Production behavior
 

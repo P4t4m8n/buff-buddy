@@ -8,6 +8,7 @@ import { programsRoutes } from "../api/programs/programs.routes";
 import { workoutRoutes } from "../api/workouts/workouts.routes";
 import { userWorkoutsRoutes } from "../api/userWorkouts/userWorkouts.routes";
 import { workoutPlannerRoutes } from "../api/workoutStart/workoutStart.routes";
+import { dashboardRoutes } from "../api/dashboard/dashboard.routes";
 //Types
 import type { Express, Response } from "express";
 
@@ -18,6 +19,7 @@ const ROUTES = [
   "workouts",
   "user-workouts",
   "workout-start",
+  "dashboard",
 ] as const;
 type RouteName = (typeof ROUTES)[number];
 
@@ -29,6 +31,7 @@ export function setupRoutes(app: Express) {
     ["workouts", workoutRoutes],
     ["user-workouts", userWorkoutsRoutes],
     ["workout-start", workoutPlannerRoutes],
+    ["dashboard", dashboardRoutes],
   ]);
   const apiVersion = process.env.CURRENT_API_VERSION || "1";
   const baseUrl = `/api/v${apiVersion}`;

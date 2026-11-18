@@ -20,6 +20,8 @@ const EQUIPMENT_MUTATION_KEY = "equipmentMutationKey" as const;
 
 const USER_PROFILE_QUERY_KEY = "userProfile" as const;
 
+const DASHBOARD_QUERY_KEY = "dashboard" as const;
+
 export const QUERY_KEYS = {
   PROGRAMS_QUERY_KEY,
   PROGRAM_ID_QUERY_KEY,
@@ -42,4 +44,6 @@ export const QUERY_KEYS = {
   EQUIPMENT_MUTATION_KEY,
 
   USER_PROFILE_QUERY_KEY,
+
+  DASHBOARD_QUERY_KEY,
 };

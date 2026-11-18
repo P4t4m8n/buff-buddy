@@ -95,7 +95,7 @@ test.describe("Signed in", () => {
   });
 
   test.describe("Home dashboard", () => {
-    test("greets the user and shows the stats and charts", async ({
+    test("shows empty stats and a create-program prompt for a new user", async ({
       page,
     }) => {
       await page.goto("/");
@@ -106,18 +106,41 @@ test.describe("Signed in", () => {
         }),
       ).toBeVisible({ timeout: 10000 });
 
-      for (const stat of [
-        "Steps Today",
-        "Calories Burned",
-        "Workouts This Week",
+      const statCard = (title: string) =>
+        page.locator("div.border").filter({
+          has: page.getByRole("heading", { name: title, exact: true }),
+        });
+      await expect(statCard("This Week")).toContainText("0 / 0");
+      await expect(statCard("Current Streak")).toContainText("0 workouts");
+      await expect(statCard("Volume This Week")).toContainText("0");
+      await expect(statCard("Next Workout")).toContainText("None");
+
+      await expect(
+        page.getByText("No active program yet", { exact: false }),
+      ).toBeVisible();
+      await page.getByRole("link", { name: "Create a Program" }).click();
+      await expect(page).toHaveURL(/\/programs\/edit$/);
+    });
+
+    test("shows empty chart messages when nothing is logged", async ({
+      page,
+    }) => {
+      await page.goto("/");
+
+      for (const heading of [
+        "Planned vs Completed",
+        "Most Trained Muscles (30 days)",
+        "Strength Progress (estimated 1RM)",
       ]) {
-        await expect(page.getByText(stat)).toBeVisible();
+        await expect(page.getByRole("heading", { name: heading })).toBeVisible(
+          { timeout: 10000 },
+        );
       }
       await expect(
-        page.getByRole("heading", { name: "Daily Activity" }),
+        page.getByText("Log a workout to see which muscles you train most."),
       ).toBeVisible();
       await expect(
-        page.getByRole("heading", { name: "Most Trained Muscles" }),
+        page.getByText("Log weighted sets to track how your strength grows."),
       ).toBeVisible();
     });
   });
