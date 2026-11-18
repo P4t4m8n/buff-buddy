@@ -1,5 +1,5 @@
+import IconExercise from "@/components/UI/Icons/IconExercise";
 import IconArrow from "../components/UI/Icons/IconArrow";
-import IconDiet from "../components/UI/Icons/IconDiet";
 import IconProgram from "../components/UI/Icons/IconProgram";
 import { IconSettings } from "../components/UI/Icons/IconSettings";
 import IconSubscription from "../components/UI/Icons/IconSubscription";
@@ -10,7 +10,6 @@ export const ICONS_NAMES = [
   "workout",
   "exercise",
   "program",
-  "diet",
   "user",
   "arrow",
   "setting",
@@ -26,10 +25,10 @@ export const getIcon = ({
   switch (iconName) {
     case "workout":
       return <IconWorkout className={className} />;
+      case "exercise":
+      return <IconExercise className={className} />;
     case "program":
       return <IconProgram className={className} />;
-    case "diet":
-      return <IconDiet className={className} />;
     case "setting":
       return <IconSettings className={className} />;
     case "subscription":

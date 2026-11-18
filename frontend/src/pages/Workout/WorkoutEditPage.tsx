@@ -22,11 +22,11 @@ export default function WorkoutEditPage() {
     handleInputChange,
     saveWorkout,
   } = useWorkoutEdit({ workoutId });
-
+  
   if (isLoading || !workoutToEdit) {
     return <Loader loaderType="screen" isFullScreen={false} />;
   }
-
+  
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();

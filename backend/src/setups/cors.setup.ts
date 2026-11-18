@@ -7,9 +7,11 @@ import type { Express } from "express";
 const ORIGINS = [
   "http://127.0.0.1:5173",
   "http://localhost:5173",
+  "http://localhost:5174",
   "https://localhost:5173",
   "https://127.0.0.1:5173",
   "http://10.0.0.8:5173",
+  
 ];
 
 export const setupCors = (app: Express): void => {

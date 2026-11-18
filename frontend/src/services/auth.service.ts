@@ -3,6 +3,7 @@ import { apiService } from "./api.service";
 import type {
   TSignUpInput,
   TSignInInput,
+  TUpdateUserInput,
 } from "../../../shared/validations/auth.validation";
 import type { THttpResponse } from "../models/apiService.model";
 import type { IUserDTO } from "../../../shared/models/user.model";
@@ -25,9 +26,14 @@ const getSessionUser = (): Promise<THttpResponse<IUserDTO | null>> => {
   return apiService.get<IUserDTO | null>(`${ROOT_PATH}/session-user`);
 };
 
+const updateUser = (dto: TUpdateUserInput): Promise<THttpResponse<IUserDTO>> => {
+  return apiService.put<IUserDTO>(`${ROOT_PATH}/update-user`, dto);
+};
+
 export const authService = {
   signIn,
   signUp,
   signOut,
   getSessionUser,
+  updateUser,
 };

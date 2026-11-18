@@ -42,3 +42,17 @@ export interface IUserWorkoutExercisesEditDTO extends IWorkoutExerciseDTO {
 }
 
 export interface IUserWorkoutFilter extends IBaseFilter {}
+
+export interface IUserWorkoutExercisesPayload {
+  userWorkoutExercises: IUserWorkoutExerciseDTO[];
+}
+
+export interface IUserWorkoutExerciseDTO {
+  id: string;
+  skippedReason: string | null;
+  userCardioSets: IUserCardioSetDTO[];
+  userStrengthSets: IUserStrengthSetDTO[];
+  workoutExercise: IWorkoutExerciseDTO;
+}
+
+// 

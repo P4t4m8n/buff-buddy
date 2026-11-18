@@ -14,7 +14,10 @@
     "test": "npm test --workspace=backend",
     "migrate": "npm run migrate --workspace=backend",
     "gen": "npm run gen --workspace=backend",
-    "clean": "ts-prune -p frontend/tsconfig.json --skip-type-only-exports && ts-prune -p backend/tsconfig.json --skip-type-only-exports --ignore backend/prisma/generated/"
+    "clean": "ts-prune -p frontend/tsconfig.json --skip-type-only-exports && ts-prune -p backend/tsconfig.json --skip-type-only-exports --ignore backend/prisma/generated/",
+    "e2e": "npm run e2e --workspace=frontend --",
+    "e2e:ui": "npm run e2e:ui --workspace=frontend --",
+    "e2e:headed": "npm run e2e:headed --workspace=frontend --"
   },
   "dependencies": {
     "zod": "^4.1.12"

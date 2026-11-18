@@ -125,16 +125,48 @@ const googleCallback = async (req: Request, res: Response) => {
   }
 };
 
-const deleteUser = async (req: Request, res: Response) => {
+const updateUser = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    
     const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
-    
+
     if (!userId) {
       throw AppError.create("User not authenticated", 401);
     }
-    await authService.deleteUser(id);
+
+    const validateData = authValidation
+      .updateUserFactorySchema({ toSanitize: true })
+      .parse(req.body);
+
+    const user = await authService.updateUser(userId, validateData);
+
+    res.status(200).json({
+      message: "User updated successfully",
+      data: user,
+    });
+  } catch (error) {
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
+    });
+  }
+};
+
+const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
+
+    if (!userId) {
+      throw AppError.create("User not authenticated", 401);
+    }
+
+    if (userId !== id) {
+      throw AppError.create("Cannot delete another user", 403);
+    }
+
+    await authService.deleteUser(userId);
     res.clearCookie("token", COOKIE).status(200).json({
       message: "User deleted successfully",
     });
@@ -173,7 +205,7 @@ const getGoogleTokenResponse = async (code: string): Promise<string> => {
   if (!tokenResponse.ok) {
     throw AppError.create(
       "Failed to exchange authorization code for tokens",
-      500
+      500,
     );
   }
 
@@ -187,7 +219,7 @@ const getGoogleTokenResponse = async (code: string): Promise<string> => {
 };
 
 const getGoogleUserInfo = async (
-  accessToken: string
+  accessToken: string,
 ): Promise<TGoogleUserResponse> => {
   const userInfoResponse = await fetch(
     "https://www.googleapis.com/oauth2/v1/userinfo?alt=json",
@@ -196,7 +228,7 @@ const getGoogleUserInfo = async (
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-    }
+    },
   );
 
   if (!userInfoResponse.ok) {
@@ -212,5 +244,6 @@ export const authController = {
   signOut,
   getSessionUser,
   googleCallback,
+  updateUser,
   deleteUser,
 };

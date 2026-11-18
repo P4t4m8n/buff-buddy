@@ -1,7 +1,3 @@
-const MEAL_ID_QUERY_KEY = "mealId" as const;
-const MEALS_QUERY_KEY = "meals" as const;
-const MEAL_MUTATION_KEY = "mealsMutationKey" as const;
-
 const PROGRAMS_QUERY_KEY = "programs" as const;
 const PROGRAM_ID_QUERY_KEY = "programId" as const;
 const PROGRAM_MUTATION_KEY = "programsMutationKey" as const;
@@ -22,19 +18,11 @@ const EQUIPMENTS_QUERY_KEY = "equipments" as const;
 const EQUIPMENT_ID_QUERY_KEY = "equipmentId" as const;
 const EQUIPMENT_MUTATION_KEY = "equipmentMutationKey" as const;
 
-const FOOD_ITEM_ID_QUERY_KEY = "foodItemId" as const;
-const FOOD_ITEM_MUTATION_KEY = "foodItemMutationKey" as const;
-const FOOD_ITEMS_QUERY_KEY = "foodItems" as const;
+const USER_PROFILE_QUERY_KEY = "userProfile" as const;
 
-const FOOD_ITEM_CATEGORIES_QUERY_KEY = "foodItemCategories" as const;
-const FOOD_ITEMS_LABELS_QUERY_KEY = "foodItemLabels" as const;
-const FOOD_ITEM_BRANDS_QUERY_KEY = "foodItemBrands" as const;
+const DASHBOARD_QUERY_KEY = "dashboard" as const;
 
 export const QUERY_KEYS = {
-  MEALS_QUERY_KEY,
-  MEAL_ID_QUERY_KEY,
-  MEAL_MUTATION_KEY,
-
   PROGRAMS_QUERY_KEY,
   PROGRAM_ID_QUERY_KEY,
   PROGRAM_MUTATION_KEY,
@@ -55,10 +43,7 @@ export const QUERY_KEYS = {
   EQUIPMENT_ID_QUERY_KEY,
   EQUIPMENT_MUTATION_KEY,
 
-  FOOD_ITEM_ID_QUERY_KEY,
-  FOOD_ITEM_MUTATION_KEY,
-  FOOD_ITEMS_QUERY_KEY,
-  FOOD_ITEM_CATEGORIES_QUERY_KEY,
-  FOOD_ITEMS_LABELS_QUERY_KEY,
-  FOOD_ITEM_BRANDS_QUERY_KEY,
+  USER_PROFILE_QUERY_KEY,
+
+  DASHBOARD_QUERY_KEY,
 };

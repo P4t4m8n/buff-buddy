@@ -148,7 +148,7 @@ export const genericControllerFactory = <
           );
         }
 
-        const itemData = await service.update(id, validatedData);
+        const itemData = await service.update(id, validatedData, userId);
 
         const dto = buildDTO ? buildDTO(itemData) : itemData;
 

@@ -45,9 +45,9 @@ export default function WorkoutStart({ workoutId }: IWorkoutStartProps) {
             ] as TValidationError<IUserWorkoutExercisesEditDTO>) || undefined,
         }))
         .sort(
-          (a, b) => a.userWorkoutExercise.order! - b.userWorkoutExercise.order!
+          (a, b) => a.userWorkoutExercise.order! - b.userWorkoutExercise.order!,
         ) ?? [],
-    [userWorkoutExercises, errors]
+    [userWorkoutExercises, errors],
   );
   const { name } = workout ?? {};
 

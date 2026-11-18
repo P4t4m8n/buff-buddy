@@ -929,6 +929,73 @@ describe("UserWorkout API", () => {
 
       expect(res.status).toBe(400);
     });
+
+    it("should return 400 when deleting another user's user-workout", async () => {
+      const userWorkoutData: IUserWorkoutEditDTO = {
+        ownerId: testUserId,
+        workoutId: testWorkouts[0].id,
+        programId: testPrograms[0].id,
+        userWorkoutExercises: [
+          {
+            workoutExerciseId: testWorkouts[0].workoutExercises?.[0].id!,
+            userStrengthSets: [
+              {
+                reps: 5,
+                weight: 50,
+                isBodyWeight: false,
+                crudOperation: "create",
+                order: 1,
+                isCompleted: true,
+                isJointPain: false,
+                isMuscleFailure: false,
+                isWarmup: false,
+              },
+            ],
+          },
+        ],
+      };
+
+      const createRes = await request(app)
+        .post(baseUrl + "/edit")
+        .set("Cookie", `token=${authToken}`)
+        .send(userWorkoutData);
+
+      const userWorkoutId = createRes.body.data.id;
+
+      const otherUserRes = await request(app)
+        .post("/api/v1/auth/sign-up")
+        .send({
+          email: `other-user-workout-${Date.now()}@example.com`,
+          password: "Password123!",
+          confirmPassword: "Password123!",
+          firstName: "Other",
+          lastName: "User",
+        });
+      const otherUserId = otherUserRes.body.data.id;
+      const otherAuthToken = otherUserRes.headers["set-cookie"][0]
+        .split(";")[0]
+        .split("=")[1];
+
+      const deleteRes = await request(app)
+        .delete(`${baseUrl}/${userWorkoutId}`)
+        .set("Cookie", `token=${otherAuthToken}`);
+
+      expect(deleteRes.status).toBe(400);
+
+      const getRes = await request(app)
+        .get(`${baseUrl}/${userWorkoutId}`)
+        .set("Cookie", `token=${authToken}`);
+
+      expect(getRes.status).toBe(200);
+
+      await request(app)
+        .delete(`${baseUrl}/${userWorkoutId}`)
+        .set("Cookie", `token=${authToken}`);
+
+      await request(app)
+        .delete(`/api/v1/auth/delete-user/${otherUserId}`)
+        .set("Cookie", `token=${otherAuthToken}`);
+    });
   });
 
   afterAll(async () => {

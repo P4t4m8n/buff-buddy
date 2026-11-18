@@ -1,5 +1,6 @@
 //Utils
 import { ModelButtonIcon } from "../../utils/ModelButtonIcon.util";
+import toTitle  from "../../utils/toTitle";
 //UI
 import Button from "../UI/Button";
 import GenericDeleteButton from "../UI/GenericDeleteButton";
@@ -9,7 +10,6 @@ import LinkComponent from "../UI/Link";
 //Types
 import type { IWorkoutDTO } from "../../../../shared/models/workout.model";
 import type { TWorkoutActionRoute } from "../../models/workout.model";
-import toTitle  from "../../utils/toTitle";
 
 interface IWorkoutPreviewProps {
   item: IWorkoutDTO;

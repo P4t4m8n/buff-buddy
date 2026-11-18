@@ -43,12 +43,12 @@ export const createUserWorkout = async (req: Request, res: Response) => {
 export const getUserWorkoutById = async (req: Request, res: Response) => {
   try {
     const { userWorkoutId, userId } = _validateCredentials(
-      req.params.userWorkoutId
+      req.params.userWorkoutId,
     );
 
     const userWorkoutData = await userWorkoutService.getById(
       userWorkoutId,
-      userId
+      userId,
     );
 
     if (!userWorkoutData) {
@@ -113,12 +113,34 @@ export const getUserWorkoutById = async (req: Request, res: Response) => {
 
 export const deleteUserWorkout = async (req: Request, res: Response) => {
   try {
-    const { userWorkoutId } = _validateCredentials(req.params.userWorkoutId);
+    const { userWorkoutId, userId } = _validateCredentials(
+      req.params.userWorkoutId,
+    );
 
-    await userWorkoutService.remove(userWorkoutId);
+    await userWorkoutService.remove(userWorkoutId, userId);
     res
       .status(200)
       .json({ message: "User Workout deleted successfully", data: null });
+  } catch (error) {
+    const { status, message, errors } = AppError.handleResponse(error);
+    res.status(status).json({
+      message,
+      errors,
+    });
+  }
+};
+
+export const getUserExercises = async (req: Request, res: Response) => {
+  try {
+    const userId = asyncLocalStorage.getStore()?.sessionUser?.id;
+   
+
+    const userExercises = await userWorkoutService.getUserExercises(userId!);
+
+    res.status(200).json({
+      message: "User exercises retrieved successfully",
+      data: userExercises,
+    });
   } catch (error) {
     const { status, message, errors } = AppError.handleResponse(error);
     res.status(status).json({

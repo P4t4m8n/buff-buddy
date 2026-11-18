@@ -21,7 +21,7 @@ interface IWorkoutEditProps {
   errors: TErrors<IWorkoutEditDTO> | null;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleInputChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
   handleWorkoutExercises: (workoutExercise: IWorkoutExerciseEditDTO) => void;
   onCancel?: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -48,7 +48,9 @@ export default function WorkoutEdit({
     .sort((a, b) => (a?.order || 0) - (b?.order || 0));
 
   const parseWorkoutExerciseError = (
-    workoutExerciseErrors?: (TErrors<IWorkoutExerciseEditDTO> | string)[] | null
+    workoutExerciseErrors?:
+      | (TErrors<IWorkoutExerciseEditDTO> | string)[]
+      | null,
   ) => {
     if (!workoutExerciseErrors) return null;
 

@@ -176,8 +176,8 @@ const _getStrengthWarmupSet = ({
   const warmupWeight = isBodyWeight
     ? 0
     : weight
-    ? Math.round((weight ?? 0) * 0.35)
-    : 0;
+      ? Math.round((weight ?? 0) * 0.35)
+      : 0;
   return {
     id: getTempId("temp/warmup/"),
 
@@ -187,7 +187,7 @@ const _getStrengthWarmupSet = ({
     isBodyWeight,
     isWarmup: true,
     order: 0, // Warmup set is always the first set
-    goalSet: { reps: 10, weight: warmupWeight },
+    goalSet: { reps: 10, weight: warmupWeight ?? 0 },
   };
 };
 
@@ -217,7 +217,7 @@ const _getDefaultUserWorkoutExercise = ({
         goalSet,
         isBodyWeight,
       });
-    }
+    },
   );
 
   if (hasWarmup) {
@@ -225,7 +225,7 @@ const _getDefaultUserWorkoutExercise = ({
       _getStrengthWarmupSet({
         isBodyWeight,
         weight: minWeight,
-      })
+      }),
     );
   }
   return {
@@ -260,7 +260,7 @@ const _getPlanedUserWorkoutExercise = ({
         return userWorkout.userWorkoutExercises
           .filter(
             (userWorkoutExercise) =>
-              userWorkoutExercise?.workoutExercise?.id === workoutExerciseId
+              userWorkoutExercise?.workoutExercise?.id === workoutExerciseId,
           )
           .map((x) => ({ ...x, dateCompleted: userWorkout.dateCompleted }));
       })
@@ -275,12 +275,12 @@ const _getPlanedUserWorkoutExercise = ({
     lastUserWorkouts &&
     lastUserWorkouts.length > 2 &&
     lastUserWorkouts.every((luw) =>
-      luw.userStrengthSets?.every((uss) => (uss?.reps ?? 0) >= maxNumberOfReps)
+      luw.userStrengthSets?.every((uss) => (uss?.reps ?? 0) >= maxNumberOfReps),
     );
 
   const lastSetsArr =
     lastUserWorkouts[0]?.userStrengthSets?.sort(
-      (a, b) => (a.order ?? 1) - (b.order ?? 0)
+      (a, b) => (a.order ?? 1) - (b.order ?? 0),
     ) ?? [];
 
   let userStrengthSets: IUserStrengthSetEditDTO[] = [];
@@ -314,7 +314,7 @@ const _getPlanedUserWorkoutExercise = ({
         isBodyWeight,
         weight:
           userStrengthSets[userStrengthSets.length - 1].goalSet?.weight ?? 0,
-      })
+      }),
     );
   }
 
@@ -358,7 +358,7 @@ const _handleWeightIncrease = ({
         lastUserSet: lastSet,
         isBodyWeight,
       });
-    }
+    },
   );
 
   if (hasWarmUp) {
@@ -366,7 +366,7 @@ const _handleWeightIncrease = ({
       _getStrengthWarmupSet({
         isBodyWeight,
         weight: (lastSet.weight ?? 0) + weightJump,
-      })
+      }),
     );
   }
   return userStrengthSets;
@@ -379,13 +379,13 @@ const _handleRepsIncrease = ({
   isBodyWeight,
   minReps = 5,
 }: {
-  lastSet: IUserStrengthSet;
+  lastSet?: IUserStrengthSet;
   maxNumberOfReps: number;
   idx: number;
   isBodyWeight?: boolean;
   minReps?: number;
 }) => {
-  const lastWeight = lastSet.weight;
+  const lastWeight = lastSet?.weight ?? 0;
   const lastRep = lastSet?.reps ?? minReps;
   const goalSet: IGoalSet = {
     reps: lastRep >= maxNumberOfReps ? maxNumberOfReps : lastRep + 1,

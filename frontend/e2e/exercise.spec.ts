@@ -2,8 +2,9 @@ import { test, expect, type Page } from "@playwright/test";
 import  toTitle  from "../src/utils/toTitle";
 const API_URL = "http://localhost:3030/api/v1";
 
-// Test user credentials – created once per test file run
-const TEST_EMAIL = `e2e-exercise-${Date.now()}@test.com`;
+// Test user credentials – created once per worker. The random suffix keeps
+// parallel workers that load this file in the same millisecond from colliding.
+const TEST_EMAIL = `e2e-exercise-${Date.now()}-${Math.random().toString(36).slice(2, 8)}@test.com`;
 const TEST_PASSWORD = "TestPass1";
 const TEST_FIRST_NAME = "ExTest";
 const TEST_LAST_NAME = "User";
@@ -44,7 +45,9 @@ async function apiCreateExercise(
 ) {
   const res = await page.request.post(`${API_URL}/exercises/edit`, {
     data: {
-      name: `e2e-exercise-${Date.now()}`,
+      // Exercise names are unique in the DB – the random suffix keeps parallel
+      // workers that create one in the same millisecond from colliding
+      name: `e2e-exercise-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       youtubeUrl: YOUTUBE_URL,
       type: "strength",
       isCompounded: true,
@@ -414,27 +417,29 @@ test.describe("Exercise create", () => {
       timeout: 10000,
     });
 
-    // Verify the exercise appears in the list
-    await goToExercises(page);
+    try {
+      // Verify the exercise appears in the list
+      await goToExercises(page);
 
-    // Open filter and search for our exercise
-    const filterToggle = page.locator("form button[type='button']").first();
-    await filterToggle.click();
-    await page.locator("input#name-generic-filter").fill(exerciseName);
-    await page.getByRole("button", { name: "Search" }).click();
+      // Open filter and search for our exercise
+      const filterToggle = page.locator("form button[type='button']").first();
+      await filterToggle.click();
+      await page.locator("input#name-generic-filter").fill(exerciseName);
+      await page.getByRole("button", { name: "Search" }).click();
 
-    await expect(page.getByText(new RegExp(exerciseName, "i"))).toBeVisible({
-      timeout: 5000,
-    });
-
-    // Cleanup: find the exercise ID and delete via API
-    const listRes = await page.request.get(
-      `${API_URL}/exercises?name=${exerciseName}`,
-    );
-    const listBody = await listRes.json();
-    const createdExercise = listBody?.data?.[0];
-    if (createdExercise?.id) {
-      await apiDeleteExercise(page, createdExercise.id);
+      await expect(page.getByText(new RegExp(exerciseName, "i"))).toBeVisible({
+        timeout: 5000,
+      });
+    } finally {
+      // Cleanup: find the exercise ID and delete via API
+      const listRes = await page.request.get(
+        `${API_URL}/exercises?name=${encodeURIComponent(exerciseName)}`,
+      );
+      const listBody = await listRes.json();
+      const createdExercise = listBody?.data?.[0];
+      if (createdExercise?.id) {
+        await apiDeleteExercise(page, createdExercise.id);
+      }
     }
   });
 
@@ -525,7 +530,6 @@ test.describe("Exercise update", () => {
     const exercise = await apiCreateExercise(page, testUserId, {
       name: exerciseName,
     });
-    console.log("🚀 ~ exercise:", exercise)
 
     try {
       await goToExercises(page);

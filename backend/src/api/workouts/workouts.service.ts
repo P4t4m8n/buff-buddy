@@ -35,9 +35,16 @@ const get = (
     prisma.workout.count({ where }),
   ]);
 };
-const getById = async (id: string): Promise<IWorkout | null> => {
-  return prisma.workout.findUnique({
-    where: { id },
+const getById = async (
+  id: string,
+  userId?: string
+): Promise<IWorkout | null> => {
+  //INFO: A workout is visible to its owner, or to everyone when it is public (isTemplate)
+  return prisma.workout.findFirst({
+    where: {
+      id,
+      ...(userId && { OR: [{ ownerId: userId }, { isTemplate: true }] }),
+    },
     select: workoutSQL.WORKOUT_SELECT,
   });
 };
@@ -49,17 +56,21 @@ const create = async (dto: TWorkoutCreateValidatedInput): Promise<IWorkout> => {
 };
 const update = async (
   id: string,
-  dto: TWorkoutUpdateValidatedInput
+  dto: TWorkoutUpdateValidatedInput,
+  userId: string
 ): Promise<IWorkout> => {
   return await prisma.workout.update({
-    where: { id },
+    where: { id, ownerId: userId },
     data: workoutSQL.getWorkoutUpdate(dto),
     select: workoutSQL.WORKOUT_SELECT,
   });
 };
-const remove = async (id: string): Promise<void | null | IWorkout> => {
+const remove = async (
+  id: string,
+  userId: string
+): Promise<void | null | IWorkout> => {
   return prisma.workout.delete({
-    where: { id },
+    where: { id, ownerId: userId },
   });
 };
 export const workoutsService: IApiService<

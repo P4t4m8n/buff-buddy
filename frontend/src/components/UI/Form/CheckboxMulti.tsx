@@ -19,21 +19,27 @@ export default function CheckboxMulti({
 }: CheckboxMultiProps) {
   return (
     <ul className={listStyle}>
-      {options.map((option) => (
-        <li key={option}>
-          <Input
-            type="checkbox"
-            name={inputName}
-            value={option}
-            defaultChecked={selectedOptions.includes(option)}
-            divStyle="flex items-center gap-2"
-            className=" cursor-pointer"
-            onChange={onChange}
-          >
-            <Label>{option}</Label>
-          </Input>
-        </li>
-      ))}
+      {options.map((option) => {
+        const inputId = `${inputName}-${option}`;
+        return (
+          <li key={option}>
+            <Input
+              type="checkbox"
+              id={inputId}
+              name={inputName}
+              value={option}
+              defaultChecked={selectedOptions.includes(option)}
+              divStyle="flex items-center gap-2"
+              className=" cursor-pointer"
+              onChange={onChange}
+            >
+              <Label htmlFor={inputId} className="cursor-pointer">
+                {option}
+              </Label>
+            </Input>
+          </li>
+        );
+      })}
     </ul>
   );
 }

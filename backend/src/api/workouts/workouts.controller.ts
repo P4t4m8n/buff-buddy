@@ -27,5 +27,5 @@ export const workoutsController = genericControllerFactory<
   service: workoutsService,
   validation: workoutValidation,
   entityName: "Workout",
-  isAuth: false,
+  isAuth: true,
 });
