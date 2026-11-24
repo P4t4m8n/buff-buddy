@@ -26,8 +26,7 @@ export default function App() {
             <RootRefContext value={rootRef}>
               <div
                 ref={rootRef}
-                className="bg-black-900 w-screen font-display  text-main-orange grid"
-              >
+                className="bg-black-900 w-screen font-display  text-main-orange grid" >
                 <Routes>{routes}</Routes>
                 <AppFooter />
               </div>
