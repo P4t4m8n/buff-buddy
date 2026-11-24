@@ -5,7 +5,7 @@ import { useProgramsQuery } from "../../hooks/features/program/useProgramsQuery"
 import { useGenericPage } from "../../hooks/shared/useGenericPage";
 //Utils
 import { calendarUtil } from "../../utils/calendar.util";
-import toTitle  from "../../utils/toTitle";
+import toTitle from "../../utils/toTitle";
 //Components
 import ProgramWorkoutPreview from "../../components/Program/ProgramWorkout/ProgramWorkoutPreview";
 //UI
@@ -63,7 +63,7 @@ export default function WorkoutPage() {
     return map;
   }, [programs]);
 
-  if (isLoading||!day) {
+  if (isLoading || !day) {
     return <Loader loaderType="screen" />;
   }
 
@@ -90,9 +90,6 @@ export default function WorkoutPage() {
       </header>
 
       <div className="inline-flex w-full h-10 min-h-10 px-mobile justify-between overflow-y-auto">
-        <span className="bg-main-orange w-fit py-2 px-2 rounded text-black self-center ">
-          <p>Start ad-hook workout-tba</p>
-        </span>
         <LinkComponent
           className="bg-main-orange w-fit py-2 px-2 rounded text-black self-center "
           to="/workouts/workout-list"
