@@ -84,7 +84,6 @@ async function apiCreateWorkout(
           order: 1,
           notes: "",
           hasWarmup: false,
-          isBodyWeight: false,
           numberOfSets: 3,
           maxNumberOfReps: 10,
           isDropSet: false,

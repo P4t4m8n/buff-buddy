@@ -33,7 +33,7 @@ export default function WorkoutStartUserStrengthSet({
         <span className="flex flex-col items-center">
           <h5 className="text-sm">Weight</h5>
           <p className="border rounded  w-9  aspect-square flex-center">
-            {weight ?? (goalWeight || "BW")}
+            {weight ?? goalWeight ?? 0}
           </p>
         </span>
         <div className="grid justify-items-center text-sm ">

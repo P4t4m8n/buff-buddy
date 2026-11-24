@@ -8,7 +8,6 @@ const getCreateUserStrengthSet = (
   return {
     reps: dto.reps,
     weight: dto.weight,
-    isBodyWeight: dto.isBodyWeight,
     isCompleted: dto.isCompleted,
     isWarmup: dto.isWarmup,
     isMuscleFailure: dto.isMuscleFailure,
@@ -26,7 +25,6 @@ const CORE_STRENGTH_SET_SELECT: Prisma.UserStrengthSetSelect = {
   isCompleted: true,
   isMuscleFailure: true,
   isJointPain: true,
-  isBodyWeight: true,
   skippedReason: true,
   order: true,
 };

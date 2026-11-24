@@ -126,7 +126,6 @@ describe("UserWorkout API", () => {
               id: testStrengthExercises[0].id!,
             },
             crudOperation: "create",
-            isBodyWeight: false,
             hasWarmup: true,
           },
           {
@@ -137,7 +136,6 @@ describe("UserWorkout API", () => {
               id: testStrengthExercises[1].id!,
             },
             crudOperation: "create",
-            isBodyWeight: true,
             hasWarmup: false,
           },
         ],
@@ -226,7 +224,6 @@ describe("UserWorkout API", () => {
               {
                 reps: 10,
                 weight: 135,
-                isBodyWeight: false,
                 crudOperation: "create",
                 order: 1,
                 isCompleted: true,
@@ -237,7 +234,6 @@ describe("UserWorkout API", () => {
               {
                 reps: 8,
                 weight: 135,
-                isBodyWeight: false,
                 crudOperation: "create",
                 order: 2,
                 isCompleted: true,
@@ -253,7 +249,6 @@ describe("UserWorkout API", () => {
               {
                 reps: 12,
                 weight: 0,
-                isBodyWeight: true,
                 crudOperation: "create",
                 order: 1,
                 isCompleted: true,
@@ -347,7 +342,6 @@ describe("UserWorkout API", () => {
               {
                 reps: 10,
                 weight: 100,
-                isBodyWeight: false,
                 crudOperation: "create",
                 order: 1,
                 isCompleted: true,
@@ -383,7 +377,6 @@ describe("UserWorkout API", () => {
               {
                 reps: 10,
                 weight: 100,
-                isBodyWeight: false,
                 crudOperation: "create",
                 order: 1,
                 isCompleted: true,
@@ -419,7 +412,6 @@ describe("UserWorkout API", () => {
               {
                 reps: 10,
                 weight: 100,
-                isBodyWeight: false,
                 crudOperation: "create",
                 order: 1,
                 isCompleted: true,
@@ -478,42 +470,6 @@ describe("UserWorkout API", () => {
       );
     });
 
-    it("should reject strength set with both weight and body weight", async () => {
-      const invalidData: IUserWorkoutEditDTO = {
-        ownerId: testUserId,
-        workoutId: testWorkouts[0].id,
-        programId: testPrograms[0].id,
-        userWorkoutExercises: [
-          {
-            workoutExerciseId: testWorkouts[0].workoutExercises?.[0].id!,
-            userStrengthSets: [
-              {
-                reps: 10,
-                weight: 100, // Has weight
-                isBodyWeight: true, // But also body weight - invalid
-                crudOperation: "create",
-                order: 1,
-                isCompleted: true,
-                isJointPain: false,
-                isMuscleFailure: false,
-                isWarmup: false,
-              },
-            ],
-          },
-        ],
-      };
-
-      const res = await request(app)
-        .post(baseEditUrl)
-        .set("Cookie", `token=${authToken}`)
-        .send(invalidData);
-
-      expect(res.status).toBe(400);
-      expect(
-        res.body.errors["userWorkoutExercises.0.userStrengthSets.0.weight"]
-      ).toMatch("Cannot have both weight and body weight set");
-    });
-
     it("should reject strength set with invalid reps", async () => {
       const invalidData: IUserWorkoutEditDTO = {
         ownerId: testUserId,
@@ -526,7 +482,6 @@ describe("UserWorkout API", () => {
               {
                 reps: 0, // Invalid - must be at least 1
                 weight: 100,
-                isBodyWeight: false,
                 crudOperation: "create",
                 order: 1,
                 isCompleted: true,
@@ -711,7 +666,6 @@ describe("UserWorkout API", () => {
               {
                 reps: 10,
                 weight: 100,
-                isBodyWeight: false,
                 crudOperation: "create",
                 order: 1,
                 isCompleted: true,
@@ -743,7 +697,6 @@ describe("UserWorkout API", () => {
               {
                 reps: 5,
                 weight: 50,
-                isBodyWeight: false,
                 crudOperation: "create",
                 order: 1,
                 isCompleted: true,
@@ -829,7 +782,6 @@ describe("UserWorkout API", () => {
   //             {
   //               reps: 10,
   //               weight: 100,
-  //               isBodyWeight: false,
   //               crudOperation: "create",
   //               order: 1,
   //               isCompleted: true,
@@ -888,7 +840,6 @@ describe("UserWorkout API", () => {
               {
                 reps: 5,
                 weight: 50,
-                isBodyWeight: false,
                 crudOperation: "create",
                 order: 1,
                 isCompleted: true,
@@ -942,7 +893,6 @@ describe("UserWorkout API", () => {
               {
                 reps: 5,
                 weight: 50,
-                isBodyWeight: false,
                 crudOperation: "create",
                 order: 1,
                 isCompleted: true,

@@ -8,7 +8,6 @@ interface SeedSet {
   weight?: number;
   order: number;
   isCompleted: boolean;
-  isBodyWeight?: boolean;
   isMuscleFailure?: boolean;
   isJointPain?: boolean;
   skippedReason?: string;
@@ -47,7 +46,6 @@ interface SeedWorkoutExercise {
   exerciseName: string;
   notes?: string;
   hasWarmup?: boolean;
-  isBodyWeight?: boolean;
   numberOfSets?: number;
   maxNumberOfReps?: number;
   isDropSet?: boolean;
@@ -165,7 +163,6 @@ async function seedUser(
             order: we.order,
             notes: we.notes,
             hasWarmup: we.hasWarmup ?? false,
-            isBodyWeight: we.isBodyWeight ?? false,
             numberOfSets: we.numberOfSets,
             maxNumberOfReps: we.maxNumberOfReps,
             isDropSet: we.isDropSet ?? false,
@@ -269,7 +266,6 @@ async function seedUser(
                 weight: s.weight,
                 order: s.order,
                 isCompleted: s.isCompleted ?? true,
-                isBodyWeight: s.isBodyWeight ?? false,
                 isMuscleFailure: s.isMuscleFailure ?? false,
                 isJointPain: s.isJointPain ?? false,
                 skippedReason: s.skippedReason ?? null,

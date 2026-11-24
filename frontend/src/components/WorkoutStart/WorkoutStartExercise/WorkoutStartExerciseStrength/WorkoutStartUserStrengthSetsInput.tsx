@@ -26,15 +26,6 @@ export default function WorkoutStartUserStrengthSetsInput({
   const inputStyle = `rounded w-input aspect-square  text-center border outline-none`;
 
   const getNumberInput = (input: INumberInput) => {
-    if (input.value === "BW") {
-      return (
-        <div key={input.label} className={divStyle}>
-          <p className={inputStyle}>{input.value}</p>
-          <h5>{input.label}</h5>
-        </div>
-      );
-    }
-
     return (
       <NumberInputWIthError
         key={input.name}
@@ -42,7 +33,7 @@ export default function WorkoutStartUserStrengthSetsInput({
         value={input.value}
         divStyle={divStyle + ""}
         className={inputStyle}
-        min={1}
+        min={input.name.includes("-weight-") ? 0 : 1}
         onChange={handleUserSetsChange!}
         inputId={userSetId}
         error={input.error}

@@ -39,7 +39,6 @@ export default function WorkoutStartUserStrengthSetLog({
     isCompleted,
     isJointPain,
     isMuscleFailure,
-    isBodyWeight,
     isWarmup,
     lastSet,
     skippedReason,
@@ -68,7 +67,7 @@ export default function WorkoutStartUserStrengthSetLog({
     },
     {
       name: `${setType}-weight-${userSetId}`,
-      value: isBodyWeight ? "BW" : weight ?? "",
+      value: weight ?? "",
       label: "Weight",
       error: combinedErrors?.weight,
       goal: goalSet?.weight,

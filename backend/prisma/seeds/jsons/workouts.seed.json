@@ -12,7 +12,6 @@
         "notes": "Warm up with light weight.",
         "exerciseData": { "id": "temp-squat", "type": "strength" },
         "hasWarmup": true,
-        "isBodyWeight": false,
         "restTime": 90
       },
       {
@@ -20,7 +19,6 @@
         "notes": "Focus on form.",
         "exerciseData": { "id": "temp-bench-press", "type": "strength" },
         "hasWarmup": false,
-        "isBodyWeight": false,
         "restTime": 90
       },
       {
@@ -28,7 +26,6 @@
         "notes": "Keep core tight.",
         "exerciseData": { "id": "temp-deadlift", "type": "strength" },
         "hasWarmup": false,
-        "isBodyWeight": false,
         "restTime": 120
       },
       {
@@ -36,7 +33,6 @@
         "notes": "Finish with bodyweight work.",
         "exerciseData": { "id": "temp-pushup", "type": "strength" },
         "hasWarmup": false,
-        "isBodyWeight": true,
         "restTime": 60
       }
     ]
@@ -54,7 +50,6 @@
         "notes": "Start with compound movement.",
         "exerciseData": { "id": "temp-bench-press", "type": "strength" },
         "hasWarmup": true,
-        "isBodyWeight": false,
         "restTime": 90
       },
       {
@@ -62,7 +57,6 @@
         "notes": "Shoulder press for delts.",
         "exerciseData": { "id": "temp-shoulder-press", "type": "strength" },
         "hasWarmup": false,
-        "isBodyWeight": false,
         "restTime": 75
       },
       {
@@ -70,7 +64,6 @@
         "notes": "Triceps isolation.",
         "exerciseData": { "id": "temp-tricep-extension", "type": "strength" },
         "hasWarmup": false,
-        "isBodyWeight": false,
         "restTime": 60
       },
       {
@@ -78,7 +71,6 @@
         "notes": "Bodyweight burnout.",
         "exerciseData": { "id": "temp-dips", "type": "strength" },
         "hasWarmup": false,
-        "isBodyWeight": true,
         "restTime": 60
       }
     ]
@@ -96,7 +88,6 @@
         "notes": "Warm up on treadmill.",
         "exerciseData": { "id": "temp-treadmill", "type": "cardio" },
         "hasWarmup": true,
-        "isBodyWeight": false,
         "restTime": 60
       },
       {
@@ -104,7 +95,6 @@
         "notes": "Increase speed for intervals.",
         "exerciseData": { "id": "temp-rowing", "type": "cardio" },
         "hasWarmup": false,
-        "isBodyWeight": false,
         "restTime": 45
       },
       {
@@ -112,7 +102,6 @@
         "notes": "Cool down on bike.",
         "exerciseData": { "id": "temp-bike", "type": "cardio" },
         "hasWarmup": false,
-        "isBodyWeight": false,
         "restTime": 30
       }
     ]
@@ -130,7 +119,6 @@
         "notes": "Squats for overall leg strength.",
         "exerciseData": { "id": "temp-squat", "type": "strength" },
         "hasWarmup": true,
-        "isBodyWeight": false,
         "restTime": 120
       },
       {
@@ -138,7 +126,6 @@
         "notes": "Hamstring curls.",
         "exerciseData": { "id": "temp-leg-curl", "type": "strength" },
         "hasWarmup": false,
-        "isBodyWeight": false,
         "restTime": 75
       },
       {
@@ -146,7 +133,6 @@
         "notes": "Leg press for volume.",
         "exerciseData": { "id": "temp-leg-press", "type": "strength" },
         "hasWarmup": false,
-        "isBodyWeight": false,
         "restTime": 90
       },
       {
@@ -154,7 +140,6 @@
         "notes": "Finish with calf raises.",
         "exerciseData": { "id": "temp-calf-raise", "type": "strength" },
         "hasWarmup": false,
-        "isBodyWeight": false,
         "restTime": 60
       }
     ]
@@ -172,7 +157,6 @@
         "notes": "Deadlifts for posterior chain.",
         "exerciseData": { "id": "temp-deadlift", "type": "strength" },
         "hasWarmup": true,
-        "isBodyWeight": false,
         "restTime": 120
       },
       {
@@ -180,7 +164,6 @@
         "notes": "Pull-ups for lats.",
         "exerciseData": { "id": "temp-pullup", "type": "strength" },
         "hasWarmup": false,
-        "isBodyWeight": true,
         "restTime": 90
       },
       {
@@ -188,7 +171,6 @@
         "notes": "Barbell row for thickness.",
         "exerciseData": { "id": "temp-barbell-row", "type": "strength" },
         "hasWarmup": false,
-        "isBodyWeight": false,
         "restTime": 75
       },
       {
@@ -196,7 +178,6 @@
         "notes": "Biceps curls to finish.",
         "exerciseData": { "id": "temp-bicep-curl", "type": "strength" },
         "hasWarmup": false,
-        "isBodyWeight": false,
         "restTime": 60
       }
     ]

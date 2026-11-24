@@ -22,7 +22,6 @@ const userStrengthSkippedSetFactorySchema = ({
       }),
       reps: z.any().optional(),
       weight: z.any().optional(),
-      isBodyWeight: z.any().optional(),
     })
     .superRefine((data, ctx) => {
       if ("reps" in data && !!data.reps) {
@@ -57,9 +56,7 @@ const userStrengthNonSkippedSetSchema = () => {
           maxLength: 1000,
         })
         .transform((val) => Math.round(val * 100) / 100),
-      isBodyWeight: validationUtil.BooleanSchema,
-    })
-    .superRefine(validationUtil.conditionalWeightRefinement);
+    });
 };
 
 const userStrengthUnionFactorySchema = ({

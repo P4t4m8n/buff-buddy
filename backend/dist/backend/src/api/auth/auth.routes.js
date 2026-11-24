@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.authRoutes = void 0;
+const express_1 = require("express");
+const auth_controller_1 = require("./auth.controller");
+const auth_middleware_1 = require("../../middlewares/auth.middleware");
+exports.authRoutes = (0, express_1.Router)();
+exports.authRoutes.post("/sign-in", auth_controller_1.authController.signIn);
+exports.authRoutes.post("/sign-up", auth_controller_1.authController.signUp);
+exports.authRoutes.post("/sign-out", auth_middleware_1.requireAuth, auth_controller_1.authController.signOut);
+exports.authRoutes.get("/google/callback", auth_controller_1.authController.googleCallback);
+exports.authRoutes.get("/session-user", auth_controller_1.authController.getSessionUser);
+exports.authRoutes.put("/update-user", auth_middleware_1.requireAuth, auth_controller_1.authController.updateUser);
+exports.authRoutes.delete("/delete-user/:id", auth_middleware_1.requireAuth, auth_controller_1.authController.deleteUser);

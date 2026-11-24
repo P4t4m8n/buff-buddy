@@ -27,7 +27,6 @@ interface IWorkoutExerciseBase extends IID {
   order?: number | null;
   notes?: string | null;
   hasWarmup?: boolean;
-  isBodyWeight?: boolean;
   restTime?: number | null;
   numberOfSets?: number | null;
   maxNumberOfReps?: number | null;

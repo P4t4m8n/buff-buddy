@@ -93,7 +93,6 @@ async function apiCreateScheduledWorkout(page: Page, ownerId: string) {
           order: 1,
           notes: "",
           hasWarmup: false,
-          isBodyWeight: false,
           numberOfSets: 2,
           maxNumberOfReps: 10,
           isDropSet: false,

@@ -140,7 +140,6 @@ describe("Workouts API", () => {
               id: exerciseData?.id!,
             },
             hasWarmup: true,
-            isBodyWeight: true,
             crudOperation: "create",
             numberOfSets: 3,
             maxNumberOfReps: 15,
@@ -164,7 +163,6 @@ describe("Workouts API", () => {
       expect(workout?.workoutExercises?.[0]?.exercise?.id).toBe(
         newWorkout.workoutExercises?.[0].exerciseData?.id
       );
-      expect(workout?.workoutExercises?.[0]?.isBodyWeight).toBe(true);
       expect(workout?.workoutExercises?.[0]?.hasWarmup).toBe(true);
 
       testWorkouts.push(workout);

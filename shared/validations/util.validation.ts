@@ -241,26 +241,6 @@ const conditionalOrderRefinement = (
   return;
 };
 
-const conditionalWeightRefinement = (
-  data: { weight?: number; isBodyWeight?: boolean },
-  ctx: z.RefinementCtx
-) => {
-  if (data.isBodyWeight && data.weight && data.weight > 0) {
-    ctx.addIssue({
-      code: "custom",
-      message: "Cannot have both weight and body weight set.",
-      path: ["weight"],
-    });
-  }
-  if (!data.isBodyWeight && (!data.weight || data.weight === 0)) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: "Either weight must be set or isBodyWeight must be true.",
-      path: ["weight"],
-    });
-  }
-};
-
 const numberValidation = ({
   minLength = 0,
   maxLength = 100000000,
@@ -293,7 +273,6 @@ export const validationUtil = {
   createSanitizer,
   refineDateRange,
   conditionalOrderRefinement,
-  conditionalWeightRefinement,
   numberValidation,
   stringSchemaFactory,
   IDSchemaFactory,

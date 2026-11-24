@@ -6,7 +6,6 @@ export interface IUserStrengthSet {
   isCompleted: boolean;
   isMuscleFailure: boolean;
   isJointPain: boolean;
-  isBodyWeight: boolean;
   skippedReason?: string | null;
   order?: number | null;
 }

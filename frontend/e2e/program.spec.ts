@@ -94,7 +94,6 @@ async function apiCreateWorkout(page: Page, ownerId: string, exerciseId: string)
           order: 1,
           notes: "",
           hasWarmup: false,
-          isBodyWeight: false,
           numberOfSets: 3,
           maxNumberOfReps: 10,
           isDropSet: false,

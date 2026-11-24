@@ -10,7 +10,6 @@ export interface IUserStrengthSetDTO extends IID, IEntityDates {
   isCompleted?: boolean | null; // Indicates if the set was completed but not necessarily successful
   isMuscleFailure?: boolean | null; // Indicates if the set was a muscle failure
   isJointPain?: boolean | null; // Indicates if the set was a joint part
-  isBodyWeight?: boolean; // Indicates if the set was bodyweight only
   order?: number | null;
   skippedReason?: string | null;
 }

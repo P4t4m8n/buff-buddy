@@ -105,7 +105,6 @@ test.beforeAll(async ({ browser }) => {
           order: 1,
           notes: "",
           hasWarmup: false,
-          isBodyWeight: false,
           numberOfSets: 2,
           maxNumberOfReps: 10,
           isDropSet: false,

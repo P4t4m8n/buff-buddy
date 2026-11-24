@@ -12,7 +12,6 @@ const WORKOUT_EXERCISE_SELECT: Prisma.WorkoutExerciseSelect = {
   order: true,
   notes: true,
   hasWarmup: true,
-  isBodyWeight: true,
   isDropSet: true,
   isMyoReps: true,
   restTime: true,
@@ -33,7 +32,6 @@ const getWorkoutExerciseCreate = (
     order: dto?.order || 1,
     notes: dto?.notes,
     exercise: { connect: { id: dto?.exerciseData?.id } },
-    isBodyWeight: dto?.isBodyWeight,
     hasWarmup: dto?.hasWarmup,
     numberOfSets: dto?.numberOfSets,
     maxNumberOfReps: dto?.maxNumberOfReps,
@@ -47,7 +45,6 @@ const getWorkoutExerciseUpdate = (
 ): Prisma.WorkoutExerciseUpdateInput => {
   return {
     ...dbUtil.cleanData({
-      isBodyWeight: dto.isBodyWeight,
       hasWarmup: dto.hasWarmup,
       numberOfSets: dto?.numberOfSets,
       maxNumberOfReps: dto?.maxNumberOfReps,

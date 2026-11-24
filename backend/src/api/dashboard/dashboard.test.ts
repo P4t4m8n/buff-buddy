@@ -58,7 +58,6 @@ describe("Dashboard API", () => {
             userStrengthSets: sets.map(([reps, weight], idx) => ({
               reps,
               weight,
-              isBodyWeight: false,
               crudOperation: "create",
               order: idx + 1,
               isCompleted: true,

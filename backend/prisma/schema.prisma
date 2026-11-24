@@ -163,7 +163,6 @@ model WorkoutExercise {
   order                Int                   @default(0)
   notes                String?
   hasWarmup            Boolean               @default(false)
-  isBodyWeight         Boolean               @default(false)
   numberOfSets         Int?
   maxNumberOfReps      Int?
   isDropSet            Boolean               @default(false)
@@ -210,7 +209,6 @@ model UserStrengthSet {
   id                    String              @id @default(cuid())
   reps                  Int?
   weight                Float?
-  isBodyWeight          Boolean             @default(false)
   restTime              Int                 @default(60)
   order                 Int                 @default(1)
   isCompleted           Boolean             @default(false)

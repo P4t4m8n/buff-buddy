@@ -74,7 +74,6 @@ const getUserExercises = async (userId: string) => {
               id: true,
               reps: true,
               weight: true,
-              isBodyWeight: true,
               isCompleted: true,
               isWarmup: true,
               isJointPain: true,
@@ -88,7 +87,6 @@ const getUserExercises = async (userId: string) => {
             select: {
               id: true,
               hasWarmup: true,
-              isBodyWeight: true,
               numberOfSets: true,
               maxNumberOfReps: true,
               isDropSet: true,
