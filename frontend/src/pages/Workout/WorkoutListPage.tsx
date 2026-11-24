@@ -11,7 +11,7 @@ export default function WorkoutListPage() {
         editLink={WORKOUT_ROUTES.WORKOUT_EDIT_ROUTE}
       />
 
-      <div className="grid grid-rows-[3rem_calc(100%-8rem)_3rem] md:grid-rows-[1fr_3rem] md:grid-cols-[auto_1fr] relative gap-y-4">
+      <div className="grid grid-rows-[3rem_calc(100%-8rem)_3rem] md:grid-rows-[1fr_3rem] md:grid-cols-[auto_1fr] relative ">
         <WorkoutList actionType="workoutList" />
       </div>
     </div>

@@ -16,16 +16,20 @@ import StatCard from "../components/HomePage/StatCard";
 import LinkComponent from "../components/UI/Link";
 import Loader from "../components/UI/loader/Loader";
 import IconCalendar from "../components/UI/Icons/IconCalendar";
-import IconFire from "../components/UI/Icons/IconFire";
-import IconDumbbell from "../components/UI/Icons/IconDumbbell";
 import IconStart from "../components/UI/Icons/IconStart";
+import IconExercise from "@/components/UI/Icons/IconExercise";
+import IconWorkout from "@/components/UI/Icons/IconWorkout";
 //Types
 import type { IDashboardDTO } from "../../../shared/models/dashboard.model";
+import type { SxProps, Theme } from "@mui/material/styles";
 
-const CHART_SX = {
-  "& .MuiChartsAxis-tickLabel": { fill: "#9ca3af" },
-  "& .MuiChartsAxis-line": { stroke: "#4b5563" },
-  "& .MuiChartsLegend-label": { fill: "#d1d5db", color: "#d1d5db" },
+const CHART_SX : SxProps<Theme>= {
+  "& .MuiChartsAxis-tickLabel": { fill: "#F7F4EA" },
+  "& .MuiChartsAxis-line": { stroke: "#F7F4EA" },
+  "& .MuiChartsAxis-tick": { stroke: "#F7F4EA" },
+  "& .MuiChartsLegend-label": { fill: "#F7F4EA", color: "#F7F4EA" },
+  
+  
 };
 
 export default function HomePage() {
@@ -34,9 +38,11 @@ export default function HomePage() {
   const dashboard = data?.data;
 
   return (
-    <div className="h-main p-4 sm:p-8 overflow-y-auto text-main-orange">
+    <div className="h-main p-4 sm:p-8 overflow-y-auto  ">
       <header className="mb-8">
-        <h2 className="text-3xl font-bold">Welcome Back, {user?.firstName}!</h2>
+        <h2 className=" font-normal text-3xl  ">
+          Welcome Back, {user?.firstName}!
+        </h2>
         <p>Here's a look at your progress. Keep it up!</p>
       </header>
 
@@ -81,16 +87,18 @@ function Dashboard({ dashboard }: { dashboard: IDashboardDTO }) {
           title="Current Streak"
           value={`${streak} ${streak === 1 ? "workout" : "workouts"}`}
           detail="scheduled workouts done in a row"
-          icon={<IconFire className="w-8 h-8 text-red-400" />}
+          icon={<IconWorkout className="w-8 h-8 fill-none stroke-red-400" />}
         />
         <StatCard
           title="Volume This Week"
           value={volume.thisWeek.toLocaleString()}
           detail={dashboardUtil.formatVolumeChange(
             volume.thisWeek,
-            volume.lastWeek
+            volume.lastWeek,
           )}
-          icon={<IconDumbbell className="w-8 h-8 text-green-400" />}
+          icon={
+            <IconExercise className="w-8 h-8 fill-none stroke-green-400 rotate-45" />
+          }
         />
         <StatCard
           title="Next Workout"
@@ -156,7 +164,7 @@ function ChartCard({
 function PlannedVsCompletedChart({ dashboard }: { dashboard: IDashboardDTO }) {
   const { weeklyHistory } = dashboard;
   const isEmpty = weeklyHistory.every(
-    (week) => !week.planned && !week.completed
+    (week) => !week.planned && !week.completed,
   );
 
   return (
@@ -170,10 +178,12 @@ function PlannedVsCompletedChart({ dashboard }: { dashboard: IDashboardDTO }) {
           {
             scaleType: "band",
             data: weeklyHistory.map((week) =>
-              dashboardUtil.formatShortDate(week.weekStart)
+              dashboardUtil.formatShortDate(week.weekStart),
             ),
+            
           },
         ]}
+        
         series={[
           {
             data: weeklyHistory.map((week) => week.planned),
@@ -222,8 +232,8 @@ function StrengthProgressChart({ dashboard }: { dashboard: IDashboardDTO }) {
   const dates = [
     ...new Set(
       strengthProgress.flatMap((exercise) =>
-        exercise.points.map((point) => point.date)
-      )
+        exercise.points.map((point) => point.date),
+      ),
     ),
   ].sort();
 
@@ -242,7 +252,7 @@ function StrengthProgressChart({ dashboard }: { dashboard: IDashboardDTO }) {
         ]}
         series={strengthProgress.map((exercise) => {
           const byDate = new Map(
-            exercise.points.map((p) => [p.date, p.estimatedOneRepMax])
+            exercise.points.map((p) => [p.date, p.estimatedOneRepMax]),
           );
           return {
             label: toTitle(exercise.exerciseName),

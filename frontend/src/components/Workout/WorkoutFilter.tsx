@@ -36,10 +36,10 @@ function WorkoutFilterMemo({
   ];
 
   const baseFormStyle =
-    "transition-all duration-300 ease-in-out h-full flex md:row-span-2 ";
+    "transition-all duration-3000 ease-in-out flex md:row-span-2  top-0 -left-50";
   const isFormOpenStyle = isOpen
-    ? "w-full md:w-small p-desktop bg-black-400 absolute inset-0 md:relative flex flex-col z-10 gap-4"
-    : "pl-4 md:w-12  items-center md:items-start ";
+    ? "w-full md:w-small p-desktop bg-black-400 absolute left-0 md:relative top-0 flex flex-col z-10 gap-4 bg-black"
+    : "pl-4 md:w-12  items-center md:items-start top-0";
 
   const formStyle = twMerge(baseFormStyle, isFormOpenStyle);
 
